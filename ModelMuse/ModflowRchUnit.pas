@@ -932,7 +932,7 @@ begin
   RechargeRateArray.CacheData;
   MultiplierArray.CacheData;
 
-  if LocalModel.GwtUsed then
+  if LocalModel.GwtUsed or LocalModel.GweUsed then
   begin
     for SpeciesIndex := 0 to LocalModel.MobileComponents.Count - 1 do
     begin
@@ -1074,7 +1074,7 @@ begin
     MultiplierTimeSeriesItems := TStringList.Create;
     TimeSeriesNames.Add(MultiplierTimeSeriesItems);
 
-    if LocalModel.GwtUsed then
+    if LocalModel.GwtUsed or LocalModel.GweUsed then
     begin
       for SpeciesIndex := 0 to SpeciesCount - 1 do
       begin
@@ -1123,7 +1123,7 @@ begin
     MultiplierData.Initialize(BoundaryValues, ScreenObject, lctUse);
     Assert(MultiplierData.Count = Count);
 
-    if LocalModel.GwtUsed then
+    if LocalModel.GwtUsed or LocalModel.GweUsed then
     begin
       for SpeciesIndex := 0 to SpeciesCount - 1 do
       begin
@@ -1167,7 +1167,7 @@ begin
               begin
                 MultiplierDataArray.RemoveValue(LayerIndex, RowIndex, ColIndex);
                 RechargeDataArray.RemoveValue(LayerIndex, RowIndex, ColIndex);
-                if LocalModel.GwtUsed then
+                if LocalModel.GwtUsed or LocalModel.GweUsed then
                 begin
                   for SpeciesIndex := 0 to SpeciesCount - 1 do
                   begin
@@ -1196,7 +1196,7 @@ begin
     ListOfTimeLists.Add(RechargeRateData);
     ListOfTimeLists.Add(MultiplierData);
 
-    if LocalModel.GwtUsed then
+    if LocalModel.GwtUsed or LocalModel.GweUsed then
     begin
       for SpeciesIndex := 0 to SpeciesCount - 1 do
       begin
@@ -1325,7 +1325,7 @@ var
 begin
   SetLength((Boundaries[ItemIndex, AModel] as TRchStorage).FRchArray, BoundaryCount);
   LocalModel := Model as TCustomModel;
-  if LocalModel.GwtUsed then
+  if LocalModel.GwtUsed or LocalModel.GweUsed then
   begin
     for Index := 0 to BoundaryCount - 1 do
     begin
@@ -1842,7 +1842,7 @@ end;
 class function TRchBoundary.BFCount: Integer;
 begin
   result := 2;
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     result := result + frmGoPhast.PhastModel.MobileComponents.Count;
   end;
@@ -1893,7 +1893,7 @@ begin
   FPestRechargeFormula := CreateFormulaObjectBlocks(dsoTop);
   FPestMultiplierFormula := CreateFormulaObjectBlocks(dsoTop);
   LocalModel := ParentModel as TPhastModel;
-  if (LocalModel <> nil) and LocalModel.GwtUsed then
+  if (LocalModel <> nil) and (LocalModel.GwtUsed or LocalModel.GweUsed) then
   begin
     for ConcIndex := 0 to LocalModel.MobileComponents.Count - 1 do
     begin

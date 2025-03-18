@@ -943,7 +943,7 @@ begin
   AllowedIndicies := [RivStagePosition,RivConductancePosition,
     RivBottomPosition, RivMultiplierPosition];
   LocalModel := AModel as TCustomModel;
-  if LocalModel.GwtUsed then
+  if LocalModel.GwtUsed or LocalModel.GweUsed then
   begin
     for SpeciesIndex := 0 to LocalModel.MobileComponents.Count - 1 do
     begin
@@ -1187,7 +1187,7 @@ var
 begin
   SetLength((Boundaries[ItemIndex, AModel] as TRivStorage).FRivArray, BoundaryCount);
   LocalModel := Model as TCustomModel;
-  if LocalModel.GwtUsed then
+  if LocalModel.GwtUsed or LocalModel.GweUsed then
   begin
     for Index := 0 to BoundaryCount - 1 do
     begin
@@ -1943,7 +1943,7 @@ begin
   FPestRiverBottomFormula := CreateFormulaObjectBlocks(dso3D);
   FPestMultiplierFormula := CreateFormulaObjectBlocks(dso3D);
   LocalModel := ParentModel as TPhastModel;
-  if (LocalModel <> nil) and LocalModel.GwtUsed then
+  if (LocalModel <> nil) and (LocalModel.GwtUsed or LocalModel.GweUsed) then
   begin
     for ConcIndex := 0 to LocalModel.MobileComponents.Count - 1 do
     begin

@@ -341,7 +341,7 @@ var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
 begin
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -542,7 +542,7 @@ begin
     end;
   end;
 
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -589,7 +589,7 @@ begin
 
   WriteIface(Well_Cell.IFace);
 
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     if FEvaluationType = etExportCsv then
     begin
@@ -729,7 +729,7 @@ var
   SpeciesIndex: Integer;
 begin
   VI := VariableIdentifiers;
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin

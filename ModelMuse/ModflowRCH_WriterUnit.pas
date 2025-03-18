@@ -621,7 +621,7 @@ var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
 begin
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -732,7 +732,7 @@ begin
           FPestParamUsed := True;
         end;
 
-        if Model.GwtUsed then
+        if Model.GwtUsed or Model.GweUsed then
         begin
           for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
           begin
@@ -769,7 +769,7 @@ begin
 
         WriteIface(RchCell.IFace);
 
-        if Model.GwtUsed then
+        if Model.GwtUsed or Model.GweUsed then
         begin
           for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
           begin

@@ -147,6 +147,11 @@ type
     FvstGwtSrcObsMf6Node: PVirtualNode;
     FGwtSrcObs6List: TList;
 
+    FvstGweCtpObsMf6Node: PVirtualNode;
+    FGweCtpObs6List: TList;
+    FvstGweEslObsMf6Node: PVirtualNode;
+    FGweEslObs6List: TList;
+
     FFmp4EfficiencyNode: PVirtualNode;
     FFmp4EfficiencyList: TList;
     FFmp4EfficiencyImprovementNode: PVirtualNode;
@@ -251,6 +256,9 @@ type
     FvstModflowUzfMf6Node: PVirtualNode;
     FvstModflowGwtCncNode: PVirtualNode;
     FvstModflowGwtSrcNode: PVirtualNode;
+
+    FvstModflowGweCtpNode: PVirtualNode;
+    FvstModflowGweEslNode: PVirtualNode;
 
     FvstModflowRipNode: PVirtualNode;
 
@@ -366,6 +374,8 @@ type
     FUzfMf6List: TList;
     FGwtCncList: TList;
     FGwtSrcList: TList;
+    FGweCtpList: TList;
+    FGweEslList: TList;
     // @name holds the lists of @link(TScreenObject)s that set PHAST Leaky
     // boundary conditions.
     FLeakyList: TList;
@@ -852,6 +862,16 @@ begin
       Data.Caption := Packages.GwtSrcPackage.PackageIdentifier;
       Node.CheckType := ctTriStateCheckBox;
     end
+    else if Node = FvstModflowGweCtpNode then
+    begin
+      Data.Caption := Packages.GweCtpPackage.PackageIdentifier;
+      Node.CheckType := ctTriStateCheckBox;
+    end
+    else if Node = FvstModflowGweEslNode then
+    begin
+      Data.Caption := Packages.GweEslPackage.PackageIdentifier;
+      Node.CheckType := ctTriStateCheckBox;
+    end
     else if Node = FvstModflowHobNode then
     begin
       Data.Caption := Packages.HobPackage.PackageIdentifier;
@@ -1141,7 +1161,7 @@ begin
     end
     else if Node = FvstGwtConcObsMf6Node then
     begin
-      Data.Caption := 'OBS6: GWT Concentration Observations';
+      Data.Caption := 'OBS6: GWT/GWE State Observations';
       Node.CheckType := ctTriStateCheckBox;
     end
     else if Node = FvstGwtCncObsMf6Node then
@@ -1154,7 +1174,17 @@ begin
       Data.Caption := 'OBS6: GWT SRC Observations';
       Node.CheckType := ctTriStateCheckBox;
     end
-    else if Node = FvstLktObsMf6Node then
+    else if Node = FvstGweCtpObsMf6Node then
+    begin
+      Data.Caption := 'OBS6: GWE CTP Observations';
+      Node.CheckType := ctTriStateCheckBox;
+    end
+    else if Node = FvstGweEslObsMf6Node then
+    begin
+      Data.Caption := 'OBS6: GWE ESL Observations';
+      Node.CheckType := ctTriStateCheckBox;
+    end
+    else if Node =  FvstLktObsMf6Node then
     begin
       Data.Caption := 'OBS6: GWT LKT Observations';
       Node.CheckType := ctTriStateCheckBox;
@@ -1923,6 +1953,18 @@ begin
       InitializeData(FvstModflowGwtSrcNode);
     end;
 
+    if (AScreenObject.GweCtpBoundary <> nil)
+      and AScreenObject.GweCtpBoundary.Used then
+    begin
+      InitializeData(FvstModflowGweCtpNode);
+    end;
+
+    if (AScreenObject.GweEslBoundary <> nil)
+      and AScreenObject.GweEslBoundary.Used then
+    begin
+      InitializeData(FvstModflowGweEslNode);
+    end;
+
     if (AScreenObject.ModflowHeadObservations <> nil)
       and AScreenObject.ModflowHeadObservations.Used then
     begin
@@ -2008,6 +2050,15 @@ begin
       if ogwtSRC in AScreenObject.Modflow6Obs.GwtObs then
       begin
         InitializeData(FvstGwtSrcObsMf6Node);
+      end;
+
+      if ogwtCTP in AScreenObject.Modflow6Obs.GwtObs then
+      begin
+        InitializeData(FvstGweCtpObsMf6Node);
+      end;
+      if ogwtESL in AScreenObject.Modflow6Obs.GwtObs then
+      begin
+        InitializeData(FvstGweEslObsMf6Node);
       end;
 
       SftObs := AScreenObject.Modflow6Obs.SftObs;
@@ -2464,6 +2515,8 @@ begin
     vstCheckDeleteNode(FvstModflowUzfMf6Node);
     vstCheckDeleteNode(FvstModflowGwtCncNode);
     vstCheckDeleteNode(FvstModflowGwtSrcNode);
+    vstCheckDeleteNode(FvstModflowGweCtpNode);
+    vstCheckDeleteNode(FvstModflowGweEslNode);
     vstCheckDeleteNode(FvstModflowHobNode);
     vstCheckDeleteNode(FvstModflowHfbNode);
     vstCheckDeleteNode(FvstModflowMvrNode);
@@ -2534,6 +2587,9 @@ begin
     vstCheckDeleteNode(FvstGwtConcObsMf6Node);
     vstCheckDeleteNode(FvstGwtCncObsMf6Node);
     vstCheckDeleteNode(FvstGwtSrcObsMf6Node);
+
+    vstCheckDeleteNode(FvstGweCtpObsMf6Node);
+    vstCheckDeleteNode(FvstGweEslObsMf6Node);
 
     vstCheckDeleteNode(FvstLktObsMf6Node);
     vstCheckDeleteNode(FvstSftObsMf6Node);
@@ -2947,6 +3003,8 @@ begin
     InitializeMF_BoundaryNode(FvstGwtConcObsMf6Node, PriorNode, FGwtConcObs6List);
     InitializeMF_BoundaryNode(FvstGwtCncObsMf6Node, PriorNode, FGwtCncObs6List);
     InitializeMF_BoundaryNode(FvstGwtSrcObsMf6Node, PriorNode, FGwtSrcObs6List);
+    InitializeMF_BoundaryNode(FvstGweCtpObsMf6Node, PriorNode, FGweCtpObs6List);
+    InitializeMF_BoundaryNode(FvstGweEslObsMf6Node, PriorNode, FGweEslObs6List);
 
     InitializeMF_BoundaryNode(FvstSftObsMf6Node, PriorNode, FSftObs6List);
     InitializeMF_BoundaryNode(FvstLktObsMf6Node, PriorNode, FLktObs6List);
@@ -3010,6 +3068,9 @@ begin
 
     InitializeMF_BoundaryNode(FvstModflowGwtCncNode, PriorNode, FGwtCncList);
     InitializeMF_BoundaryNode(FvstModflowGwtSrcNode, PriorNode, FGwtSrcList);
+
+    InitializeMF_BoundaryNode(FvstModflowGweCtpNode, PriorNode, FGweCtpList);
+    InitializeMF_BoundaryNode(FvstModflowGweEslNode, PriorNode, FGweEslList);
 
     InitializeMF_BoundaryNode(FvstModflowWellNode, PriorNode, FMfWellList);
     InitializeMF_BoundaryNode(FvstModflowHobNode, PriorNode, FHobList);
@@ -3328,6 +3389,8 @@ begin
   FUzfMf6List.Free;
   FGwtCncList.Free;
   FGwtSrcList.Free;
+  FGweCtpList.Free;
+  FGweEslList.Free;
   FUzfList.Free;
   FHobList.Free;
   FSwiObsList.Free;
@@ -3397,6 +3460,8 @@ begin
   FGwtConcObs6List.Free;
   FGwtCncObs6List.Free;
   FGwtSrcObs6List.Free;
+  FGweCtpObs6List.Free;
+  FGweEslObs6List.Free;
 
   FSftObs6List.Free;
   FLktObs6List.Free;
@@ -3475,6 +3540,9 @@ begin
   FGwtCncList := TList.Create;
   FGwtSrcList := TList.Create;
 
+  FGweCtpList := TList.Create;
+  FGweEslList := TList.Create;
+
   FCSubList := TList.Create;
   FModflowSubObsList := TList.Create;
   FModflowSwtObsList := TList.Create;
@@ -3543,6 +3611,8 @@ begin
   FGwtConcObs6List  := TList.Create;
   FGwtCncObs6List  := TList.Create;
   FGwtSrcObs6List  := TList.Create;
+  FGweCtpObs6List  := TList.Create;
+  FGweEslObs6List  := TList.Create;
 
   FSftObs6List  := TList.Create;
   FLktObs6List  := TList.Create;
@@ -3632,6 +3702,8 @@ begin
   FvstModflowUzfMf6Node := nil;
   FvstModflowGwtCncNode := nil;
   FvstModflowGwtSrcNode := nil;
+  FvstModflowGweCtpNode := nil;
+  FvstModflowGweEslNode := nil;
   FvstModflowHobNode := nil;
   FvstModflowHfbNode := nil;
   FvstModflowMvrNode := nil;
@@ -3701,6 +3773,8 @@ begin
   FvstGwtConcObsMf6Node := nil;
   FvstGwtCncObsMf6Node := nil;
   FvstGwtSrcObsMf6Node := nil;
+  FvstGweCtpObsMf6Node := nil;
+  FvstGweEslObsMf6Node := nil;
 
   FvstSftObsMf6Node := nil;
   FvstLktObsMf6Node := nil;
@@ -3917,6 +3991,9 @@ begin
   FGwtCncList.Sort(ScreenObjectCompare);
   FGwtSrcList.Sort(ScreenObjectCompare);
 
+  FGweCtpList.Sort(ScreenObjectCompare);
+  FGweEslList.Sort(ScreenObjectCompare);
+
   FHobList.Sort(ScreenObjectCompare);
   FSwiObsList.Sort(ScreenObjectCompare);
   FHfbList.Sort(ScreenObjectCompare);
@@ -3982,6 +4059,8 @@ begin
   FGwtConcObs6List.Sort(ScreenObjectCompare);
   FGwtCncObs6List.Sort(ScreenObjectCompare);
   FGwtSrcObs6List.Sort(ScreenObjectCompare);
+  FGweCtpObs6List.Sort(ScreenObjectCompare);
+  FGweEslObs6List.Sort(ScreenObjectCompare);
 
   FSftObs6List.Sort(ScreenObjectCompare);
   FLktObs6List.Sort(ScreenObjectCompare);
