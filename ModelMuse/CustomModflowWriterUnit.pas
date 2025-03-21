@@ -486,7 +486,7 @@ end;
     procedure WriteEndConnectionData;
     procedure WriteBoundNamesOption;
     procedure WriteTimeSeriesFiles(InputFileName: string; GwtSpecies: Integer = -1);
-    procedure PrintConcentrationOption;
+    procedure PrintConcentrationOption(const SpeciesIndex: Integer);
 //    procedure WriteGwtlAuxVariables;
   public
     Constructor Create(AModel: TCustomModel; EvaluationType: TEvaluationType); override;
@@ -10590,14 +10590,21 @@ begin
     and (Pos('@', AName) <= 0)
 end;
 
-procedure TCustomPackageWriter.PrintConcentrationOption;
+procedure TCustomPackageWriter.PrintConcentrationOption(const SpeciesIndex: Integer);
 var
   ConcentrationOC: THeadDrawdownOutputControl;
 begin
   ConcentrationOC := Model.ModflowOutputControl.ConcentrationOC;
   if ConcentrationOC.PrintInListing then
   begin
-    WriteString('  PRINT_CONCENTRATION');
+    if Model.MobileComponents[SpeciesIndex].UsedForGWE then
+    begin
+      WriteString('  PRINT_TEMPERATURE');
+    end
+    else
+    begin
+      WriteString('  PRINT_CONCENTRATION');
+    end;
     NewLine;
   end;
 end;

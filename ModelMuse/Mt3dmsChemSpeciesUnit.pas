@@ -1083,6 +1083,12 @@ begin
   if (Model <> nil) and (Model.ModelSelection = msModflow2015) then
   begin
     LocalModel := Model as TCustomModel;
+    result := LocalModel.GwtUsed;
+    if not result then
+    begin
+      Exit;
+    end;
+
     if LocalModel.GweUsed then
     begin
       result := Name <> strGweTemperature;

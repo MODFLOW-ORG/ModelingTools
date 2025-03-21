@@ -26,7 +26,7 @@ inherited frameScreenObjectSfr6: TframeScreenObjectSfr6
     Top = 25
     Width = 547
     Height = 410
-    ActivePage = tabConfiguration
+    ActivePage = tabGWT
     Align = alClient
     TabOrder = 1
     object tabConfiguration: TTabSheet
@@ -59,7 +59,7 @@ inherited frameScreenObjectSfr6: TframeScreenObjectSfr6
         Align = alClient
         ColCount = 2
         FixedCols = 1
-        RowCount = 8
+        RowCount = 10
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goAlwaysShowEditor]
         TabOrder = 0
         OnSetEditText = rdgFormulasSetEditText
@@ -860,7 +860,7 @@ inherited frameScreenObjectSfr6: TframeScreenObjectSfr6
       end
     end
     object tabGWT: TTabSheet
-      Caption = 'GWT'
+      Caption = 'GWT/GWE'
       ImageIndex = 4
       object splSplit: TSplitter
         Left = 121

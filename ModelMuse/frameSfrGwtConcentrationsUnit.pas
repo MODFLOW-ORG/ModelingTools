@@ -17,6 +17,7 @@ type
       var CanSelect: Boolean);
   private
     FScreenObject: TScreenObject;
+    FSpeciesIndex: Integer;
     { Private declarations }
   protected
     procedure InitializeControls;
@@ -35,7 +36,7 @@ var
 implementation
 
 uses
-  ModflowSfr6Unit, GoPhastTypes, GwtStatusUnit;
+  ModflowSfr6Unit, GoPhastTypes, GwtStatusUnit, frmGoPhastUnit;
 
 {$R *.dfm}
 
@@ -45,6 +46,13 @@ resourcestring
   StrEvaporationConcentr = 'Evaporation Concentration';
   StrRunoffConcentration = 'Runoff Concentration';
   StrInflowConcentration = 'Inflow Concentration';
+
+  StrSpecifiedTemperature = 'Specified Temperature';
+  StrRainfallTemperature = 'Rainfall Temperature';
+  StrEvaporationTemperature = 'Evaporation Temperature';
+  StrRunoffTemperature = 'Runoff Temperature';
+  StrInflowTemperature = 'Inflow Temperature';
+
 
 { TframeSfrGwtConcentrations }
 
@@ -57,6 +65,7 @@ var
   TimeIndex: Integer;
   AStreamItem: TSfrMf6Item;
 begin
+  FSpeciesIndex := SpeciesIndex;
   InitializeControls;
   FDataAssigned := False;
   FoundFirst := False;
@@ -213,11 +222,22 @@ begin
   rdgConcentrations.BeginUpdate;
   try
     inherited;
-    rdgConcentrations.Cells[Ord(sccSpecifiedConcentration), 0] := StrSpecifiedConcentrat;
-    rdgConcentrations.Cells[Ord(sccRainfall), 0] := StrRainfallConcentrati;
-    rdgConcentrations.Cells[Ord(sccEvaporation), 0] := StrEvaporationConcentr;
-    rdgConcentrations.Cells[Ord(sccRunoff), 0] := StrRunoffConcentration;
-    rdgConcentrations.Cells[Ord(sccInflow), 0] := StrInflowConcentration;
+    if frmGoPhast.PhastModel.MobileComponents[FSpeciesIndex].UsedForGWE then
+    begin
+      rdgConcentrations.Cells[Ord(sccSpecifiedConcentration), 0] := StrSpecifiedTemperature;
+      rdgConcentrations.Cells[Ord(sccRainfall), 0] := StrRainfallTemperature;
+      rdgConcentrations.Cells[Ord(sccEvaporation), 0] := StrEvaporationTemperature;
+      rdgConcentrations.Cells[Ord(sccRunoff), 0] := StrRunoffTemperature;
+      rdgConcentrations.Cells[Ord(sccInflow), 0] := StrInflowTemperature;
+    end
+    else
+    begin
+      rdgConcentrations.Cells[Ord(sccSpecifiedConcentration), 0] := StrSpecifiedConcentrat;
+      rdgConcentrations.Cells[Ord(sccRainfall), 0] := StrRainfallConcentrati;
+      rdgConcentrations.Cells[Ord(sccEvaporation), 0] := StrEvaporationConcentr;
+      rdgConcentrations.Cells[Ord(sccRunoff), 0] := StrRunoffConcentration;
+      rdgConcentrations.Cells[Ord(sccInflow), 0] := StrInflowConcentration;
+    end;
   finally
     rdgConcentrations.EndUpdate;
   end;

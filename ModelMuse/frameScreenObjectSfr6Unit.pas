@@ -20,7 +20,8 @@ type
   Tsfr6DiversionCol = (s6dcSegment, d6dcPriority);
 
   TSfr6BoundaryRows = (s6brNone, s6brReachLength, s6brReachWidth, s6brGradient,
-    s6brStreambedTop, s6brStreambedThickness, s6brHydraulicConductivity, s6brInitialStage);
+    s6brStreambedTop, s6brStreambedThickness, s6brHydraulicConductivity, s6brInitialStage,
+    s6brThermalConductivity, s6brThermalThickness);
 
   TSfr6CrossSectionCol = (scsXFraction, scsHeight, scsManningFraction);
 
@@ -188,6 +189,8 @@ resourcestring
   StrInactive = 'Inactive';
   StrActive = 'Active';
   StrTheMinimumSFRCros = 'The minimum SFR cross section height must be zero.';
+  StrThermalConductivity = 'Thermal Conductivity (ktf)';
+  StrStreambedThicknessThermal = 'Streambed thickness (rbthcnd)';
 
 procedure TframeScreenObjectSfr6.btnDeleteClick(Sender: TObject);
 var
@@ -787,6 +790,8 @@ begin
             rdgFormulas.Cells[1, Ord(s6brStreambedThickness)] := Sf6Boundary.StreambedThickness;
             rdgFormulas.Cells[1, Ord(s6brHydraulicConductivity)] := Sf6Boundary.HydraulicConductivity;
             rdgFormulas.Cells[1, Ord(s6brInitialStage)] := Sf6Boundary.InitialStage;
+            rdgFormulas.Cells[1, Ord(s6brThermalConductivity)] := Sf6Boundary.ThermalConductivity;
+            rdgFormulas.Cells[1, Ord(s6brThermalThickness)] := Sf6Boundary.ThermalThickness;
 
             DownstreamSegments := Sf6Boundary.DownstreamSegments;
             frmgrdDownstreamSegments.seNumber.AsInteger :=
@@ -1053,6 +1058,14 @@ begin
             begin
               rdgFormulas.Cells[1, Ord(s6brInitialStage)] := '';
             end;
+            if rdgFormulas.Cells[1, Ord(s6brThermalConductivity)] <> Sf6Boundary.ThermalConductivity then
+            begin
+              rdgFormulas.Cells[1, Ord(s6brThermalConductivity)] := '';
+            end;
+            if rdgFormulas.Cells[1, Ord(s6brThermalThickness)] <> Sf6Boundary.ThermalThickness then
+            begin
+              rdgFormulas.Cells[1, Ord(s6brThermalThickness)] := '';
+            end;
 
             if (comboCrossSection.ItemIndex <> -1) then
             begin
@@ -1094,7 +1107,8 @@ begin
       frameCrossSection.Grid.EndUpdate;
     end;
 
-    tabGWT.TabVisible := frmGoPhast.PhastModel.GwtUsed;
+    tabGWT.TabVisible := frmGoPhast.PhastModel.GwtUsed
+      or frmGoPhast.PhastModel.GweUsed;
     if tabGWT.TabVisible then
     begin
       tvGwt.Items.Clear;
@@ -1339,8 +1353,8 @@ begin
     rdgFormulas.Cells[0,Ord(s6brStreambedThickness)] := StrStreambedThickness;
     rdgFormulas.Cells[0,Ord(s6brHydraulicConductivity)] := StrHydraulicConductivi;
     rdgFormulas.Cells[0,Ord(s6brInitialStage)] := StrInitialStage;
-//    rdgFormulas.Cells[0,Ord(s6brRoughness)] := 'Roughness (man)';
-//    rdgFormulas.Cells[0,Ord(s6brUpstreamFraction)] := 'Upstream fraction (ustrf)';
+    rdgFormulas.Cells[0,Ord(s6brThermalConductivity)] := StrThermalConductivity;
+    rdgFormulas.Cells[0,Ord(s6brThermalThickness)] := StrStreambedThicknessThermal;
 
     rdgFormulas.Cells[1, Ord(s6brReachLength)] := StrObjectIntersectLength;
     rdgFormulas.Cells[1, Ord(s6brReachWidth)] := '1';
@@ -1349,8 +1363,8 @@ begin
     rdgFormulas.Cells[1, Ord(s6brStreambedThickness)] := '1';
     rdgFormulas.Cells[1, Ord(s6brHydraulicConductivity)] := rsKx;
     rdgFormulas.Cells[1, Ord(s6brInitialStage)] := kModelTop;
-//    rdgFormulas.Cells[1, Ord(s6brRoughness)] := '0';
-//    rdgFormulas.Cells[1, Ord(s6brUpstreamFraction)] := '1';
+    rdgFormulas.Cells[1, Ord(s6brThermalConductivity)] := '0';
+    rdgFormulas.Cells[1, Ord(s6brThermalThickness)] := '1';
   finally
     rdgFormulas.EndUpdate;
   end;
@@ -1890,6 +1904,14 @@ begin
       if Trim(rdgFormulas.Cells[1, Ord(s6brInitialStage)]) <> '' then
       begin
         Boundary.InitialStage := rdgFormulas.Cells[1, Ord(s6brInitialStage)];
+      end;
+      if Trim(rdgFormulas.Cells[1, Ord(s6brThermalConductivity)]) <> '' then
+      begin
+        Boundary.ThermalConductivity := rdgFormulas.Cells[1, Ord(s6brThermalConductivity)];
+      end;
+      if Trim(rdgFormulas.Cells[1, Ord(s6brThermalThickness)]) <> '' then
+      begin
+        Boundary.ThermalThickness := rdgFormulas.Cells[1, Ord(s6brThermalThickness)];
       end;
 
       if tabDownstreamSegments.TabVisible then

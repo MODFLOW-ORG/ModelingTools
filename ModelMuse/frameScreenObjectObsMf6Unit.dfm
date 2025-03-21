@@ -18,7 +18,7 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
     Top = 71
     Width = 590
     Height = 448
-    ActivePage = tabBasic
+    ActivePage = tabSFR
     Align = alClient
     TabOrder = 1
     object tabBasic: TTabSheet
@@ -48,8 +48,8 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
       object lblGwtObs: TLabel
         Left = 297
         Top = 221
-        Width = 275
-        Height = 37
+        Width = 212
+        Height = 15
         Caption = 'Type of mass or energy flow observation'
         WordWrap = True
       end
@@ -220,9 +220,9 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
       object lblSFT: TLabel
         Left = 247
         Top = 88
-        Width = 18
+        Width = 41
         Height = 15
-        Caption = 'SFT'
+        Caption = 'SFT/SFE'
       end
       object chklstSFR: TCheckListBox
         Left = 2
@@ -272,17 +272,18 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
         Height = 252
         ItemHeight = 17
         Items.Strings = (
-          'Concentration'
+          'Concentration/Temperature'
           'Storage'
           'Constant'
           'From-MVR'
           'To-MVR'
-          'Mass flow rate with aquifer (SFT)'
+          'Mass/Energy flow rate with aquifer (SFT/SFE)'
           'Rainfall'
           'Evaporation'
           'Runoff'
           'External inflow'
-          'External outflow')
+          'External outflow'
+          'Conductive heat exchange')
         TabOrder = 2
         OnClickCheck = chklstSFTClickCheck
       end

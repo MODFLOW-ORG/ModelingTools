@@ -534,7 +534,7 @@ begin
     WriteTimeSeriesFiles(FInputFileName, FSpeciesIndex);
 
     PrintListInputOption;
-    PrintConcentrationOption;
+    PrintConcentrationOption(FSpeciesIndex);
     PrintFlowsOption;
     WriteSaveFlowsOption;
 

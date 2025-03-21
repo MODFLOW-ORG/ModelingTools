@@ -17,7 +17,8 @@ type
   TSfrObs = set of TSfrOb;
 
   TSftOb = (stoConcentration, stoStorage, stoConstant, stoFromMvr, stoToMvr,
-    stoSFT, stoRainfall, stoEvaporation, stoRunoff, stoExtInflow, stoExtOutflow);
+    stoSFT, stoRainfall, stoEvaporation, stoRunoff, stoExtInflow, stoExtOutflow,
+    stoHeatConduction);
   TSftObs = set of TSftOb;
 
   TSfrObsLocation = (solAll, solFirst, solLast, solIndividual);
@@ -406,6 +407,8 @@ type
     StreambedThickness: Double;
     HydraulicConductivity: Double;
     InitialStage: double;
+    ThermalConductivity: double;
+    ThermalThickness: Double;
 
     ConnectedReaches: array of integer;
     DownstreamDiversions: TDiversionArray;
@@ -416,6 +419,8 @@ type
     StreambedThicknessAnnotation: string;
     HydraulicConductivityAnnotation: string;
     InitialStageAnnotation: string;
+    ThermalConductivityAnnotation: string;
+    ThermalThicknessAnnotation: string;
 
     BoundName: string;
     ConnectedReacheAnnotations: array of string;
@@ -427,6 +432,8 @@ type
     PestStreambedThickness: string;
     PestHydraulicConductivity: string;
     PestInitialStage: string;
+    PestThermalConductivity: string;
+    PestThermalThickness: string;
 
     // GWT
     StartingConcentrations: TGwtCellData;
@@ -562,15 +569,20 @@ type
     FGradient: IFormulaObject;
     FHydraulicConductivity: IFormulaObject;
     FInitialStage: IFormulaObject;
+    FThermalConductivity: IFormulaObject;
+    FThermalThickness: IFormulaObject;
 
     FReachWidth: IFormulaObject;
     FRoughness: string;
     FStreambedThickness: IFormulaObject;
     FStreambedTop: IFormulaObject;
+
     FUpstreamFraction: string;
     FReachLengthObserver: TObserver;
     FHydraulicConductivityObserver: TObserver;
     FInitialStageObserver: TObserver;
+    FThermalConductivityObserver: TObserver;
+    FThermalThicknessObserver: TObserver;
 
     FReachWidthObserver: TObserver;
     FStreambedTopObserver: TObserver;
@@ -631,6 +643,8 @@ type
     function GetGradient: string;
     function GetHydraulicConductivity: string;
     function GetInitialStage: string;
+    function GetThermalConductivity: string;
+    function GetThermalThickness: string;
 
     function GetReachWidth: string;
     function GetStreambedThickness: string;
@@ -638,6 +652,8 @@ type
     procedure SetGradient(const Value: string);
     procedure SetHydraulicConductivity(const Value: string);
     procedure SetInitialStage(const Value: string);
+    procedure SetThermalConductivity(const Value: string);
+    procedure SetThermalThickness(const Value: string);
 
     procedure SetReachWidth(const Value: string);
     procedure SetStreambedThickness(const Value: string);
@@ -652,6 +668,8 @@ type
     function GetStreambedTopObserver: TObserver;
     function GetDensityObserver: TObserver;
     function GetInitialStageObserver: TObserver;
+    function GetThermalConductivityObserver: TObserver;
+    function GetThermalThicknessObserver: TObserver;
 
     procedure InvalidateDisplayTimeLists;
     procedure LinkReachLength;
@@ -661,6 +679,8 @@ type
     procedure LinkStreambedThickness;
     procedure LinkHydraulicConductivity;
     procedure LinkInitialStage;
+    procedure LinkThermalConductivity;
+    procedure LinkThermalThickness;
 
     procedure InvalidateInflowData(Sender: TObject);
     procedure InvalidateRainfallData(Sender: TObject);
@@ -752,6 +772,8 @@ type
     property StreambedThicknessObserver: TObserver read GetStreambedThicknessObserver;
     property HydraulicConductivityObserver: TObserver read GetHydraulicConductivityObserver;
     property InitialStageObserver: TObserver read GetInitialStageObserver;
+    property ThermalConductivityObserver: TObserver read GetThermalConductivityObserver;
+    property ThermalThicknessObserver: TObserver read GetThermalThicknessObserver;
     function BoundaryObserverPrefix: string; override;
 
     procedure HandleChangedValue(Observer: TObserver); //override;
@@ -807,6 +829,8 @@ type
       write SetStreambedThickness;
     property HydraulicConductivity: string read GetHydraulicConductivity
       write SetHydraulicConductivity;
+    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity;
+    property ThermalThickness: string read GetThermalThickness write SetThermalThickness;
 //  INITIALSTAGES
     property InitialStage: string read GetInitialStage write SetInitialStage;
     // @name is only for backwards compatibility. It is not used.
@@ -908,7 +932,9 @@ const
   SfrMf6StreambedThicknessPosition = 4;
   SfrMf6HydraulicConductivityPosition = 5;
   SfrMf6InitialStagePosition = 6;
-  SfrMf6PestBoundaryOffset = 7;
+  SfrMf6ThermalConductivityPosition = 7;
+  SfrMf6ThermalThicknessPosition = 8;
+  SfrMf6PestBoundaryOffset = 9;
 
 Const
   SfrGwtConcCount = 5;
@@ -943,17 +969,18 @@ const
     'Wetted Width');
   SftObName: array[TSftOb] of string =
     (
-      'Concentration',
+      'Concentration/Temperature',
       'Storage',
       'Constant',
       'From-MVR',
       'To-MVR',
-      'SFT',
+      'SFT/SFE',
       'Rainfall',
       'Evaporation',
       'Runoff',
       'External inflow',
-      'External outflow'
+      'External outflow',
+      'Conductive heat exchange'
     );
 
 var
@@ -1621,7 +1648,7 @@ end;
 function TSfrMf6Item.BoundaryFormulaCount: integer;
 begin
   result := DiversionCount + Succ(SfrMf6ViscosityPosition);
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     result := result + frmGoPhast.PhastModel.MobileComponents.Count * SfrGwtConcCount;
   end;
@@ -1774,7 +1801,7 @@ begin
         end;
         Index := Index - FDiversionFormulas.Count;
         // GWT
-        if frmGoPhast.PhastModel.GwtUsed then
+        if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
         begin
           ChemSpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
           while SpecifiedConcentrations.Count < ChemSpeciesCount do
@@ -2182,7 +2209,7 @@ begin
         end;
 
         // GWT
-        if frmGoPhast.PhastModel.GwtUsed then
+        if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
         begin
           Index := Index - FDiversionFormulas.Count;
           ChemSpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
@@ -2894,7 +2921,7 @@ var
 begin
   inherited;
   // GWT
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
   end
@@ -3698,6 +3725,8 @@ begin
     StreambedThickness := SourceSfr6.StreambedThickness;
     HydraulicConductivity := SourceSfr6.HydraulicConductivity;
     InitialStage := SourceSfr6.InitialStage;
+    ThermalConductivity := SourceSfr6.ThermalConductivity;
+    ThermalThickness := SourceSfr6.ThermalThickness;
 
     PestInflowFormula := SourceSfr6.PestInflowFormula;
     PestInflowMethod := SourceSfr6.PestInflowMethod;
@@ -4416,7 +4445,9 @@ begin
   LinkStreambedThickness;
   LinkHydraulicConductivity;
   LinkInitialStage;
-  
+  LinkThermalConductivity;
+  LinkThermalThickness;
+
   ReachLength := StrObjectIntersectLength;
   ReachWidth := '1';
   Gradient := '0.001';
@@ -4424,6 +4455,8 @@ begin
   StreambedThickness := '1';
   HydraulicConductivity := '0';
   InitialStage := kModelTop;
+  ThermalConductivity := '0';
+  ThermalThickness := '1';
 
   PestInflowFormula := '';
   PestRainfallFormula := '';
@@ -4451,6 +4484,8 @@ begin
   FStreambedThickness := CreateFormulaObjectBlocks(dso3D);
   FHydraulicConductivity := CreateFormulaObjectBlocks(dso3D);
   FInitialStage := CreateFormulaObjectBlocks(dso3D);
+  FThermalConductivity := CreateFormulaObjectBlocks(dso3D);
+  FThermalThickness := CreateFormulaObjectBlocks(dso3D);
 
   FInflow := CreateFormulaObjectBlocks(dso3D);
   FRainfall := CreateFormulaObjectBlocks(dso3D);
@@ -4463,7 +4498,7 @@ begin
   LocalModel := ParentModel as TCustomModel;
   if (LocalModel <> nil) then
   begin
-    if LocalModel.GwtUsed then
+    if LocalModel.GwtUsed or LocalModel.GweUsed then
     begin
       for ConcIndex := 0 to LocalModel.MobileComponents.Count - 1 do
       begin
@@ -4512,6 +4547,8 @@ begin
     FObserverList.Add(StreambedThicknessObserver);
     FObserverList.Add(HydraulicConductivityObserver);
     FObserverList.Add(InitialStageObserver);
+    FObserverList.Add(ThermalConductivityObserver);
+    FObserverList.Add(ThermalThicknessObserver);
 
     FObserverList.Add(PestInflowObserver);
     FObserverList.Add(PestRainfallObserver);
@@ -4611,6 +4648,8 @@ begin
   StreambedTop := '';
   StreambedThickness := '';
   HydraulicConductivity := '';
+  ThermalConductivity := '';
+  ThermalThickness := '';
   Roughness := '';
 
   FDiversions.Free;
@@ -5214,6 +5253,14 @@ begin
   begin
     List.Add(FObserverList[SfrMf6InitialStagePosition]);
   end;
+  if Sender = FThermalConductivity as TObject then
+  begin
+    List.Add(FObserverList[SfrMf6ThermalConductivityPosition]);
+  end;
+  if Sender = FThermalThickness as TObject then
+  begin
+    List.Add(FObserverList[SfrMf6ThermalThicknessPosition]);
+  end;
 
   if Sender = FInflow as TObject then
   begin
@@ -5394,6 +5441,42 @@ begin
     CreateObserver('SFR6_StreambedTop_', FStreambedTopObserver, nil);
   end;
   result := FStreambedTopObserver;
+end;
+
+function TSfrMf6Boundary.GetThermalConductivity: string;
+begin
+  Result := FThermalThickness.Formula;
+  if ScreenObject <> nil then
+  begin
+    ResetBoundaryObserver(SfrMf6ThermalConductivityPosition);
+  end;
+end;
+
+function TSfrMf6Boundary.GetThermalConductivityObserver: TObserver;
+begin
+  if FThermalConductivityObserver = nil then
+  begin
+    CreateObserver('SFR6_ThermalConductivity_', FThermalConductivityObserver, nil);
+  end;
+  result := FThermalConductivityObserver;
+end;
+
+function TSfrMf6Boundary.GetThermalThickness: string;
+begin
+  Result := FThermalThickness.Formula;
+  if ScreenObject <> nil then
+  begin
+    ResetBoundaryObserver(SfrMf6ThermalThicknessPosition);
+  end;
+end;
+
+function TSfrMf6Boundary.GetThermalThicknessObserver: TObserver;
+begin
+  if FThermalThicknessObserver = nil then
+  begin
+    CreateObserver('SFR6_ThermalThickness_', FThermalThicknessObserver, nil);
+  end;
+  result := FThermalThicknessObserver;
 end;
 
 function TSfrMf6Boundary.GetUsedObserver: TObserver;
@@ -5678,6 +5761,48 @@ begin
   end;
 end;
 
+procedure TSfrMf6Boundary.LinkThermalConductivity;
+var
+  LocalScreenObject: TScreenObject;
+  Sfr6ThermalConductivityArray: TDataArray;
+begin
+  LocalScreenObject := ScreenObject as TScreenObject;
+  if (LocalScreenObject <> nil) and LocalScreenObject.CanInvalidateModel then
+  begin
+    LocalScreenObject.TalksTo(ThermalConductivityObserver);
+    if ParentModel <> nil then
+    begin
+      Sfr6ThermalConductivityArray := (ParentModel as TCustomModel).DataArrayManager.
+        GetDataSetByName(KThermalConductivitySFR6);
+      if Sfr6ThermalConductivityArray <> nil then
+      begin
+        ThermalConductivityObserver.TalksTo(Sfr6ThermalConductivityArray);
+      end;
+    end;
+  end;
+end;
+
+procedure TSfrMf6Boundary.LinkThermalThickness;
+var
+  LocalScreenObject: TScreenObject;
+  Sfr6ThermalThicknessArray: TDataArray;
+begin
+  LocalScreenObject := ScreenObject as TScreenObject;
+  if (LocalScreenObject <> nil) and LocalScreenObject.CanInvalidateModel then
+  begin
+    LocalScreenObject.TalksTo(ThermalThicknessObserver);
+    if ParentModel <> nil then
+    begin
+      Sfr6ThermalThicknessArray := (ParentModel as TCustomModel).DataArrayManager.
+        GetDataSetByName(KThermalThicknessSFR6);
+      if Sfr6ThermalThicknessArray <> nil then
+      begin
+        ThermalThicknessObserver.TalksTo(Sfr6ThermalThicknessArray);
+      end;
+    end;
+  end;
+end;
+
 procedure TSfrMf6Boundary.Loaded;
 var
   Item: TimeVaryingSfr6CrossSectionItem;
@@ -5692,6 +5817,8 @@ begin
   LinkStreambedThickness;
   LinkHydraulicConductivity;
   LinkInitialStage;
+  LinkThermalConductivity;
+  LinkThermalThickness;
   if CrossSection.UseCrossSection and (CrossSections.Count = 0) then
   begin
     Item := FCrossSections.Add as TimeVaryingSfr6CrossSectionItem;
@@ -5730,6 +5857,12 @@ begin
     GlobalRemoveMFBoundarySubscription,
     GlobalRestoreMFBoundarySubscription, self);
   frmGoPhast.PhastModel.FormulaManager.Remove(FInitialStage,
+    GlobalRemoveMFBoundarySubscription,
+    GlobalRestoreMFBoundarySubscription, self);
+  frmGoPhast.PhastModel.FormulaManager.Remove(FThermalConductivity,
+    GlobalRemoveMFBoundarySubscription,
+    GlobalRestoreMFBoundarySubscription, self);
+  frmGoPhast.PhastModel.FormulaManager.Remove(FThermalThickness,
     GlobalRemoveMFBoundarySubscription,
     GlobalRestoreMFBoundarySubscription, self);
 
@@ -6228,6 +6361,16 @@ end;
 procedure TSfrMf6Boundary.SetStreambedTop(const Value: string);
 begin
   UpdateFormulaBlocks(Value, SfrMf6StreambedTopPosition, FStreambedTop);
+end;
+
+procedure TSfrMf6Boundary.SetThermalConductivity(const Value: string);
+begin
+  UpdateFormulaBlocks(Value, SfrMf6ThermalConductivityPosition, FThermalConductivity);
+end;
+
+procedure TSfrMf6Boundary.SetThermalThickness(const Value: string);
+begin
+  UpdateFormulaBlocks(Value, SfrMf6ThermalThicknessPosition, FThermalThickness);
 end;
 
 //procedure TSfrMf6Boundary.SetUpstreamFraction(const Value: string);
@@ -6900,6 +7043,8 @@ begin
   WriteCompReal(Comp, StreambedThickness);
   WriteCompReal(Comp, HydraulicConductivity);
   WriteCompReal(Comp, InitialStage);
+  WriteCompReal(Comp, ThermalConductivity);
+  WriteCompReal(Comp, ThermalThickness);
 //  WriteCompReal(Comp, Roughness);
 
   WriteCompInt(Comp, Length(ConnectedReaches));
@@ -6920,6 +7065,8 @@ begin
   WriteCompInt(Comp, Strings.IndexOf(StreambedThicknessAnnotation));
   WriteCompInt(Comp, Strings.IndexOf(HydraulicConductivityAnnotation));
   WriteCompInt(Comp, Strings.IndexOf(InitialStageAnnotation));
+  WriteCompInt(Comp, Strings.IndexOf(ThermalConductivityAnnotation));
+  WriteCompInt(Comp, Strings.IndexOf(ThermalThicknessAnnotation));
   WriteCompInt(Comp, Strings.IndexOf(BoundName));
 
   WriteCompInt(Comp, Strings.IndexOf(PestReachLength));
@@ -6929,6 +7076,8 @@ begin
   WriteCompInt(Comp, Strings.IndexOf(PestStreambedThickness));
   WriteCompInt(Comp, Strings.IndexOf(PestHydraulicConductivity));
   WriteCompInt(Comp, Strings.IndexOf(PestInitialStage));
+  WriteCompInt(Comp, Strings.IndexOf(PestThermalConductivity));
+  WriteCompInt(Comp, Strings.IndexOf(PestThermalThickness));
 
   WriteCompInt(Comp, Length(ConnectedReacheAnnotations));
   for index := 0 to Length(ConnectedReacheAnnotations) - 1 do
@@ -6970,6 +7119,14 @@ begin
     SfrMf6InitialStagePosition:
       begin
         result := InitialStageAnnotation;
+      end;
+    SfrMf6ThermalConductivityPosition:
+      begin
+        result := ThermalConductivityAnnotation;
+      end;
+    SfrMf6ThermalThicknessPosition:
+      begin
+        result := ThermalThicknessAnnotation;
       end;
 //    SteadyRoughnessPosition:
 //      begin
@@ -7020,6 +7177,14 @@ begin
       begin
         result := InitialStage;
       end;
+    SfrMf6ThermalConductivityPosition:
+      begin
+        result := ThermalConductivity;
+      end;
+    SfrMf6ThermalThicknessPosition:
+      begin
+        result := ThermalThickness;
+      end;
     else
       begin
         // GWT
@@ -7061,6 +7226,14 @@ begin
       begin
         result := PestInitialStage;
       end;
+    SfrMf6ThermalConductivityPosition:
+      begin
+        result := PestThermalConductivity;
+      end;
+    SfrMf6ThermalThicknessPosition:
+      begin
+        result := PestThermalThickness;
+      end;
     else
       begin
         // GWT
@@ -7096,6 +7269,8 @@ begin
   Strings.Add(StreambedThicknessAnnotation);
   Strings.Add(HydraulicConductivityAnnotation);
   Strings.Add(InitialStageAnnotation);
+  Strings.Add(ThermalConductivityAnnotation);
+  Strings.Add(ThermalThicknessAnnotation);
   Strings.Add(BoundName);
 
   Strings.Add(PestReachLength);
@@ -7105,6 +7280,8 @@ begin
   Strings.Add(PestStreambedThickness);
   Strings.Add(PestHydraulicConductivity);
   Strings.Add(PestInitialStage);
+  Strings.Add(PestThermalConductivity);
+  Strings.Add(PestThermalThickness);
 
 //  Strings.Add(RoughnessAnnotation);
   for index := 0 to Length(ConnectedReacheAnnotations) - 1 do
@@ -7130,6 +7307,8 @@ begin
   StreambedThickness := ReadCompReal(Decomp);
   HydraulicConductivity := ReadCompReal(Decomp);
   InitialStage := ReadCompReal(Decomp);
+  ThermalConductivity := ReadCompReal(Decomp);
+  ThermalThickness := ReadCompReal(Decomp);
 //  Roughness := ReadCompReal(Decomp);
 
   StreambedTop := ReadCompReal(Decomp);
@@ -7155,6 +7334,8 @@ begin
   StreambedThicknessAnnotation := Annotations[ReadCompInt(Decomp)];
   HydraulicConductivityAnnotation := Annotations[ReadCompInt(Decomp)];
   InitialStageAnnotation := Annotations[ReadCompInt(Decomp)];
+  ThermalConductivityAnnotation := Annotations[ReadCompInt(Decomp)];
+  ThermalThicknessAnnotation := Annotations[ReadCompInt(Decomp)];
   BoundName := Annotations[ReadCompInt(Decomp)];
 
   PestReachLength := Annotations[ReadCompInt(Decomp)];
@@ -7164,6 +7345,8 @@ begin
   PestStreambedThickness := Annotations[ReadCompInt(Decomp)];
   PestHydraulicConductivity := Annotations[ReadCompInt(Decomp)];
   PestInitialStage := Annotations[ReadCompInt(Decomp)];
+  PestThermalConductivity := Annotations[ReadCompInt(Decomp)];
+  PestThermalThickness := Annotations[ReadCompInt(Decomp)];
 
   Count := ReadCompInt(Decomp);
   SetLength(ConnectedReacheAnnotations, Count);
@@ -7208,6 +7391,14 @@ begin
     SfrMf6InitialStagePosition:
       begin
         InitialStageAnnotation := Value;
+      end;
+    SfrMf6ThermalConductivityPosition:
+      begin
+        ThermalConductivityAnnotation := Value;
+      end;
+    SfrMf6ThermalThicknessPosition:
+      begin
+        ThermalThicknessAnnotation := Value;
       end;
 //    SteadyRoughnessPosition:
 //      begin
@@ -7258,6 +7449,14 @@ begin
       begin
         InitialStage := Value;
       end;
+    SfrMf6ThermalConductivityPosition:
+      begin
+        ThermalConductivity := Value;
+      end;
+    SfrMf6ThermalThicknessPosition:
+      begin
+        ThermalThickness := Value;
+      end;
 //    SteadyRoughnessPosition:
 //      begin
 //        Roughness := Value;
@@ -7306,6 +7505,14 @@ begin
     SfrMf6InitialStagePosition:
       begin
         PestInitialStage := Value;
+      end;
+    SfrMf6ThermalConductivityPosition:
+      begin
+        PestThermalConductivity := Value;
+      end;
+    SfrMf6ThermalThicknessPosition:
+      begin
+        PestThermalThickness := Value;
       end;
     else
       begin
@@ -7420,7 +7627,7 @@ begin
   FInflowConcList := TModflowTimeLists.Create;
   
   PhastModel := frmGoPhast.PhastModel;
-  if PhastModel.GwtUsed then
+  if PhastModel.GwtUsed or PhastModel.GweUsed then
   begin
     for SpeciesIndex := 0 to PhastModel.MobileComponents.Count - 1 do
     begin

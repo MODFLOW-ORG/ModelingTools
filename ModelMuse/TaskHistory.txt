@@ -386,11 +386,11 @@ object TTaskHistory
     end
     item
       Name = 'SFR MODFLOW-6'
-      Display = False
+      Display = True
     end
     item
       Name = 'MAW'
-      Display = False
+      Display = True
     end
     item
       Name = 'DISV'
@@ -34311,6 +34311,25 @@ object TTaskHistory
       Categories.Strings = (
         'Dialog boxes'
         'MF-2015'
+        'GWE')
+    end
+    item
+      Date = 45735.000000000000000000
+    end
+    item
+      Date = 45736.000000000000000000
+      Categories.Strings = (
+        'Dialog boxes'
+        'MF-2015'
+        'GWE'
+        'SFR MODFLOW-6')
+    end
+    item
+      Date = 45737.000000000000000000
+      Categories.Strings = (
+        'Dialog boxes'
+        'MF-2015'
+        'SFR MODFLOW-6'
         'GWE')
     end>
 end

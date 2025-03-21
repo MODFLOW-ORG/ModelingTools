@@ -14383,6 +14383,10 @@ var
         begin
           Include(SftObs, stoConcentration);
         end
+        else if AnsiSameText(AnObs.ObsType, 'temperature') then
+        begin
+          Include(SftObs, stoConcentration);
+        end
         else if AnsiSameText(AnObs.ObsType, 'flow-ja-face') then
         begin
           // ignore
@@ -14407,6 +14411,10 @@ var
         begin
           Include(SftObs, stoSFT);
         end
+        else if AnsiSameText(AnObs.ObsType, 'sfe') then
+        begin
+          Include(SftObs, stoSFT);
+        end
         else if AnsiSameText(AnObs.ObsType, 'rainfall') then
         begin
           Include(SftObs, stoRainfall);
@@ -14426,6 +14434,10 @@ var
         else if AnsiSameText(AnObs.ObsType, 'ext-outflow') then
         begin
           Include(SftObs, stoExtOutflow);
+        end
+        else if AnsiSameText(AnObs.ObsType, 'strmbd-cond') then
+        begin
+          Include(SftObs, stoHeatConduction);
         end
         else
         begin

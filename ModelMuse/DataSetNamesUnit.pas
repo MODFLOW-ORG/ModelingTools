@@ -534,6 +534,8 @@ const
   KStreambedThicknessSFR6 = 'SFR6_StreambedThickness';
   KHydraulicConductivitySFR6 = 'SFR6_HydraulicConductivity';
   KInitialStageSFR6 = 'SFR6_InitialStage';
+  KThermalConductivitySFR6 = 'SFR6_ThermalConductivity';
+  KThermalThicknessSFR6 = 'SFR6_ThermalThickness';
   KMAWRadius = 'MAW_Radius';
   KMAWBottom = 'MAW_Bottom';
   KMAWInitialHead = 'MAW_Initial_Head';
@@ -786,6 +788,8 @@ resourcestring
   StrSFRMODFLOW6Packa_rbth = 'SFR MODFLOW 6, Package Data: rbth';
   StrSFRMODFLOW6Packa_rhk = 'SFR MODFLOW 6, Package Data: rhk';
   StrSFRMODFLOW6InitialStages = 'SFR MODFLOW 6, INITIALSTAGES Data';
+  StrSFRMODFLOW6ThermalConductivity = 'SFe MODFLOW 6, Package Data: ktf';
+  StrSFRMODFLOW6ThermalThickness = 'SFe MODFLOW 6, Package Data: ktrbthcndf';
   StrMAW = 'MAW';
   StrMAWMODFLOW6Packa_radius = 'MAW MODFLOW 6, Package Data: radius';
   StrMAWMODFLOW6Packa_bottom = 'MAW MODFLOW 6, Package Data: bottom';
@@ -1179,6 +1183,8 @@ resourcestring
   StrStreambedThicknessSFR6 = KStreambedThicknessSFR6;
   StrHydraulicConductivitySFR6 = KHydraulicConductivitySFR6;
   StrInitialStageSFR6 = KInitialStageSFR6;
+  StrThermalConductivitySFR6 = KThermalConductivitySFR6;
+  StrThermalThicknessSFR6 = KThermalThicknessSFR6;
   StrMAWRadius = KMAWRadius;
   StrMAWBottom = KMAWBottom;
   StrMAWInitialHead = KMAWInitialHead;

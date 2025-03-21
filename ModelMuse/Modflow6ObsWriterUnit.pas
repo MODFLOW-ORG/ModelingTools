@@ -1670,7 +1670,11 @@ begin
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin
-      WriteGwtFile(AFileName, SpeciesIndex);
+      if Model.MobileComponents[SpeciesIndex].UsedForGWT
+        or Model.MobileComponents[SpeciesIndex].UsedForGWE then
+      begin
+        WriteGwtFile(AFileName, SpeciesIndex);
+      end;
     end;
   end;
 end;
@@ -4294,6 +4298,9 @@ var
   CalibObservations: TMf6CalibrationObservations;
   StartTime: Double;
   Prefix: string;
+  UsedForGWE: Boolean;
+  FilePrefix: string;
+  UsedForGWT: Boolean;
   procedure CheckForDuplicateObsNames;
   begin
     if ObsNames.IndexOf(obsnam) >= 0 then
@@ -4338,6 +4345,21 @@ var
     end;
   end;
 begin
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
+  if UsedForGWE then
+  begin
+    FilePrefix := '.sfe_';
+  end;
+
+  UsedForGWT := Model.MobileComponents[FSpeciesIndex].UsedForGWT;
+  begin
+    FilePrefix := '.sft_';
+  end;
+
+  if not (UsedForGWE or UsedForGWT) then
+  begin
+    Exit;
+  end;
   ObTypes := [];
   for ObsIndex := 0 to FObsList.Count - 1 do
   begin
@@ -4367,69 +4389,100 @@ begin
       case AnObsType of
         stoConcentration:
           begin
-            OutputExtension := '.sft_concentration_ob' + OutputTypeExtension;
-            ObservationType := 'concentration';
-            Prefix := 'stconc_';
+            if UsedForGWE then
+            begin
+              OutputExtension := FilePrefix + 'Temperature_ob' + OutputTypeExtension;
+              ObservationType := 'temperature';
+              Prefix := 'sttemp_';
+            end
+            else
+            begin
+              OutputExtension := FilePrefix + 'concentration_ob' + OutputTypeExtension;
+              ObservationType := 'concentration';
+              Prefix := 'stconc_';
+            end;
           end;
         stoStorage:
           begin
-            OutputExtension := '.sft_storage_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'storage_ob' + OutputTypeExtension;
             ObservationType := 'storage';
             Prefix := 'sts_';
           end;
         stoConstant:
           begin
-            OutputExtension := '.sft_constant_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'constant_ob' + OutputTypeExtension;
             ObservationType := 'constant';
             Prefix := 'stconst_';
           end;
         stoFromMvr:
           begin
-            OutputExtension := '.sft_from_mvr_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'from_mvr_ob' + OutputTypeExtension;
             ObservationType := 'from-mvr';
             Prefix := 'stfm_';
           end;
         stoToMvr:
           begin
-            OutputExtension := '.sft_to_mvr_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'to_mvr_ob' + OutputTypeExtension;
             ObservationType := 'to-mvr';
             Prefix := 'st2m_';
           end;
         stoSFT:
           begin
-            OutputExtension := '.sft_mass_flow_ob' + OutputTypeExtension;
-            ObservationType := 'sft';
-            Prefix := 'stmf_';
+            if UsedForGWE then
+            begin
+              OutputExtension := FilePrefix + 'mass_flow_ob' + OutputTypeExtension;
+              ObservationType := 'sfe';
+              Prefix := 'stmf_';
+            end
+            else
+            begin
+              OutputExtension := FilePrefix + 'mass_flow_ob' + OutputTypeExtension;
+              ObservationType := 'sft';
+              Prefix := 'stmf_';
+            end;
           end;
         stoRainfall:
           begin
-            OutputExtension := '.sft_rainfall_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'rainfall_ob' + OutputTypeExtension;
             ObservationType := 'rainfall';
             Prefix := 'stra_';
           end;
         stoEvaporation:
           begin
-            OutputExtension := '.sft_evaporation_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'evaporation_ob' + OutputTypeExtension;
             ObservationType := 'evaporation';
             Prefix := 'ste_';
           end;
         stoRunoff:
           begin
-            OutputExtension := '.sft_runoff_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'runoff_ob' + OutputTypeExtension;
             ObservationType := 'runoff';
             Prefix := 'stru_';
           end;
         stoExtInflow:
           begin
-            OutputExtension := '.sft_ext_inflow_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'ext_inflow_ob' + OutputTypeExtension;
             ObservationType := 'ext-inflow';
             Prefix := 'stei_';
           end;
         stoExtOutflow:
           begin
-            OutputExtension := '.sft_ext-outflow_ob' + OutputTypeExtension;
+            OutputExtension := FilePrefix + 'ext-outflow_ob' + OutputTypeExtension;
             ObservationType := 'ext-outflow';
             Prefix := 'steo_';
+          end;
+        stoHeatConduction:
+          begin
+            if UsedForGWE then
+            begin
+              OutputExtension := FilePrefix + 'strmbd-cond_ob' + OutputTypeExtension;
+              ObservationType := 'strmbd-cond';
+              Prefix := 'stbc_';
+            end
+            else
+            begin
+              Continue;
+            end;
           end;
         else
           Assert(False);

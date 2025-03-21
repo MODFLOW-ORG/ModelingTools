@@ -422,7 +422,6 @@ begin
     if  FCodeDataSet <> nil then
     begin
       CreateNewDataSet := AskUserIfNewDataSet;
-//      AskIfNewDataSet(FAlreadyAsked, CreateNewDataSet);
     end
     else
     begin

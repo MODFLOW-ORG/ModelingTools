@@ -1839,8 +1839,11 @@ that affects the model output should also have a comment. }
     function GetDiscretiztionElevation(Column, Row, Layer: Integer): Double;
     function GetLayerThickness(Layer, Row, Column: Integer): Double;
     function DoSfrMf6Selected(Sender: TObject): Boolean;
+    function DoSfrMf6GweSelected(Sender: TObject): Boolean;
     function GetSfrMf6Selected: TObjectUsedEvent;
     property SfrMf6Selected: TObjectUsedEvent read GetSfrMf6Selected;
+    function GetSfrMf6GweSelected: TObjectUsedEvent;
+    property SfrMf6GweSelected: TObjectUsedEvent read GetSfrMf6GweSelected;
     function DoMawSelected(Sender: TObject): Boolean;
     function GetMawSelected: TObjectUsedEvent;
     property MawSelected: TObjectUsedEvent read GetMawSelected;
@@ -2142,8 +2145,6 @@ that affects the model output should also have a comment. }
     function DoSpecificStorageUsed(Sender: TObject): boolean; virtual;
     function GetSpecificStorageUsed: TObjectUsedEvent;
     property SpecificStorageUsed: TObjectUsedEvent read GetSpecificStorageUsed;
-
-//      TCheckUsageEvent
   protected
     function GetSfrStreamLinkPlot: TSfrStreamLinkPlot; virtual; abstract;
     procedure SetSfrStreamLinkPlot(const Value: TSfrStreamLinkPlot); virtual; abstract;
@@ -2235,6 +2236,7 @@ that affects the model output should also have a comment. }
     function GetSeparatedDecayWaterUsed: TObjectUsedEvent;
     function GetSeparatedDensitySolidUsed: TObjectUsedEvent;
     function GetSeparatedHeatCapacitySolidUsed: TObjectUsedEvent;
+    function GetSeparateGweUsed: Boolean;
   public
     function ChdIsSelected: Boolean; virtual;
     function TvkIsSelected: Boolean; virtual;
@@ -3190,6 +3192,7 @@ that affects the model output should also have a comment. }
     property Mf6TimesSeries: TTimesSeriesCollections read GetMf6TimesSeries
       write SetMf6TimesSeries;
     property SeparateGwtUsed: Boolean read GetSeparateGwtUsed;
+    property SeparateGweUsed: Boolean read GetSeparateGweUsed;
     Procedure UpdateGwtConc;
     procedure ClearPestPriorInfoGroupData;
     property AppsMoved: TStringList read GetAppsMoved;
@@ -5315,7 +5318,9 @@ const
   StrUzfbudget = '.uzf_budget';
   StrSfrbudget = '.sfr_budget';
   StrSftconc = '.sft_conc';
+  StrSfeTemp = '.sfe_temp';
   StrSftbudget = '.sft_budget';
+  StrSfebudget = '.sfe_budget';
   StrMwtconc = '.mwt_conc';
   StrMwtbudget = '.mwt_budget';
   StrUztconc = '.uzt_conc';
@@ -17528,6 +17533,18 @@ begin
   end;
 
   Sfr6Array := FDataArrayManager.GetDataSetByName(KInitialStageSFR6);
+  if Sfr6Array <> nil then
+  begin
+    Sfr6Array.OnPostInitialize := UpdateSfr6SteadyData;
+  end;
+
+  Sfr6Array := FDataArrayManager.GetDataSetByName(KThermalConductivitySFR6);
+  if Sfr6Array <> nil then
+  begin
+    Sfr6Array.OnPostInitialize := UpdateSfr6SteadyData;
+  end;
+
+  Sfr6Array := FDataArrayManager.GetDataSetByName(KThermalThicknessSFR6);
   if Sfr6Array <> nil then
   begin
     Sfr6Array.OnPostInitialize := UpdateSfr6SteadyData;
@@ -36635,9 +36652,19 @@ begin
   result := DoSeparatedThermalConductivityUsedPerSpecies;
 end;
 
+function TCustomModel.GetSeparateGweUsed: Boolean;
+begin
+  result := GweUsed and ModflowPackages.GweProcess.SeparateGwt;
+end;
+
 function TCustomModel.GetSeparateGwtUsed: Boolean;
 begin
   result := GwtUsed and ModflowPackages.GwtProcess.SeparateGwt;
+end;
+
+function TCustomModel.GetSfrMf6GweSelected: TObjectUsedEvent;
+begin
+  result := DoSfrMf6GweSelected;
 end;
 
 function TCustomModel.GetSfrMf6Selected: TObjectUsedEvent;
@@ -41650,6 +41677,11 @@ begin
   FZoneBudgetOutputFiles.Assign(Value);
 end;
 
+function TCustomModel.DoSfrMf6GweSelected(Sender: TObject): Boolean;
+begin
+  result := GweUsed and ModflowPackages.SfrModflow6Package.IsSelected;
+end;
+
 function TCustomModel.DoSfrMf6Selected(Sender: TObject): Boolean;
 begin
   result := ModflowPackages.SfrModflow6Package.IsSelected;
@@ -44144,6 +44176,7 @@ begin
   FDirectObservationLines := TStringList.Create;
   FDerivedObservationLines := TStringList.Create;
   FFileNameLines := TStringList.Create;
+  Sfr6Writer := TModflowSFR_MF6_Writer.Create(self, etExport);
   try
     LocalNameWriter := NameFileWriter as TNameFileWriter;
     UpdateCurrentModel(self);
@@ -44737,20 +44770,19 @@ begin
             frmProgressMM.StepIt;
           end;
 
-          Sfr6Writer := TModflowSFR_MF6_Writer.Create(self, etExport);
-          try
-            Sfr6Writer.MvrWriter := ModflowMvrWriter;
-            Sfr6Writer.WriteFile(FileName);
-            if GwtUsed then
+          Sfr6Writer.MvrWriter := ModflowMvrWriter;
+          Sfr6Writer.WriteFile(FileName);
+          if GwtUsed then
+          begin
+            for SpeciesIndex := 0 to MobileComponents.Count - 1 do
             begin
-              for SpeciesIndex := 0 to MobileComponents.Count - 1 do
+              if MobileComponents[SpeciesIndex].UsedForGWT then
               begin
                 Sfr6Writer.WriteSftFile(FileName, SpeciesIndex);
               end;
             end;
-          finally
-            Sfr6Writer.Free;
           end;
+
           FDataArrayManager.CacheDataArrays;
           Application.ProcessMessages;
           if not frmProgressMM.ShouldContinue then
@@ -45633,6 +45665,8 @@ begin
             EslWriter.Free;
           end;
 
+          Sfr6Writer.WriteSftFile(FileName, SpeciesIndex);
+
           ImsWriter := TImsWriter.Create(self, etExport, SpeciesIndex);
           try
             ImsWriter.WriteFile(FileName);
@@ -45677,6 +45711,7 @@ begin
     FreeAndNil(FDirectObservationLines);
     FreeAndNil(FDerivedObservationLines);
     FreeAndNil(FFileNameLines);
+    Sfr6Writer.Free;
   end;
 end;
 

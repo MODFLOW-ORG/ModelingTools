@@ -105,6 +105,7 @@ type
     function ObservationsUsed: Boolean;
     class function ObservationExtension: string;
     class function GwtObservationExtension: string;
+    class function GweObservationExtension: string;
   public
     Constructor Create(Model: TCustomModel; EvaluationType: TEvaluationType); override;
     destructor Destroy; override;
@@ -589,9 +590,13 @@ begin
     PropertyFormulas.Add(ASegment.FSfr6Boundary.HydraulicConductivity);
     PropertyNames.Add(StrInitialStage);
     PropertyFormulas.Add(ASegment.FSfr6Boundary.InitialStage);
+    PropertyNames.Add(StrThermalConductivitySFR6);
+    PropertyFormulas.Add(ASegment.FSfr6Boundary.ThermalConductivity);
+    PropertyNames.Add(StrThermalThicknessSFR6);
+    PropertyFormulas.Add(ASegment.FSfr6Boundary.ThermalThickness);
 
     SpeciesCount := 0;
-    if Model.GwtUsed then
+    if Model.GwtUsed or Model.GweUsed then
     begin
       SpeciesCount := Model.MobileComponents.Count;
       StartingConcentrations := ASegment.FSfr6Boundary.StartingConcentrations;
@@ -892,7 +897,7 @@ begin
   CalculatedObsLines := Model.DerivedObservationLines;
   FileNameLines := Model.FileNameLines;
   FDiversionReaches := TIntegerList.Create;
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for index := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -1103,7 +1108,7 @@ begin
           Obs.FModflow6Obs := MfObs;
           FObsList.Add(Obs);
         end;
-        if Model.GwtUsed then
+        if Model.GwtUsed or Model.GweUsed then
         begin
           for SpeciesIndex := 0 to Model.MobileComponents.Count -1 do
           begin
@@ -1207,7 +1212,7 @@ begin
       Obs.FModflow6Obs := MfObs;
       FObsList.Add(Obs);
     end;
-    if Model.GwtUsed then
+    if Model.GwtUsed or Model.GweUsed then
     begin
       for SpeciesIndex := 0 to Model.MobileComponents.Count -1 do
       begin
@@ -1235,6 +1240,11 @@ end;
 class function TModflowSFR_MF6_Writer.Extension: string;
 begin
   result := '.sfr';
+end;
+
+class function TModflowSFR_MF6_Writer.GweObservationExtension: string;
+begin
+  result := '.ob_sfe';
 end;
 
 class function TModflowSFR_MF6_Writer.GwtObservationExtension: string;
@@ -1436,7 +1446,7 @@ begin
     StreamStatus := TimeLists[7];
     ReachNumber := TimeLists[8];
     GWT_Start:= 9;
-    if Model.GwtUsed and (TimeLists.Count > GWT_Start) then
+    if (Model.GwtUsed or Model.GweUsed) and (TimeLists.Count > GWT_Start) then
     begin
       SpecConcList.Capacity := Model.MobileComponents.Count;
       RainfallConcList.Capacity := Model.MobileComponents.Count;
@@ -1672,6 +1682,8 @@ var
   StreambedThicknessDataArray: TModflowBoundaryDisplayDataArray;
   HydraulicConductivityDataArray: TModflowBoundaryDisplayDataArray;
   InitialStageDataArray: TModflowBoundaryDisplayDataArray;
+  ThermalConductivityDataArray: TModflowBoundaryDisplayDataArray;
+  ThermalThicknessDataArray: TModflowBoundaryDisplayDataArray;
 begin
   if not frmProgressMM.ShouldContinue then
   begin
@@ -1692,6 +1704,10 @@ begin
   HydraulicConductivityDataArray := Model.DataArrayManager.GetDataSetByName(KHydraulicConductivitySFR6)
     as TModflowBoundaryDisplayDataArray;
   InitialStageDataArray := Model.DataArrayManager.GetDataSetByName(KInitialStageSFR6)
+    as TModflowBoundaryDisplayDataArray;
+  ThermalConductivityDataArray := Model.DataArrayManager.GetDataSetByName(KThermalConductivitySFR6)
+    as TModflowBoundaryDisplayDataArray;
+  ThermalThicknessDataArray := Model.DataArrayManager.GetDataSetByName(KThermalThicknessSFR6)
     as TModflowBoundaryDisplayDataArray;
 
   if ReachLengthDataArray <> nil then
@@ -1833,6 +1849,46 @@ begin
     InitialStageDataArray.ComputeAverage;
     InitialStageDataArray.UpToDate := True;
   end;
+
+  if ThermalConductivityDataArray <> nil then
+  begin
+    ThermalConductivityDataArray.Clear;
+
+    for SegmentIndex := 0 to FSegments.Count - 1 do
+    begin
+      ASegment := FSegments[SegmentIndex];
+      for ReachIndex := 0 to Length(ASegment.SteadyValues) - 1 do
+      begin
+        ReachProp := ASegment.SteadyValues[ReachIndex];
+
+        ThermalConductivityDataArray.AddDataValue(ReachProp.ThermalConductivityAnnotation,
+          ReachProp.ThermalConductivity, ReachProp.Cell.Column,
+          ReachProp.Cell.Row, ReachProp.Cell.Layer);
+      end;
+    end;
+    ThermalConductivityDataArray.ComputeAverage;
+    ThermalConductivityDataArray.UpToDate := True;
+  end;
+
+  if ThermalThicknessDataArray <> nil then
+  begin
+    ThermalThicknessDataArray.Clear;
+
+    for SegmentIndex := 0 to FSegments.Count - 1 do
+    begin
+      ASegment := FSegments[SegmentIndex];
+      for ReachIndex := 0 to Length(ASegment.SteadyValues) - 1 do
+      begin
+        ReachProp := ASegment.SteadyValues[ReachIndex];
+
+        ThermalThicknessDataArray.AddDataValue(ReachProp.ThermalThicknessAnnotation,
+          ReachProp.ThermalThickness, ReachProp.Cell.Column,
+          ReachProp.Cell.Row, ReachProp.Cell.Layer);
+      end;
+    end;
+    ThermalThicknessDataArray.ComputeAverage;
+    ThermalThicknessDataArray.UpToDate := True;
+  end;
 end;
 
 procedure TModflowSFR_MF6_Writer.WriteACrossSection(
@@ -1908,7 +1964,7 @@ var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
 begin
-  if Model.GwtUsed and (Model.MobileComponents.Count > 0) then
+  if (Model.GwtUsed or Model.GweUsed) and (Model.MobileComponents.Count > 0) then
   begin
     WriteString('  AUXILIARY');
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
@@ -2204,7 +2260,7 @@ begin
     NewLine;
   end;
 
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     WriteAdditionalAuxVariables
   end;
@@ -2242,7 +2298,7 @@ begin
     NewLine;
   end;
 
-  if SfrMf6Package.SaveBudgetFile or Model.SeparateGwtUsed then
+  if SfrMf6Package.SaveBudgetFile or Model.SeparateGwtUsed or Model.SeparateGweUsed then
   begin
     WriteString('    BUDGET FILEOUT ');
     budgetfile := ChangeFileExt(BaseFileName, StrSfrbudget);
@@ -2488,7 +2544,7 @@ begin
 //        WriteFloat(0);
 //      end;
 
-      if Model.GwtUsed then
+      if Model.GwtUsed or Model.GweUsed then
       begin
         for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
         begin
@@ -2513,6 +2569,7 @@ var
   SpeciesName: string;
   Abbreviation: string;
   ObsWriter: TSftObsWriter;
+  ASpecies: TMobileChemSpeciesItem;
 begin
   if not Package.IsSelected then
   begin
@@ -2530,18 +2587,30 @@ begin
   begin
     Exit;
   end;
-  if not Model.MobileComponents[SpeciesIndex].UsedForGWT then
+  if not (Model.MobileComponents[SpeciesIndex].UsedForGWT or Model.MobileComponents[SpeciesIndex].UsedForGWE) then
   begin
     Exit;
   end;
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     FSpeciesIndex :=  SpeciesIndex;
-    SpeciesName := Model.MobileComponents[FSpeciesIndex].Name;
-    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.sft';
+    ASpecies := Model.MobileComponents[FSpeciesIndex];
+    SpeciesName := ASpecies.Name;
+    if ASpecies.UsedForGWE then
+    begin
+      FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.sfe';
+    end
+    else
+    begin
+      FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.sft';
+    end;
     FInputFileName := FNameOfFile;
 
     WriteToGwtNameFile(Abbreviation, FNameOfFile, SpeciesIndex);
+  end
+  else
+  begin
+    ASpecies := nil;
   end;
 
   FPestParamUsed := False;
@@ -2555,7 +2624,14 @@ begin
     begin
       ObsWriter := TSftObsWriter.Create(Model, etExport, FGwtObservations[SpeciesIndex], SpeciesIndex);
       try
-        ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GwtObservationExtension));
+        if ASpecies.UsedForGWE then
+        begin
+          ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GweObservationExtension));
+        end;
+        if ASpecies.UsedForGWT then
+        begin
+          ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GwtObservationExtension));
+        end;
       finally
         ObsWriter.Free;
       end;
@@ -2604,7 +2680,7 @@ begin
     WriteTimeSeriesFiles(FInputFileName, FSpeciesIndex);
 
     PrintListInputOption;
-    PrintConcentrationOption;
+    PrintConcentrationOption(FSpeciesIndex);
     PrintFlowsOption;
     WriteSaveFlowsOption;
 
@@ -2614,8 +2690,16 @@ begin
 
     if SfrMf6Package.SaveGwtConcentration then
     begin
-      WriteString('    CONCENTRATION FILEOUT ');
-      concentrationfile := BaseFileName + StrSftconc;
+      if ASpecies.UsedForGWE then
+      begin
+        WriteString('    TEMPERATURE FILEOUT ');
+        concentrationfile := BaseFileName + StrSfeTemp;
+      end
+      else
+      begin
+        WriteString('    CONCENTRATION FILEOUT ');
+        concentrationfile := BaseFileName + StrSftconc;
+      end;
       Model.AddModelOutputFile(concentrationfile);
       concentrationfile := ExtractFileName(concentrationfile);
       WriteString(concentrationfile);
@@ -2625,7 +2709,14 @@ begin
     if SfrMf6Package.SaveGwtBudget then
     begin
       WriteString('    BUDGET FILEOUT ');
-      budgetfile := BaseFileName + StrSftbudget;
+      if ASpecies.UsedForGWE then
+      begin
+        budgetfile := BaseFileName + StrSfebudget;
+      end
+      else
+      begin
+        budgetfile := BaseFileName + StrSftbudget;
+      end;
       Model.AddModelOutputFile(budgetfile);
       budgetfile := ExtractFileName(budgetfile);
       WriteString(budgetfile);
@@ -2635,7 +2726,14 @@ begin
     if SfrMf6Package.SaveGwtBudgetCsv then
     begin
       WriteString('    BUDGETCSV FILEOUT ');
-      budgetCsvFile := BaseFileName + '.sft_budget.csv';
+      if ASpecies.UsedForGWE then
+      begin
+        budgetCsvFile := BaseFileName + '.sfe_budget.csv';
+      end
+      else
+      begin
+        budgetCsvFile := BaseFileName + '.sft_budget.csv';
+      end;
       Model.AddModelOutputFile(budgetCsvFile);
       budgetCsvFile := ExtractFileName(budgetCsvFile);
       WriteString(budgetCsvFile);
@@ -2645,7 +2743,14 @@ begin
     if FGwtObservations[FSpeciesIndex].Count > 0 then
     begin
       WriteString('    OBS6 FILEIN ');
-      NameOfFile := BaseFileName + GwtObservationExtension;
+      if ASpecies.UsedForGWE then
+      begin
+        NameOfFile := BaseFileName + GweObservationExtension;
+      end
+      else
+      begin
+        NameOfFile := BaseFileName + GwtObservationExtension;
+      end;
       Model.AddModelInputFile(NameOfFile);
       NameOfFile := ExtractFileName(NameOfFile);
       WriteString(NameOfFile);
@@ -2665,10 +2770,13 @@ var
   ReachProp: TSfrMF6ConstantRecord;
   ACellList: TValueCellList;
   boundname: string;
+  UsedForGWE: Boolean;
 begin
   WriteBeginPackageData;
   WriteString('# <rno> <strt> <boundname>');
   NewLine;
+
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
 
   ReachNumber := 0;
   for SegmentIndex := 0 to FSegments.Count - 1 do
@@ -2692,6 +2800,19 @@ begin
         ReachProp.StartingConcentrations.ValuePestNames[FSpeciesIndex],
         ReachProp.StartingConcentrations.Values[FSpeciesIndex],
         ReachProp.Cell.Layer, ReachProp.Cell.Row, ReachProp.Cell.Column);
+
+      if UsedForGWE then
+      begin
+        WriteFormulaOrValueBasedOnAPestName(
+          ReachProp.PestThermalConductivity,
+          ReachProp.ThermalConductivity,
+          ReachProp.Cell.Layer, ReachProp.Cell.Row, ReachProp.Cell.Column);
+
+        WriteFormulaOrValueBasedOnAPestName(
+          ReachProp.PestThermalThickness,
+          ReachProp.ThermalThickness,
+          ReachProp.Cell.Layer, ReachProp.Cell.Row, ReachProp.Cell.Column);
+      end;
 
       boundname := ' ' + Copy(ReachProp.BoundName, 1, MaxBoundNameLength);
       WriteString(boundname);
@@ -2719,7 +2840,9 @@ var
   GwtStatus: TGwtBoundaryStatus;
   DiversionCount: Integer;
   FormulaIndex: Integer;
+  UsedForGWE: Boolean;
 begin
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
   for StressPeriodIndex := 0 to Model.ModflowFullStressPeriods.Count -1 do
   begin
     frmProgressMM.AddMessage(Format(
@@ -2800,7 +2923,14 @@ begin
         if GwtStatus = gbsConstant then
         begin
           WriteInteger(ReachNumber);
-          WriteString(' CONCENTRATION');
+          if UsedForGWE then
+          begin
+            WriteString(' TEMPERATURE');
+          end
+          else
+          begin
+            WriteString(' CONCENTRATION');
+          end;
 
           FormulaIndex := SfrMf6DiversionStartPosition + 1 + DiversionCount
             + SfrGwtConcCount*FSpeciesIndex + SfrGwtSpecifiedConcentrationPosition;
@@ -3067,19 +3197,6 @@ begin
           NewLine;
         end;
 
-//        if Model.GwtUsed then
-//        begin
-//          for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
-//          begin
-//            WriteInteger(ReachNumber);
-//            WriteString(' AUXILIARY ');
-//            ASpecies := Model.MobileComponents[SpeciesIndex];
-//            WriteString(' ' + ASpecies.Name);
-//            WriteFloat(0);
-//            NewLine;
-//          end;
-//        end;
-
         if ACell.Values.Status <> ssInactive then
         begin
           if CellIndex = ACellList.Count - 1 then
@@ -3121,19 +3238,6 @@ begin
           MvrSource.SourceKey.ScreenObject := ASegment.FScreenObject as TScreenObject;
           TModflowMvrWriter(MvrWriter).AddMvrSource(MvrSource);
         end;
-
-//        if Model.GwtUsed then
-//        begin
-//          for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
-//          begin
-//            WriteInteger(ReachNumber);
-//            WriteString(' AUXILIARY ');
-//            ASpecies := Model.MobileComponents[SpeciesIndex];
-//            WriteString(' ' + ASpecies.Name);
-//            WriteFloat(0);
-//            NewLine;
-//          end;
-//        end;
       end;
 
       if (MoverWriter <> nil) and not WritingTemplate then

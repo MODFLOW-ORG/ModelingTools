@@ -209,4 +209,10 @@ inherited frameSfrGwtConcentrations: TframeSfrGwtConcentrations
       64
       64)
   end
+  inherited pnl1: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+    inherited lblInitialConcentration: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+  end
 end

@@ -247,6 +247,8 @@ type
     property NpfUsed: TObjectUsedEvent read GetNpfUsed;
     function GetSfrMf6Selected: TObjectUsedEvent;
     property SfrMf6Selected: TObjectUsedEvent read GetSfrMf6Selected;
+    function GetSfrMf6GweSelected: TObjectUsedEvent;
+    property SfrMf6GweSelected: TObjectUsedEvent read GetSfrMf6GweSelected;
     function GetMawSelected: TObjectUsedEvent;
     property MawSelected: TObjectUsedEvent read GetMawSelected;
     function GetLakMf6Selected: TObjectUsedEvent;
@@ -1196,7 +1198,7 @@ procedure TDataArrayManager.DefinePackageDataArrays;
     ARecord.Min := 0;
   end;
 const
-  ArrayCount = 209;
+  ArrayCount = 211;
 var
   Index: integer;
 begin
@@ -3373,6 +3375,36 @@ begin
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
     StrSFRMODFLOW6InitialStages;
+  FDataArrayCreationRecords[Index].Visible := True;
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TModflowBoundaryDisplayDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtDouble;
+  FDataArrayCreationRecords[Index].Name := KThermalConductivitySFR6;
+  FDataArrayCreationRecords[Index].DisplayName := StrThermalConductivitySFR6;
+  FDataArrayCreationRecords[Index].Formula := '0';
+  FDataArrayCreationRecords[Index].Classification := StrSFRMODFLOW6;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.SfrMf6GweSelected;
+  FDataArrayCreationRecords[Index].Lock := StandardLock + [dcFormula];
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    StrSFRMODFLOW6ThermalConductivity;
+  FDataArrayCreationRecords[Index].Visible := True;
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TModflowBoundaryDisplayDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtDouble;
+  FDataArrayCreationRecords[Index].Name := KThermalThicknessSFR6;
+  FDataArrayCreationRecords[Index].DisplayName := StrThermalThicknessSFR6;
+  FDataArrayCreationRecords[Index].Formula := '0';
+  FDataArrayCreationRecords[Index].Classification := StrSFRMODFLOW6;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.SfrMf6GweSelected;
+  FDataArrayCreationRecords[Index].Lock := StandardLock + [dcFormula];
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    StrSFRMODFLOW6ThermalThickness;
   FDataArrayCreationRecords[Index].Visible := True;
   Inc(Index);
 
