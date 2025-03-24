@@ -627,7 +627,7 @@ begin
     chklstSFR.State[SfrIndex] := cbUnchecked;
   end;
 
-  chklstSFT.Enabled := frmGoPhast.PhastModel.GwtUsed;
+  chklstSFT.Enabled := frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed;
   for SftIndex := 0 to chklstSFT.Items.Count - 1 do
   begin
     chklstSFT.State[SftIndex] := cbUnchecked;

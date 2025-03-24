@@ -59,6 +59,22 @@ type
     { Public declarations }
   end;
 
+resourcestring
+  StrSpecifiedConcentrat = 'Specified Concentration';
+  StrRainfallConcentrati = 'Rainfall Concentration';
+  StrEvaporationConcentr = 'Evaporation Concentration';
+  StrRunoffConcentration = 'Runoff Concentration';
+  StrInflowConcentration = 'Inflow Concentration';
+
+  StrSpecifiedTemperature = 'Specified Temperature';
+  StrRainfallTemperature = 'Rainfall Temperature';
+  StrEvaporationTemperature = 'Evaporation Temperature';
+  StrRunoffTemperature = 'Runoff Temperature';
+  StrInflowTemperature = 'Inflow Temperature';
+
+  StrInitialTemperature = 'Initial temperature';
+  StrInitialConcentratio = 'Initial concentration';
+
 implementation
 
 uses

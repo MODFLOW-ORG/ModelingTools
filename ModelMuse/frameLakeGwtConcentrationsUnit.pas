@@ -17,6 +17,7 @@ type
       var CanSelect: Boolean);
   private
     FScreenObject: TScreenObject;
+    FSpeciesIndex: Integer;
     { Private declarations }
   protected
     procedure InitializeControls;
@@ -38,16 +39,7 @@ var
 implementation
 
 uses
-  ModflowLakMf6Unit, GoPhastTypes, GwtStatusUnit;
-
-resourcestring
-  StrSpecifiedConcentrat = 'Specified Concentration';
-  StrRainfallConcentrati = 'Rainfall Concentration';
-  StrEvaporationConcentr = 'Evaporation Concentration';
-  StrRunoffConcentration = 'Runoff Concentration';
-  StrInflowConcentration = 'Inflow Concentration';
-
-
+  ModflowLakMf6Unit, GoPhastTypes, GwtStatusUnit, frmGoPhastUnit;
 
 {$R *.dfm}
 
@@ -67,6 +59,7 @@ var
   TimeIndex: Integer;
   ALakeItem: TLakeTimeItem;
 begin
+  FSpeciesIndex := SpeciesIndex;
   InitializeControls;
   FDataAssigned := False;
   FoundFirst := False;
@@ -228,11 +221,26 @@ begin
   rdgConcentrations.BeginUpdate;
   try
     inherited;
-    rdgConcentrations.Cells[Ord(lccSpecifiedConcentration), 0] := StrSpecifiedConcentrat;
-    rdgConcentrations.Cells[Ord(lccRainfall), 0] := StrRainfallConcentrati;
-    rdgConcentrations.Cells[Ord(lccEvaporation), 0] := StrEvaporationConcentr;
-    rdgConcentrations.Cells[Ord(lccRunoff), 0] := StrRunoffConcentration;
-    rdgConcentrations.Cells[Ord(lccInflow), 0] := StrInflowConcentration;
+    if frmGoPhast.PhastModel.MobileComponents[FSpeciesIndex].UsedForGWE then
+    begin
+      rdgConcentrations.Cells[Ord(lccSpecifiedConcentration), 0] := StrSpecifiedTemperature;
+      rdgConcentrations.Cells[Ord(lccRainfall), 0] := StrRainfallTemperature;
+      rdgConcentrations.Cells[Ord(lccEvaporation), 0] := StrEvaporationTemperature;
+      rdgConcentrations.Cells[Ord(lccRunoff), 0] := StrRunoffTemperature;
+      rdgConcentrations.Cells[Ord(lccInflow), 0] := StrInflowTemperature;
+
+      lblInitialConcentration.Caption := StrInitialTemperature;
+    end
+    else
+    begin
+      rdgConcentrations.Cells[Ord(lccSpecifiedConcentration), 0] := StrSpecifiedConcentrat;
+      rdgConcentrations.Cells[Ord(lccRainfall), 0] := StrRainfallConcentrati;
+      rdgConcentrations.Cells[Ord(lccEvaporation), 0] := StrEvaporationConcentr;
+      rdgConcentrations.Cells[Ord(lccRunoff), 0] := StrRunoffConcentration;
+      rdgConcentrations.Cells[Ord(lccInflow), 0] := StrInflowConcentration;
+
+      lblInitialConcentration.Caption := StrInitialConcentratio;
+    end;
   finally
     rdgConcentrations.EndUpdate;
   end;

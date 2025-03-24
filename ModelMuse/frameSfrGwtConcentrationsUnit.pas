@@ -40,20 +40,6 @@ uses
 
 {$R *.dfm}
 
-resourcestring
-  StrSpecifiedConcentrat = 'Specified Concentration';
-  StrRainfallConcentrati = 'Rainfall Concentration';
-  StrEvaporationConcentr = 'Evaporation Concentration';
-  StrRunoffConcentration = 'Runoff Concentration';
-  StrInflowConcentration = 'Inflow Concentration';
-
-  StrSpecifiedTemperature = 'Specified Temperature';
-  StrRainfallTemperature = 'Rainfall Temperature';
-  StrEvaporationTemperature = 'Evaporation Temperature';
-  StrRunoffTemperature = 'Runoff Temperature';
-  StrInflowTemperature = 'Inflow Temperature';
-
-
 { TframeSfrGwtConcentrations }
 
 procedure TframeSfrGwtConcentrations.GetData(
@@ -229,6 +215,8 @@ begin
       rdgConcentrations.Cells[Ord(sccEvaporation), 0] := StrEvaporationTemperature;
       rdgConcentrations.Cells[Ord(sccRunoff), 0] := StrRunoffTemperature;
       rdgConcentrations.Cells[Ord(sccInflow), 0] := StrInflowTemperature;
+
+      lblInitialConcentration.Caption := StrInitialTemperature;
     end
     else
     begin
@@ -237,6 +225,8 @@ begin
       rdgConcentrations.Cells[Ord(sccEvaporation), 0] := StrEvaporationConcentr;
       rdgConcentrations.Cells[Ord(sccRunoff), 0] := StrRunoffConcentration;
       rdgConcentrations.Cells[Ord(sccInflow), 0] := StrInflowConcentration;
+
+      lblInitialConcentration.Caption := StrInitialConcentratio;
     end;
   finally
     rdgConcentrations.EndUpdate;

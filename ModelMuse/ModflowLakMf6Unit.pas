@@ -342,6 +342,10 @@ type
     BedThicknessPosition = 10;
     ConnectionLengthPosition = 11;
     StartingStagePosition = 12;
+    ThermalConductivityPosition = 13;
+    ThermalThicknessPosition = 14;
+    function GetThermalConductivityObserver: TObserver;
+    function GetThermalThicknessObserver: TObserver;
   var
     FPestRainfallMethod: TPestParamMethod;
     FPestRunoffMethod: TPestParamMethod;
@@ -426,6 +430,10 @@ type
     procedure InvalidatePestRainfallConcData(Sender: TObject);
     procedure InvalidatePestInflowConcData(Sender: TObject);
     procedure InvalidatePestRunoffConcData(Sender: TObject);
+    function GetThermalConductivity: string;
+    function GetThermalThickness: string;
+    procedure SetThermalConductivity(const Value: string);
+    procedure SetThermalThickness(const Value: string);
   var
     FOutlets: TLakeOutlets;
     FLakeTable: TLakeTableMf6;
@@ -437,6 +445,8 @@ type
     FBedThickness: IFormulaObject;
     FConnectionLength: IFormulaObject;
     FStartingStage: IFormulaObject;
+    FThermalConductivity: IFormulaObject;
+    FThermalThickness: IFormulaObject;
     FBottomElevationObserver: TObserver;
     FTopElevationObserver: TObserver;
     FBedKObserver: TObserver;
@@ -444,6 +454,8 @@ type
     FConnectionLengthObserver: TObserver;
     FConnectionWidthObserver: TObserver;
     FStartingStageObserver: TObserver;
+    FThermalConductivityObserver: TObserver;
+    FThermalThicknessObserver: TObserver;
     FPestStageFormula: IFormulaObject;
     FPestEvaporationFormula: IFormulaObject;
     FPestInflowFormula: IFormulaObject;
@@ -499,6 +511,8 @@ type
     property ConnectionLengthObserver: TObserver read GetConnectionLengthObserver;
     property ConnectionWidthObserver: TObserver read GetConnectionWidthObserver;
     property StartingStageObserver: TObserver read GetStartingStageObserver;
+    property ThermalConductivityObserver: TObserver read GetThermalConductivityObserver;
+    property ThermalThicknessObserver: TObserver read GetThermalThicknessObserver;
     procedure CreateObservers;
     procedure GetPropertyObserver(Sender: TObject; List: TList); override;
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
@@ -560,6 +574,9 @@ type
       write SetConnectionLength;
     // strt
     property StartingStage: string read GetStartingStage write SetStartingStage;
+    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity;
+    property ThermalThickness: string read GetThermalThickness write SetThermalThickness;
+
     property PestStageFormula: string read GetPestStageFormula
       write SetPestStageFormula;
     property PestStageMethod: TPestParamMethod read FPestStageMethod
@@ -648,13 +665,13 @@ const
     'Conductance');
   LktObName: array[TLktOb] of string =
     (
-      'Concentration',
+      'Concentration/Temperature',
 //      'flow-ja-face',
       'Storage',
       'Constant',
       'From-MVR',
       'To-MVR',
-      'LKT',
+      'LKT/LKE',
       'Rainfall',
       'Evaporation',
       'Runoff',
@@ -969,7 +986,7 @@ begin
     else
       begin
         // GWT
-        if frmGoPhast.PhastModel.GwtUsed then
+        if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
         begin
           Index := Index-Lak6GwtPestStartPosition;
           ChemSpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
@@ -2021,6 +2038,8 @@ begin
     BedThickness := LakeSource.BedThickness;
     ConnectionLength := LakeSource.ConnectionLength;
     StartingStage := LakeSource.StartingStage;
+    ThermalConductivity := LakeSource.ThermalConductivity;
+    ThermalThickness := LakeSource.ThermalThickness;
     StartingConcentrations := LakeSource.StartingConcentrations;
 
     PestSpecifiedConcentrations := LakeSource.PestSpecifiedConcentrations;
@@ -2107,6 +2126,8 @@ begin
   ConnectionLength := '0';
 //  ConnectionWidth := '0';
   StartingStage := '0';
+  ThermalConductivity := '0';
+  ThermalThickness := '1';
 
   PestStageFormula := '';
   PestRainfallFormula := '';
@@ -2143,6 +2164,8 @@ begin
   FBedThickness := CreateFormulaObjectBlocks(dso3D);
   FConnectionLength := CreateFormulaObjectBlocks(dso3D);
   FStartingStage := CreateFormulaObjectBlocks(dso3D);
+  FThermalConductivity := CreateFormulaObjectBlocks(dso3D);
+  FThermalThickness := CreateFormulaObjectBlocks(dso3D);
 
   LocalModel := ParentModel as TCustomModel;
   if (LocalModel <> nil) and LocalModel.GwtUsed then
@@ -2191,6 +2214,8 @@ begin
     FObserverList.Add(ConnectionLengthObserver);
     FObserverList.Add(ConnectionWidthObserver);
     FObserverList.Add(StartingStageObserver);
+    FObserverList.Add(ThermalConductivityObserver);
+    FObserverList.Add(ThermalThicknessObserver);
 
     for Index := 0 to FPestSpecifiedConcentrations.Count - 1 do
     begin
@@ -2266,8 +2291,9 @@ begin
   BedK := '0';
   BedThickness := '0';
   ConnectionLength := '0';
-//  ConnectionWidth := '0';
   StartingStage := '0';
+  ThermalConductivity := '0';
+  ThermalThickness := '1';
 
   PestStageFormula := '';
   PestRainfallFormula := '';
@@ -2276,7 +2302,6 @@ begin
   PestInflowFormula := '';
   PestWithdrawalFormula := '';
 
-//  FStartingConcentrationPestNames.Free;
   FStartingConcentrations.Free;
   FLakeTable.Free;
   FOutlets.Free;
@@ -2916,6 +2941,14 @@ begin
   else if Sender = FStartingStage as TObject then
   begin
     List.Add(FObserverList[StartingStagePosition]);
+  end
+  else if Sender = FThermalConductivity as TObject then
+  begin
+    List.Add(FObserverList[ThermalConductivityPosition]);
+  end
+  else if Sender = FThermalThickness as TObject then
+  begin
+    List.Add(FObserverList[ThermalThicknessPosition]);
   end;
 
   StartIndex := Lak6GwtPestStartPosition;
@@ -2962,7 +2995,6 @@ begin
       List.Add(FObserverList[StartIndex + Index]);
     end;
   end;
-
 end;
 
 function TLakeMf6.GetStartingConcentrations: TStringConcCollection;
@@ -3007,6 +3039,60 @@ begin
     CreateObserver('Lake_StartingStage', FStartingStageObserver, DataArray);
   end;
   result := FStartingStageObserver;
+end;
+
+function TLakeMf6.GetThermalConductivity: string;
+begin
+  Result := FThermalConductivity.Formula;
+  if ScreenObject <> nil then
+  begin
+    ResetBoundaryObserver(ThermalConductivityPosition);
+  end;
+end;
+
+function TLakeMf6.GetThermalConductivityObserver: TObserver;
+var
+//  Model: TPhastModel;
+  DataArray: TDataArray;
+begin
+  if FThermalConductivityObserver = nil then
+  begin
+    DataArray := nil;
+    if ParentModel <> nil then
+    begin
+//      Model := ParentModel as TPhastModel;
+//      DataArray := Model.DataArrayManager.GetDataSetByName(KCfpFixedHeads);
+    end;
+    CreateObserver('Lake_ThermalConductivity', FThermalConductivityObserver, DataArray);
+  end;
+  result := FThermalConductivityObserver;
+end;
+
+function TLakeMf6.GetThermalThickness: string;
+begin
+  Result := FThermalThickness.Formula;
+  if ScreenObject <> nil then
+  begin
+    ResetBoundaryObserver(ThermalThicknessPosition);
+  end;
+end;
+
+function TLakeMf6.GetThermalThicknessObserver: TObserver;
+var
+//  Model: TPhastModel;
+  DataArray: TDataArray;
+begin
+  if FThermalThicknessObserver = nil then
+  begin
+    DataArray := nil;
+    if ParentModel <> nil then
+    begin
+//      Model := ParentModel as TPhastModel;
+//      DataArray := Model.DataArrayManager.GetDataSetByName(KCfpFixedHeads);
+    end;
+    CreateObserver('Lake_ThermalThickness', FThermalThicknessObserver, DataArray);
+  end;
+  result := FThermalThicknessObserver;
 end;
 
 function TLakeMf6.GetTopElevation: string;
@@ -3486,6 +3572,16 @@ end;
 procedure TLakeMf6.SetStartingStage(const Value: string);
 begin
   UpdateFormulaBlocks(Value, StartingStagePosition, FStartingStage);
+end;
+
+procedure TLakeMf6.SetThermalConductivity(const Value: string);
+begin
+  UpdateFormulaBlocks(Value, ThermalConductivityPosition, FThermalConductivity);
+end;
+
+procedure TLakeMf6.SetThermalThickness(const Value: string);
+begin
+  UpdateFormulaBlocks(Value, ThermalThicknessPosition, FThermalThickness);
 end;
 
 procedure TLakeMf6.SetTopElevation(const Value: string);

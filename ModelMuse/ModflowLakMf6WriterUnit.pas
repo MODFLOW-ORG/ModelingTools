@@ -195,9 +195,14 @@ type
     FLakeTable: TLakeTable;
     FLakeOutlets: TLakeOutlets;
     FLakeSettings: TLakeSettings;
-    FStartingStage: double;
     FStartingTimeIndex: Integer;
+    FStartingStage: double;
     FStartingStagePestName: string;
+
+    FThermalConductivity: double;
+    FThermalConductivityPestName: string;
+    FThermalThickness: double;
+    FThermalThicknessPestName: string;
     // GWT
     FStartingConcentrations: TGwtCellData;
 
@@ -242,6 +247,7 @@ type
     function IsMf6GwtObservation(AScreenObject: TScreenObject; SpeciesIndex: Integer): Boolean;
     class function ObservationExtension: string; //override;
     class function GwtObservationExtension: string; //override;
+    class function GweObservationExtension: string; //override;
     procedure WriteLakeValueOrFormula(LakeSetting: TLakeSetting; Index: integer);
     procedure WriteFileInternal;
     // LKT
@@ -361,6 +367,8 @@ resourcestring
   'o outlet properties are defined for outlet %1:d.';
   StrLakeChemSpeciesD = 'Lake Chem Species %d';
   StrLakeViscosityAt0 = 'Lake Viscosity at %0:g';
+  StrLakeThermalConduct = 'Lake Thermal Conductivity';
+  StrThermalLakebedThic = 'Thermal Lakebed Thickness';
 
 { TModflowLAKMf6Writer }
 
@@ -377,7 +385,7 @@ begin
   DirectObsLines := Model.DirectObservationLines;
   CalculatedObsLines := Model.DerivedObservationLines;
   FileNameLines := Model.FileNameLines;
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for index := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -421,6 +429,11 @@ begin
   result := '.lak6';
 end;
 
+class function TModflowLAKMf6Writer.GweObservationExtension: string;
+begin
+  result := '.ob_lke';
+end;
+
 class function TModflowLAKMf6Writer.GwtObservationExtension: string;
 begin
   result := '.ob_lkt';
@@ -437,7 +450,7 @@ var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
 begin
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -781,6 +794,7 @@ var
   SpeciesName: string;
   Abbreviation: string;
   ObsWriter: TLktObsWriter;
+  ASpecies: TMobileChemSpeciesItem;
 begin
   if not Package.IsSelected then
   begin
@@ -788,7 +802,14 @@ begin
   end;
   if Model.ModelSelection = msModflow2015 then
   begin
-    Abbreviation := 'LKT6';
+    if Model.MobileComponents[SpeciesIndex].UsedForGWE then
+    begin
+      Abbreviation := 'LKT6';
+    end
+    else
+    begin
+      Abbreviation := 'LKE6';
+    end;
   end
   else
   begin
@@ -798,13 +819,22 @@ begin
   begin
     Exit;
   end;
-  if not Model.MobileComponents[SpeciesIndex].UsedForGWT then
+  if not (Model.MobileComponents[SpeciesIndex].UsedForGWT
+    or Model.MobileComponents[SpeciesIndex].UsedForGWE) then
   begin
     Exit;
   end;
   FSpeciesIndex :=  SpeciesIndex;
-  SpeciesName := Model.MobileComponents[FSpeciesIndex].Name;
-  FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.lkt';
+  ASpecies := Model.MobileComponents[FSpeciesIndex];
+  SpeciesName := ASpecies.Name;
+  if ASpecies.UsedForGWE then
+  begin
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.lke';
+  end
+  else
+  begin
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.lkt';
+  end;
   FInputFileName := FNameOfFile;
 
   WriteToGwtNameFile(Abbreviation, FNameOfFile, SpeciesIndex);
@@ -821,7 +851,14 @@ begin
       ObsWriter := TLKtObsWriter.Create(Model, etExport,
         FGwtObservations[SpeciesIndex], SpeciesIndex);
       try
-        ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GwtObservationExtension));
+        if ASpecies.UsedForGWT then
+        begin
+          ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GwtObservationExtension));
+        end;
+        if ASpecies.UsedForGWE then
+        begin
+          ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GweObservationExtension));
+        end;
       finally
         ObsWriter.Free;
       end;
@@ -1691,7 +1728,7 @@ begin
       LakeSetting.StartTime := LakeItem.StartTime;
       LakeSetting.EndTime := LakeItem.EndTime;
       LakeSetting.Status := LakeItem.Status;
-      if Model.GwtUsed then
+      if Model.GwtUsed or Model.GweUsed then
       begin
         SetLength(LakeSetting.GwtStatus, SpeciesCount);
         while LakeItem.GwtStatus.Count < SpeciesCount do
@@ -1727,7 +1764,7 @@ begin
         AssignValue(LakeViscosityPosition, StrLakeViscosityAt0);
       end;
 
-      if Model.GwtUsed then
+      if Model.GwtUsed or Model.GweUsed then
       begin
         LakeSetting.SpecifiedConcentrations.SpeciesCount := SpeciesCount;
         LakeSetting.RainfallConcentrations.SpeciesCount := SpeciesCount;
@@ -2012,8 +2049,16 @@ begin
 
     if FLakMf6Package.SaveGwtConcentration then
     begin
-      WriteString('    CONCENTRATION FILEOUT ');
-      concentrationfile := BaseFileName + '.lkt_conc';
+      if ASpecies.UsedForGWE then
+      begin
+        WriteString('    TEMPERATURE FILEOUT ');
+        concentrationfile := BaseFileName + '.lke_temp';
+      end
+      else
+      begin
+        WriteString('    CONCENTRATION FILEOUT ');
+        concentrationfile := BaseFileName + '.lkt_conc';
+      end;
       Model.AddModelOutputFile(concentrationfile);
       concentrationfile := ExtractFileName(concentrationfile);
       WriteString(concentrationfile);
@@ -2023,27 +2068,48 @@ begin
     if FLakMf6Package.SaveGwtBudget then
     begin
       WriteString('    BUDGET FILEOUT ');
-      budgetfile := BaseFileName + '.lkt_budget';
+      if ASpecies.UsedForGWE then
+      begin
+        budgetfile := BaseFileName + '.lke_budget';
+      end
+      else
+      begin
+        budgetfile := BaseFileName + '.lkt_budget';
+      end;
       Model.AddModelOutputFile(budgetfile);
       budgetfile := ExtractFileName(budgetfile);
       WriteString(budgetfile);
       NewLine;
     end;
 
-    if FLakMf6Package.SaveBudgetCsv then
-    begin
-      BudgetFileName := ChangeFileExt(FFileName, '.lkt_budget.csv');
-      Model.AddModelOutputFile(BudgetFileName);
-      BudgetFileName := ExtractFileName(BudgetFileName);
-      WriteString('  BUDGETCSV FILEOUT ');
-      WriteString(BudgetFileName);
-      NewLine;
-    end;
+//    if FLakMf6Package.SaveBudgetCsv then
+//    begin
+//      WriteString('  BUDGETCSV FILEOUT ');
+//      if ASpecies.UsedForGWE then
+//      begin
+//        BudgetFileName := ChangeFileExt(FFileName, '.lke_budget.csv');
+//      end
+//      else
+//      begin
+//        BudgetFileName := ChangeFileExt(FFileName, '.lkt_budget.csv');
+//      end;
+//      Model.AddModelOutputFile(BudgetFileName);
+//      BudgetFileName := ExtractFileName(BudgetFileName);
+//      WriteString(BudgetFileName);
+//      NewLine;
+//    end;
 
     if FLakMf6Package.SaveGwtBudgetCsv then
     begin
       WriteString('    BUDGETCSV FILEOUT ');
-      budgetCsvFile := BaseFileName + '.lkt_budget.csv';
+      if ASpecies.UsedForGWE then
+      begin
+        budgetCsvFile := BaseFileName + '.lke_budget.csv';
+      end
+      else
+      begin
+        budgetCsvFile := BaseFileName + '.lkt_budget.csv';
+      end;
       Model.AddModelOutputFile(budgetCsvFile);
       budgetCsvFile := ExtractFileName(budgetCsvFile);
       WriteString(budgetCsvFile);
@@ -2053,7 +2119,14 @@ begin
     if FGwtObservations[FSpeciesIndex].Count > 0 then
     begin
       WriteString('    OBS6 FILEIN ');
-      NameOfLktObFile := BaseFileName + GwtObservationExtension;
+      if ASpecies.UsedForGWE then
+      begin
+        NameOfLktObFile := BaseFileName + GweObservationExtension;
+      end
+      else
+      begin
+        NameOfLktObFile := BaseFileName + GwtObservationExtension;
+      end;
       Model.AddModelInputFile(NameOfLktObFile);
       NameOfLktObFile := ExtractFileName(NameOfLktObFile);
       WriteString(NameOfLktObFile);
@@ -2072,10 +2145,18 @@ var
   LakeIndex: Integer;
   ALake: TLake;
   BoundName: string;
-//  SpeciesIndex: Integer;
+  UsedForGWE: Boolean;
 begin
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
   WriteBeginPackageData;
-  WriteString('# <lakeno> <strt> <boundname>');
+  if UsedForGWE then
+  begin
+    WriteString('# <lakeno> <strt> <ktf> <rbthcnd> <boundname>');
+  end
+  else
+  begin
+    WriteString('# <lakeno> <strt> <boundname>');
+  end;
   NewLine;
   for LakeIndex := 0 to FLakes.Count - 1 do
   begin
@@ -2085,16 +2166,15 @@ begin
 
     WriteFormulaOrValueBasedOnAPestName(ALake.FStartingConcentrations.ValuePestNames[FSpeciesIndex],
       ALake.FStartingConcentrations.Values[FSpeciesIndex], -1, -1, -1);
-//    WriteFloat(ALake.FStartingStage);
 
-    // aux
-//    if Model.GwtUsed then
-//    begin
-//      for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
-//      begin
-//        WriteFloat(0);
-//      end;
-//    end;
+    if UsedForGWE then
+    begin
+      WriteFormulaOrValueBasedOnAPestName(ALake.FThermalConductivityPestName,
+        ALake.FThermalConductivity, -1, -1, -1);
+
+      WriteFormulaOrValueBasedOnAPestName(ALake.FThermalThicknessPestName,
+        ALake.FThermalThickness, -1, -1, -1);
+    end;
 
     BoundName := Copy(ALake.FScreenObject.Name, 1, MaxBoundNameLength);
     BoundName := ' ''' + BoundName + ''' ';
@@ -2122,7 +2202,9 @@ var
   UsedOutlets: TGenericIntegerList;
   GwtStatus: TGwtBoundaryStatus;
   SpeciesCount: Integer;
+  UsedForGWE: Boolean;
 begin
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
   SpeciesCount := Model.MobileComponents.Count;
 
   FirstTime := Model.ModflowFullStressPeriods.First.StartTime;
@@ -2248,7 +2330,14 @@ begin
             if GwtStatus = gbsConstant then
             begin
               WriteInteger(LakeIndex+1);
-              WriteString(' CONCENTRATION');
+              if UsedForGWE then
+              begin
+                WriteString(' TEMPERATURE');
+              end
+              else
+              begin
+                WriteString(' CONCENTRATION');
+              end;
 
               WriteLakeValueOrFormula(ALakeSetting,
                 Lak6GwtPestStartPosition + FSpeciesIndex);
@@ -2357,7 +2446,14 @@ begin
           StrLakeStartingStage, ALake.FScreenObject.Name, PestParameterName);
         ALake.FStartingStagePestName := PestParameterName;
 
-        if Model.GwtUsed then
+        ALake.FThermalConductivity := EvaluateFormula(LakeBoundary.ThermalConductivity,
+          StrLakeThermalConduct, ALake.FScreenObject.Name, PestParameterName);
+        ALake.FThermalConductivityPestName := PestParameterName;
+        ALake.FThermalThickness := EvaluateFormula(LakeBoundary.ThermalThickness,
+          StrThermalLakebedThic, ALake.FScreenObject.Name, PestParameterName);
+        ALake.FThermalThicknessPestName := PestParameterName;
+
+        if Model.GwtUsed or Model.GweUsed then
         begin
           ALake.FStartingConcentrations.SpeciesCount :=
             Model.MobileComponents.Count;
@@ -2491,7 +2587,7 @@ begin
           end;
           FObservations.Add(Obs);
         end;
-        if Model.GwtUsed then
+        if Model.GwtUsed or Model.GweUsed then
         begin
           for SpeciesIndex := 0 to Model.MobileComponents.Count -1 do
           begin
@@ -2561,7 +2657,7 @@ var
 begin
   WriteBeginOptions;
 
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     WriteString('  AUXILIARY');
     WriteAdditionalAuxVariables;
@@ -2876,7 +2972,7 @@ begin
     WriteInteger(ALake.FLakeCellList.Count);
 
     // aux
-    if Model.GwtUsed then
+    if Model.GwtUsed or Model.GweUsed then
     begin
       for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
       begin
@@ -3126,22 +3222,6 @@ begin
               WriteLakeValueOrFormula(ALakeSetting, LakeViscosityPosition);
               NewLine;
             end;
-
-
-//            if Model.GwtUsed then
-//            begin
-//              for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
-//              begin
-//                WriteString('  ');
-//                WriteInteger(LakeIndex+1);
-//                WriteString('  AUXILIARY ');
-//                ASpecies := Model.MobileComponents[SpeciesIndex];
-//                WriteString(' ' + ASpecies.Name);
-//                WriteFloat(0);
-//                NewLine;
-//              end;
-//            end;
-
           end;
         end;
 
@@ -3330,7 +3410,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         Index := Index - Lak6GwtPestStartPosition;
@@ -3418,7 +3498,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         Index := Index - Lak6GwtPestStartPosition;
@@ -3506,7 +3586,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         Index := Index - Lak6GwtPestStartPosition;
@@ -3594,7 +3674,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         Index := Index - Lak6GwtPestStartPosition;
@@ -3682,7 +3762,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         Index := Index - Lak6GwtPestStartPosition;
@@ -3771,7 +3851,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         SpecifiedConcentrations.SpeciesCount := SpeciesCount;
@@ -3862,7 +3942,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         SpecifiedConcentrations.SpeciesCount := SpeciesCount;
@@ -3953,7 +4033,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         SpecifiedConcentrations.SpeciesCount := SpeciesCount;
@@ -4044,7 +4124,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         SpecifiedConcentrations.SpeciesCount := SpeciesCount;
@@ -4135,7 +4215,7 @@ begin
       end;
     else
     begin
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
         SpecifiedConcentrations.SpeciesCount := SpeciesCount;

@@ -18,7 +18,7 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
     Top = 71
     Width = 590
     Height = 448
-    ActivePage = tabSFR
+    ActivePage = tabCalibration
     Align = alClient
     TabOrder = 1
     object tabBasic: TTabSheet
@@ -301,9 +301,9 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
       object lblLKT: TLabel
         Left = 279
         Top = 3
-        Width = 19
+        Width = 43
         Height = 15
-        Caption = 'LKT'
+        Caption = 'LKT/LKE'
       end
       object chklstLAK: TCheckListBox
         Left = 3
@@ -336,17 +336,17 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
       end
       object chklstGwtOb: TCheckListBox
         Left = 279
-        Top = 32
+        Top = 24
         Width = 300
         Height = 337
         ItemHeight = 17
         Items.Strings = (
-          'Concentration'
+          'Concentration/Temperature'
           'Storage'
           'Constant'
           'From-MVR'
           'To-MVR'
-          'LKT'
+          'LKT/LKE'
           'Rainfall'
           'Evaporation'
           'Runoff'

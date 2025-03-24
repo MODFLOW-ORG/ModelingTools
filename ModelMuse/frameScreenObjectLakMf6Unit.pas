@@ -46,6 +46,10 @@ type
     tvGwt: TJvPageListTreeView;
     splSplit: TSplitter;
     jplGwt: TJvPageList;
+    lblThermalConductivity: TLabel;
+    edThermalConductivity: TJvComboEdit;
+    lblThermalThickness: TLabel;
+    edThermalThickness: TJvComboEdit;
     procedure seOutletCountEnter(Sender: TObject);
     procedure seOutletCountChange(Sender: TObject);
     procedure rdgModflowBoundarySetEditText(Sender: TObject; ACol,
@@ -446,6 +450,8 @@ begin
           edLakebedK.Text := ALake.BedK;
           edLakebedThickness.Text := ALake.BedThickness;
           edConnLength.Text := ALake.ConnectionLength;
+          edThermalConductivity.Text := ALake.ThermalConductivity;
+          edThermalThickness.Text := ALake.ThermalThickness;
 
           FirstLake := ALake;
           FoundFirst := True;
@@ -572,6 +578,14 @@ begin
           begin
             edConnLength.Text := '';
           end;
+          if edThermalConductivity.Text <> ALake.ThermalConductivity then
+          begin
+            edThermalConductivity.Text := '';
+          end;
+          if edThermalThickness.Text <> ALake.ThermalThickness then
+          begin
+            edThermalThickness.Text := '';
+          end;
 //          if edConnWidth.Text <> ALake.ConnectionWidth then
 //          begin
 //            edConnWidth.Text := '';
@@ -593,7 +607,8 @@ begin
       end;
     end;
 
-    tabGWT.TabVisible := frmGoPhast.PhastModel.GwtUsed;
+    tabGWT.TabVisible := frmGoPhast.PhastModel.GwtUsed
+      or frmGoPhast.PhastModel.GweUsed;
     if tabGWT.TabVisible then
     begin
       tvGwt.Items.Clear;
@@ -942,6 +957,14 @@ begin
         if edConnLength.Text <> '' then
         begin
           ALake.ConnectionLength := edConnLength.Text;
+        end;
+        if edThermalConductivity.Text <> '' then
+        begin
+          ALake.ThermalConductivity := edThermalConductivity.Text;
+        end;
+        if edThermalThickness.Text <> '' then
+        begin
+          ALake.ThermalThickness := edThermalThickness.Text;
         end;
 
         if (LakeTimes = nil) and (seNumberOfTimes.AsInteger > 0) then

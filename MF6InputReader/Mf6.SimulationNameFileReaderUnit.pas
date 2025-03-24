@@ -340,7 +340,14 @@ begin
       end;
 
       FTiming.ReadInput(FOutFile);
-      NPER := FTiming.FTDis.NPER;
+      if FTiming.FTDis <> nil then
+      begin
+        NPER := FTiming.FTDis.NPER;
+      end
+      else
+      begin
+        NPER := 1;
+      end;
       FModels.ReadInput(FOutFile, NPER);
       for GroupIndex := 0 to FSolutionGroups.Count - 1 do
       begin

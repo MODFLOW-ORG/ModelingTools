@@ -4792,6 +4792,10 @@ begin
   begin
     OnUpdateStatusBar(self, 'importing TDIS package');
   end;
+  if FSimulation.Timing.TDis = nil then
+  begin
+    Exit;
+  end;
   StressPeriods := FSimulation.Timing.TDis;
 
   PhastModel := frmGoPhast.PhastModel;

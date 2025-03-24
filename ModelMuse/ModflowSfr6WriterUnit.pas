@@ -2577,7 +2577,14 @@ begin
   end;
   if Model.ModelSelection = msModflow2015 then
   begin
-    Abbreviation := 'SFT6';
+    if Model.MobileComponents[SpeciesIndex].UsedForGWE then
+    begin
+      Abbreviation := 'SFE';
+    end
+    else
+    begin
+      Abbreviation := 'SFT6';
+    end;
   end
   else
   begin
@@ -2587,31 +2594,25 @@ begin
   begin
     Exit;
   end;
-  if not (Model.MobileComponents[SpeciesIndex].UsedForGWT or Model.MobileComponents[SpeciesIndex].UsedForGWE) then
+  if not (Model.MobileComponents[SpeciesIndex].UsedForGWT
+    or Model.MobileComponents[SpeciesIndex].UsedForGWE) then
   begin
     Exit;
   end;
-  if Model.GwtUsed or Model.GweUsed then
+  FSpeciesIndex :=  SpeciesIndex;
+  ASpecies := Model.MobileComponents[FSpeciesIndex];
+  SpeciesName := ASpecies.Name;
+  if ASpecies.UsedForGWE then
   begin
-    FSpeciesIndex :=  SpeciesIndex;
-    ASpecies := Model.MobileComponents[FSpeciesIndex];
-    SpeciesName := ASpecies.Name;
-    if ASpecies.UsedForGWE then
-    begin
-      FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.sfe';
-    end
-    else
-    begin
-      FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.sft';
-    end;
-    FInputFileName := FNameOfFile;
-
-    WriteToGwtNameFile(Abbreviation, FNameOfFile, SpeciesIndex);
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.sfe';
   end
   else
   begin
-    ASpecies := nil;
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.sft';
   end;
+  FInputFileName := FNameOfFile;
+
+  WriteToGwtNameFile(Abbreviation, FNameOfFile, SpeciesIndex);
 
   FPestParamUsed := False;
   WritingTemplate := False;
@@ -2772,11 +2773,18 @@ var
   boundname: string;
   UsedForGWE: Boolean;
 begin
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
   WriteBeginPackageData;
-  WriteString('# <rno> <strt> <boundname>');
+  if UsedForGWE then
+  begin
+    WriteString('# <rno> <strt> <ktf> <rbthcnd> <boundname>');
+  end
+  else
+  begin
+    WriteString('# <rno> <strt> <boundname>');
+  end;
   NewLine;
 
-  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
 
   ReachNumber := 0;
   for SegmentIndex := 0 to FSegments.Count - 1 do

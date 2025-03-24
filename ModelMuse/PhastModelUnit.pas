@@ -44177,6 +44177,7 @@ begin
   FDerivedObservationLines := TStringList.Create;
   FFileNameLines := TStringList.Create;
   Sfr6Writer := TModflowSFR_MF6_Writer.Create(self, etExport);
+  LakeMf6Writer := TModflowLAKMf6Writer.Create(self, etExport);
   try
     LocalNameWriter := NameFileWriter as TNameFileWriter;
     UpdateCurrentModel(self);
@@ -45041,20 +45042,16 @@ begin
             frmProgressMM.StepIt;
           end;
 
-          LakeMf6Writer := TModflowLAKMf6Writer.Create(self, etExport);
-          try
-            LakeMf6Writer.MvrWriter := ModflowMvrWriter;
-            LakeMf6Writer.WriteFile(FileName);
-            if GwtUsed then
+          LakeMf6Writer.MvrWriter := ModflowMvrWriter;
+          LakeMf6Writer.WriteFile(FileName);
+          if GwtUsed then
+          begin
+            for SpeciesIndex := 0 to MobileComponents.Count - 1 do
             begin
-              for SpeciesIndex := 0 to MobileComponents.Count - 1 do
-              begin
-                LakeMf6Writer.WriteLktFile(FileName, SpeciesIndex);
-              end;
+              LakeMf6Writer.WriteLktFile(FileName, SpeciesIndex);
             end;
-          finally
-            LakeMf6Writer.Free;
           end;
+
           FDataArrayManager.CacheDataArrays;
           Application.ProcessMessages;
           if not frmProgressMM.ShouldContinue then
@@ -45667,6 +45664,8 @@ begin
 
           Sfr6Writer.WriteSftFile(FileName, SpeciesIndex);
 
+          LakeMf6Writer.WriteLktFile(FileName, SpeciesIndex);
+
           ImsWriter := TImsWriter.Create(self, etExport, SpeciesIndex);
           try
             ImsWriter.WriteFile(FileName);
@@ -45712,6 +45711,7 @@ begin
     FreeAndNil(FDerivedObservationLines);
     FreeAndNil(FFileNameLines);
     Sfr6Writer.Free;
+    LakeMf6Writer.Free;
   end;
 end;
 

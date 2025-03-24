@@ -294,7 +294,7 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
     Top = 25
     Width = 541
     Height = 335
-    ActivePage = tabLakeTransientProperties
+    ActivePage = tabGWT
     Align = alClient
     TabOrder = 3
     object tabLakeProperties: TTabSheet
@@ -349,6 +349,20 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
         Height = 15
         Caption = 'Starting stage (strt)'
       end
+      object lblThermalConductivity: TLabel
+        Left = 5
+        Top = 269
+        Width = 137
+        Height = 15
+        Caption = 'Thermal conductivity (ktf)'
+      end
+      object lblThermalThickness: TLabel
+        Left = 5
+        Top = 298
+        Width = 149
+        Height = 15
+        Caption = 'Lakebed thickness (rbthcnd)'
+      end
       object cbEmbedded: TCheckBox
         Left = 187
         Top = 34
@@ -401,7 +415,7 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
       object edBottomElev: TJvComboEdit
         Left = 157
         Top = 127
-        Width = 208
+        Width = 302
         Height = 23
         ButtonWidth = 50
         DisabledColor = clBtnFace
@@ -430,7 +444,7 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
       object edTopElev: TJvComboEdit
         Left = 157
         Top = 154
-        Width = 208
+        Width = 302
         Height = 23
         ButtonWidth = 50
         DisabledColor = clBtnFace
@@ -459,7 +473,7 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
       object edLakebedK: TJvComboEdit
         Left = 157
         Top = 183
-        Width = 208
+        Width = 302
         Height = 23
         ButtonWidth = 50
         DisabledColor = clBtnFace
@@ -488,7 +502,7 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
       object edLakebedThickness: TJvComboEdit
         Left = 157
         Top = 210
-        Width = 208
+        Width = 302
         Height = 23
         ButtonWidth = 50
         DisabledColor = clBtnFace
@@ -517,7 +531,7 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
       object edConnLength: TJvComboEdit
         Left = 157
         Top = 237
-        Width = 208
+        Width = 302
         Height = 23
         ButtonWidth = 50
         DisabledColor = clBtnFace
@@ -545,8 +559,8 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
       end
       object edStartingStage: TJvComboEdit
         Left = 157
-        Top = 100
-        Width = 208
+        Top = 98
+        Width = 302
         Height = 23
         ButtonWidth = 50
         DisabledColor = clBtnFace
@@ -570,6 +584,64 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFF000}
         TabOrder = 8
+        Text = ''
+      end
+      object edThermalConductivity: TJvComboEdit
+        Left = 157
+        Top = 266
+        Width = 302
+        Height = 23
+        ButtonWidth = 50
+        DisabledColor = clBtnFace
+        Glyph.Data = {
+          26020000424D260200000000000076000000280000002D000000120000000100
+          040000000000B001000000000000000000001000000000000000000000000000
+          8000008000000080800080000000800080008080000080808000C0C0C0000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          F000FF000000000FFFF000F0FF0FFF000FF0FFF0FFF0FFFFF000FF0FFFFFFFFF
+          FF0FFF00FF0FFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFFF0FFFFF0FF0FFF0F
+          FFFFFFFFFFFFFFFFF000FF0FFFFFFFFFF0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFF
+          F000FF0FFFFFFFFFF0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFF
+          F0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFFF000FF00000000FFF0FFFFF0FF0FFF0F
+          FFFFFFFFFFFFFFFFF000FF0FFFFFFFFFFF0FFF00FF0FFF0FFFFFFFFFFFFFFFFF
+          F000FF0FFFFFFFFFFFF000F0FF0FF0000FFFFFFFFFFFFFFFF000FF0FFFFFFFFF
+          FFFFFFF0FFFFFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFFFFFFFFF0FFFFFF0F
+          FFFFFFFFFFFFFFFFF000FF000000000FFFFFFFF0FF0FFFFFFFFFFFFFFFFFFFFF
+          F000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFF000}
+        TabOrder = 9
+        Text = ''
+      end
+      object edThermalThickness: TJvComboEdit
+        Left = 157
+        Top = 295
+        Width = 302
+        Height = 23
+        ButtonWidth = 50
+        DisabledColor = clBtnFace
+        Glyph.Data = {
+          26020000424D260200000000000076000000280000002D000000120000000100
+          040000000000B001000000000000000000001000000000000000000000000000
+          8000008000000080800080000000800080008080000080808000C0C0C0000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          F000FF000000000FFFF000F0FF0FFF000FF0FFF0FFF0FFFFF000FF0FFFFFFFFF
+          FF0FFF00FF0FFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFFF0FFFFF0FF0FFF0F
+          FFFFFFFFFFFFFFFFF000FF0FFFFFFFFFF0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFF
+          F000FF0FFFFFFFFFF0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFF
+          F0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFFF000FF00000000FFF0FFFFF0FF0FFF0F
+          FFFFFFFFFFFFFFFFF000FF0FFFFFFFFFFF0FFF00FF0FFF0FFFFFFFFFFFFFFFFF
+          F000FF0FFFFFFFFFFFF000F0FF0FF0000FFFFFFFFFFFFFFFF000FF0FFFFFFFFF
+          FFFFFFF0FFFFFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFFFFFFFFF0FFFFFF0F
+          FFFFFFFFFFFFFFFFF000FF000000000FFFFFFFF0FF0FFFFFFFFFFFFFFFFFFFFF
+          F000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFF000}
+        TabOrder = 10
         Text = ''
       end
     end
@@ -740,7 +812,7 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
       end
     end
     object tabGWT: TTabSheet
-      Caption = 'GWT'
+      Caption = 'GWT/GWE'
       ImageIndex = 3
       object splSplit: TSplitter
         Left = 121
@@ -769,6 +841,8 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
         Height = 305
         PropagateEnable = False
         Align = alClient
+        ExplicitLeft = 127
+        ExplicitTop = -1
       end
     end
   end
