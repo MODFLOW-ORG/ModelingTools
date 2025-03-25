@@ -804,11 +804,11 @@ begin
   begin
     if Model.MobileComponents[SpeciesIndex].UsedForGWE then
     begin
-      Abbreviation := 'LKT6';
+      Abbreviation := 'LKE6';
     end
     else
     begin
-      Abbreviation := 'LKE6';
+      Abbreviation := 'LKT6';
     end;
   end
   else

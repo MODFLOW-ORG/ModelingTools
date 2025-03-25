@@ -44176,8 +44176,8 @@ begin
   FDirectObservationLines := TStringList.Create;
   FDerivedObservationLines := TStringList.Create;
   FFileNameLines := TStringList.Create;
-  Sfr6Writer := TModflowSFR_MF6_Writer.Create(self, etExport);
-  LakeMf6Writer := TModflowLAKMf6Writer.Create(self, etExport);
+//  Sfr6Writer := TModflowSFR_MF6_Writer.Create(self, etExport);
+//  LakeMf6Writer := TModflowLAKMf6Writer.Create(self, etExport);
   try
     LocalNameWriter := NameFileWriter as TNameFileWriter;
     UpdateCurrentModel(self);
@@ -44367,12 +44367,24 @@ begin
           OCWriter := TOutputControlWriter.Create(self, etExport);
           try
             OCWriter.WriteFile(FileName);
-            if GwtUsed then
+            if GwtUsed or GweUsed then
             begin
-              OCWriter.OutputType := otTransport;
+
               for SpeciesIndex := 0 to MobileComponents.Count - 1 do
               begin
                 if MobileComponents[SpeciesIndex].UsedForGWT then
+                begin
+                  OCWriter.OutputType := otTransport;
+                end
+                else if MobileComponents[SpeciesIndex].UsedForGWE then
+                begin
+                  OCWriter.OutputType := otEnergy;
+                end
+                else
+                begin
+                  Continue
+                end;
+//                if MobileComponents[SpeciesIndex].UsedForGWT then
                 begin
                   OCWriter.SpeciesIndex := SpeciesIndex;
                   OCWriter.WriteFile(FileName);
@@ -44380,18 +44392,18 @@ begin
               end;
             end;
 
-            if GweUsed then
-            begin
-              OCWriter.OutputType := otEnergy;
-              for SpeciesIndex := 0 to MobileComponents.Count - 1 do
-              begin
-                if MobileComponents[SpeciesIndex].UsedForGWE then
-                begin
-                  OCWriter.SpeciesIndex := SpeciesIndex;
-                  OCWriter.WriteFile(FileName);
-                end;
-              end;
-            end;
+//            if GweUsed then
+//            begin
+//              OCWriter.OutputType := otEnergy;
+//              for SpeciesIndex := 0 to MobileComponents.Count - 1 do
+//              begin
+//                if MobileComponents[SpeciesIndex].UsedForGWE then
+//                begin
+//                  OCWriter.SpeciesIndex := SpeciesIndex;
+//                  OCWriter.WriteFile(FileName);
+//                end;
+//              end;
+//            end;
 
           finally
             OCWriter.Free;
@@ -44771,17 +44783,22 @@ begin
             frmProgressMM.StepIt;
           end;
 
-          Sfr6Writer.MvrWriter := ModflowMvrWriter;
-          Sfr6Writer.WriteFile(FileName);
-          if GwtUsed then
-          begin
-            for SpeciesIndex := 0 to MobileComponents.Count - 1 do
+          Sfr6Writer := TModflowSFR_MF6_Writer.Create(self, etExport);
+          try
+            Sfr6Writer.MvrWriter := ModflowMvrWriter;
+            Sfr6Writer.WriteFile(FileName);
+            if GwtUsed or GweUsed then
             begin
-              if MobileComponents[SpeciesIndex].UsedForGWT then
+              for SpeciesIndex := 0 to MobileComponents.Count - 1 do
               begin
-                Sfr6Writer.WriteSftFile(FileName, SpeciesIndex);
+  //              if MobileComponents[SpeciesIndex].UsedForGWT then
+                begin
+                  Sfr6Writer.WriteSftFile(FileName, SpeciesIndex);
+                end;
               end;
             end;
+          finally
+            Sfr6Writer.Free;
           end;
 
           FDataArrayManager.CacheDataArrays;
@@ -45042,14 +45059,19 @@ begin
             frmProgressMM.StepIt;
           end;
 
-          LakeMf6Writer.MvrWriter := ModflowMvrWriter;
-          LakeMf6Writer.WriteFile(FileName);
-          if GwtUsed then
-          begin
-            for SpeciesIndex := 0 to MobileComponents.Count - 1 do
+          LakeMf6Writer := TModflowLAKMf6Writer.Create(self, etExport);
+          try
+            LakeMf6Writer.MvrWriter := ModflowMvrWriter;
+            LakeMf6Writer.WriteFile(FileName);
+            if GwtUsed or GweUsed then
             begin
-              LakeMf6Writer.WriteLktFile(FileName, SpeciesIndex);
+              for SpeciesIndex := 0 to MobileComponents.Count - 1 do
+              begin
+                LakeMf6Writer.WriteLktFile(FileName, SpeciesIndex);
+              end;
             end;
+          finally
+            LakeMf6Writer.Free;
           end;
 
           FDataArrayManager.CacheDataArrays;
@@ -45484,18 +45506,11 @@ begin
           finally
             ObsScriptWriter.Free;
           end;
-
-//          FinalizePvalAndTemplate(FileName);
-
-//          LocalNameWriter.SaveNameFile(FileName);
           Application.ProcessMessages;
           if not frmProgressMM.ShouldContinue then
           begin
             Exit;
           end;
-//        finally
-//          SetCurrentNameFileWriter(nil);
-//        end;
         finally
           ModflowMvrWriter.Free;
           UpdateCurrentModel(SelectedModel);
@@ -45507,28 +45522,66 @@ begin
       finally
         PestObsExtractorInputWriter.Free;
       end;
-
-      if GwtUsed then
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
       begin
-        AdvWriter := TModflowGwtAdvWriter.Create(Self, etExport);
-        try
-          AdvWriter.WriteFile(FileName);
-        finally
-          AdvWriter.Free;
+        Exit;
+      end;
+
+      if GwtUsed or GweUsed then
+      begin
+        if GwtUsed then
+        begin
+          AdvWriter := TModflowGwtAdvWriter.Create(Self, etExport);
+          try
+            AdvWriter.WriteFile(FileName);
+          finally
+            AdvWriter.Free;
+          end;
+          Application.ProcessMessages;
+          if not frmProgressMM.ShouldContinue then
+          begin
+            Exit;
+          end;
+        end;
+
+        if GweUsed then
+        begin
+          AdvWriter := TModflowGwtAdvWriter.Create(Self, etExport);
+          try
+            AdvWriter.ModelType := mtEnergyTransport;
+            AdvWriter.WriteFile(FileName);
+          finally
+            AdvWriter.Free;
+          end;
+          Application.ProcessMessages;
+          if not frmProgressMM.ShouldContinue then
+          begin
+            Exit;
+          end;
         end;
 
         for SpeciesIndex := 0 to MobileComponents.Count - 1 do
         begin
-          if not MobileComponents[SpeciesIndex].UsedForGWT then
+          if not (MobileComponents[SpeciesIndex].UsedForGWT
+            or MobileComponents[SpeciesIndex].UsedForGWE) then
           begin
             Continue;
           end;
 
-          DspWriter := TModflowDspWriter.Create(Self, etExport);
-          try
-            DspWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            DspWriter.Free;
+          if MobileComponents[SpeciesIndex].UsedForGWT then
+          begin
+            DspWriter := TModflowDspWriter.Create(Self, etExport);
+            try
+              DspWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              DspWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
           end;
 
           GwtSsmWriter := TModflowGwtSsmWriter.Create(Self, etExport);
@@ -45537,6 +45590,11 @@ begin
           finally
             GwtSsmWriter.Free;
           end;
+          Application.ProcessMessages;
+          if not frmProgressMM.ShouldContinue then
+          begin
+            Exit;
+          end;
 
           GwtIcWriter := TGwtInitialConcWriter.Create(Self, etExport);
           try
@@ -45544,40 +45602,73 @@ begin
           finally
             GwtIcWriter.Free;
           end;
-
-          MstWriter := TModflowGwtMstWriter.Create(Self, etExport);
-          try
-            MstWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            MstWriter.Free;
+          Application.ProcessMessages;
+          if not frmProgressMM.ShouldContinue then
+          begin
+            Exit;
           end;
 
-          IstWriter := TModflowGwtIstWriter.Create(Self, etExport);
-          try
-            IstWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            IstWriter.Free;
-          end;
+          if MobileComponents[SpeciesIndex].UsedForGWT then
+          begin
+            MstWriter := TModflowGwtMstWriter.Create(Self, etExport);
+            try
+              MstWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              MstWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
 
-          CncWriter := TModflowCncWriter.Create(Self, etExport);
-          try
-            CncWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            CncWriter.Free;
-          end;
+            IstWriter := TModflowGwtIstWriter.Create(Self, etExport);
+            try
+              IstWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              IstWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
 
-          SrcWriter := TModflowSrcWriter.Create(Self, etExport);
-          try
-            SrcWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            SrcWriter.Free;
-          end;
+            CncWriter := TModflowCncWriter.Create(Self, etExport);
+            try
+              CncWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              CncWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
 
-          ExchangeWriter := TModflowGwfGwtExchangeWriter.Create(Self, etExport);
-          try
-            ExchangeWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            ExchangeWriter.Free;
+            SrcWriter := TModflowSrcWriter.Create(Self, etExport);
+            try
+              SrcWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              SrcWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
+
+            ExchangeWriter := TModflowGwfGwtExchangeWriter.Create(Self, etExport);
+            try
+              ExchangeWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              ExchangeWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
           end;
 
           ImsWriter := TImsWriter.Create(self, etExport, SpeciesIndex);
@@ -45594,93 +45685,46 @@ begin
 
 
           FDataArrayManager.CacheDataArrays;
-          Application.ProcessMessages;
-          if not frmProgressMM.ShouldContinue then
+
+          if MobileComponents[SpeciesIndex].UsedForGWE then
           begin
-            Exit;
+            CndWriter := TModflowCndWriter.Create(Self, etExport);
+            try
+              CndWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              CndWriter.Free;
+            end;
+
+            EstWriter := TModflowGwtEstWriter.Create(Self, etExport);
+            try
+              EstWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              EstWriter.Free;
+            end;
+
+            CtpWriter := TModflowCtpWriter.Create(Self, etExport);
+            try
+              CtpWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              CtpWriter.Free;
+            end;
+
+            EslWriter := TModflowEslWriter.Create(Self, etExport);
+            try
+              EslWriter.WriteFile(FileName, SpeciesIndex);
+            finally
+              EslWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
           end;
+
         end;
       end;
 
-      if GweUsed then
-      begin
-
-        AdvWriter := TModflowGwtAdvWriter.Create(Self, etExport);
-        try
-          AdvWriter.ModelType := mtEnergyTransport;
-          AdvWriter.WriteFile(FileName);
-        finally
-          AdvWriter.Free;
-        end;
-
-        for SpeciesIndex := 0 to MobileComponents.Count - 1 do
-        begin
-          if not (MobileComponents[SpeciesIndex].UsedForGwe) then
-          begin
-            Continue;
-          end;
-
-          GwtIcWriter := TGwtInitialConcWriter.Create(Self, etExport);
-          try
-            GwtIcWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            GwtIcWriter.Free;
-          end;
-
-          CndWriter := TModflowCndWriter.Create(Self, etExport);
-          try
-            CndWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            CndWriter.Free;
-          end;
-
-          EstWriter := TModflowGwtEstWriter.Create(Self, etExport);
-          try
-            EstWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            EstWriter.Free;
-          end;
-
-          GwtSsmWriter := TModflowGwtSsmWriter.Create(Self, etExport);
-          try
-            GwtSsmWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            GwtSsmWriter.Free;
-          end;
-
-          CtpWriter := TModflowCtpWriter.Create(Self, etExport);
-          try
-            CtpWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            CtpWriter.Free;
-          end;
-
-          EslWriter := TModflowEslWriter.Create(Self, etExport);
-          try
-            EslWriter.WriteFile(FileName, SpeciesIndex);
-          finally
-            EslWriter.Free;
-          end;
-
-          Sfr6Writer.WriteSftFile(FileName, SpeciesIndex);
-
-          LakeMf6Writer.WriteLktFile(FileName, SpeciesIndex);
-
-          ImsWriter := TImsWriter.Create(self, etExport, SpeciesIndex);
-          try
-            ImsWriter.WriteFile(FileName);
-          finally
-            ImsWriter.Free;
-          end;
-          Application.ProcessMessages;
-          if not frmProgressMM.ShouldContinue then
-          begin
-            Exit;
-          end;
-
-        end;
-
-      end;
 
       FinalizePvalAndTemplate(FileName);
       LocalNameWriter.SaveNameFile(FileName);
@@ -45710,8 +45754,8 @@ begin
     FreeAndNil(FDirectObservationLines);
     FreeAndNil(FDerivedObservationLines);
     FreeAndNil(FFileNameLines);
-    Sfr6Writer.Free;
-    LakeMf6Writer.Free;
+//    Sfr6Writer.Free;
+//    LakeMf6Writer.Free;
   end;
 end;
 

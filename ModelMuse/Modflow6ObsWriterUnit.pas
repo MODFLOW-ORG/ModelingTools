@@ -4702,7 +4702,9 @@ var
   CalibIndex: Integer;
   CalibObs: TMf6CalibrationObs;
   StartTime: Double;
-  Prefix: string;
+  Prefix2: string;
+  Prefix1: string;
+  Prefix3: string;
 begin
   ObTypes := [];
   for ObsIndex := 0 to FObsList.Count - 1 do
@@ -4725,80 +4727,98 @@ begin
     else
       Assert(False);
   end;
+  if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+  begin
+    Prefix1 :='le';
+    Prefix3 := '.lke';
+  end
+  else
+  begin
+    Prefix1 :='lt';
+    Prefix3 := '.lkt';
+  end;
   for AnObsType in ObTypes do
   begin
     case AnObsType of
       ltoConcentration:
         begin
-          OutputExtension := '.lkt_concentration_ob' + OutputTypeExtension;
-          ObservationType := 'concentration';
-          Prefix := 'ltconc_';
+          OutputExtension := Prefix3 + '_concentration_ob' + OutputTypeExtension;
+          if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+          begin
+            ObservationType := 'temperature';
+            Prefix2 := 'letemp_';
+          end
+          else
+          begin
+            ObservationType := 'concentration';
+            Prefix2 := 'ltconc_';
+          end;
         end;
       ltoStorage:
         begin
-          OutputExtension := '.lkt_storage_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_storage_ob' + OutputTypeExtension;
           ObservationType := 'storage';
-          Prefix := 'lts_';
+          Prefix2 := Prefix1 + 's_';
         end;
       ltoConstant:
         begin
-          OutputExtension := '.lkt_constant_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_constant_ob' + OutputTypeExtension;
           ObservationType := 'constant';
-          Prefix := 'ltc_';
+          Prefix2 := Prefix1 + 'c_';
         end;
       ltoFromMvr:
         begin
-          OutputExtension := '.lkt_from_MVR_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_from_MVR_ob' + OutputTypeExtension;
           ObservationType := 'from-mvr';
-          Prefix := 'ltfm_';
+          Prefix2 := Prefix1 + 'fm_';
         end;
       ltoToMvr:
         begin
-          OutputExtension := '.lkt_to_mvr_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_to_mvr_ob' + OutputTypeExtension;
           ObservationType := 'to-mvr';
-          Prefix := 'lt2m_';
+          Prefix2 := Prefix1 + '2m_';
         end;
       ltoLKT:
         begin
-          OutputExtension := '.lkt_LKT_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_LKT_ob' + OutputTypeExtension;
           ObservationType := 'lkt';
-          Prefix := 'lkt_';
+          Prefix2 := 'lkt_';
         end;
       ltoRainfall:
         begin
-          OutputExtension := '.lkt_rainfall_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_rainfall_ob' + OutputTypeExtension;
           ObservationType := 'rainfall';
-          Prefix := 'ltra_';
+          Prefix2 := Prefix1 + 'ra_';
         end;
       ltoEvaporation:
         begin
-          OutputExtension := '.lkt_evaporation_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_evaporation_ob' + OutputTypeExtension;
           ObservationType := 'evaporation';
-          Prefix := 'lte_';
+          Prefix2 := Prefix1 + 'e_';
         end;
       ltoRunoff:
         begin
-          OutputExtension := '.lkt_runoff_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_runoff_ob' + OutputTypeExtension;
           ObservationType := 'runoff';
-          Prefix := 'ltru_';
+          Prefix2 := Prefix1 + 'ru_';
         end;
       ltoExtInflow:
         begin
-          OutputExtension := '.lkt_ext-inflow_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_ext-inflow_ob' + OutputTypeExtension;
           ObservationType := 'ext-inflow';
-          Prefix := 'ltei_';
+          Prefix2 := Prefix1 + 'ei_';
         end;
       ltoWithdrawal:
         begin
-          OutputExtension := '.lkt_withdrawal_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_withdrawal_ob' + OutputTypeExtension;
           ObservationType := 'withdrawal';
-          Prefix := 'ltw_';
+          Prefix2 := Prefix1 + 'w_';
         end;
       ltoExtOutflow:
         begin
-          OutputExtension := '.lkt_ext-outflow_ob' + OutputTypeExtension;
+          OutputExtension := Prefix3 + '_ext-outflow_ob' + OutputTypeExtension;
           ObservationType := 'ext-outflow';
-          Prefix := 'lteo_';
+          Prefix2 := Prefix1 + 'eo_';
         end;
     end;
 
@@ -4824,10 +4844,10 @@ begin
       AnObs := FObsList[ObsIndex];
       if AnObsType in AnObs.FObsTypes then
       begin
-        obsnam := Prefix + AnObs.FName;
-        if obsnam = Prefix then
+        obsnam := Prefix2 + AnObs.FName;
+        if obsnam = Prefix2 then
         begin
-          obsnam := Format(Prefix + 'Lkt%d', [ObsIndex+1]);
+          obsnam := Format(Prefix2 + 'Lkt%d', [ObsIndex+1]);
         end;
         Assert(Length(obsnam) <= MaxBoundNameLength);
         boundname := Trim(AnObs.FBoundName);

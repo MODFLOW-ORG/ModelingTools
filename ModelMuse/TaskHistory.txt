@@ -34345,5 +34345,10 @@ object TTaskHistory
         'Dialog boxes'
         'MF-2015'
         'GWE')
+    end
+    item
+      Date = 45741.000000000000000000
+      Categories.Strings = (
+        'GWE')
     end>
 end
