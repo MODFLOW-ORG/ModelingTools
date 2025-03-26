@@ -10444,13 +10444,14 @@ const
 //    '5.3.1.13' Bug fix: Fixed bug in importing ETS package.
 //    '5.3.1.14' Change: When importing the MAW package, the BOUNDNAME is now
 //                used as the object name if BOUNDNAME is specified.
+//    '5.3.1.15' Bug fix: Fixed export of grid data to 3D polyhedrons.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.3.1.14';
+  IIModelVersion = '5.3.1.15';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }
@@ -17587,6 +17588,18 @@ begin
   end;
 
   MawArray := FDataArrayManager.GetDataSetByName(KMAWSkinRadius);
+  if MawArray <> nil then
+  begin
+    MawArray.OnPostInitialize := UpdateMawSteadyData;
+  end;
+
+  MawArray := FDataArrayManager.GetDataSetByName(KMAWThermalConductivity);
+  if MawArray <> nil then
+  begin
+    MawArray.OnPostInitialize := UpdateMawSteadyData;
+  end;
+
+  MawArray := FDataArrayManager.GetDataSetByName(KMAWThermalThickness);
   if MawArray <> nil then
   begin
     MawArray.OnPostInitialize := UpdateMawSteadyData;

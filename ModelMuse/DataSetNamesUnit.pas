@@ -539,6 +539,8 @@ const
   KMAWRadius = 'MAW_Radius';
   KMAWBottom = 'MAW_Bottom';
   KMAWInitialHead = 'MAW_Initial_Head';
+  KMAWThermalConductivity = 'MAW_Thermal_Conductivity';
+  KMAWThermalThickness = 'MAW_Thermal_Thickness';
   KMAWScreenTop = 'MAW_Screen_Top';
   KMAWScreenBottom = 'MAW_Screen_Bottom';
   KMAWSkinK = 'MAW_Skin_K';
@@ -794,6 +796,8 @@ resourcestring
   StrMAWMODFLOW6Packa_radius = 'MAW MODFLOW 6, Package Data: radius';
   StrMAWMODFLOW6Packa_bottom = 'MAW MODFLOW 6, Package Data: bottom';
   StrMAWMODFLOW6Packa_strt = 'MAW MODFLOW 6, Package Data: strt';
+  StrMAWMODFLOW6Packa_ktf = 'MAW MODFLOW 6, Package Data: ktf';
+  StrMAWMODFLOW6Packa_fthk = 'MAW MODFLOW 6, Package Data: fthk';
   StrMAWMODFLOW6CONNE_scrn_top = 'MAW MODFLOW 6, CONNECTIONDATA Data: scrn_t' +
   'op';
   StrMAWMODFLOW6CONNE_scrn_bot = 'MAW MODFLOW 6, CONNECTIONDATA Data: scrn_b' +
@@ -1188,6 +1192,8 @@ resourcestring
   StrMAWRadius = KMAWRadius;
   StrMAWBottom = KMAWBottom;
   StrMAWInitialHead = KMAWInitialHead;
+  StrMAWThermalConductivity = KMAWThermalConductivity;
+  StrMAWThermalThickness = KMAWThermalThickness;
   StrMAWScreenTop = KMAWScreenTop;
   StrMAWScreenBottom = KMAWScreenBottom;
   StrMAWSkinK = KMAWSkinK;

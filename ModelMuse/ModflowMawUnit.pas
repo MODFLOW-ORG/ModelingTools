@@ -456,16 +456,22 @@ type
     Radius: Double;
     Bottom: Double;
     StartingHead: double;
+    ThermalConductivity: double;
+    ThermalThickness: double;
     ConductanceMethod: TMawConductanceMethod;
     RadiusAnnotation: string;
     BottomAnnotation: string;
     StartingHeadAnnotation: string;
+    ThermalConductivityAnnotation: string;
+    ThermalThicknessAnnotation: string;
     CellCount: Integer;
     BoundName: string;
     ScreenObjectName: string;
     RadiusPestName: string;
     BottomPestName: string;
     StartingHeadPestName: string;
+    ThermalConductivityPestName: string;
+    ThermalThicknessPestName: string;
     Column: Integer;
     Row: Integer;
     Layer: Integer;
@@ -630,6 +636,8 @@ type
       RadiusPosition = 10;
       BottomPosition = 11;
       InitialHeadPosition = 12;
+      ThermalConductivityPosition = 13;
+      ThermalThicknessPosition = 14;
     var
     FPestFlowingWellElevationMethod: TPestParamMethod;
     FPestPumpElevationMethod: TPestParamMethod;
@@ -656,10 +664,14 @@ type
     FBottomObserver: TObserver;
     FInitialHeadObserver: TObserver;
     FRadiusObserver: TObserver;
+    FThermalConductivityObserver: TObserver;
+    FThermalThicknessObserver: TObserver;
     FConductanceMethod: TMawConductanceMethod;
     FRadius: IFormulaObject;
     FBottom: IFormulaObject;
     FInitialHead: IFormulaObject;
+    FThermalConductivity: IFormulaObject;
+    FThermalThickness: IFormulaObject;
     FWellScreens: TMawWellScreenCollection;
     FPestFlowingWellConductanceObserver: TObserver;
     FPestFlowingWellElevationObserver: TObserver;
@@ -709,6 +721,8 @@ type
     procedure LinkRadius;
     procedure LinkBottom;
     procedure LinkInitialHead;
+    procedure LinkThermalConductivity;
+    procedure LinkThermalThickness;
     procedure CreateObservers;
     procedure InvalidateFlowingWellElevationData(Sender: TObject);
     procedure InvalidateFlowingWellConductanceData(Sender: TObject);
@@ -777,10 +791,18 @@ type
     procedure InvalidatePestInjConcData(Sender: TObject);
     procedure InvalidatePestDensityData(Sender: TObject);
     procedure InvalidatePestViscosityData(Sender: TObject);
+    function GetThermalConductivity: string;
+    function GetThermalThickness: string;
+    procedure SetThermalConductivity(const Value: string);
+    procedure SetThermalThickness(const Value: string);
+    function GetThermalConductivityObserver: TObserver;
+    function GetThermalThicknessObserver: TObserver;
   protected
     property RadiusObserver: TObserver read GetRadiusObserver;
     property BottomObserver: TObserver read GetBottomObserver;
     property InitialHeadObserver: TObserver read GetInitialHeadObserver;
+    property ThermalConductivityObserver: TObserver read GetThermalConductivityObserver;
+    property ThermalThicknessObserver: TObserver read GetThermalThicknessObserver;
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
       ValueTimeList: TList; AModel: TBaseModel); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
@@ -840,6 +862,18 @@ type
     // strt
     property InitialHead: string read GetInitialHead write SetInitialHead;
     // condeqn
+    // ktf
+    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity
+  {$IFNDEF GWE}
+    stored False
+  {$ENDIF}
+    ;
+    // fthk
+    property ThermalThickness: string read GetThermalThickness write SetThermalThickness
+  {$IFNDEF GWE}
+    stored False
+  {$ENDIF}
+    ;
     property ConductanceMethod: TMawConductanceMethod read FConductanceMethod
       write SetConductanceMethod;
     property WellScreens: TMawWellScreenCollection read FWellScreens
@@ -944,7 +978,9 @@ const
   MawRadiusPosition = 0;
   MawBottomPosition = 1;
   MawStartingHeadPosition = 2;
-  MawGwtSteadyStart = 3;
+  MawThermalConductivityPosition = 3;
+  MawThermalThicknessPosition = 4;
+  MawGwtSteadyStart = 5;
 
 Const
   MawGwtConcCount = 2;
@@ -976,16 +1012,16 @@ const MawObName: array[TMawOb] of string = ('Head', 'FromMvr', 'FlowRate',
     mtoMwtCells, mtoRate, mtoFwRate, mtoRateToMvr, mtoFwRateToMvr);
   }
 const MwtObName: array[TMwtOb] of string = (
-  'Concentration',
+  'Concentration/Temperature',
   'Storage',
   'Constant',
   'From-MVR',
-  'Mass Flow Rate (MWT)',
-  'Mass Flow Rate (Cells) (MWT + iconn)',
-  'Well Mass-Flow-Rate (rate)',
-  'Flowing Well Mass-Flow-Rate (fw-rate)',
-  'Mass Flow Rate to MVR (rate-to-mvr)',
-  'Flowing Well Mass Flow Rate to MVR (fw-rate-to-mvr)');
+  'Mass/Energy Flow Rate (MWT)',
+  'Mass/Energy Flow Rate (Cells) (MWT + iconn)',
+  'Well Mass/Energy-Flow-Rate (rate)',
+  'Flowing Well/Energy Mass-Flow-Rate (fw-rate)',
+  'Mass/Energy Flow Rate to MVR (rate-to-mvr)',
+  'Flowing Well Mass/Energy Flow Rate to MVR (fw-rate-to-mvr)');
 
 var
   MawObNames: TStringList;
@@ -1879,6 +1915,8 @@ begin
     Radius := SourceMAW.Radius;
     Bottom := SourceMAW.Bottom;
     InitialHead := SourceMAW.InitialHead;
+    ThermalConductivity := SourceMAW.ThermalConductivity;
+    ThermalThickness := SourceMAW.ThermalThickness;
     ConductanceMethod := SourceMAW.ConductanceMethod;
     WellScreens := SourceMAW.WellScreens;
 
@@ -2120,6 +2158,8 @@ begin
   LinkRadius;
   LinkBottom;
   LinkInitialHead;
+  LinkThermalConductivity;
+  LinkThermalThickness;
 
   InitializeVariables;
 end;
@@ -2143,6 +2183,8 @@ begin
   FRadius := CreateFormulaObjectBlocks(dso3D);
   FBottom := CreateFormulaObjectBlocks(dso3D);
   FInitialHead := CreateFormulaObjectBlocks(dso3D);
+  FThermalConductivity := CreateFormulaObjectBlocks(dso3D);
+  FThermalThickness := CreateFormulaObjectBlocks(dso3D);
 
   LocalModel := ParentModel as TCustomModel;
   if (LocalModel <> nil) then
@@ -2156,7 +2198,7 @@ begin
       PestViscosity.Add;
     end;
 
-    if LocalModel.GwtUsed then
+    if LocalModel.GwtUsed or LocalModel.GweUsed then
     begin
       for ConcIndex := 0 to LocalModel.MobileComponents.Count - 1 do
       begin
@@ -2191,6 +2233,8 @@ begin
     FObserverList.Add(RadiusObserver);
     FObserverList.Add(BottomObserver);
     FObserverList.Add(InitialHeadObserver);
+    FObserverList.Add(ThermalConductivityObserver);
+    FObserverList.Add(ThermalThicknessObserver);
 
     for Index := 0 to PestDensity.Count - 1 do
     begin
@@ -2918,6 +2962,42 @@ begin
   result := FStartingConcentrations;
 end;
 
+function TMawBoundary.GetThermalConductivity: string;
+begin
+  Result := FThermalConductivity.Formula;
+  if ScreenObject <> nil then
+  begin
+    ResetBoundaryObserver(ThermalConductivityPosition);
+  end;
+end;
+
+function TMawBoundary.GetThermalConductivityObserver: TObserver;
+begin
+  if FThermalConductivityObserver = nil then
+  begin
+    CreateObserver('MAW_Thermal_Conductivity', FThermalConductivityObserver, nil);
+  end;
+  result := FThermalConductivityObserver;
+end;
+
+function TMawBoundary.GetThermalThickness: string;
+begin
+  Result := FThermalThickness.Formula;
+  if ScreenObject <> nil then
+  begin
+    ResetBoundaryObserver(ThermalThicknessPosition);
+  end;
+end;
+
+function TMawBoundary.GetThermalThicknessObserver: TObserver;
+begin
+  if FThermalThicknessObserver = nil then
+  begin
+    CreateObserver('MAW_Thermal_Thickness', FThermalThicknessObserver, nil);
+  end;
+  result := FThermalThicknessObserver;
+end;
+
 function TMawBoundary.GetPestSpecifiedConcentrationObserver(
   const Index: Integer): TObserver;
 var
@@ -2967,6 +3047,8 @@ begin
   Radius := '0';
   Bottom := '0';
   InitialHead := '0';
+  ThermalConductivity := '0';
+  ThermalThickness := '1';
   ConductanceMethod := mcmSpecified;
 
   PestFlowingWellElevationFormula := '';
@@ -3406,11 +3488,34 @@ begin
   end;
 end;
 
+procedure TMawBoundary.LinkThermalThickness;
+var
+  LocalScreenObject: TScreenObject;
+  MawThermalThicknessArray: TDataArray;
+begin
+  LocalScreenObject := ScreenObject as TScreenObject;
+  if (LocalScreenObject <> nil) and LocalScreenObject.CanInvalidateModel then
+  begin
+    LocalScreenObject.TalksTo(ThermalThicknessObserver);
+    if ParentModel <> nil then
+    begin
+      MawThermalThicknessArray := (ParentModel as TCustomModel).DataArrayManager.
+        GetDataSetByName(KMAWThermalThickness);
+      if MawThermalThicknessArray <> nil then
+      begin
+        ThermalThicknessObserver.TalksTo(MawThermalThicknessArray);
+      end;
+    end;
+  end;
+end;
+
 procedure TMawBoundary.Loaded;
 begin
   LinkRadius;
   LinkBottom;
   LinkInitialHead;
+  LinkThermalConductivity;
+  LinkThermalThickness;
   FWellScreens.Loaded;
 end;
 
@@ -3423,6 +3528,12 @@ begin
     GlobalRemoveMFBoundarySubscription,
     GlobalRestoreMFBoundarySubscription, self);
   frmGoPhast.PhastModel.FormulaManager.Remove(FRadius,
+    GlobalRemoveMFBoundarySubscription,
+    GlobalRestoreMFBoundarySubscription, self);
+  frmGoPhast.PhastModel.FormulaManager.Remove(FThermalConductivity,
+    GlobalRemoveMFBoundarySubscription,
+    GlobalRestoreMFBoundarySubscription, self);
+  frmGoPhast.PhastModel.FormulaManager.Remove(FThermalThickness,
     GlobalRemoveMFBoundarySubscription,
     GlobalRestoreMFBoundarySubscription, self);
 
@@ -3830,6 +3941,16 @@ begin
   FStartingConcentrations.Assign(Value);
 end;
 
+procedure TMawBoundary.SetThermalConductivity(const Value: string);
+begin
+  UpdateFormulaBlocks(Value, ThermalConductivityPosition, FThermalConductivity);
+end;
+
+procedure TMawBoundary.SetThermalThickness(const Value: string);
+begin
+  UpdateFormulaBlocks(Value, ThermalThicknessPosition, FThermalThickness);
+end;
+
 procedure TMawBoundary.SetWellNumber(const Value: Integer);
 begin
   if FWellNumber <> Value then
@@ -3842,6 +3963,27 @@ end;
 procedure TMawBoundary.SetWellScreens(const Value: TMawWellScreenCollection);
 begin
   FWellScreens.Assign(Value);
+end;
+
+procedure TMawBoundary.LinkThermalConductivity;
+var
+  LocalScreenObject: TScreenObject;
+  MawThermalConductivityArray: TDataArray;
+begin
+  LocalScreenObject := ScreenObject as TScreenObject;
+  if (LocalScreenObject <> nil) and LocalScreenObject.CanInvalidateModel then
+  begin
+    LocalScreenObject.TalksTo(ThermalConductivityObserver);
+    if ParentModel <> nil then
+    begin
+      MawThermalConductivityArray := (ParentModel as TCustomModel).DataArrayManager.
+        GetDataSetByName(KMAWThermalConductivity);
+      if MawThermalConductivityArray <> nil then
+      begin
+        ThermalConductivityObserver.TalksTo(MawThermalConductivityArray);
+      end;
+    end;
+  end;
 end;
 
 { TMawTransientRecord }
@@ -4180,6 +4322,8 @@ begin
   WriteCompReal(Comp, Radius);
   WriteCompReal(Comp, Bottom);
   WriteCompReal(Comp, StartingHead);
+  WriteCompReal(Comp, ThermalConductivity);
+  WriteCompReal(Comp, ThermalThickness);
   WriteCompInt(Comp, Ord(ConductanceMethod));
   WriteCompInt(Comp, CellCount);
 
@@ -4190,12 +4334,16 @@ begin
   WriteCompInt(Comp, Strings.IndexOf(RadiusAnnotation));
   WriteCompInt(Comp, Strings.IndexOf(BottomAnnotation));
   WriteCompInt(Comp, Strings.IndexOf(StartingHeadAnnotation));
+  WriteCompInt(Comp, Strings.IndexOf(ThermalConductivityAnnotation));
+  WriteCompInt(Comp, Strings.IndexOf(ThermalThicknessAnnotation));
   WriteCompInt(Comp, Strings.IndexOf(BoundName));
   WriteCompInt(Comp, Strings.IndexOf(ScreenObjectName));
 
   WriteCompInt(Comp, Strings.IndexOf(RadiusPestName));
   WriteCompInt(Comp, Strings.IndexOf(BottomPestName));
   WriteCompInt(Comp, Strings.IndexOf(StartingHeadPestName));
+  WriteCompInt(Comp, Strings.IndexOf(ThermalConductivityPestName));
+  WriteCompInt(Comp, Strings.IndexOf(ThermalThicknessPestName));
 
   StartingConcentrations.Cache(Comp, Strings);
 end;
@@ -4214,6 +4362,14 @@ begin
     MawStartingHeadPosition:
       begin
         result := StartingHeadAnnotation;
+      end;
+    MawThermalConductivityPosition:
+      begin
+        result := ThermalConductivityAnnotation;
+      end;
+    MawThermalThicknessPosition:
+      begin
+        result := ThermalThicknessAnnotation;
       end;
     else
       begin
@@ -4239,6 +4395,14 @@ begin
       begin
         result := StartingHead;
       end;
+    MawThermalConductivityPosition:
+      begin
+        result := ThermalConductivity;
+      end;
+    MawThermalThicknessPosition:
+      begin
+        result := ThermalThickness;
+      end;
     else
       begin
         // GWT
@@ -4263,6 +4427,14 @@ begin
       begin
         result := StartingHeadPestName;
       end;
+    MawThermalConductivityPosition:
+      begin
+        result := ThermalConductivityPestName;
+      end;
+    MawThermalThicknessPosition:
+      begin
+        result := ThermalThicknessPestName;
+      end;
     else
       begin
         // GWT
@@ -4277,11 +4449,15 @@ begin
   Strings.Add(RadiusAnnotation);
   Strings.Add(BottomAnnotation);
   Strings.Add(StartingHeadAnnotation);
+  Strings.Add(ThermalConductivityAnnotation);
+  Strings.Add(ThermalThicknessAnnotation);
   Strings.Add(BoundName);
   Strings.Add(ScreenObjectName);
   Strings.Add(RadiusPestName);
   Strings.Add(BottomPestName);
   Strings.Add(StartingHeadPestName);
+  Strings.Add(ThermalConductivityPestName);
+  Strings.Add(ThermalThicknessPestName);
 
   StartingConcentrations.RecordStrings(Strings);
 end;
@@ -4293,6 +4469,8 @@ begin
   Radius := ReadCompReal(Decomp);
   Bottom := ReadCompReal(Decomp);
   StartingHead := ReadCompReal(Decomp);
+  ThermalConductivity := ReadCompReal(Decomp);
+  ThermalThickness := ReadCompReal(Decomp);
   ConductanceMethod := TMawConductanceMethod(ReadCompInt(Decomp));
   CellCount := ReadCompInt(Decomp);
 
@@ -4303,12 +4481,16 @@ begin
   RadiusAnnotation := Annotations[ReadCompInt(Decomp)];
   BottomAnnotation := Annotations[ReadCompInt(Decomp)];
   StartingHeadAnnotation := Annotations[ReadCompInt(Decomp)];
+  ThermalConductivityAnnotation := Annotations[ReadCompInt(Decomp)];
+  ThermalThicknessAnnotation := Annotations[ReadCompInt(Decomp)];
   BoundName := Annotations[ReadCompInt(Decomp)];
   ScreenObjectName := Annotations[ReadCompInt(Decomp)];
 
   RadiusPestName := Annotations[ReadCompInt(Decomp)];
   BottomPestName := Annotations[ReadCompInt(Decomp)];
   StartingHeadPestName := Annotations[ReadCompInt(Decomp)];
+  ThermalConductivityPestName := Annotations[ReadCompInt(Decomp)];
+  ThermalThicknessPestName := Annotations[ReadCompInt(Decomp)];
 
   StartingConcentrations.Restore(Decomp, Annotations);
 end;
@@ -4328,6 +4510,14 @@ begin
     MawStartingHeadPosition:
       begin
         StartingHeadAnnotation := Value;
+      end;
+    MawThermalConductivityPosition:
+      begin
+        ThermalConductivityAnnotation := Value;
+      end;
+    MawThermalThicknessPosition:
+      begin
+        ThermalThicknessAnnotation := Value;
       end;
     else
       begin
@@ -4354,6 +4544,14 @@ begin
       begin
         StartingHead := Value;
       end;
+    MawThermalConductivityPosition:
+      begin
+        ThermalConductivity := Value;
+      end;
+    MawThermalThicknessPosition:
+      begin
+        ThermalThickness := Value;
+      end;
     else
       begin
         // GWT
@@ -4361,12 +4559,6 @@ begin
         StartingConcentrations.Values[Index] := Value;
       end;
   end
-
-//  MawRadiusPosition = 0;
-//  MawBottomPosition = 1;
-//  MawStartingHeadPosition = 2;
-//  MawGwtSteadyStart = 3;
-
 end;
 
 procedure TMawSteadyWellRecord.SetPestParamName(Index: Integer;
@@ -4384,6 +4576,14 @@ begin
     MawStartingHeadPosition:
       begin
         StartingHeadPestName := Value;
+      end;
+    MawThermalConductivityPosition:
+      begin
+        ThermalConductivityPestName := Value;
+      end;
+    MawThermalThicknessPosition:
+      begin
+        ThermalThicknessPestName := Value;
       end;
     else
       begin
@@ -4545,7 +4745,7 @@ end;
 function TMawItem.BoundaryFormulaCount: integer;
 begin
   Result := Succ(MawViscosityPosition);
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     result := result + frmGoPhast.PhastModel.MobileComponents.Count*2;
   end;
@@ -4688,7 +4888,7 @@ begin
       begin
         // GWT
         result := '0';
-        if frmGoPhast.PhastModel.GwtUsed then
+        if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
         begin
           Index := Index-MawGwtStart;
           ChemSpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
@@ -5027,7 +5227,7 @@ begin
     else
       begin
         // GWT
-        if frmGoPhast.PhastModel.GwtUsed then
+        if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
         begin
           Index := Index-MawGwtStart;
           ChemSpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
@@ -5294,7 +5494,7 @@ begin
   FInjectionConcList := TModflowTimeLists.Create;
 
   PhastModel := frmGoPhast.PhastModel;
-  if PhastModel.GwtUsed then
+  if PhastModel.GwtUsed or PhastModel.GweUsed then
   begin
     for SpeciesIndex := 0 to PhastModel.MobileComponents.Count - 1 do
     begin
@@ -5651,7 +5851,7 @@ var
 begin
   inherited;
   // GWT
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
   end

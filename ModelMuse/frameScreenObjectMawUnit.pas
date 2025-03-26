@@ -54,6 +54,11 @@ type
     splSplit: TSplitter;
     tvGwt: TJvPageListTreeView;
     jplGwt: TJvPageList;
+    lblThermalConductivity: TLabel;
+    edThermalConductivity: TJvComboEdit;
+    edThermalThickness: TJvComboEdit;
+    lblThermaThickness: TLabel;
+    lblThermalThickness: TLabel;
     procedure rdgModflowBoundarySetEditText(Sender: TObject; ACol,
       ARow: Integer; const Value: string);
     procedure frameWellScreensGridSetEditText(Sender: TObject; ACol,
@@ -80,6 +85,8 @@ type
     procedure comboRateLimitationChange(Sender: TObject);
     procedure cbFlowingWellClick(Sender: TObject);
     procedure cbHeadLimitClick(Sender: TObject);
+    procedure edThermalConductivityChange(Sender: TObject);
+    procedure edThermalThicknessChange(Sender: TObject);
     procedure rdgModflowBoundaryMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
   private
@@ -268,6 +275,8 @@ begin
             edBottom.Text := MawBound.Bottom;
             edStartingHead.Text := MawBound.InitialHead;
             comboConductEq.ItemIndex := Ord(MawBound.ConductanceMethod);
+            edThermalConductivity.Text := MawBound.ThermalConductivity;
+            edThermalThickness.Text := MawBound.ThermalThickness;
 
             frameWellScreens.seNumber.AsInteger := MawBound.WellScreens.Count;
             for ScreenIndex := 0 to MawBound.WellScreens.Count - 1 do
@@ -417,6 +426,15 @@ begin
             begin
               edStartingHead.Text := ''
             end;
+            if edThermalConductivity.Text <> MawBound.ThermalConductivity then
+            begin
+              edThermalConductivity.Text := ''
+            end;
+            if edThermalThickness.Text <> MawBound.ThermalThickness then
+            begin
+              edThermalThickness.Text := ''
+            end;
+
             if comboConductEq.ItemIndex <> Ord(MawBound.ConductanceMethod) then
             begin
               comboConductEq.ItemIndex := -1;
@@ -875,6 +893,17 @@ begin
       begin
         Boundary.InitialHead := edStartingHead.Text;
       end;
+      if edThermalConductivity.Text <> '' then
+      begin
+        Boundary.ThermalConductivity := edThermalConductivity.Text;
+      end;
+      if edThermalThickness.Text <> '' then
+      begin
+        Boundary.ThermalThickness := edThermalThickness.Text;
+      end;
+
+
+
       if comboConductEq.ItemIndex >= 0 then
       begin
         Boundary.ConductanceMethod :=
@@ -1473,6 +1502,18 @@ procedure TframeScreenObjectMAW.cbHeadLimitClick(Sender: TObject);
 begin
   inherited;
   ApplyCheckBoxStateToColumn(wtHeadLimitChoice, cbHeadLimit.State);
+end;
+
+procedure TframeScreenObjectMAW.edThermalConductivityChange(Sender: TObject);
+begin
+  inherited;
+  Edited;
+end;
+
+procedure TframeScreenObjectMAW.edThermalThicknessChange(Sender: TObject);
+begin
+  inherited;
+  Edited;
 end;
 
 end.

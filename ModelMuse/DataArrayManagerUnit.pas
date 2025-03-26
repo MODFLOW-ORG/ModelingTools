@@ -1198,7 +1198,7 @@ procedure TDataArrayManager.DefinePackageDataArrays;
     ARecord.Min := 0;
   end;
 const
-  ArrayCount = 211;
+  ArrayCount = 213;
 var
   Index: integer;
 begin
@@ -3512,6 +3512,38 @@ begin
     StrMAWMODFLOW6CONNE_radius_skin;
   FDataArrayCreationRecords[Index].Visible := True;
   Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TModflowBoundaryDisplayDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtDouble;
+  FDataArrayCreationRecords[Index].Name := KMAWThermalConductivity;
+  FDataArrayCreationRecords[Index].DisplayName := StrMAWThermalConductivity;
+  FDataArrayCreationRecords[Index].Formula := '0';
+  FDataArrayCreationRecords[Index].Classification := StrMAW;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.MawSelected;
+  FDataArrayCreationRecords[Index].Lock := StandardLock + [dcFormula];
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    StrMAWMODFLOW6Packa_ktf;
+  FDataArrayCreationRecords[Index].Visible := True;
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TModflowBoundaryDisplayDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtDouble;
+  FDataArrayCreationRecords[Index].Name := KMAWThermalThickness;
+  FDataArrayCreationRecords[Index].DisplayName := StrMAWThermalThickness;
+  FDataArrayCreationRecords[Index].Formula := '0';
+  FDataArrayCreationRecords[Index].Classification := StrMAW;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.MawSelected;
+  FDataArrayCreationRecords[Index].Lock := StandardLock + [dcFormula];
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    StrMAWMODFLOW6Packa_fthk;
+  FDataArrayCreationRecords[Index].Visible := True;
+  Inc(Index);
+
+
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
   FDataArrayCreationRecords[Index].Orientation := dso3D;

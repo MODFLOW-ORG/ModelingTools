@@ -2,6 +2,13 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
   Height = 293
   OnResize = FrameResize
   ExplicitHeight = 293
+  object lblThermaThickness: TLabel
+    Left = 7
+    Top = 219
+    Width = 98
+    Height = 15
+    Caption = 'Starting head (strt)'
+  end
   object pnlTop: TPanel
     Left = 0
     Top = 0
@@ -9,7 +16,6 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
     Height = 33
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 549
     object pnlCaption: TPanel
       AlignWithMargins = True
       Left = 4
@@ -19,7 +25,6 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 541
     end
   end
   object pgcMain: TPageControl
@@ -27,10 +32,9 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
     Top = 33
     Width = 541
     Height = 260
-    ActivePage = tabTransient
+    ActivePage = tabWell
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 549
     object tabWell: TTabSheet
       Caption = 'Well definition'
       object lblRadius: TLabel
@@ -60,6 +64,20 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
         Width = 179
         Height = 15
         Caption = 'Conductance equation (condeqn)'
+      end
+      object lblThermalConductivity: TLabel
+        Left = 3
+        Top = 131
+        Width = 140
+        Height = 15
+        Caption = 'Thermal conductivitiy (ktf)'
+      end
+      object lblThermalThickness: TLabel
+        Left = 3
+        Top = 160
+        Width = 127
+        Height = 15
+        Caption = 'Thermal thickness (fthk)'
       end
       object edWellRadius: TJvComboEdit
         Left = 108
@@ -192,6 +210,36 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
             Text = 'MEAN'
           end>
       end
+      object edThermalConductivity: TJvComboEdit
+        Left = 149
+        Top = 128
+        Width = 281
+        Height = 23
+        ButtonWidth = 50
+        DisabledColor = clBtnFace
+        Glyph.Data = {
+          26020000424D260200000000000076000000280000002D000000120000000100
+          040000000000B001000000000000000000001000000000000000000000000000
+          8000008000000080800080000000800080008080000080808000C0C0C0000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          F000FF000000000FFFF000F0FF0FFF000FF0FFF0FFF0FFFFF000FF0FFFFFFFFF
+          FF0FFF00FF0FFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFFF0FFFFF0FF0FFF0F
+          FFFFFFFFFFFFFFFFF000FF0FFFFFFFFFF0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFF
+          F000FF0FFFFFFFFFF0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFF
+          F0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFFF000FF00000000FFF0FFFFF0FF0FFF0F
+          FFFFFFFFFFFFFFFFF000FF0FFFFFFFFFFF0FFF00FF0FFF0FFFFFFFFFFFFFFFFF
+          F000FF0FFFFFFFFFFFF000F0FF0FF0000FFFFFFFFFFFFFFFF000FF0FFFFFFFFF
+          FFFFFFF0FFFFFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFFFFFFFFF0FFFFFF0F
+          FFFFFFFFFFFFFFFFF000FF000000000FFFFFFFF0FF0FFFFFFFFFFFFFFFFFFFFF
+          F000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFF000}
+        TabOrder = 4
+        Text = ''
+        OnChange = edThermalConductivityChange
+      end
     end
     object tabWellScreens: TTabSheet
       Caption = 'Well screens'
@@ -208,11 +256,13 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
         inherited Panel: TPanel
           Top = 189
           Width = 533
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 189
           ExplicitWidth = 533
           inherited lbNumber: TLabel
             Width = 124
             Caption = 'Number of well screens'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 124
           end
           inherited sbAdd: TSpeedButton
@@ -226,6 +276,9 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
           inherited sbDelete: TSpeedButton
             Left = 481
             ExplicitLeft = 488
+          end
+          inherited seNumber: TJvSpinEdit
+            StyleElements = [seFont, seClient, seBorder]
           end
         end
         inherited Grid: TRbwDataGrid4
@@ -433,7 +486,6 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
         Height = 184
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 312
         object pnlEditGrid: TPanel
           Left = 1
           Top = 1
@@ -442,7 +494,6 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 310
           object lblFormula: TLabel
             Left = 232
             Top = 5
@@ -1005,8 +1056,37 @@ inherited frameScreenObjectMAW: TframeScreenObjectMAW
         Height = 230
         PropagateEnable = False
         Align = alClient
-        ExplicitWidth = 415
       end
     end
+  end
+  object edThermalThickness: TJvComboEdit
+    Left = 153
+    Top = 216
+    Width = 281
+    Height = 23
+    ButtonWidth = 50
+    DisabledColor = clBtnFace
+    Glyph.Data = {
+      26020000424D260200000000000076000000280000002D000000120000000100
+      040000000000B001000000000000000000001000000000000000000000000000
+      8000008000000080800080000000800080008080000080808000C0C0C0000000
+      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00FFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      F000FF000000000FFFF000F0FF0FFF000FF0FFF0FFF0FFFFF000FF0FFFFFFFFF
+      FF0FFF00FF0FFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFFF0FFFFF0FF0FFF0F
+      FFFFFFFFFFFFFFFFF000FF0FFFFFFFFFF0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFF
+      F000FF0FFFFFFFFFF0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFF
+      F0FFFFF0FF0FFF0FFFFFFFFFFFFFFFFFF000FF00000000FFF0FFFFF0FF0FFF0F
+      FFFFFFFFFFFFFFFFF000FF0FFFFFFFFFFF0FFF00FF0FFF0FFFFFFFFFFFFFFFFF
+      F000FF0FFFFFFFFFFFF000F0FF0FF0000FFFFFFFFFFFFFFFF000FF0FFFFFFFFF
+      FFFFFFF0FFFFFF0FFFFFFFFFFFFFFFFFF000FF0FFFFFFFFFFFFFFFF0FFFFFF0F
+      FFFFFFFFFFFFFFFFF000FF000000000FFFFFFFF0FF0FFFFFFFFFFFFFFFFFFFFF
+      F000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFF000}
+    TabOrder = 2
+    Text = ''
+    OnChange = edThermalThicknessChange
   end
 end

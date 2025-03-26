@@ -574,8 +574,18 @@ type
       write SetConnectionLength;
     // strt
     property StartingStage: string read GetStartingStage write SetStartingStage;
-    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity;
-    property ThermalThickness: string read GetThermalThickness write SetThermalThickness;
+    // ktf
+    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity
+  {$IFNDEF GWE}
+    stored False
+  {$ENDIF}
+    ;
+    // rbthcnd
+    property ThermalThickness: string read GetThermalThickness write SetThermalThickness
+  {$IFNDEF GWE}
+    stored False
+  {$ENDIF}
+    ;
 
     property PestStageFormula: string read GetPestStageFormula
       write SetPestStageFormula;

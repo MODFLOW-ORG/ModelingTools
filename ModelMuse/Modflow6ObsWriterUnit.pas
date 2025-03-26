@@ -4967,7 +4967,8 @@ var
   CalibIndex: Integer;
   CalibObs: TMf6CalibrationObs;
   StartTime: Double;
-  Prefix: string;
+  Prefix2: string;
+  Prefix1: string;
 begin
   StartTime := Model.ModflowStressPeriods.First.StartTime;
   ObTypes := [];
@@ -4990,68 +4991,94 @@ begin
     else
       Assert(False);
   end;
+  if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+  begin
+    Prefix1 := '.mwe';
+  end
+  else
+  begin
+    Prefix1 := '.mwt';
+  end;
   for AnObsType in ObTypes do
   begin
     case AnObsType of
       mtoConcentration:
         begin
-          OutputExtension := '.mwt_concentration_ob' + OutputTypeExtension;
-          ObservationType := 'concentration';
-          Prefix := 'mconc_';
+          if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+          begin
+            OutputExtension := Prefix1 + '_temperature_ob' + OutputTypeExtension;
+            ObservationType := 'temperature';
+            Prefix2 := 'mtemp_';
+          end
+          else
+          begin
+            OutputExtension := Prefix1 + '_concentration_ob' + OutputTypeExtension;
+            ObservationType := 'concentration';
+            Prefix2 := 'mconc_';
+          end;
         end;
       mstoStorage:
         begin
-          OutputExtension := '.mwt_storage_ob' + OutputTypeExtension;
+          OutputExtension := Prefix1 + '_storage_ob' + OutputTypeExtension;
           ObservationType := 'storage';
-          Prefix := 'mstor_';
+          Prefix2 := 'mstor_';
         end;
       mtoConstant:
         begin
-          OutputExtension := '.mwt_constant_ob' + OutputTypeExtension;
+          OutputExtension := Prefix1 + '_constant_ob' + OutputTypeExtension;
           ObservationType := 'constant';
-          Prefix := 'mcnst_';
+          Prefix2 := 'mcnst_';
         end;
       mtoFromMvr:
         begin
-          OutputExtension := '.mwt_from-mvr_ob' + OutputTypeExtension;
+          OutputExtension := Prefix1 + '_from-mvr_ob' + OutputTypeExtension;
           ObservationType := 'from-mvr';
-          Prefix := 'mtfmv_';
+          Prefix2 := 'mtfmv_';
         end;
       mtoMwt:
         begin
-          OutputExtension := '.mwt_mwt_ob' + OutputTypeExtension;
-          ObservationType := 'mwt';
-          Prefix := 'mmwt_';
+          if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+          begin
+            OutputExtension := Prefix1 + '_mwe_ob' + OutputTypeExtension;
+            ObservationType := 'mwe';
+            Prefix2 := 'mmwe_';
+          end
+          else
+          begin
+            OutputExtension := Prefix1 + '_mwt_ob' + OutputTypeExtension;
+            ObservationType := 'mwt';
+            Prefix2 := 'mmwt_';
+          end;
         end;
       mtoMwtCells:
         begin
-          OutputExtension := '.mwt_mwt_cells_ob' + OutputTypeExtension;
+          OutputExtension := Prefix1 + '_mwt_cells_ob' + OutputTypeExtension;
           ObservationType := 'mwt';
-          Prefix := 'mmwtc_';
+          Prefix2 := 'mmwtc_';
         end;
       mtoRate:
         begin
-          OutputExtension := '.mwt_rate_ob' + OutputTypeExtension;
+          OutputExtension := Prefix1 + '_rate_ob' + OutputTypeExtension;
           ObservationType := 'rate';
-          Prefix := 'mr_';
+          Prefix2 := 'mr_';
         end;
       mtoFwRate:
         begin
-          OutputExtension := '.mwt_flowing_well_rate_ob' + OutputTypeExtension;
+          OutputExtension := Prefix1 + '_flowing_well_rate_ob' + OutputTypeExtension;
           ObservationType := 'fw-rate';
-          Prefix := 'mfwr_';
+          Prefix2 := 'mfwr_';
         end;
       mtoRateToMvr:
         begin
-          OutputExtension := '.mwt_rate-to-mvr_ob' + OutputTypeExtension;
+          OutputExtension := Prefix1 + '_rate-to-mvr_ob' + OutputTypeExtension;
           ObservationType := 'rate-to-mvr';
-          Prefix := 'mr2mv_';
+          Prefix2 := 'mr2mv_';
         end;
       mtoFwRateToMvr:
         begin
-          OutputExtension := '.mwt_fw-rate-to-mvr_ob' + OutputTypeExtension;
+          OutputExtension := Prefix1 + '_fw-rate-to-mvr_ob' + OutputTypeExtension;
           ObservationType := 'fw-rate-to-mvr';
-          Prefix := 'mfwr2mv_';
+          Prefix2 := 'mfwr2mv_';
         end;
       else
         Assert(False);
@@ -5078,10 +5105,10 @@ begin
       AnObs := FObsList[ObsIndex];
       if AnObsType in AnObs.FObsTypes then
       begin
-        obsnam := Prefix + AnObs.FName;
-        if obsnam = Prefix then
+        obsnam := Prefix2 + AnObs.FName;
+        if obsnam = Prefix2 then
         begin
-          obsnam := Format(Prefix + 'MwtObs%d', [ObsIndex+1]);
+          obsnam := Format(Prefix2 + 'MwtObs%d', [ObsIndex+1]);
         end;
 
         frmProgressMM.AddMessage(Format('  Exporting %s', [obsnam]));

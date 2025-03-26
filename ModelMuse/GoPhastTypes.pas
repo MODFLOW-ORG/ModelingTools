@@ -3012,7 +3012,7 @@ end;
 function TZeroBasedID.RowMinus1: TZeroBasedID;
 begin
   result := self;
-  result.Row := result.Row + 1;
+  result.Row := result.Row - 1;
 end;
 
 function TZeroBasedID.RowPlus1: TZeroBasedID;

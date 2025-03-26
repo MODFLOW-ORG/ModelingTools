@@ -182,7 +182,7 @@ begin
   FMawObservations := TMawObservationList.Create;
   FMawPackage := Package as TMawPackage;
   FGwtObservations := TMwtObservationLists.Create;
-  if Model.GwtUsed and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
+  if (Model.GwtUsed or Model.GweUsed) and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
   begin
     for index := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -778,7 +778,8 @@ begin
   begin
     Exit;
   end;
-  if not Model.MobileComponents[SpeciesIndex].UsedForGWT then
+  if not (Model.MobileComponents[SpeciesIndex].UsedForGWT
+    or Model.MobileComponents[SpeciesIndex].UsedForGWE) then
   begin
     Exit;
   end;
@@ -898,7 +899,7 @@ begin
             end;
           end;
 
-          if Model.GwtUsed then
+          if Model.GwtUsed or Model.GweUsed then
           begin
             DataTypeIndex := MawGwtStart;
             for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
@@ -942,6 +943,8 @@ var
   Index: Integer;
   BottomDataArray: TModflowBoundaryDisplayDataArray;
   InitialHeadDataArray: TModflowBoundaryDisplayDataArray;
+  ThermalConductivityDataArray: TModflowBoundaryDisplayDataArray;
+  ThermalThicknessDataArray: TModflowBoundaryDisplayDataArray;
   ScreenTopArray: TModflowBoundaryDisplayDataArray;
   ScreenBottomArray: TModflowBoundaryDisplayDataArray;
   SkinKArray: TModflowBoundaryDisplayDataArray;
@@ -1053,6 +1056,64 @@ begin
     InitialHeadDataArray.UpToDate := True;
   end;
 
+  ThermalConductivityDataArray := Model.DataArrayManager.GetDataSetByName(KMAWThermalConductivity)
+    as TModflowBoundaryDisplayDataArray;
+  if ThermalConductivityDataArray <> nil then
+  begin
+    ThermalConductivityDataArray.Clear;
+
+    if Length(FWellProperties) > 0 then
+    begin
+      WellIndex := 0;
+      AWell := FWellProperties[WellIndex];
+      for ConnectionIndex := 0 to FWellConnections.Count - 1 do
+      begin
+        WellConnection := FWellConnections[ConnectionIndex];
+        if AWell.WellNumber <> WellConnection.WellNumber then
+        begin
+          Inc(WellIndex);
+          AWell := FWellProperties[WellIndex];
+          Assert(AWell.WellNumber = WellConnection.WellNumber);
+        end;
+        ThermalConductivityDataArray.AddDataValue(AWell.ThermalConductivityAnnotation,
+          AWell.ThermalConductivity, WellConnection.Cell.Column,
+          WellConnection.Cell.Row, WellConnection.Cell.Layer);
+      end;
+
+      ThermalConductivityDataArray.ComputeAverage;
+    end;
+    ThermalConductivityDataArray.UpToDate := True;
+  end;
+
+  ThermalThicknessDataArray := Model.DataArrayManager.GetDataSetByName(KMAWThermalThickness)
+    as TModflowBoundaryDisplayDataArray;
+  if ThermalThicknessDataArray <> nil then
+  begin
+    ThermalThicknessDataArray.Clear;
+
+    if Length(FWellProperties) > 0 then
+    begin
+      WellIndex := 0;
+      AWell := FWellProperties[WellIndex];
+      for ConnectionIndex := 0 to FWellConnections.Count - 1 do
+      begin
+        WellConnection := FWellConnections[ConnectionIndex];
+        if AWell.WellNumber <> WellConnection.WellNumber then
+        begin
+          Inc(WellIndex);
+          AWell := FWellProperties[WellIndex];
+          Assert(AWell.WellNumber = WellConnection.WellNumber);
+        end;
+        ThermalThicknessDataArray.AddDataValue(AWell.ThermalThicknessAnnotation,
+          AWell.ThermalThickness, WellConnection.Cell.Column,
+          WellConnection.Cell.Row, WellConnection.Cell.Layer);
+      end;
+
+      ThermalThicknessDataArray.ComputeAverage;
+    end;
+    ThermalThicknessDataArray.UpToDate := True;
+  end;
+
   ScreenTopArray := Model.DataArrayManager.GetDataSetByName(KMAWScreenTop)
     as TModflowBoundaryDisplayDataArray;
   if ScreenTopArray <> nil then
@@ -1132,7 +1193,7 @@ var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
 begin
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -1309,7 +1370,7 @@ var
 begin
   WriteBeginOptions;
 
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     WriteString('  AUXILIARY');
     WriteAdditionalAuxVariables;
@@ -1342,7 +1403,7 @@ begin
   PrintFlowsOption;
   WriteSaveFlowsOption;
 
-  if  FMawPackage.SaveMawFlows or Model.SeparateGwtUsed then
+  if  FMawPackage.SaveMawFlows or Model.SeparateGwtUsed or Model.SeparateGweUsed then
   begin
     WriteString('  BUDGET FILEOUT ');
     AFileName := ChangeFileExt(BaseName, StrMawbud);
@@ -1492,7 +1553,7 @@ begin
     end;
     WriteInteger(AWell.CellCount);
 
-    if Model.GwtUsed then
+    if Model.GwtUsed or Model.GweUsed then
     begin
       for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
       begin
@@ -1667,7 +1728,7 @@ begin
 
       if Model.BuoyancyUsed then
       begin
-        if Model.GwtUsed then
+        if Model.GwtUsed or Model.GweUsed then
         begin
           for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
           begin
@@ -1970,7 +2031,7 @@ begin
         AWellRecord.BoundName := AScreenObject.Name;
 
         SpeciesCount := 0;
-        if Model.GwtUsed then
+        if Model.GwtUsed or Model.GweUsed then
         begin
           SpeciesCount := Model.MobileComponents.Count;
           AWellRecord.StartingConcentrations.SpeciesCount := SpeciesCount;
@@ -2129,7 +2190,7 @@ begin
     AScreenObject := Model.GetScreenObjectByName(AWellSteady.ScreenObjectName);
 
     IsGwtObs := False;
-    if Model.GwtUsed and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
+    if (Model.GwtUsed or Model.GweUsed) and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
     begin
       for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
       begin
