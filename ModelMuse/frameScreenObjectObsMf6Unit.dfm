@@ -18,7 +18,7 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
     Top = 71
     Width = 590
     Height = 448
-    ActivePage = tabCalibration
+    ActivePage = tabMAW
     Align = alClient
     TabOrder = 1
     object tabBasic: TTabSheet
@@ -194,16 +194,16 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
         Height = 230
         ItemHeight = 17
         Items.Strings = (
-          'Concentration'
+          'Concentration/Temperature'
           'Storage'
           'Constant'
           'From-MVR'
-          'Mass Flow Rate (Aquifer) (MWT)'
-          'Mass Flow Rate (Cells) (MWT + iconn)'
-          'Well Mass-Flow-Rate (rate)'
-          'Flowing Well Mass-Flow-Rate (fw-rate)'
-          'Mass Flow Rate to MVR (rate-to-mvr)'
-          'Flowing Well Mass Flow Rate to MVR (fw-rate-to-mvr)')
+          'Mass/Energy Flow Rate (MWT/MWE)'
+          'Mass/Energy Flow Rate (Cells) (MWT/MWE + iconn)'
+          'Well Mass/Energy-Flow-Rate (rate)'
+          'Flowing Well/Energy Mass-Flow-Rate (fw-rate)'
+          'Mass/Energy Flow Rate to MVR (rate-to-mvr)'
+          'Flowing Well Mass/Energy Flow Rate to MVR (fw-rate-to-mvr)')
         TabOrder = 1
       end
     end

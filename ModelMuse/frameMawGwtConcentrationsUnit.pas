@@ -17,6 +17,7 @@ type
       var CanSelect: Boolean);
   private
     FScreenObject: TScreenObject;
+    FSpeciesIndex: Integer;
     { Private declarations }
   protected
     procedure InitializeControls;
@@ -35,7 +36,7 @@ var
 implementation
 
 uses
-  ModflowMawUnit, GoPhastTypes, GwtStatusUnit;
+  ModflowMawUnit, GoPhastTypes, GwtStatusUnit, frmGoPhastUnit;
 
 {$R *.dfm}
 
@@ -50,6 +51,7 @@ var
   TimeIndex: Integer;
   AMawItem: TMawItem;
 begin
+  FSpeciesIndex := SpeciesIndex;
   InitializeControls;
   FDataAssigned := False;
   FoundFirst := False;
@@ -155,8 +157,18 @@ begin
   rdgConcentrations.BeginUpdate;
   try
     inherited;
-    rdgConcentrations.Cells[Ord(mccSpecifiedConcentration), 0] := 'Specified concentration';
-    rdgConcentrations.Cells[Ord(mccInjection), 0] := 'Injection concentration';
+    if frmGoPhast.PhastModel.MobileComponents[FSpeciesIndex].UsedForGWE then
+    begin
+      rdgConcentrations.Cells[Ord(mccSpecifiedConcentration), 0] := 'Specified temperature';
+      rdgConcentrations.Cells[Ord(mccInjection), 0] := 'Injection temperature';
+      lblInitialConcentration.Caption := 'Initial temperature';
+    end
+    else
+    begin
+      rdgConcentrations.Cells[Ord(mccSpecifiedConcentration), 0] := 'Specified concentration';
+      rdgConcentrations.Cells[Ord(mccInjection), 0] := 'Injection concentration';
+      lblInitialConcentration.Caption := 'Initial concentration';
+    end;
   finally
     rdgConcentrations.EndUpdate;
   end;

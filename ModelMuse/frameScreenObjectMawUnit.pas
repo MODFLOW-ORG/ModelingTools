@@ -57,7 +57,6 @@ type
     lblThermalConductivity: TLabel;
     edThermalConductivity: TJvComboEdit;
     edThermalThickness: TJvComboEdit;
-    lblThermaThickness: TLabel;
     lblThermalThickness: TLabel;
     procedure rdgModflowBoundarySetEditText(Sender: TObject; ACol,
       ARow: Integer; const Value: string);
@@ -575,7 +574,8 @@ begin
       frameWellScreens.Grid.EndUpdate;
     end;
 
-    tabGWT.TabVisible := frmGoPhast.PhastModel.GwtUsed;
+    tabGWT.TabVisible := frmGoPhast.PhastModel.GwtUsed
+      or frmGoPhast.PhastModel.GweUsed;
     if tabGWT.TabVisible then
     begin
       tvGwt.Items.Clear;

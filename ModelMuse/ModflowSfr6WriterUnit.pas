@@ -2579,7 +2579,7 @@ begin
   begin
     if Model.MobileComponents[SpeciesIndex].UsedForGWE then
     begin
-      Abbreviation := 'SFE';
+      Abbreviation := 'SFE6';
     end
     else
     begin

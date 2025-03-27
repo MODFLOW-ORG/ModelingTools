@@ -5322,7 +5322,9 @@ const
   StrSftbudget = '.sft_budget';
   StrSfebudget = '.sfe_budget';
   StrMwtconc = '.mwt_conc';
+  StrMwetemp = '.mwe_temp';
   StrMwtbudget = '.mwt_budget';
+  StrMwebudget = '.mwe_budget';
   StrUztconc = '.uzt_conc';
   StrUztbudget = '.uzt_budget';
 
@@ -44829,7 +44831,7 @@ begin
           try
             MawWriter.MvrWriter := ModflowMvrWriter;
             MawWriter.WriteFile(FileName);
-            if GwtUsed then
+            if GwtUsed or GweUsed then
             begin
               for SpeciesIndex := 0 to MobileComponents.Count - 1 do
               begin

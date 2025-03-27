@@ -63,6 +63,7 @@ type
     // @name is the file extension used for the observation input file.
     class function ObservationExtension: string; override;
     class function GwtObservationExtension: string;
+    class function GweObservationExtension: string;
     // @name is the file extension used for the observation output file.
     function IsMf6Observation(AScreenObject: TScreenObject): Boolean; override;
     function IsMf6GwtObservation(AScreenObject: TScreenObject;
@@ -110,7 +111,8 @@ resourcestring
   StrAssignedBy0sUsi = 'Assigned by %0:s using the formula ''%1:s''';
   StrMAWRadius = 'MAW Radius';
   StrMAWBottom = 'MAW Bottom';
-  StrMAWInitialHead = 'MAW Initial Head';
+  StrMAWThermalConductivity = 'MAW Thermal Conductivity';
+  StrMAWThermalThickness = 'MAW Thermal Thickness';
   StrMAWScreenBottom = 'MAW Screen Bottom';
   StrMAWSkinK = 'MAW Skin K';
   StrMAWSkinRadius = 'MAW Skin Radius';
@@ -397,6 +399,11 @@ begin
   result := '.maw6';
 end;
 
+class function TModflowMAW_Writer.GweObservationExtension: string;
+begin
+  result := '.ob_mwe';
+end;
+
 class function TModflowMAW_Writer.GwtObservationExtension: string;
 begin
   result := '.ob_mwt';
@@ -544,8 +551,16 @@ begin
 
     if MawPackage.SaveGwtConcentration then
     begin
-      WriteString('    CONCENTRATION FILEOUT ');
-      concentrationfile := BaseFileName + StrMwtconc;
+      if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+      begin
+        WriteString('    TEMPERATURE FILEOUT ');
+        concentrationfile := BaseFileName + StrMwetemp;
+      end
+      else
+      begin
+        WriteString('    CONCENTRATION FILEOUT ');
+        concentrationfile := BaseFileName + StrMwtconc;
+      end;
       Model.AddModelOutputFile(concentrationfile);
       concentrationfile := ExtractFileName(concentrationfile);
       WriteString(concentrationfile);
@@ -555,7 +570,14 @@ begin
     if MawPackage.SaveGwtBudget then
     begin
       WriteString('    BUDGET FILEOUT ');
-      budgetfile := BaseFileName + StrMwtbudget;
+      if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+      begin
+        budgetfile := BaseFileName + StrMwebudget;
+      end
+      else
+      begin
+        budgetfile := BaseFileName + StrMwtbudget;
+      end;
       Model.AddModelOutputFile(budgetfile);
       budgetfile := ExtractFileName(budgetfile);
       WriteString(budgetfile);
@@ -565,7 +587,14 @@ begin
     if MawPackage.SaveBudgetCsv then
     begin
       WriteString('    BUDGETCSV FILEOUT ');
-      budgetCsvFile := BaseFileName + '.mwt_budget.csv';
+      if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+      begin
+        budgetCsvFile := BaseFileName + '.mwe_budget.csv';
+      end
+      else
+      begin
+        budgetCsvFile := BaseFileName + '.mwt_budget.csv';
+      end;
       Model.AddModelOutputFile(budgetCsvFile);
       budgetCsvFile := ExtractFileName(budgetCsvFile);
       WriteString(budgetCsvFile);
@@ -583,7 +612,14 @@ begin
       if FGwtObservations[FSpeciesIndex].Count > 0 then
       begin
         WriteString('    OBS6 FILEIN ');
-        NameOfFile := BaseFileName + GwtObservationExtension;
+        if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+        begin
+          NameOfFile := BaseFileName + GweObservationExtension;
+        end
+        else
+        begin
+          NameOfFile := BaseFileName + GwtObservationExtension;
+        end;
         Model.AddModelInputFile(NameOfFile);
         NameOfFile := ExtractFileName(NameOfFile);
         WriteString(NameOfFile);
@@ -606,7 +642,14 @@ var
 begin
   WriteBeginPackageData;
 
-  WriteString('# <mawno> <strt> [<boundname>]');
+  if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+  begin
+    WriteString('# <mawno> <strt> <ktf> <rbthcnd> [<boundname>]');
+  end
+  else
+  begin
+    WriteString('# <mawno> <strt> [<boundname>]');
+  end;
   NewLine;
 
   for WellIndex := 0 to Length(FWellProperties) - 1 do
@@ -618,6 +661,20 @@ begin
       AWell.StartingConcentrations.ValuePestNames[FSpeciesIndex],
       AWell.StartingConcentrations.Values[FSpeciesIndex],
       AWell.Layer, AWell.Row, AWell.Column);
+
+    if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+    begin
+      WriteFormulaOrValueBasedOnAPestName(
+        AWell.ThermalConductivityPestName,
+        AWell.ThermalConductivity,
+        AWell.Layer, AWell.Row, AWell.Column);
+
+      WriteFormulaOrValueBasedOnAPestName(
+        AWell.ThermalThicknessPestName,
+        AWell.ThermalThickness,
+        AWell.Layer, AWell.Row, AWell.Column);
+    end;
+
 
     BoundName := Copy(AWell.BoundName, 1, MaxBoundNameLength);
     BoundName := ' ''' + BoundName + ''' ';
@@ -739,7 +796,14 @@ begin
         gbsConstant:
           begin
             WriteInteger(ACell.WellNumber);
-            WriteString(' CONCENTRATION');
+            if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+            begin
+              WriteString(' TEMPERATURE');
+            end
+            else
+            begin
+              WriteString(' CONCENTRATION');
+            end;
             FormulaIndex := MawGwtStart
               + MawGwtConcCount*FSpeciesIndex + MawGwtSpecifiedConcentrationPosition;
 //              + MawGwtConcCount*MawGwtSpecifiedConcentrationPosition + FSpeciesIndex;
@@ -768,7 +832,18 @@ begin
   end;
   if Model.ModelSelection = msModflow2015 then
   begin
-    Abbreviation := 'MWT6';
+    if Model.MobileComponents[SpeciesIndex].UsedForGWE then
+    begin
+      Abbreviation := 'MWE6';
+    end
+    else if Model.MobileComponents[SpeciesIndex].UsedForGWT then
+    begin
+      Abbreviation := 'MWT6';
+    end
+    else
+    begin
+      Exit;
+    end;
   end
   else
   begin
@@ -786,7 +861,14 @@ begin
   FPestParamUsed := False;
   FSpeciesIndex :=  SpeciesIndex;
   SpeciesName := Model.MobileComponents[FSpeciesIndex].Name;
-  FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.mwt';
+  if Model.MobileComponents[SpeciesIndex].UsedForGWE then
+  begin
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.mwe';
+  end
+  else
+  begin
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.mwt';
+  end;
   FInputFileName := FNameOfFile;
 
   WriteToGwtNameFile(Abbreviation, FNameOfFile, SpeciesIndex);
@@ -804,7 +886,14 @@ begin
         ObsWriter := TMwtObsWriter.Create(Model, etExport,
           FGwtObservations[SpeciesIndex], SpeciesIndex);
         try
-          ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GwtObservationExtension));
+          if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+          begin
+            ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GweObservationExtension));
+          end
+          else
+          begin
+            ObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GwtObservationExtension));
+          end;
         finally
           ObsWriter.Free;
         end;
@@ -2025,6 +2114,22 @@ begin
         AWellRecord.StartingHeadAnnotation := Format(
           StrAssignedBy0sUsi, [AScreenObject.Name, Formula]);
         AWellRecord.StartingHeadPestName := PestParamName;
+
+        CompileFormula(Boundary.ThermalConductivity, StrMAWThermalConductivity, Formula,
+          PestParamName, Column, Row, Layer);
+        Expression.Evaluate;
+        AWellRecord.ThermalConductivity := Expression.DoubleResult;
+        AWellRecord.ThermalConductivityAnnotation := Format(
+          StrAssignedBy0sUsi, [AScreenObject.Name, Formula]);
+        AWellRecord.ThermalConductivityPestName := PestParamName;
+
+        CompileFormula(Boundary.ThermalThickness, StrMAWThermalThickness, Formula,
+          PestParamName, Column, Row, Layer);
+        Expression.Evaluate;
+        AWellRecord.ThermalThickness := Expression.DoubleResult;
+        AWellRecord.ThermalThicknessAnnotation := Format(
+          StrAssignedBy0sUsi, [AScreenObject.Name, Formula]);
+        AWellRecord.ThermalThicknessPestName := PestParamName;
 
         AWellRecord.ConductanceMethod := Boundary.ConductanceMethod;
 
