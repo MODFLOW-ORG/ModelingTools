@@ -299,6 +299,7 @@ resourcestring
   StrTheFollowingSFROb = 'The following SFR observation name "%0:s" is repea' +
   'ted more than once';
   StrWritingUZFObservat = 'Writing UZF observations';
+  StrWritingCSUObservat = 'Writing CSUB observations';
   StrNonuniqueUZFObser = 'Non-unique UZF observation names';
   StrNonuniqueLakeObse = 'Non-unique Lake observation names';
   StrNonuniqueCSUBObse = 'Non-unique CSUB observation names';
@@ -3363,7 +3364,7 @@ begin
   end;
   FNameOfFile := AFileName;
 
-  frmProgressMM.AddMessage(StrWritingUZFObservat);
+  frmProgressMM.AddMessage(StrWritingCSUObservat);
   Assert(FObsList.Count > 0);
   Model.AddModelInputFile(FNameOfFile);
 
@@ -5251,7 +5252,7 @@ begin
   end;
   FNameOfFile := AFileName;
 
-  frmProgressMM.AddMessage(StrWritingLAKObservat);
+  frmProgressMM.AddMessage(StrWritingUZFObservat);
   Assert(FObsList.Count > 0);
   Model.AddModelInputFile(FNameOfFile);
 
@@ -5291,7 +5292,10 @@ var
   CalibIndex: Integer;
   CalibObs: TMf6CalibrationObs;
   StartTime: Double;
-  Prefix: string;
+  Prefix2: string;
+  UsedForGWE: Boolean;
+  Prefix1: string;
+  Prefix3: string;
   procedure CheckForDuplicateObsNames;
   begin
     if ObsNames.IndexOf(ID) >= 0 then
@@ -5355,6 +5359,18 @@ begin
     else
       Assert(False);
   end;
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
+  if UsedForGWE then
+  begin
+    Prefix1 := '.uze';
+    Prefix3 := 'ue';
+  end
+  else
+  begin
+    Prefix1 := '.uzt';
+    Prefix3 := 'ut';
+  end;
+
   ObsNames := TStringList.Create;
   try
     ObsNames.Sorted := True;
@@ -5363,57 +5379,73 @@ begin
       case AnObsType of
         utoConcentration:
           begin
-            OutputExtension := '.uzt-conc_ob' + OutputTypeExtension;
-            ObservationType := 'concentration';
-            Prefix := 'utc_';
+            if UsedForGWE then
+            begin
+              OutputExtension := Prefix1 + '-temp_ob' + OutputTypeExtension;
+              ObservationType := 'temperature';
+              Prefix2 := Prefix3 + 't_';
+            end
+            else
+            begin
+              OutputExtension := Prefix1 + '-conc_ob' + OutputTypeExtension;
+              ObservationType := 'concentration';
+              Prefix2 := Prefix3 + 'c_';
+            end;
           end;
         utoStorage:
           begin
-            OutputExtension := '.uzt-storage_ob' + OutputTypeExtension;
+            OutputExtension := Prefix1 + '-storage_ob' + OutputTypeExtension;
             ObservationType := 'storage';
-            Prefix := 'uts_';
+            Prefix2 := Prefix3 + 's_';
           end;
         utoConstant:
           begin
-            OutputExtension := '.uzt-constant_ob' + OutputTypeExtension;
+            OutputExtension := Prefix1 + '-constant_ob' + OutputTypeExtension;
             ObservationType := 'constant';
-            Prefix := 'uts_';
+            Prefix2 := Prefix3 + 's_';
           end;
         utoFromMvr:
           begin
-            OutputExtension := '.uzt-from_mvr_ob' + OutputTypeExtension;
+            OutputExtension := Prefix1 + '-from_mvr_ob' + OutputTypeExtension;
             ObservationType := 'from-mvr';
-            Prefix := 'utfm_';
+            Prefix2 := Prefix3 + 'fm_';
           end;
         utoUZT:
           begin
-            OutputExtension := '.uzt-uzt_ob' + OutputTypeExtension;
-            ObservationType := 'uzt';
-            Prefix := 'utu_';
+            OutputExtension := Prefix1 + '-uzt_ob' + OutputTypeExtension;
+            if UsedForGWE then
+            begin
+              ObservationType := 'uze';
+            end
+            else
+            begin
+              ObservationType := 'uzt';
+            end;
+            Prefix2 := Prefix3 + 'u_';
           end;
         utoInfiltration:
           begin
-            OutputExtension := '.Uzt_infiltration_ob' + OutputTypeExtension;
+            OutputExtension := Prefix1 + '_infiltration_ob' + OutputTypeExtension;
             ObservationType := 'infiltration';
-            Prefix := 'uti_';
+            Prefix2 := Prefix3 + 'i_';
           end;
         utoRejInfiltration:
           begin
-            OutputExtension := '.uzt_rej_infiltration_ob' + OutputTypeExtension;
+            OutputExtension := Prefix1 + '_rej_infiltration_ob' + OutputTypeExtension;
             ObservationType := 'rej-inf';
-            Prefix := 'utri_';
+            Prefix2 := Prefix3 + 'ri_';
           end;
         utoUzEt:
           begin
-            OutputExtension := '.uzt_uzet_ob' + OutputTypeExtension;
+            OutputExtension := Prefix1 + '_uzet_ob' + OutputTypeExtension;
             ObservationType := 'uzet';
-            Prefix := 'ute_';
+            Prefix2 := Prefix3 + 'e_';
           end;
         utoRejInflToMvr:
           begin
-            OutputExtension := '.uzt_rej_infil_to_mvr_ob' + OutputTypeExtension;
+            OutputExtension := Prefix1 + '_rej_infil_to_mvr_ob' + OutputTypeExtension;
             ObservationType := 'rej-inf-to-mvr';
-            Prefix := 'utri2m_';
+            Prefix2 := Prefix3 + 'ri2m_';
           end;
         else
           Assert(False);
@@ -5442,10 +5474,10 @@ begin
         if AnObsType in AnObs.FObsTypes then
         begin
           CalibObservations := AnObs.FModflow6Obs.CalibrationObservations;
-          Root := Prefix + AnObs.FName;
-          if Root = Prefix then
+          Root := Prefix2 + AnObs.FName;
+          if Root = Prefix2 then
           begin
-            Root := Format(Prefix + 'UzfObs%d', [ObsIndex+1]);
+            Root := Format(Prefix2 + 'UzfObs%d', [ObsIndex+1]);
           end;
           Root := Root + '_' + IntToStr(FSpeciesIndex);
           Assert(Length(Root) <= MaxBoundNameLength);

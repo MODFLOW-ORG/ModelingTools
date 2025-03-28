@@ -6,6 +6,12 @@ inherited framePackageBuoyancy: TframePackageBuoyancy
   DesignSize = (
     715
     405)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblRefDensity: TLabel [2]
     Left = 176
     Top = 231
@@ -15,6 +21,7 @@ inherited framePackageBuoyancy: TframePackageBuoyancy
   end
   inherited memoComments: TMemo
     Width = 684
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 684
   end
   object cbSpecifyDensity: TCheckBox [4]

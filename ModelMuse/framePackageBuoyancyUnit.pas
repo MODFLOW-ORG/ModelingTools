@@ -86,8 +86,8 @@ begin
     rdgChemDensity.FixedCols := 1;
     ClearGrid(rdgChemDensity);
 
-    rdgChemDensity.Cells[Ord(ccName), 0] := 'Chem. Species';
-    rdgChemDensity.Cells[Ord(ccRefConcentration), 0] := 'Reference Concentration (crhoref)';
+    rdgChemDensity.Cells[Ord(ccName), 0] := 'Chem. Species or Temperature';
+    rdgChemDensity.Cells[Ord(ccRefConcentration), 0] := 'Reference Concentration or Temperature (crhoref)';
     rdgChemDensity.Cells[Ord(ccSlope), 0] := 'Slope (drhodc)';
 
     RowIndex := 1;

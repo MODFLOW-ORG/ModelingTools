@@ -17,6 +17,7 @@ type
       var CanSelect: Boolean);
   private
     FScreenObject: TScreenObject;
+    FSpeciesIndex: Integer;
     { Private declarations }
   protected
     procedure InitializeControls;
@@ -35,7 +36,7 @@ var
 implementation
 
 uses
-  ModflowUzfMf6Unit, GoPhastTypes, GwtStatusUnit;
+  ModflowUzfMf6Unit, GoPhastTypes, GwtStatusUnit, frmGoPhastUnit;
 
 {$R *.dfm}
 
@@ -44,6 +45,11 @@ resourcestring
   StrInfiltrationConcentrati = 'Infiltration Concentration';
   StrEvapotranspirationConcentr = 'Evapotranspiration Concentration';
 
+  StrSpecifiedTemperature = 'Specified Temperature';
+  StrInfiltrationTemperature = 'Infiltration Temperature';
+  StrEvapotranspirationTemperature = 'Evapotranspiration Temperature';
+  StrInitialTemperature = 'Initial temperature';
+  StrInitialConcentratio = 'Initial concentration';
 
 procedure TframeUzfGwtConcentrations.GetData(
   const List: TScreenObjectEditCollection; SpeciesIndex: Integer);
@@ -54,6 +60,7 @@ var
   TimeIndex: Integer;
   AUzfItem: TUzfMf6Item;
 begin
+  FSpeciesIndex := SpeciesIndex;
   InitializeControls;
   FDataAssigned := False;
   FoundFirst := False;
@@ -176,9 +183,20 @@ begin
   rdgConcentrations.BeginUpdate;
   try
     inherited;
-    rdgConcentrations.Cells[Ord(uccSpecifiedConcentration), 0] := StrSpecifiedConcentrat;
-    rdgConcentrations.Cells[Ord(uccInfiltration), 0] := StrInfiltrationConcentrati;
-    rdgConcentrations.Cells[Ord(uccEvapotranspiration), 0] := StrEvapotranspirationConcentr;
+    if frmGoPhast.PhastModel.MobileComponents[FSpeciesIndex].UsedForGWE then
+    begin
+      rdgConcentrations.Cells[Ord(uccSpecifiedConcentration), 0] := StrSpecifiedTemperature;
+      rdgConcentrations.Cells[Ord(uccInfiltration), 0] := StrInfiltrationTemperature;
+      rdgConcentrations.Cells[Ord(uccEvapotranspiration), 0] := StrEvapotranspirationTemperature;
+      lblInitialConcentration.Caption := StrInitialTemperature;
+    end
+    else
+    begin
+      rdgConcentrations.Cells[Ord(uccSpecifiedConcentration), 0] := StrSpecifiedConcentrat;
+      rdgConcentrations.Cells[Ord(uccInfiltration), 0] := StrInfiltrationConcentrati;
+      rdgConcentrations.Cells[Ord(uccEvapotranspiration), 0] := StrEvapotranspirationConcentr;
+      lblInitialConcentration.Caption := StrInitialConcentratio;
+    end;
   finally
     rdgConcentrations.EndUpdate;
   end;

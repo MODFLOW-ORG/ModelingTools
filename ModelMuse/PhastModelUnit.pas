@@ -2095,6 +2095,9 @@ that affects the model output should also have a comment. }
     function DoGwtUztUsed(Sender: TObject): boolean; virtual;
     function GetGwtUztUsed: TObjectUsedEvent;
     property GwtUztUsed: TObjectUsedEvent read GetGwtUztUsed;
+    function DoGweUzeUsed(Sender: TObject): boolean; virtual;
+    function GetGweUzeUsed: TObjectUsedEvent;
+    property GweUzeUsed: TObjectUsedEvent read GetGweUzeUsed;
     function DoActiveUsed(Sender: TObject): boolean;
     function GetActiveUsed: TObjectUsedEvent;
     property ActiveUsed: TObjectUsedEvent read GetActiveUsed;
@@ -5327,6 +5330,8 @@ const
   StrMwebudget = '.mwe_budget';
   StrUztconc = '.uzt_conc';
   StrUztbudget = '.uzt_budget';
+  StrUzeTemp = '.uze_temp';
+  StrUzebudget = '.uze_budget';
 
 
   MaxString12 = 12;
@@ -10447,13 +10452,18 @@ const
 //    '5.3.1.14' Change: When importing the MAW package, the BOUNDNAME is now
 //                used as the object name if BOUNDNAME is specified.
 //    '5.3.1.15' Bug fix: Fixed export of grid data to 3D polyhedrons.
+//    '5.3.1.16' Bug fix: Fixed import of MODFLOW 6 models when the
+//                usgs.model.reference file is included.
+
+//               Bug fix: Fixed export of UZT observations when the observations
+//                were only specified as calibration observations.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.3.1.15';
+  IIModelVersion = '5.3.1.16';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }
@@ -45105,11 +45115,15 @@ begin
           try
             UzfMf6Writer.MvrWriter := ModflowMvrWriter;
             UzfMf6Writer.WriteFile(FileName);
-            if GwtUsed then
+            if GwtUsed or GweUsed then
             begin
               for SpeciesIndex := 0 to MobileComponents.Count - 1 do
               begin
-                UzfMf6Writer.WriteUztFile(FileName, SpeciesIndex);
+                if MobileComponents[SpeciesIndex].UsedForGWT
+                  or MobileComponents[SpeciesIndex].UsedForGWE then
+                begin
+                  UzfMf6Writer.WriteUztFile(FileName, SpeciesIndex);
+                end;
               end;
             end;
           finally
@@ -50400,6 +50414,11 @@ begin
   result := Mf6GweUsed(Sender) and ModflowPackages.GweConductionAndDispersionPackage.IsSelected
 end;
 
+function TCustomModel.DoGweUzeUsed(Sender: TObject): boolean;
+begin
+  result := GweUsed and ModflowPackages.UzfMf6Package.IsSelected
+end;
+
 function TCustomModel.DoGwRootInteractionUsed(Sender: TObject): Boolean;
 begin
   result := (ModelSelection = msModflowOwhm2)
@@ -50642,6 +50661,11 @@ begin
   begin
     result := False;
   end;
+end;
+
+function TCustomModel.GetGweUzeUsed: TObjectUsedEvent;
+begin
+  result := DoGweUzeUsed;
 end;
 
 function TCustomModel.GetGwRootInteractionUsed: TObjectUsedEvent;

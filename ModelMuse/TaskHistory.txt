@@ -138,7 +138,7 @@ object TTaskHistory
     end
     item
       Name = 'UZF'
-      Display = False
+      Display = True
     end
     item
       Name = 'Solvers'
@@ -386,11 +386,11 @@ object TTaskHistory
     end
     item
       Name = 'SFR MODFLOW-6'
-      Display = True
+      Display = False
     end
     item
       Name = 'MAW'
-      Display = True
+      Display = False
     end
     item
       Name = 'DISV'
@@ -34367,6 +34367,15 @@ object TTaskHistory
         'Dialog boxes'
         'MF-2015'
         'MAW'
+        'GWE')
+    end
+    item
+      Date = 45744.000000000000000000
+      Categories.Strings = (
+        'Bug fix'
+        'Dialog boxes'
+        'UZF'
+        'MF-2015'
         'GWE')
     end>
 end

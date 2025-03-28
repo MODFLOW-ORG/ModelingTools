@@ -162,6 +162,11 @@ inherited frameUzfGwtConcentrations: TframeUzfGwtConcentrations
       64)
   end
   inherited pnl1: TPanel
+    Visible = False
+    StyleElements = [seFont, seClient, seBorder]
+    inherited lblInitialConcentration: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited btnedInitialConcentration: TssButtonEdit
       Height = 23
       ExplicitHeight = 23

@@ -228,6 +228,7 @@ const
   KNodeActive = 'Active_Node';
 
   KUztInitialConcentration = 'UZT_Initial_Concentration';
+  KUzeInitialTemperature = 'UZE_Initial_Temperature';
 
   // Sutra 4 node data sets
   KSolidMatrixComp = 'Solid_Matrix_Compressibility';
@@ -606,6 +607,7 @@ resourcestring
   StrActiveSurfaceEleva = 'Active_Surface_Elevation';
   StrSFTInitialConcentra = KSFTInitialConcentra;
   StrUztInitialConcentration = KUztInitialConcentration;
+  StrUzeInitialTemperature = KUzeInitialTemperature;
   StrSWI = 'SWI';
   StrMODFLOWSWIZETA = 'MODFLOW SWI: ZETA';
   StrPHASTMEDIAactive = 'PHAST: MEDIA-active';
@@ -1415,6 +1417,7 @@ resourcestring
 //  StrSaturatedThickness = KSaturatedThickness;
   StrSUTRALake = 'SUTRA_Lake';
   StrUzt = 'UZT';
+  StrUze = 'UZE';
 
 
 

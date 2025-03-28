@@ -26,7 +26,6 @@ type
     FName: string;
     FBoundName: string;
     FObsTypes: TUztObs;
-//    FDepthFractions: TOneDRealArray;
     FScreenObject: TScreenObject;
     FUzfBoundNumber: TOneDIntegerArray;
     FCells: array of TCellLocation;
@@ -81,6 +80,7 @@ type
     function ObservationsUsed: Boolean;  reintroduce;
     class function ObservationExtension: string;  override;
     class function GwtObservationExtension: string;
+    class function GweObservationExtension: string;
 //    class function ObservationOutputExtension: string;  override;
   public
     Constructor Create(Model: TCustomModel; EvaluationType: TEvaluationType); override;
@@ -150,7 +150,7 @@ begin
     GetQuantum(Model.RowCount), GetQuantum(Model.ColumnCount));
   FObsList := TUzfObservationList.Create;
   FGwtObservations := TUztObservationLists.Create;
-  if Model.GwtUsed and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
+  if (Model.GwtUsed or Model.GweUsed) and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
   begin
     for Index := 0 to Model.MobileComponents.Count - 1 do
     begin
@@ -217,7 +217,7 @@ begin
           Obs.FModflow6Obs := MfObs;
           FObsList.Add(Obs);
         end;
-        if Model.GwtUsed and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
+        if (Model.GwtUsed or Model.GweUsed) and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
         begin
           for SpeciesIndex := 0 to Model.MobileComponents.Count -1 do
           begin
@@ -226,7 +226,7 @@ begin
               MfObs := ScreenObject.Modflow6Obs;
               UztObs.FName := MfObs.Name;
               UztObs.FBoundName := ScreenObject.Name;
-              UztObs.FObsTypes := MfObs.UztObs;
+              UztObs.FObsTypes := MfObs.UztObs + MfObs.CalibrationObservations.UztObs[SpeciesIndex];
               UztObs.FScreenObject := ScreenObject;
               UztObs.FCells := nil;
               UztObs.FModflow6Obs := MfObs;
@@ -276,7 +276,7 @@ begin
 
           FObsList.Add(Obs);
         end;
-        if Model.GwtUsed and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
+        if (Model.GwtUsed or Model.GweUsed) and Model.ModflowPackages.Mf6ObservationUtility.IsSelected then
         begin
           for SpeciesIndex := 0 to Model.MobileComponents.Count -1 do
           begin
@@ -318,6 +318,11 @@ function TModflowUzfMf6Writer.GetBoundary(
   ScreenObject: TScreenObject): TModflowBoundary;
 begin
   result := ScreenObject.ModflowUzfMf6Boundary;
+end;
+
+class function TModflowUzfMf6Writer.GweObservationExtension: string;
+begin
+  result := '.ob_uze';
 end;
 
 class function TModflowUzfMf6Writer.GwtObservationExtension: string;
@@ -659,7 +664,7 @@ begin
       end;
 
       GWT_Start:= 7;
-      if Model.GwtUsed and (TimeLists.Count > GWT_Start) then
+      if (Model.GwtUsed or Model.GweUsed) and (TimeLists.Count > GWT_Start) then
       begin
         SpecConcList.Capacity := Model.MobileComponents.Count;
         ImfiltrationConcList.Capacity := Model.MobileComponents.Count;
@@ -817,8 +822,16 @@ var
   ColumnIndex: Integer;
   ScreenObject: TScreenObject;
 begin
-  InitConcDataArray := Model.DataArrayManager.GetDataSetByName(
-    KUztInitialConcentration + IntToStr(FSpeciesIndex+1));
+  if Model.MobileComponents[FSpeciesIndex].UsedForGWE then
+  begin
+    InitConcDataArray := Model.DataArrayManager.GetDataSetByName(
+      KUzeInitialTemperature);
+  end
+  else
+  begin
+    InitConcDataArray := Model.DataArrayManager.GetDataSetByName(
+      KUztInitialConcentration + IntToStr(FSpeciesIndex+1));
+  end;
   InitConcDataArray.Initialize;
 
   WriteBeginPackageData;
@@ -866,7 +879,9 @@ var
   GwtStatus: TGwtBoundaryStatus;
   CellNumber: Integer;
   FormulaIndex: Integer;
+  UsedForGWE: Boolean;
 begin
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
   IDOMAINDataArray := Model.DataArrayManager.GetDataSetByName(K_IDOMAIN);
   for StressPeriodIndex := 0 to Model.ModflowFullStressPeriods.Count - 1 do
   begin
@@ -944,7 +959,14 @@ begin
             begin
 //              WriteString('  ');
               WriteInteger(CellNumber);
-              WriteString(' CONCENTRATION');
+              if UsedForGWE then
+              begin
+                WriteString(' TEMPERATURE');
+              end
+              else
+              begin
+                WriteString(' CONCENTRATION');
+              end;
 
               FormulaIndex := UzfBoundaryGwtStart
                 + UztGwtConcCount*FSpeciesIndex + UzfGwtSpecifiedConcentrationPosition;
@@ -992,7 +1014,7 @@ var
   AuxUsed: Boolean;
 begin
   AuxUsed := False;
-  if Model.GwtUsed and (Model.MobileComponents.Count > 0) then
+  if (Model.GwtUsed or Model.GweUsed) and (Model.MobileComponents.Count > 0) then
   begin
     AuxUsed := True;
     WriteString('  AUXILIARY');
@@ -1174,7 +1196,7 @@ begin
     NewLine;
   end;
 
-  if FUzfPackage.SaveBudgetFile or Model.SeparateGwtUsed then
+  if FUzfPackage.SaveBudgetFile or Model.SeparateGwtUsed or Model.SeparateGweUsed then
   begin
     WriteString('  BUDGET FILEOUT ');
     budgetfile := ChangeFileExt(BaseName, StrUzfbudget);
@@ -1634,7 +1656,7 @@ begin
 //                WriteFloat(UzfCell.RootPotential);
 //                WriteFloat(UzfCell.RootActivity);
 
-                if Model.GwtUsed then
+                if Model.GwtUsed or Model.GweUsed then
                 begin
                   for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
                   begin
@@ -1724,14 +1746,23 @@ var
   Abbreviation: string;
   SpeciesName: string;
   UztObsWriter: TUztObsWriter;
+  UsedForGWE: Boolean;
 begin
   if not Package.IsSelected then
   begin
     Exit
   end;
+  UsedForGWE := Model.MobileComponents[SpeciesIndex].UsedForGWE;
   if Model.ModelSelection = msModflow2015 then
   begin
-    Abbreviation := 'UZT6';
+    if UsedForGWE then
+    begin
+      Abbreviation := 'UZE6';
+    end
+    else
+    begin
+      Abbreviation := 'UZT6';
+    end;
   end
   else
   begin
@@ -1741,13 +1772,21 @@ begin
   begin
     Exit;
   end;
-  if not Model.MobileComponents[SpeciesIndex].UsedForGWT then
+  if not (Model.MobileComponents[SpeciesIndex].UsedForGWT
+    or Model.MobileComponents[SpeciesIndex].UsedForGWE) then
   begin
     Exit;
   end;
   FSpeciesIndex :=  SpeciesIndex;
   SpeciesName := Model.MobileComponents[FSpeciesIndex].Name;
-  FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.uzt';
+  if UsedForGWE then
+  begin
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.uze';
+  end
+  else
+  begin
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.uzt';
+  end;
   FInputFileName := FNameOfFile;
 
   WriteToGwtNameFile(Abbreviation, FNameOfFile, SpeciesIndex);
@@ -1759,7 +1798,14 @@ begin
       UztObsWriter := TUztObsWriter.Create(Model, etExport,
         FGwtObservations[SpeciesIndex], SpeciesIndex);
       try
-        UztObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GwtObservationExtension));
+        if UsedForGWE then
+        begin
+          UztObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GweObservationExtension));
+        end
+        else
+        begin
+          UztObsWriter.WriteFile(ChangeFileExt(FNameOfFile, GwtObservationExtension));
+        end;
       finally
         UztObsWriter.Free;
       end;
@@ -1783,7 +1829,9 @@ var
   concentrationfile: string;
   BaseFileName: string;
   NameOfUztObFile: string;
+  UsedForGWE: Boolean;
 begin
+  UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
   WriteBeginOptions;
 
   WriteString('    FLOW_PACKAGE_NAME ');
@@ -1816,8 +1864,16 @@ begin
 
   if UzfMf6Package.SaveGwtConcentration then
   begin
-    WriteString('    CONCENTRATION FILEOUT ');
-    concentrationfile := BaseFileName + StrUztconc;
+    if UsedForGWE then
+    begin
+      WriteString('    TEMPERATURE FILEOUT ');
+      concentrationfile := BaseFileName + StrUzeTemp;
+    end
+    else
+    begin
+      WriteString('    CONCENTRATION FILEOUT ');
+      concentrationfile := BaseFileName + StrUztconc;
+    end;
     Model.AddModelOutputFile(concentrationfile);
     concentrationfile := ExtractFileName(concentrationfile);
     WriteString(concentrationfile);
@@ -1827,7 +1883,14 @@ begin
   if FUzfPackage.SaveBudgetFile then
   begin
     WriteString('    BUDGET FILEOUT ');
-    budgetfile := BaseFileName + StrUztbudget;
+    if UsedForGWE then
+    begin
+      budgetfile := BaseFileName + StrUzebudget;
+    end
+    else
+    begin
+      budgetfile := BaseFileName + StrUztbudget;
+    end;
     Model.AddModelOutputFile(budgetfile);
     budgetfile := ExtractFileName(budgetfile);
     WriteString(budgetfile);
@@ -1837,7 +1900,14 @@ begin
   if FUzfPackage.SaveBudgetCsvFile then
   begin
     WriteString('    BUDGETCSV FILEOUT ');
-    budget_csv_file := ChangeFileExt(BaseFileName, '.uzt_budget.csv');
+    if UsedForGWE then
+    begin
+      budget_csv_file := ChangeFileExt(BaseFileName, '.uze_budget.csv');
+    end
+    else
+    begin
+      budget_csv_file := ChangeFileExt(BaseFileName, '.uzt_budget.csv');
+    end;
     Model.AddModelOutputFile(budget_csv_file);
     budget_csv_file := ExtractFileName(budget_csv_file);
     WriteString(budget_csv_file);
@@ -1849,16 +1919,20 @@ begin
     if FGwtObservations[FSpeciesIndex].Count > 0 then
     begin
       WriteString('    OBS6 FILEIN ');
-      NameOfUztObFile := BaseFileName + GwtObservationExtension;
+      if UsedForGWE then
+      begin
+        NameOfUztObFile := BaseFileName + GweObservationExtension;
+      end
+      else
+      begin
+        NameOfUztObFile := BaseFileName + GwtObservationExtension;
+      end;
       Model.AddModelInputFile(NameOfUztObFile);
       NameOfUztObFile := ExtractFileName(NameOfUztObFile);
       WriteString(NameOfUztObFile);
       NewLine;
     end;
   end;
-
-//  WriteTimeSeriesFiles(FInputFileName);
-//  [OBS6 FILEIN <obs6_filename>]
 
   WriteEndOptions;
 end;

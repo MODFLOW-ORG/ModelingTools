@@ -462,11 +462,12 @@ begin
 
   CheckConnectivity;
 
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin
-      if Model.MobileComponents[SpeciesIndex].UsedForGWT then
+      if Model.MobileComponents[SpeciesIndex].UsedForGWT
+        or Model.MobileComponents[SpeciesIndex].UsedForGWE then
       begin
         AGwtFileName := GwtFileName(FNameOfFile, SpeciesIndex);
         TFile.Copy(FNameOfFile, AGwtFileName, True);
@@ -1119,11 +1120,12 @@ begin
     CloseFile;
   end;
 
-  if Model.GwtUsed then
+  if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
     begin
-      if Model.MobileComponents[SpeciesIndex].UsedForGWT then
+      if Model.MobileComponents[SpeciesIndex].UsedForGWT
+        or Model.MobileComponents[SpeciesIndex].UsedForGWE then
       begin
         AGwtFileName := GwtFileName(FNameOfFile, SpeciesIndex);
         TFile.Copy(FNameOfFile, AGwtFileName, True);

@@ -117,7 +117,7 @@ begin
     rdgChemViscosity.FixedCols := 1;
     ClearGrid(rdgChemViscosity);
 
-    rdgChemViscosity.Cells[Ord(ccvName), 0] := 'Chem. Species';
+    rdgChemViscosity.Cells[Ord(ccvName), 0] := 'Chem. Species or Temperature';
     rdgChemViscosity.Cells[Ord(ccvRefConcentration), 0] := 'Reference Concentration or Temperature (cviscref)';
     rdgChemViscosity.Cells[Ord(ccvSlope), 0] := 'Slope (dviscdc)';
 

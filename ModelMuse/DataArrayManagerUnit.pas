@@ -91,6 +91,8 @@ type
     property ZetaUsed: TObjectUsedEvent read GetZetaUsed;
     property SftUsed: TObjectUsedEvent read GetSftUsed;
     property GwtUztUsed: TObjectUsedEvent read GetGwtUztUsed;
+    function GetGweUzeUsed: TObjectUsedEvent;
+    property GweUzeUsed: TObjectUsedEvent read GetGweUzeUsed;
     property ActiveUsed: TObjectUsedEvent read GetActiveUsed;
     property InitializeActiveDataArrayWithCellSizeObjects: TNotifyEvent
       read GetInitializeActiveDataArrayWithCellSizeObjects;
@@ -1048,19 +1050,29 @@ begin
     end;
   end;
 
-  if FCustomModel.GwtUztUsed(nil) then
+  if FCustomModel.GwtUztUsed(nil) or FCustomModel.GweUzeUsed(nil) then
   begin
     for Index := 1 to FCustomModel.MobileComponents.Count do
     begin
-      DataSetName := FUztInitConc.Name + IntToStr(Index);
-      DisplayName := FUztInitConc.DisplayName + IntToStr(Index);
+      if FCustomModel.MobileComponents[Index-1].UsedForGWE then
+      begin
+        DataSetName := KUzeInitialTemperature;
+        DisplayName := StrUzeInitialTemperature;
+        Classification := StrUze;
+        ArrayNeeded := FCustomModel.GweUzeUsed;
+      end
+      else
+      begin
+        DataSetName := FUztInitConc.Name + IntToStr(Index);
+        DisplayName := FUztInitConc.DisplayName + IntToStr(Index);
+        Classification := FUztInitConc.Classification;
+        ArrayNeeded := FUztInitConc.DataSetNeeded;
+      end;
       Orientation := FUztInitConc.Orientation;
       DataType := FUztInitConc.DataType;
-      ArrayNeeded := FUztInitConc.DataSetNeeded;
       ArrayArrayShouldBeCreated :=
         FUztInitConc.DataSetShouldBeCreated;
       NewFormula := FUztInitConc.Formula;
-      Classification := FUztInitConc.Classification;
       Lock := FUztInitConc.Lock;
       AngleType := FUztInitConc.AngleType;
       HandleDataArray(FUztInitConc);

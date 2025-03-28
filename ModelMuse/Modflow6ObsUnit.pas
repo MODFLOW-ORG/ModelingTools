@@ -328,7 +328,7 @@ const
   ObConcName: array[TObGwt] of string = ('Conc. or Temp.', 'CNC', 'SRC', 'CTP', 'ESL', 'undefined');
 
   ObSeriesName: array[TObSeries] of string = ('General', 'Maw', 'Sfr', 'Lak',
-    'Uzf', 'CSub', 'GWT/GWE', 'Sft', 'Lkt', 'Mwt', 'Uzt');
+    'Uzf', 'CSub', 'GWT/GWE', 'Sft/Sfe', 'Lkt/Lke', 'Mwt/Mwe', 'Uzt/Uze');
 
 var
   ObGenNames: TStringList;

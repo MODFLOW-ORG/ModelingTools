@@ -97,7 +97,6 @@ var
   CellFlowsName: string;
   BudgetSummaryUnitNumber: Integer;
   BaseNameOfFile: string;
-  ASpeciesName: string;
   procedure WriteSingleQuoteMF6;
   begin
     if Model.ModelSelection = msModflow2015 then
@@ -592,11 +591,17 @@ begin
         HeadFrequencyChoice := FOutputControl.HeadOC.FrequencyChoice;
         DataLabel := StrHEAD;
       end;
-    otTransport, otEnergy:
+    otTransport:
       begin
         HeadFrequency := FOutputControl.ConcentrationOC.Frequency;
         HeadFrequencyChoice := FOutputControl.ConcentrationOC.FrequencyChoice;
         DataLabel := StrConcentration;
+      end;
+    otEnergy:
+      begin
+        HeadFrequency := FOutputControl.ConcentrationOC.Frequency;
+        HeadFrequencyChoice := FOutputControl.ConcentrationOC.FrequencyChoice;
+        DataLabel := KTemperature;
       end;
     else
       begin

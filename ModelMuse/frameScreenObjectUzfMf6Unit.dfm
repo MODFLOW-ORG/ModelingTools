@@ -3,32 +3,45 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
   ExplicitHeight = 435
   inherited pnlBottom: TPanel
     Top = 389
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 389
-    ExplicitWidth = 454
-    DesignSize = (
-      541
-      46)
+    ExplicitWidth = 541
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited seNumberOfTimes: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited btnDelete: TBitBtn
       Left = 457
-      ExplicitLeft = 370
+      ExplicitLeft = 457
     end
     inherited btnInsert: TBitBtn
-      ExplicitLeft = 282
+      ExplicitLeft = 369
     end
   end
   inherited pnlTop: TPanel
-    ExplicitWidth = 454
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 541
     inherited pnlCaption: TPanel
-      ExplicitWidth = 452
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitWidth = 539
     end
   end
   inherited pnlGrid: TPanel
     Height = 152
     Align = alTop
-    ExplicitWidth = 454
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 541
     ExplicitHeight = 152
     inherited pnlEditGrid: TPanel
-      ExplicitWidth = 452
+      StyleElements = [seFont, seClient, seBorder]
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
     inherited rdgModflowBoundary: TRbwDataGrid4
       Height = 100
@@ -274,7 +287,7 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
           CheckStyle = csCheck
           AutoAdjustColWidths = True
         end>
-      ExplicitWidth = 452
+      ExplicitWidth = 539
       ExplicitHeight = 100
       ColWidths = (
         64
@@ -294,10 +307,9 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
     Top = 177
     Width = 541
     Height = 212
-    ActivePage = tabTime
+    ActivePage = tabGWT
     Align = alClient
     TabOrder = 3
-    ExplicitWidth = 454
     object tabSteadyProperties: TTabSheet
       Caption = 'Steady properties'
       object lblSurfaceDepressionDepth: TLabel
@@ -528,7 +540,7 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
       ImageIndex = 1
     end
     object tabGWT: TTabSheet
-      Caption = 'GWT'
+      Caption = 'GWT/GWE'
       ImageIndex = 2
       object splSplit: TSplitter
         Left = 121
@@ -558,7 +570,6 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
         Height = 182
         PropagateEnable = False
         Align = alClient
-        ExplicitWidth = 320
       end
     end
   end

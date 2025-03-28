@@ -753,11 +753,11 @@ const
     'UZF_UnsatZoneEvapotranspiration', 'UZF_Storage', 'UZF_NetInfiltration', 'UZF_WaterContent');
 
   UztObsNames: array[TUztOb] of string = (
-    'UZT_Concentration',
+    'UZT_Concentration/UZE_Energy',
     'UZT_Storage',
     'UZT_Constant',
     'UZT_FromMvr',
-    'UZT_Mass_Flow_Rate (UZT)',
+    'UZT_Mass/Energy_Flow_Rate (UZT/UZE)',
     'UZT_Infiltration',
     'UZT_Rejected_Infiltration',
     'UZT_ET',

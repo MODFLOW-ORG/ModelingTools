@@ -102,7 +102,7 @@ begin
     ErrorMessages := TStringList.Create;
     try
       Importer.OnUpdateStatusBar := UpdateStatusBar;
-      Importer.ImportModflow6Model(NameFiles, ErrorMessages, fedGeoRef.FileName);
+      Importer.ImportModflow6Model(NameFiles, ErrorMessages, Trim(fedGeoRef.FileName));
     finally
       Importer.Free;
       ErrorMessages.Free;

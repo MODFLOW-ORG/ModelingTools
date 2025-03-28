@@ -5,8 +5,12 @@ inherited framePestObsMf6: TframePestObsMf6
       inherited Panel: TPanel
         Top = 166
         Height = 58
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 161
         ExplicitHeight = 58
+        inherited lbNumber: TLabel
+          StyleElements = [seFont, seClient, seBorder]
+        end
         inherited sbAdd: TSpeedButton
           Top = 20
           ExplicitTop = 20
@@ -18,6 +22,9 @@ inherited framePestObsMf6: TframePestObsMf6
         inherited sbDelete: TSpeedButton
           Top = 20
           ExplicitTop = 20
+        end
+        inherited seNumber: TJvSpinEdit
+          StyleElements = [seFont, seClient, seBorder]
         end
       end
       inherited Grid: TRbwDataGrid4
@@ -294,6 +301,19 @@ inherited framePestObsMf6: TframePestObsMf6
       Height = 17
       Caption = 'Multilayer'
       TabOrder = 1
+    end
+  end
+  inherited grpObsComparisons: TGroupBox
+    inherited frameObsComparisons: TframeGrid
+      inherited Panel: TPanel
+        StyleElements = [seFont, seClient, seBorder]
+        inherited lbNumber: TLabel
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited seNumber: TJvSpinEdit
+          StyleElements = [seFont, seClient, seBorder]
+        end
+      end
     end
   end
 end

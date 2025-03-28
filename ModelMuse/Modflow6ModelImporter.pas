@@ -10395,67 +10395,58 @@ begin
           Beep;
           MessageDlg(Format('Error reading %s.]', [usgs_model_reference]), mtError, [mbOK], 0);
           Exit;
-          Splitter := TStringList.Create;
-          try
-            for LineIndex := 0 to GeoRef.Count - 1 do
+        end;
+        Splitter := TStringList.Create;
+        try
+          for LineIndex := 0 to GeoRef.Count - 1 do
+          begin
+            Splitter.DelimitedText := GeoRef[LineIndex];
+            if Splitter.Count >= 2 then
             begin
-              Splitter.DelimitedText := GeoRef[LineIndex];
-              if Splitter.Count >= 2 then
+              if LowerCase(Splitter[0]) = 'xul' then
               begin
-                if LowerCase(Splitter[0]) = 'xul' then
-                begin
-                  FImportGeoRef.xul := FortranStrToFloatDef(Splitter[1], 0)
-                end
-                else if LowerCase(Splitter[0]) = 'yul' then
-                begin
-                  FImportGeoRef.yul := FortranStrToFloatDef(Splitter[1], 0)
-                end
-                else if LowerCase(Splitter[0]) = 'rotation' then
-                begin
-                  FImportGeoRef.rotation := FortranStrToFloatDef(Splitter[1], 0)
-                end
-                else if LowerCase(Splitter[0]) = 'length_units' then
-                begin
-                  FImportGeoRef.length_units := Splitter[1];
-                end
-                else if LowerCase(Splitter[0]) = 'time_units' then
-                begin
-                  FImportGeoRef.time_units := Splitter[1];
-                end
-                else if LowerCase(Splitter[0]) = 'start_date' then
-                begin
-                  FImportGeoRef.start_date := Splitter[1];
-                end
-                else if LowerCase(Splitter[0]) = 'start_time' then
-                begin
-                  FImportGeoRef.start_time := Splitter[1];
-                end
-                else if LowerCase(Splitter[0]) = 'model' then
-                begin
-                  FImportGeoRef.model := Splitter[1];
-                end
-                else if UpperCase(Splitter[0]) = 'EPSG' then
-                begin
-                  FImportGeoRef.EPSG := StrToIntDef(Splitter[1], 0);
-                  PhastModel.GeoRef.ProjectionType := ptEpsg;
-                  PhastModel.GeoRef.Projection := IntToStr(FImportGeoRef.EPSG);
-                end
-                else if LowerCase(Splitter[0]) = 'proj4' then
-                begin
-                  proj4Pos := Pos('proj4', LowerCase(GeoRef[LineIndex]));
-                  FImportGeoRef.proj4 := Trim(Copy(GeoRef[LineIndex], proj4Pos + Length('proj4'), MAXINT));
-                  PhastModel.GeoRef.ProjectionType := ptProj4;
-                  PhastModel.GeoRef.Projection := FImportGeoRef.proj4;
-                end
-                else
-                begin
-                  if Pos('proj', lowercase(GeoRef[LineIndex])) > 0 then
-                  begin
-                    FImportGeoRef.proj4 := GeoRef[LineIndex];
-                    PhastModel.GeoRef.ProjectionType := ptProj4;
-                    PhastModel.GeoRef.Projection := FImportGeoRef.proj4;
-                  end;
-                end;
+                FImportGeoRef.xul := FortranStrToFloatDef(Splitter[1], 0)
+              end
+              else if LowerCase(Splitter[0]) = 'yul' then
+              begin
+                FImportGeoRef.yul := FortranStrToFloatDef(Splitter[1], 0)
+              end
+              else if LowerCase(Splitter[0]) = 'rotation' then
+              begin
+                FImportGeoRef.rotation := FortranStrToFloatDef(Splitter[1], 0)
+              end
+              else if LowerCase(Splitter[0]) = 'length_units' then
+              begin
+                FImportGeoRef.length_units := Splitter[1];
+              end
+              else if LowerCase(Splitter[0]) = 'time_units' then
+              begin
+                FImportGeoRef.time_units := Splitter[1];
+              end
+              else if LowerCase(Splitter[0]) = 'start_date' then
+              begin
+                FImportGeoRef.start_date := Splitter[1];
+              end
+              else if LowerCase(Splitter[0]) = 'start_time' then
+              begin
+                FImportGeoRef.start_time := Splitter[1];
+              end
+              else if LowerCase(Splitter[0]) = 'model' then
+              begin
+                FImportGeoRef.model := Splitter[1];
+              end
+              else if UpperCase(Splitter[0]) = 'EPSG' then
+              begin
+                FImportGeoRef.EPSG := StrToIntDef(Splitter[1], 0);
+                PhastModel.GeoRef.ProjectionType := ptEpsg;
+                PhastModel.GeoRef.Projection := IntToStr(FImportGeoRef.EPSG);
+              end
+              else if LowerCase(Splitter[0]) = 'proj4' then
+              begin
+                proj4Pos := Pos('proj4', LowerCase(GeoRef[LineIndex]));
+                FImportGeoRef.proj4 := Trim(Copy(GeoRef[LineIndex], proj4Pos + Length('proj4'), MAXINT));
+                PhastModel.GeoRef.ProjectionType := ptProj4;
+                PhastModel.GeoRef.Projection := FImportGeoRef.proj4;
               end
               else
               begin
@@ -10466,10 +10457,19 @@ begin
                   PhastModel.GeoRef.Projection := FImportGeoRef.proj4;
                 end;
               end;
+            end
+            else
+            begin
+              if Pos('proj', lowercase(GeoRef[LineIndex])) > 0 then
+              begin
+                FImportGeoRef.proj4 := GeoRef[LineIndex];
+                PhastModel.GeoRef.ProjectionType := ptProj4;
+                PhastModel.GeoRef.Projection := FImportGeoRef.proj4;
+              end;
             end;
-          finally
-            Splitter.Free;
           end;
+        finally
+          Splitter.Free;
         end;
       finally
         GeoRef.Free;

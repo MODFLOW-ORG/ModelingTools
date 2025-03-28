@@ -577,7 +577,7 @@ begin
     end;
     rdgModflowBoundary.HideEditor;
 
-    tabGWT.TabVisible := frmGoPhast.PhastModel.GwtUsed;
+    tabGWT.TabVisible := frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed;
     if tabGWT.TabVisible then
     begin
       tvGwt.Items.Clear;

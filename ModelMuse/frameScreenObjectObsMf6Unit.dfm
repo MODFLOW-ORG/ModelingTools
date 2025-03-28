@@ -18,7 +18,7 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
     Top = 71
     Width = 590
     Height = 448
-    ActivePage = tabMAW
+    ActivePage = tabCalibration
     Align = alClient
     TabOrder = 1
     object tabBasic: TTabSheet

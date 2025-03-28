@@ -49,7 +49,7 @@ resourcestring
   StrObservationSeriesType = 'Observation Series Type';
   StrObjectWeightFormul = 'Object Weight Formula';
   StrMAWConnectionNumbe = 'MAW Connection Number';
-  StrChemSpecies = 'Chem. Species';
+  StrChemSpecies = 'Chem. Species or Temperature';
 
 {$R *.dfm}
 

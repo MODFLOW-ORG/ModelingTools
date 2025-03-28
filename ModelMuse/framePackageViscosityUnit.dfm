@@ -6,6 +6,12 @@ inherited framePackageViscosity: TframePackageViscosity
   DesignSize = (
     715
     524)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblRefViscosity: TLabel [2]
     Left = 176
     Top = 218
@@ -50,6 +56,7 @@ inherited framePackageViscosity: TframePackageViscosity
   end
   inherited memoComments: TMemo
     Width = 684
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 684
   end
   object cbSpecifyViscosity: TCheckBox [9]
