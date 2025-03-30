@@ -279,6 +279,7 @@ begin
          or (Description = '         DENSITY')
          or (Description = '         VISCOSI')
          or (Description = '       VISCOSITY')
+         or (Description = 'TEMPERATURE     ')
 end;
 
 function IsMf6ArrayFile(AFile: TFileStream): Boolean;

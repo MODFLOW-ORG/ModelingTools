@@ -849,6 +849,7 @@ var
   BaseFileName: string;
   budgetCsvFile: string;
   MvrPackage: TMvrPackage;
+  UsedForGWE: Boolean;
 begin
   WriteBeginOptions;
   try
@@ -864,10 +865,18 @@ begin
     BaseFileName := ChangeFileExt(FNameOfFile, '');
     BaseFileName := ChangeFileExt(BaseFileName, '') + '.' + ASpecies.Name;
 
+    UsedForGWE := Model.MobileComponents[FSpeciesIndex].UsedForGWE;
     if MvrPackage.SaveBudgetFile then
     begin
       WriteString('    BUDGET FILEOUT ');
-      budgetfile := BaseFileName + '.mvt_budget';
+      if UsedForGWE then
+      begin
+        budgetfile := BaseFileName + '.mve_budget';
+      end
+      else
+      begin
+        budgetfile := BaseFileName + '.mvt_budget';
+      end;
       Model.AddModelOutputFile(budgetfile);
       budgetfile := ExtractFileName(budgetfile);
       WriteString(budgetfile);
@@ -877,7 +886,14 @@ begin
     if MvrPackage.SaveCsvBudgetFile then
     begin
       WriteString('    BUDGETCSV FILEOUT ');
-      budgetCsvFile := BaseFileName + '.mvt_budget.csv';
+      if UsedForGWE then
+      begin
+        budgetCsvFile := BaseFileName + '.mve_budget.csv';
+      end
+      else
+      begin
+        budgetCsvFile := BaseFileName + '.mvt_budget.csv';
+      end;
       Model.AddModelOutputFile(budgetCsvFile);
       budgetCsvFile := ExtractFileName(budgetCsvFile);
       WriteString(budgetCsvFile);
@@ -1502,14 +1518,23 @@ procedure TModflowMvrWriter.WriteMvtFile(const AFileName: string;
 var
   SpeciesName: string;
   Abbreviation: string;
+  UsedForGWE: Boolean;
 begin
   if not Package.IsSelected then
   begin
     Exit
   end;
+  UsedForGWE := Model.MobileComponents[SpeciesIndex].UsedForGWE;
   if Model.ModelSelection = msModflow2015 then
   begin
-    Abbreviation := 'MVT6';
+    if UsedForGWE then
+    begin
+      Abbreviation := 'MVE6';
+    end
+    else
+    begin
+      Abbreviation := 'MVT6';
+    end;
   end
   else
   begin
@@ -1519,14 +1544,22 @@ begin
   begin
     Exit;
   end;
-  if not Model.MobileComponents[SpeciesIndex].UsedForGWT then
+  if not (Model.MobileComponents[SpeciesIndex].UsedForGWT
+    or UsedForGWE) then
   begin
     Exit;
   end;
   FPestParamUsed := False;
   FSpeciesIndex :=  SpeciesIndex;
   SpeciesName := Model.MobileComponents[SpeciesIndex].Name;
-  FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.mvt';
+  if UsedForGWE then
+  begin
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.mve';
+  end
+  else
+  begin
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + SpeciesName + '.mvt';
+  end;
   FInputFileName := FNameOfFile;
 
   WriteToGwtNameFile(Abbreviation, FNameOfFile, SpeciesIndex);

@@ -123,9 +123,6 @@ type
       var AColor: TColor);
     procedure StorePercentDiscrepancy(ALine: string);
     function PlotPercentDiscrepancy : boolean;
-//    procedure IndentifyProblem(ALine: string; var IsProblem: Boolean;
-//      StatusChangeIndicator: TStatusChange; var Positions: TIntegerDynArray;
-//      KeyTerms: TAnsiStringList); overload;
     procedure IndentifyProblem(ALine: string;
       var IsError, IsWarning: Boolean; var PositionInLine, KeyLength: Integer); //overload;
     procedure HandleListFileLine(ALine: string);
@@ -200,7 +197,7 @@ type
     procedure treeNavigationClick(Sender: TObject);
     procedure jvcpRunModelRead(Sender: TObject; const S: string;
       const StartsOnNewLine: Boolean);
-    procedure jvcpRunModelTerminate(Sender: TObject; ExitCode: Cardinal);
+    procedure jvcpRunModelTerminate(Sender: TObject; ExitCode: DWORD);
     procedure btnStopModelClick(Sender: TObject);
     procedure cbModflow6Click(Sender: TObject);
   private
@@ -225,7 +222,6 @@ type
     FProblem: Boolean;
     FModflow2015: boolean;
     FSaveIniFile: Boolean;
-//    FInnerIterationLineSplitter: TStringList;
     procedure GetListFile(AFileName: string; ListFiles: TStringList;
       var ListSuppressed: boolean);
     procedure FindStart(RichEdit: TJvRichEdit; PositionInLine: integer;
@@ -982,7 +978,7 @@ begin
           mtype := UpperCase(LineSplitter[0]);
           mfname := LineSplitter[1];
           mname := LineSplitter[2];
-          if (mtype = 'GWF6') or (mtype = 'GWT6') then
+          if (mtype = 'GWF6') or (mtype = 'GWT6') or (mtype = 'GWE6') then
           begin
             GetAMf6ListFileName(mfname, ListFiles);
           end;

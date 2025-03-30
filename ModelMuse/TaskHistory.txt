@@ -162,7 +162,7 @@ object TTaskHistory
     end
     item
       Name = 'Running MODFLOW ModelMonitor'
-      Display = False
+      Display = True
     end
     item
       Name = 'HFB'
@@ -34377,5 +34377,16 @@ object TTaskHistory
         'UZF'
         'MF-2015'
         'GWE')
+    end
+    item
+      Date = 45745.000000000000000000
+    end
+    item
+      Date = 45746.000000000000000000
+      Categories.Strings = (
+        'MF-2015'
+        'GWE'
+        'Running MODFLOW ModelMonitor'
+        'MVR')
     end>
 end

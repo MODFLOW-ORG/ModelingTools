@@ -1844,14 +1844,14 @@ begin
             ListFiles.Add(MfListName);
           end;
         end;
-        if (SimCount = 1) and Model.GwtUsed then
+        if (SimCount = 1) and (Model.GwtUsed or Model.GweUsed) then
         begin
           SimFileName := ExtractFileName(frmGoPhast.PhastModel.SimNameWriter.
             SimFileNames[0]);
           SimFileName := ChangeFileExt(SimFileName, '');
           for ChemIndex := 0 to Model.MobileComponents.Count - 1 do
           begin
-            if Model.MobileComponents[ChemIndex].UsedForGWT then
+            if Model.MobileComponents[ChemIndex].UsedForGWT or Model.MobileComponents[ChemIndex].UsedForGWE then
             begin
               ChemExt := '.' + Model.MobileComponents[ChemIndex].Name + '.lst';
               ListFileName := ChangeFileExt(SimFileName, ChemExt);

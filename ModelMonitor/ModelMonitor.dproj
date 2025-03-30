@@ -138,7 +138,6 @@
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
         <Debugger_RunParams>-m C:\WRDAPP\MF2005.1_12\bin\mf2005.exe -n GhbTest.nam -c</Debugger_RunParams>
         <Debugger_CWD>C:\ModelingTools\ModelMuse\PracticeModel\NewPestTest</Debugger_CWD>
-        <DCC_Define>madExcept;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>

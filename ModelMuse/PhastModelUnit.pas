@@ -45515,7 +45515,7 @@ begin
           if ModflowMvrWriter <> nil then
           begin
             ModflowMvrWriter.WriteFile(FileName);
-            if GwtUsed then
+            if GwtUsed or GweUsed then
             begin
               for SpeciesIndex := 0 to MobileComponents.Count - 1 do
               begin
@@ -45559,36 +45559,6 @@ begin
 
       if GwtUsed or GweUsed then
       begin
-        if GwtUsed then
-        begin
-          AdvWriter := TModflowGwtAdvWriter.Create(Self, etExport);
-          try
-            AdvWriter.WriteFile(FileName);
-          finally
-            AdvWriter.Free;
-          end;
-          Application.ProcessMessages;
-          if not frmProgressMM.ShouldContinue then
-          begin
-            Exit;
-          end;
-        end;
-
-        if GweUsed then
-        begin
-          AdvWriter := TModflowGwtAdvWriter.Create(Self, etExport);
-          try
-            AdvWriter.ModelType := mtEnergyTransport;
-            AdvWriter.WriteFile(FileName);
-          finally
-            AdvWriter.Free;
-          end;
-          Application.ProcessMessages;
-          if not frmProgressMM.ShouldContinue then
-          begin
-            Exit;
-          end;
-        end;
 
         for SpeciesIndex := 0 to MobileComponents.Count - 1 do
         begin
@@ -45596,6 +45566,18 @@ begin
             or MobileComponents[SpeciesIndex].UsedForGWE) then
           begin
             Continue;
+          end;
+
+          AdvWriter := TModflowGwtAdvWriter.Create(Self, etExport);
+          try
+            AdvWriter.WriteFile(FileName, SpeciesIndex);
+          finally
+            AdvWriter.Free;
+          end;
+          Application.ProcessMessages;
+          if not frmProgressMM.ShouldContinue then
+          begin
+            Exit;
           end;
 
           if MobileComponents[SpeciesIndex].UsedForGWT then
