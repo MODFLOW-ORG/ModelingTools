@@ -44166,6 +44166,10 @@ var
   EstWriter: TModflowGwtEstWriter;
   CtpWriter: TModflowCtpWriter;
   EslWriter: TModflowEslWriter;
+  SpeciesName: string;
+  Species: TMobileChemSpeciesItem;
+  IgnoredNames: TStringList;
+  FileIndex: Integer;
 begin
   GwtNameWriters := Mf6GwtNameWriters as TMf6GwtNameWriters;
   GwtNameWriters.Clear;
@@ -45669,17 +45673,18 @@ begin
               Exit;
             end;
 
-            ExchangeWriter := TModflowGwfGwtExchangeWriter.Create(Self, etExport);
-            try
-              ExchangeWriter.WriteFile(FileName, SpeciesIndex);
-            finally
-              ExchangeWriter.Free;
-            end;
-            Application.ProcessMessages;
-            if not frmProgressMM.ShouldContinue then
-            begin
-              Exit;
-            end;
+          end;
+
+          ExchangeWriter := TModflowGwfGwtExchangeWriter.Create(Self, etExport);
+          try
+            ExchangeWriter.WriteFile(FileName, SpeciesIndex);
+          finally
+            ExchangeWriter.Free;
+          end;
+          Application.ProcessMessages;
+          if not frmProgressMM.ShouldContinue then
+          begin
+            Exit;
           end;
 
           ImsWriter := TImsWriter.Create(self, etExport, SpeciesIndex);
@@ -45742,17 +45747,36 @@ begin
       finally
         SetCurrentNameFileWriter(nil);
       end;
+      IgnoredNames := TStringList.Create;
+      try
+        GetIgnoredSpeciesNames(IgnoredNames);
 
-      for SpeciesIndex := 0 to GwtNameWriters.Count - 1 do
-      begin
-        if GweUsed and (MobileComponents[SpeciesIndex].UsedForGWE) then
+        FileIndex := -1;
+        for SpeciesIndex := 0 to MobileComponents.Count - 1 do
         begin
-          GwtNameWriters[SpeciesIndex].WriteFile(mtEnergyTransport);
-        end
-        else
-        begin
-          GwtNameWriters[SpeciesIndex].WriteFile(mtGroundwaterTransport);
+          Species := MobileComponents[SpeciesIndex];
+          if not (Species.UsedForGWT or Species.UsedForGWE) then
+          begin
+            Continue;
+          end;
+          SpeciesName := Species.Name;
+          if IgnoredNames.IndexOf(SpeciesName) >= 0 then
+          begin
+            Continue;
+          end;
+          Inc(FileIndex);
+
+          if GweUsed and Species.UsedForGWE then
+          begin
+            GwtNameWriters[FileIndex].WriteFile(mtEnergyTransport);
+          end
+          else if GwtUsed and Species.UsedForGWT then
+          begin
+            GwtNameWriters[FileIndex].WriteFile(mtGroundwaterTransport);
+          end;
         end;
+      finally
+        IgnoredNames.Free;
       end;
 
     except on E: EInvalidTime do

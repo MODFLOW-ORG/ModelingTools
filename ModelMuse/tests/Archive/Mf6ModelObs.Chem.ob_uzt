@@ -1,4 +1,4 @@
-# OBS: Observation Utility file created on 1/8/2024 by ModelMuse version 5.1.1.51.
+# OBS: Observation Utility file created on 3/30/2025 by ModelMuse version 5.3.1.16.
 BEGIN OPTIONS
     DIGITS     10
     PRINT_INPUT
@@ -20,7 +20,7 @@ BEGIN CONTINUOUS FILEOUT Mf6ModelObs.Chem.uzt-uzt_ob.csv
   utu_UzfObs_0 uzt Object15 
 END CONTINUOUS
 
-BEGIN CONTINUOUS FILEOUT Mf6ModelObs.Chem.Uzt_infiltration_ob.csv
+BEGIN CONTINUOUS FILEOUT Mf6ModelObs.Chem.uzt_infiltration_ob.csv
   uti_UzfObs_0 infiltration Object15 
 END CONTINUOUS
 

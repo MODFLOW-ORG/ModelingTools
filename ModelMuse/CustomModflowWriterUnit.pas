@@ -167,7 +167,9 @@ type
       Value: double; Layer, Row, Column: Integer);
     procedure WriteBeginPackageData;
   public
+    class function GweExtension: string; virtual;
     function GwtFileName(const AFileName: string; SpeciesIndex: Integer): string;
+    function GweFileName(const AFileName: string; SpeciesIndex: Integer): string;
     // @name converts AFileName to use the correct extension for the file.
     class function FileName(const AFileName: string): string;
     {@name is the model to be exported.}
@@ -3791,6 +3793,20 @@ begin
   end;
 end;
 
+class function TCustomFileWriter.GweExtension: string;
+begin
+  result := '';
+end;
+
+function TCustomFileWriter.GweFileName(const AFileName: string;
+  SpeciesIndex: Integer): string;
+var
+  ASpeciesName: String;
+begin
+  ASpeciesName := '.' + Model.MobileComponents[SpeciesIndex].Name;
+  result := ChangeFileExt(AFileName, ASpeciesName) + GweExtension;
+end;
+
 function TCustomFileWriter.GwtFileName(const AFileName: string;
   SpeciesIndex: Integer): string;
 var
@@ -4306,20 +4322,31 @@ var
   FileIndex: Integer;
   SIndex: Integer;
   SpeciesName: string;
+  Species: TMobileChemSpeciesItem;
 begin
   Mf6GwtNameWriters := Model.Mf6GwtNameWriters as TMf6GwtNameWriters;
   IgnoredNames := TStringList.Create;
   try
     Model.GetIgnoredSpeciesNames(IgnoredNames);
-    SpeciesName := Model.MobileComponents[SpeciesIndex].Name;
+    Species := Model.MobileComponents[SpeciesIndex];
+    SpeciesName := Species.Name;
     if IgnoredNames.IndexOf(SpeciesName) >= 0 then
+    begin
+      Exit;
+    end;
+    if not (Species.UsedForGWT or Species.UsedForGWE) then
     begin
       Exit;
     end;
     FileIndex := -1;
     for SIndex := 0 to SpeciesIndex do
     begin
-      SpeciesName := Model.MobileComponents[SpeciesIndex].Name;
+      Species := Model.MobileComponents[SIndex];
+      if not (Species.UsedForGWT or Species.UsedForGWE) then
+      begin
+        Continue;
+      end;
+      SpeciesName := Species.Name;
       if IgnoredNames.IndexOf(SpeciesName) < 0 then
       begin
         Inc(FileIndex);
@@ -10031,7 +10058,7 @@ var
 begin
   WriteString('BEGIN EXCHANGES');
   NewLine;
-  if Model.GwtUsed and not Model.SeparateGwtUsed then
+  if (Model.GwtUsed and not Model.SeparateGwtUsed) or (Model.GweUsed and not Model.SeparateGweUsed) then
   begin
     for index := 0 to FExchanges.Count - 1 do
     begin
@@ -10164,6 +10191,7 @@ var
   ShouldWriteLine: Boolean;
   GwtUsed: Boolean;
   SeparateGwtUsed: Boolean;
+  ModelData: TModelData;
 begin
   Assert(FModelDataList.Count > 0);
   WriteString('BEGIN MODELS');
@@ -10177,7 +10205,8 @@ begin
     ShouldWriteLine := GetShouldWriteLine(GwtUsed, SeparateGwtUsed, ModelIndex);
     if ShouldWriteLine then
     begin
-      WriteString(FModelDataList[ModelIndex].ModelLine);
+      ModelData := FModelDataList[ModelIndex];
+      WriteString(ModelData.ModelLine);
       NewLine;
     end;
   end;

@@ -120,7 +120,7 @@
     <FileName Model_Name="Mf6ModelObs" FileType="Model Output">Mf6ModelObs.Chem.sft_to_mvr_ob.csv</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Output">Mf6ModelObs.Chem.uzt_budget</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Output">Mf6ModelObs.Chem.uzt_conc</FileName>
-    <FileName Model_Name="Mf6ModelObs" FileType="Model Output">Mf6ModelObs.Chem.Uzt_infiltration_ob.csv</FileName>
+    <FileName Model_Name="Mf6ModelObs" FileType="Model Output">Mf6ModelObs.Chem.uzt_infiltration_ob.csv</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Output">Mf6ModelObs.Chem.uzt_rej_infil_to_mvr_ob.csv</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Output">Mf6ModelObs.Chem.uzt_rej_infiltration_ob.csv</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Output">Mf6ModelObs.Chem.uzt_uzet_ob.csv</FileName>
