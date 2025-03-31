@@ -15,6 +15,7 @@
     <FileName Model_Name="SaltLake" FileType="Model Input">SaltLake.Chem.cnc</FileName>
     <FileName Model_Name="SaltLake" FileType="Model Input">SaltLake.Chem.dis</FileName>
     <FileName Model_Name="SaltLake" FileType="Model Input">SaltLake.Chem.dsp</FileName>
+    <FileName Model_Name="SaltLake" FileType="Model Input">SaltLake.Chem.gwfgwt</FileName>
     <FileName Model_Name="SaltLake" FileType="Model Input">SaltLake.Chem.ic</FileName>
     <FileName Model_Name="SaltLake" FileType="Model Input">SaltLake.Chem.ims</FileName>
     <FileName Model_Name="SaltLake" FileType="Model Input">SaltLake.Chem.mst</FileName>

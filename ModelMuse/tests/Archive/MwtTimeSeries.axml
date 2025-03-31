@@ -14,6 +14,7 @@
     <FileName Model_Name="MwtTimeSeries" FileType="Model Input">MwtTimeSeries.Chem.dis</FileName>
     <FileName Model_Name="MwtTimeSeries" FileType="Model Input">MwtTimeSeries.Chem.dsp</FileName>
     <FileName Model_Name="MwtTimeSeries" FileType="Model Input">MwtTimeSeries.Chem.fmi</FileName>
+    <FileName Model_Name="MwtTimeSeries" FileType="Model Input">MwtTimeSeries.Chem.gwfgwt</FileName>
     <FileName Model_Name="MwtTimeSeries" FileType="Model Input">MwtTimeSeries.Chem.ic</FileName>
     <FileName Model_Name="MwtTimeSeries" FileType="Model Input">MwtTimeSeries.Chem.ims</FileName>
     <FileName Model_Name="MwtTimeSeries" FileType="Model Input">MwtTimeSeries.Chem.mst</FileName>

@@ -14,6 +14,7 @@
     <FileName Model_Name="Prudic2004t2" FileType="Model Input">Prudic2004t2.Chem.dis</FileName>
     <FileName Model_Name="Prudic2004t2" FileType="Model Input">Prudic2004t2.Chem.dsp</FileName>
     <FileName Model_Name="Prudic2004t2" FileType="Model Input">Prudic2004t2.Chem.fmi</FileName>
+    <FileName Model_Name="Prudic2004t2" FileType="Model Input">Prudic2004t2.Chem.gwfgwt</FileName>
     <FileName Model_Name="Prudic2004t2" FileType="Model Input">Prudic2004t2.Chem.ic</FileName>
     <FileName Model_Name="Prudic2004t2" FileType="Model Input">Prudic2004t2.Chem.ims</FileName>
     <FileName Model_Name="Prudic2004t2" FileType="Model Input">Prudic2004t2.Chem.lkt</FileName>

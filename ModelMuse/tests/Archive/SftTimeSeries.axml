@@ -15,6 +15,7 @@
     <FileName Model_Name="SftTimeSeries" FileType="Model Input">SftTimeSeries.Chem.dis</FileName>
     <FileName Model_Name="SftTimeSeries" FileType="Model Input">SftTimeSeries.Chem.dsp</FileName>
     <FileName Model_Name="SftTimeSeries" FileType="Model Input">SftTimeSeries.Chem.fmi</FileName>
+    <FileName Model_Name="SftTimeSeries" FileType="Model Input">SftTimeSeries.Chem.gwfgwt</FileName>
     <FileName Model_Name="SftTimeSeries" FileType="Model Input">SftTimeSeries.Chem.ic</FileName>
     <FileName Model_Name="SftTimeSeries" FileType="Model Input">SftTimeSeries.Chem.ims</FileName>
     <FileName Model_Name="SftTimeSeries" FileType="Model Input">SftTimeSeries.Chem.lkt</FileName>

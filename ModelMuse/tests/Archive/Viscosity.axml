@@ -24,6 +24,7 @@
     <FileName Model_Name="Viscosity" FileType="Model Input">Viscosity.Temperature.adv</FileName>
     <FileName Model_Name="Viscosity" FileType="Model Input">Viscosity.Temperature.dis</FileName>
     <FileName Model_Name="Viscosity" FileType="Model Input">Viscosity.Temperature.dsp</FileName>
+    <FileName Model_Name="Viscosity" FileType="Model Input">Viscosity.Temperature.gwfgwt</FileName>
     <FileName Model_Name="Viscosity" FileType="Model Input">Viscosity.Temperature.ic</FileName>
     <FileName Model_Name="Viscosity" FileType="Model Input">Viscosity.Temperature.ims</FileName>
     <FileName Model_Name="Viscosity" FileType="Model Input">Viscosity.Temperature.mst</FileName>

@@ -14,6 +14,7 @@
     <FileName Model_Name="UztTimeSeries" FileType="Model Input">UztTimeSeries.Chem.adv</FileName>
     <FileName Model_Name="UztTimeSeries" FileType="Model Input">UztTimeSeries.Chem.dis</FileName>
     <FileName Model_Name="UztTimeSeries" FileType="Model Input">UztTimeSeries.Chem.dsp</FileName>
+    <FileName Model_Name="UztTimeSeries" FileType="Model Input">UztTimeSeries.Chem.gwfgwt</FileName>
     <FileName Model_Name="UztTimeSeries" FileType="Model Input">UztTimeSeries.Chem.ic</FileName>
     <FileName Model_Name="UztTimeSeries" FileType="Model Input">UztTimeSeries.Chem.ims</FileName>
     <FileName Model_Name="UztTimeSeries" FileType="Model Input">UztTimeSeries.Chem.mst</FileName>

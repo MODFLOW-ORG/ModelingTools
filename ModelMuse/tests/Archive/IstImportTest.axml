@@ -14,6 +14,7 @@
     <FileName Model_Name="IstImportTest" FileType="Model Input">IstImportTest.Chem1.dis</FileName>
     <FileName Model_Name="IstImportTest" FileType="Model Input">IstImportTest.Chem1.dsp</FileName>
     <FileName Model_Name="IstImportTest" FileType="Model Input">IstImportTest.Chem1.fmi</FileName>
+    <FileName Model_Name="IstImportTest" FileType="Model Input">IstImportTest.Chem1.gwfgwt</FileName>
     <FileName Model_Name="IstImportTest" FileType="Model Input">IstImportTest.Chem1.ic</FileName>
     <FileName Model_Name="IstImportTest" FileType="Model Input">IstImportTest.Chem1.ims</FileName>
     <FileName Model_Name="IstImportTest" FileType="Model Input">IstImportTest.Chem1.mst</FileName>

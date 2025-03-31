@@ -21,6 +21,7 @@
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Salinity.adv</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Salinity.dis</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Salinity.dsp</FileName>
+    <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Salinity.gwfgwt</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Salinity.ic</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Salinity.ims</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Salinity.lkt</FileName>
@@ -33,6 +34,7 @@
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Temperature.cnc</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Temperature.dis</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Temperature.dsp</FileName>
+    <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Temperature.gwfgwt</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Temperature.ic</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Temperature.ims</FileName>
     <FileName Model_Name="BuoyancyLAK" FileType="Model Input">BuoyancyLAK.Temperature.lkt</FileName>

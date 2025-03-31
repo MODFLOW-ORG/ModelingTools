@@ -19,6 +19,7 @@
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Salinity.adv</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Salinity.dis</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Salinity.dsp</FileName>
+    <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Salinity.gwfgwt</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Salinity.ic</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Salinity.ims</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Salinity.mst</FileName>
@@ -30,6 +31,7 @@
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Temperature.cnc</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Temperature.dis</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Temperature.dsp</FileName>
+    <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Temperature.gwfgwt</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Temperature.ic</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Temperature.ims</FileName>
     <FileName Model_Name="Buoyancy" FileType="Model Input">Buoyancy.Temperature.mst</FileName>

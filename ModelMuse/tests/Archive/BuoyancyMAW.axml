@@ -20,6 +20,7 @@
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Salinity.adv</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Salinity.dis</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Salinity.dsp</FileName>
+    <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Salinity.gwfgwt</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Salinity.ic</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Salinity.ims</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Salinity.mst</FileName>
@@ -32,6 +33,7 @@
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Temperature.cnc</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Temperature.dis</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Temperature.dsp</FileName>
+    <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Temperature.gwfgwt</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Temperature.ic</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Temperature.ims</FileName>
     <FileName Model_Name="BuoyancyMAW" FileType="Model Input">BuoyancyMAW.Temperature.mst</FileName>

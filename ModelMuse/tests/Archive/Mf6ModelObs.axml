@@ -14,6 +14,7 @@
     <FileName Model_Name="Mf6ModelObs" FileType="Model Input">Mf6ModelObs.Chem.cnc</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Input">Mf6ModelObs.Chem.dis</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Input">Mf6ModelObs.Chem.dsp</FileName>
+    <FileName Model_Name="Mf6ModelObs" FileType="Model Input">Mf6ModelObs.Chem.gwfgwt</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Input">Mf6ModelObs.Chem.ic</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Input">Mf6ModelObs.Chem.ims</FileName>
     <FileName Model_Name="Mf6ModelObs" FileType="Model Input">Mf6ModelObs.Chem.lkt</FileName>
