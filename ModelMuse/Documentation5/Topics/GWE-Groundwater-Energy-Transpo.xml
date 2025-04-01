@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2025-04-01T16:27:00.894-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">GWE: Groundwater Energy Transport</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">GWE: Groundwater Energy Transport</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The panes used for the Groundwater Energy Transport process are organized under GWE: Groundwater Energy Transport. The following panes are present:</text></para>
+    <list id="0" type="ul" listtype="bullet" formatstring="&#183;" format-charset="SYMBOL_CHARSET" levelreset="true" legalstyle="false" startfrom="1" styleclass="Normal" style="font-family:Symbol; font-size:12pt; color:#000000;">
+      <li styleclass="Normal"><link displaytype="text" defaultstyle="true" type="topiclink" href="GWE-Groundwater-Energy-Transp2" styleclass="Normal" translate="true">GWE: Groundwater Energy Transport Process Pane</link></li>
+      <li styleclass="Normal"><link displaytype="text" defaultstyle="true" type="topiclink" href="ADV-GWE-Advection-Package" styleclass="Normal" translate="true">ADV: GWE Advection Package</link></li>
+      <li styleclass="Normal"><link displaytype="text" defaultstyle="true" type="topiclink" href="CND-GWE-Conduction-and-Dispers" styleclass="Normal" translate="true">CND: GWE Conduction and Dispersion Package</link></li>
+      <li styleclass="Normal"><link displaytype="text" defaultstyle="true" type="topiclink" href="EST-GWE-Energy-Storage-and-Tra" styleclass="Normal" translate="true">EST: GWE Energy Storage and Transfer Package</link></li>
+      <li styleclass="Normal"><link displaytype="text" defaultstyle="true" type="topiclink" href="SSM-GWT-Source-and-Sink-Mixing" styleclass="Normal" translate="true">SSM: GWE Source and Sink Mixing Package</link></li>
+      <li styleclass="Normal"><link displaytype="text" defaultstyle="true" type="topiclink" href="CTP-GWE-Constant-Temperature-P" styleclass="Normal" translate="true">CTP: GWE Constant Temperature Package</link></li>
+      <li styleclass="Normal"><link displaytype="text" defaultstyle="true" type="topiclink" href="ESL-GWE-Energy-Source-Loading" styleclass="Normal" translate="true">ESL: GWE Energy Source Loading Package</link></li>
+      <li styleclass="Normal"><link displaytype="text" defaultstyle="true" type="topiclink" href="SMS_Sparse_Matrix_Solution_Pac" styleclass="Normal" translate="true">IMS: Iterative Model Solution</link></li>
+    </list>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The </text><link displaytype="text" defaultstyle="true" type="topiclink" href="CSUB_Skeletal_Storage__Compact" styleclass="Normal" translate="true">CSUB</link><text styleclass="Normal" translate="true"> package can not be used with Groundwater Energy Transport.</text></para>
+    <para styleclass="Normal"></para>
+  </body>
+</topic>

@@ -5262,6 +5262,7 @@ const
   StrFhd = '.fhd';
   StrBhd = '.bhd';
   StrConc = '.conc';
+  StrTemp = '.temp';
   StrFdn = '.fdn';
   StrBdn = '.bdn';
   StrCbcExt = '.cbc';

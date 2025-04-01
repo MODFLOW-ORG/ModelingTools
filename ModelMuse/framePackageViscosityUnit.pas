@@ -98,7 +98,7 @@ begin
     UsedSpeciesCount := 0;
     for Index := 0 to MobileComponents.Count - 1 do
     begin
-      if MobileComponents[Index].UsedForGWT then
+      if MobileComponents[Index].UsedForGWT or MobileComponents[Index].UsedForGWE then
       begin
         Inc(UsedSpeciesCount)
       end;
@@ -127,7 +127,7 @@ begin
       for ChemIndex := 0 to MobileComponents.Count - 1 do
       begin
         AChemSpecies := MobileComponents[ChemIndex];
-        if AChemSpecies.UsedForGWT then
+        if AChemSpecies.UsedForGWT or AChemSpecies.UsedForGWE then
         begin
           comboThermalSpecies.Items.AddObject(AChemSpecies.Name, AChemSpecies);
 
@@ -179,7 +179,7 @@ begin
   for ChemIndex := 0 to MobileComponents.Count - 1 do
   begin
     AChemSpecies := MobileComponents[ChemIndex];
-    if AChemSpecies.UsedForGWT then
+    if AChemSpecies.UsedForGWT or AChemSpecies.UsedForGWE then
     begin
       if RowIndex >= rdgChemViscosity.RowCount then
       begin

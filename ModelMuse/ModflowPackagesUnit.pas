@@ -522,7 +522,7 @@ resourcestring
   StrVSCViscosityPacka = 'VSC: Viscosity Package';
   StrTVKTimeVaryingHy = 'TVK: Time-Varying Hydraulic Conductivity Package';
   StrTVSTimeVaryingSt = 'TVS: Time-Varying Storage Package';
-  StrGWEGroundwaterEne = 'GWE: Groundwater Energy Process';
+  StrGWEGroundwaterEne = 'GWE: Groundwater Energy Transport Process';
   StrADVGWEAdvectionP = 'ADV: GWE Advection Package';
   StrCNDGWEConduction = 'CND: GWE Conduction and Dispersion Package';
   StrESTGWEEnergyStor = 'EST: GWE Energy Storage and Transfer Package';

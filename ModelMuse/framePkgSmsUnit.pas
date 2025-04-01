@@ -432,7 +432,14 @@ begin
   ARow := SmsOrdToRow(soLinLinearAcceleration);
   if rdgLinearOptions.Checked[Ord(scOverride), ARow] then
   begin
-    result := TSmsLinLinearAcceleration(FLinLinearAccPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), ARow]));
+    if FLinLinearAccPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), ARow]) >= 0 then
+    begin
+      result := TSmsLinLinearAcceleration(FLinLinearAccPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), ARow]));
+    end
+    else
+    begin
+      result := TSmsLinLinearAcceleration(0);
+    end;
   end
   else
   begin
@@ -1041,12 +1048,21 @@ begin
   SmsPackage := Package as TSmsPackageSelection;
 
   SmsPackage.SolutionGroupMaxIteration := seSolutionGroupMaxIter.AsInteger;
-  SmsPackage.Print := TSmsPrint(comboPrintOption.ItemIndex);
-  SmsPackage.Complexity := TSmsComplexityOption(comboComplexity.ItemIndex);
+  if comboPrintOption.ItemIndex >= 0 then
+  begin
+    SmsPackage.Print := TSmsPrint(comboPrintOption.ItemIndex);
+  end;
+  if comboComplexity.ItemIndex >= 0 then
+  begin
+    SmsPackage.Complexity := TSmsComplexityOption(comboComplexity.ItemIndex);
+  end;
   SmsPackage.ContinueModel := cbContinue.Checked;
   SmsPackage.CsvOutput := TSmsSolutionPrint(Ord(cbCsvOutput.Checked));
   SmsPackage.CsvInnerOutput := TSmsSolutionPrint(Ord(cbCsvInnerOutput.Checked));
-  SmsPackage.UsePTC := TUsePTC(comboUsePTC.ItemIndex);
+  if comboUsePTC.ItemIndex >= 0 then
+  begin
+    SmsPackage.UsePTC := TUsePTC(comboUsePTC.ItemIndex);
+  end;
   SmsPackage.MaxErrors := seMaxErrors.AsInteger;
   SmsPackage.CheckInput := TCheckInput(not cbCheckInput.Checked);
   SmsPackage.MemoryPrint := TMemoryPrint(comboMemoryPrint.ItemIndex);
@@ -1081,31 +1097,46 @@ begin
 
   SmsPackage.OuterHclose := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soOuterHclose)+1, SmsPackage.OuterHclose];
 //  SmsPackage.OuterRClose := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soOuterRClose)+1, SmsPackage.OuterRClose];
-  SmsPackage.MaxOuterIterations := rdgNonlinearOptions.IntegerValue[Ord(scValue), Ord(soOuterMaxIt)+1];
-  SmsPackage.UnderRelaxation := TSmsUnderRelaxation(FUnderRelaxPickList.IndexOf(rdgNonlinearOptions.Cells[Ord(scValue), Ord(soUnderRelax)+1]));
+  SmsPackage.MaxOuterIterations := rdgNonlinearOptions.IntegerValueDefault[Ord(scValue), Ord(soOuterMaxIt)+1, SmsPackage.MaxOuterIterations];
+  if FUnderRelaxPickList.IndexOf(rdgNonlinearOptions.Cells[Ord(scValue), Ord(soUnderRelax)+1]) >= 0 then
+  begin
+    SmsPackage.UnderRelaxation := TSmsUnderRelaxation(FUnderRelaxPickList.IndexOf(rdgNonlinearOptions.Cells[Ord(scValue), Ord(soUnderRelax)+1]));
+  end;
 
   SmsPackage.UnderRelaxTheta := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soUnderRelaxTheta)+1, SmsPackage.UnderRelaxTheta ];
   SmsPackage.UnderRelaxKappa := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soUnderRelaxKappa)+1, SmsPackage.UnderRelaxKappa];
   SmsPackage.UnderRelaxGamma := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soUnderRelaxGamma)+1, SmsPackage.UnderRelaxGamma];
   SmsPackage.UnderRelaxMomentum := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soUnderRelaxMomentum)+1, SmsPackage.UnderRelaxMomentum];
-  SmsPackage.BacktrackingNumber := rdgNonlinearOptions.IntegerValue[Ord(scValue), Ord(soBacktrackingNumber)+1];
+  SmsPackage.BacktrackingNumber := rdgNonlinearOptions.IntegerValueDefault[Ord(scValue), Ord(soBacktrackingNumber)+1, SmsPackage.BacktrackingNumber];
   SmsPackage.BacktrackingTolerance := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soBacktrackingTolerance)+1, SmsPackage.BacktrackingTolerance];
   SmsPackage.BacktrackingReductionFactor := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soBacktrackingReductionFactor)+1, SmsPackage.BacktrackingReductionFactor];
   SmsPackage.BacktrackingResidualLimit := rdgNonlinearOptions.RealValueDefault[Ord(scValue), Ord(soBacktrackingResidualLimit)+1, SmsPackage.BacktrackingResidualLimit];
 
 
   //  SmsPackage.LinearSolver := TSmsLinearSolver(FLinearSolverPickList.IndexOf(rdgOptions.Cells[Ord(scValue), Ord(soLinearSolver)+1]));
-  SmsPackage.InnerMaxIterations := rdgLinearOptions.IntegerValue[Ord(scValue), SmsOrdToRow(soInnerMaxIterations)];
+  SmsPackage.InnerMaxIterations := rdgLinearOptions.IntegerValueDefault[Ord(scValue), SmsOrdToRow(soInnerMaxIterations), SmsPackage.InnerMaxIterations];
   SmsPackage.InnerHclose := rdgLinearOptions.RealValueDefault[Ord(scValue), SmsOrdToRow(soInnerHclose), SmsPackage.InnerHclose];
   SmsPackage.InnerRclose := rdgLinearOptions.RealValueDefault[Ord(scValue), SmsOrdToRow(soInnerRclose), SmsPackage.InnerRclose];
-  SmsPackage.LinLinearAcceleration := TSmsLinLinearAcceleration(FLinLinearAccPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soLinLinearAcceleration)]));
-  SmsPackage.PreconditionerLevel := rdgLinearOptions.IntegerValue[Ord(scValue), SmsOrdToRow(soPreconditionerLevel)];
-  SmsPackage.NumberOfOrthoganalizations := rdgLinearOptions.IntegerValue[Ord(scValue), SmsOrdToRow(soNumberOfOrthoganalizations)];
-  SmsPackage.ReorderingMethod := TSmsReorderingMethod(FReorderingPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soReorderingMethod)]));
+  if FLinLinearAccPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soLinLinearAcceleration)]) >= 0 then
+  begin
+    SmsPackage.LinLinearAcceleration := TSmsLinLinearAcceleration(FLinLinearAccPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soLinLinearAcceleration)]));
+  end;
+  SmsPackage.PreconditionerLevel := rdgLinearOptions.IntegerValueDefault[Ord(scValue), SmsOrdToRow(soPreconditionerLevel), SmsPackage.PreconditionerLevel];
+  SmsPackage.NumberOfOrthoganalizations := rdgLinearOptions.IntegerValueDefault[Ord(scValue), SmsOrdToRow(soNumberOfOrthoganalizations), SmsPackage.NumberOfOrthoganalizations];
+  if FReorderingPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soReorderingMethod)]) >= 0 then
+  begin
+    SmsPackage.ReorderingMethod := TSmsReorderingMethod(FReorderingPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soReorderingMethod)]));
+  end;
   SmsPackage.PreconditionerDropTolerance := rdgLinearOptions.RealValueDefault[Ord(scValue), SmsOrdToRow(soPreconditionerDropTolerance), SmsPackage.PreconditionerDropTolerance];
-  SmsPackage.RcloseOption := TSmsRcloseOption(FRCloseOptionPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soRcloseOption)]));
+  if FRCloseOptionPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soRcloseOption)]) >= 0 then
+  begin
+    SmsPackage.RcloseOption := TSmsRcloseOption(FRCloseOptionPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soRcloseOption)]));
+  end;
   SmsPackage.RelaxationFactor := rdgLinearOptions.RealValueDefault[Ord(scValue), SmsOrdToRow(soRelaxationFactor), SmsPackage.RelaxationFactor];
-  SmsPackage.ScalingMethod := TSmsScalingMethod(FScalingMethodPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soScalingMethod)]));
+  if FScalingMethodPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soScalingMethod)]) >= 0 then
+  begin
+    SmsPackage.ScalingMethod := TSmsScalingMethod(FScalingMethodPickList.IndexOf(rdgLinearOptions.Cells[Ord(scValue), SmsOrdToRow(soScalingMethod)]));
+  end;
 //  SmsPackage.XmdLinearAcceleration := TSmsXmdLinearAcceleration(FXmdLinearAccPickList.IndexOf(rdgOptions.Cells[Ord(scValue), Ord(soXmdLinearAcceleration)+1]));
 //  SmsPackage.RedBlackOrder := rdgOptions.Checked[Ord(scValue), Ord(soRedBlackOrder)+1];
 

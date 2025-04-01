@@ -297,6 +297,7 @@ type
       out ScreenObject: TScreenObject; Root: string; FileName: string);
     procedure CreateMf6AdvPackageBudgetScreenObject(AModel: TCustomModel;
       out ScreenObject: TScreenObject; Root: string; FileName: string; BoundaryArray: TMf6List);
+    procedure AssignFileFilterExtensions;
   public
     function ShowDataSets(AFileName: string): boolean;
     function SelectFiles: boolean;
@@ -1264,6 +1265,271 @@ begin
           [E.message]), mtError, [mbOK], 0);
       end;
     end;
+  end;
+end;
+
+procedure TfrmSelectResultToImport.AssignFileFilterExtensions;
+var
+  FilterDescriptions: TStringList;
+  FileExtensions: TStringList;
+  SubsidenceDescriptions: TStringList;
+  SubsidenceExtensions: TStringList;
+  index: Integer;
+begin
+  FilterDescriptions := TStringList.Create;
+  FileExtensions := TStringList.Create;
+  SubsidenceDescriptions := TStringList.Create;
+  SubsidenceExtensions := TStringList.Create;
+  try
+    FilterDescriptions.Add(StrFormattedHeadFiles);
+    FileExtensions.Add(StrFhd);
+
+    FilterDescriptions.Add(StrFormattedDrawdownF);
+    FileExtensions.Add(StrFdn);
+
+    FilterDescriptions.Add(StrBinaryHeadFiles);
+    FileExtensions.Add(StrBhd);
+
+    FilterDescriptions.Add('Alternate ' + StrBinaryHeadFiles);
+    FileExtensions.Add(StrHds);
+
+    FilterDescriptions.Add(StrBinaryDrawdownFile);
+    FileExtensions.Add(StrBdn);
+
+    FilterDescriptions.Add(StrBinaryFlowFiles);
+    FileExtensions.Add(StrCbcExt);
+
+    FilterDescriptions.Add(StrGWTConcentrationFi);
+    FileExtensions.Add(StrConc);
+
+    FilterDescriptions.Add('GWE temperature files');
+    FileExtensions.Add(StrTemp);
+
+    FilterDescriptions.Add(StrDensityFiles);
+    FileExtensions.Add(StrDensityExt);
+
+    FilterDescriptions.Add(StrViscosityFiles);
+    FileExtensions.Add(StrViscosityExt);
+
+    FilterDescriptions.Add(StrFormattedHUFHeadF);
+    FileExtensions.Add(StrHuffhd);
+
+    FilterDescriptions.Add(StrBinaryHUFHeadFile);
+    FileExtensions.Add(StrHufbhd);
+
+    FilterDescriptions.Add(StrHUFFlowFiles);
+    FileExtensions.Add(StrHufflow);
+
+    FilterDescriptions.Add(StrSWIZetaFiles);
+    FileExtensions.Add(strZeta);
+
+    FilterDescriptions.Add(StrSWRASCIIStageFile);
+    FileExtensions.Add(StrSwrReachStageA);
+
+    FilterDescriptions.Add(StrSWRBinaryStageFil);
+    FileExtensions.Add(StrSwrReachStageB);
+
+    FilterDescriptions.Add(StrSWRReachExchangeText);
+    FileExtensions.Add(StrSwrReachExchangeA);
+
+    FilterDescriptions.Add(StrSWRReachExchangeBin);
+    FileExtensions.Add(StrSwrReachExchangeB);
+
+    FilterDescriptions.Add(StrSWRReachGroupWateText);
+    FileExtensions.Add(StrSwrReachGroupFlowsA);
+
+    FilterDescriptions.Add(StrSWRReachGroupWateBin);
+    FileExtensions.Add(StrSwrReachGroupFlowsB);
+
+    FilterDescriptions.Add(StrMT3DMSConcentration);
+    FileExtensions.Add(StrMt3dConcFile);
+
+    FilterDescriptions.Add(StrUZFRecharge);
+    FileExtensions.Add(StrUzfRch);
+
+    FilterDescriptions.Add(StrUZFDischarge);
+    FileExtensions.Add(StrUzfDisch);
+
+    FilterDescriptions.Add(StrStreamStage);
+    FileExtensions.Add(StrStage);
+
+    FilterDescriptions.Add('Stream Budget');
+    FileExtensions.Add(StrSfrbudget);
+
+    FilterDescriptions.Add('Stream Concentration');
+    FileExtensions.Add(StrSftconc);
+
+    FilterDescriptions.Add('Stream Temperature');
+    FileExtensions.Add(StrSfeTemp);
+
+    FilterDescriptions.Add('Stream Transport Budget');
+    FileExtensions.Add(StrSftbudget);
+
+    FilterDescriptions.Add('Stream Energy Transport Budget');
+    FileExtensions.Add(StrSfebudget);
+
+    FilterDescriptions.Add(StrMAWHeadDesc);
+    FileExtensions.Add(StrMawhead);
+
+    FilterDescriptions.Add(StrMAWBudget);
+    FileExtensions.Add(StrMawbud);
+
+    FilterDescriptions.Add('MWT Concentration');
+    FileExtensions.Add(StrMwtconc);
+
+    FilterDescriptions.Add('MWE Temperature');
+    FileExtensions.Add(StrMwetemp);
+
+    FilterDescriptions.Add('MWT Budget');
+    FileExtensions.Add(StrMwtbudget);
+
+    FilterDescriptions.Add('MWE Budget');
+    FileExtensions.Add(StrMwebudget);
+
+    FilterDescriptions.Add(StrUZFWAterConent);
+    FileExtensions.Add(StrWatercontent);
+
+    FilterDescriptions.Add('UZF Budget');
+    FileExtensions.Add(StrUzfbudget);
+
+    FilterDescriptions.Add('UZT Concentration');
+    FileExtensions.Add(StrUztconc);
+
+    FilterDescriptions.Add('UZE Temperature');
+    FileExtensions.Add(StrUzeTemp);
+
+    FilterDescriptions.Add('UZT Budget');
+    FileExtensions.Add(StrUztbudget);
+
+    FilterDescriptions.Add('UZE Budget');
+    FileExtensions.Add(StrUzebudget);
+
+    SubsidenceDescriptions.Add(StrCombinedSUBOutput);
+    SubsidenceExtensions.Add(StrSubOut);
+
+    SubsidenceDescriptions.Add(StrCombinedSWTOutput);
+    SubsidenceExtensions.Add(StrSwtOut);
+
+    SubsidenceDescriptions.Add(StrSUBSubsidence);
+    SubsidenceExtensions.Add(StrSubSubOut);
+
+    SubsidenceDescriptions.Add(StrSUBCompactionByMo);
+    SubsidenceExtensions.Add(StrSubComMlOut);
+
+    SubsidenceDescriptions.Add(StrSUBCompactionByIn);
+    SubsidenceExtensions.Add(StrSubComIsOut);
+
+    SubsidenceDescriptions.Add(StrSUBVerticalDisplac);
+    SubsidenceExtensions.Add(StrSubVdOut);
+
+    SubsidenceDescriptions.Add(StrSUBCriticalHeadFo);
+    SubsidenceExtensions.Add(StrSubNdCritHeadOut);
+
+    SubsidenceDescriptions.Add(StrSUBCriticalHeadFoDelay);
+    SubsidenceExtensions.Add(StrSubDCritHeadOut);
+
+
+
+
+    SubsidenceDescriptions.Add(StrElasticCompactionML);
+    SubsidenceExtensions.Add(StrSubElasCompMLOut);
+
+    SubsidenceDescriptions.Add(StrInelasticCompactionML);
+    SubsidenceExtensions.Add(StrSubInelasCompMLOut);
+
+    SubsidenceDescriptions.Add(StrElasticCompactionIB);
+    SubsidenceExtensions.Add(StrSubElasCompIBOut);
+
+    SubsidenceDescriptions.Add(StrInelasticCompactionIb);
+    SubsidenceExtensions.Add(StrSubInlasCompIBOut);
+
+
+
+
+
+    SubsidenceDescriptions.Add(StrSWTSubsidence);
+    SubsidenceExtensions.Add(StrSwtSubOut);
+
+    SubsidenceDescriptions.Add(StrSWTCompactionByMo);
+    SubsidenceExtensions.Add(StrSwtComMLOut);
+
+    SubsidenceDescriptions.Add(StrSWTCompactionByIn);
+    SubsidenceExtensions.Add(StrSwtComIsOut);
+
+    SubsidenceDescriptions.Add(StrSWTVerticalDisplac);
+    SubsidenceExtensions.Add(StrSwtVDOut);
+
+    SubsidenceDescriptions.Add(StrSWTPreconsolidation);
+    SubsidenceExtensions.Add(StrSwtDeltaPreConStrOu);
+
+    SubsidenceDescriptions.Add(StrSWTChangeInPrecon);
+    SubsidenceExtensions.Add(StrSwtDeltaPreConStrOu);
+
+    SubsidenceDescriptions.Add(StrSWTGeostaticStress);
+    SubsidenceExtensions.Add(StrSwtGeoStatOut);
+
+    SubsidenceDescriptions.Add(StrSWTChangeInGeosta);
+    SubsidenceExtensions.Add(StrSwtDeltaGeoStatOut);
+
+    SubsidenceDescriptions.Add(StrSWTEffectiveStress);
+    SubsidenceExtensions.Add(StrSwtEffStressOut);
+
+    SubsidenceDescriptions.Add(StrSWTChangeInEffect);
+    SubsidenceExtensions.Add(StrSwtDeltaEffStressOu);
+
+    SubsidenceDescriptions.Add(StrSWTVoidRatio);
+    SubsidenceExtensions.Add(StrSwtVoidRatioOut);
+
+    SubsidenceDescriptions.Add(StrSWTThicknessOfCom);
+    SubsidenceExtensions.Add(StrSwtThickCompSedOut);
+
+    SubsidenceDescriptions.Add(StrSWTLayercenterEle);
+    SubsidenceExtensions.Add(StrSwtLayerCentElevOut);
+
+    SubsidenceDescriptions.Add(StrCSUBCompaction);
+    SubsidenceExtensions.Add(StrCsubcmpct);
+
+    SubsidenceDescriptions.Add(StrCSUBElasticCompact);
+    SubsidenceExtensions.Add(StrCsubelstcmpct);
+
+    SubsidenceDescriptions.Add(StrCSUBInlasticCompac);
+    SubsidenceExtensions.Add(StrCsubinelstcmpct);
+
+    SubsidenceDescriptions.Add(StrCSUBInterbedCompac);
+    SubsidenceExtensions.Add(StrCsubintrbdcmpct);
+
+    SubsidenceDescriptions.Add(StrCSUBCoarseCompacti);
+    SubsidenceExtensions.Add(StrCsubcrscmpct);
+
+    SubsidenceDescriptions.Add(StrCSUBZDisplacement);
+    SubsidenceExtensions.Add(StrCsubzdis);
+
+
+    odSelectFiles.Filter := StrCommonSupportedFil + Trim(FileExtensions[0]);
+    for index := 1 to FileExtensions.Count - 1 do
+    begin
+      odSelectFiles.Filter := odSelectFiles.Filter + ';*' + Trim(FileExtensions[index]);
+    end;
+    odSelectFiles.Filter := odSelectFiles.Filter + StrSubsidenceFiles + SubsidenceExtensions[0];
+    for index := 1 to SubsidenceExtensions.Count - 1 do
+    begin
+      odSelectFiles.Filter := odSelectFiles.Filter + ';*' + Trim(SubsidenceExtensions[index]);
+    end;
+    Assert(FileExtensions.Count = FilterDescriptions.Count);
+    for index := 0 to FileExtensions.Count - 1 do
+    begin
+      odSelectFiles.Filter := odSelectFiles.Filter + '|' + FilterDescriptions[index] + '(*' + Trim(FileExtensions[index]) + ')|*' + Trim(FileExtensions[index]);
+    end;
+    Assert(SubsidenceExtensions.Count = SubsidenceDescriptions.Count);
+    for index := 0 to SubsidenceExtensions.Count - 1 do
+    begin
+      odSelectFiles.Filter := odSelectFiles.Filter + '|' + SubsidenceDescriptions[index] + '(*' + Trim(SubsidenceExtensions[index]) + ')|*' + Trim(SubsidenceExtensions[index]);
+    end;
+  finally
+    FilterDescriptions.Free;
+    FileExtensions.Free;
+    SubsidenceDescriptions.Free;
+    SubsidenceExtensions.Free;
   end;
 end;
 
@@ -3647,6 +3913,12 @@ begin
                           GetSfr6Cells;
                           Prefix := 'SFT_';
                         end
+                        else if SameText(ExtractFileExt(AFileName), StrSfeTemp)
+                          then
+                        begin
+                          GetSfr6Cells;
+                          Prefix := 'SFE_';
+                        end
                         else if SameText(ExtractFileExt(AFileName), StrMawhead)
                           then
                         begin
@@ -3659,19 +3931,29 @@ begin
                           GetMaw6Cells;
                           Prefix := 'MWT_';
                         end
+                        else if SameText(ExtractFileExt(AFileName), StrUzeTemp)
+                          then
+                        begin
+                          GetMaw6Cells;
+                          Prefix := 'MWE_';
+                        end
                         else if SameText(ExtractFileExt(AFileName), StrWatercontent)
-                          or SameText(ExtractFileExt(AFileName), StrUztconc)
                           then
                         begin
                           GetUzf6Cells;
                           Prefix := 'UZF_';
                         end
-                        else if SameText(ExtractFileExt(AFileName), StrWatercontent)
-                          or SameText(ExtractFileExt(AFileName), StrUztconc)
+                        else if SameText(ExtractFileExt(AFileName), StrUztconc)
                           then
                         begin
                           GetUzf6Cells;
                           Prefix := 'UZT_';
+                        end
+                        else if SameText(ExtractFileExt(AFileName), StrUzeTemp)
+                          then
+                        begin
+                          GetUzf6Cells;
+                          Prefix := 'UZE_';
                         end
                         else
                         begin
@@ -3738,6 +4020,11 @@ begin
                           GetSfr6Cells;
                           Prefix := 'SFT_';
                         end
+                        else if SameText(ExtractFileExt(AFileName), StrSfebudget) then
+                        begin
+                          GetSfr6Cells;
+                          Prefix := 'SFE_';
+                        end
                         else if SameText(ExtractFileExt(AFileName), StrMawbud) then
                         begin
                           GetMaw6Cells;
@@ -3748,6 +4035,11 @@ begin
                           GetMaw6Cells;
                           Prefix := 'MWT_';
                         end
+                        else if SameText(ExtractFileExt(AFileName), StrMwebudget) then
+                        begin
+                          GetMaw6Cells;
+                          Prefix := 'MWE_';
+                        end
                         else if SameText(ExtractFileExt(AFileName), StrUzfbudget) then
                         begin
                           GetUzf6Cells;
@@ -3757,6 +4049,11 @@ begin
                         begin
                           GetUzf6Cells;
                           Prefix := 'UZT_';
+                        end
+                        else if SameText(ExtractFileExt(AFileName), StrUzebudget) then
+                        begin
+                          GetUzf6Cells;
+                          Prefix := 'UZE_';
                         end
                         else
                         begin
@@ -3993,288 +4290,9 @@ begin
 end;
 
 procedure TfrmSelectResultToImport.FormCreate(Sender: TObject);
-var
-  FilterDescriptions: TStringList;
-  FileExtensions: TStringList;
-  index: Integer;
-  SubsidenceDescriptions: TStringList;
-  SubsidenceExtensions: TStringList;
 begin
   inherited;
-  FAdvancedFeatureCells := TCellLocationList.Create;
-  FCellLocationDictionary := TDictionary<Integer, TCellLocation>.Create;
-
-  comboClassification.Items.Add(StrModelResults);
-  comboClassification.Items.Add(StrUserDefined);
-  comboClassification.ItemIndex := 0;
-
-  FModifiedParentDataSets:= TList.Create;
-  FFormulaAssigners := TFormulaAssignerList.Create;
-
-  FItemDescriptions := TStringList.Create;
-  FItemTimes := TStringList.Create;
-  FItemDescriptions.OwnsObjects := True;
-  FItemTimes.OwnsObjects := True;
-
-  rdgModels.Cells[Ord(mcModelName), 0] := StrModel;
-  rdgModels.Cells[Ord(mcUse), 0] := StrImportData;
-  rdgModels.Cells[Ord(mcFileName), 0] := StrFileName;
-
-  FNewDataSetNames:= TStringList.Create;
-  FNewDefaultDataSetNames:= TStringList.Create;
-
-  FPeriods := TIntegerList.Create;
-  FSteps := TIntegerList.Create;
-  FTransportSteps := TIntegerList.Create;
-  FSwrSteps := TIntegerList.Create;
-
-  FDescriptions := TStringList.Create;
-//  FAskedUser := False;
-  SetDefaultDisplayOption;
-
-  FilterDescriptions := TStringList.Create;
-  FileExtensions := TStringList.Create;
-  SubsidenceDescriptions := TStringList.Create;
-  SubsidenceExtensions := TStringList.Create;
-  try
-    FilterDescriptions.Add(StrFormattedHeadFiles);
-    FileExtensions.Add(StrFhd);
-
-    FilterDescriptions.Add(StrFormattedDrawdownF);
-    FileExtensions.Add(StrFdn);
-
-    FilterDescriptions.Add(StrBinaryHeadFiles);
-    FileExtensions.Add(StrBhd);
-
-    FilterDescriptions.Add('Alternate ' + StrBinaryHeadFiles);
-    FileExtensions.Add(StrHds);
-
-    FilterDescriptions.Add(StrBinaryDrawdownFile);
-    FileExtensions.Add(StrBdn);
-
-    FilterDescriptions.Add(StrBinaryFlowFiles);
-    FileExtensions.Add(StrCbcExt);
-
-    FilterDescriptions.Add(StrGWTConcentrationFi);
-    FileExtensions.Add(StrConc);
-
-    FilterDescriptions.Add(StrDensityFiles);
-    FileExtensions.Add(StrDensityExt);
-
-    FilterDescriptions.Add(StrViscosityFiles);
-    FileExtensions.Add(StrViscosityExt);
-
-    FilterDescriptions.Add(StrFormattedHUFHeadF);
-    FileExtensions.Add(StrHuffhd);
-
-    FilterDescriptions.Add(StrBinaryHUFHeadFile);
-    FileExtensions.Add(StrHufbhd);
-
-    FilterDescriptions.Add(StrHUFFlowFiles);
-    FileExtensions.Add(StrHufflow);
-
-    FilterDescriptions.Add(StrSWIZetaFiles);
-    FileExtensions.Add(strZeta);
-
-    FilterDescriptions.Add(StrSWRASCIIStageFile);
-    FileExtensions.Add(StrSwrReachStageA);
-
-    FilterDescriptions.Add(StrSWRBinaryStageFil);
-    FileExtensions.Add(StrSwrReachStageB);
-
-    FilterDescriptions.Add(StrSWRReachExchangeText);
-    FileExtensions.Add(StrSwrReachExchangeA);
-
-    FilterDescriptions.Add(StrSWRReachExchangeBin);
-    FileExtensions.Add(StrSwrReachExchangeB);
-
-    FilterDescriptions.Add(StrSWRReachGroupWateText);
-    FileExtensions.Add(StrSwrReachGroupFlowsA);
-
-    FilterDescriptions.Add(StrSWRReachGroupWateBin);
-    FileExtensions.Add(StrSwrReachGroupFlowsB);
-
-    FilterDescriptions.Add(StrMT3DMSConcentration);
-    FileExtensions.Add(StrMt3dConcFile);
-
-    FilterDescriptions.Add(StrUZFRecharge);
-    FileExtensions.Add(StrUzfRch);
-
-    FilterDescriptions.Add(StrUZFDischarge);
-    FileExtensions.Add(StrUzfDisch);
-
-    FilterDescriptions.Add(StrStreamStage);
-    FileExtensions.Add(StrStage);
-
-    FilterDescriptions.Add('Stream Budget');
-    FileExtensions.Add(StrSfrbudget);
-
-    FilterDescriptions.Add('Stream Concentration');
-    FileExtensions.Add(StrSftconc);
-
-    FilterDescriptions.Add('Stream Transport Budget');
-    FileExtensions.Add(StrSftbudget);
-
-    FilterDescriptions.Add(StrMAWHeadDesc);
-    FileExtensions.Add(StrMawhead);
-
-    FilterDescriptions.Add(StrMAWBudget);
-    FileExtensions.Add(StrMawbud);
-
-    FilterDescriptions.Add('MWT Concentration');
-    FileExtensions.Add(StrMwtconc);
-
-    FilterDescriptions.Add('MWT Budget');
-    FileExtensions.Add(StrMwtbudget);
-
-    FilterDescriptions.Add(StrUZFWAterConent);
-    FileExtensions.Add(StrWatercontent);
-
-    FilterDescriptions.Add('UZF Budget');
-    FileExtensions.Add(StrUzfbudget);
-
-    FilterDescriptions.Add('UZT Concentration');
-    FileExtensions.Add(StrUztconc);
-
-    FilterDescriptions.Add('UZT Budget');
-    FileExtensions.Add(StrUztbudget);
-
-    SubsidenceDescriptions.Add(StrCombinedSUBOutput);
-    SubsidenceExtensions.Add(StrSubOut);
-
-    SubsidenceDescriptions.Add(StrCombinedSWTOutput);
-    SubsidenceExtensions.Add(StrSwtOut);
-
-    SubsidenceDescriptions.Add(StrSUBSubsidence);
-    SubsidenceExtensions.Add(StrSubSubOut);
-
-    SubsidenceDescriptions.Add(StrSUBCompactionByMo);
-    SubsidenceExtensions.Add(StrSubComMlOut);
-
-    SubsidenceDescriptions.Add(StrSUBCompactionByIn);
-    SubsidenceExtensions.Add(StrSubComIsOut);
-
-    SubsidenceDescriptions.Add(StrSUBVerticalDisplac);
-    SubsidenceExtensions.Add(StrSubVdOut);
-
-    SubsidenceDescriptions.Add(StrSUBCriticalHeadFo);
-    SubsidenceExtensions.Add(StrSubNdCritHeadOut);
-
-    SubsidenceDescriptions.Add(StrSUBCriticalHeadFoDelay);
-    SubsidenceExtensions.Add(StrSubDCritHeadOut);
-
-
-
-
-    SubsidenceDescriptions.Add(StrElasticCompactionML);
-    SubsidenceExtensions.Add(StrSubElasCompMLOut);
-
-    SubsidenceDescriptions.Add(StrInelasticCompactionML);
-    SubsidenceExtensions.Add(StrSubInelasCompMLOut);
-
-    SubsidenceDescriptions.Add(StrElasticCompactionIB);
-    SubsidenceExtensions.Add(StrSubElasCompIBOut);
-
-    SubsidenceDescriptions.Add(StrInelasticCompactionIb);
-    SubsidenceExtensions.Add(StrSubInlasCompIBOut);
-
-
-
-
-
-    SubsidenceDescriptions.Add(StrSWTSubsidence);
-    SubsidenceExtensions.Add(StrSwtSubOut);
-
-    SubsidenceDescriptions.Add(StrSWTCompactionByMo);
-    SubsidenceExtensions.Add(StrSwtComMLOut);
-
-    SubsidenceDescriptions.Add(StrSWTCompactionByIn);
-    SubsidenceExtensions.Add(StrSwtComIsOut);
-
-    SubsidenceDescriptions.Add(StrSWTVerticalDisplac);
-    SubsidenceExtensions.Add(StrSwtVDOut);
-
-    SubsidenceDescriptions.Add(StrSWTPreconsolidation);
-    SubsidenceExtensions.Add(StrSwtDeltaPreConStrOu);
-
-    SubsidenceDescriptions.Add(StrSWTChangeInPrecon);
-    SubsidenceExtensions.Add(StrSwtDeltaPreConStrOu);
-
-    SubsidenceDescriptions.Add(StrSWTGeostaticStress);
-    SubsidenceExtensions.Add(StrSwtGeoStatOut);
-
-    SubsidenceDescriptions.Add(StrSWTChangeInGeosta);
-    SubsidenceExtensions.Add(StrSwtDeltaGeoStatOut);
-
-    SubsidenceDescriptions.Add(StrSWTEffectiveStress);
-    SubsidenceExtensions.Add(StrSwtEffStressOut);
-
-    SubsidenceDescriptions.Add(StrSWTChangeInEffect);
-    SubsidenceExtensions.Add(StrSwtDeltaEffStressOu);
-
-    SubsidenceDescriptions.Add(StrSWTVoidRatio);
-    SubsidenceExtensions.Add(StrSwtVoidRatioOut);
-
-    SubsidenceDescriptions.Add(StrSWTThicknessOfCom);
-    SubsidenceExtensions.Add(StrSwtThickCompSedOut);
-
-    SubsidenceDescriptions.Add(StrSWTLayercenterEle);
-    SubsidenceExtensions.Add(StrSwtLayerCentElevOut);
-
-    SubsidenceDescriptions.Add(StrCSUBCompaction);
-    SubsidenceExtensions.Add(StrCsubcmpct);
-
-    SubsidenceDescriptions.Add(StrCSUBElasticCompact);
-    SubsidenceExtensions.Add(StrCsubelstcmpct);
-
-    SubsidenceDescriptions.Add(StrCSUBInlasticCompac);
-    SubsidenceExtensions.Add(StrCsubinelstcmpct);
-
-    SubsidenceDescriptions.Add(StrCSUBInterbedCompac);
-    SubsidenceExtensions.Add(StrCsubintrbdcmpct);
-
-    SubsidenceDescriptions.Add(StrCSUBCoarseCompacti);
-    SubsidenceExtensions.Add(StrCsubcrscmpct);
-
-    SubsidenceDescriptions.Add(StrCSUBZDisplacement);
-    SubsidenceExtensions.Add(StrCsubzdis);
-
-    odSelectFiles.Filter := StrCommonSupportedFil + Trim(FileExtensions[0]);
-    for index := 1 to FileExtensions.Count - 1 do
-    begin
-      odSelectFiles.Filter := odSelectFiles.Filter
-        + ';*' + Trim(FileExtensions[index]);
-    end;
-
-    odSelectFiles.Filter := odSelectFiles.Filter + StrSubsidenceFiles + SubsidenceExtensions[0];
-    for index := 1 to SubsidenceExtensions.Count - 1 do
-    begin
-      odSelectFiles.Filter := odSelectFiles.Filter
-        + ';*' + Trim(SubsidenceExtensions[index]);
-    end;
-
-    Assert(FileExtensions.Count = FilterDescriptions.Count);
-    for index := 0 to FileExtensions.Count - 1 do
-    begin
-      odSelectFiles.Filter := odSelectFiles.Filter
-        + '|' + FilterDescriptions[index]
-        + '(*' + Trim(FileExtensions[index]) + ')|*' + Trim(FileExtensions[index]);
-    end;
-
-    Assert(SubsidenceExtensions.Count = SubsidenceDescriptions.Count);
-    for index := 0 to SubsidenceExtensions.Count - 1 do
-    begin
-      odSelectFiles.Filter := odSelectFiles.Filter
-        + '|' + SubsidenceDescriptions[index]
-        + '(*' + Trim(SubsidenceExtensions[index]) + ')|*' + Trim(SubsidenceExtensions[index]);
-    end;
-  finally
-    FilterDescriptions.Free;
-    FileExtensions.Free;
-    SubsidenceDescriptions.Free;
-    SubsidenceExtensions.Free;
-  end;
-
+  AssignFileFilterExtensions
 end;
 
 procedure TfrmSelectResultToImport.FormDestroy(Sender: TObject);
@@ -5762,13 +5780,14 @@ begin
   if (SameText(Extension, StrBdn))
     or (SameText(Extension, StrBhd))
     or (SameText(Extension, StrConc))
+    or (SameText(Extension, StrTemp))
     or (SameText(Extension, StrDensityExt))
     or (SameText(Extension, StrViscosityExt))
     or (SameText(Extension, StrHds))
     then
   begin
     FResultFormat := mrBinary;
-    if SameText(Extension, StrConc) then
+    if SameText(Extension, StrConc) or SameText(Extension, StrTemp) then
     begin
       FSPeciesName := GetSpeciesName;
     end;
@@ -5955,8 +5974,11 @@ begin
     or SameText(Extension, StrMawhead)
     or SameText(Extension, StrWatercontent)
     or SameText(Extension, StrSftconc)
+    or SameText(Extension, StrSfeTemp)
     or SameText(Extension, StrMwtconc)
+    or SameText(Extension, StrMwetemp)
     or SameText(Extension, StrUztconc)
+    or SameText(Extension, StrUzeTemp)
     then
   begin
     FResultFormat := mfAdvPackage;
@@ -5965,8 +5987,11 @@ begin
     or (SameText(Extension, StrSfrbudget))
     or (SameText(Extension, StrUzfbudget))
     or (SameText(Extension, StrSftbudget))
+    or (SameText(Extension, StrSfebudget))
     or (SameText(Extension, StrMwtbudget))
+    or (SameText(Extension, StrMwebudget))
     or (SameText(Extension, StrUztbudget))
+    or (SameText(Extension, StrUzebudget))
     then
   begin
     FResultFormat := mfAdvPackBudget

@@ -4353,6 +4353,7 @@ begin
   end;
 
   UsedForGWT := Model.MobileComponents[FSpeciesIndex].UsedForGWT;
+  if UsedForGWT then
   begin
     FilePrefix := '.sft_';
   end;

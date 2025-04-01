@@ -1882,6 +1882,36 @@
                 </topicref>
               </topicref>
             </topicref>
+            <topicref type="topic" id="457486755453636" build="ALL" modified="2025-04-01T15:05:40.912Z" icon="0" href="GWE-Groundwater-Energy-Transpo">
+              <caption translate="true">GWE: Groundwater Energy Transport</caption>
+              <topicref type="topic" id="457488190412131" build="ALL" modified="2025-04-01T15:07:24.494Z" icon="0" href="GWE-Groundwater-Energy-Transp2">
+                <caption translate="true">GWE: Groundwater Energy Transport Process Pane</caption>
+              </topicref>
+              <topicref type="topic" id="457485980779302" build="ALL" modified="2025-04-01T15:14:12.736Z" icon="0" href="ADV-GWE-Advection-Package">
+                <caption translate="true">ADV: GWE Advection Package</caption>
+              </topicref>
+              <topicref type="topic" id="457486432203210" build="ALL" modified="2025-04-01T15:14:46.771Z" icon="0" href="CND-GWE-Conduction-and-Dispers">
+                <caption translate="true">CND: GWE Conduction and Dispersion Package</caption>
+              </topicref>
+              <topicref type="topic" id="457487605199845" build="ALL" modified="2025-04-01T15:15:10.949Z" icon="0" href="EST-GWE-Energy-Storage-and-Tra">
+                <caption translate="true">EST: GWE Energy Storage and Transfer Package</caption>
+              </topicref>
+              <topicref type="topic" id="45749515913448" build="ALL" modified="2025-04-01T16:26:05.032Z" icon="0" href="SSM-GWT-Source-and-Sink-Mixing">
+                <caption translate="true">SSM: GWE Source and Sink Mixing Package</caption>
+              </topicref>
+              <topicref type="topic" id="45749870415323" build="ALL" modified="2025-04-01T15:16:08.875Z" icon="0" href="CTP-GWE-Constant-Temperature-P">
+                <caption translate="true">CTP: GWE Constant Temperature Package</caption>
+              </topicref>
+              <topicref type="topic" id="457486759167612" build="ALL" modified="2025-04-01T15:52:41.995Z" icon="0" href="ESL-GWE-Energy-Source-Loading">
+                <caption translate="true">ESL: GWE Energy Source Loading Package</caption>
+              </topicref>
+              <topicref type="topic" id="457484953474040" build="ALL" modified="2025-04-01T15:21:01.621Z" icon="0" href="SMS_Sparse_Matrix_Solution_Pac">
+                <caption translate="true">IMS: Iterative Model Solution</caption>
+                <topicref type="topic" id="457485420657382" build="ALL" modified="2025-04-01T15:22:34.508Z" icon="0" href="IMS_variable_values_for_the_av">
+                  <caption translate="true">IMS: Iterative Model Solution</caption>
+                </topicref>
+              </topicref>
+            </topicref>
             <topicref type="topic" id="409294581497487" build="ALL" modified="2019-10-23T14:26:09.311Z" icon="0" href="MT3DMS">
               <caption translate="true">MT3DMS or MT3D-USGS</caption>
               <topicref type="topic" id="409294414841213" build="ALL" modified="2012-01-21T15:29:44.500Z" icon="0" href="BTN_Basic_Transport_Package">

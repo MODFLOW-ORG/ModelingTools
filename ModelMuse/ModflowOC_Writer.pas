@@ -419,7 +419,7 @@ begin
     otEnergy:
       begin
         WritePrintFormat(FOutputControl.ConcentrationOC, KTemperature);
-        WriteSaveFile(FOutputControl.ConcentrationOC, KTemperature, StrConc, StrConc);
+        WriteSaveFile(FOutputControl.ConcentrationOC, KTemperature, StrTemp, StrTemp);
       end;
     else
       Assert(False);
