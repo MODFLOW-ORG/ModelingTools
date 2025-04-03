@@ -144,18 +144,24 @@ var
   Limit: Integer;
   SpeciesIndex: Integer;
   ASpecies: string;
+  SeparateGwe: Boolean;
 begin
   SeparateGwt := Model.ModflowPackages.GwtProcess.SeparateGwt;
-  if Model.GwtUsed and SeparateGwt then
+  SeparateGwe := Model.ModflowPackages.GweProcess.SeparateGwt;
+  if (Model.GwtUsed and SeparateGwt) or (Model.GweUsed and SeparateGwe) then
   begin
     Limit := Model.MobileComponents.Count;
     for SpeciesIndex := 0 to Limit - 1 do
     begin
-      FSpeciesIndex := SpeciesIndex;
-      ASpecies := '.' + Model.MobileComponents[SpeciesIndex].Name;
-      FNameOfFile := ChangeFileExt(AFileName, ASpecies) + Extension;
-      Model.SimNameWriter.GwtTDisFileNames[SpeciesIndex] := FNameOfFile;
-      WriteFileInternal;
+      if Model.MobileComponents[SpeciesIndex].UsedForGWT
+        or Model.MobileComponents[SpeciesIndex].UsedForGWE then
+      begin
+        FSpeciesIndex := SpeciesIndex;
+        ASpecies := '.' + Model.MobileComponents[SpeciesIndex].Name;
+        FNameOfFile := ChangeFileExt(AFileName, ASpecies) + Extension;
+        Model.SimNameWriter.GwtTDisFileNames[SpeciesIndex] := FNameOfFile;
+        WriteFileInternal;
+      end;
     end;
   end;
 end;

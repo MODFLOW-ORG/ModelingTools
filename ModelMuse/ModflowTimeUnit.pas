@@ -454,7 +454,7 @@ var
   LocalModel: TPhastModel;
 begin
   LocalModel := frmGoPhast.PhastModel;
-  if LocalModel.GwtUsed and (SpeciesIndex >= GwtStressPeriods.Count) then
+  if (LocalModel.GwtUsed or LocalModel.GweUsed) and (SpeciesIndex >= GwtStressPeriods.Count) then
   begin
     GwtStressPeriods.Count := LocalModel.MobileComponents.Count;
   end;

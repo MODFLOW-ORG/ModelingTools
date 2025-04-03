@@ -1131,6 +1131,7 @@ end;
     FGwtTDisFileNames: TStringList;
     FSpeciesIndex: Integer;
     FSeparateGwt: Boolean;
+    FSeparateGwe: Boolean;
     FSimFileNames: TStringList;
     FWritingFlowModel: Boolean;
     procedure WriteOptions;
@@ -10096,16 +10097,25 @@ begin
   WriteFileInternal(FileName, BackupFileName);
   TFile.Copy(BackupFileName, FileName, True);
 
+
   FWritingFlowModel := False;
-  if Model.GwtUsed and Model.SeparateGwtUsed then
+  if (Model.GwtUsed and Model.SeparateGwtUsed) or (Model.GweUsed and Model.SeparateGweUsed) then
   begin
-    FSeparateGwt := Model.ModflowPackages.GwtProcess.SeparateGwt;
     Limit := Model.MobileComponents.Count;
 
     for SpeciesIndex := 0 to Limit - 1 do
     begin
       FSpeciesIndex := SpeciesIndex;
-      if Model.MobileComponents[SpeciesIndex].UsedForGWT then
+      FSeparateGwt := Model.SeparateGwtUsed and Model.MobileComponents[FSpeciesIndex].UsedForGWT;
+      FSeparateGwe := Model.SeparateGweUsed and Model.MobileComponents[FSpeciesIndex].UsedForGWE;
+      if FSeparateGwt then
+      begin
+        SpeciesName := Model.MobileComponents[SpeciesIndex].Name + '.';
+        BackupFileName := IncludeTrailingPathDelimiter(ExtractFileDir(FileName))
+          + FileRoot + SpeciesName + 'mfsim.nam';
+        WriteFileInternal(FileName, BackupFileName);
+      end;
+      if FSeparateGwe then
       begin
         SpeciesName := Model.MobileComponents[SpeciesIndex].Name + '.';
         BackupFileName := IncludeTrailingPathDelimiter(ExtractFileDir(FileName))
@@ -10119,20 +10129,44 @@ end;
 
 function TMf6_SimNameFileWriter.GetShouldWriteLine(GwtUsed: Boolean;
   SeparateGwtUsed: Boolean; ModelIndex: Integer): Boolean;
+var
+  ModelType: TModelType;
 begin
   result := True;
-  if not GwtUsed then
-  begin
-    result := True;
-  end
-  else if FWritingFlowModel and (ModelIndex = 0) then
-  begin
-    result := True;
-  end
-  else if SeparateGwtUsed then
-  begin
-    result := (ModelIndex - 1 = FSpeciesIndex) and (ModelIndex > 0);
+  ModelType := FModelDataList[ModelIndex].ModelType;
+  case ModelType of
+    mtGroundWaterFlow: result := True;
+    mtGroundwaterTransport:
+      if FWritingFlowModel then
+      begin
+        result := not Model.SeparateGwtUsed;
+      end
+      else
+      begin
+        result := Model.SeparateGwtUsed;
+      end;
+    mtEnergyTransport:
+      if FWritingFlowModel then
+      begin
+        result := not Model.SeparateGweUsed;
+      end
+      else
+      begin
+        result := Model.SeparateGweUsed;
+      end;
   end;
+//  if not GwtUsed then
+//  begin
+//    result := True;
+//  end
+//  else if FWritingFlowModel and (ModelIndex = 0) then
+//  begin
+//    result := True;
+//  end
+//  else if SeparateGwtUsed then
+//  begin
+//    result := (ModelIndex - 1 = FSpeciesIndex) and (ModelIndex > 0);
+//  end;
 end;
 
 function TMf6_SimNameFileWriter.GetSimFileName(Index: Integer): string;
@@ -10357,16 +10391,14 @@ end;
 procedure TMf6_SimNameFileWriter.WriteTiming;
 var
   GwtUsed: Boolean;
-  SeparateGwtUsed: Boolean;
+  GweUsed: Boolean;
+//  SeparateGwtUsed: Boolean;
   ShouldWriteLine: Boolean;
   ModelIndex: Integer;
 begin
   Assert(TDisFileName <> '');
   WriteString('BEGIN TIMING');
   NewLine;
-
-  GwtUsed := Model.GwtUsed;
-  SeparateGwtUsed := Model.SeparateGwtUsed;
 
   if FSpeciesIndex = -1 then
   begin
@@ -10375,11 +10407,20 @@ begin
     NewLine;
   end;
 
-  if SeparateGwtUsed then
+  GwtUsed := Model.GwtUsed;
+  GweUsed := Model.GweUsed;
+  if FSeparateGwt or FSeparateGwE then
   begin
     for ModelIndex := 1 to FModelDataList.Count - 1 do
     begin
-      ShouldWriteLine := GetShouldWriteLine(GwtUsed, SeparateGwtUsed, ModelIndex);
+      ShouldWriteLine := GetShouldWriteLine(GwtUsed, FSeparateGwt, ModelIndex);
+      if ShouldWriteLine then
+      begin
+        WriteString('  TDIS6 ');
+        WriteString('''' + ExtractFileName(GwtTDisFileNames[ModelIndex-1]) + '''');
+        NewLine;
+      end;
+      ShouldWriteLine := GetShouldWriteLine(GweUsed, FSeparateGwE, ModelIndex);
       if ShouldWriteLine then
       begin
         WriteString('  TDIS6 ');

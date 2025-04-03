@@ -37,7 +37,7 @@ var
   SpeciesIndex: Integer;
   SpeciesName: string;
 begin
-  if not Model.SeparateGwtUsed then
+  if not Model.SeparateGwtUsed and not Model.SeparateGweUsed then
   begin
     Exit;
   end;
@@ -48,7 +48,8 @@ begin
   FNameOfFile := NameOfFile;
   for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
   begin
-    if not Model.MobileComponents[SpeciesIndex].UsedForGWT then
+    if not (Model.MobileComponents[SpeciesIndex].UsedForGWT
+     or Model.MobileComponents[SpeciesIndex].UsedForGWE) then
     begin
       Continue;
     end;

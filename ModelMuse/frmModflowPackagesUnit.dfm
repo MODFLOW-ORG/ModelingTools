@@ -26,7 +26,7 @@ inherited frmModflowPackages: TfrmModflowPackages
     Top = 0
     Width = 577
     Height = 513
-    ActivePage = jvspGweSSM
+    ActivePage = jvspGweProcess
     PropagateEnable = False
     Align = alClient
     OnChange = jvplPackagesChange
@@ -14327,6 +14327,9 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited rgSimulationChoice: TRadioGroup
           Width = 546
+          Items.Strings = (
+            '(1) Flow and energy transport in the same simulation'
+            '(2) Separate flow and energy transport simulations')
           OnClick = frameGweProcessrgSimulationChoiceClick
           ExplicitWidth = 546
         end

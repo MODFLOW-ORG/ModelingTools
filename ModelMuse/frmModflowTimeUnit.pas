@@ -922,6 +922,7 @@ var
   Index: Integer;
   TimeItem: TMt3dmsTimeItem;
   GwtProcess: TGwtProcess;
+  GweProcess: TGwtProcess;
   SpeciesIndex: Integer;
   ColIndex: Integer;
   ASpecies: string;
@@ -933,7 +934,9 @@ begin
   rdgGWT.BeginUpdate;
   try
     GwtProcess := frmGoPhast.PhastModel.ModflowPackages.GwtProcess;
-    tabGWT.TabVisible := GwtProcess.IsSelected and GwtProcess.SeparateGwt;
+    GweProcess := frmGoPhast.PhastModel.ModflowPackages.GweProcess;
+    tabGWT.TabVisible := (GwtProcess.IsSelected and GwtProcess.SeparateGwt)
+      or (GweProcess.IsSelected and GweProcess.SeparateGwt);
     Limit := 0;
     if tabGWT.TabVisible then
     begin
