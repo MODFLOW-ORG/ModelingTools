@@ -6,6 +6,7 @@ inherited frmModflowPackages: TfrmModflowPackages
   StyleElements = [seFont, seClient, seBorder]
   OnActivate = jvplPackagesChange
   OnClose = FormClose
+  ExplicitWidth = 780
   ExplicitHeight = 593
   TextHeight = 18
   object JvNetscapeSplitter1: TJvNetscapeSplitter
@@ -109,8 +110,8 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 440
-          Height = 111
+          Width = 438
+          Height = 109
           Enabled = True
           Columns = <
             item
@@ -451,11 +452,11 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 440
-          Height = 174
+          Width = 438
+          Height = 172
           Enabled = True
-          ExplicitWidth = 440
-          ExplicitHeight = 174
+          ExplicitWidth = 438
+          ExplicitHeight = 172
         end
       end
     end
@@ -555,10 +556,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 266
-          ExplicitWidth = 571
-          ExplicitHeight = 266
+          Width = 569
+          Height = 264
+          ExplicitWidth = 569
+          ExplicitHeight = 264
         end
       end
     end
@@ -653,10 +654,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 298
-          ExplicitWidth = 571
-          ExplicitHeight = 298
+          Width = 569
+          Height = 296
+          ExplicitWidth = 569
+          ExplicitHeight = 296
         end
       end
     end
@@ -1078,10 +1079,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 218
-          ExplicitWidth = 571
-          ExplicitHeight = 218
+          Width = 569
+          Height = 216
+          ExplicitWidth = 569
+          ExplicitHeight = 216
         end
       end
     end
@@ -1178,10 +1179,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 298
-          ExplicitWidth = 571
-          ExplicitHeight = 298
+          Width = 569
+          Height = 296
+          ExplicitWidth = 569
+          ExplicitHeight = 296
         end
       end
     end
@@ -1276,10 +1277,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 298
-          ExplicitWidth = 571
-          ExplicitHeight = 298
+          Width = 569
+          Height = 296
+          ExplicitWidth = 569
+          ExplicitHeight = 296
         end
       end
     end
@@ -1370,10 +1371,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 298
-          ExplicitWidth = 571
-          ExplicitHeight = 298
+          Width = 569
+          Height = 296
+          ExplicitWidth = 569
+          ExplicitHeight = 296
         end
       end
     end
@@ -1509,10 +1510,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 210
-          ExplicitWidth = 571
-          ExplicitHeight = 210
+          Width = 569
+          Height = 208
+          ExplicitWidth = 569
+          ExplicitHeight = 208
         end
       end
     end
@@ -1636,10 +1637,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 258
-          ExplicitWidth = 571
-          ExplicitHeight = 258
+          Width = 569
+          Height = 256
+          ExplicitWidth = 569
+          ExplicitHeight = 256
         end
       end
     end
@@ -1784,10 +1785,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 222
-          ExplicitWidth = 571
-          ExplicitHeight = 222
+          Width = 569
+          Height = 220
+          ExplicitWidth = 569
+          ExplicitHeight = 220
         end
       end
     end
@@ -2460,15 +2461,15 @@ inherited frmModflowPackages: TfrmModflowPackages
               end
             end
             inherited dgParameters: TRbwDataGrid4
-              Width = 571
-              Height = 203
+              Width = 569
+              Height = 201
               OnSelectCell = frameSFRParameterDefinitiondgParametersSelectCell
               OnSetEditText = frameSFRParameterDefinitiondgParametersSetEditText
-              ExplicitWidth = 571
-              ExplicitHeight = 203
+              ExplicitWidth = 569
+              ExplicitHeight = 201
               ColWidths = (
                 64
-                64)
+                80)
             end
           end
           object jplSfrParameters: TJvPageList
@@ -3614,10 +3615,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 298
-          ExplicitWidth = 571
-          ExplicitHeight = 298
+          Width = 569
+          Height = 296
+          ExplicitWidth = 569
+          ExplicitHeight = 296
         end
       end
     end
@@ -5113,8 +5114,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitWidth = 566
               ColWidths = (
                 64
-                64
-                64)
+                80
+                80)
             end
             inherited rdgOutput: TRbwDataGrid4
               Width = 543
@@ -8492,10 +8493,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 258
-          ExplicitWidth = 571
-          ExplicitHeight = 258
+          Width = 569
+          Height = 256
+          ExplicitWidth = 569
+          ExplicitHeight = 256
         end
       end
     end
@@ -8644,10 +8645,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
         end
         inherited dgParameters: TRbwDataGrid4
-          Width = 571
-          Height = 100
-          ExplicitWidth = 571
-          ExplicitHeight = 100
+          Width = 569
+          Height = 98
+          ExplicitWidth = 569
+          ExplicitHeight = 98
         end
       end
       inline framePkgFrm: TframePkgFarm
@@ -8688,12 +8689,12 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 46
         end
         inherited jvplFarm: TJvPageList
-          Left = 138
-          Width = 439
+          Left = 141
+          Width = 436
           Height = 359
           OnChange = framePkgFrmjvplFarmChange
-          ExplicitLeft = 138
-          ExplicitWidth = 439
+          ExplicitLeft = 141
+          ExplicitWidth = 436
           ExplicitHeight = 359
           inherited jvspOptions: TJvStandardPage
             Width = 457
@@ -8820,8 +8821,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               Width = 457
               ExplicitWidth = 457
               inherited grpDescription: TGroupBox
-                Width = 454
-                ExplicitWidth = 454
+                Width = 453
+                ExplicitWidth = 453
                 inherited lblTop: TLabel
                   Left = 168
                   Width = 214
@@ -8840,12 +8841,12 @@ inherited frmModflowPackages: TfrmModflowPackages
                 end
                 inherited rdgGrid: TRbwDataGrid4
                   Top = 40
-                  Width = 417
-                  Height = 233
+                  Width = 415
+                  Height = 231
                   Margins.Top = 20
                   ExplicitTop = 40
-                  ExplicitWidth = 417
-                  ExplicitHeight = 233
+                  ExplicitWidth = 415
+                  ExplicitHeight = 231
                 end
               end
             end
@@ -8861,10 +8862,10 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitWidth = 457
               ExplicitHeight = 360
               inherited grpDescription: TGroupBox
-                Width = 454
-                Height = 357
-                ExplicitWidth = 454
-                ExplicitHeight = 357
+                Width = 453
+                Height = 356
+                ExplicitWidth = 453
+                ExplicitHeight = 356
                 inherited lblTop: TLabel
                   Width = 185
                   Height = 18
@@ -8881,13 +8882,13 @@ inherited frmModflowPackages: TfrmModflowPackages
                 end
                 inherited rdgGrid: TRbwDataGrid4
                   Top = 40
-                  Width = 417
-                  Height = 312
+                  Width = 415
+                  Height = 310
                   FixedCols = 0
                   OnSelectCell = frameCropConsumptiveUserdgGridSelectCell
                   ExplicitTop = 40
-                  ExplicitWidth = 417
-                  ExplicitHeight = 312
+                  ExplicitWidth = 415
+                  ExplicitHeight = 310
                 end
               end
             end
@@ -9015,10 +9016,10 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitWidth = 457
               ExplicitHeight = 300
               inherited grpDescription: TGroupBox
-                Width = 454
-                Height = 297
-                ExplicitWidth = 454
-                ExplicitHeight = 297
+                Width = 453
+                Height = 296
+                ExplicitWidth = 453
+                ExplicitHeight = 296
                 inherited lblTop: TLabel
                   Left = 256
                   Width = 90
@@ -9037,12 +9038,12 @@ inherited frmModflowPackages: TfrmModflowPackages
                 end
                 inherited rdgGrid: TRbwDataGrid4
                   Top = 40
-                  Width = 401
-                  Height = 252
+                  Width = 399
+                  Height = 250
                   FixedCols = 0
                   ExplicitTop = 40
-                  ExplicitWidth = 401
-                  ExplicitHeight = 252
+                  ExplicitWidth = 399
+                  ExplicitHeight = 250
                 end
               end
             end
@@ -9056,8 +9057,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               Width = 457
               ExplicitWidth = 457
               inherited grpDescription: TGroupBox
-                Width = 454
-                ExplicitWidth = 454
+                Width = 453
+                ExplicitWidth = 453
                 inherited lblTop: TLabel
                   Width = 60
                   Height = 18
@@ -9074,12 +9075,12 @@ inherited frmModflowPackages: TfrmModflowPackages
                 end
                 inherited rdgGrid: TRbwDataGrid4
                   Top = 40
-                  Width = 401
-                  Height = 97
+                  Width = 399
+                  Height = 95
                   FixedCols = 0
                   ExplicitTop = 40
-                  ExplicitWidth = 401
-                  ExplicitHeight = 97
+                  ExplicitWidth = 399
+                  ExplicitHeight = 95
                 end
               end
             end
@@ -9093,8 +9094,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               Width = 457
               ExplicitWidth = 457
               inherited grpDescription: TGroupBox
-                Width = 454
-                ExplicitWidth = 454
+                Width = 453
+                ExplicitWidth = 453
                 inherited lblTop: TLabel
                   Width = 87
                   Height = 18
@@ -9115,12 +9116,12 @@ inherited frmModflowPackages: TfrmModflowPackages
                 end
                 inherited rdgGrid: TRbwDataGrid4
                   Top = 40
-                  Width = 401
-                  Height = 163
+                  Width = 399
+                  Height = 161
                   FixedCols = 0
                   ExplicitTop = 40
-                  ExplicitWidth = 401
-                  ExplicitHeight = 163
+                  ExplicitWidth = 399
+                  ExplicitHeight = 161
                 end
               end
             end
@@ -9132,10 +9133,10 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitWidth = 457
               ExplicitHeight = 279
               inherited grpDescription: TGroupBox
-                Width = 454
-                Height = 276
-                ExplicitWidth = 454
-                ExplicitHeight = 276
+                Width = 453
+                Height = 275
+                ExplicitWidth = 453
+                ExplicitHeight = 275
                 inherited lblTop: TLabel
                   Width = 65
                   Height = 18
@@ -9154,20 +9155,20 @@ inherited frmModflowPackages: TfrmModflowPackages
                 end
                 inherited rdgGrid: TRbwDataGrid4
                   Top = 40
-                  Width = 401
-                  Height = 231
+                  Width = 399
+                  Height = 229
                   FixedCols = 0
                   ExplicitTop = 40
-                  ExplicitWidth = 401
-                  ExplicitHeight = 231
+                  ExplicitWidth = 399
+                  ExplicitHeight = 229
                 end
               end
             end
           end
           inherited jvspMnwNwtOptions: TJvStandardPage
-            Width = 439
+            Width = 436
             Height = 359
-            ExplicitWidth = 439
+            ExplicitWidth = 436
             ExplicitHeight = 359
             inherited lblMnwExplanation: TLabel
               Width = 309
@@ -9177,8 +9178,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitHeight = 36
             end
             inherited grpMNWOptions: TGroupBox
-              Width = 439
-              ExplicitWidth = 439
+              Width = 436
+              ExplicitWidth = 436
               inherited lblRPCT: TLabel
                 Width = 280
                 Height = 54
@@ -9211,8 +9212,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               end
             end
             inherited grpNwtOptions: TGroupBox
-              Width = 439
-              ExplicitWidth = 439
+              Width = 436
+              ExplicitWidth = 436
               inherited lblPSIRAMPF: TLabel
                 Width = 282
                 Height = 54
@@ -9974,14 +9975,14 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 88
         end
         inherited jvplSwr: TJvPageList
-          Left = 150
-          Width = 427
+          Left = 153
+          Width = 424
           Height = 513
           HelpType = htKeyword
           HelpKeyword = 'SWR_Surface_Water_Routing_Proc'
           OnChange = framePkgSWRjvplSwrChange
-          ExplicitLeft = 150
-          ExplicitWidth = 427
+          ExplicitLeft = 153
+          ExplicitWidth = 424
           ExplicitHeight = 513
           inherited jvspComments: TJvStandardPage
             Width = 427
@@ -10080,6 +10081,7 @@ inherited frmModflowPackages: TfrmModflowPackages
             end
           end
           inherited jvspTimeStepOptions: TJvStandardPage
+            ExplicitWidth = 436
             inherited lblInitialTimeStepLength: TLabel
               Width = 199
               Height = 18
@@ -10184,9 +10186,9 @@ inherited frmModflowPackages: TfrmModflowPackages
             end
           end
           inherited jvspSpecificationMethod: TJvStandardPage
-            Width = 427
+            Width = 424
             Height = 513
-            ExplicitWidth = 427
+            ExplicitWidth = 424
             ExplicitHeight = 513
             inherited grpSpecificationMethod: TGroupBox
               Width = 209
@@ -10216,15 +10218,15 @@ inherited frmModflowPackages: TfrmModflowPackages
             end
             inherited grpAssignmentMethod: TGroupBox
               Left = 209
-              Width = 218
+              Width = 215
               Height = 513
               Align = alClient
               ExplicitLeft = 209
-              ExplicitWidth = 218
+              ExplicitWidth = 215
               ExplicitHeight = 513
               inherited rgRainAssignmentMethod: TRadioGroup
-                Width = 212
-                ExplicitWidth = 212
+                Width = 209
+                ExplicitWidth = 209
               end
               inherited rgEvapAssignmentMethod: TRadioGroup
                 Width = 212
@@ -11194,6 +11196,7 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
+              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited seMaxErrors: TJvSpinEdit
@@ -13052,15 +13055,15 @@ inherited frmModflowPackages: TfrmModflowPackages
             Height = 377
             StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 462
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExplicitHeight = 377
             inherited rdgFarms: TRbwDataGrid4
-              Width = 554
-              Height = 351
+              Width = 550
+              Height = 345
               FixedCols = 0
               OnButtonClick = OwhmFrameButtonClick
-              ExplicitWidth = 554
-              ExplicitHeight = 351
+              ExplicitWidth = 550
+              ExplicitHeight = 345
             end
           end
           inherited cpnlOptions: TCategoryPanel [1]
@@ -13069,7 +13072,7 @@ inherited frmModflowPackages: TfrmModflowPackages
             TabOrder = 1
             StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 340
-            ExplicitWidth = 556
+            ExplicitWidth = 573
             ExplicitHeight = 122
             inherited cbWellField: TCheckBox
               Height = 37
@@ -13085,7 +13088,7 @@ inherited frmModflowPackages: TfrmModflowPackages
             TabOrder = 2
             StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 310
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExpandedHeight = 242
             inherited lblQClose: TLabel
               Left = 74
@@ -13195,21 +13198,22 @@ inherited frmModflowPackages: TfrmModflowPackages
           inherited cpnlOutput: TCategoryPanel
             Height = 310
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExplicitHeight = 310
             inherited clbPrint: TCheckListBox
-              Width = 554
-              Height = 244
+              Width = 550
+              Height = 238
               ItemHeight = 18
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 554
-              ExplicitHeight = 244
+              ExplicitWidth = 550
+              ExplicitHeight = 238
             end
             inherited Panel1: TPanel
-              Top = 244
-              Width = 554
+              Top = 238
+              Width = 550
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitTop = 244
+              ExplicitTop = 238
+              ExplicitWidth = 550
               inherited lblPrintRouting: TLabel
                 Width = 280
                 Height = 18
@@ -13751,17 +13755,17 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 402
           inherited cpnlDataSets: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             inherited rdgLandUse: TRbwDataGrid4
-              Width = 554
+              Width = 550
               FixedCols = 0
               OnButtonClick = OwhmFrameButtonClick
-              ExplicitWidth = 554
+              ExplicitWidth = 550
             end
           end
           inherited cpnlOptions: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             inherited lblLandUsePerCell: TLabel
               Width = 118
               Height = 18
@@ -13797,15 +13801,16 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
           inherited cpnlPrint: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             inherited clbPrint: TCheckListBox
-              Width = 554
+              Width = 550
               ItemHeight = 18
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 554
+              ExplicitWidth = 550
+              ExplicitHeight = 154
             end
             inherited pnl2: TPanel
-              Width = 554
+              Width = 550
               StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 554
             end
@@ -13885,22 +13890,22 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 394
           inherited cpnlPrint: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExpandedHeight = 81
             inherited clbPrint: TCheckListBox
-              Width = 554
+              Width = 550
               ItemHeight = 18
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 554
+              ExplicitWidth = 550
             end
           end
           inherited cpnlOptions: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             inherited pnl1: TPanel
-              Width = 554
+              Width = 550
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 554
+              ExplicitWidth = 550
               inherited lblExpressionMin: TLabel
                 Width = 214
                 Height = 18
@@ -13913,10 +13918,10 @@ inherited frmModflowPackages: TfrmModflowPackages
               end
             end
             inherited rdgSalinityFlush: TRbwDataGrid4
-              Width = 554
+              Width = 550
               FixedCols = 0
               OnButtonClick = OwhmFrameButtonClick
-              ExplicitWidth = 554
+              ExplicitWidth = 550
             end
           end
         end
@@ -14319,7 +14324,7 @@ inherited frmModflowPackages: TfrmModflowPackages
         inherited memoComments: TMemo
           Width = 546
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 546
+          ExplicitWidth = 544
         end
         inherited cbFlowImbalance: TCheckBox
           Width = 546
@@ -14838,6 +14843,7 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
+              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited seMaxErrors: TJvSpinEdit
@@ -14942,6 +14948,8 @@ inherited frmModflowPackages: TfrmModflowPackages
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 505
+    ExplicitWidth = 762
     DesignSize = (
       764
       41)
@@ -14955,6 +14963,7 @@ inherited frmModflowPackages: TfrmModflowPackages
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnHelpClick
+      ExplicitLeft = 345
     end
     object btnOK: TBitBtn
       Left = 461
@@ -14966,6 +14975,7 @@ inherited frmModflowPackages: TfrmModflowPackages
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnOKClick
+      ExplicitLeft = 459
     end
     object btnCancel: TBitBtn
       Left = 575
@@ -14977,6 +14987,7 @@ inherited frmModflowPackages: TfrmModflowPackages
       NumGlyphs = 2
       TabOrder = 2
       OnClick = btnCancelClick
+      ExplicitLeft = 573
     end
   end
   object pnlLeft: TPanel
@@ -14986,6 +14997,7 @@ inherited frmModflowPackages: TfrmModflowPackages
     Height = 513
     Align = alLeft
     TabOrder = 0
+    ExplicitHeight = 505
     object pnlModel: TPanel
       Left = 1
       Top = 1
@@ -15027,6 +15039,7 @@ inherited frmModflowPackages: TfrmModflowPackages
       OnExpanded = tvPackagesExpanded
       OnMouseDown = tvPackagesMouseDown
       OnMouseUp = tvPackagesMouseUp
+      ExplicitHeight = 439
     end
   end
   object rbwLpfParamCountController: TRbwController

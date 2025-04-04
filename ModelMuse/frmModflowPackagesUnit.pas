@@ -3945,6 +3945,12 @@ begin
             Continue;
           end;
         end;
+
+        if (SpeciesName = strGweTemperature) and frameGweProcess.Selected then
+        begin
+          Continue;
+        end;
+
         Inc(SpeciesCount);
 
         if not GweSpecies then
@@ -5847,6 +5853,11 @@ begin
       begin
         SpeciesName := frameChemSpecies.frameGridMobile.Grid.Cells[0, ImsIndex+ 1];
         if IgnoredNames.IndexOf(SpeciesName) >= 0 then
+        begin
+          Continue;
+        end;
+
+        if (SpeciesName = strGweTemperature) and frameGweProcess.Selected then
         begin
           Continue;
         end;

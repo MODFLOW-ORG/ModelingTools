@@ -1144,8 +1144,7 @@ end;
     function GetGwtTDisFileNames(SpeciesIndex: Integer): string;
     procedure SetGwtTDisFileNames(SpeciesIndex: Integer; const Value: string);
     procedure WriteFileInternal(FileName: string; BackupFileName: WideString);
-    function GetShouldWriteLine(GwtUsed: Boolean; SeparateGwtUsed: Boolean;
-      ModelIndex: Integer): Boolean;
+    function GetShouldWriteLine(ModelIndex: Integer): Boolean;
     function GetSimFileName(Index: Integer): string;
     function GetSimFileNameCount: Integer;
   protected
@@ -10059,13 +10058,17 @@ var
 begin
   WriteString('BEGIN EXCHANGES');
   NewLine;
-  if (Model.GwtUsed and not Model.SeparateGwtUsed) or (Model.GweUsed and not Model.SeparateGweUsed) then
+  if FWritingFlowModel and ((Model.GwtUsed and not Model.SeparateGwtUsed)
+    or (Model.GweUsed and not Model.SeparateGweUsed)) then
   begin
     for index := 0 to FExchanges.Count - 1 do
     begin
-      WriteString('  ');
-      WriteString(FExchanges[index]);
-      NewLine;
+      if GetShouldWriteLine(index+1) then
+      begin
+        WriteString('  ');
+        WriteString(FExchanges[index]);
+        NewLine;
+      end;
     end;
   end;
   WriteString('END EXCHANGES');
@@ -10127,15 +10130,17 @@ begin
 
 end;
 
-function TMf6_SimNameFileWriter.GetShouldWriteLine(GwtUsed: Boolean;
-  SeparateGwtUsed: Boolean; ModelIndex: Integer): Boolean;
+function TMf6_SimNameFileWriter.GetShouldWriteLine(ModelIndex: Integer): Boolean;
 var
   ModelType: TModelType;
 begin
   result := True;
   ModelType := FModelDataList[ModelIndex].ModelType;
   case ModelType of
-    mtGroundWaterFlow: result := True;
+    mtGroundWaterFlow:
+      begin
+        result := FWritingFlowModel;
+      end;
     mtGroundwaterTransport:
       if FWritingFlowModel then
       begin
@@ -10236,7 +10241,7 @@ begin
 
   for ModelIndex := 0 to FModelDataList.Count - 1 do
   begin
-    ShouldWriteLine := GetShouldWriteLine(GwtUsed, SeparateGwtUsed, ModelIndex);
+    ShouldWriteLine := GetShouldWriteLine(ModelIndex);
     if ShouldWriteLine then
     begin
       ModelData := FModelDataList[ModelIndex];
@@ -10372,7 +10377,7 @@ begin
       NewLine;
     end;
 
-    ShouldWriteLine := GetShouldWriteLine(GwtUsed, SeparateGwtUsed, ModelIndex);
+    ShouldWriteLine := GetShouldWriteLine(ModelIndex);
     if ShouldWriteLine then
     begin
       WriteString('  IMS6 ');
@@ -10413,14 +10418,7 @@ begin
   begin
     for ModelIndex := 1 to FModelDataList.Count - 1 do
     begin
-      ShouldWriteLine := GetShouldWriteLine(GwtUsed, FSeparateGwt, ModelIndex);
-      if ShouldWriteLine then
-      begin
-        WriteString('  TDIS6 ');
-        WriteString('''' + ExtractFileName(GwtTDisFileNames[ModelIndex-1]) + '''');
-        NewLine;
-      end;
-      ShouldWriteLine := GetShouldWriteLine(GweUsed, FSeparateGwE, ModelIndex);
+      ShouldWriteLine := GetShouldWriteLine(ModelIndex);
       if ShouldWriteLine then
       begin
         WriteString('  TDIS6 ');
