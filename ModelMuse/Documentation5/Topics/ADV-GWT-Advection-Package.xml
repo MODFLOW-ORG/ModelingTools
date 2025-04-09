@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2025-04-09T10:04:23.826-04:00" lasteditedby="Richard" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">ADV: GWT Advection Package Pane</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">ADV: GWT Advection Package Pane</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The Advection Package is used to simulate transport by advective flow. The </text><text styleclass="Strong" translate="true">ADV: GWT Advection Package</text><text styleclass="Normal" translate="true"> pane is on the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="MODFLOW_Packages_Dialog_Box" styleclass="Strong" translate="true">MODFLOW Packages and Programs</link><text styleclass="Normal" translate="true"> dialog box under </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Groundwater-Transport" styleclass="Strong" translate="true">Groundwater Transport|</link><text styleclass="Normal" translate="true"> | </text><link displaytype="text" defaultstyle="true" type="topiclink" href="GWT-Groundwater-Transport" styleclass="Strong" translate="true">GWT: Groundwater Transport</link><text styleclass="Normal" translate="true">. </text></para>
+    <para styleclass="Normal"><snippet src="GWT_GWE-Advection-Options" inline="false"/></para>
+  </body>
+</topic>
