@@ -2476,7 +2476,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         Top = 0
         Width = 537
         Height = 478
-        ActivePage = jvspGwtCNC
+        ActivePage = jvspGweESL
         PropagateEnable = False
         Align = alClient
         OnChange = jvplModflowBoundariesChange
@@ -5750,7 +5750,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 293
                 inherited framePestObsLak: TframePestObs
                   Height = 293
-                  ExplicitWidth = 533
                   ExplicitHeight = 293
                   inherited splObservations: TSplitter
                     Top = 116
@@ -5759,13 +5758,11 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   end
                   inherited grpDirectObs: TGroupBox
                     Height = 116
-                    ExplicitWidth = 533
                     ExplicitHeight = 116
                     inherited frameObservations: TframeGrid
                       Top = 21
                       Height = 93
                       ExplicitTop = 21
-                      ExplicitWidth = 529
                       ExplicitHeight = 93
                       inherited Panel: TPanel
                         Top = 61
@@ -5799,7 +5796,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                       end
                       inherited Grid: TRbwDataGrid4
                         Height = 61
-                        ExplicitWidth = 529
                         ExplicitHeight = 61
                       end
                     end
@@ -5807,12 +5803,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   inherited grpObsComparisons: TGroupBox
                     Top = 121
                     ExplicitTop = 121
-                    ExplicitWidth = 533
                     inherited frameObsComparisons: TframeGrid
                       Top = 21
                       Height = 149
                       ExplicitTop = 21
-                      ExplicitWidth = 529
                       ExplicitHeight = 149
                       inherited Panel: TPanel
                         Top = 114
@@ -5846,7 +5840,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                       end
                       inherited Grid: TRbwDataGrid4
                         Height = 114
-                        ExplicitWidth = 529
                         ExplicitHeight = 114
                       end
                     end
@@ -6318,6 +6311,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     Height = 29
                     StyleElements = [seFont, seClient, seBorder]
                     ItemHeight = 23
+                    ItemIndex = -1
                     ExplicitHeight = 29
                   end
                 end
@@ -7083,7 +7077,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   end
                   inherited frameCrossSection1: TframeCrossSection
                     Height = 304
-                    ExplicitLeft = 366
                     ExplicitHeight = 304
                     inherited dg8Point: TRbwDataGrid4
                       Height = 304
@@ -7635,7 +7628,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     ExplicitHeight = 286
                     ColWidths = (
                       64
-                      64)
+                      80)
                     RowHeights = (
                       24
                       24)
@@ -9321,6 +9314,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 end
                 inherited comboLossType: TJvImageComboBox
                   StyleElements = [seFont, seClient, seBorder]
+                  ItemIndex = -1
                 end
                 inherited edPartialPenetration: TJvComboEdit
                   Left = 227
@@ -10100,7 +10094,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             inherited lblFluxObservations: TLabel
               AlignWithMargins = True
               Left = 3
-              Width = 125
+              Width = 531
               Height = 19
               Margins.Top = 8
               Align = alTop
@@ -12061,6 +12055,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     Height = 29
                     StyleElements = [seFont, seClient, seBorder]
                     ItemHeight = 23
+                    ItemIndex = -1
                     ExplicitHeight = 29
                   end
                   inherited cbbObservationTypes: TJvCheckedComboBox
@@ -12080,7 +12075,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   ExplicitHeight = 259
                   inherited lblDescription: TLabel
                     Top = 24
-                    Width = 468
+                    Width = 519
                     Height = 57
                     StyleElements = [seFont, seClient, seBorder]
                     ExplicitTop = 24
@@ -12132,8 +12127,8 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                       ExplicitHeight = 132
                       ColWidths = (
                         172
-                        64
-                        64)
+                        80
+                        80)
                       RowHeights = (
                         24
                         24)
@@ -12688,11 +12683,11 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 332
                 ColWidths = (
                   64
-                  64
-                  64
-                  64
-                  64
-                  64)
+                  80
+                  80
+                  80
+                  80
+                  80)
                 RowHeights = (
                   24
                   24)
@@ -13417,7 +13412,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     ExplicitHeight = 336
                     ColWidths = (
                       64
-                      64)
+                      80)
                     RowHeights = (
                       24
                       24)
@@ -13643,6 +13638,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   Height = 29
                   StyleElements = [seFont, seClient, seBorder]
                   ItemHeight = 23
+                  ItemIndex = -1
                   ExplicitHeight = 29
                 end
                 inherited edThermalConductivity: TJvComboEdit
@@ -18945,6 +18941,8 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           Top = 0
           Width = 537
           Height = 478
+          HelpType = htKeyword
+          HelpKeyword = 'CTP-GWE-Constant-Temperature-2'
           Caption = 'jvspGweCTP'
           inline frameGweCTP: TframeScreenObjectCtp
             Left = 0
@@ -19032,8 +19030,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 Height = 333
                 OnSetEditText = frameGweCTPrdgModflowBoundarySetEditText
                 OnButtonClick = frameChdParamdgModflowBoundaryButtonClick
-                ExplicitLeft = 6
-                ExplicitTop = 52
                 ExplicitWidth = 535
                 ExplicitHeight = 333
               end
@@ -19045,6 +19041,8 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           Top = 0
           Width = 537
           Height = 478
+          HelpType = htKeyword
+          HelpKeyword = 'ESL-GWE-Energy-Source-Loading-'
           Caption = 'jvspGweESL'
           inline frameGweESL: TframeScreenObjectEsl
             Left = 0
