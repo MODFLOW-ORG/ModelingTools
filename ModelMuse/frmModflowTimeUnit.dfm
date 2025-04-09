@@ -87,7 +87,6 @@ inherited frmModflowTime: TfrmModflowTime
         Height = 81
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 736
         object lblPeriodLength: TLabel
           Left = 183
           Top = 8
@@ -455,8 +454,6 @@ inherited frmModflowTime: TfrmModflowTime
             AutoAdjustColWidths = True
           end>
         WordWrapRowCaptions = False
-        ExplicitWidth = 736
-        ExplicitHeight = 342
         ColWidths = (
           64
           64
@@ -475,8 +472,6 @@ inherited frmModflowTime: TfrmModflowTime
         Height = 41
         Align = alBottom
         TabOrder = 2
-        ExplicitTop = 423
-        ExplicitWidth = 736
         DesignSize = (
           742
           41)
@@ -533,7 +528,6 @@ inherited frmModflowTime: TfrmModflowTime
           Caption = 'Delete'
           TabOrder = 2
           OnClick = btnDeleteClick
-          ExplicitLeft = 538
         end
         object btnInsert: TButton
           Left = 632
@@ -544,7 +538,6 @@ inherited frmModflowTime: TfrmModflowTime
           Caption = 'Insert'
           TabOrder = 3
           OnClick = btnInsertClick
-          ExplicitLeft = 626
         end
       end
     end
@@ -1050,7 +1043,7 @@ inherited frmModflowTime: TfrmModflowTime
       Margins.Top = 4
       Margins.Right = 4
       Margins.Bottom = 4
-      Caption = 'GWT'
+      Caption = 'GWT/GWE'
       ImageIndex = 3
       object rdgGWT: TRbwDataGrid4
         Left = 0

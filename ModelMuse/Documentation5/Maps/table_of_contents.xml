@@ -1223,10 +1223,16 @@
           <topicref type="topic" id="453305664416118" modified="2024-02-08T10:56:24.011Z" icon="0" href="Pumping-Rate-Interpretation">
             <caption translate="true">Pumping Rate Interpretation</caption>
           </topicref>
-          <topicref type="topic" id="447816244287400" build="ALL" modified="2023-10-02T11:24:39.129Z" icon="0" href="CNC-GWT-Constant-Concentratio2">
+          <topicref type="topic" id="457564007819090" build="ALL" modified="2025-04-09T09:54:40.265Z" icon="0" href="CTP-GWE-Constant-Temperature-2">
+            <caption translate="true">CTP: GWE Constant Temperature Package</caption>
+          </topicref>
+          <topicref type="topic" id="457565031403035" build="ALL" modified="2025-04-09T09:55:04.211Z" icon="0" href="ESL-GWE-Energy-Source-Loading-">
+            <caption translate="true">ESL: GWE Energy Source Loading Package</caption>
+          </topicref>
+          <topicref type="topic" id="447816244287400" build="ALL" modified="2025-04-09T09:12:49.861Z" icon="0" href="CNC_GWT_Constant_Concentratio2">
             <caption translate="true">CNC: GWT Constant Concentration Package Pane</caption>
           </topicref>
-          <topicref type="topic" id="447815390025518" build="ALL" modified="2023-10-02T11:24:49.548Z" icon="0" href="SRC-GWT-Mass-Source-Loading-P2">
+          <topicref type="topic" id="447815390025518" build="ALL" modified="2025-04-09T09:13:42.388Z" icon="0" href="SRC_GWT_Mass_Source_Loading_P2">
             <caption translate="true">SRC: GWT Mass Source Loading Package Pane</caption>
           </topicref>
           <topicref type="topic" id="417545903835045" build="ALL" modified="2014-04-25T10:36:20.280Z" icon="0" href="CFP_Conduit_Flow_Process_Pane">
@@ -1846,16 +1852,19 @@
           </topicref>
           <topicref type="topic" id="447435556575396" build="ALL" modified="2022-07-01T09:13:35.851Z" icon="0" href="Groundwater-Transport">
             <caption translate="true">Groundwater Transport</caption>
-            <topicref type="topic" id="447773694969523" build="ALL" modified="2022-08-04T08:10:55.547Z" icon="0" href="Chem-Species-(MT3D-and-GWT)">
-              <caption translate="true">Chem Species (MT3D and GWT) Pane</caption>
+            <topicref type="topic" id="447773694969523" build="ALL" modified="2025-04-09T08:48:07.277Z" icon="0" href="Chem-Species-(MT3D-and-GWT)">
+              <caption translate="true">Chem Species Pane</caption>
             </topicref>
             <topicref type="topic" id="447757449806935" build="ALL" modified="2022-08-02T14:41:36.556Z" icon="0" href="GWT-Groundwater-Transport">
               <caption translate="true">GWT: Groundwater Transport</caption>
-              <topicref type="topic" id="447772773802170" build="ALL" modified="2022-08-04T08:11:12.965Z" icon="0" href="GWTGroundwater-Transport-Proce">
-                <caption translate="true">GWT:Groundwater Transport Process Pane</caption>
+              <topicref type="topic" id="447772773802170" build="ALL" modified="2025-04-09T08:09:58.429Z" icon="0" href="GWTGroundwater-Transport-Proce">
+                <caption translate="true">GWT: Groundwater Transport Process Pane</caption>
               </topicref>
               <topicref type="topic" id="447756753683975" build="ALL" modified="2022-08-04T08:11:33.410Z" icon="0" href="ADV-GWT-Advection-Package">
                 <caption translate="true">ADV: GWT Advection Package Pane</caption>
+                <topicref type="topic" id="457563365916558" modified="2025-04-09T08:23:43.052Z" icon="0" href="GWT_GWE-Advection-Options">
+                  <caption translate="true">GWT/GWE Advection Options</caption>
+                </topicref>
               </topicref>
               <topicref type="topic" id="447433563204404" build="ALL" modified="2022-08-04T08:11:40.360Z" icon="0" href="Dispersion-Package">
                 <caption translate="true">DSP: GWT Dispersion Package Pane</caption>

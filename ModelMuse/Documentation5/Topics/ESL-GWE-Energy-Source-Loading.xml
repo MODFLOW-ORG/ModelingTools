@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2025-04-01T16:08:05.551-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd" status="Under Construction">
+<topic template="Default" status="Under Construction" modified="2025-04-09T08:45:03.273-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">ESL: GWE Energy Source Loading Package</title>
   <body>
     <header>
       <para styleclass="Heading1"><text styleclass="Heading1" translate="true">ESL: GWE Energy Source Loading Package</text></para>
     </header>
-    <para styleclass="Normal"><text styleclass="Normal" translate="true">Enter topic text here.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The</text><text styleclass="Strong" translate="true"> ESL: GWE Energy Source Loading Package</text><text styleclass="Normal" translate="true"> pane is used to activate the Energy Source Loading package. It is on the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="MODFLOW_Packages_Dialog_Box" styleclass="Strong" translate="true">MODFLOW Packages and Programs</link><text styleclass="Normal" translate="true"> dialog box under </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Groundwater-Transport" styleclass="Strong" translate="true">Groundwater Transport|</link><text styleclass="Normal" translate="true"> | </text><link displaytype="text" defaultstyle="true" type="topiclink" href="GWE-Groundwater-Energy-Transp2" styleclass="Strong" translate="true">Groundwater Energy Transport Process</link><text styleclass="Normal" translate="true">.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">&quot;Multipliers&quot; can be used with ESL boundaries. Multipliers will be used if the &quot;</text><text styleclass="Strong" translate="true">Use Multiplier</text><text styleclass="Normal" translate="true">&quot; checkbox is checked.. Ordinarily, multipliers are not needed. If multipliers are used, the mass loading rate is multiplied by the value of the multiplier. One use for multipliers might be when the energy source loading rates are defined using a </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Time_Series_Dialog_Box" styleclass="Normal" translate="true">time-series</link><text styleclass="Normal" translate="true"> and it is desired to multiply the energy source loading rate values in the time series by a different amount at different locations.</text></para>
   </body>
 </topic>

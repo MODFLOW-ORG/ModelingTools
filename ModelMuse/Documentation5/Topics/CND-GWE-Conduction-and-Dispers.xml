@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" status="Under Construction" lasteditedby="rbwinst" modified="2025-04-01T16:08:05.522-04:00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
-  <title>CND: GWE Conduction and Dispersion Package</title>
+<topic template="Default" status="Under Construction" modified="2025-04-09T08:34:37.754-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">CND: GWE Conduction and Dispersion Package</title>
   <body>
-    <header><para styleclass="Heading1">CND: GWE Conduction and Dispersion Package</para></header>
-    <para styleclass="Normal">Enter topic text here.</para>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">CND: GWE Conduction and Dispersion Package</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The Conduction and Dispersion Package pane is used to activate the Conduction and Dispersion package. The </text><text styleclass="Strong" translate="true">CND: GWE Conduction and Dispersion Package</text><text styleclass="Normal" translate="true"> pane is on the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="MODFLOW_Packages_Dialog_Box" styleclass="Strong" translate="true">MODFLOW Packages and Programs</link><text styleclass="Normal" translate="true"> dialog box under </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Groundwater-Transport" styleclass="Strong" translate="true">Groundwater Transport|</link><text styleclass="Normal" translate="true"> | &#160;</text><link displaytype="text" defaultstyle="true" type="topiclink" href="GWE-Groundwater-Energy-Transp2" styleclass="Strong" translate="true">GWE: Groundwater Energy Transport Process</link><text styleclass="Normal" translate="true">.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">By default, the CND Package uses the mathematical formulation presented for the XT3D option of the NPF Package to represent full three-dimensional anisotropy in groundwater flow. XT3D can be computationally expensive and can be turned off to use a simplified and approximate form of the dispersion equations that also account for conduction in a heat transport model. For most problems, however, XT3D will be required to accurately represent conduction and dispersion.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Activating XT3D RHS adds xt3d terms to right-hand side, when possible. This option uses less memory, but may require more iterations.</text></para>
   </body>
 </topic>

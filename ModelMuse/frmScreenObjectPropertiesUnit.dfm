@@ -600,15 +600,13 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             ExplicitHeight = 19
           end
           inherited cbPhastInterpolation: TJvCheckBox
-            Width = 238
-            Height = 19
+            Width = 241
             OnClick = framePhastInterpolationDatacbPhastInterpolationClick
             HotTrackFont.Charset = ANSI_CHARSET
             HotTrackFont.Height = 19
             HotTrackFont.Name = 'Arial'
             HotTrackFont.Pitch = fpVariable
-            ExplicitWidth = 238
-            ExplicitHeight = 19
+            ExplicitWidth = 241
           end
           inherited rdeDistance1: TRbwDataEntry
             Top = 68
@@ -818,15 +816,13 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               AlignWithMargins = True
               Left = 4
               Top = 4
-              Width = 277
-              Height = 65
+              Width = 256
+              Height = 57
               Align = alClient
               Caption = 
                 'Layer elevations can only be specified using objects with Zero Z' +
                 ' formulas.'
               WordWrap = True
-              ExplicitWidth = 256
-              ExplicitHeight = 57
             end
           end
         end
@@ -2322,8 +2318,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             inherited cbPhastInterpolation: TJvCheckBox
               Left = 16
               Top = 65
-              Width = 238
-              Height = 19
+              Width = 241
               TabOrder = 3
               Visible = False
               OnClick = framePhastInterpolationBoundariescbPhastInterpolationClick
@@ -2333,8 +2328,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               HotTrackFont.Pitch = fpVariable
               ExplicitLeft = 16
               ExplicitTop = 65
-              ExplicitWidth = 238
-              ExplicitHeight = 19
+              ExplicitWidth = 241
             end
             inherited rdeDistance1: TRbwDataEntry
               Left = 8
@@ -2482,7 +2476,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         Top = 0
         Width = 537
         Height = 478
-        ActivePage = jvspGweESL
+        ActivePage = jvspGwtCNC
         PropagateEnable = False
         Align = alClient
         OnChange = jvplModflowBoundariesChange
@@ -10106,7 +10100,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             inherited lblFluxObservations: TLabel
               AlignWithMargins = True
               Left = 3
-              Width = 531
+              Width = 125
               Height = 19
               Margins.Top = 8
               Align = alTop
@@ -12086,7 +12080,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   ExplicitHeight = 259
                   inherited lblDescription: TLabel
                     Top = 24
-                    Width = 519
+                    Width = 468
                     Height = 57
                     StyleElements = [seFont, seClient, seBorder]
                     ExplicitTop = 24
@@ -15898,7 +15892,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           Width = 537
           Height = 478
           HelpType = htKeyword
-          HelpKeyword = 'CNC-GWT-Constant-Concentratio2'
+          HelpKeyword = 'CNC_GWT_Constant_Concentratio2'
           Caption = 'jvspGwtCNC'
           inline frameGwtCnc: TframeScreenObjectCnc
             Left = 0
@@ -16004,7 +15998,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           Width = 537
           Height = 478
           HelpType = htKeyword
-          HelpKeyword = 'SRC-GWT-Mass-Source-Loading-P2'
+          HelpKeyword = 'SRC_GWT_Mass_Source_Loading_P2'
           Margins.Left = 4
           Margins.Top = 4
           Margins.Right = 4
@@ -21212,8 +21206,8 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           AlignWithMargins = True
           Left = 5
           Top = 31
-          Width = 722
-          Height = 44
+          Width = 705
+          Height = 38
           Margins.Top = 10
           Align = alClient
           Caption = 
@@ -21221,8 +21215,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             'ou can describe it here so you will understand how it works late' +
             'r.'
           WordWrap = True
-          ExplicitWidth = 705
-          ExplicitHeight = 38
         end
         object memoComments: TMemo
           Left = 2

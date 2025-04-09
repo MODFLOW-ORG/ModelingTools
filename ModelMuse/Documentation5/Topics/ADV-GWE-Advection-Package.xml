@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" status="Under Construction" lasteditedby="rbwinst" modified="2025-04-01T16:08:05.507-04:00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
-  <title>ADV: GWE Advection Package</title>
+<topic template="Default" status="Under Construction" modified="2025-04-09T08:26:27.530-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">ADV: GWE Advection Package</title>
   <body>
-    <header><para styleclass="Heading1">ADV: GWE Advection Package</para></header>
-    <para styleclass="Normal">Enter topic text here.</para>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">ADV: GWE Advection Package</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The Advection Package is used to simulate transport by advective flow. The </text><text styleclass="Strong" translate="true">ADV: GWE Advection Package</text><text styleclass="Normal" translate="true"> pane is on the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="MODFLOW_Packages_Dialog_Box" styleclass="Strong" translate="true">MODFLOW Packages and Programs</link><text styleclass="Normal" translate="true"> dialog box under </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Groundwater-Transport" styleclass="Strong" translate="true">Groundwater Transport|</link><text styleclass="Normal" translate="true"> | &#160;</text><link displaytype="text" defaultstyle="true" type="topiclink" href="GWE-Groundwater-Energy-Transp2" styleclass="Strong" translate="true">GWE: Groundwater Energy Transport Process</link><text styleclass="Normal" translate="true">.</text></para>
+    <para styleclass="Normal"><snippet src="GWT_GWE-Advection-Options" inline="false"/></para>
   </body>
 </topic>
