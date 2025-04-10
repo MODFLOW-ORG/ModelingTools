@@ -2,6 +2,7 @@ inherited frmCustomSelectObjects: TfrmCustomSelectObjects
   Caption = 'frmCustomSelectObjects'
   ClientHeight = 417
   ClientWidth = 408
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 424
   ExplicitHeight = 456
   TextHeight = 18

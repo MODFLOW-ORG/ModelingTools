@@ -147,8 +147,12 @@ inherited frameScreenObjectCfpFixed: TframeScreenObjectCfpFixed
         inherited Panel: TPanel
           Top = 359
           Width = 555
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 354
           ExplicitWidth = 555
+          inherited lbNumber: TLabel
+            StyleElements = [seFont, seClient, seBorder]
+          end
           inherited sbAdd: TSpeedButton
             Left = 290
             ExplicitLeft = 290
@@ -160,6 +164,9 @@ inherited frameScreenObjectCfpFixed: TframeScreenObjectCfpFixed
           inherited sbDelete: TSpeedButton
             Left = 396
             ExplicitLeft = 396
+          end
+          inherited seNumber: TJvSpinEdit
+            StyleElements = [seFont, seClient, seBorder]
           end
         end
         inherited Grid: TRbwDataGrid4

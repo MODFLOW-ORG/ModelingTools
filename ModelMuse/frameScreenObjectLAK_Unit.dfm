@@ -4,12 +4,16 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
   inherited pnlBottom: TPanel
     Top = 448
     Height = 119
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 448
     ExplicitWidth = 463
     ExplicitHeight = 119
     DesignSize = (
       541
       119)
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     object lblInitialStage: TLabel [1]
       Left = 79
       Top = 80
@@ -37,6 +41,9 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
       Width = 38
       Height = 15
       Caption = 'Lake ID'
+    end
+    inherited seNumberOfTimes: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
     end
     inherited btnDelete: TBitBtn
       ExplicitLeft = 375
@@ -97,18 +104,27 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
     end
   end
   inherited pnlTop: TPanel
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 463
     inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 461
     end
   end
   inherited pnlGrid: TPanel
     Height = 96
     Align = alTop
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 463
     ExplicitHeight = 96
     inherited pnlEditGrid: TPanel
-      ExplicitWidth = 461
+      StyleElements = [seFont, seClient, seBorder]
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
     inherited rdgModflowBoundary: TRbwDataGrid4
       Height = 44
@@ -306,7 +322,6 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
           CheckStyle = csCheck
           AutoAdjustColWidths = False
         end>
-      ExplicitWidth = 461
       ExplicitHeight = 44
       ColWidths = (
         64
@@ -345,7 +360,6 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Gage output'
         TabOrder = 0
-        ExplicitWidth = 449
         DesignSize = (
           527
           160)
@@ -406,7 +420,7 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
       object rdgLakeTable: TRbwDataGrid4
         Left = 0
         Top = 105
-        Width = 455
+        Width = 533
         Height = 192
         Align = alClient
         ColCount = 3
@@ -500,10 +514,11 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
       object pnlBathChoice: TPanel
         Left = 0
         Top = 0
-        Width = 455
+        Width = 533
         Height = 105
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 455
         object rgBathChoice: TRadioGroup
           Left = 5
           Top = 3
@@ -542,7 +557,7 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
         Height = 297
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 455
+        ExplicitWidth = 533
         ExplicitHeight = 297
         inherited splObservations: TSplitter
           Top = 120
@@ -553,33 +568,43 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
         inherited grpDirectObs: TGroupBox
           Width = 533
           Height = 120
-          ExplicitWidth = 455
+          ExplicitWidth = 533
           ExplicitHeight = 120
           inherited frameObservations: TframeGrid
             Width = 529
             Height = 101
             ExplicitTop = 17
-            ExplicitWidth = 451
+            ExplicitWidth = 529
             ExplicitHeight = 101
             inherited Panel: TPanel
               Top = 69
               Width = 529
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 69
               ExplicitWidth = 451
+              inherited lbNumber: TLabel
+                StyleElements = [seFont, seClient, seBorder]
+              end
               inherited sbAdd: TSpeedButton
                 Left = 434
+                ExplicitLeft = 434
               end
               inherited sbInsert: TSpeedButton
                 Left = 468
+                ExplicitLeft = 468
               end
               inherited sbDelete: TSpeedButton
                 Left = 502
+                ExplicitLeft = 502
+              end
+              inherited seNumber: TJvSpinEdit
+                StyleElements = [seFont, seClient, seBorder]
               end
             end
             inherited Grid: TRbwDataGrid4
               Width = 529
               Height = 69
-              ExplicitWidth = 451
+              ExplicitWidth = 529
               ExplicitHeight = 69
             end
           end
@@ -588,29 +613,39 @@ inherited frameScreenObjectLAK: TframeScreenObjectLAK
           Top = 125
           Width = 533
           ExplicitTop = 125
-          ExplicitWidth = 455
+          ExplicitWidth = 533
           inherited frameObsComparisons: TframeGrid
             Width = 529
             ExplicitTop = 17
-            ExplicitWidth = 451
+            ExplicitWidth = 529
             ExplicitHeight = 153
             inherited Panel: TPanel
               Width = 529
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 118
               ExplicitWidth = 451
+              inherited lbNumber: TLabel
+                StyleElements = [seFont, seClient, seBorder]
+              end
               inherited sbAdd: TSpeedButton
                 Left = 434
+                ExplicitLeft = 434
               end
               inherited sbInsert: TSpeedButton
                 Left = 468
+                ExplicitLeft = 468
               end
               inherited sbDelete: TSpeedButton
                 Left = 502
+                ExplicitLeft = 502
+              end
+              inherited seNumber: TJvSpinEdit
+                StyleElements = [seFont, seClient, seBorder]
               end
             end
             inherited Grid: TRbwDataGrid4
               Width = 529
-              ExplicitWidth = 451
+              ExplicitWidth = 529
             end
           end
         end

@@ -4,15 +4,26 @@ inherited framePackageFmp4Soils: TframePackageFmp4Soils
   DesignSize = (
     422
     323)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblLookupTableOption: TLabel [2]
     Left = 168
     Top = 131
     Width = 153
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Effective precipitation option'
   end
   inherited memoComments: TMemo
     Height = 60
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 60
   end
   object rdgSoils: TRbwDataGrid4 [4]
@@ -20,9 +31,15 @@ inherited framePackageFmp4Soils: TframePackageFmp4Soils
     Top = 157
     Width = 422
     Height = 166
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     ColCount = 6
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     Enabled = False
     FixedCols = 1
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
@@ -201,6 +218,10 @@ inherited framePackageFmp4Soils: TframePackageFmp4Soils
     Top = 128
     Width = 145
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     TabOrder = 2
     Items.Strings = (

@@ -275,7 +275,6 @@ inherited frameScreenObjectLakMf6: TframeScreenObjectLakMf6
           CheckStyle = csCheck
           AutoAdjustColWidths = True
         end>
-      ExplicitWidth = 539
       ExplicitHeight = 92
       ColWidths = (
         64

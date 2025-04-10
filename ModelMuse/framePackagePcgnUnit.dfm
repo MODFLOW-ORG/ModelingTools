@@ -6,8 +6,15 @@ inherited framePackagePcgn: TframePackagePcgn
   DesignSize = (
     600
     550)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 569
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 569
   end
   object pcControls: TPageControl [3]
@@ -15,17 +22,29 @@ inherited framePackagePcgn: TframePackagePcgn
     Top = 157
     Width = 600
     Height = 393
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabNonLinear
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
     object tabBasic: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Basic'
       object lblIter_mo: TLabel
         Left = 79
         Top = 19
         Width = 299
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of Picard (outer) iterations (ITER_MO)'
       end
       object lblIter_mi: TLabel
@@ -33,6 +52,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 46
         Width = 282
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of PCG (inner) iterations (ITER_MI)'
       end
       object lblCLOSE_R: TLabel
@@ -40,6 +63,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 73
         Width = 319
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'The residual-based stopping criterion for iteration (CLOSE_R)'
       end
       object lblClose_H: TLabel
@@ -47,6 +74,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 101
         Width = 306
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'The head-based stopping criterion for iteration (CLOSE_H)'
       end
       object lblRelax: TLabel
@@ -54,6 +85,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 129
         Width = 157
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Relaxation parameter (RELAX)'
       end
       object lblIfill: TLabel
@@ -61,13 +96,21 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 157
         Width = 217
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Fill level of the MIC preconditioner (IFILL)'
       end
       object seIter_mo: TJvSpinEdit
         Left = 3
         Top = 16
         Width = 70
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMaxValue = False
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -78,7 +121,11 @@ inherited framePackagePcgn: TframePackagePcgn
         Left = 3
         Top = 43
         Width = 70
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMaxValue = False
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -90,6 +137,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 70
         Width = 70
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 2
@@ -104,6 +155,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 98
         Width = 70
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 3
@@ -118,6 +173,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 126
         Width = 70
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 4
@@ -132,7 +191,11 @@ inherited framePackagePcgn: TframePackagePcgn
         Left = 3
         Top = 154
         Width = 70
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 1.000000000000000000
         Value = 1.000000000000000000
         Enabled = False
@@ -143,6 +206,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 181
         Width = 356
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save progress for the inner PCG iteration to file (UNIT_PC)'
         Enabled = False
         TabOrder = 6
@@ -152,12 +219,20 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 204
         Width = 356
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save time in the PCG solver to file (UNIT_TS)'
         Enabled = False
         TabOrder = 7
       end
     end
     object tabNonLinear: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Non-Linear'
       ImageIndex = 1
       object lblDampingMode: TLabel
@@ -165,6 +240,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 6
         Width = 136
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Damping mode (ADAMP)'
       end
       object lblDamp: TLabel
@@ -172,6 +251,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 32
         Width = 192
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Damping parameter control (DAMP)'
       end
       object lblDamp_Lb: TLabel
@@ -179,6 +262,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 63
         Width = 177
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Lower limit for DAMP (DAMP_LB)'
       end
       object lblDamp_D: TLabel
@@ -186,6 +273,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 95
         Width = 237
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Rate parameter for adjusting DAMP (RATE_D)'
       end
       object lblChglimit: TLabel
@@ -193,6 +284,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 123
         Width = 191
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum head change (CHGLIMIT)'
       end
       object lblAcnvg: TLabel
@@ -200,6 +295,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 151
         Width = 155
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Convergence mode (ACNVG)'
       end
       object lblChvg_Lb: TLabel
@@ -207,6 +306,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 180
         Width = 275
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Minimum value for relative convergence (CNVG_LB)'
       end
       object lblMcnvg: TLabel
@@ -214,6 +317,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 208
         Width = 332
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Power factor for increasing PCG convergence criteria (MCNVG)'
       end
       object lblRate_C: TLabel
@@ -221,6 +328,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 235
         Width = 237
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Convergence enhancement control (RATE_C)'
       end
       object lblIpunit: TLabel
@@ -228,6 +339,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 263
         Width = 265
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Progress reporting for the Picard iteration (IPUNIT)'
       end
       object comboDampingMode: TJvImageComboBox
@@ -235,6 +350,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 3
         Width = 134
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -267,6 +386,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 32
         Width = 134
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 1
@@ -282,6 +405,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 60
         Width = 134
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 2
@@ -297,6 +424,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 92
         Width = 134
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 3
@@ -312,6 +443,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 120
         Width = 134
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 4
@@ -326,6 +461,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 148
         Width = 134
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -359,6 +498,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 177
         Width = 134
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 6
@@ -373,7 +516,11 @@ inherited framePackagePcgn: TframePackagePcgn
         Left = 3
         Top = 205
         Width = 134
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 6.000000000000000000
         Value = 1.000000000000000000
         Enabled = False
@@ -384,6 +531,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 232
         Width = 134
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 8
@@ -399,6 +550,10 @@ inherited framePackagePcgn: TframePackagePcgn
         Top = 260
         Width = 134
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace

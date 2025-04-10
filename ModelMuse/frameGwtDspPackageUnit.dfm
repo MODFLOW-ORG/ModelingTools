@@ -22,6 +22,10 @@ inherited frameGwtDspPackage: TframeGwtDspPackage
     Top = 168
     Width = 289
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Use XT3D (inverse of XT3D_OFF)'
     Checked = True
     Enabled = False
@@ -34,6 +38,10 @@ inherited frameGwtDspPackage: TframeGwtDspPackage
     Top = 191
     Width = 391
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Some XT3D terms on Right Hand Side (XT3D_RHS)'
     Enabled = False
     TabOrder = 2
@@ -43,6 +51,10 @@ inherited frameGwtDspPackage: TframeGwtDspPackage
     Top = 216
     Width = 494
     Height = 73
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Longitudinal dispersivity treatment'
     Enabled = False
     ItemIndex = 0
@@ -57,6 +69,10 @@ inherited frameGwtDspPackage: TframeGwtDspPackage
     Top = 295
     Width = 494
     Height = 74
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Transverse dispersivity for horizontal flow treatment'
     Enabled = False
     ItemIndex = 0
@@ -71,6 +87,10 @@ inherited frameGwtDspPackage: TframeGwtDspPackage
     Top = 376
     Width = 441
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Specify transverse dispersivity for vertical flow'
     Enabled = False
     TabOrder = 5
@@ -80,6 +100,10 @@ inherited frameGwtDspPackage: TframeGwtDspPackage
     Top = 399
     Width = 457
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Use separate data sets for each species'
     Enabled = False
     TabOrder = 6

@@ -8,7 +8,7 @@
         <FrameworkType>VCL</FrameworkType>
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
         <ProjectVersion>20.2</ProjectVersion>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <ProjectName Condition="'$(ProjectName)'==''">ModelMuse</ProjectName>
     </PropertyGroup>
@@ -2333,6 +2333,10 @@
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\MF6InputReader\Mf6.CndFileReaderUnit.pas"/>
+        <DCCReference Include="..\MF6InputReader\MF6.EstFileReaderUnit.pas"/>
+        <DCCReference Include="..\MF6InputReader\Mf6.CtpFileReaderUnit.pas"/>
+        <DCCReference Include="..\MF6InputReader\Mf6.EslFileReaderUnit.pas"/>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

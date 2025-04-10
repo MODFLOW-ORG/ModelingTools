@@ -5141,11 +5141,11 @@ begin
     else
     begin
       Packages := FCustomModel.ModflowPackages;
-      if (Packages.Mt3dBasic.IsSelected or FCustomModel.GwtUsed) and Packages.ModPath.IsSelected then
+      if (Packages.Mt3dBasic.IsSelected or FCustomModel.GwtUsed or FCustomModel.GweUsed) and Packages.ModPath.IsSelected then
       begin
         FDataArrayCreationRecords[FPorosityIndex].Classification := StrModpath + ' \ ' + StrMT3DMS_GWT_Classificaton;
       end
-      else if Packages.Mt3dBasic.IsSelected or FCustomModel.GwtUsed then
+      else if Packages.Mt3dBasic.IsSelected or FCustomModel.GwtUsed or FCustomModel.GweUsed then
       begin
         FDataArrayCreationRecords[FPorosityIndex].Classification := StrMT3DMS_GWT_Classificaton;
       end

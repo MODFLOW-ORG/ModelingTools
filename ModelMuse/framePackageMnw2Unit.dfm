@@ -6,11 +6,21 @@ inherited framePackageMnw2: TframePackageMnw2
   DesignSize = (
     376
     318)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblPrintOption: TLabel [2]
     Left = 16
     Top = 157
     Width = 134
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Print option (MNWPRNT)'
     Enabled = False
@@ -18,6 +28,7 @@ inherited framePackageMnw2: TframePackageMnw2
   inherited memoComments: TMemo
     Width = 345
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 345
   end
   object comboPrintOption: TJvImageComboBox [4]
@@ -25,6 +36,10 @@ inherited framePackageMnw2: TframePackageMnw2
     Top = 180
     Width = 145
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     Anchors = [akLeft, akBottom]
     ButtonStyle = fsLighter
@@ -58,6 +73,10 @@ inherited framePackageMnw2: TframePackageMnw2
     Top = 216
     Width = 345
     Height = 99
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akRight, akBottom]
     Caption = 'Multi-Node Well Information (MNWI) Package Options'
     TabOrder = 2
@@ -66,7 +85,10 @@ inherited framePackageMnw2: TframePackageMnw2
       Top = 24
       Width = 294
       Height = 17
+      Margins.Left = 4
       Margins.Top = 8
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Create equivalent WEL package input file (WEL1flag)'
       TabOrder = 0
     end
@@ -75,6 +97,10 @@ inherited framePackageMnw2: TframePackageMnw2
       Top = 47
       Width = 339
       Height = 17
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 
         'Summarize flow rates by well in a separate output file (QSUMflag' +
         ')'
@@ -85,6 +111,10 @@ inherited framePackageMnw2: TframePackageMnw2
       Top = 70
       Width = 339
       Height = 17
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 
         'Summarize flow rates by node in a separate output file (BYNDflag' +
         ')'

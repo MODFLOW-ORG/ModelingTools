@@ -114,6 +114,12 @@ object frameHeadObservationResults: TframeHeadObservationResults
             Height = 23
             ExplicitHeight = 23
           end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
         inline framelmtMaxResidual: TframeDisplayLimit
           Left = 252
@@ -127,6 +133,12 @@ object frameHeadObservationResults: TframeHeadObservationResults
           inherited cbCheck: TCheckBox
             Height = 23
             ExplicitHeight = 23
+          end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
           end
         end
         inline framelmtMaximumTime: TframeDisplayLimit
@@ -142,6 +154,12 @@ object frameHeadObservationResults: TframeHeadObservationResults
             Height = 23
             ExplicitHeight = 23
           end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
         inline framelmtMinResidual: TframeDisplayLimit
           Left = 3
@@ -156,6 +174,12 @@ object frameHeadObservationResults: TframeHeadObservationResults
             Height = 23
             ExplicitHeight = 23
           end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
         inline framelmtMinLayer: TframeDisplayLimit
           Left = 3
@@ -166,6 +190,12 @@ object frameHeadObservationResults: TframeHeadObservationResults
           TabStop = True
           ExplicitLeft = 3
           ExplicitTop = 160
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
         inline framelmtMaxLayer: TframeDisplayLimit
           Left = 252
@@ -176,6 +206,12 @@ object frameHeadObservationResults: TframeHeadObservationResults
           TabStop = True
           ExplicitLeft = 252
           ExplicitTop = 160
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
       end
       object clrbtnNegative: TJvColorButton

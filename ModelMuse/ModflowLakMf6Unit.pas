@@ -872,7 +872,7 @@ end;
 function TLakeTimeItem.BoundaryFormulaCount: integer;
 begin
   result := Succ(LakeViscosityPosition);
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     result := result + frmGoPhast.PhastModel.MobileComponents.Count *5;
   end;
@@ -1273,7 +1273,7 @@ begin
     else
       begin
         // GWT
-        if frmGoPhast.PhastModel.GwtUsed then
+        if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
         begin
           Index := Index - Lak6GwtPestStartPosition;
           ChemSpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
@@ -2178,7 +2178,7 @@ begin
   FThermalThickness := CreateFormulaObjectBlocks(dso3D);
 
   LocalModel := ParentModel as TCustomModel;
-  if (LocalModel <> nil) and LocalModel.GwtUsed then
+  if (LocalModel <> nil) and (LocalModel.GwtUsed or LocalModel.GweUsed) then
   begin
     for ConcIndex := 0 to LocalModel.MobileComponents.Count - 1 do
     begin

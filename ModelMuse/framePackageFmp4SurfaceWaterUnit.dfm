@@ -4,8 +4,15 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
   DesignSize = (
     422
     450)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Height = 60
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 60
   end
   object cpnlgrp1: TCategoryPanelGroup [3]
@@ -13,6 +20,10 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
     Top = 128
     Width = 422
     Height = 322
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     VertScrollBar.Tracking = True
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -21,20 +32,31 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
     HeaderFont.Height = -12
     HeaderFont.Name = 'Segoe UI'
     HeaderFont.Style = []
+    HeaderHeight = 30
     TabOrder = 1
     object cpnlSurfaceWater: TCategoryPanel
       Top = 60
       Height = 318
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Surface Water'
       TabOrder = 0
       ExplicitWidth = 185
       object rdgSurfaceWater: TRbwDataGrid4
         Left = 0
         Top = 0
-        Width = 399
-        Height = 292
+        Width = 395
+        Height = 286
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         ColCount = 6
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         Enabled = False
         FixedCols = 1
         RowCount = 8
@@ -202,12 +224,16 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
             AutoAdjustColWidths = True
           end>
         WordWrapRowCaptions = False
-        ExplicitWidth = 395
+        ExplicitWidth = 399
       end
     end
     object cpnlOptions: TCategoryPanel
       Top = 30
       Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Options'
       Collapsed = True
       Enabled = False
@@ -219,6 +245,10 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
         Top = 12
         Width = 203
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Semi-routed delivery closure tolerance'
       end
       object rdeSEMI_ROUTED_DELIVERY_CLOSURE_TOLERANCE: TRbwDataEntry
@@ -226,6 +256,10 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
         Top = 9
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 0
@@ -240,6 +274,10 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
         Top = 37
         Width = 267
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Rebuild fully routed return'
         Enabled = False
         TabOrder = 1
@@ -248,6 +286,10 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
     object cpnlPrint: TCategoryPanel
       Top = 0
       Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Print'
       Collapsed = True
       TabOrder = 2
@@ -256,11 +298,15 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
       object clbPrint: TCheckListBox
         Left = 0
         Top = 0
-        Width = 399
+        Width = 395
         Height = 0
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         Enabled = False
-        ItemHeight = 15
+        ItemHeight = 21
         Items.Strings = (
           'PRINT SFR_DELIVERY'
           'PRINT SFR_DELIVERY_BY_WBS'
@@ -269,6 +315,7 @@ inherited framePackageFmp4SurfaceWater: TframePackageFmp4SurfaceWater
           'PRINT NRD'
           'PRINT NRD_BY_WBS')
         TabOrder = 0
+        ExplicitWidth = 399
       end
     end
   end

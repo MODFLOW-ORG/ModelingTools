@@ -4,11 +4,21 @@ inherited frameMt3dCtsPkg: TframeMt3dCtsPkg
   DesignSize = (
     422
     277)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblForce: TLabel [2]
     Left = 16
     Top = 165
     Width = 341
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Force injection concentrations to meet treatment levels (IFORCE)'
   end
   object lblWellPackageChoice: TLabel [3]
@@ -16,13 +26,24 @@ inherited frameMt3dCtsPkg: TframeMt3dCtsPkg
     Top = 221
     Width = 163
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Well package choice (ICTSPKG)'
+  end
+  inherited memoComments: TMemo
+    StyleElements = [seFont, seClient, seBorder]
   end
   object comboForce: TComboBox [5]
     Left = 16
     Top = 184
     Width = 391
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     ItemIndex = 0
@@ -41,6 +62,10 @@ inherited frameMt3dCtsPkg: TframeMt3dCtsPkg
     Top = 240
     Width = 391
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     ItemIndex = 0

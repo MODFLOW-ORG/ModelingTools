@@ -2462,12 +2462,12 @@ var
   ZBName: string;
   NetworkDrive: Boolean;
   ModelDirectory: string;
-  GWTUsed: Boolean;
+  GwtOrGweUsed: Boolean;
   Extension: string;
   Root: string;
   ChemIndex: Integer;
 begin
-  GWTUsed := (Model.ModelSelection = msModflow2015) and Model.ModflowPackages.GwtProcess.IsSelected;
+  GwtOrGweUsed := (Model.ModelSelection = msModflow2015) and (Model.GwtUsed or Model.GweUsed);
   NetworkDrive := IsNetworkDrive(FileName);
   ModelDirectory := ExtractFileDir(FileName);
   ZoneBudget := Model.ModflowPackages.ZoneBudget;
@@ -2541,7 +2541,7 @@ begin
     if Model.ModelSelection = msModflow2015 then
     begin
       BatchFile.Add(AFileName + ' ' + InputFileName);
-      if GWTUsed then
+      if GwtOrGweUsed then
       begin
         Extension := ExtractFileExt(InputFileName);
         Root := ChangeFileExt(InputFileName, '');
@@ -10160,18 +10160,6 @@ begin
         result := Model.SeparateGweUsed;
       end;
   end;
-//  if not GwtUsed then
-//  begin
-//    result := True;
-//  end
-//  else if FWritingFlowModel and (ModelIndex = 0) then
-//  begin
-//    result := True;
-//  end
-//  else if SeparateGwtUsed then
-//  begin
-//    result := (ModelIndex - 1 = FSpeciesIndex) and (ModelIndex > 0);
-//  end;
 end;
 
 function TMf6_SimNameFileWriter.GetSimFileName(Index: Integer): string;
@@ -10228,16 +10216,11 @@ procedure TMf6_SimNameFileWriter.WriteModels;
 var
   ModelIndex: Integer;
   ShouldWriteLine: Boolean;
-  GwtUsed: Boolean;
-  SeparateGwtUsed: Boolean;
   ModelData: TModelData;
 begin
   Assert(FModelDataList.Count > 0);
   WriteString('BEGIN MODELS');
   NewLine;
-
-  GwtUsed := Model.GwtUsed;
-  SeparateGwtUsed := Model.SeparateGwtUsed;
 
   for ModelIndex := 0 to FModelDataList.Count - 1 do
   begin
@@ -10332,15 +10315,8 @@ procedure TMf6_SimNameFileWriter.WriteSolutionGroups;
 var
   ModelIndex: Integer;
   ModelData: TModelData;
-  GwtUsed: Boolean;
-  SeparateGwtUsed: Boolean;
   ShouldWriteLine: Boolean;
 begin
-
-  GwtUsed := Model.GwtUsed;
-  SeparateGwtUsed := Model.SeparateGwtUsed;
-
-
   // If ModelMuse ever supports more than one solution group,
   // the following commented out text might be a starting point..
 //  FModelDataList.Sort(TComparer<TModelData>.Construct(
@@ -10395,9 +10371,6 @@ end;
 
 procedure TMf6_SimNameFileWriter.WriteTiming;
 var
-  GwtUsed: Boolean;
-  GweUsed: Boolean;
-//  SeparateGwtUsed: Boolean;
   ShouldWriteLine: Boolean;
   ModelIndex: Integer;
 begin
@@ -10412,8 +10385,6 @@ begin
     NewLine;
   end;
 
-  GwtUsed := Model.GwtUsed;
-  GweUsed := Model.GweUsed;
   if FSeparateGwt or FSeparateGwE then
   begin
     for ModelIndex := 1 to FModelDataList.Count - 1 do

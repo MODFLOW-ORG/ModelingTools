@@ -8,10 +8,15 @@ inherited framePackageLayerChoice: TframePackageLayerChoice
     201)
   inherited lblComments: TLabel
     Top = 31
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 31
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
   end
   inherited memoComments: TMemo
     Width = 446
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 446
   end
   object pnLayerOption: TPanel [3]
@@ -19,6 +24,10 @@ inherited framePackageLayerChoice: TframePackageLayerChoice
     Top = 160
     Width = 477
     Height = 41
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
@@ -27,6 +36,10 @@ inherited framePackageLayerChoice: TframePackageLayerChoice
       Top = 6
       Width = 86
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Location Option'
       Enabled = False
     end
@@ -35,6 +48,10 @@ inherited framePackageLayerChoice: TframePackageLayerChoice
       Top = 3
       Width = 145
       Height = 23
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Style = csDropDownList
       Enabled = False
       ItemIndex = 0

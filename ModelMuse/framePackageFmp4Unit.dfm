@@ -6,9 +6,16 @@ inherited framePackageFmp4: TframePackageFmp4
   DesignSize = (
     575
     500)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 544
     Height = 35
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 544
     ExplicitHeight = 35
   end
@@ -17,6 +24,10 @@ inherited framePackageFmp4: TframePackageFmp4
     Top = 103
     Width = 575
     Height = 397
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     VertScrollBar.Tracking = True
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -25,21 +36,31 @@ inherited framePackageFmp4: TframePackageFmp4
     HeaderFont.Height = -12
     HeaderFont.Name = 'Segoe UI'
     HeaderFont.Style = []
+    HeaderHeight = 30
     TabOrder = 1
     object cpnlWaterBalanceRegions: TCategoryPanel
       Top = 460
       Height = 376
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Water Balance Subregion Options (Farm Options)'
       TabOrder = 0
       ExplicitTop = 478
-      ExplicitWidth = 550
       object rdgFarms: TRbwDataGrid4
         Left = 0
         Top = 0
-        Width = 552
-        Height = 350
+        Width = 548
+        Height = 344
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         ColCount = 7
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         Enabled = False
         FixedCols = 1
         RowCount = 11
@@ -230,7 +251,15 @@ inherited framePackageFmp4: TframePackageFmp4
             AutoAdjustColWidths = True
           end>
         WordWrapRowCaptions = False
-        ExplicitWidth = 548
+        ExplicitWidth = 552
+        ColWidths = (
+          80
+          80
+          80
+          82
+          80
+          80
+          80)
       end
     end
     object cpnlMnw2: TCategoryPanel
@@ -248,8 +277,8 @@ inherited framePackageFmp4: TframePackageFmp4
       object lblQClose: TLabel
         Left = 93
         Top = 103
-        Width = 493
-        Height = 15
+        Width = 438
+        Height = 30
         Margins.Left = 4
         Margins.Top = 4
         Margins.Right = 4
@@ -262,8 +291,8 @@ inherited framePackageFmp4: TframePackageFmp4
       object lblHPCT: TLabel
         Left = 93
         Top = 159
-        Width = 452
-        Height = 15
+        Width = 414
+        Height = 30
         Margins.Left = 4
         Margins.Top = 4
         Margins.Right = 4
@@ -276,8 +305,8 @@ inherited framePackageFmp4: TframePackageFmp4
       object lblRPCT: TLabel
         Left = 93
         Top = 219
-        Width = 465
-        Height = 15
+        Width = 429
+        Height = 30
         Margins.Left = 4
         Margins.Top = 4
         Margins.Right = 4
@@ -364,6 +393,10 @@ inherited framePackageFmp4: TframePackageFmp4
     object cpnlOptions: TCategoryPanel
       Top = 309
       Height = 121
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Options'
       TabOrder = 2
       ExplicitWidth = 571
@@ -372,6 +405,10 @@ inherited framePackageFmp4: TframePackageFmp4
         Top = 8
         Width = 369
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Allow printing to listing file (inverse of NOPRINT)'
         Enabled = False
         TabOrder = 0
@@ -381,6 +418,10 @@ inherited framePackageFmp4: TframePackageFmp4
         Top = 31
         Width = 441
         Height = 29
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Allow for aquifer storage and recovery for non-routed deliveries' +
           ' (WELLFIELD)'
@@ -393,6 +434,10 @@ inherited framePackageFmp4: TframePackageFmp4
         Top = 74
         Width = 521
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Calls FMP FM routine before budget calculation (RECOMP_Q_BD)'
         Enabled = False
         TabOrder = 2
@@ -401,17 +446,24 @@ inherited framePackageFmp4: TframePackageFmp4
     object cpnlOutput: TCategoryPanel
       Top = 0
       Height = 309
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Print'
       TabOrder = 3
-      ExplicitWidth = 550
       object clbPrint: TCheckListBox
         Left = 0
         Top = 0
-        Width = 552
-        Height = 243
+        Width = 548
+        Height = 237
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         Enabled = False
-        ItemHeight = 15
+        ItemHeight = 21
         Items.Strings = (
           'WBS_WATER_USE'
           'FARM_DEMAND_SUPPLY_SUMMARY'
@@ -426,13 +478,17 @@ inherited framePackageFmp4: TframePackageFmp4
           'LANDSCAPE_RUNOFF [COMPACT]'
           'DEEP_PERCOLATION    [COMPACT]')
         TabOrder = 0
-        ExplicitWidth = 548
+        ExplicitWidth = 552
       end
       object Panel1: TPanel
         Left = 0
-        Top = 243
-        Width = 552
+        Top = 237
+        Width = 548
         Height = 40
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         TabOrder = 1
         ExplicitTop = 250
@@ -442,6 +498,10 @@ inherited framePackageFmp4: TframePackageFmp4
           Top = 9
           Width = 212
           Height = 15
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Print routing (ROUTING_INFORMATION)'
         end
         object comboPrintRouting: TComboBox
@@ -449,6 +509,10 @@ inherited framePackageFmp4: TframePackageFmp4
           Top = 6
           Width = 145
           Height = 23
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Style = csDropDownList
           Enabled = False
           ItemIndex = 0

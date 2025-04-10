@@ -13,6 +13,10 @@ object framePackage: TframePackage
     Top = 39
     Width = 59
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Comments'
     Enabled = False
   end
@@ -21,6 +25,10 @@ object framePackage: TframePackage
     Top = 12
     Width = 57
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'lblPackage'
   end
   object memoComments: TMemo
@@ -28,6 +36,10 @@ object framePackage: TframePackage
     Top = 62
     Width = 391
     Height = 89
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akTop, akRight]
     Enabled = False
     ScrollBars = ssVertical

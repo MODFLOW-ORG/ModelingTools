@@ -17,6 +17,10 @@ inherited framePackageBuoyancy: TframePackageBuoyancy
     Top = 231
     Width = 149
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Reference density (denseref)'
   end
   inherited memoComments: TMemo
@@ -29,6 +33,10 @@ inherited framePackageBuoyancy: TframePackageBuoyancy
     Top = 160
     Width = 137
     Height = 26
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Specify density'
     Enabled = False
     TabOrder = 1
@@ -38,6 +46,10 @@ inherited framePackageBuoyancy: TframePackageBuoyancy
     Top = 183
     Width = 544
     Height = 26
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Add off-diagonal terms to right-hand-side (HHFORMULATION_RHS)'
     Enabled = False
     TabOrder = 2
@@ -47,6 +59,10 @@ inherited framePackageBuoyancy: TframePackageBuoyancy
     Top = 206
     Width = 209
     Height = 26
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Write density'
     Enabled = False
     TabOrder = 3
@@ -56,9 +72,15 @@ inherited framePackageBuoyancy: TframePackageBuoyancy
     Top = 256
     Width = 715
     Height = 149
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     ColCount = 3
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     Enabled = False
     FixedCols = 1
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
@@ -151,6 +173,10 @@ inherited framePackageBuoyancy: TframePackageBuoyancy
     Top = 228
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 5

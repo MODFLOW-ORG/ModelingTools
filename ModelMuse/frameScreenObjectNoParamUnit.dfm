@@ -1,9 +1,7 @@
 inherited frameScreenObjectNoParam: TframeScreenObjectNoParam
-  Width = 541
   Height = 316
   TabStop = True
   OnResize = FrameResize
-  ExplicitWidth = 541
   ExplicitHeight = 316
   object pnlBottom: TPanel
     Left = 0
@@ -130,7 +128,6 @@ inherited frameScreenObjectNoParam: TframeScreenObjectNoParam
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 318
       object lblFormula: TLabel
         Left = 136
         Top = 5
@@ -252,7 +249,6 @@ inherited frameScreenObjectNoParam: TframeScreenObjectNoParam
           AutoAdjustColWidths = True
         end>
       WordWrapRowCaptions = False
-      ExplicitWidth = 318
     end
   end
 end

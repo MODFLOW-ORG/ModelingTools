@@ -26,11 +26,13 @@ object frameSwiObsInterpolated: TframeSwiObsInterpolated
     inherited Panel: TPanel
       Top = 94
       Width = 568
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 94
       ExplicitWidth = 568
       inherited lbNumber: TLabel
         Width = 155
         Caption = 'Number of observation times'
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitWidth = 155
       end
       inherited sbAdd: TSpeedButton
@@ -46,6 +48,7 @@ object frameSwiObsInterpolated: TframeSwiObsInterpolated
         ExplicitLeft = 406
       end
       inherited seNumber: TJvSpinEdit
+        StyleElements = [seFont, seClient, seBorder]
         OnChange = frameSwiObsseNumberChange
       end
     end

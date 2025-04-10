@@ -4,22 +4,37 @@ inherited framePackageHob: TframePackageHob
   DesignSize = (
     422
     214)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblDryHead: TLabel [2]
     Left = 16
     Top = 164
     Width = 191
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Head printed for dry cells (HOBDRY)'
   end
   inherited memoComments: TMemo
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
   end
   object rdeDryHead: TRbwDataEntry [4]
     Left = 16
     Top = 183
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False

@@ -6,11 +6,21 @@ inherited frameSIP: TframeSIP
   DesignSize = (
     607
     440)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblSipMxiter: TLabel [2]
     Left = 16
     Top = 160
     Width = 188
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Max. number of iterations (MXITER)'
   end
@@ -19,6 +29,10 @@ inherited frameSIP: TframeSIP
     Top = 192
     Width = 206
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Number of iteration variables (NPARM)'
   end
@@ -27,6 +41,10 @@ inherited frameSIP: TframeSIP
     Top = 224
     Width = 151
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Acceleration variable (ACCL)'
   end
@@ -35,6 +53,10 @@ inherited frameSIP: TframeSIP
     Top = 256
     Width = 172
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Head change criterion (HCLOSE)'
   end
@@ -43,6 +65,10 @@ inherited frameSIP: TframeSIP
     Top = 288
     Width = 114
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Seed source (IPCALC)'
   end
@@ -51,6 +77,10 @@ inherited frameSIP: TframeSIP
     Top = 320
     Width = 293
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Seed for seed for calculating iteration variables (WSEED)'
   end
@@ -59,12 +89,17 @@ inherited frameSIP: TframeSIP
     Top = 352
     Width = 129
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Printout interval (IPRSIP)'
   end
   inherited memoComments: TMemo
     Width = 576
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 576
   end
   object rdeSipMxiter: TRbwDataEntry [10]
@@ -78,6 +113,10 @@ inherited frameSIP: TframeSIP
       'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
       'but should usually be less than 100.'
     HelpContext = 910
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -99,6 +138,10 @@ inherited frameSIP: TframeSIP
       'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
       'but should usually be less than 100.'
     HelpContext = 910
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -121,6 +164,10 @@ inherited frameSIP: TframeSIP
       'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
       'but should usually be less than 100.'
     HelpContext = 910
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -142,6 +189,10 @@ inherited frameSIP: TframeSIP
       'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
       'but should usually be less than 100.'
     HelpContext = 910
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -157,6 +208,10 @@ inherited frameSIP: TframeSIP
     Top = 277
     Width = 250
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     Anchors = [akLeft, akBottom]
     ButtonStyle = fsLighter
@@ -192,6 +247,10 @@ inherited frameSIP: TframeSIP
       'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
       'but should usually be less than 100.'
     HelpContext = 910
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -213,6 +272,10 @@ inherited frameSIP: TframeSIP
       'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
       'but should usually be less than 100.'
     HelpContext = 910
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False

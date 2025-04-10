@@ -6,8 +6,15 @@ inherited framePackageFmi: TframePackageFmi
   DesignSize = (
     476
     386)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 445
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 445
   end
   object cbFlowImbalance: TCheckBox [3]
@@ -15,6 +22,10 @@ inherited framePackageFmi: TframePackageFmi
     Top = 284
     Width = 445
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Use flow imbalance correction (FLOW_IMBALANCE_CORRECTION)'
     Enabled = False
     TabOrder = 1
@@ -24,6 +35,10 @@ inherited framePackageFmi: TframePackageFmi
     Top = 157
     Width = 445
     Height = 121
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Simulation choice (FMI6)'
     Enabled = False
     Items.Strings = (

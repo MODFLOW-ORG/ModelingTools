@@ -3106,7 +3106,7 @@ begin
   if (Sender = frameChdParam.rdgModflowBoundary) then
   begin
     PestParameterColumns := [3,4,5];
-    if frmGoPhast.PhastModel.GwtUsed then
+    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
     begin
       for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
       begin
@@ -3117,7 +3117,7 @@ begin
   else if (Sender = frameGhbParam.rdgModflowBoundary) then
   begin
     PestParameterColumns := [2,3,4];
-    if frmGoPhast.PhastModel.GwtUsed
+    if frmGoPhast.PhastModel.GwtUsed  or frmGoPhast.PhastModel.GweUsed
       or frmGoPhast.PhastModel.BuoyancyDensityUsed then
     begin
       for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
@@ -3146,7 +3146,7 @@ begin
     then
   begin
     PestParameterColumns := [2,3];
-    if frmGoPhast.PhastModel.GwtUsed then
+    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
     begin
       for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
       begin
@@ -3157,7 +3157,7 @@ begin
   else if (Sender = frameWellParam.rdgModflowBoundary) then
   begin
     PestParameterColumns := [2,3];
-    if frmGoPhast.PhastModel.GwtUsed then
+    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
     begin
       for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
       begin
@@ -3183,7 +3183,7 @@ begin
   else if (Sender = frameEtsParam.rdgModflowBoundary) then
   begin
     PestParameterColumns := [2,3,4,5];
-    if frmGoPhast.PhastModel.GwtUsed then
+    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
     begin
       for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
       begin
@@ -3194,7 +3194,8 @@ begin
   else if (Sender = frameRivParam.rdgModflowBoundary) then
   begin
     PestParameterColumns := [2,3,4,5];
-    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.BuoyancyDensityUsed then
+    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed
+      or frmGoPhast.PhastModel.BuoyancyDensityUsed then
     begin
       for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
       begin
@@ -21802,7 +21803,8 @@ begin
     TGhbBoundary.DefaultBoundaryMethod(ConductancePosition);
   PestMethod[Frame.rdgModflowBoundary, ColumnOffset+MultiplierPosition] :=
     TGhbBoundary.DefaultBoundaryMethod(MultiplierPosition);
-  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.BuoyancyDensityUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed
+    or frmGoPhast.PhastModel.BuoyancyDensityUsed then
   begin
     for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
     begin
@@ -21854,7 +21856,7 @@ begin
   PestMethod[Frame.rdgModflowBoundary, ColumnOffset+MultiplierPosition] :=
     TMfWellBoundary.DefaultBoundaryMethod(MultiplierPosition);
   GetPestModifiers(Frame, Parameter, ScreenObjectList);
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
     begin
@@ -21950,7 +21952,7 @@ begin
     TRivBoundary.DefaultBoundaryMethod(BottomPosition);
   PestMethod[Frame.rdgModflowBoundary, ColumnOffset+MultiplierPosition] :=
     TRivBoundary.DefaultBoundaryMethod(MultiplierPosition);
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
     begin
@@ -22499,7 +22501,7 @@ begin
     TRchBoundary.DefaultBoundaryMethod(RechPosition);
   PestMethod[Frame.rdgModflowBoundary, ColOffset+MultPosition] :=
     TRchBoundary.DefaultBoundaryMethod(RechPosition);
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
     begin
@@ -22968,7 +22970,7 @@ begin
     TEtsBoundary.DefaultBoundaryMethod(MultiplierPosition);
   GetEvtModifiers;
   GetSurfDepthModifiers;
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
 //    for SpeciesIndex := 0 to frmGoPhast.PhastModel.MobileComponents.Count - 1 do
 //    begin
@@ -27086,7 +27088,7 @@ procedure TfrmScreenObjectProperties.frameRchParamrdgModflowBoundarySelectCell(
     if result then
     begin
       DataColumnCount := NonGWTProperties;
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         Inc(DataColumnCount, frmGoPhast.PhastModel.MobileComponents.Count);
       end;
@@ -27291,7 +27293,7 @@ procedure TfrmScreenObjectProperties.frameRivParamrdgModflowBoundarySelectCell(
     if result then
     begin
       DataColumnCount := NonGWTProperties;
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         Inc(DataColumnCount, frmGoPhast.PhastModel.MobileComponents.Count);
       end;
@@ -28306,7 +28308,7 @@ procedure TfrmScreenObjectProperties.frameWellParamrdgModflowBoundarySelectCell(
     if result then
     begin
       DataColumnCount := NonGWTProperties;
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         Inc(DataColumnCount, frmGoPhast.PhastModel.MobileComponents.Count);
       end;
@@ -30786,7 +30788,7 @@ begin
   if result then
   begin
     DataColumnCount := NonGWTProperties;
-    if frmGoPhast.PhastModel.GwtUsed then
+    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
     begin
       Inc(DataColumnCount, frmGoPhast.PhastModel.MobileComponents.Count);
     end;
@@ -30809,7 +30811,7 @@ begin
   if result then
   begin
     DataColumnCount := NonGWTProperties;
-    if frmGoPhast.PhastModel.GwtUsed then
+    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
     begin
       Inc(DataColumnCount, frmGoPhast.PhastModel.MobileComponents.Count);
     end;
@@ -30833,7 +30835,7 @@ begin
   if result then
   begin
     DataColumnCount := NonGWTProperties;
-    if frmGoPhast.PhastModel.GwtUsed then
+    if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
     begin
       Inc(DataColumnCount, frmGoPhast.PhastModel.MobileComponents.Count);
     end;
@@ -31304,7 +31306,7 @@ procedure TfrmScreenObjectProperties.frameGhbParamrdgModflowBoundarySelectCell(
     if result then
     begin
       DataColumnCount := NonGWTProperties;
-      if frmGoPhast.PhastModel.GwtUsed then
+      if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
       begin
         Inc(DataColumnCount, frmGoPhast.PhastModel.MobileComponents.Count);
       end;

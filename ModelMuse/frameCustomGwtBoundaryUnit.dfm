@@ -184,7 +184,6 @@ inherited frameCustomGwtBoundary: TframeCustomGwtBoundary
           CheckStyle = csCheck
           AutoAdjustColWidths = True
         end>
-      ExplicitWidth = 539
       ExplicitHeight = 171
     end
   end

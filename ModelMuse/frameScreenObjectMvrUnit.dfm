@@ -2,8 +2,10 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
   Height = 439
   ExplicitHeight = 439
   inherited pnlTop: TPanel [0]
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 412
     inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 410
     end
   end
@@ -11,11 +13,16 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
     Top = 304
     Height = 135
     Align = alBottom
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 304
     ExplicitWidth = 412
     ExplicitHeight = 135
     inherited pnlEditGrid: TPanel
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 410
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
       object lblMvrType: TLabel [1]
         Left = 199
         Top = 5
@@ -23,6 +30,9 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
         Height = 15
         Alignment = taCenter
         Caption = 'Mover type'
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
       end
       object comboMvrType: TComboBox
         Left = 199
@@ -145,7 +155,6 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
           CheckStyle = csCheck
           AutoAdjustColWidths = True
         end>
-      ExplicitWidth = 410
       ExplicitHeight = 83
       ColWidths = (
         64
@@ -210,11 +219,13 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
         inherited Panel: TPanel
           Top = 104
           Width = 533
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 104
           ExplicitWidth = 404
           inherited lbNumber: TLabel
             Width = 107
             Caption = 'Number of receivers'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 107
           end
           inherited sbAdd: TSpeedButton
@@ -232,6 +243,7 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
             ExplicitLeft = 366
           end
           inherited seNumber: TJvSpinEdit
+            StyleElements = [seFont, seClient, seBorder]
             OnChange = frameReceiversseNumberChange
           end
         end
@@ -376,7 +388,7 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitWidth = 404
+          ExplicitWidth = 533
           ExplicitHeight = 104
           ColWidths = (
             64
@@ -418,12 +430,14 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
           Top = 120
           Width = 110
           Height = 89
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 120
           ExplicitWidth = 110
           ExplicitHeight = 89
           inherited lbNumber: TLabel
             Left = 10
             Top = 5
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitLeft = 10
             ExplicitTop = 5
           end
@@ -451,6 +465,7 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
           inherited seNumber: TJvSpinEdit
             Left = 5
             Top = 26
+            StyleElements = [seFont, seClient, seBorder]
             OnChange = frameMapNamesseNumberChange
             ExplicitLeft = 5
             ExplicitTop = 26
@@ -596,7 +611,6 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
               AutoAdjustColWidths = False
             end>
           WordWrapRowCaptions = False
-          ExplicitWidth = 282
           RowHeights = (
             24
             24
@@ -637,12 +651,19 @@ inherited frameScreenObjectMvr: TframeScreenObjectMvr
     Top = 264
     Height = 40
     TabOrder = 3
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 264
     ExplicitWidth = 412
     ExplicitHeight = 40
     DesignSize = (
       541
       40)
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited seNumberOfTimes: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited btnDelete: TBitBtn
       ExplicitLeft = 324
     end

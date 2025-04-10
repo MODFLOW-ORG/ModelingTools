@@ -6,11 +6,23 @@ inherited framePackageSwr: TframePackageSwr
   DesignSize = (
     595
     514)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object splttrSwr: TJvNetscapeSplitter [2]
     Left = 146
     Top = 0
+    Width = 13
     Height = 514
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alLeft
+    MinSize = 38
     Maximized = False
     Minimized = False
     ButtonCursor = crDefault
@@ -22,38 +34,59 @@ inherited framePackageSwr: TframePackageSwr
     Width = 564
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 564
   end
   object jvplSwr: TJvPageList [4]
-    Left = 156
+    Left = 159
     Top = 0
-    Width = 439
+    Width = 436
     Height = 514
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = jvspSpecificationMethod
     PropagateEnable = False
     Align = alClient
+    ExplicitLeft = 156
+    ExplicitWidth = 439
     object jvspComments: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 439
+      Width = 436
       Height = 514
       HelpType = htKeyword
       HelpKeyword = 'SWR_Comments'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspComments'
+      ExplicitWidth = 439
     end
     object jvspSolutionOptions: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 439
+      Width = 436
       Height = 514
       HelpType = htKeyword
       HelpKeyword = 'SWR_Solution_Options'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspSolutionOptions'
+      ExplicitWidth = 439
       object lblScaling: TLabel
         Left = 6
         Top = 272
         Width = 38
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Scaling'
       end
       object lblReordering: TLabel
@@ -61,6 +94,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 320
         Width = 58
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Reordering'
       end
       object lblNewton: TLabel
@@ -68,6 +105,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 374
         Width = 103
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Newton-Correction'
       end
       object cbSwrOnly: TCheckBox
@@ -75,6 +116,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 3
         Width = 430
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Only surface water routing (no groundwater) (ISWRONLY)'
         TabOrder = 0
       end
@@ -83,6 +128,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 26
         Width = 393
         Height = 34
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Continue even if model does not converge (USE_NONCONVERGENCE_CON' +
           'TINUE)'
@@ -94,6 +143,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 66
         Width = 393
         Height = 34
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Use upstream weighting for diffusive wave (USE_UPSTREAM_WEIGHTIN' +
           'G)'
@@ -105,6 +158,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 106
         Width = 419
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use inexact Newton (USE_INEXACT_NEWTON)'
         TabOrder = 3
       end
@@ -113,6 +170,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 140
         Width = 419
         Height = 31
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use steady-state storage (USE_STEADYSTATE_STORAGE)'
         TabOrder = 4
         WordWrap = True
@@ -122,6 +183,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 177
         Width = 419
         Height = 34
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use lagged stages and flows (USE_LAGGED_OPR_DATA)'
         TabOrder = 5
         WordWrap = True
@@ -131,6 +196,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 225
         Width = 417
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use linear depth scaling (USE_LINEAR_DEPTH_SCALING)'
         TabOrder = 6
         WordWrap = True
@@ -140,6 +209,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 294
         Width = 411
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 411
@@ -170,6 +243,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 339
         Width = 411
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 411
@@ -200,6 +277,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 396
         Width = 411
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 411
@@ -229,16 +310,25 @@ inherited framePackageSwr: TframePackageSwr
     object jvspTimeStepOptions: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 439
+      Width = 436
       Height = 514
       HelpType = htKeyword
       HelpKeyword = 'SWR_Time_Step_Options'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspTimeStepOptions'
+      ExplicitWidth = 439
       object lblInitialTimeStepLength: TLabel
         Left = 157
         Top = 6
         Width = 156
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Initial time step length (RTINI)'
       end
       object lblMinTimeStepLength: TLabel
@@ -246,6 +336,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 34
         Width = 188
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Minimum time step length (RTMIN)'
       end
       object lblMaxTimeStepLength: TLabel
@@ -253,6 +347,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 62
         Width = 193
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum time step length (RTMAX)'
       end
       object lblTimeStepMultiplier: TLabel
@@ -260,21 +358,33 @@ inherited framePackageSwr: TframePackageSwr
         Top = 90
         Width = 158
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Time step multiplier (RTMULT)'
       end
       object lblTimeStepIncreaseFrequency: TLabel
         Left = 133
         Top = 118
-        Width = 119
+        Width = 104
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Frequency with which time step increases (NTMULT)'
         WordWrap = True
       end
       object lblMinGradientForDiffusiveFlow: TLabel
         Left = 157
         Top = 157
-        Width = 103
-        Height = 45
+        Width = 74
+        Height = 60
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Minimum gradient for diffusive flow (DMINGRAD)'
         WordWrap = True
       end
@@ -283,29 +393,45 @@ inherited framePackageSwr: TframePackageSwr
         Top = 196
         Width = 221
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Minimum depth for outflow (DMINDPTH)'
       end
       object lblMaxRainfallForStepAdjustment: TLabel
         Left = 157
         Top = 224
-        Width = 97
-        Height = 60
+        Width = 63
+        Height = 75
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum rainfall for step adjustment (DMAXRAI)'
         WordWrap = True
       end
       object lblMaxStageChangePerStep: TLabel
         Left = 157
         Top = 268
-        Width = 151
-        Height = 30
+        Width = 89
+        Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum stage change per step (DMAXSTG)'
         WordWrap = True
       end
       object lblMaxInflowChange: TLabel
         Left = 157
         Top = 312
-        Width = 133
-        Height = 30
+        Width = 94
+        Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum inflow change per step (DMAXINF)'
         WordWrap = True
       end
@@ -314,6 +440,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 3
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 0
         Text = '0'
         DataType = dtReal
@@ -327,6 +457,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 31
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 1
         Text = '0'
         OnChange = rdeMinTimeStepLengthChange
@@ -340,6 +474,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 59
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 2
         Text = '0'
         OnChange = rdeMaxTimeStepLengthChange
@@ -353,6 +491,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 87
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 3
         Text = '1'
         OnChange = rdeTimeStepMultiplierChange
@@ -366,7 +508,11 @@ inherited framePackageSwr: TframePackageSwr
         Left = 6
         Top = 115
         Width = 121
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 2.000000000000000000
         Value = 2.000000000000000000
@@ -377,6 +523,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 157
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 5
         Text = '0'
         DataType = dtReal
@@ -389,6 +539,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 193
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 6
         Text = '0'
         DataType = dtReal
@@ -401,6 +555,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 221
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 7
         Text = '0'
         DataType = dtReal
@@ -413,6 +571,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 265
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 8
         Text = '0'
         DataType = dtReal
@@ -425,6 +587,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 309
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 9
         Text = '0'
         DataType = dtReal
@@ -436,16 +602,24 @@ inherited framePackageSwr: TframePackageSwr
     object jvspSpecificationMethod: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 439
+      Width = 436
       Height = 514
       HelpType = htKeyword
       HelpKeyword = 'SWR_Specification_Method'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspSpecificationMethod'
       object grpSpecificationMethod: TGroupBox
         Left = 0
         Top = 0
         Width = 227
         Height = 514
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alLeft
         Caption = 'Specification method'
         TabOrder = 0
@@ -454,6 +628,10 @@ inherited framePackageSwr: TframePackageSwr
           Top = 24
           Width = 221
           Height = 105
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Rainfall (IRDRAI)'
           Items.Strings = (
             'Specify by object (> 0)'
@@ -466,7 +644,10 @@ inherited framePackageSwr: TframePackageSwr
           Top = 128
           Width = 221
           Height = 105
+          Margins.Left = 4
           Margins.Top = 0
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Evaporation (IRDEVP)'
           Items.Strings = (
             'Specify by object (> 0)'
@@ -479,7 +660,10 @@ inherited framePackageSwr: TframePackageSwr
           Top = 239
           Width = 221
           Height = 105
+          Margins.Left = 4
           Margins.Top = 0
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Lateral inflow (IRDLIN)'
           Items.Strings = (
             'Specify by object (> 0)'
@@ -492,7 +676,10 @@ inherited framePackageSwr: TframePackageSwr
           Top = 344
           Width = 221
           Height = 105
+          Margins.Left = 4
           Margins.Top = 0
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Stage (IRDSTG)'
           Items.Strings = (
             'Specify by object (> 0)'
@@ -502,10 +689,14 @@ inherited framePackageSwr: TframePackageSwr
         end
       end
       object grpAssignmentMethod: TGroupBox
-        Left = 233
+        Left = 230
         Top = 0
         Width = 206
         Height = 514
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alRight
         Caption = 'Assignment method'
         TabOrder = 1
@@ -517,6 +708,10 @@ inherited framePackageSwr: TframePackageSwr
           Top = 24
           Width = 200
           Height = 105
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = [akLeft, akTop, akRight]
           Caption = 'Rain'
           Enabled = False
@@ -532,6 +727,10 @@ inherited framePackageSwr: TframePackageSwr
           Top = 128
           Width = 200
           Height = 105
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = [akLeft, akTop, akRight]
           Caption = 'Evaporation'
           Enabled = False
@@ -547,6 +746,10 @@ inherited framePackageSwr: TframePackageSwr
           Top = 239
           Width = 200
           Height = 105
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = [akLeft, akTop, akRight]
           Caption = 'Lateral inflow'
           Enabled = False
@@ -562,6 +765,10 @@ inherited framePackageSwr: TframePackageSwr
           Top = 344
           Width = 200
           Height = 105
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = [akLeft, akTop, akRight]
           Caption = 'Stage'
           Enabled = False
@@ -577,16 +784,25 @@ inherited framePackageSwr: TframePackageSwr
     object jvspPrintOptions: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 439
+      Width = 436
       Height = 514
       HelpType = htKeyword
       HelpKeyword = 'SWR_Print_Flags'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspPrintOptions'
+      ExplicitWidth = 439
       object lblPrintInflowsAndOutflows: TLabel
         Left = 157
         Top = 12
-        Width = 227
+        Width = 195
         Height = 30
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save stage, inflows, and outflows for reach groups (ISWRPRGF)'
         WordWrap = True
       end
@@ -595,6 +811,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 44
         Width = 119
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save stage (ISWRPSTG)'
       end
       object lblPrintReachExchangeAndProperties: TLabel
@@ -602,6 +822,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 76
         Width = 163
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save reach values (ISWRPQAQ)'
       end
       object lblPrintReachLateralFlow: TLabel
@@ -609,6 +833,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 108
         Width = 182
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save reach lateral flow (ISWRPQM)'
       end
       object lblPrintStructureFlow: TLabel
@@ -616,13 +844,21 @@ inherited framePackageSwr: TframePackageSwr
         Top = 140
         Width = 164
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save structure flow (ISWRPSTR)'
       end
       object lblSaveSwrTimeStepLength: TLabel
         Left = 157
         Top = 218
-        Width = 106
+        Width = 103
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save SWR time step length (SAVE_SWRDT)'
         WordWrap = True
       end
@@ -631,6 +867,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 328
         Width = 100
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save River package'
       end
       object lblSaveObs: TLabel
@@ -638,13 +878,21 @@ inherited framePackageSwr: TframePackageSwr
         Top = 382
         Width = 94
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save observations'
       end
       object lblSaveFrequency: TLabel
         Left = 157
         Top = 482
-        Width = 105
+        Width = 102
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Frequency with which data is saved (RTPRN)'
         WordWrap = True
       end
@@ -653,6 +901,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 439
         Width = 165
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Observation format (IOPTUNIT)'
       end
       object comboPrintInflowsAndOutflows: TJvImageComboBox
@@ -660,6 +912,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 9
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -690,6 +946,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 41
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -720,6 +980,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 73
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -750,6 +1014,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 105
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -780,6 +1048,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 137
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -810,6 +1082,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 169
         Width = 371
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save maximum Froude number (ISWRPFRN)'
         TabOrder = 5
       end
@@ -818,6 +1094,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 192
         Width = 430
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Print SWR data to screen (PRINT_SWR_TO_SCREEN)'
         TabOrder = 6
       end
@@ -826,6 +1106,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 215
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -856,6 +1140,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 295
         Width = 430
         Height = 33
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save convergence history (SAVE_CONVERGENCE_HISTORY)'
         TabOrder = 9
         WordWrap = True
@@ -865,6 +1153,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 353
         Width = 419
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 419
@@ -895,6 +1187,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 407
         Width = 419
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 419
@@ -926,6 +1222,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 479
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 13
         Text = '0'
         DataType = dtReal
@@ -938,6 +1238,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 247
         Width = 419
         Height = 42
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save average simulated results (SAVE_AVERAGE_RESULTS)'
         TabOrder = 8
         WordWrap = True
@@ -947,6 +1251,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 436
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -971,39 +1279,60 @@ inherited framePackageSwr: TframePackageSwr
     object jvspSolverMandatory: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 439
+      Width = 436
       Height = 514
       HelpType = htKeyword
       HelpKeyword = 'SWR_Solver_Options_1'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspSolverMandatory'
+      ExplicitWidth = 439
       object lblSolver: TLabel
         Left = 183
         Top = 6
         Width = 86
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Solver (ISOLVER)'
       end
       object lblMaxOuterIterations: TLabel
         Left = 133
         Top = 39
-        Width = 117
+        Width = 103
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of outer iterations (NOUTER)'
         WordWrap = True
       end
       object lblMaxInnerIterations: TLabel
         Left = 133
         Top = 77
-        Width = 117
+        Width = 103
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of inner iterations (NINNER)'
         WordWrap = True
       end
       object lblMaxLineSearchIterations: TLabel
         Left = 133
         Top = 123
-        Width = 117
+        Width = 103
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of line search iterations (IBT)'
         WordWrap = True
       end
@@ -1012,6 +1341,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 168
         Width = 118
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Stage tolerance (TOLS)'
       end
       object lblFlowToleranceOption: TLabel
@@ -1019,6 +1352,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 197
         Width = 115
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Flow tolerance option'
       end
       object lblFlowTolerance: TLabel
@@ -1026,6 +1363,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 229
         Width = 115
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Flow tolerance (TOLR)'
       end
       object lblExchangeToleranceOption: TLabel
@@ -1033,6 +1374,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 257
         Width = 141
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Exchange tolerance option'
       end
       object lblExchangeTolerance: TLabel
@@ -1040,6 +1385,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 289
         Width = 142
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Exchange tolerance (TOLA)'
       end
       object lblSteadyStateDampingFactor: TLabel
@@ -1047,6 +1396,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 317
         Width = 205
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Steady state damping factor (DAMPSS)'
       end
       object lblTransientDampingFactor: TLabel
@@ -1054,6 +1407,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 345
         Width = 190
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Transient damping factor (DAMPTR)'
       end
       object lblConvergencePrintoutInterval: TLabel
@@ -1061,6 +1418,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 374
         Width = 210
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Convergence printout interval (IPRSWR)'
       end
       object lblPrintConvergence: TLabel
@@ -1068,6 +1429,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 403
         Width = 156
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Print convergence (MUTSWR)'
       end
       object comboSolver: TJvImageComboBox
@@ -1075,6 +1440,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 3
         Width = 171
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 171
@@ -1105,7 +1474,11 @@ inherited framePackageSwr: TframePackageSwr
         Left = 6
         Top = 35
         Width = 121
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -1115,7 +1488,11 @@ inherited framePackageSwr: TframePackageSwr
         Left = 6
         Top = 73
         Width = 121
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -1125,7 +1502,11 @@ inherited framePackageSwr: TframePackageSwr
         Left = 6
         Top = 119
         Width = 121
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -1137,6 +1518,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 165
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 4
         Text = '0'
         DataType = dtReal
@@ -1149,6 +1534,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 194
         Width = 227
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 227
@@ -1180,6 +1569,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 226
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 6
         Text = '0'
         DataType = dtReal
@@ -1192,6 +1585,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 254
         Width = 227
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 227
@@ -1222,6 +1619,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 286
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 8
         Text = '0'
         DataType = dtReal
@@ -1234,6 +1635,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 314
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 9
         Text = '0'
         DataType = dtReal
@@ -1246,6 +1651,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 342
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 10
         Text = '0'
         DataType = dtReal
@@ -1257,7 +1666,11 @@ inherited framePackageSwr: TframePackageSwr
         Left = 6
         Top = 370
         Width = 121
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         Value = 1.000000000000000000
         TabOrder = 11
@@ -1267,6 +1680,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 422
         Width = 299
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 299
@@ -1301,16 +1718,25 @@ inherited framePackageSwr: TframePackageSwr
     object jvspSolverOptional: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 439
+      Width = 436
       Height = 514
       HelpType = htKeyword
       HelpKeyword = 'SWR_Solver_Options_2'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspSolverOptional'
+      ExplicitWidth = 439
       object lblPreconditioner: TLabel
         Left = 231
         Top = 6
         Width = 107
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Preconditioner (IPC)'
       end
       object lblMaxLevels: TLabel
@@ -1318,6 +1744,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 39
         Width = 203
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of levels (NLEVELS)'
       end
       object lblDropThreshold: TLabel
@@ -1325,13 +1755,21 @@ inherited framePackageSwr: TframePackageSwr
         Top = 68
         Width = 141
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Drop threshold (DROPTOL)'
       end
       object lblPrintLineSearchInterval: TLabel
         Left = 133
         Top = 97
-        Width = 145
-        Height = 30
+        Width = 127
+        Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Interval for printing line search information (IBTPRT)'
         WordWrap = True
       end
@@ -1340,6 +1778,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 150
         Width = 180
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Alternative flow tolerance (PTOLR)'
       end
       object comboPreconditioner: TJvImageComboBox
@@ -1347,6 +1789,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 3
         Width = 219
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 253
@@ -1387,7 +1833,11 @@ inherited framePackageSwr: TframePackageSwr
         Left = 6
         Top = 35
         Width = 121
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         Value = 1.000000000000000000
         TabOrder = 1
@@ -1397,6 +1847,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 65
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 2
         Text = '0'
         DataType = dtReal
@@ -1408,7 +1862,11 @@ inherited framePackageSwr: TframePackageSwr
         Left = 6
         Top = 93
         Width = 121
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         Value = 1.000000000000000000
         TabOrder = 3
@@ -1418,6 +1876,10 @@ inherited framePackageSwr: TframePackageSwr
         Top = 144
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 4
         Text = '0'
         DataType = dtReal
@@ -1432,6 +1894,10 @@ inherited framePackageSwr: TframePackageSwr
     Top = 0
     Width = 146
     Height = 514
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     PageDefault = 0
     PageList = jvplSwr
     Align = alLeft

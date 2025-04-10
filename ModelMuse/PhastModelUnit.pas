@@ -11076,7 +11076,7 @@ var
   ChildModel: TChildModel;
 begin
   result := (ModelSelection = msModflow2015)
-    and ModflowPackages.UzfMf6Package.IsSelected and GWTUsed;
+    and ModflowPackages.UzfMf6Package.IsSelected and (GWTUsed or GweUsed);
   if not Result and LgrUsed then
   begin
     for ChildIndex := 0 to ChildModels.Count - 1 do
@@ -11085,7 +11085,7 @@ begin
       if ChildModel <> nil then
       begin
         result := ChildModel.ModflowPackages.UzfMf6Package.IsSelected
-          and ChildModel.GWTUsed;
+          and (ChildModel.GWTUsed or ChildModel.GweUsed);
         if result then
         begin
           Exit;
@@ -11105,7 +11105,7 @@ begin
   result := (ModelSelection = msModflow2015);
   if result then
   begin
-    GwtDspUsed := ModflowPackages.GwtDispersionPackage.IsSelected and GWTUsed
+    GwtDspUsed := ModflowPackages.GwtDispersionPackage.IsSelected and (GWTUsed or GweUsed)
       and ModflowPackages.GwtDispersionPackage.UseTransverseDispForVertFlow;
     GweDspUsed := ModflowPackages.GweConductionAndDispersionPackage.IsSelected
       and GweUsed;
@@ -11119,7 +11119,7 @@ begin
       if ChildModel <> nil then
       begin
         GwtDspUsed := ChildModel.ModflowPackages.GwtDispersionPackage.IsSelected
-          and ChildModel.GWTUsed
+          and (ChildModel.GWTUsed  or ChildModel.GweUsed)
           and ChildModel.ModflowPackages.GwtDispersionPackage.UseTransverseDispForVertFlow;
         GweDspUsed := ChildModel.ModflowPackages.GweConductionAndDispersionPackage.IsSelected
           and ChildModel.GweUsed;
@@ -20145,7 +20145,7 @@ var
   end;
 begin
   result := (ModelSelection = msModflow2015)
-    and GwtUsed
+    and (GwtUsed or GweUsed)
     and ModflowPackages.UzfMf6Package.IsSelected;
   if result then
   begin
@@ -46396,7 +46396,7 @@ var
   ZbNameFileWriter: TZoneBudgetNameFileWriter;
   Root: string;
   Extension: string;
-  GWTUsed:  Boolean;
+  GwtOrGweUsed:  Boolean;
   ChemIndex: Integer;
   TempFileName: string;
 begin
@@ -46411,7 +46411,7 @@ begin
   FileName := FixFileName(FileName);
   Root := ChangeFileExt(FileName, '');
   Extension := ExtractFileExt(FileName);
-  GWTUsed := (ModelSelection = msModflow2015) and ModflowPackages.GwtProcess.IsSelected;
+  GwtOrGweUsed := (ModelSelection = msModflow2015) and (GwtUsed or GweUsed);
   if frmProgressMM = nil then
   begin
     frmProgressMM := TfrmProgressMM.Create(nil);
@@ -46438,7 +46438,7 @@ begin
       finally
         GeoRefWriter.Free;
       end;
-      if GWTUsed then
+      if GwtOrGweUsed then
       begin
         for ChemIndex := 0 to MobileComponents.Count - 1 do
         begin
@@ -46458,7 +46458,7 @@ begin
       finally
         ZoneFileWriter.Free;
       end;
-      if GWTUsed then
+      if GwtOrGweUsed then
       begin
         for ChemIndex := 0 to MobileComponents.Count - 1 do
         begin
@@ -46489,7 +46489,7 @@ begin
         finally
           ZbNameFileWriter.Free;
         end;
-        if GWTUsed then
+        if GwtOrGweUsed then
         begin
           for ChemIndex := 0 to MobileComponents.Count - 1 do
           begin

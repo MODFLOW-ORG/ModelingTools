@@ -6,11 +6,21 @@ inherited framePackageMnw1: TframePackageMnw1
   DesignSize = (
     595
     514)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblMaxIterations: TLabel [2]
     Left = 143
     Top = 160
     Width = 271
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Maximum number of MNW iterations (NOMOITER)'
   end
   object lblLosstype: TLabel [3]
@@ -18,6 +28,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 195
     Width = 113
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Loss type (LOSSTYPE)'
   end
   object lblLossExponent: TLabel [4]
@@ -25,6 +39,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 227
     Width = 148
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Loss Exponent (PLossMNW)'
   end
   object lblWellFileName: TLabel [5]
@@ -32,6 +50,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 257
     Width = 175
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Well file name (iunw1) (Optional)'
   end
   object lblByNode: TLabel [6]
@@ -39,6 +61,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 327
     Width = 252
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'File name for output by node (iunby) (Optional)'
   end
   object lblQSum: TLabel [7]
@@ -46,6 +72,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 391
     Width = 245
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'File name for output by well (iunqs) (Optional)'
   end
   object lblByNodeFrequency: TLabel [8]
@@ -53,6 +83,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 327
     Width = 55
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akTop, akRight]
     Caption = 'Frequency'
   end
@@ -61,18 +95,27 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 391
     Width = 55
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akTop, akRight]
     Caption = 'Frequency'
   end
   inherited memoComments: TMemo
     Width = 564
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 564
   end
   object seMaxIterations: TJvSpinEdit [11]
     Left = 16
     Top = 157
     Width = 121
-    Height = 21
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     MaxValue = 2147483647.000000000000000000
     MinValue = 1.000000000000000000
     Value = 1.000000000000000000
@@ -84,6 +127,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 192
     Width = 145
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     ButtonStyle = fsLighter
     Color = clBtnFace
@@ -117,6 +164,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 224
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 3
@@ -129,10 +180,15 @@ inherited framePackageMnw1: TframePackageMnw1
     Left = 16
     Top = 276
     Width = 564
-    Height = 21
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     DefaultExt = '.wel'
     Filter = 'Well files (*.wel)|*.wel|All files (*.*)|*.*'
     Enabled = False
+    ButtonWidth = 26
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 4
     Text = ''
@@ -142,9 +198,14 @@ inherited framePackageMnw1: TframePackageMnw1
     Left = 16
     Top = 348
     Width = 413
-    Height = 21
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     DefaultExt = '.ByNode'
     Enabled = False
+    ButtonWidth = 26
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 6
     Text = ''
@@ -154,9 +215,14 @@ inherited framePackageMnw1: TframePackageMnw1
     Left = 16
     Top = 410
     Width = 413
-    Height = 21
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     DefaultExt = '.ByWell'
     Enabled = False
+    ButtonWidth = 26
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 7
     Text = ''
@@ -167,6 +233,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 346
     Width = 145
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     Anchors = [akTop, akRight]
     ButtonStyle = fsLighter
@@ -195,6 +265,10 @@ inherited framePackageMnw1: TframePackageMnw1
     Top = 410
     Width = 145
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     Anchors = [akTop, akRight]
     ButtonStyle = fsLighter

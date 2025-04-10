@@ -6,8 +6,15 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
   DesignSize = (
     601
     504)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 570
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 570
   end
   object pcAdvection: TPageControl [3]
@@ -15,16 +22,28 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
     Top = 168
     Width = 601
     Height = 336
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabAdvection1
     Align = alBottom
     TabOrder = 1
     object tabAdvection1: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Advection 1'
       object lbllMethod: TLabel
         Left = 3
         Top = 3
         Width = 199
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Advection solution scheme (MIXELM)'
       end
       object lblParticleTracking: TLabel
@@ -32,6 +51,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 33
         Width = 190
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Particle tracking algorithm (ITRACK)'
       end
       object lbNumCellsParticle: TLabel
@@ -39,6 +62,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 90
         Width = 433
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Number of cells a particle can move in one time step, generally ' +
           '0.5 to 1.0 (PERCEL)'
@@ -48,6 +75,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 112
         Width = 287
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of total moving particles (MXPART)'
       end
       object lblConcWeight: TLabel
@@ -55,6 +86,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 146
         Width = 247
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Concentration Weighting factor (0.5 to 1) (WD)'
       end
       object lblNegConcGrad: TLabel
@@ -62,6 +97,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 170
         Width = 259
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Size of negligible concentration gradient (DCEPS)'
       end
       object lblInitParticlesSmall: TLabel
@@ -69,6 +108,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 202
         Width = 358
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Initial particles per cell where concentration gradient < DCEPS ' +
           '(NPL)'
@@ -78,6 +121,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 226
         Width = 361
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Initial particles per cell where concentration gradient > DCEPS ' +
           '(NPH)'
@@ -87,6 +134,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 60
         Width = 156
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Weighting scheme (NADVFD)'
       end
       object comboAdvSolScheme: TComboBox
@@ -96,6 +147,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Height = 23
         Hint = 'Check the MT3DMS user manual for a comparison of these methods.'
         HelpContext = 3220
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         ItemIndex = 0
@@ -119,6 +174,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
           'less accurate than the Runge-Kutta method especially in areas of' +
           ' converging or diverging flow such as sources and sinks.'
         HelpContext = 3230
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         ItemIndex = 2
@@ -136,6 +195,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Height = 22
         Hint = 'Usually values of 0.5 to 1 are appropriate.'
         HelpContext = 3240
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 3
@@ -155,6 +218,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
           ' usually a good choice. You can adjust it to achieve a better ma' +
           'ss balance. Advection becomes more dominant as WD increases.'
         HelpContext = 3260
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 5
@@ -175,6 +242,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
           'DCEPS affects how many particles are used in each cell. (See NPL' +
           ' and NPH).  A value abound 10^-5 is generally adequate.'
         HelpContext = 3270
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 6
@@ -194,6 +265,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
           'in-space, or upstream weighting) when the implicit finite differ' +
           'ence method is used.'
         HelpContext = 3300
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         ItemIndex = 0
@@ -207,7 +282,11 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Left = 501
         Top = 112
         Width = 89
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMaxValue = False
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -218,7 +297,11 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Left = 501
         Top = 195
         Width = 89
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMinValue = True
         Enabled = False
         TabOrder = 7
@@ -227,7 +310,11 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Left = 501
         Top = 219
         Width = 89
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMaxValue = False
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -236,6 +323,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
       end
     end
     object tabAdvection2: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Advection 2'
       ImageIndex = 1
       object lblInitParticlePlacement: TLabel
@@ -243,6 +334,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 3
         Width = 249
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Initial placement of moving particles (NPLANE)'
       end
       object lblInitParticlePlanes: TLabel
@@ -250,6 +345,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 36
         Width = 274
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Number of planes of particles in each cell (NPLANE)'
       end
       object lblMinParticles: TLabel
@@ -257,6 +356,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 55
         Width = 315
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Minimum moving particles per cell (usually 0 to 4) (NPMIN)'
       end
       object lblMaxParticles: TLabel
@@ -264,6 +367,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 89
         Width = 240
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum moving particles per cell (NPMAX)'
       end
       object lblSinkParticlePlacement: TLabel
@@ -271,6 +378,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 108
         Width = 242
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Initial placement of particles in sinks (NLSINK)'
       end
       object lblSinkParticlePlanes: TLabel
@@ -278,6 +389,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 144
         Width = 293
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Number of planes of particles in each sink cell (NLSINK)'
       end
       object lblSinkParticleN: TLabel
@@ -285,6 +400,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 168
         Width = 306
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Number of particles used to apprimate sink cells (NPSINK)'
       end
       object lblCritConcGrad: TLabel
@@ -292,6 +411,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Top = 192
         Width = 266
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Critical relative concentration gradient (DCHMOC)'
       end
       object comboInitPartPlace: TComboBox
@@ -303,6 +426,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
           'The initial placement of moving particles can be either random o' +
           'r fixed. '
         HelpContext = 3320
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         ItemIndex = 0
@@ -322,6 +449,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
           'The initial placement of moving particles in sink cells can be e' +
           'ither random or fixed.'
         HelpContext = 3370
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         ItemIndex = 0
@@ -342,6 +473,10 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
           'olling the use of either the MOC or MMOC scheme in the hybrid MO' +
           'C/MMOC scheme.'
         HelpContext = 3400
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 7
@@ -355,7 +490,11 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Left = 408
         Top = 27
         Width = 89
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMaxValue = False
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -366,7 +505,11 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Left = 408
         Top = 54
         Width = 89
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMinValue = True
         Enabled = False
         TabOrder = 2
@@ -375,7 +518,11 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Left = 408
         Top = 81
         Width = 89
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMinValue = True
         Enabled = False
         TabOrder = 3
@@ -384,7 +531,11 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Left = 408
         Top = 135
         Width = 89
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMaxValue = False
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -395,7 +546,11 @@ inherited frameMt3dmsAdvPkg: TframeMt3dmsAdvPkg
         Left = 408
         Top = 162
         Width = 89
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMaxValue = False
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000

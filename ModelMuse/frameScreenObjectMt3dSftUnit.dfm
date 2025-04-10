@@ -3,13 +3,15 @@ inherited frameScreenObjectMt3dSft: TframeScreenObjectMt3dSft
   ExplicitHeight = 399
   inherited pnlBottom: TPanel
     Top = 353
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 353
     ExplicitWidth = 482
-    DesignSize = (
-      541
-      46)
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited seNumberOfTimes: TJvSpinEdit
       Top = 12
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 12
     end
     inherited btnDelete: TBitBtn
@@ -21,22 +23,30 @@ inherited frameScreenObjectMt3dSft: TframeScreenObjectMt3dSft
     end
   end
   inherited pnlTop: TPanel
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 482
     inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 480
     end
   end
   inherited pnlGrid: TPanel
     Height = 135
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 482
     ExplicitHeight = 135
     inherited pnlEditGrid: TPanel
-      ExplicitWidth = 480
+      StyleElements = [seFont, seClient, seBorder]
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
     inherited rdgModflowBoundary: TRbwDataGrid4
       Height = 83
       RowCount = 4
-      ExplicitWidth = 480
       ExplicitHeight = 83
     end
   end
@@ -155,7 +165,6 @@ inherited frameScreenObjectMt3dSft: TframeScreenObjectMt3dSft
             AutoAdjustColWidths = False
           end>
         WordWrapRowCaptions = False
-        ExplicitWidth = 474
       end
       object comboObsLocation: TComboBox
         Left = 16

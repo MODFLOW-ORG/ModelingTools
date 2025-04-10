@@ -6,10 +6,17 @@ inherited framePackageCsub: TframePackageCsub
   DesignSize = (
     589
     514)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Top = 58
     Width = 558
     Height = 63
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 58
     ExplicitWidth = 558
     ExplicitHeight = 63
@@ -19,30 +26,44 @@ inherited framePackageCsub: TframePackageCsub
     Top = 127
     Width = 589
     Height = 387
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabOptions
     Align = alBottom
     TabOrder = 1
     object tabInterbeds: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Interbeds'
       ImageIndex = 2
       inline frameInterbeds: TframeGrid
         Left = 0
         Top = 0
         Width = 581
-        Height = 359
+        Height = 357
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         Enabled = False
         TabOrder = 0
         ExplicitWidth = 581
         ExplicitHeight = 341
         inherited Panel: TPanel
-          Top = 318
+          Top = 316
           Width = 581
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 300
           ExplicitWidth = 581
           inherited lbNumber: TLabel
             Width = 150
             Caption = 'Number of interbed systems'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 150
           end
           inherited sbAdd: TSpeedButton
@@ -60,10 +81,13 @@ inherited framePackageCsub: TframePackageCsub
             Hint = 'Delete interbed|Delete the selected interbed.'
             ExplicitLeft = 392
           end
+          inherited seNumber: TJvSpinEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
         inherited Grid: TRbwDataGrid4
           Width = 581
-          Height = 318
+          Height = 316
           ColCount = 2
           Columns = <
             item
@@ -118,17 +142,25 @@ inherited framePackageCsub: TframePackageCsub
               AutoAdjustColWidths = True
             end>
           ExplicitWidth = 581
-          ExplicitHeight = 300
+          ExplicitHeight = 316
         end
       end
     end
     object tabOptions: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Options'
       object lblGamma: TLabel
         Left = 155
         Top = 6
         Width = 168
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Unit weight of water (gammaw)'
       end
       object lblBeta: TLabel
@@ -136,13 +168,21 @@ inherited framePackageCsub: TframePackageCsub
         Top = 34
         Width = 162
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Compressibility of water (beta)'
       end
       object lblInterbedThicknessMethod: TLabel
         Left = 106
         Top = 210
-        Width = 238
+        Width = 186
         Height = 30
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Method for specifying thickness of interbeds (CELL_FRACTION)'
         WordWrap = True
       end
@@ -151,6 +191,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 111
         Width = 356
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Number of nodes used to discretize delay interbeds (NDELAYCELLS)'
       end
       object lblCompressionMethod: TLabel
@@ -158,6 +202,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 146
         Width = 255
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Compression method (COMPRESSION_INDICES)'
       end
       object rdeGamma: TRbwDataEntry
@@ -165,6 +213,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 3
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 0
@@ -179,6 +231,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 31
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 1
@@ -193,6 +249,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 62
         Width = 353
         Height = 18
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use head-based formulation (HEAD_BASED)'
         Enabled = False
         TabOrder = 2
@@ -203,6 +263,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 85
         Width = 567
         Height = 18
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Specify preconsolidation heads (INITIAL_PRECONSOLIDATION_HEAD)'
         Enabled = False
         TabOrder = 3
@@ -211,7 +275,11 @@ inherited framePackageCsub: TframePackageCsub
         Left = 3
         Top = 108
         Width = 73
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         CheckMaxValue = False
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -223,6 +291,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 184
         Width = 542
         Height = 18
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Update material properties (UPDATE_MATERIAL_PROPERTIES)'
         Enabled = False
         TabOrder = 5
@@ -232,6 +304,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 207
         Width = 97
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -259,6 +335,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 301
         Width = 558
         Height = 18
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Use effective stress from previous time step (EFFECTIVE_STRESS_L' +
           'AG)'
@@ -270,6 +350,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 281
         Width = 567
         Height = 18
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Specify absolute initial delay bed head (SPECIFIED_INITIAL_DELAY' +
           '_HEAD)'
@@ -281,6 +365,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 240
         Width = 567
         Height = 36
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Specify initial preconsolidation stress (SPECIFIED_INITIAL_PRECO' +
           'NSOLIDATION_STRESS)'
@@ -293,6 +381,10 @@ inherited framePackageCsub: TframePackageCsub
         Top = 143
         Width = 218
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -320,11 +412,19 @@ inherited framePackageCsub: TframePackageCsub
         Top = 324
         Width = 455
         Height = 18
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Write package convergence (PACKAGE_CONVERGENCE)'
         TabOrder = 11
       end
     end
     object tabOutputTypes: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Output types'
       ImageIndex = 1
       object chklstOutput: TCheckListBox
@@ -332,9 +432,13 @@ inherited framePackageCsub: TframePackageCsub
         Top = 0
         Width = 581
         Height = 357
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         Enabled = False
-        ItemHeight = 15
+        ItemHeight = 21
         Items.Strings = (
           'Interbed strain (comma-separated values)'
           'Coarse strain (comma-separated values)'

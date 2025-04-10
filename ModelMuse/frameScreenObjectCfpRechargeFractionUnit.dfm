@@ -5,6 +5,7 @@ inherited frameScreenObjectCfpRechargeFraction: TframeScreenObjectCfpRechargeFra
     Top = 216
     Width = 529
     Height = 100
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 216
     ExplicitWidth = 529
     ExplicitHeight = 100
@@ -13,10 +14,12 @@ inherited frameScreenObjectCfpRechargeFraction: TframeScreenObjectCfpRechargeFra
       100)
     inherited lblNumTimes: TLabel
       Top = 65
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 65
     end
     inherited seNumberOfTimes: TJvSpinEdit
       Top = 62
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 62
     end
     inherited btnDelete: TBitBtn
@@ -34,20 +37,30 @@ inherited frameScreenObjectCfpRechargeFraction: TframeScreenObjectCfpRechargeFra
   end
   inherited pnlTop: TPanel
     Width = 529
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 529
     inherited pnlCaption: TPanel
       Width = 527
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 527
     end
   end
   inherited pnlGrid: TPanel
     Width = 529
     Height = 191
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 529
     ExplicitHeight = 191
     inherited pnlEditGrid: TPanel
       Width = 527
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 527
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
     inherited rdgModflowBoundary: TRbwDataGrid4
       Width = 527

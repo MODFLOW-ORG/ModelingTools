@@ -1,6 +1,4 @@
 inherited frameScreenObjectParam: TframeScreenObjectParam
-  Width = 541
-  ExplicitWidth = 541
   object splitHorizontal: TSplitter [0]
     Left = 0
     Top = 89
@@ -13,7 +11,11 @@ inherited frameScreenObjectParam: TframeScreenObjectParam
     ExplicitWidth = 559
   end
   inherited pnlBottom: TPanel
-    Width = 541
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 541
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     object lblTimeSeriesInterpolation: TLabel [1]
       Left = 88
       Top = 8
@@ -22,11 +24,14 @@ inherited frameScreenObjectParam: TframeScreenObjectParam
       Caption = 'Time-series interpolation'
       Visible = False
     end
+    inherited seNumberOfTimes: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited btnDelete: TBitBtn
-      Left = 453
+      ExplicitLeft = 453
     end
     inherited btnInsert: TBitBtn
-      Left = 369
+      ExplicitLeft = 369
     end
     object comboTimeSeriesInterpolation: TComboBox
       Left = 64
@@ -45,13 +50,15 @@ inherited frameScreenObjectParam: TframeScreenObjectParam
     end
   end
   inherited pnlTop: TPanel
-    Width = 541
     Height = 89
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 541
     ExplicitHeight = 89
     inherited pnlCaption: TPanel
-      Width = 539
       Height = 24
       Align = alTop
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitWidth = 539
       ExplicitHeight = 24
     end
     object clbParameters: TJvxCheckListBox
@@ -73,19 +80,23 @@ inherited frameScreenObjectParam: TframeScreenObjectParam
   end
   inherited pnlGrid: TPanel
     Top = 92
-    Width = 541
     Height = 178
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 92
+    ExplicitWidth = 541
     ExplicitHeight = 178
     inherited pnlEditGrid: TPanel
-      Width = 539
+      StyleElements = [seFont, seClient, seBorder]
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
       inherited rdeFormula: TRbwDataEntry
         Top = 22
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 22
       end
     end
     inherited rdgModflowBoundary: TRbwDataGrid4
-      Width = 539
       Height = 126
       Columns = <
         item

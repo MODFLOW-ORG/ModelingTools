@@ -4,16 +4,25 @@ inherited framePackageRes: TframePackageRes
   DesignSize = (
     477
     236)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
   end
   inherited pnLayerOption: TPanel
     Height = 76
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 76
     inherited lblLayerOption: TLabel
       Top = 9
       Width = 132
       Caption = 'Reservoir location option'
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 9
       ExplicitWidth = 132
     end
@@ -22,12 +31,17 @@ inherited framePackageRes: TframePackageRes
       Top = 51
       Width = 358
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 
         'Number of values in printed table of stage, volume, and area (NP' +
         'TS)'
       Enabled = False
     end
     inherited comboLayerOption: TComboBox
+      StyleElements = [seFont, seClient, seBorder]
       OnChange = nil
     end
     inherited cbTimeVaryingLayers: TCheckBox
@@ -38,6 +52,10 @@ inherited framePackageRes: TframePackageRes
       Top = 28
       Width = 446
       Height = 17
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 
         'Print reservoir stage, area, and volume at each time step (IRESP' +
         'T)'
@@ -49,6 +67,10 @@ inherited framePackageRes: TframePackageRes
       Top = 48
       Width = 50
       Height = 23
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       CheckMinValue = True
       ButtonKind = bkClassic
       Value = 15.000000000000000000

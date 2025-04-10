@@ -6,8 +6,15 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
   DesignSize = (
     496
     512)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 465
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 465
   end
   object cbSaveBinary: TCheckBox [3]
@@ -15,6 +22,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
     Top = 157
     Width = 373
     Height = 18
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Save simulated values to binary file (inSaveObs)'
     Enabled = False
     TabOrder = 1
@@ -24,6 +35,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
     Top = 180
     Width = 464
     Height = 181
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Concentration observations'
     TabOrder = 2
     object lblConcScaleFactor: TLabel
@@ -31,6 +46,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 21
       Width = 185
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Concentration scale factor (CScale)'
     end
     object lblSaveType: TLabel
@@ -38,6 +57,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 65
       Width = 284
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Concentration observations results to save (iOutCobs)'
     end
     object rdeConcScaleFactor: TRbwDataEntry
@@ -45,6 +68,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 37
       Width = 57
       Height = 22
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Color = clBtnFace
       Enabled = False
       TabOrder = 0
@@ -59,6 +86,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 91
       Width = 262
       Height = 25
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Style = csOwnerDrawVariable
       ButtonStyle = fsLighter
       Color = clBtnFace
@@ -86,6 +117,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 120
       Width = 217
       Height = 18
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Log transform (iConcLOG)'
       Enabled = False
       TabOrder = 2
@@ -95,6 +130,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 144
       Width = 446
       Height = 18
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Interpolate concentrations (iConcINTP)'
       Enabled = False
       TabOrder = 3
@@ -105,6 +144,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
     Top = 375
     Width = 461
     Height = 123
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Mass flux observations'
     TabOrder = 3
     object lblMassFluxScaleFactor: TLabel
@@ -112,6 +155,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 19
       Width = 157
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Mass flux scale factor (FScale)'
     end
     object lblSaveMassFluxType: TLabel
@@ -119,6 +166,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 68
       Width = 253
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Mass flux observations results to save (iOutFlux)'
     end
     object rdeMassFluxScaleFactor: TRbwDataEntry
@@ -126,6 +177,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 40
       Width = 57
       Height = 22
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Color = clBtnFace
       Enabled = False
       TabOrder = 0
@@ -140,6 +195,10 @@ inherited frameMt3dmsTransObsPkg: TframeMt3dmsTransObsPkg
       Top = 89
       Width = 235
       Height = 25
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Style = csOwnerDrawVariable
       ButtonStyle = fsLighter
       Color = clBtnFace

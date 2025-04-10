@@ -15,8 +15,12 @@ inherited framePackageEst: TframePackageEst
   object lblDensityWater: TLabel [2]
     Left = 167
     Top = 206
-    Width = 231
+    Width = 183
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Density of water (DENSITY_WATER)'
   end
   object lblHeatCapacityWater: TLabel [3]
@@ -24,25 +28,38 @@ inherited framePackageEst: TframePackageEst
     Top = 234
     Width = 258
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Heat capacity of water (HEAT_CAPACITY_WATER)'
   end
   object lblLatentHeat: TLabel [4]
     Left = 167
     Top = 262
-    Width = 311
-    Height = 15
+    Width = 167
+    Height = 30
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Latent heat of vaporization (LATENT_HEAT_VAPORIZATION)'
     WordWrap = True
   end
   inherited memoComments: TMemo
     Width = 539
     StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 539
   end
   object cbZeroOrderDecayWater: TCheckBox [6]
     Left = 16
     Top = 157
     Width = 539
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Zero-order decay in aqueous phase (ZERO_ORDER_DECAY_WATER)'
     Enabled = False
     TabOrder = 1
@@ -52,6 +69,10 @@ inherited framePackageEst: TframePackageEst
     Top = 180
     Width = 539
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Zero-order decay in solid phase (ZERO_ORDER_DECAY_SOLID)'
     Enabled = False
     TabOrder = 2
@@ -61,6 +82,10 @@ inherited framePackageEst: TframePackageEst
     Top = 203
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 3
@@ -75,6 +100,10 @@ inherited framePackageEst: TframePackageEst
     Top = 231
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 4
@@ -89,6 +118,10 @@ inherited framePackageEst: TframePackageEst
     Top = 259
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 5

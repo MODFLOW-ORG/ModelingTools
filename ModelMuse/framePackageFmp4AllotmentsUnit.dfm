@@ -4,14 +4,29 @@ inherited framePackageFmp4Allotments: TframePackageFmp4Allotments
   DesignSize = (
     422
     324)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited memoComments: TMemo
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object rdgAllotments: TRbwDataGrid4 [3]
     Left = 0
     Top = 157
     Width = 422
     Height = 167
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     ColCount = 6
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     Enabled = False
     FixedCols = 1
     RowCount = 3

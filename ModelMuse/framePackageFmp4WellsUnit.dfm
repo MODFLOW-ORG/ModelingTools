@@ -6,11 +6,21 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
   DesignSize = (
     595
     514)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblPumpSpread: TLabel [2]
     Left = 271
     Top = 290
     Width = 272
     Height = 30
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 
       'Specify how pumping demand should be allocated among MNW well no' +
       'des (MNW_PUMP_SPREAD)'
@@ -22,6 +32,10 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 384
     Width = 233
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Method for specifying well vertical locations'
     Visible = False
     WordWrap = True
@@ -31,6 +45,10 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 355
     Width = 248
     Height = 30
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 
       'Method for specifying well horizontal locations (INPUT_OPTION XY' +
       ')'
@@ -42,6 +60,10 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 413
     Width = 59
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Smoothing'
     Visible = False
   end
@@ -50,12 +72,17 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 442
     Width = 86
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Prorate Demand'
     Visible = False
   end
   inherited memoComments: TMemo
     Top = 70
     Width = 564
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 70
     ExplicitWidth = 564
   end
@@ -64,8 +91,12 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 165
     Width = 249
     Height = 116
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Enabled = False
-    ItemHeight = 15
+    ItemHeight = 21
     Items.Strings = (
       'PRINT BYWELL'
       'PRINT ByWBS'
@@ -80,6 +111,10 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 287
     Width = 249
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     ItemIndex = 0
@@ -96,6 +131,10 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 381
     Width = 201
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Enabled = False
     ItemIndex = 2
     TabOrder = 3
@@ -111,6 +150,10 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 352
     Width = 201
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     ItemIndex = 0
@@ -126,6 +169,10 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 410
     Width = 201
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     ItemIndex = 0
@@ -142,6 +189,10 @@ inherited framePackageFmp4Wells: TframePackageFmp4Wells
     Top = 439
     Width = 201
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     ItemIndex = 0

@@ -9,11 +9,31 @@ inherited framePestObsCaptioned: TframePestObsCaptioned
       ExplicitHeight = 184
       inherited Panel: TPanel
         Top = 151
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 146
+        inherited lbNumber: TLabel
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited seNumber: TJvSpinEdit
+          StyleElements = [seFont, seClient, seBorder]
+        end
       end
       inherited Grid: TRbwDataGrid4
         Height = 151
         ExplicitHeight = 151
+      end
+    end
+  end
+  inherited grpObsComparisons: TGroupBox
+    inherited frameObsComparisons: TframeGrid
+      inherited Panel: TPanel
+        StyleElements = [seFont, seClient, seBorder]
+        inherited lbNumber: TLabel
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited seNumber: TJvSpinEdit
+          StyleElements = [seFont, seClient, seBorder]
+        end
       end
     end
   end

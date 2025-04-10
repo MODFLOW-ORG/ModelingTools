@@ -1,28 +1,41 @@
 inherited frameScreenObjectFhbHead: TframeScreenObjectFhbHead
-  Width = 541
-  ExplicitWidth = 541
   inherited pnlBottom: TPanel
-    Width = 541
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 541
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited seNumberOfTimes: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited btnDelete: TBitBtn
-      Left = 453
+      ExplicitLeft = 453
     end
     inherited btnInsert: TBitBtn
-      Left = 369
+      ExplicitLeft = 369
     end
   end
   inherited pnlTop: TPanel
-    Width = 541
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 541
     inherited pnlCaption: TPanel
-      Width = 539
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitWidth = 539
     end
   end
   inherited pnlGrid: TPanel
-    Width = 541
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 541
     inherited pnlEditGrid: TPanel
-      Width = 539
+      StyleElements = [seFont, seClient, seBorder]
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
     inherited rdgModflowBoundary: TRbwDataGrid4
-      Width = 539
       ColCount = 2
       Columns = <
         item

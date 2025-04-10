@@ -6,8 +6,15 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
   DesignSize = (
     548
     451)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 517
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 517
   end
   object PageControl1: TPageControl [3]
@@ -15,11 +22,19 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
     Top = 162
     Width = 548
     Height = 289
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabMain
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
     object tabMain: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Main'
       DesignSize = (
         540
@@ -29,6 +44,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 144
         Width = 120
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Electron acceptor (IEA)'
       end
       object lblElectronDonor: TLabel
@@ -36,6 +55,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 144
         Width = 106
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Electron donor (IED)'
       end
       object lblKineticChoice: TLabel
@@ -43,6 +66,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 43
         Width = 123
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Kinetic choice (IREACT)'
       end
       object lblReactionChoice: TLabel
@@ -50,6 +77,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 118
         Width = 154
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Reaction choice (IREACTION)'
       end
       object lblSorptionChoice: TLabel
@@ -57,6 +88,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 3
         Width = 137
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Sorption choice (ISOTHM)'
       end
       object lblStochiometricRatio: TLabel
@@ -64,15 +99,25 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 144
         Width = 118
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Stochiometric ratio (F)'
       end
       object rdgYieldCoefficient: TRbwDataGrid4
         Left = 3
         Top = 191
         Width = 517
-        Height = 65
+        Height = 70
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akTop, akRight, akBottom]
         ColCount = 2
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         FixedCols = 1
         RowCount = 2
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
@@ -142,6 +187,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 77
         Width = 273
         Height = 34
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Specify initial concentration of adsorbed and immobile phases of' +
           ' all species (IGETSC)'
@@ -154,6 +203,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 163
         Width = 145
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         TabOrder = 2
       end
@@ -162,6 +215,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 163
         Width = 145
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         TabOrder = 3
       end
@@ -170,6 +227,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 40
         Width = 388
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -212,6 +273,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 117
         Width = 339
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -244,6 +309,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 3
         Width = 388
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -300,6 +369,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 163
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 7
         Text = '0'
         DataType = dtReal
@@ -309,6 +382,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
       end
     end
     object tabKinetic: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Kinetic'
       ImageIndex = 1
       object lblElectronDonors: TLabel
@@ -316,6 +393,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 0
         Width = 83
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Electron donors'
       end
       object lblElectronAcceptors: TLabel
@@ -323,6 +404,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 3
         Width = 97
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Electron acceptors'
       end
       object lblSpecialCases: TLabel
@@ -330,13 +415,21 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 0
         Width = 68
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Special cases'
       end
       object seElectronDonors: TJvSpinEdit
         Left = 3
         Top = 19
         Width = 121
-        Height = 28
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         TabOrder = 0
         OnChange = seElectronDonorsChange
@@ -345,7 +438,11 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Left = 127
         Top = 19
         Width = 121
-        Height = 28
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         TabOrder = 1
         OnChange = seElectronAcceptorsChange
@@ -355,8 +452,12 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 26
         Width = 121
         Height = 232
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DoubleBuffered = False
-        ItemHeight = 15
+        ItemHeight = 21
         ParentDoubleBuffered = False
         TabOrder = 2
         OnClickCheck = clbSpecialCasesClickCheck
@@ -368,6 +469,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 3
         Width = 193
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Simulate solid phase Fe3+'
         TabOrder = 3
         WordWrap = True
@@ -377,6 +482,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 46
         Width = 121
         Height = 212
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         ReadOnly = True
         TabOrder = 4
       end
@@ -385,20 +494,34 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 46
         Width = 121
         Height = 212
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         ReadOnly = True
         TabOrder = 5
       end
     end
     object tabSpecialCases: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Special Cases'
       ImageIndex = 2
       object rdgSpecialCases: TRbwDataGrid4
         Left = 0
         Top = 0
         Width = 540
-        Height = 254
+        Height = 259
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         ColCount = 3
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         FixedCols = 1
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
         TabOrder = 0
@@ -495,15 +618,25 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
       end
     end
     object tabElectronAcceptors: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Elec. Accept.'
       ImageIndex = 3
       object rdgAcceptors: TRbwDataGrid4
         Left = 0
         Top = 0
         Width = 540
-        Height = 254
+        Height = 259
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         ColCount = 3
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         FixedCols = 1
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
         TabOrder = 0
@@ -592,6 +725,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
       end
     end
     object tabDecayRates: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Decay Rates'
       ImageIndex = 4
       object rdgDecayRates: TRbwDataGrid4
@@ -599,7 +736,13 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 0
         Width = 540
         Height = 254
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         FixedCols = 1
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
         TabOrder = 0
@@ -736,6 +879,10 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
       end
     end
     object tabYield: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Yields'
       ImageIndex = 5
       object rdgYields: TRbwDataGrid4
@@ -743,7 +890,13 @@ inherited frameMt3dmsChemReactionPkg: TframeMt3dmsChemReactionPkg
         Top = 0
         Width = 540
         Height = 254
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         FixedCols = 1
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
         TabOrder = 0

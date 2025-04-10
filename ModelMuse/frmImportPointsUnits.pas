@@ -308,7 +308,7 @@ end;
 function TfrmImportPoints.GwtColumnCount: Integer;
 begin
   result := 0;
-  if frmGoPhast.PhastModel.Mf6GwtUsed(nil) then
+  if frmGoPhast.PhastModel.Mf6GwtUsed(nil) or frmGoPhast.PhastModel.Mf6GweUsed(nil) then
   begin
     result := frmGoPhast.PhastModel.MobileComponents.Count;
   end;

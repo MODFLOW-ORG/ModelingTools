@@ -6,11 +6,21 @@ inherited framePackageSFR: TframePackageSFR
   DesignSize = (
     614
     445)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblPrintStreams: TLabel [2]
     Left = 176
     Top = 144
     Width = 115
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Print streams (ISTCB2)'
   end
   object lblStreamTolerance: TLabel [3]
@@ -19,6 +29,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 246
     Width = 138
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Tolerance (L^3/T) (DLEAK)'
   end
   object lblSfrTrailingWaveIncrements: TLabel [4]
@@ -27,6 +41,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 270
     Width = 246
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Number of trailing wave increments (NSTRAIL)'
   end
   object lblSfrMaxTrailingWaves: TLabel [5]
@@ -35,6 +53,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 293
     Width = 252
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Maximum number of trailing waves (NSFRSETS)'
   end
   object lblSfrMaxUnsatCells: TLabel [6]
@@ -43,6 +65,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 316
     Width = 331
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Maximum number of cells to define unsaturated zone (ISUZN) '
   end
   object lblNUMTIM: TLabel [7]
@@ -51,6 +77,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 354
     Width = 349
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Number of divisions per time step for kinematic waves (NUMTIM) '
   end
   object lblWeight: TLabel [8]
@@ -59,6 +89,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 376
     Width = 342
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Time weighting factor for the kinematic wave solution (WEIGHT) '
   end
   object lblFLWTOL: TLabel [9]
@@ -67,6 +101,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 398
     Width = 312
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Closure criterion for the kinematic wave solution (FLWTOL) '
   end
   object lblLossAdjustmentFactor: TLabel [10]
@@ -74,12 +112,17 @@ inherited framePackageSFR: TframePackageSFR
     Top = 26
     Width = 140
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Adjustment factor (Factor)'
   end
   inherited memoComments: TMemo
     Width = 583
     Height = 51
     TabOrder = 2
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 583
     ExplicitHeight = 51
   end
@@ -92,6 +135,10 @@ inherited framePackageSFR: TframePackageSFR
       'Model flow from the stream through the unsaturated zone to the w' +
       'ater table.'
     HelpContext = 621
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Alignment = taLeftJustify
     Caption = 'Unsaturated Flow (ISFROPT)'
     Enabled = False
@@ -111,6 +158,10 @@ inherited framePackageSFR: TframePackageSFR
       'Hydraulic conductivity in unsaturated zone comes from LPF packag' +
       'e'
     HelpContext = 622
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Alignment = taLeftJustify
     Caption = 'LPF hydraulic conductivites used (ISFROPT) '
     Checked = True
@@ -127,6 +178,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 170
     Width = 583
     Height = 70
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Streambed properties (ISFROPT)'
     Enabled = False
     ItemIndex = 0
@@ -142,6 +197,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 143
     Width = 145
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     TabOrder = 5
@@ -155,6 +214,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 420
     Width = 415
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Gage overall stream budget (OUTTYPE = 8)'
     Enabled = False
     TabOrder = 16
@@ -165,6 +228,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 246
     Width = 100
     Height = 18
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 8
@@ -179,6 +246,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 270
     Width = 100
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 9
@@ -193,6 +264,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 293
     Width = 100
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 10
@@ -207,6 +282,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 316
     Width = 100
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 11
@@ -221,6 +300,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 331
     Width = 425
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 
       'Use transient streamflow routing with kinematic-wave equation (I' +
       'RTFLG)'
@@ -233,6 +316,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 354
     Width = 100
     Height = 16
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 13
@@ -248,6 +335,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 376
     Width = 100
     Height = 16
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 14
@@ -264,6 +355,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 398
     Width = 100
     Height = 16
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 15
@@ -278,6 +373,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 144
     Width = 185
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Use GSFLOW format'
     Enabled = False
@@ -288,6 +387,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 3
     Width = 249
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Adjust seepage loss (LOSSFACTOR)'
     Enabled = False
     TabOrder = 0
@@ -298,6 +401,10 @@ inherited framePackageSFR: TframePackageSFR
     Top = 23
     Width = 89
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 1

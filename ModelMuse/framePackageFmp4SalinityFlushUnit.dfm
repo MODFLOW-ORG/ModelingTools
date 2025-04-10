@@ -4,8 +4,15 @@ inherited framePackageFmp4SalinityFlush: TframePackageFmp4SalinityFlush
   DesignSize = (
     422
     526)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Height = 51
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 51
   end
   object cpnlgrp1: TCategoryPanelGroup [3]
@@ -13,6 +20,10 @@ inherited framePackageFmp4SalinityFlush: TframePackageFmp4SalinityFlush
     Top = 119
     Width = 422
     Height = 407
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     VertScrollBar.Tracking = True
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -21,10 +32,15 @@ inherited framePackageFmp4SalinityFlush: TframePackageFmp4SalinityFlush
     HeaderFont.Height = -12
     HeaderFont.Name = 'Segoe UI'
     HeaderFont.Style = []
+    HeaderHeight = 30
     TabOrder = 1
     object cpnlPrint: TCategoryPanel
       Top = 0
       Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Print'
       Collapsed = True
       TabOrder = 0
@@ -33,29 +49,42 @@ inherited framePackageFmp4SalinityFlush: TframePackageFmp4SalinityFlush
       object clbPrint: TCheckListBox
         Left = 0
         Top = 0
-        Width = 399
+        Width = 395
         Height = 0
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         Enabled = False
-        ItemHeight = 15
+        ItemHeight = 21
         Items.Strings = (
           'PRINT BYWBS'
           'PRINT BYWBS_BYCROP'
           'PRINT ALL')
         TabOrder = 0
+        ExplicitWidth = 399
       end
     end
     object cpnlOptions: TCategoryPanel
       Top = 30
       Height = 379
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Options'
       TabOrder = 1
       ExplicitWidth = 185
       object pnl1: TPanel
         Left = 0
         Top = 0
-        Width = 399
+        Width = 395
         Height = 49
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alTop
         TabOrder = 0
         object lblExpressionMin: TLabel
@@ -63,6 +92,10 @@ inherited framePackageFmp4SalinityFlush: TframePackageFmp4SalinityFlush
           Top = 18
           Width = 155
           Height = 15
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Expression Variable Near Zero'
         end
         object rdeExpressionMin: TRbwDataEntry
@@ -70,6 +103,10 @@ inherited framePackageFmp4SalinityFlush: TframePackageFmp4SalinityFlush
           Top = 15
           Width = 121
           Height = 26
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Color = clBtnFace
           Enabled = False
           TabOrder = 0
@@ -82,10 +119,16 @@ inherited framePackageFmp4SalinityFlush: TframePackageFmp4SalinityFlush
       object rdgSalinityFlush: TRbwDataGrid4
         Left = 0
         Top = 49
-        Width = 399
-        Height = 304
+        Width = 395
+        Height = 298
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         ColCount = 6
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         Enabled = False
         FixedCols = 1
         RowCount = 8
@@ -253,7 +296,7 @@ inherited framePackageFmp4SalinityFlush: TframePackageFmp4SalinityFlush
             AutoAdjustColWidths = True
           end>
         WordWrapRowCaptions = False
-        ExplicitWidth = 395
+        ExplicitWidth = 399
       end
     end
   end

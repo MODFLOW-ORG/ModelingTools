@@ -10,6 +10,10 @@ object frameListParameterDefinition: TframeListParameterDefinition
     Top = 192
     Width = 320
     Height = 48
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
@@ -21,6 +25,10 @@ object frameListParameterDefinition: TframeListParameterDefinition
       Top = 9
       Width = 120
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Number of parameters'
     end
     object btnDelete: TBitBtn
@@ -28,6 +36,10 @@ object frameListParameterDefinition: TframeListParameterDefinition
       Top = 3
       Width = 82
       Height = 33
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Anchors = [akTop, akRight]
       Cancel = True
       Caption = '&Delete'
@@ -66,7 +78,11 @@ object frameListParameterDefinition: TframeListParameterDefinition
       Left = 8
       Top = 6
       Width = 49
-      Height = 21
+      Height = 23
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       CheckMinValue = True
       ButtonKind = bkClassic
       Enabled = False
@@ -77,12 +93,18 @@ object frameListParameterDefinition: TframeListParameterDefinition
   end
   object dgParameters: TRbwDataGrid4
     AlignWithMargins = True
-    Left = 3
-    Top = 3
-    Width = 314
-    Height = 186
+    Left = 4
+    Top = 4
+    Width = 312
+    Height = 184
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alClient
     ColCount = 2
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     Enabled = False
     FixedCols = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs]

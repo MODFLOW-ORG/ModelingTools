@@ -201,6 +201,7 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
           Left = 7
           Width = 161
           Caption = 'Pump location method'
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 7
           ExplicitWidth = 161
         end
@@ -214,15 +215,58 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
             ExplicitWidth = 200
             ExplicitHeight = 60
           end
+          inherited tabCell: TTabSheet
+            inherited lblCol: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited lblRow: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited lblLay: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited rdeLay: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited rdeRow: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited rdeCol: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
+          end
+          inherited tabLocation: TTabSheet
+            inherited lblX: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited lblY: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited lblZ: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited rdeX: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited rdeY: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited rdeZ: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
+          end
           inherited tabObject: TTabSheet
             inherited comboObject: TComboBox
               Width = 258
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 258
             end
           end
         end
         inherited comboLocationChoice: TJvImageComboBox
           Left = 173
+          StyleElements = [seFont, seClient, seBorder]
+          ItemIndex = -1
           OnChange = framePumpLocationMethodcomboLocationChoiceChange
           ExplicitLeft = 173
         end
@@ -1378,7 +1422,6 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
             AutoAdjustColWidths = True
           end>
         WordWrapRowCaptions = False
-        ExplicitWidth = 601
       end
       object Panel4: TPanel
         Left = 0
@@ -1388,20 +1431,18 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitWidth = 601
         object Label2: TLabel
           AlignWithMargins = True
           Left = 3
           Top = 3
           Width = 527
-          Height = 36
+          Height = 54
           Align = alTop
           Caption = 
             'Vertical screens are optional; if none are defined here, the top' +
             ' and bottom of the object as defined by the higher and lower Z c' +
             'oordinates will define a well screen.'
           WordWrap = True
-          ExplicitWidth = 594
         end
         object lblWellScreenFormula: TLabel
           Left = 136
@@ -1459,25 +1500,31 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
             inherited Panel: TPanel
               Top = 190
               Width = 529
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 190
               ExplicitWidth = 529
               inherited lbNumber: TLabel
                 Width = 208
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 208
                 ExplicitHeight = 18
               end
               inherited sbAdd: TSpeedButton
                 Left = 325
+                ExplicitLeft = 325
               end
               inherited sbInsert: TSpeedButton
                 Left = 351
+                ExplicitLeft = 351
               end
               inherited sbDelete: TSpeedButton
                 Left = 376
+                ExplicitLeft = 376
               end
               inherited seNumber: TJvSpinEdit
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
             end
@@ -1679,25 +1726,31 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
             inherited Panel: TPanel
               Top = 115
               Width = 529
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 115
               ExplicitWidth = 529
               inherited lbNumber: TLabel
                 Width = 251
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 251
                 ExplicitHeight = 18
               end
               inherited sbAdd: TSpeedButton
                 Left = 325
+                ExplicitLeft = 325
               end
               inherited sbInsert: TSpeedButton
                 Left = 351
+                ExplicitLeft = 351
               end
               inherited sbDelete: TSpeedButton
                 Left = 376
+                ExplicitLeft = 376
               end
               inherited seNumber: TJvSpinEdit
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
             end

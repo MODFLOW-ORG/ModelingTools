@@ -10384,6 +10384,7 @@ begin
   try
     PhastModel.ModelSelection := msModflow2015;
     PhastModel.ModflowPackages.GwtProcess.SeparateGwt := NameFiles.Count > 1;
+    PhastModel.ModflowPackages.GweProcess.SeparateGwt := NameFiles.Count > 1;
     FImportGeoRef.Initialize;
     if TFile.Exists(usgs_model_reference) then
     begin

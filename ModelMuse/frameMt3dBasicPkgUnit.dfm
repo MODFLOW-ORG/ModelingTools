@@ -6,9 +6,16 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
   DesignSize = (
     528
     432)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 497
     Height = 51
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 497
     ExplicitHeight = 51
   end
@@ -26,12 +33,20 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
     Align = alClient
     TabOrder = 1
     object tabMT3D_Options: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'MT3D Options'
       object lblInactiveConcentration: TLabel
         Left = 83
         Top = 81
         Width = 212
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Concentration at inactive cells (CINACT)'
       end
       object lblInitialConcentrationChoice: TLabel
@@ -39,6 +54,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 141
         Width = 233
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Method for using initial concentration file(s)'
       end
       object lblMinimumSaturatedFraction: TLabel
@@ -46,6 +65,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 109
         Width = 205
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Minimum saturated fraction (THKMIN)'
       end
       object lblVersion: TLabel
@@ -53,6 +76,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 20
         Width = 72
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'MT3D Version'
       end
       object grpInitialConcentrationTimes: TGroupBox
@@ -60,6 +87,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 181
         Width = 509
         Height = 57
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Concentration file transport step for initial concentrations'
         TabOrder = 0
         object lblStressPeriod: TLabel
@@ -67,6 +98,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
           Top = 24
           Width = 67
           Height = 15
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Stress period'
         end
         object lblTimeStep: TLabel
@@ -74,6 +109,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
           Top = 24
           Width = 51
           Height = 15
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Time step'
         end
         object lblTransportStep: TLabel
@@ -81,6 +120,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
           Top = 24
           Width = 74
           Height = 15
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Transport step'
         end
         object seStressPeriod: TJvSpinEdit
@@ -88,6 +131,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
           Top = 22
           Width = 71
           Height = 23
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           MaxValue = 2147483647.000000000000000000
           MinValue = 1.000000000000000000
           Value = 1.000000000000000000
@@ -98,6 +145,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
           Top = 21
           Width = 71
           Height = 23
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           MaxValue = 2147483647.000000000000000000
           MinValue = 1.000000000000000000
           Value = 1.000000000000000000
@@ -108,6 +159,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
           Top = 21
           Width = 71
           Height = 23
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           MaxValue = 2147483647.000000000000000000
           MinValue = 1.000000000000000000
           Value = 1.000000000000000000
@@ -119,6 +174,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 138
         Width = 255
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         TabOrder = 1
         OnChange = comboInitialConcentrationChoiceChange
@@ -131,8 +190,16 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 51
         Width = 50
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         EditLabel.Width = 99
         EditLabel.Height = 23
+        EditLabel.Margins.Left = 4
+        EditLabel.Margins.Top = 4
+        EditLabel.Margins.Right = 4
+        EditLabel.Margins.Bottom = 4
         EditLabel.Caption = 'Mass unit (MUNIT)'
         Enabled = False
         LabelPosition = lpRight
@@ -145,6 +212,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 78
         Width = 65
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 3
@@ -158,6 +229,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 106
         Width = 65
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 4
@@ -173,6 +248,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 17
         Width = 130
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         ItemIndex = 0
         TabOrder = 5
@@ -184,6 +263,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
       end
     end
     object tabMT3D_USGS_Options: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'MT3D-USGS Options'
       ImageIndex = 2
       object chklstOptions: TJvgCheckListBox
@@ -191,6 +274,10 @@ inherited frameMt3dBasicPkg: TframeMt3dBasicPkg
         Top = 0
         Width = 520
         Height = 282
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         Enabled = False
         Items.Strings = (

@@ -1819,7 +1819,6 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
               AutoAdjustColWidths = True
             end>
           WordWrapRowCaptions = False
-          ExplicitWidth = 377
         end
         object pnlChannelTop: TPanel
           Left = 1
@@ -1829,7 +1828,6 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 551
           object lblChannelFormula: TLabel
             Left = 136
             Top = 5
@@ -1860,7 +1858,7 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
           Align = alRight
           TabOrder = 2
           TabStop = True
-          ExplicitLeft = 386
+          ExplicitLeft = 366
           ExplicitTop = 58
           ExplicitWidth = 166
           ExplicitHeight = 308
@@ -1886,7 +1884,7 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
         Exaggeration = 1.000000000000000000
         HorizontalDirection = hdRight
         Image32.Left = 0
-        Image32.Top = 0
+        Image32.Top = 68
         Image32.Width = 533
         Image32.Height = 109
         Image32.Anchors = [akLeft, akBottom]
@@ -1897,6 +1895,7 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
         Image32.Scale = 1.000000000000000000
         Image32.ScaleMode = smNormal
         Image32.TabOrder = 0
+        Image32.ExplicitTop = 0
         ImmediateResize = True
         Magnification = 1.000000000000000000
         VerticalDirection = vdUp
@@ -2248,7 +2247,7 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
           Exaggeration = 1.000000000000000000
           HorizontalDirection = hdRight
           Image32.Left = 0
-          Image32.Top = 0
+          Image32.Top = 108
           Image32.Width = 259
           Image32.Height = 149
           Image32.Anchors = [akLeft, akBottom]
@@ -2259,6 +2258,7 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
           Image32.Scale = 1.000000000000000000
           Image32.ScaleMode = smNormal
           Image32.TabOrder = 0
+          Image32.ExplicitTop = 0
           ImmediateResize = True
           Magnification = 1.000000000000000000
           VerticalDirection = vdUp
@@ -2279,7 +2279,7 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
           Exaggeration = 1.000000000000000000
           HorizontalDirection = hdRight
           Image32.Left = 0
-          Image32.Top = 0
+          Image32.Top = 108
           Image32.Width = 260
           Image32.Height = 149
           Image32.Anchors = [akLeft, akBottom]
@@ -2290,6 +2290,7 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
           Image32.Scale = 1.000000000000000000
           Image32.ScaleMode = smNormal
           Image32.TabOrder = 0
+          Image32.ExplicitTop = 0
           ImmediateResize = True
           Magnification = 1.000000000000000000
           VerticalDirection = vdUp
@@ -2323,10 +2324,12 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
         inherited pnl1: TPanel
           Top = 247
           Width = 327
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 247
           ExplicitWidth = 327
           inherited lblNumberOfPoints: TLabel
             Anchors = [akLeft, akTop, akBottom]
+            StyleElements = [seFont, seClient, seBorder]
           end
           inherited btnDeleteFlowTableRow: TBitBtn
             Anchors = [akLeft, akTop, akBottom]
@@ -2337,6 +2340,7 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
             OnClick = frameFlowTable1btnInsertFlowTableRowClick
           end
           inherited seTableCount: TJvSpinEdit
+            StyleElements = [seFont, seClient, seBorder]
             Anchors = [akLeft, akTop, akBottom]
             OnChange = frameFlowTable1seTableCountChange
           end
@@ -2685,8 +2689,12 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
         inherited Panel: TPanel
           Top = 290
           Width = 533
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 290
           ExplicitWidth = 533
+          inherited lbNumber: TLabel
+            StyleElements = [seFont, seClient, seBorder]
+          end
           inherited sbAdd: TSpeedButton
             Left = 277
             ExplicitLeft = 288
@@ -2698,6 +2706,9 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
           inherited sbDelete: TSpeedButton
             Left = 380
             ExplicitLeft = 395
+          end
+          inherited seNumber: TJvSpinEdit
+            StyleElements = [seFont, seClient, seBorder]
           end
         end
         inherited Grid: TRbwDataGrid4
@@ -2964,16 +2975,26 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
             inherited Panel: TPanel
               Top = 248
               Width = 529
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 248
               ExplicitWidth = 529
+              inherited lbNumber: TLabel
+                StyleElements = [seFont, seClient, seBorder]
+              end
               inherited sbAdd: TSpeedButton
                 Left = 354
+                ExplicitLeft = 354
               end
               inherited sbInsert: TSpeedButton
                 Left = 382
+                ExplicitLeft = 382
               end
               inherited sbDelete: TSpeedButton
                 Left = 410
+                ExplicitLeft = 410
+              end
+              inherited seNumber: TJvSpinEdit
+                StyleElements = [seFont, seClient, seBorder]
               end
             end
             inherited Grid: TRbwDataGrid4
@@ -2996,16 +3017,26 @@ inherited frameScreenObjectSFR: TframeScreenObjectSFR
             ExplicitHeight = 153
             inherited Panel: TPanel
               Width = 529
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 118
               ExplicitWidth = 529
+              inherited lbNumber: TLabel
+                StyleElements = [seFont, seClient, seBorder]
+              end
               inherited sbAdd: TSpeedButton
                 Left = 354
+                ExplicitLeft = 354
               end
               inherited sbInsert: TSpeedButton
                 Left = 382
+                ExplicitLeft = 382
               end
               inherited sbDelete: TSpeedButton
                 Left = 410
+                ExplicitLeft = 410
+              end
+              inherited seNumber: TJvSpinEdit
+                StyleElements = [seFont, seClient, seBorder]
               end
             end
             inherited Grid: TRbwDataGrid4

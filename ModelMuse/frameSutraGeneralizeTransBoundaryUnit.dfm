@@ -4,6 +4,7 @@ inherited frameSutraGeneralizeTransBoundary: TframeSutraGeneralizeTransBoundary
   inherited pnlBottom: TPanel
     Top = 368
     Height = 121
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 368
     ExplicitWidth = 586
     ExplicitHeight = 121
@@ -13,6 +14,7 @@ inherited frameSutraGeneralizeTransBoundary: TframeSutraGeneralizeTransBoundary
     inherited lblNumTimes: TLabel
       Left = 63
       Top = 87
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 63
       ExplicitTop = 87
     end
@@ -32,6 +34,7 @@ inherited frameSutraGeneralizeTransBoundary: TframeSutraGeneralizeTransBoundary
     end
     inherited seNumberOfTimes: TJvSpinEdit
       Top = 79
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 79
     end
     inherited btnDelete: TBitBtn
@@ -88,6 +91,7 @@ inherited frameSutraGeneralizeTransBoundary: TframeSutraGeneralizeTransBoundary
   inherited pnlGrid: TPanel
     Top = 131
     Height = 237
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 131
     ExplicitWidth = 586
     ExplicitHeight = 237
@@ -244,13 +248,12 @@ inherited frameSutraGeneralizeTransBoundary: TframeSutraGeneralizeTransBoundary
           CheckStyle = csCheck
           AutoAdjustColWidths = False
         end>
-      ExplicitWidth = 584
       ExplicitHeight = 235
     end
   end
   inherited pnlTop: TPanel
     Height = 81
-    ExplicitWidth = 586
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 81
     DesignSize = (
       565
@@ -258,18 +261,20 @@ inherited frameSutraGeneralizeTransBoundary: TframeSutraGeneralizeTransBoundary
     inherited lblSchedule: TLabel
       Left = 8
       Top = 30
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 8
       ExplicitTop = 30
     end
     inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 584
     end
     inherited comboSchedule: TComboBox
       Left = 8
       Top = 49
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 8
       ExplicitTop = 49
-      ExplicitWidth = 572
     end
   end
   object pnlEditGrid: TPanel
@@ -280,7 +285,6 @@ inherited frameSutraGeneralizeTransBoundary: TframeSutraGeneralizeTransBoundary
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitWidth = 586
     object lblFormula: TLabel
       Left = 136
       Top = 5

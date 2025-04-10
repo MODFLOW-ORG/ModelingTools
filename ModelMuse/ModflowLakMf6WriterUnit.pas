@@ -2691,7 +2691,7 @@ begin
   end;
 
 //  [BUDGET FILEOUT <budgetfile>]
-  if FLakMf6Package.SaveBudget or Model.SeparateGwtUsed then
+  if FLakMf6Package.SaveBudget or Model.SeparateGwtUsed or Model.SeparateGweUsed then
   begin
     BudgetFileName := ChangeFileExt(FFileName, StrLkbud);
     Model.AddModelOutputFile(BudgetFileName);

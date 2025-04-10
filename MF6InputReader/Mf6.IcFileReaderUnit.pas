@@ -7,6 +7,18 @@ uses
   System.Generics.Collections;
 
 type
+  TIcOptions = class(TCustomMf6Persistent)
+  private
+    FEXPORT_ARRAY_NETCDF: Boolean;
+    FEXPORT_ARRAY_ASCII: Boolean;
+    procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+  protected
+    procedure Initialize; override;
+  public
+    property EXPORT_ARRAY_ASCII: Boolean read FEXPORT_ARRAY_ASCII;
+    property EXPORT_ARRAY_NETCDF: Boolean read FEXPORT_ARRAY_NETCDF;
+  end;
+
   TIcGridData = class(TCustomMf6Persistent)
   private
     FSTRT: TDArray3D;
@@ -21,11 +33,13 @@ type
 
   TIc = class(TDimensionedPackageReader)
   private
+    FOptions: TIcOptions;
     FGridData: TIcGridData;
   public
     constructor Create(PackageType: string); override;
     destructor Destroy; override;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter; const NPER: Integer); override;
+    property Options: TIcOptions read FOptions;
     property GridData: TIcGridData read FGridData;
   end;
 
@@ -104,6 +118,7 @@ end;
 
 constructor TIc.Create(PackageType: string);
 begin
+  FOptions := TIcOptions.Create(PackageType);;
   FGridData := TIcGridData.Create(PackageType);
   inherited;
 
@@ -111,6 +126,7 @@ end;
 
 destructor TIc.Destroy;
 begin
+  FOptions.Free;
   FGridData.Free;
   inherited;
 end;
@@ -140,8 +156,7 @@ begin
     begin
       if FSplitter[1] ='OPTIONS' then
       begin
-        // Do nothing
-        // An empty OPTIONS block is no longer required for IC.
+        FOptions.Read(Stream, Unhandled);
       end
       else if FSplitter[1] ='GRIDDATA' then
       begin
@@ -154,6 +169,63 @@ begin
       end;
     end;
   end;
+end;
+
+{ TIcOptions }
+
+procedure TIcOptions.Initialize;
+begin
+  inherited;
+  FEXPORT_ARRAY_NETCDF := False;
+  FEXPORT_ARRAY_ASCII := False;
+end;
+
+procedure TIcOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+var
+  ALine: string;
+  ErrorLine: string;
+  CaseSensitiveLine: string;
+  TS6_FileName: string;
+  Obs_FileName: string;
+  AuxIndex: Integer;
+  AUXILIARY_Name: string;
+begin
+  Initialize;
+  while not Stream.EndOfStream do
+  begin
+    ALine := Stream.ReadLine;
+    RestoreStream(Stream);
+    ErrorLine := ALine;
+    ALine := StripFollowingComments(ALine);
+    if ALine = '' then
+    begin
+      Continue;
+    end;
+    if ReadEndOfSection(ALine, ErrorLine, 'OPTIONS', Unhandled) then
+    begin
+      Exit
+    end;
+
+    CaseSensitiveLine := ALine;
+    if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'OPTIONS') then
+    begin
+      // do nothing
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_ASCII' then
+    begin
+      FEXPORT_ARRAY_ASCII := True;
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_NETCDF' then
+    begin
+      FEXPORT_ARRAY_NETCDF := True;
+      Unhandled.WriteLine(Format('The EXPORT_ARRAY_NETCDF in %s is not handled by this program.', [FPackageType]));
+    end
+    else
+    begin
+      Unhandled.WriteLine(Format(StrUnrecognizedOpti, [FPackageType]));
+      Unhandled.WriteLine(ErrorLine);
+    end;
+  end
 end;
 
 end.

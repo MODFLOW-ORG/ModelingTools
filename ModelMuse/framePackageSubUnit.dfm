@@ -7,9 +7,16 @@ inherited framePackageSub: TframePackageSub
   DesignSize = (
     595
     514)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 564
     Height = 51
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 564
     ExplicitHeight = 51
   end
@@ -18,11 +25,19 @@ inherited framePackageSub: TframePackageSub
     Top = 119
     Width = 595
     Height = 395
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabControls
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
     object tabControls: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Controls'
       DesignSize = (
         587
@@ -32,6 +47,10 @@ inherited framePackageSub: TframePackageSub
         Top = 7
         Width = 223
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Number of nodes for delay interbeds (NN)'
       end
       object lblAccel1: TLabel
@@ -39,6 +58,10 @@ inherited framePackageSub: TframePackageSub
         Top = 35
         Width = 179
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'First acceleration parameter (AC1)'
       end
       object lblAccel2: TLabel
@@ -46,6 +69,10 @@ inherited framePackageSub: TframePackageSub
         Top = 63
         Width = 196
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Second acceleration parameter (AC2)'
       end
       object lblMinIterations: TLabel
@@ -53,6 +80,10 @@ inherited framePackageSub: TframePackageSub
         Top = 91
         Width = 278
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Minimum number of iterations for SIP solver (ITMIN)'
       end
       object lbReadRestart: TLabel
@@ -60,6 +91,10 @@ inherited framePackageSub: TframePackageSub
         Top = 142
         Width = 285
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'File from which the restart record will be read (IDREST)'
       end
       object lblOutputChoice: TLabel
@@ -67,6 +102,10 @@ inherited framePackageSub: TframePackageSub
         Top = 192
         Width = 110
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Binary output choice'
         Enabled = False
       end
@@ -75,6 +114,10 @@ inherited framePackageSub: TframePackageSub
         Top = 3
         Width = 50
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         ButtonKind = bkClassic
         MaxValue = 10000000.000000000000000000
         MinValue = 2.000000000000000000
@@ -87,6 +130,10 @@ inherited framePackageSub: TframePackageSub
         Top = 30
         Width = 73
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 1
@@ -101,6 +148,10 @@ inherited framePackageSub: TframePackageSub
         Top = 58
         Width = 73
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 2
@@ -115,6 +166,10 @@ inherited framePackageSub: TframePackageSub
         Top = 86
         Width = 73
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 3
@@ -130,6 +185,10 @@ inherited framePackageSub: TframePackageSub
         Top = 119
         Width = 249
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save restart record (IDSAVE)'
         Enabled = False
         TabOrder = 4
@@ -139,8 +198,13 @@ inherited framePackageSub: TframePackageSub
         Top = 158
         Width = 564
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Filter = 'Restart files (*.rst)|*.rst|All files (*.*)|*.*'
         Enabled = False
+        ButtonWidth = 26
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 5
         Text = ''
@@ -150,6 +214,10 @@ inherited framePackageSub: TframePackageSub
         Top = 208
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -177,11 +245,19 @@ inherited framePackageSub: TframePackageSub
         Top = 255
         Width = 413
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Link model geometry to subsidence (SUBLNK in MODFLOW-OWHM)'
         TabOrder = 7
       end
     end
     object tabPrintSave: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Print/Save'
       ImageIndex = 2
       DesignSize = (
@@ -189,18 +265,27 @@ inherited framePackageSub: TframePackageSub
         365)
       object lblNumExportPeriods: TLabel
         Left = 75
-        Top = 331
+        Top = 336
         Width = 137
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akBottom]
         Caption = 'Number of export periods'
+        ExplicitTop = 331
       end
       object sbAdd: TSpeedButton
         Left = 495
-        Top = 327
+        Top = 332
         Width = 23
         Height = 22
         Hint = 'Add layer group|Add a layer group below the bottom layer group.'
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akRight, akBottom]
         Enabled = False
         Glyph.Data = {
@@ -215,15 +300,20 @@ inherited framePackageSub: TframePackageSub
         ParentShowHint = False
         ShowHint = True
         OnClick = sbAddClick
+        ExplicitTop = 327
       end
       object sbInsert: TSpeedButton
         Left = 524
-        Top = 327
+        Top = 332
         Width = 23
         Height = 22
         Hint = 
           'Insert layer group|Insert a layer group above the selected layer' +
           ' group.'
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akRight, akBottom]
         Enabled = False
         Glyph.Data = {
@@ -238,13 +328,18 @@ inherited framePackageSub: TframePackageSub
         ParentShowHint = False
         ShowHint = True
         OnClick = sbInsertClick
+        ExplicitTop = 327
       end
       object sbDelete: TSpeedButton
         Left = 553
-        Top = 327
+        Top = 332
         Width = 23
         Height = 22
         Hint = 'Delete layer group|Delete the selected layer group.'
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akRight, akBottom]
         Enabled = False
         Glyph.Data = {
@@ -277,12 +372,17 @@ inherited framePackageSub: TframePackageSub
         ParentShowHint = False
         ShowHint = True
         OnClick = sbDeleteClick
+        ExplicitTop = 327
       end
       object cbMultiPrintSave: TCheckBox
         Left = 144
         Top = 9
         Width = 177
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Set multiple check boxes'
         Enabled = False
         TabOrder = 1
@@ -292,9 +392,15 @@ inherited framePackageSub: TframePackageSub
         Left = 12
         Top = 37
         Width = 564
-        Height = 284
+        Height = 289
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akTop, akRight, akBottom]
         ColCount = 23
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         Enabled = False
         FixedCols = 0
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goAlwaysShowEditor]
@@ -882,21 +988,30 @@ inherited framePackageSub: TframePackageSub
       end
       object seNumExportPeriods: TJvSpinEdit
         Left = 12
-        Top = 328
+        Top = 333
         Width = 57
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         ButtonKind = bkClassic
         Value = 1.000000000000000000
         Enabled = False
         Anchors = [akLeft, akBottom]
         TabOrder = 3
         OnChange = seNumExportPeriodsChange
+        ExplicitTop = 328
       end
       object comboMultiFomat: TJvImageComboBox
         Left = 32
         Top = 3
         Width = 89
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace

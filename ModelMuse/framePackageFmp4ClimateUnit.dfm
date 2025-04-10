@@ -6,15 +6,26 @@ inherited framePackageFmp4Climate: TframePackageFmp4Climate
   DesignSize = (
     435
     432)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblRefEtToBare: TLabel [2]
     Left = 167
     Top = 163
     Width = 107
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Reference ET to Bare'
   end
   inherited memoComments: TMemo
     Width = 404
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 404
   end
   object rdgClimate: TRbwDataGrid4 [4]
@@ -22,8 +33,14 @@ inherited framePackageFmp4Climate: TframePackageFmp4Climate
     Top = 192
     Width = 435
     Height = 240
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     ColCount = 6
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     Enabled = False
     FixedCols = 1
     RowCount = 6
@@ -194,6 +211,10 @@ inherited framePackageFmp4Climate: TframePackageFmp4Climate
     Top = 160
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     TabOrder = 2
     Text = '0.5'
     DataType = dtReal

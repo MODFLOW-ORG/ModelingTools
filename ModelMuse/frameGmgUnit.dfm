@@ -6,10 +6,17 @@ inherited frameGMG: TframeGMG
   DesignSize = (
     625
     418)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Top = 65
     Width = 594
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 65
     ExplicitWidth = 594
   end
@@ -18,11 +25,19 @@ inherited frameGMG: TframeGMG
     Top = 160
     Width = 625
     Height = 258
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabControlAndPrint
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
     object tabControlAndPrint: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Control and Print'
       DesignSize = (
         617
@@ -32,6 +47,10 @@ inherited frameGMG: TframeGMG
         Top = 11
         Width = 215
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Residual convergence criterion (RCLOSE)'
       end
       object lblGmgIiter: TLabel
@@ -39,6 +58,10 @@ inherited frameGMG: TframeGMG
         Top = 43
         Width = 232
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of inner iterations (IITER)'
       end
       object lblGmgHclose: TLabel
@@ -46,6 +69,10 @@ inherited frameGMG: TframeGMG
         Top = 75
         Width = 243
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Head change convergence criterion (HCLOSE)'
       end
       object lblGmgMxiter: TLabel
@@ -53,6 +80,10 @@ inherited frameGMG: TframeGMG
         Top = 107
         Width = 248
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of outer iterations (MXITER)'
       end
       object lblGmgIoutgmg: TLabel
@@ -60,6 +91,10 @@ inherited frameGMG: TframeGMG
         Top = 170
         Width = 131
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'GMG Output (IOUTGMG)'
       end
       object lblGmgIsm: TLabel
@@ -67,6 +102,10 @@ inherited frameGMG: TframeGMG
         Top = 141
         Width = 215
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Multigrid preconditioner smoother (ISM)'
       end
       object rdeGmgRclose: TRbwDataEntry
@@ -80,6 +119,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 0
@@ -100,6 +143,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 1
@@ -120,6 +167,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 2
@@ -140,6 +191,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 3
@@ -154,6 +209,10 @@ inherited frameGMG: TframeGMG
         Top = 167
         Width = 297
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         Anchors = [akLeft, akTop, akRight]
         ButtonStyle = fsLighter
@@ -197,6 +256,10 @@ inherited frameGMG: TframeGMG
         Top = 204
         Width = 598
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Print maximum head change values (IUNITMHC)'
         Enabled = False
         TabOrder = 5
@@ -206,6 +269,10 @@ inherited frameGMG: TframeGMG
         Top = 138
         Width = 297
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         Anchors = [akLeft, akTop, akRight]
         ButtonStyle = fsLighter
@@ -231,6 +298,10 @@ inherited frameGMG: TframeGMG
       end
     end
     object tabDampRelax: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Damping and Relax'
       ImageIndex = 1
       DesignSize = (
@@ -241,6 +312,10 @@ inherited frameGMG: TframeGMG
         Top = 75
         Width = 171
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum damping value (DUP)'
       end
       object lblGmgDlow: TLabel
@@ -248,6 +323,10 @@ inherited frameGMG: TframeGMG
         Top = 107
         Width = 180
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Minimum damping value (DLOW)'
       end
       object lblGmgChglimit: TLabel
@@ -255,6 +334,10 @@ inherited frameGMG: TframeGMG
         Top = 138
         Width = 235
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum allowed head change (CHGLIMIT)'
       end
       object lblGmgRelax: TLabel
@@ -262,6 +345,10 @@ inherited frameGMG: TframeGMG
         Top = 202
         Width = 157
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Relaxation parameter (RELAX)'
       end
       object lblGmgIadamp: TLabel
@@ -269,6 +356,10 @@ inherited frameGMG: TframeGMG
         Top = 43
         Width = 199
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Adaptive damping method (IADAMP)'
       end
       object lblGmgIsc: TLabel
@@ -276,6 +367,10 @@ inherited frameGMG: TframeGMG
         Top = 170
         Width = 153
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Semicoarsening control (ISC)'
       end
       object lblGmgDamp: TLabel
@@ -283,6 +378,10 @@ inherited frameGMG: TframeGMG
         Top = 11
         Width = 151
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Damping parameter (DAMP)'
       end
       object rdeGmgDup: TRbwDataEntry
@@ -296,6 +395,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 0
@@ -317,6 +420,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 1
@@ -337,6 +444,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 2
@@ -357,6 +468,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 3
@@ -372,6 +487,10 @@ inherited frameGMG: TframeGMG
         Top = 40
         Width = 297
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         Anchors = [akLeft, akTop, akRight]
         ButtonStyle = fsLighter
@@ -406,6 +525,10 @@ inherited frameGMG: TframeGMG
         Top = 167
         Width = 297
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         Anchors = [akLeft, akTop, akRight]
         ButtonStyle = fsLighter
@@ -456,6 +579,10 @@ inherited frameGMG: TframeGMG
           'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
           'but should usually be less than 100.'
         HelpContext = 910
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 6

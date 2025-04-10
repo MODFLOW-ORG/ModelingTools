@@ -8,6 +8,7 @@ inherited frmImportPoints: TfrmImportPoints
   ClientHeight = 515
   ClientWidth = 573
   KeyPreview = True
+  StyleElements = [seFont, seClient, seBorder]
   OnKeyUp = FormKeyUp
   ExplicitWidth = 589
   ExplicitHeight = 554

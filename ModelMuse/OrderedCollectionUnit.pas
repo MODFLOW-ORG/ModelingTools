@@ -1949,7 +1949,8 @@ function TGwtPestMethodCollection.GetCount: Integer;
 var
   MobileComponentCount: Integer;
 begin
-  if (IGlobalModelForOrderedCollection <> nil) and IGlobalModelForOrderedCollection.GwtUsed then
+  if (IGlobalModelForOrderedCollection <> nil)
+    and (IGlobalModelForOrderedCollection.GwtUsed or IGlobalModelForOrderedCollection.GweUsed) then
   begin
     MobileComponentCount := (IGlobalModelForOrderedCollection
       as IModelForTGwtPestMethodCollection).GetMobileComponentCount;
@@ -2149,7 +2150,7 @@ function TLandUsePestMethodCollection.GetCount: Integer;
 var
   LocalModel: IModelForTLandUsePestMethodCollection;
 begin
-  if (Model <> nil) and Model.GwtUsed  then
+  if (Model <> nil) then
   begin
     LocalModel := Model as IModelForTLandUsePestMethodCollection;
     if inherited GetCount < LocalModel.CropCount then

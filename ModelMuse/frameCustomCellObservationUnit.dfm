@@ -234,7 +234,6 @@ object frameCustomCellObservation: TframeCustomCellObservation
             AutoAdjustColWidths = False
           end>
         WordWrapRowCaptions = False
-        ExplicitHeight = 128
         ColWidths = (
           64
           64
@@ -301,7 +300,6 @@ object frameCustomCellObservation: TframeCustomCellObservation
         Height = 35
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 560
         object rdeMultiLayerEdit: TRbwDataEntry
           Left = 3
           Top = 7

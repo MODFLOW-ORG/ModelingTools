@@ -215,7 +215,6 @@ inherited frameCustomSutraTimeVaryingFeature: TframeCustomSutraTimeVaryingFeatur
           AutoAdjustColWidths = True
         end>
       WordWrapRowCaptions = False
-      ExplicitWidth = 318
     end
   end
   object pnlTop: TPanel
@@ -225,7 +224,6 @@ inherited frameCustomSutraTimeVaryingFeature: TframeCustomSutraTimeVaryingFeatur
     Height = 145
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 320
     DesignSize = (
       565
       145)
@@ -255,7 +253,6 @@ inherited frameCustomSutraTimeVaryingFeature: TframeCustomSutraTimeVaryingFeatur
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 1
       OnChange = comboScheduleChange
-      ExplicitWidth = 306
     end
   end
 end

@@ -12,6 +12,10 @@ object frameView: TframeView
     Width = 49
     Height = 208
     Hint = 'Double-click to edit|Double-click to edit the ruler format'
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alLeft
     ParentShowHint = False
     ShowHint = True
@@ -35,6 +39,10 @@ object frameView: TframeView
     Top = 0
     Width = 516
     Height = 54
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alTop
     BevelOuter = bvNone
     ParentColor = True
@@ -47,6 +55,10 @@ object frameView: TframeView
       Hint = 
         'Click to change layer|Click to change the selected layer up or d' +
         'own.'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Align = alLeft
       ParentShowHint = False
       ShowHint = True
@@ -77,6 +89,10 @@ object frameView: TframeView
       Width = 467
       Height = 54
       Hint = 'Double-click to edit|Double-click to edit the ruler format'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Align = alClient
       ParentShowHint = False
       ShowHint = True
@@ -103,6 +119,10 @@ object frameView: TframeView
     Width = 467
     Height = 208
     Hint = 'Choose a tool and click to edit model'
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alClient
     ParentColor = True
     ParentShowHint = False
@@ -114,9 +134,13 @@ object frameView: TframeView
     Exaggeration = 1.000000000000000000
     HorizontalDirection = hdRight
     Image32.Left = 0
-    Image32.Top = 0
+    Image32.Top = 157
     Image32.Width = 467
     Image32.Height = 208
+    Image32.Margins.Left = 4
+    Image32.Margins.Top = 4
+    Image32.Margins.Right = 4
+    Image32.Margins.Bottom = 4
     Image32.Anchors = [akLeft, akBottom]
     Image32.Bitmap.ResamplerClassName = 'TNearestResampler'
     Image32.BitmapAlign = baTopLeft
@@ -130,6 +154,7 @@ object frameView: TframeView
     Image32.OnMouseDown = ZoomBoxImage32MouseDown
     Image32.OnMouseMove = ZoomBoxImage32MouseMove
     Image32.OnMouseUp = ZoomBoxImage32MouseUp
+    Image32.ExplicitTop = 0
     ImmediateResize = True
     Magnification = 1.000000000000000000
     VerticalDirection = vdUp

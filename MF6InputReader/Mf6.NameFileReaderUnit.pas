@@ -13,6 +13,9 @@ type
     FPRINT_INPUT: Boolean;
     FPRINT_FLOWS: Boolean;
     SAVE_FLOWS: Boolean;
+    FNETCDF_STRUCTURED: Boolean;
+    Fnetcdf_filename: string;
+    FNETCDF_MESH2D: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
     procedure HandleAdditionalSingleOptions(ErrorLine: string;
       Unhandled: TStreamWriter); virtual;
@@ -23,6 +26,9 @@ type
   public
     property PRINT_INPUT: Boolean read FPRINT_INPUT;
     property PRINT_FLOWS: Boolean read FPRINT_FLOWS;
+    property NETCDF_MESH2D: Boolean read FNETCDF_MESH2D;
+    property NETCDF_STRUCTURED: Boolean read FNETCDF_STRUCTURED;
+    property netcdf_filename: string read Fnetcdf_filename;
   end;
 
   TFlowNameFileOptions = class(TCustomNameFileOptions)
@@ -67,6 +73,10 @@ type
     procedure Initialize; override;
   end;
 
+  TEnergyTransportPackages =class(TCustomPackages)
+    procedure Initialize; override;
+  end;
+
   TCustomNameFile = class(TCustomMf6Persistent)
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter); virtual; abstract;
     procedure ReadInput(Unhandled: TStreamWriter; const NPER: Integer); virtual; abstract;
@@ -103,6 +113,13 @@ type
   public
     property SpeciesName: string read FSpeciesName write FSpeciesName;
   end;
+  TEnergyTransportNameFile = class(TNameFile<TTransportNameFileOptions, TEnergyTransportPackages>)
+  private
+    FSpeciesName: string;
+  public
+    property SpeciesName: string read FSpeciesName write FSpeciesName;
+  end;
+
 
 implementation
 
@@ -127,6 +144,10 @@ begin
   FPRINT_INPUT := False;
   FPRINT_FLOWS := False;
   SAVE_FLOWS := False;
+  FNETCDF_STRUCTURED := False;
+  Fnetcdf_filename := '';
+  FNETCDF_MESH2D := False;
+
 end;
 
 procedure TCustomNameFileOptions.Read(Stream: TStreamReader;
@@ -238,6 +259,21 @@ begin
     begin
       inherited
     end;
+  end
+  else if (AValue = 'NETCDF_MESH2D') and (FSplitter.Count >= 3) and (FSplitter[1] = 'FILEOUT') then
+  begin
+    FNETCDF_MESH2D := True;
+    Unhandled.WriteLine('NETCDF_MESH2D option is not used in this program.');
+  end
+  else if (AValue = 'NETCDF_STRUCTURED') and (FSplitter.Count >= 3) and (FSplitter[1] = 'FILEOUT') then
+  begin
+    FNETCDF_STRUCTURED := True;
+    Unhandled.WriteLine('NETCDF_STRUCTURED option is not used in this program.');
+  end
+  else if (AValue = 'NETCDF') and (FSplitter.Count >= 3) and (FSplitter[1] = 'FILEIN') then
+  begin
+    Fnetcdf_filename := FSplitter[2];
+    Unhandled.WriteLine('NETCDF input file is not handled in this program.');
   end
   else
   begin
@@ -905,6 +941,32 @@ begin
   inherited;
   FOptions.OnUpdataStatusBar := OnUpdataStatusBar;
   FPackages.OnUpdataStatusBar := OnUpdataStatusBar;
+end;
+
+{ TEnergyTransportPackages }
+
+procedure TEnergyTransportPackages.Initialize;
+begin
+  inherited;
+  FValidPackageTypes.Add('DIS6');
+  FValidPackageTypes.Add('DISV6');
+  FValidPackageTypes.Add('DISU6');
+  FValidPackageTypes.Add('FMI6');
+  FValidPackageTypes.Add('IC6');
+  FValidPackageTypes.Add('OC6');
+  FValidPackageTypes.Add('ADV6');
+  FValidPackageTypes.Add('CND6');
+  FValidPackageTypes.Add('SSM6');
+  FValidPackageTypes.Add('EST6');
+  FValidPackageTypes.Add('CTP6');
+  FValidPackageTypes.Add('ESL6');
+  FValidPackageTypes.Add('LKE6');
+  FValidPackageTypes.Add('SFE6');
+  FValidPackageTypes.Add('MWE6');
+  FValidPackageTypes.Add('UZE6');
+  FValidPackageTypes.Add('MVE6');
+  FValidPackageTypes.Add('OBS6');
+  FValidPackageTypes.Add('GWE6-GWE6');
 end;
 
 end.

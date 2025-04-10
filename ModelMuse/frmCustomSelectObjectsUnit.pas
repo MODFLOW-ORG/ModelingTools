@@ -1186,22 +1186,22 @@ begin
     end
     else if Node =  FvstLktObsMf6Node then
     begin
-      Data.Caption := 'OBS6: GWT LKT Observations';
+      Data.Caption := 'OBS6: LKT/LKE Observations';
       Node.CheckType := ctTriStateCheckBox;
     end
     else if Node = FvstSftObsMf6Node then
     begin
-      Data.Caption := 'OBS6: GWT SFT Observations';
+      Data.Caption := 'OBS6: SFT/SFE Observations';
       Node.CheckType := ctTriStateCheckBox;
     end
     else if Node = FvstMwtObsMf6Node then
     begin
-      Data.Caption := 'OBS6: GWT MWT Observations';
+      Data.Caption := 'OBS6: MWT/MWE Observations';
       Node.CheckType := ctTriStateCheckBox;
     end
     else if Node = FvstUztObsMf6Node then
     begin
-      Data.Caption := 'OBS6: GWT UZT Observations';
+      Data.Caption := 'OBS6: UZT/UZE Observations';
       Node.CheckType := ctTriStateCheckBox;
     end
     else if Node = FFmp4EfficiencyNode then

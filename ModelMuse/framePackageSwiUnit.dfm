@@ -9,17 +9,20 @@ inherited framePackageSWI: TframePackageSWI
   inherited lblComments: TLabel
     Left = 17
     Top = 22
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitLeft = 17
     ExplicitTop = 22
   end
   inherited lblPackage: TLabel
     Top = 3
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 3
   end
   inherited memoComments: TMemo
     Top = 41
     Width = 414
     Height = 35
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 41
     ExplicitWidth = 414
     ExplicitHeight = 35
@@ -29,18 +32,29 @@ inherited framePackageSWI: TframePackageSWI
     Top = 82
     Width = 445
     Height = 440
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabBasic
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
-    ExplicitHeight = 416
     object tabBasic: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Basic'
       object lblNumberOfSurfaces: TLabel
         Left = 139
         Top = 6
         Width = 143
         Height = 30
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Number of surfaces (NSRF)'#13#10
       end
       object lblDensityChoice: TLabel
@@ -48,6 +62,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 33
         Width = 140
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Density treatment (ISTRAT)'
       end
       object lblObservations: TLabel
@@ -55,6 +73,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 85
         Width = 125
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Observations (ISWIOBS)'
       end
       object lblToeslope: TLabel
@@ -63,7 +85,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 146
         Width = 211
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum slope of toe cells (TOESLOPE)'
       end
       object lblTipSlope: TLabel
@@ -72,7 +97,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 174
         Width = 204
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum slope of tip cells (TIPSLOPE)'
       end
       object lblAlpha: TLabel
@@ -81,7 +109,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 198
         Width = 314
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Fraction of threshold used to move the tip and toe (ALPHA)'
       end
       object lblBeta: TLabel
@@ -90,14 +121,21 @@ inherited framePackageSWI: TframePackageSWI
         Top = 230
         Width = 262
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Fraction of threshold used to move the toe (BETA)'
       end
       object lblMaxAdaptiveSteps: TLabel
         Left = 139
         Top = 273
-        Width = 173
+        Width = 143
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Maximum number of SWI2 time steps per MODFLOW time step (NADPTMX' +
           ') '
@@ -106,8 +144,12 @@ inherited framePackageSWI: TframePackageSWI
       object lblMinAdaptiveSteps: TLabel
         Left = 140
         Top = 315
-        Width = 171
+        Width = 141
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Minimum number of SWI2 time steps per MODFLOW time step (NADPTMN' +
           ') '
@@ -117,9 +159,12 @@ inherited framePackageSWI: TframePackageSWI
         AlignWithMargins = True
         Left = 93
         Top = 353
-        Width = 225
-        Height = 30
+        Width = 212
+        Height = 45
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Factor controlling number of SWI2 time steps per MODFLOW time st' +
           'ep (ADPTFCT) '
@@ -130,6 +175,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 117
         Width = 111
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'MODFLOW precision'
       end
       object comboObservations: TJvImageComboBox
@@ -137,6 +186,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 82
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -169,7 +222,11 @@ inherited framePackageSWI: TframePackageSWI
         Left = 12
         Top = 3
         Width = 121
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -182,6 +239,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 59
         Width = 206
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save ZETA to file (ISWIZT)'
         Enabled = False
         TabOrder = 2
@@ -191,6 +252,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 30
         Width = 238
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -219,6 +284,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 255
         Width = 238
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use adaptive time stepping (ADAPTIVE)'
         Enabled = False
         TabOrder = 9
@@ -237,6 +306,10 @@ inherited framePackageSWI: TframePackageSWI
           'iteria are met, the program will go on to the next outer iterati' +
           'on.'
         HelpContext = 940
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 5
@@ -259,6 +332,10 @@ inherited framePackageSWI: TframePackageSWI
           'iteria are met, the program will go on to the next outer iterati' +
           'on.'
         HelpContext = 940
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 6
@@ -281,6 +358,10 @@ inherited framePackageSWI: TframePackageSWI
           'iteria are met, the program will go on to the next outer iterati' +
           'on.'
         HelpContext = 940
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 7
@@ -304,6 +385,10 @@ inherited framePackageSWI: TframePackageSWI
           'iteria are met, the program will go on to the next outer iterati' +
           'on.'
         HelpContext = 940
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 8
@@ -318,7 +403,11 @@ inherited framePackageSWI: TframePackageSWI
         Left = 12
         Top = 278
         Width = 121
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -329,7 +418,11 @@ inherited framePackageSWI: TframePackageSWI
         Left = 12
         Top = 317
         Width = 121
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -349,6 +442,10 @@ inherited framePackageSWI: TframePackageSWI
           'iteria are met, the program will go on to the next outer iterati' +
           'on.'
         HelpContext = 940
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 12
@@ -363,6 +460,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 114
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -387,6 +488,10 @@ inherited framePackageSWI: TframePackageSWI
       end
     end
     object tabSolver: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Solver'
       ImageIndex = 1
       object lblSolver: TLabel
@@ -394,6 +499,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 6
         Width = 130
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Solver choice (NSOLVER)'
       end
       object lblPrintoutInterval: TLabel
@@ -401,6 +510,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 32
         Width = 134
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Printout interval (IPRSOL)'
       end
       object lblPCGPrintControl: TLabel
@@ -409,7 +522,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 65
         Width = 142
         Height = 15
+        Margins.Left = 4
         Margins.Top = 7
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Printing control (MUTPCG)'
       end
       object lblMaxIterOuter: TLabel
@@ -417,6 +533,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 92
         Width = 248
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of outer iterations (MXITER)'
       end
       object lblMaxIterInner: TLabel
@@ -424,6 +544,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 119
         Width = 235
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of inner iterations (ITER1)'
       end
       object lblPCGMethod: TLabel
@@ -432,7 +556,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 149
         Width = 228
         Height = 15
+        Margins.Left = 4
         Margins.Top = 7
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Matrix preconditioning method (NPCOND)'
       end
       object lblMaxZetaChange: TLabel
@@ -441,7 +568,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 179
         Width = 182
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Max. abs. change in zeta (ZCLOSE)'
       end
       object lblMaxRes: TLabel
@@ -450,7 +580,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 207
         Width = 147
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Max. abs. residual (RCLOSE)'
       end
       object lblRelax: TLabel
@@ -459,7 +592,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 235
         Width = 157
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Relaxation parameter (RELAX)'
       end
       object lblEigenValue: TLabel
@@ -468,7 +604,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 263
         Width = 242
         Height = 15
+        Margins.Left = 4
         Margins.Top = 7
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Upper bound of the max. eigenvalue (NBPOL)'
       end
       object lblDamp: TLabel
@@ -477,7 +616,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 295
         Width = 128
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Damping factor (DAMP)'
       end
       object lblDampT: TLabel
@@ -486,7 +628,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 323
         Width = 206
         Height = 15
+        Margins.Left = 4
         Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Transient damping factor (DAMPPCGT)'
       end
       object comboSolver: TJvImageComboBox
@@ -494,6 +639,10 @@ inherited framePackageSWI: TframePackageSWI
         Top = 3
         Width = 154
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -521,7 +670,11 @@ inherited framePackageSWI: TframePackageSWI
         Left = 3
         Top = 32
         Width = 130
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         Value = 1.000000000000000000
         Enabled = False
@@ -535,6 +688,10 @@ inherited framePackageSWI: TframePackageSWI
         Height = 23
         Hint = 'MUTPCG controls the information that is to be printed.'
         HelpContext = 990
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -570,7 +727,11 @@ inherited framePackageSWI: TframePackageSWI
         Left = 3
         Top = 89
         Width = 130
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -581,7 +742,11 @@ inherited framePackageSWI: TframePackageSWI
         Left = 3
         Top = 116
         Width = 130
-        Height = 24
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -598,6 +763,10 @@ inherited framePackageSWI: TframePackageSWI
           'NPCOND = 2 is rarely used because it is generally slower than NP' +
           'COND = 1.'
         HelpContext = 930
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -633,6 +802,10 @@ inherited framePackageSWI: TframePackageSWI
           'iteria are met, the program will go on to the next outer iterati' +
           'on.'
         HelpContext = 940
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 6
@@ -654,6 +827,10 @@ inherited framePackageSWI: TframePackageSWI
           'l check HCLOSE{linkID=940}.  If both criteria are met, the progr' +
           'am will go on to the next outer iteration.'
         HelpContext = 950
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 7
@@ -676,6 +853,10 @@ inherited framePackageSWI: TframePackageSWI
           'to 0.99 because this may prevent zero divide and non-diagonally ' +
           'dominant matrix errors.'
         HelpContext = 960
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 8
@@ -697,6 +878,10 @@ inherited framePackageSWI: TframePackageSWI
           'mber of iterations required is relatively insensitive to the exa' +
           'ct value of the estimate.'
         HelpContext = 970
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -726,6 +911,10 @@ inherited framePackageSWI: TframePackageSWI
         Height = 22
         Hint = 'Damping factor for reducing oscillation.'
         HelpContext = 1000
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 10
@@ -744,6 +933,10 @@ inherited framePackageSWI: TframePackageSWI
         Height = 22
         Hint = 'Damping factor for reducing oscillation.'
         HelpContext = 1000
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 11
@@ -756,15 +949,25 @@ inherited framePackageSWI: TframePackageSWI
       end
     end
     object tabDensity: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Dimensionless Density'
       ImageIndex = 2
       object rdgDensity: TRbwDataGrid4
         Left = 0
         Top = 0
         Width = 437
-        Height = 409
+        Height = 410
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         ColCount = 2
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         Enabled = False
         FixedCols = 1
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
@@ -827,7 +1030,6 @@ inherited framePackageSWI: TframePackageSWI
             AutoAdjustColWidths = True
           end>
         WordWrapRowCaptions = False
-        ExplicitHeight = 401
       end
     end
   end

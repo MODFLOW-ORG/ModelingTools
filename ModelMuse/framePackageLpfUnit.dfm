@@ -7,9 +7,16 @@ inherited framePackageLpf: TframePackageLpf
   DesignSize = (
     463
     279)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 432
     Height = 59
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 432
     ExplicitHeight = 59
   end
@@ -18,8 +25,14 @@ inherited framePackageLpf: TframePackageLpf
     Top = 127
     Width = 432
     Height = 146
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akTop, akRight, akBottom]
     ColCount = 1
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     Enabled = False
     FixedCols = 0
     RowCount = 6

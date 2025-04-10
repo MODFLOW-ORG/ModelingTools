@@ -6,11 +6,21 @@ inherited frameDE4: TframeDE4
   DesignSize = (
     518
     548)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblDe4Itmx: TLabel [2]
     Left = 16
     Top = 168
     Width = 204
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Maximum number of iterations (ITMX)'
   end
@@ -19,6 +29,10 @@ inherited frameDE4: TframeDE4
     Top = 200
     Width = 284
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Maximum number of equations in upper part (MXUP)'
   end
@@ -27,6 +41,10 @@ inherited frameDE4: TframeDE4
     Top = 228
     Width = 293
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Maximum number of equations in lower part (MXLOW)'
   end
@@ -35,6 +53,10 @@ inherited frameDE4: TframeDE4
     Top = 260
     Width = 165
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Maximum band width (MXBW)'
   end
@@ -43,6 +65,10 @@ inherited frameDE4: TframeDE4
     Top = 288
     Width = 251
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Frequency at which coefficients change (IFREQ)'
   end
@@ -51,6 +77,10 @@ inherited frameDE4: TframeDE4
     Top = 320
     Width = 116
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Print control (MUTD4)'
   end
@@ -59,6 +89,10 @@ inherited frameDE4: TframeDE4
     Top = 348
     Width = 164
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Acceleration parameter (ACCL)'
   end
@@ -67,6 +101,10 @@ inherited frameDE4: TframeDE4
     Top = 380
     Width = 213
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Head change closure criterion (HCLOSE)'
   end
@@ -75,12 +113,17 @@ inherited frameDE4: TframeDE4
     Top = 408
     Width = 127
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Printout interval (IPRD4)'
   end
   inherited memoComments: TMemo
     Width = 487
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 487
   end
   object rdeDe4Itmx: TRbwDataEntry [12]
@@ -88,6 +131,10 @@ inherited frameDE4: TframeDE4
     Top = 165
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -104,6 +151,10 @@ inherited frameDE4: TframeDE4
     Top = 197
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -119,6 +170,10 @@ inherited frameDE4: TframeDE4
     Top = 225
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -134,6 +189,10 @@ inherited frameDE4: TframeDE4
     Top = 257
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -149,6 +208,10 @@ inherited frameDE4: TframeDE4
     Top = 285
     Width = 231
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     Anchors = [akLeft, akBottom]
     ButtonStyle = fsLighter
@@ -182,6 +245,10 @@ inherited frameDE4: TframeDE4
     Top = 317
     Width = 231
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     Anchors = [akLeft, akBottom]
     ButtonStyle = fsLighter
@@ -215,6 +282,10 @@ inherited frameDE4: TframeDE4
     Top = 345
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -230,6 +301,10 @@ inherited frameDE4: TframeDE4
     Top = 377
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -245,6 +320,10 @@ inherited frameDE4: TframeDE4
     Top = 405
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False

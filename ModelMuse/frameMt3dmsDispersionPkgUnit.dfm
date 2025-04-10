@@ -4,11 +4,24 @@ inherited frameMt3dmsDispersionPkg: TframeMt3dmsDispersionPkg
   DesignSize = (
     422
     262)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited memoComments: TMemo
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object cbMultiDiffusion: TCheckBox [3]
     Left = 16
     Top = 157
     Width = 265
     Height = 37
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 
       'Specify diffusion coefficient separately for each mobile compone' +
       'nt  (MultiDiffusion)'
@@ -21,6 +34,10 @@ inherited frameMt3dmsDispersionPkg: TframeMt3dmsDispersionPkg
     Top = 208
     Width = 391
     Height = 41
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 
       'Cross dispersion terms are enabled (inverse of NOCROSS) (MT3D-US' +
       'GS only)'

@@ -22,6 +22,10 @@ inherited frameGweCndPackage: TframeGweCndPackage
     Top = 168
     Width = 289
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Use XT3D (inverse of XT3D_OFF)'
     Checked = True
     Enabled = False
@@ -34,6 +38,10 @@ inherited frameGweCndPackage: TframeGweCndPackage
     Top = 191
     Width = 391
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Some XT3D terms on Right Hand Side (XT3D_RHS)'
     Enabled = False
     TabOrder = 2

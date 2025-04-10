@@ -6,10 +6,17 @@ inherited framePackageRCH: TframePackageRCH
   DesignSize = (
     591
     248)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 560
     Height = 66
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 560
     ExplicitHeight = 96
   end
@@ -17,17 +24,28 @@ inherited framePackageRCH: TframePackageRCH
     Top = 134
     Width = 591
     Height = 114
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 135
     ExplicitWidth = 591
     ExplicitHeight = 114
     DesignSize = (
       591
       114)
+    inherited lblLayerOption: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited comboLayerOption: TComboBox
+      StyleElements = [seFont, seClient, seBorder]
+    end
     object rgAssignmentMethod: TRadioGroup
       Left = 16
       Top = 27
       Width = 560
       Height = 59
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Anchors = [akLeft, akTop, akRight]
       Caption = 'Recharge assignment method'
       Enabled = False
@@ -42,6 +60,10 @@ inherited framePackageRCH: TframePackageRCH
       Top = 92
       Width = 273
       Height = 17
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Use Multiplier (MODFLOW 6)'
       Enabled = False
       TabOrder = 3

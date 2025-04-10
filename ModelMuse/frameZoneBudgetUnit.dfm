@@ -11,13 +11,21 @@ inherited frameZoneBudget: TframeZoneBudget
   inherited lblComments: TLabel
     Width = 160
     Caption = 'Title (first line) and Comments'
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 160
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
   end
   object lblCompositeZones: TLabel [2]
     Left = 16
     Top = 181
     Width = 91
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Composite zones'
   end
   object lblNumberOfZones: TLabel [3]
@@ -25,11 +33,16 @@ inherited frameZoneBudget: TframeZoneBudget
     Top = 325
     Width = 91
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Number of zones'
   end
   inherited memoComments: TMemo
     Width = 459
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 459
   end
   object rdgCompositeZones: TRbwDataGrid4 [5]
@@ -37,10 +50,15 @@ inherited frameZoneBudget: TframeZoneBudget
     Top = 208
     Width = 459
     Height = 108
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clBtnFace
     ColCount = 51
     DefaultColWidth = 20
+    DefaultRowHeight = 30
     FixedCols = 0
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
@@ -1331,12 +1349,68 @@ inherited frameZoneBudget: TframeZoneBudget
         AutoAdjustColWidths = True
       end>
     WordWrapRowCaptions = False
+    ColWidths = (
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24)
   end
   object seNumberOfZones: TJvSpinEdit [6]
     Left = 16
     Top = 322
     Width = 65
-    Height = 21
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ButtonKind = bkClassic
     MaxValue = 100.000000000000000000
     Enabled = False
@@ -1349,6 +1423,10 @@ inherited frameZoneBudget: TframeZoneBudget
     Top = 323
     Width = 75
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akRight, akBottom]
     Caption = 'Insert'
     Enabled = False
@@ -1360,6 +1438,10 @@ inherited frameZoneBudget: TframeZoneBudget
     Top = 323
     Width = 75
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akRight, akBottom]
     Caption = 'Delete'
     Enabled = False
@@ -1371,6 +1453,10 @@ inherited frameZoneBudget: TframeZoneBudget
     Top = 158
     Width = 162
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Export ZBLST file'
     Checked = True
     Enabled = False
@@ -1383,6 +1469,10 @@ inherited frameZoneBudget: TframeZoneBudget
     Top = 158
     Width = 154
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Export CSV file'
     Enabled = False
     TabOrder = 1
@@ -1393,6 +1483,10 @@ inherited frameZoneBudget: TframeZoneBudget
     Top = 158
     Width = 143
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Export CSV2 file'
     Enabled = False
     TabOrder = 2

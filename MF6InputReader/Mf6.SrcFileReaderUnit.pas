@@ -119,7 +119,6 @@ begin
   TS6_FileNames := TStringList.Create;
   Obs6_FileNames := TStringList.Create;
   inherited;
-
 end;
 
 destructor TSrcOptions.Destroy;

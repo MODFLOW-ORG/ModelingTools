@@ -10,7 +10,11 @@ inherited framePCG: TframePCG
     304)
   inherited lblComments: TLabel
     Top = 40
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 40
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
   end
   object lblPCGMaxOuter: TLabel [2]
     AlignWithMargins = True
@@ -18,7 +22,10 @@ inherited framePCG: TframePCG
     Top = 138
     Width = 222
     Height = 15
+    Margins.Left = 4
     Margins.Top = 6
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Max. number of outer iterations (MXITER):'
   end
@@ -28,7 +35,10 @@ inherited framePCG: TframePCG
     Top = 166
     Width = 209
     Height = 15
+    Margins.Left = 4
     Margins.Top = 6
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Max. number of inner iterations (ITER1):'
   end
@@ -38,7 +48,10 @@ inherited framePCG: TframePCG
     Top = 194
     Width = 231
     Height = 15
+    Margins.Left = 4
     Margins.Top = 7
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Matrix preconditioning method (NPCOND):'
   end
@@ -48,7 +61,10 @@ inherited framePCG: TframePCG
     Top = 314
     Width = 192
     Height = 15
+    Margins.Left = 4
     Margins.Top = 6
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Max. abs. change in head (HCLOSE):'
   end
@@ -58,7 +74,10 @@ inherited framePCG: TframePCG
     Top = 342
     Width = 150
     Height = 15
+    Margins.Left = 4
     Margins.Top = 6
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Max. abs. residual (RCLOSE):'
   end
@@ -68,7 +87,10 @@ inherited framePCG: TframePCG
     Top = 370
     Width = 160
     Height = 15
+    Margins.Left = 4
     Margins.Top = 6
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Relaxation parameter (RELAX):'
   end
@@ -78,7 +100,10 @@ inherited framePCG: TframePCG
     Top = 398
     Width = 245
     Height = 15
+    Margins.Left = 4
     Margins.Top = 7
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Upper bound of the max. eigenvalue (NBPOL):'
   end
@@ -88,7 +113,10 @@ inherited framePCG: TframePCG
     Top = 425
     Width = 139
     Height = 15
+    Margins.Left = 4
     Margins.Top = 6
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Printout interval (IPRPCG):'
   end
@@ -98,7 +126,10 @@ inherited framePCG: TframePCG
     Top = 453
     Width = 145
     Height = 15
+    Margins.Left = 4
     Margins.Top = 7
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Printing control (MUTPCG):'
   end
@@ -108,7 +139,10 @@ inherited framePCG: TframePCG
     Top = 480
     Width = 154
     Height = 15
+    Margins.Left = 4
     Margins.Top = 6
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Damping factor (DAMPPCG):'
   end
@@ -118,7 +152,10 @@ inherited framePCG: TframePCG
     Top = 508
     Width = 209
     Height = 15
+    Margins.Left = 4
     Margins.Top = 6
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Transient damping factor (DAMPPCGT):'
   end
@@ -127,6 +164,7 @@ inherited framePCG: TframePCG
     Top = 59
     Width = 583
     Height = 70
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitLeft = 13
     ExplicitTop = 59
     ExplicitWidth = 583
@@ -144,6 +182,10 @@ inherited framePCG: TframePCG
       'ge as 10.  For nonlinear problems, MXITER may need to be larger ' +
       'but should usually be less than 100.'
     HelpContext = 910
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -164,6 +206,10 @@ inherited framePCG: TframePCG
       'Usually <=30 for linear problems; usually 3-10 for nonlinear pro' +
       'blems.'
     HelpContext = 920
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -184,6 +230,10 @@ inherited framePCG: TframePCG
       'NPCOND = 2 is rarely used because it is generally slower than NP' +
       'COND = 1.'
     HelpContext = 930
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Anchors = [akLeft, akBottom]
     ButtonStyle = fsLighter
@@ -220,6 +270,10 @@ inherited framePCG: TframePCG
       'iteria are met, the program will go on to the next outer iterati' +
       'on.'
     HelpContext = 940
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -242,6 +296,10 @@ inherited framePCG: TframePCG
       'l check HCLOSE{linkID=940}.  If both criteria are met, the progr' +
       'am will go on to the next outer iteration.'
     HelpContext = 950
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -265,6 +323,10 @@ inherited framePCG: TframePCG
       'to 0.99 because this may prevent zero divide and non-diagonally ' +
       'dominant matrix errors.'
     HelpContext = 960
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -287,6 +349,10 @@ inherited framePCG: TframePCG
       'mber of iterations required is relatively insensitive to the exa' +
       'ct value of the estimate.'
     HelpContext = 970
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Anchors = [akLeft, akBottom]
     ButtonStyle = fsLighter
@@ -320,6 +386,10 @@ inherited framePCG: TframePCG
       'r the time step is an even multiple of IPRPCG.  The printout als' +
       'o is generated at the end of each stress period.'
     HelpContext = 980
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -338,6 +408,10 @@ inherited framePCG: TframePCG
     Height = 23
     Hint = 'MUTPCG controls the information that is to be printed.'
     HelpContext = 990
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Anchors = [akLeft, akBottom]
     ButtonStyle = fsLighter
@@ -378,6 +452,10 @@ inherited framePCG: TframePCG
     Height = 22
     Hint = 'Damping factor for reducing oscillation.'
     HelpContext = 1000
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -397,6 +475,10 @@ inherited framePCG: TframePCG
     Height = 22
     Hint = 'Damping factor for reducing oscillation.'
     HelpContext = 1000
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -413,6 +495,10 @@ inherited framePCG: TframePCG
     Top = 213
     Width = 583
     Height = 84
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'IHCOFADD'
     TabOrder = 4
     object rbIHCOFADD_0: TRadioButton
@@ -420,6 +506,10 @@ inherited framePCG: TframePCG
       Top = 21
       Width = 510
       Height = 17
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Convert active cells to dry when surrounded by dry cells (0)'
       Enabled = False
       TabOrder = 0
@@ -429,6 +519,10 @@ inherited framePCG: TframePCG
       Top = 44
       Width = 558
       Height = 37
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 
         'Convert active cells to dry when surrounded by dry cells AND hea' +
         'd-dependant and storage flow is zero (1)'

@@ -7,10 +7,27 @@ inherited frameScreenObjectStr: TframeScreenObjectStr
   end
   inherited pnlBottom: TPanel
     Top = 274
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 274
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited lblConductanceInterpretation: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited lblTimeSeriesInterpolation: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited seNumberOfTimes: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited comboTimeSeriesInterpolation: TComboBox
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited comboFormulaInterp: TComboBox
       Left = 206
       Top = 45
+      StyleElements = [seFont, seClient, seBorder]
       OnChange = comboFormulaInterpChange
       ExplicitLeft = 206
       ExplicitTop = 45
@@ -18,7 +35,11 @@ inherited frameScreenObjectStr: TframeScreenObjectStr
   end
   inherited pnlTop: TPanel
     Height = 121
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 121
+    inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited clbParameters: TJvxCheckListBox
       Top = 66
       Height = 54
@@ -60,11 +81,19 @@ inherited frameScreenObjectStr: TframeScreenObjectStr
   inherited pnlGrid: TPanel
     Top = 124
     Height = 150
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 124
     ExplicitHeight = 150
     inherited pnlEditGrid: TPanel
       Height = 56
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitHeight = 56
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
     inherited rdgModflowBoundary: TRbwDataGrid4
       Top = 57

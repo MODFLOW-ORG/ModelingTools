@@ -7,15 +7,26 @@ inherited framePkgSto: TframePkgSto
   DesignSize = (
     447
     240)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblConfinedStorageMethod: TLabel [2]
     Left = 16
     Top = 162
     Width = 266
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Confined storage method (STORAGECOEFFICIENT)'
   end
   inherited memoComments: TMemo
     Width = 416
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 416
   end
   object comboStorageChoice: TJvImageComboBox [4]
@@ -23,6 +34,10 @@ inherited framePkgSto: TframePkgSto
     Top = 181
     Width = 225
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     ButtonStyle = fsLighter
     DroppedWidth = 225

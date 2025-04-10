@@ -5,6 +5,7 @@ inherited frameSutraGeneralizedFlowBoundary: TframeSutraGeneralizedFlowBoundary
     Top = 296
     Height = 127
     TabOrder = 3
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 296
     ExplicitWidth = 587
     ExplicitHeight = 127
@@ -14,6 +15,7 @@ inherited frameSutraGeneralizedFlowBoundary: TframeSutraGeneralizedFlowBoundary
     inherited lblNumTimes: TLabel
       Left = 61
       Top = 101
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 61
       ExplicitTop = 101
     end
@@ -34,6 +36,7 @@ inherited frameSutraGeneralizedFlowBoundary: TframeSutraGeneralizedFlowBoundary
     inherited seNumberOfTimes: TJvSpinEdit
       Left = 6
       Top = 93
+      StyleElements = [seFont, seClient, seBorder]
       TabOrder = 1
       ExplicitLeft = 6
       ExplicitTop = 93
@@ -93,6 +96,7 @@ inherited frameSutraGeneralizedFlowBoundary: TframeSutraGeneralizedFlowBoundary
     Top = 136
     Height = 160
     TabOrder = 2
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 136
     ExplicitWidth = 587
     ExplicitHeight = 160
@@ -369,13 +373,12 @@ inherited frameSutraGeneralizedFlowBoundary: TframeSutraGeneralizedFlowBoundary
           CheckStyle = csCheck
           AutoAdjustColWidths = False
         end>
-      ExplicitWidth = 585
       ExplicitHeight = 158
     end
   end
   inherited pnlTop: TPanel
     Height = 86
-    ExplicitWidth = 587
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 86
     DesignSize = (
       565
@@ -383,19 +386,22 @@ inherited frameSutraGeneralizedFlowBoundary: TframeSutraGeneralizedFlowBoundary
     inherited lblSchedule: TLabel
       Left = 14
       Top = 24
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 14
       ExplicitTop = 24
     end
     inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 585
     end
     inherited comboSchedule: TComboBox
       Left = 8
       Top = 46
       Width = 536
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 8
       ExplicitTop = 46
-      ExplicitWidth = 558
+      ExplicitWidth = 536
     end
   end
   object pnlEditGrid: TPanel

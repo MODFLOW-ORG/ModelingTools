@@ -17,6 +17,7 @@ type
     FMemPrint: TMemPrint;
     FPrintInputOption: Boolean;
     FMaxErrors: Integer;
+    Fhpc6_filename: string;
     procedure SetContinueOption(const Value: Boolean);
     procedure SetMaxErrors(const Value: Integer);
     procedure SetMemPrint(const Value: TMemPrint);
@@ -30,6 +31,7 @@ type
     property MemPrint: TMemPrint read FMemPrint write SetMemPrint;
     property MaxErrors: Integer read FMaxErrors write SetMaxErrors;
     property PrintInputOption: Boolean read FPrintInputOption write SetPrintInputOption;
+    property hpc6_filename: string read Fhpc6_filename;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
   end;
 
@@ -440,6 +442,7 @@ begin
   FMemPrint := mpNone;
   FNoCheckOption := False;
   FPrintInputOption := False;
+  Fhpc6_filename := '';
 end;
 
 procedure TSimulationOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -522,6 +525,11 @@ begin
     else if AValue = 'PRINT_INPUT' then
     begin
       PrintInputOption := True;
+    end
+    else if (AValue = 'HPC6') and (FSplitter.Count >= 3) and (FSplitter[1] = 'FILEIN') then
+    begin
+      Fhpc6_filename := FSplitter[2];
+      Unhandled.WriteLine('This simulation contains an HPC6 in the simulation. It will not be read.');
     end
     else
     begin
@@ -873,7 +881,7 @@ begin
       AnExchange.ExchangeModelNameA := FSplitter[2];
       AnExchange.ExchangeModelNameB := FSplitter[3];
       ALine := UpperCase(FSplitter[0]);
-      if (ALine <> 'GWF6-GWF6') and (ALine <> 'GWF6-GWT6') and (ALine <> 'GWT6-GWT6') then
+      if (ALine <> 'GWF6-GWF6') and (ALine <> 'GWF6-GWT6') and (ALine <> 'GWT6-GWT6') and (ALine <> 'GWF6-GWE6') then
       begin
         Unhandled.WriteLine('Error reading the exchange type in the following line.');
         Unhandled.WriteLine(ErrorLine);
@@ -1137,6 +1145,10 @@ begin
         else if ModelType = 'GWT6' then
         begin
           FName := TTransportNameFile.Create(ModelType);
+        end
+        else if ModelType = 'GWE6' then
+        begin
+          FName := TEnergyTransportNameFile.Create(ModelType);
         end
         else
         begin

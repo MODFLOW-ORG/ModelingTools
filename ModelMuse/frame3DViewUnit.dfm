@@ -11,6 +11,10 @@ object frame3DView: Tframe3DView
     Width = 315
     Height = 182
     Hint = '3D View of model'
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Options = []
     Align = alClient
     ShowHint = True

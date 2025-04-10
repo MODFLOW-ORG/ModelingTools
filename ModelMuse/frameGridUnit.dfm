@@ -9,6 +9,10 @@ object frameGrid: TframeGrid
     Top = 71
     Width = 301
     Height = 41
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     TabOrder = 1
     DesignSize = (
@@ -19,6 +23,10 @@ object frameGrid: TframeGrid
       Top = 9
       Width = 44
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Number'
     end
     object sbAdd: TSpeedButton
@@ -27,6 +35,10 @@ object frameGrid: TframeGrid
       Width = 23
       Height = 22
       Hint = 'Add row|Add a row after the last row'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Anchors = []
       Glyph.Data = {
         F6000000424DF600000000000000760000002800000010000000100000000100
@@ -47,6 +59,10 @@ object frameGrid: TframeGrid
       Width = 23
       Height = 22
       Hint = 'Insert row|Insert a row above the selected row.'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Anchors = []
       Glyph.Data = {
         F6000000424DF600000000000000760000002800000010000000100000000100
@@ -67,6 +83,10 @@ object frameGrid: TframeGrid
       Width = 23
       Height = 22
       Hint = 'Delete row|Delete the selected row.'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Anchors = []
       Glyph.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
@@ -104,6 +124,10 @@ object frameGrid: TframeGrid
       Top = 6
       Width = 65
       Height = 23
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       MaxValue = 1000000.000000000000000000
       TabOrder = 0
       OnChange = seNumberChange
@@ -114,8 +138,14 @@ object frameGrid: TframeGrid
     Top = 0
     Width = 301
     Height = 71
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alClient
     ColCount = 1
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     FixedCols = 0
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]

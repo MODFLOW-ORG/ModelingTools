@@ -1590,7 +1590,7 @@ begin
 
   BaseFile := ChangeFileExt(FNameOfFile, '');
   MvrPackage := Model.ModflowPackages.MvrPackage;
-  if MvrPackage.SaveBudgetFile or Model.SeparateGwtUsed then
+  if MvrPackage.SaveBudgetFile or Model.SeparateGwtUsed or Model.SeparateGweUsed then
   begin
     WriteString('    BUDGET FILEOUT ');
     budgetfile := ChangeFileExt(BaseFile, StrMvrbudget);

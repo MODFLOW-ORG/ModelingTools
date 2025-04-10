@@ -8,11 +8,15 @@ inherited frameFormulaGrid: TframeFormulaGrid
     Top = 123
     Width = 447
     TabOrder = 2
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 123
     ExplicitWidth = 447
     DesignSize = (
       447
       41)
+    inherited lbNumber: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited sbAdd: TSpeedButton
       Left = 231
       Hint = 'Add row|Add a row below the bottom row.'
@@ -20,12 +24,14 @@ inherited frameFormulaGrid: TframeFormulaGrid
     end
     inherited sbInsert: TSpeedButton
       Left = 274
-      Hint = 'Insert row|Insert a row above the selected row.'
       ExplicitLeft = 274
     end
     inherited sbDelete: TSpeedButton
       Left = 317
       ExplicitLeft = 317
+    end
+    inherited seNumber: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
     end
   end
   inherited Grid: TRbwDataGrid4

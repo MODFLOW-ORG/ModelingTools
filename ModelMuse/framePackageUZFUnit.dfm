@@ -6,9 +6,16 @@ inherited framePackageUZF: TframePackageUZF
   DesignSize = (
     548
     514)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 517
     Height = 67
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 517
     ExplicitHeight = 67
   end
@@ -16,6 +23,7 @@ inherited framePackageUZF: TframePackageUZF
     Top = 144
     Width = 548
     Height = 370
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 144
     ExplicitWidth = 548
     ExplicitHeight = 370
@@ -23,6 +31,7 @@ inherited framePackageUZF: TframePackageUZF
       Top = 5
       Width = 266
       Caption = 'Recharge and discharge location option (NUZTOP)'
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 5
       ExplicitWidth = 266
     end
@@ -31,6 +40,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 45
       Width = 254
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Vertical hydraulic conductivity source (IUZFOPT)'
       Enabled = False
     end
@@ -39,6 +52,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 96
       Width = 189
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Number of trailing waves (NTRAIL2)'
       Enabled = False
     end
@@ -47,14 +64,22 @@ inherited framePackageUZF: TframePackageUZF
       Top = 143
       Width = 161
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Number of wave sets (NSETS2)'
       Enabled = False
     end
     object lblSURFDEP: TLabel [4]
       Left = 16
       Top = 286
-      Width = 216
+      Width = 196
       Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 
         'The average height of undulations in the land surface altitude (' +
         'SURFDEP) '
@@ -66,6 +91,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 318
       Width = 187
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'ET smoothing interval (smoothfact)'
     end
     inherited comboLayerOption: TComboBox
@@ -73,6 +102,7 @@ inherited framePackageUZF: TframePackageUZF
       Top = 24
       ItemIndex = -1
       Text = ''
+      StyleElements = [seFont, seClient, seBorder]
       Items.Strings = (
         'Top layer (1)'
         'Specified layer (2)'
@@ -86,6 +116,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 69
       Width = 255
       Height = 23
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Style = csDropDownList
       Enabled = False
       TabOrder = 1
@@ -98,6 +132,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 115
       Width = 145
       Height = 22
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Color = clBtnFace
       Enabled = False
       TabOrder = 3
@@ -113,6 +151,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 162
       Width = 145
       Height = 22
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Color = clBtnFace
       Enabled = False
       TabOrder = 4
@@ -128,6 +170,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 343
       Width = 145
       Height = 22
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Color = clBtnFace
       Enabled = False
       TabOrder = 6
@@ -142,8 +188,12 @@ inherited framePackageUZF: TframePackageUZF
       Top = 190
       Width = 517
       Height = 67
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Enabled = False
-      ItemHeight = 15
+      ItemHeight = 21
       Items.Strings = (
         ' Route discharge to streams, lakes, or SWR reaches (IRUNFLG)'
         'Simulate evapotranspiration (IETFLG)'
@@ -167,6 +217,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 104
       Width = 293
       Height = 80
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Infiltration assignment method'
       Enabled = False
       ItemIndex = 1
@@ -181,6 +235,10 @@ inherited framePackageUZF: TframePackageUZF
       Top = 343
       Width = 145
       Height = 22
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       TabOrder = 7
       Text = '0.1'
       DataType = dtReal

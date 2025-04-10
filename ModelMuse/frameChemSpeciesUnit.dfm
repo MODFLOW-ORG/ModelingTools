@@ -9,6 +9,11 @@ object frameChemSpecies: TframeChemSpecies
     Top = 0
     Width = 5
     Height = 480
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    MinSize = 38
     ExplicitLeft = 145
     ExplicitTop = 1
     ExplicitHeight = 115
@@ -18,6 +23,10 @@ object frameChemSpecies: TframeChemSpecies
     Top = 0
     Width = 387
     Height = 480
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alClient
     Enabled = False
     TabOrder = 0
@@ -27,8 +36,12 @@ object frameChemSpecies: TframeChemSpecies
     inherited Panel: TPanel
       Top = 439
       Width = 387
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 439
       ExplicitWidth = 387
+      inherited lbNumber: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
       inherited sbAdd: TSpeedButton
         Left = 199
         ExplicitLeft = 147
@@ -40,6 +53,9 @@ object frameChemSpecies: TframeChemSpecies
       inherited sbDelete: TSpeedButton
         Left = 273
         ExplicitLeft = 204
+      end
+      inherited seNumber: TJvSpinEdit
+        StyleElements = [seFont, seClient, seBorder]
       end
     end
     inherited Grid: TRbwDataGrid4
@@ -132,6 +148,10 @@ object frameChemSpecies: TframeChemSpecies
     Top = 0
     Width = 248
     Height = 480
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alLeft
     Enabled = False
     TabOrder = 1
@@ -140,8 +160,12 @@ object frameChemSpecies: TframeChemSpecies
     inherited Panel: TPanel
       Top = 439
       Width = 248
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 439
       ExplicitWidth = 248
+      inherited lbNumber: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
       inherited sbAdd: TSpeedButton
         Left = 123
         ExplicitLeft = 123
@@ -153,6 +177,9 @@ object frameChemSpecies: TframeChemSpecies
       inherited sbDelete: TSpeedButton
         Left = 171
         ExplicitLeft = 171
+      end
+      inherited seNumber: TJvSpinEdit
+        StyleElements = [seFont, seClient, seBorder]
       end
     end
     inherited Grid: TRbwDataGrid4

@@ -7,16 +7,27 @@ inherited framePackageNpf: TframePackageNpf
   DesignSize = (
     431
     329)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblInterblockMethod: TLabel [2]
     Left = 16
     Top = 119
     Width = 353
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Method of calculating interblock transmissivity (CELL_AVERAGING)'
   end
   inherited memoComments: TMemo
     Width = 400
     Height = 51
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 400
     ExplicitHeight = 51
   end
@@ -25,8 +36,14 @@ inherited framePackageNpf: TframePackageNpf
     Top = 167
     Width = 400
     Height = 145
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akTop, akRight, akBottom]
     ColCount = 1
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     Enabled = False
     FixedCols = 0
     RowCount = 10
@@ -78,6 +95,10 @@ inherited framePackageNpf: TframePackageNpf
     Top = 138
     Width = 400
     Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csOwnerDrawVariable
     Anchors = [akLeft, akTop, akRight]
     ButtonStyle = fsLighter

@@ -195,7 +195,7 @@ begin
           Unhandled.WriteLine(ErrorLine);
         end;
       end
-      else if FSplitter[0] = 'CONCENTRATION' then
+      else if (FSplitter[0] = 'CONCENTRATION') or (FSplitter[0] = 'TEMPERATURE') then
       begin
         if FSplitter[1] = 'FILEOUT' then
         begin
@@ -305,7 +305,7 @@ begin
         begin
           List := FSaveHead;
         end
-        ELSE if FSplitter[1] = 'CONCENTRATION' then
+        ELSE if (FSplitter[1] = 'CONCENTRATION') or (FSplitter[1] = 'TEMPERATURE') then
         begin
           List := FSaveConcentration;
         end
@@ -325,7 +325,7 @@ begin
         begin
           List := FPrintHead;
         end
-        ELSE if FSplitter[1] = 'CONCENTRATION' then
+        ELSE if (FSplitter[1] = 'CONCENTRATION') or (FSplitter[1] = 'TEMPERATURE') then
         begin
           List := FPrintConcentration;
         end

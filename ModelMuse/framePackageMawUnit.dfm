@@ -6,28 +6,41 @@ inherited framePackageMaw: TframePackageMaw
   DesignSize = (
     521
     513)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblShutDownTheta: TLabel [2]
     Left = 176
     Top = 456
     Width = 84
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Shutdown theta'
-    ExplicitTop = 255
   end
   object lblShutDownKappa: TLabel [3]
     Left = 176
     Top = 484
     Width = 89
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Shutdown kappa'
-    ExplicitTop = 283
   end
   inherited memoComments: TMemo
     Width = 490
     Height = 235
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 490
     ExplicitHeight = 235
   end
@@ -36,6 +49,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 303
     Width = 391
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Print MAW heads to listing file (PRINT_HEAD)'
     Enabled = False
@@ -46,6 +63,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 323
     Width = 391
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Save binary MAW heads file (.maw_head)'
     Enabled = False
@@ -56,6 +77,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 344
     Width = 391
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Save binary MAW budget file (.maw_bud)'
     Enabled = False
@@ -66,6 +91,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 428
     Width = 449
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Include well storage (inverse of NO_WELL_STORAGE)'
     Enabled = False
@@ -76,6 +105,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 453
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -92,6 +125,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 481
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -108,6 +145,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 365
     Width = 490
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Save comma-separated values MAW budget file (.maw_bud.csv)'
     Enabled = False
@@ -118,6 +159,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 407
     Width = 449
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Make flow corrections (FLOW_CORRECTION)'
     Enabled = False
@@ -128,6 +173,10 @@ inherited framePackageMaw: TframePackageMaw
     Top = 386
     Width = 490
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Write flow reductions to CSV file (MAW_FLOW_REDUCE_CSV)'
     Enabled = False

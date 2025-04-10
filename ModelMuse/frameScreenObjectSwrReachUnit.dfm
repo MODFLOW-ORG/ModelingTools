@@ -169,7 +169,6 @@ inherited frameScreenObjectSwrReach: TframeScreenObjectSwrReach
             'between them are defined automatically. Use this page to define ' +
             'connections with other objects.'
           WordWrap = True
-          ExplicitTop = 25
           ExplicitWidth = 555
         end
         inline frameConnections: TframeGrid
@@ -186,8 +185,12 @@ inherited frameScreenObjectSwrReach: TframeScreenObjectSwrReach
           inherited Panel: TPanel
             Top = 79
             Width = 563
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 74
             ExplicitWidth = 563
+            inherited lbNumber: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
             inherited sbAdd: TSpeedButton
               Left = 294
               ExplicitLeft = 296
@@ -199,6 +202,9 @@ inherited frameScreenObjectSwrReach: TframeScreenObjectSwrReach
             inherited sbDelete: TSpeedButton
               Left = 402
               ExplicitLeft = 405
+            end
+            inherited seNumber: TJvSpinEdit
+              StyleElements = [seFont, seClient, seBorder]
             end
           end
           inherited Grid: TRbwDataGrid4
@@ -311,8 +317,15 @@ inherited frameScreenObjectSwrReach: TframeScreenObjectSwrReach
         inherited pnlBottom: TPanel
           Top = 306
           Width = 567
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 301
           ExplicitWidth = 567
+          inherited lblNumTimes: TLabel
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited seNumberOfTimes: TJvSpinEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
           inherited btnDelete: TBitBtn
             Left = 479
             ExplicitLeft = 479
@@ -324,20 +337,30 @@ inherited frameScreenObjectSwrReach: TframeScreenObjectSwrReach
         end
         inherited pnlTop: TPanel
           Width = 567
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 567
           inherited pnlCaption: TPanel
             Width = 565
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 565
           end
         end
         inherited pnlGrid: TPanel
           Width = 567
           Height = 281
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 567
           ExplicitHeight = 283
           inherited pnlEditGrid: TPanel
             Width = 565
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 565
+            inherited lblFormula: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited rdeFormula: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
           end
           inherited rdgModflowBoundary: TRbwDataGrid4
             Width = 565

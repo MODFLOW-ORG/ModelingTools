@@ -7,9 +7,16 @@ inherited framePackageSwt: TframePackageSwt
   DesignSize = (
     595
     514)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 564
     Height = 43
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 564
     ExplicitHeight = 43
   end
@@ -18,11 +25,19 @@ inherited framePackageSwt: TframePackageSwt
     Top = 111
     Width = 595
     Height = 403
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabControls
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
     object tabControls: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Controls'
       DesignSize = (
         587
@@ -32,6 +47,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 103
         Width = 161
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of void ratio (IVOID)'
       end
       object lblIstpcs: TLabel
@@ -39,6 +58,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 162
         Width = 284
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Method of specifying preconsolidation stress (ISTPCS)'
       end
       object lblIcrcc: TLabel
@@ -46,6 +69,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 221
         Width = 373
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Method of specifying recompression and compression indices (ICRC' +
           'C)'
@@ -55,6 +82,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 284
         Width = 110
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Binary output choice'
       end
       object gbIthk: TGroupBox
@@ -62,6 +93,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 3
         Width = 564
         Height = 94
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Treatment of compressible sediments (ITHK)'
         TabOrder = 0
@@ -73,6 +108,10 @@ inherited framePackageSwt: TframePackageSwt
           Top = 24
           Width = 558
           Height = 17
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = [akLeft, akTop, akRight]
           Caption = 'Thickness of compressible sediments is constant (0)'
           Enabled = False
@@ -83,6 +122,10 @@ inherited framePackageSwt: TframePackageSwt
           Top = 47
           Width = 558
           Height = 44
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = [akLeft, akTop, akRight]
           Caption = 
             'Thickness of compressible sediments varies in response to change' +
@@ -97,6 +140,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 308
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -124,6 +171,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 122
         Width = 561
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -151,6 +202,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 184
         Width = 561
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -178,6 +233,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 247
         Width = 561
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -204,6 +263,10 @@ inherited framePackageSwt: TframePackageSwt
       end
     end
     object tabPrintSave: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Print/Save'
       ImageIndex = 1
       DesignSize = (
@@ -211,10 +274,14 @@ inherited framePackageSwt: TframePackageSwt
         373)
       object sbAdd: TSpeedButton
         Left = 495
-        Top = 335
+        Top = 340
         Width = 23
         Height = 22
         Hint = 'Add layer group|Add a layer group below the bottom layer group.'
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akRight, akBottom]
         Enabled = False
         Glyph.Data = {
@@ -229,15 +296,20 @@ inherited framePackageSwt: TframePackageSwt
         ParentShowHint = False
         ShowHint = True
         OnClick = sbAddClick
+        ExplicitTop = 335
       end
       object sbInsert: TSpeedButton
         Left = 524
-        Top = 335
+        Top = 340
         Width = 23
         Height = 22
         Hint = 
           'Insert layer group|Insert a layer group above the selected layer' +
           ' group.'
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akRight, akBottom]
         Enabled = False
         Glyph.Data = {
@@ -252,13 +324,18 @@ inherited framePackageSwt: TframePackageSwt
         ParentShowHint = False
         ShowHint = True
         OnClick = sbInsertClick
+        ExplicitTop = 335
       end
       object sbDelete: TSpeedButton
         Left = 553
-        Top = 335
+        Top = 340
         Width = 23
         Height = 22
         Hint = 'Delete layer group|Delete the selected layer group.'
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akRight, akBottom]
         Enabled = False
         Glyph.Data = {
@@ -291,22 +368,34 @@ inherited framePackageSwt: TframePackageSwt
         ParentShowHint = False
         ShowHint = True
         OnClick = sbDeleteClick
+        ExplicitTop = 335
       end
       object lblNumExportPeriods: TLabel
         Left = 75
-        Top = 338
+        Top = 343
         Width = 137
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akBottom]
         Caption = 'Number of export periods'
+        ExplicitTop = 338
       end
       object rdgInitialPrintChoices: TRbwDataGrid4
         Left = 3
         Top = 3
         Width = 573
         Height = 161
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akTop, akRight]
         ColCount = 3
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         Enabled = False
         FixedCols = 1
         RowCount = 6
@@ -413,9 +502,15 @@ inherited framePackageSwt: TframePackageSwt
         Left = 3
         Top = 199
         Width = 573
-        Height = 130
+        Height = 135
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akTop, akRight, akBottom]
         ColCount = 28
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         Enabled = False
         FixedCols = 0
         RowCount = 3
@@ -1124,21 +1219,30 @@ inherited framePackageSwt: TframePackageSwt
       end
       object seNumExportPeriods: TJvSpinEdit
         Left = 12
-        Top = 335
+        Top = 340
         Width = 57
-        Height = 21
+        Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         ButtonKind = bkClassic
         Value = 1.000000000000000000
         Enabled = False
         Anchors = [akLeft, akBottom]
         TabOrder = 4
         OnChange = seNumExportPeriodsChange
+        ExplicitTop = 335
       end
       object comboMultiFomat: TJvImageComboBox
         Left = 3
         Top = 170
         Width = 89
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -1222,6 +1326,10 @@ inherited framePackageSwt: TframePackageSwt
         Top = 176
         Width = 177
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Set multiple check boxes'
         Enabled = False
         TabOrder = 2

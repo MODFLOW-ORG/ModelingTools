@@ -1593,7 +1593,7 @@ begin
   end;
 
   LocalModel := Model as TCustomModel;
-  if LocalModel.GwtUsed then
+  if LocalModel.GwtUsed or LocalModel.GweUsed then
   begin
     Inc(Result, LocalModel.MobileComponents.Count);
   end;

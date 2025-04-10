@@ -7,14 +7,22 @@ inherited framePkgFarm: TframePkgFarm
     504
     462)
   inherited lblPackage: TLabel [0]
+    StyleElements = [seFont, seClient, seBorder]
   end
   inherited lblComments: TLabel [1]
+    StyleElements = [seFont, seClient, seBorder]
   end
   object splttrFarm: TJvNetscapeSplitter [2]
     Left = 94
     Top = 0
+    Width = 13
     Height = 462
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alLeft
+    MinSize = 38
     Maximized = False
     Minimized = False
     ButtonCursor = crDefault
@@ -27,33 +35,49 @@ inherited framePkgFarm: TframePkgFarm
     Height = 149
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 2
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 72
     ExplicitHeight = 149
   end
   object jvplFarm: TJvPageList [4]
-    Left = 104
+    Left = 107
     Top = 0
-    Width = 400
+    Width = 397
     Height = 462
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = jvspMnwNwtOptions
     PropagateEnable = False
     Align = alClient
+    ExplicitLeft = 104
+    ExplicitWidth = 400
     object jvspOptions: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'Farm_Process_Options'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspOptions'
+      ExplicitWidth = 400
       DesignSize = (
-        400
+        397
         462)
       object lblCropIrrigationRequirement: TLabel
         Left = 6
         Top = 318
         Width = 245
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akBottom]
         Caption = 'Crop irrigation requirement (AUX NOCIRNOQ)'
       end
@@ -62,6 +86,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 379
         Width = 311
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akBottom]
         Caption = 'Recompute farm flows for each time step (RECOMP_Q_BD)'
       end
@@ -70,6 +98,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 253
         Width = 379
         Height = 59
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Anchors = [akLeft, akRight, akBottom]
         Caption = 'Precipitation assignment method'
         Enabled = False
@@ -84,6 +116,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 340
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Anchors = [akLeft, akBottom]
         Enabled = False
@@ -97,6 +133,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 401
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Anchors = [akLeft, akBottom]
         Enabled = False
@@ -110,6 +150,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 428
         Width = 363
         Height = 35
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Reset QMAX in MNW packages in each stress period (AUX QMAXRESET)'
         Enabled = False
         TabOrder = 3
@@ -119,25 +163,39 @@ inherited framePkgFarm: TframePkgFarm
     object jvspParameters: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'FarmParameters'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspParameters'
+      ExplicitWidth = 400
     end
     object jvspWhenToRead: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'When_to_Read_Flags'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspWhenToRead'
+      ExplicitWidth = 400
       object lblRootingDepth: TLabel
         Left = 16
         Top = 14
         Width = 114
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Rooting depth (IRTFL)'
       end
       object lblConsumptiveUse: TLabel
@@ -145,6 +203,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 75
         Width = 134
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Consumptive use (ICUFL)'
       end
       object lblPrecipitation: TLabel
@@ -152,6 +214,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 134
         Width = 100
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Precipitation (IPFL)'
       end
       object lblInefficiencyLosses: TLabel
@@ -159,6 +225,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 195
         Width = 207
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Fraction of inefficiency losses (IIESWFL)'
       end
       object comboRootingDepth: TComboBox
@@ -166,6 +236,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 36
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 0
@@ -178,6 +252,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 97
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 1
@@ -192,6 +270,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 217
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 3
@@ -204,6 +286,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 156
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 2
@@ -215,16 +301,25 @@ inherited framePkgFarm: TframePkgFarm
     object jvspWaterPolicy: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'Water_Policy_Flags'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspWaterPolicy'
+      ExplicitWidth = 400
       object lblDeficiency: TLabel
         Left = 6
         Top = 287
         Width = 136
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Deficiency policy (IDEFFL)'
       end
       object comboDeficiency: TComboBox
@@ -232,6 +327,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 309
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 1
@@ -246,16 +345,20 @@ inherited framePkgFarm: TframePkgFarm
       inline frameEfficiencyBehavior: TframeRadioGrid
         Left = 0
         Top = 0
-        Width = 400
+        Width = 397
         Height = 281
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alTop
         Enabled = False
         TabOrder = 0
         ExplicitWidth = 400
         ExplicitHeight = 281
         inherited grpDescription: TGroupBox
-          Width = 397
-          Height = 278
+          Width = 393
+          Height = 277
           Caption = 'Efficiency behavior (IEBFL)'
           ExplicitWidth = 397
           ExplicitHeight = 278
@@ -263,6 +366,7 @@ inherited framePkgFarm: TframePkgFarm
             Left = 56
             Width = 170
             Caption = 'Efficiency groundwater function'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitLeft = 56
             ExplicitWidth = 170
           end
@@ -273,6 +377,7 @@ inherited framePkgFarm: TframePkgFarm
             Height = 13
             AutoSize = False
             Caption = 'Efficiency reset'
+            StyleElements = [seFont, seClient, seBorder]
             ButtonWidth = 52
             ButtonHeight = 13
             ExplicitLeft = 3
@@ -283,8 +388,8 @@ inherited framePkgFarm: TframePkgFarm
           inherited rdgGrid: TRbwDataGrid4
             Left = 32
             Top = 57
-            Width = 360
-            Height = 216
+            Width = 355
+            Height = 214
             Margins.Left = 30
             Margins.Top = 40
             ColCount = 3
@@ -367,8 +472,8 @@ inherited framePkgFarm: TframePkgFarm
             WordWrapRowCaptions = True
             ExplicitLeft = 32
             ExplicitTop = 57
-            ExplicitWidth = 360
-            ExplicitHeight = 216
+            ExplicitWidth = 355
+            ExplicitHeight = 214
             ColWidths = (
               178
               108
@@ -385,6 +490,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 336
         Width = 371
         Height = 41
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Farm well pumping limited by groundwater allotments (IALLOTGW)'
         Enabled = False
         TabOrder = 2
@@ -394,30 +503,40 @@ inherited framePkgFarm: TframePkgFarm
     object jvspCropConsumptiveUse: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'Crop_Consumptive_Use_Flags'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspCropConsumptiveUse'
+      ExplicitWidth = 400
       inline frameCropConsumptiveUse: TframeRadioGrid
         Left = 0
         Top = 0
-        Width = 400
+        Width = 397
         Height = 462
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         Enabled = False
         TabOrder = 0
         ExplicitWidth = 400
         ExplicitHeight = 462
         inherited grpDescription: TGroupBox
-          Width = 397
-          Height = 459
+          Width = 393
+          Height = 458
           Caption = 'Crop Consumptive-Use Flag (ICCFL)'
           ExplicitWidth = 397
           ExplicitHeight = 459
           inherited lblTop: TLabel
             Width = 144
             Caption = 'Crop consumptive concept'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 144
           end
           inherited lblLeft: TMMJLabel
@@ -427,6 +546,7 @@ inherited framePkgFarm: TframePkgFarm
             Height = 13
             AutoSize = False
             Caption = 'Crop consumptive linkage  '
+            StyleElements = [seFont, seClient, seBorder]
             ButtonWidth = 52
             ButtonHeight = 13
             ExplicitLeft = 3
@@ -436,8 +556,8 @@ inherited framePkgFarm: TframePkgFarm
           end
           inherited rdgGrid: TRbwDataGrid4
             Left = 32
-            Width = 360
-            Height = 417
+            Width = 355
+            Height = 415
             Margins.Left = 30
             ColCount = 3
             RowCount = 3
@@ -515,8 +635,8 @@ inherited framePkgFarm: TframePkgFarm
                 AutoAdjustColWidths = True
               end>
             ExplicitLeft = 32
-            ExplicitWidth = 360
-            ExplicitHeight = 417
+            ExplicitWidth = 355
+            ExplicitHeight = 415
           end
         end
       end
@@ -524,16 +644,25 @@ inherited framePkgFarm: TframePkgFarm
     object jvspSurfaceWater: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'Surface_Water_Flags'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspSurfaceWater'
+      ExplicitWidth = 400
       object lblRoutedDelivery: TLabel
         Left = 16
         Top = 14
         Width = 198
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Routed surface-water delivery (IRDFL)'
       end
       object lblRoutedReturnFlow: TLabel
@@ -541,6 +670,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 75
         Width = 247
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Routed surface-water runoff returnflow (IRRFL)'
       end
       object lblAllotment: TLabel
@@ -548,6 +681,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 134
         Width = 190
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Surface water allotment (IALLOTSW)'
       end
       object lblDiversionCriterion: TLabel
@@ -555,6 +692,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 195
         Width = 190
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Diversion closure criterion (PCLOSE)'
       end
       object comboRoutedDelivery: TComboBox
@@ -562,6 +703,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 36
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 0
@@ -575,6 +720,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 97
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 1
@@ -587,6 +736,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 156
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 2
@@ -602,6 +755,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 217
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 3
         Text = '0'
         DataType = dtReal
@@ -613,16 +770,25 @@ inherited framePkgFarm: TframePkgFarm
     object jvspMandatoryPrintFlags1: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'Mandatory_Print_Flags'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspMandatoryPrintFlags1'
+      ExplicitWidth = 400
       object lblSaveWellFlowRates: TLabel
         Left = 16
         Top = 14
         Width = 182
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save farm well flow rates (IFWLCB)'
       end
       object lblSaveRecharge: TLabel
@@ -630,6 +796,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 75
         Width = 144
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Save net recharge (IFNRCB)'
       end
       object lblSupplyAndDemand: TLabel
@@ -637,6 +807,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 134
         Width = 153
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Supply and demand (ISDPFL)'
       end
       object comboSaveWellFlowRates: TComboBox
@@ -644,6 +818,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 36
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 0
@@ -656,6 +834,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 97
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 1
@@ -670,6 +852,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 156
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         Enabled = False
         TabOrder = 2
@@ -683,37 +869,51 @@ inherited framePkgFarm: TframePkgFarm
     object jvspOptionalPrintFlags: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'Optional_Print_Flags'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspOptionalPrintFlags'
+      ExplicitWidth = 400
       object lblDiversionBudgetLocation: TLabel
         Left = 16
         Top = 151
         Width = 183
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Diversion budget location (IPAPFL)'
       end
       inline frameAcreageOptimizationPrintSettings: TframeRadioGrid
         Left = 0
         Top = 256
-        Width = 400
+        Width = 397
         Height = 206
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         TabOrder = 2
         ExplicitTop = 256
         ExplicitWidth = 400
         ExplicitHeight = 206
         inherited grpDescription: TGroupBox
-          Width = 397
-          Height = 203
+          Width = 393
+          Height = 202
           Caption = 'Acreage-Optimization print settings (IOPFL)'
           ExplicitWidth = 397
           ExplicitHeight = 203
           inherited lblTop: TLabel
             Width = 71
             Caption = 'Print location'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 71
           end
           inherited lblLeft: TMMJLabel
@@ -723,6 +923,7 @@ inherited framePkgFarm: TframePkgFarm
             Height = 13
             AutoSize = False
             Caption = 'Print choice '
+            StyleElements = [seFont, seClient, seBorder]
             ButtonWidth = 52
             ButtonHeight = 13
             ExplicitLeft = 13
@@ -731,8 +932,8 @@ inherited framePkgFarm: TframePkgFarm
             ExplicitHeight = 58
           end
           inherited rdgGrid: TRbwDataGrid4
-            Width = 344
-            Height = 161
+            Width = 339
+            Height = 159
             ColCount = 3
             RowCount = 6
             Columns = <
@@ -809,8 +1010,8 @@ inherited framePkgFarm: TframePkgFarm
                 AutoAdjustColWidths = True
               end>
             WordWrapRowCaptions = True
-            ExplicitWidth = 344
-            ExplicitHeight = 161
+            ExplicitWidth = 339
+            ExplicitHeight = 159
             ColWidths = (
               191
               64
@@ -823,6 +1024,10 @@ inherited framePkgFarm: TframePkgFarm
         Top = 173
         Width = 369
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csDropDownList
         TabOrder = 1
         Items.Strings = (
@@ -832,15 +1037,19 @@ inherited framePkgFarm: TframePkgFarm
       inline frameRoutingInformationPrintFlag: TframeRadioGrid
         Left = 0
         Top = 0
-        Width = 400
+        Width = 397
         Height = 145
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alTop
         TabOrder = 0
         ExplicitWidth = 400
         ExplicitHeight = 145
         inherited grpDescription: TGroupBox
-          Width = 397
-          Height = 142
+          Width = 393
+          Height = 141
           Caption = 'Routing information print flag (IRTPFL)'
           ExplicitWidth = 397
           ExplicitHeight = 142
@@ -848,6 +1057,7 @@ inherited framePkgFarm: TframePkgFarm
             Left = 200
             Width = 46
             Caption = 'Location'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitLeft = 200
             ExplicitWidth = 46
           end
@@ -856,13 +1066,14 @@ inherited framePkgFarm: TframePkgFarm
             Top = 36
             Width = 58
             Caption = 'Frequency '
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitLeft = 13
             ExplicitTop = 36
             ExplicitWidth = 58
           end
           inherited rdgGrid: TRbwDataGrid4
-            Width = 344
-            Height = 100
+            Width = 339
+            Height = 98
             ColCount = 4
             RowCount = 3
             Columns = <
@@ -962,8 +1173,8 @@ inherited framePkgFarm: TframePkgFarm
                 CheckStyle = csRadio
                 AutoAdjustColWidths = True
               end>
-            ExplicitWidth = 344
-            ExplicitHeight = 100
+            ExplicitWidth = 339
+            ExplicitHeight = 98
           end
         end
       end
@@ -971,29 +1182,39 @@ inherited framePkgFarm: TframePkgFarm
     object jvspMandatoryPrintFlags2: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'Mandatory_Print_Flags_2'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspMandatoryPrintFlags2'
+      ExplicitWidth = 400
       inline frameET_PrintFlag: TframeRadioGrid
         Left = 0
         Top = 0
-        Width = 400
+        Width = 397
         Height = 211
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alTop
         TabOrder = 0
         ExplicitWidth = 400
         ExplicitHeight = 211
         inherited grpDescription: TGroupBox
-          Width = 397
-          Height = 208
+          Width = 393
+          Height = 207
           Caption = 'Farm total evapotranspiration print flag (IETPFL)'
           ExplicitWidth = 397
           ExplicitHeight = 208
           inherited lblTop: TLabel
             Width = 70
             Caption = 'What to print'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 70
           end
           inherited lblLeft: TMMJLabel
@@ -1001,13 +1222,14 @@ inherited framePkgFarm: TframePkgFarm
             Top = 62
             Width = 74
             Caption = 'Print location '
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitLeft = 13
             ExplicitTop = 62
             ExplicitWidth = 74
           end
           inherited rdgGrid: TRbwDataGrid4
-            Width = 344
-            Height = 166
+            Width = 339
+            Height = 164
             ColCount = 6
             RowCount = 3
             OnSelectCell = frameET_PrintFlagrdgGridSelectCell
@@ -1156,16 +1378,20 @@ inherited framePkgFarm: TframePkgFarm
                 CheckStyle = csRadio
                 AutoAdjustColWidths = True
               end>
-            ExplicitWidth = 344
-            ExplicitHeight = 166
+            ExplicitWidth = 339
+            ExplicitHeight = 164
           end
         end
       end
       inline frameFarmBudgetPrintFlag: TframeRadioGrid
         Left = 0
         Top = 256
-        Width = 400
+        Width = 397
         Height = 206
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         Enabled = False
         TabOrder = 1
@@ -1173,14 +1399,15 @@ inherited framePkgFarm: TframePkgFarm
         ExplicitWidth = 400
         ExplicitHeight = 206
         inherited grpDescription: TGroupBox
-          Width = 397
-          Height = 203
+          Width = 393
+          Height = 202
           Caption = 'Farm budget print flags (IFBPFL)'
           ExplicitWidth = 397
           ExplicitHeight = 203
           inherited lblTop: TLabel
             Width = 51
             Caption = 'Print type'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 51
           end
           inherited lblLeft: TMMJLabel
@@ -1190,6 +1417,7 @@ inherited framePkgFarm: TframePkgFarm
             Height = 13
             AutoSize = False
             Caption = 'Compact or detailed '
+            StyleElements = [seFont, seClient, seBorder]
             ButtonWidth = 52
             ButtonHeight = 13
             ExplicitLeft = 3
@@ -1198,8 +1426,8 @@ inherited framePkgFarm: TframePkgFarm
             ExplicitHeight = 99
           end
           inherited rdgGrid: TRbwDataGrid4
-            Width = 344
-            Height = 161
+            Width = 339
+            Height = 159
             DefaultColWidth = 60
             RowCount = 3
             Columns = <
@@ -1324,8 +1552,8 @@ inherited framePkgFarm: TframePkgFarm
                 AutoAdjustColWidths = False
               end>
             WordWrapRowCaptions = True
-            ExplicitWidth = 344
-            ExplicitHeight = 161
+            ExplicitWidth = 339
+            ExplicitHeight = 159
           end
         end
       end
@@ -1333,16 +1561,24 @@ inherited framePkgFarm: TframePkgFarm
     object jvspMnwNwtOptions: TJvStandardPage
       Left = 0
       Top = 0
-      Width = 400
+      Width = 397
       Height = 462
       HelpType = htKeyword
       HelpKeyword = 'MNW_and_NWT_Options'
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'jvspMnwNwtOptions'
       object lblMnwExplanation: TLabel
         Left = 16
         Top = 12
-        Width = 242
+        Width = 198
         Height = 30
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'These options apply to the interation with the MNW1 and MNW2 pac' +
           'kages'
@@ -1351,8 +1587,12 @@ inherited framePkgFarm: TframePkgFarm
       object grpMNWOptions: TGroupBox
         Left = 0
         Top = 0
-        Width = 400
+        Width = 397
         Height = 305
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alTop
         Caption = 'MNW1 and MNW2 Options'
         TabOrder = 0
@@ -1361,6 +1601,10 @@ inherited framePkgFarm: TframePkgFarm
           Top = 237
           Width = 216
           Height = 45
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 
             'Fraction of reduction of residual-change closure criterion if QC' +
             'LOSE was not met (RPCT)'
@@ -1369,8 +1613,12 @@ inherited framePkgFarm: TframePkgFarm
         object lblHPCT: TLabel
           Left = 74
           Top = 175
-          Width = 242
-          Height = 30
+          Width = 213
+          Height = 45
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 
             'Fraction of reduction of head-change closure criterion if QCLOSE' +
             ' was not met (HPCT)'
@@ -1379,8 +1627,12 @@ inherited framePkgFarm: TframePkgFarm
         object lblQClose: TLabel
           Left = 74
           Top = 114
-          Width = 225
+          Width = 222
           Height = 45
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 
             'Criterion for actual MNW pumping rate to converge to FMP pumping' +
             ' requirement (QCLOSE) '
@@ -1391,6 +1643,10 @@ inherited framePkgFarm: TframePkgFarm
           Top = 21
           Width = 394
           Height = 75
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 
             'Adjust solver closure criteria to allow convergence of the FMP p' +
             'umping requirement to pumping simulated by the linked MNW1 or MN' +
@@ -1405,6 +1661,10 @@ inherited framePkgFarm: TframePkgFarm
           Top = 237
           Width = 65
           Height = 22
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Color = clBtnFace
           Enabled = False
           TabOrder = 3
@@ -1420,6 +1680,10 @@ inherited framePkgFarm: TframePkgFarm
           Top = 175
           Width = 65
           Height = 22
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Color = clBtnFace
           Enabled = False
           TabOrder = 2
@@ -1435,6 +1699,10 @@ inherited framePkgFarm: TframePkgFarm
           Top = 111
           Width = 65
           Height = 22
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Color = clBtnFace
           Enabled = False
           TabOrder = 1
@@ -1448,16 +1716,24 @@ inherited framePkgFarm: TframePkgFarm
       object grpNwtOptions: TGroupBox
         Left = 0
         Top = 305
-        Width = 400
+        Width = 397
         Height = 144
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alTop
         Caption = 'NWT Options'
         TabOrder = 1
         object lblPSIRAMPF: TLabel
           Left = 74
           Top = 26
-          Width = 224
+          Width = 206
           Height = 45
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 
             'Minimum fraction of model cell thickness before pumping reductio' +
             'n is initiated (PSIRAMPF)'
@@ -1466,8 +1742,12 @@ inherited framePkgFarm: TframePkgFarm
         object lblSATTHK: TLabel
           Left = 74
           Top = 82
-          Width = 232
+          Width = 211
           Height = 45
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 
             'Minimum saturated thickness of model cell before pumping reducti' +
             'on is initiated. (SATTHK)'
@@ -1478,6 +1758,10 @@ inherited framePkgFarm: TframePkgFarm
           Top = 26
           Width = 65
           Height = 22
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Color = clBtnFace
           Enabled = False
           TabOrder = 0
@@ -1492,6 +1776,10 @@ inherited framePkgFarm: TframePkgFarm
           Top = 82
           Width = 65
           Height = 22
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Color = clBtnFace
           Enabled = False
           TabOrder = 1
@@ -1509,6 +1797,10 @@ inherited framePkgFarm: TframePkgFarm
     Top = 0
     Width = 94
     Height = 462
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     PageDefault = 0
     PageList = jvplFarm
     Align = alLeft

@@ -36,12 +36,14 @@ object framePestObs: TframePestObs
         Top = 192
         Width = 596
         Height = 32
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 187
         ExplicitWidth = 596
         ExplicitHeight = 32
         inherited lbNumber: TLabel
           Width = 161
           Caption = 'Number of direct observations'
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 161
         end
         inherited sbAdd: TSpeedButton
@@ -60,6 +62,7 @@ object framePestObs: TframePestObs
           ExplicitLeft = 426
         end
         inherited seNumber: TJvSpinEdit
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = frameObservationsseNumberChange
         end
       end
@@ -281,12 +284,14 @@ object framePestObs: TframePestObs
         Top = 118
         Width = 596
         Height = 35
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 113
         ExplicitWidth = 596
         ExplicitHeight = 35
         inherited lbNumber: TLabel
           Width = 194
           Caption = 'Number of comparison observations'
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 194
         end
         inherited sbAdd: TSpeedButton
@@ -302,6 +307,7 @@ object framePestObs: TframePestObs
           ExplicitLeft = 426
         end
         inherited seNumber: TJvSpinEdit
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = frameObsComparisonsseNumberChange
         end
       end

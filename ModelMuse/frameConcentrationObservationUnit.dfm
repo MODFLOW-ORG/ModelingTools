@@ -7,11 +7,13 @@ inherited frameConcentrationObservation: TframeConcentrationObservation
     inherited tabTimes: TTabSheet
       ExplicitHeight = 221
       inherited Panel5: TPanel
+        StyleElements = [seFont, seClient, seBorder]
         inherited rdeMultiValueEdit: TRbwDataEntry
           Left = 120
           Top = 6
           Height = 23
           TabOrder = 1
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = rdeMultiValueEditChange
           ExplicitLeft = 120
           ExplicitTop = 6
@@ -29,13 +31,16 @@ inherited frameConcentrationObservation: TframeConcentrationObservation
       end
       inherited Panel2: TPanel
         Top = 182
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 182
         inherited lblNumberOfTimes: TLabel
           Left = 95
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 95
         end
         inherited seTimes: TJvSpinEdit
           Width = 81
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 81
         end
       end
@@ -197,7 +202,7 @@ inherited frameConcentrationObservation: TframeConcentrationObservation
             CheckStyle = csCheck
             AutoAdjustColWidths = False
           end>
-        ExplicitHeight = 110
+        ExplicitHeight = 147
         ColWidths = (
           142
           40
@@ -211,7 +216,20 @@ inherited frameConcentrationObservation: TframeConcentrationObservation
       ExplicitHeight = 221
       inherited Panel4: TPanel
         Top = 182
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 145
+        inherited lblNumberOfLayers: TLabel
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited seLayers: TJvSpinEdit
+          StyleElements = [seFont, seClient, seBorder]
+        end
+      end
+      inherited Panel6: TPanel
+        StyleElements = [seFont, seClient, seBorder]
+        inherited rdeMultiLayerEdit: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
+        end
       end
       inherited rdgLayers: TRbwDataGrid4
         Height = 147
@@ -220,12 +238,17 @@ inherited frameConcentrationObservation: TframeConcentrationObservation
       end
     end
   end
+  inherited pnlCaption: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited pnlName: TPanel
     Height = 74
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 74
     inherited lblTreatment: TLabel
       Left = 150
       Top = 11
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 150
       ExplicitTop = 11
     end
@@ -234,12 +257,14 @@ inherited frameConcentrationObservation: TframeConcentrationObservation
       Top = 27
       EditLabel.ExplicitLeft = 11
       EditLabel.ExplicitTop = 9
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 11
       ExplicitTop = 27
     end
     inherited comboTreatment: TComboBox
       Left = 150
       Top = 27
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 150
       ExplicitTop = 27
     end

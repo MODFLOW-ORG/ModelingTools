@@ -6431,6 +6431,7 @@ var
   PhastModel: TPhastModel;
   OldPackages: TModflowPackages;
   GwtChanged: Boolean;
+  GweChanged: Boolean;
 begin
   if (frmDisplayData <> nil) then
   begin
@@ -6453,6 +6454,8 @@ begin
     OldPackages := FOldPackages[0].Packages;
     GwtChanged := (PhastModel.ModelSelection = msModflow2015)
       and (PhastModel.GwtUsed <> OldPackages.GwtProcess.IsSelected);
+    GweChanged := (PhastModel.ModelSelection = msModflow2015)
+      and (PhastModel.GweUsed <> OldPackages.GweProcess.IsSelected);
 
     frmGoPhast.PhastModel.ModflowPackages := FOldPackages[0].Packages;
     if frmGoPhast.PhastModel.LgrUsed then
@@ -6481,7 +6484,7 @@ begin
     frmGoPhast.PhastModel.ModflowPackages.Mt3dSft.ChangeChemSpecies;
   end;
 
-  if GwtChanged or not FComponentsSame then
+  if GwtChanged or GweChanged or not FComponentsSame then
   begin
     frmGoPhast.PhastModel.UpdateGwtConc;
   end;

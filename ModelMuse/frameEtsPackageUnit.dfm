@@ -4,28 +4,50 @@ inherited frameEtsPackage: TframeEtsPackage
   DesignSize = (
     477
     237)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited memoComments: TMemo
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited pnLayerOption: TPanel
     Top = 156
     Height = 81
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 156
     ExplicitHeight = 81
+    inherited lblLayerOption: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     object lblSegments: TLabel [1]
       Left = 64
       Top = 28
       Width = 112
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Number of segments'
       Enabled = False
     end
     inherited comboLayerOption: TComboBox
       ItemIndex = -1
       Text = ''
+      StyleElements = [seFont, seClient, seBorder]
     end
     object seSegments: TJvSpinEdit
       Left = 17
       Top = 25
       Width = 41
       Height = 23
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       ButtonKind = bkClassic
       MaxValue = 100.000000000000000000
       MinValue = 1.000000000000000000
@@ -38,6 +60,10 @@ inherited frameEtsPackage: TframeEtsPackage
       Top = 54
       Width = 273
       Height = 17
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Use Multiplier (MODFLOW 6)'
       Enabled = False
       TabOrder = 3

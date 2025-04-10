@@ -6,11 +6,21 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
   DesignSize = (
     357
     393)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblMaxOuter: TLabel [2]
     Left = 92
     Top = 160
     Width = 240
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Maximum number of outer iterations MXITER'
   end
   object lblMaxInner: TLabel [3]
@@ -18,6 +28,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 187
     Width = 227
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Maximum number of inner iterations ITER1'
   end
   object lblPreconditioner: TLabel [4]
@@ -25,6 +39,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 214
     Width = 125
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Preconditioner (ISOLVE)'
   end
   object lblDispersion: TLabel [5]
@@ -32,6 +50,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 259
     Width = 187
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Dispersion tensor treatment (NCRS)'
   end
   object lblRelaxationFactor: TLabel [6]
@@ -39,6 +61,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 308
     Width = 130
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Relaxation factor (ACCL)'
   end
   object lblConvergence: TLabel [7]
@@ -46,6 +72,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 336
     Width = 171
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Convergence criterion (CCLOSE)'
   end
   object lblPrintoutInterval: TLabel [8]
@@ -53,17 +83,26 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 364
     Width = 137
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Printout interval (IPRGCG)'
   end
   inherited memoComments: TMemo
     Width = 326
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 326
   end
   object spinMaxOuter: TJvSpinEdit [10]
     Left = 16
     Top = 157
     Width = 70
-    Height = 21
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     CheckMaxValue = False
     MinValue = 1.000000000000000000
     Value = 1.000000000000000000
@@ -74,7 +113,11 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Left = 16
     Top = 184
     Width = 70
-    Height = 21
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     CheckMaxValue = False
     MinValue = 1.000000000000000000
     Value = 1.000000000000000000
@@ -86,6 +129,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 233
     Width = 198
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     ItemIndex = 2
@@ -102,6 +149,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 278
     Width = 302
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     ItemIndex = 0
@@ -116,6 +167,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 305
     Width = 70
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 5
@@ -130,6 +185,10 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Top = 333
     Width = 70
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 6
@@ -143,7 +202,11 @@ inherited frameMt3dmsGcgPackage: TframeMt3dmsGcgPackage
     Left = 16
     Top = 361
     Width = 70
-    Height = 21
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     CheckMinValue = True
     Enabled = False
     TabOrder = 7

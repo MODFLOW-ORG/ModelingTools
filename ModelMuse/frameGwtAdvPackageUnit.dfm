@@ -15,8 +15,12 @@ inherited frameGwtAdvPackage: TframeGwtAdvPackage
   object lblAdePercel: TLabel [2]
     Left = 167
     Top = 283
-    Width = 216
-    Height = 30
+    Width = 141
+    Height = 45
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Fractional cell distance for adaptive time stepping (ATS_PERCEL)'
     WordWrap = True
   end
@@ -30,6 +34,10 @@ inherited frameGwtAdvPackage: TframeGwtAdvPackage
     Top = 157
     Width = 422
     Height = 105
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Advection Scheme'
     Enabled = False
@@ -45,6 +53,10 @@ inherited frameGwtAdvPackage: TframeGwtAdvPackage
     Top = 280
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 2

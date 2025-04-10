@@ -753,7 +753,7 @@ const
     'UZF_UnsatZoneEvapotranspiration', 'UZF_Storage', 'UZF_NetInfiltration', 'UZF_WaterContent');
 
   UztObsNames: array[TUztOb] of string = (
-    'UZT_Concentration/UZE_Energy',
+    'UZT_Concentration/UZE_Temperature',
     'UZT_Storage',
     'UZT_Constant',
     'UZT_FromMvr',
@@ -1269,7 +1269,7 @@ const
   OffSet = 6;
 begin
   result := 8;
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     result := result
       + frmGoPhast.PhastModel.MobileComponents.Count * UztGwtConcCount
@@ -1370,7 +1370,7 @@ begin
     else
       begin
         // GWT
-        if frmGoPhast.PhastModel.GwtUsed then
+        if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
         begin
           Index := Index-UzfBoundaryGwtStart;
           if Index < 0 then
@@ -1648,7 +1648,7 @@ begin
     else
       begin
         // GWT
-        if frmGoPhast.PhastModel.GwtUsed then
+        if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
         begin
           Index := Index-UzfBoundaryGwtStart;
           if Index < 0 then
@@ -1944,7 +1944,7 @@ begin
     RootPotentialArray := DataSets[UzfMf6RootPotentialPosition];
     RootActivityArray := DataSets[UzfMf6RootActivityPosition];
     MultiplierArray := DataSets[UzfMf6MultiplierPosition];
-    if LocalModel.GwtUsed then
+    if LocalModel.GwtUsed or LocalModel.GweUsed then
     begin
       DataSetIndex := UzfBoundaryGwtStart;
       for SpeciesIndex := 0 to ChemSpeciesCount - 1 do
@@ -2321,7 +2321,7 @@ begin
                     CustomWriter.TimeSeriesNames.Add(string(StaticTimeSeries.SeriesName));
                   end;
 
-                  if LocalModel.GwtUsed then
+                  if LocalModel.GwtUsed or LocalModel.GweUsed then
                   begin
                     SpecifiedConcentrations.SpeciesCount := ChemSpeciesCount;
                     InfiltrationConcentrations.SpeciesCount := ChemSpeciesCount;
@@ -2422,7 +2422,7 @@ var
 begin
   inherited;
   // GWT
-  if frmGoPhast.PhastModel.GwtUsed then
+  if frmGoPhast.PhastModel.GwtUsed or frmGoPhast.PhastModel.GweUsed then
   begin
     SpeciesCount := frmGoPhast.PhastModel.MobileComponents.Count;
   end
@@ -2676,7 +2676,7 @@ begin
   Assert(TimeList.Count = Count);
 
   ChemSpeciesCount := 0;
-  if LocalModel.GwtUsed then
+  if LocalModel.GwtUsed or LocalModel.GweUsed then
   begin
     ChemSpeciesCount := LocalModel.MobileComponents.Count;
     BoundaryFormulaIndex := UzfBoundaryGwtStart;
@@ -2779,7 +2779,7 @@ begin
   ListOfTimeLists.Add(ALink.FRootPotentialData);
   ListOfTimeLists.Add(ALink.FRootActivityData);
   ListOfTimeLists.Add(ALink.FMultiplierData);
-  if LocalModel.GwtUsed then
+  if LocalModel.GwtUsed or LocalModel.GweUsed then
   begin
     for SpeciesIndex := 0 to ChemSpeciesCount - 1 do
     begin
@@ -3255,7 +3255,7 @@ begin
   FEvapConcList := TModflowTimeLists.Create;
 
   PhastModel := frmGoPhast.PhastModel;
-  if PhastModel.GwtUsed then
+  if PhastModel.GwtUsed or PhastModel.GweUsed then
   begin
     for SpeciesIndex := 0 to PhastModel.MobileComponents.Count - 1 do
     begin

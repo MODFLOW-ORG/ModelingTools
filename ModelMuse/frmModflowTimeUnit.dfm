@@ -5,6 +5,8 @@ inherited frmModflowTime: TfrmModflowTime
   ClientHeight = 541
   ClientWidth = 750
   StyleElements = [seFont, seClient, seBorder]
+  ExplicitLeft = 3
+  ExplicitTop = 3
   ExplicitWidth = 766
   ExplicitHeight = 580
   TextHeight = 18

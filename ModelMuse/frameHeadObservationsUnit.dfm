@@ -8,7 +8,9 @@ inherited frameHeadObservations: TframeHeadObservations
     inherited tabTimes: TTabSheet
       ExplicitHeight = 186
       inherited Panel5: TPanel
+        StyleElements = [seFont, seClient, seBorder]
         inherited rdeMultiValueEdit: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = rdeMultiValueEditChange
         end
         object comboMultiStatFlag: TJvImageComboBox
@@ -55,7 +57,14 @@ inherited frameHeadObservations: TframeHeadObservations
       end
       inherited Panel2: TPanel
         Top = 147
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 110
+        inherited lblNumberOfTimes: TLabel
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited seTimes: TJvSpinEdit
+          StyleElements = [seFont, seClient, seBorder]
+        end
       end
       inherited rdgObservations: TRbwDataGrid4
         Height = 112
@@ -187,28 +196,53 @@ inherited frameHeadObservations: TframeHeadObservations
             CheckStyle = csCheck
             AutoAdjustColWidths = False
           end>
-        ExplicitHeight = 75
+        ExplicitHeight = 112
       end
     end
     inherited tabLayers: TTabSheet
       ExplicitHeight = 186
       inherited Panel4: TPanel
         Top = 147
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitTop = 110
+        inherited lblNumberOfLayers: TLabel
+          StyleElements = [seFont, seClient, seBorder]
+        end
         inherited seLayers: TJvSpinEdit
           Left = 9
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 9
+        end
+      end
+      inherited Panel6: TPanel
+        StyleElements = [seFont, seClient, seBorder]
+        inherited rdeMultiLayerEdit: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
         end
       end
       inherited rdgLayers: TRbwDataGrid4
         Height = 112
-        ExplicitHeight = 75
+        ExplicitWidth = 533
+        ExplicitHeight = 112
       end
     end
   end
+  inherited pnlCaption: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited pnlName: TPanel
     Height = 109
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 109
+    inherited lblTreatment: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited edObsName: TLabeledEdit
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited comboTreatment: TComboBox
+      StyleElements = [seFont, seClient, seBorder]
+    end
     object rgMultiObsMethod: TRadioGroup
       Left = 9
       Top = 49

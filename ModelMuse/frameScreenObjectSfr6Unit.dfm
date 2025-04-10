@@ -741,7 +741,7 @@ inherited frameScreenObjectSfr6: TframeScreenObjectSfr6
         Exaggeration = 1.000000000000000000
         HorizontalDirection = hdRight
         Image32.Left = 0
-        Image32.Top = 0
+        Image32.Top = 67
         Image32.Width = 539
         Image32.Height = 108
         Image32.Anchors = [akLeft, akBottom]
@@ -752,6 +752,7 @@ inherited frameScreenObjectSfr6: TframeScreenObjectSfr6
         Image32.Scale = 1.000000000000000000
         Image32.ScaleMode = smNormal
         Image32.TabOrder = 0
+        Image32.ExplicitTop = 0
         ImmediateResize = True
         Magnification = 1.000000000000000000
         VerticalDirection = vdUp

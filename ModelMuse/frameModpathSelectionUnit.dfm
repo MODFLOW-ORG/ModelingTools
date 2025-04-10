@@ -6,9 +6,16 @@ inherited frameModpathSelection: TframeModpathSelection
   DesignSize = (
     589
     508)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   inherited memoComments: TMemo
     Width = 570
     Height = 67
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 578
     ExplicitHeight = 67
   end
@@ -17,11 +24,18 @@ inherited frameModpathSelection: TframeModpathSelection
     Top = 135
     Width = 581
     Height = 364
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabResponse
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
-    ExplicitWidth = 600
     object tabResponse: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Response file options'
       ImageIndex = 1
       object lblTrackingDirection: TLabel
@@ -29,6 +43,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 249
         Width = 197
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Tracking direction (TrackingDirection)'
       end
       object lblWeakSinkTreatment: TLabel
@@ -36,6 +54,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 249
         Width = 225
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of weak sinks (WeakSinkOption)'
       end
       object lblWeakSinkThreshold: TLabel
@@ -43,6 +65,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 314
         Width = 159
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Weak sink fractional threshold'
       end
       object lblStopZone: TLabel
@@ -50,6 +76,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 166
         Width = 224
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Zone in which to stop particles (StopZone)'
       end
       object lblWhichEndpoints: TLabel
@@ -57,13 +87,21 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 191
         Width = 200
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Which endpoints should be recorded?'
       end
       object lblReferenceTime: TLabel
         Left = 387
         Top = 174
-        Width = 86
+        Width = 100
         Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Reference time for simulation (ReferenceTime)'
         WordWrap = True
       end
@@ -72,6 +110,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 56
         Width = 215
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of evapotranspiration (IEVTTP)'
       end
       object lblRchSource: TLabel
@@ -79,6 +121,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 94
         Width = 167
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of recharge (IRCHTP)'
       end
       object comboTrackingDirection: TJvImageComboBox
@@ -86,6 +132,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 272
         Width = 160
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -114,6 +164,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 272
         Width = 350
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -147,6 +201,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 306
         Width = 80
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 10
         Text = '0'
         DataType = dtReal
@@ -160,6 +218,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 123
         Width = 310
         Height = 42
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use zone arrays (ZoneArrayOption)'
         Enabled = False
         TabOrder = 4
@@ -171,6 +233,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 163
         Width = 96
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 5
         Text = '2'
         DataType = dtInteger
@@ -183,6 +249,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 215
         Width = 350
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -210,6 +280,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 3
         Width = 395
         Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Output mode (SimulationType)'
         Columns = 2
         Enabled = False
@@ -227,6 +301,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 215
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 7
@@ -241,6 +319,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 3
         Width = 185
         Height = 43
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Modpath version'
         Columns = 3
         Enabled = False
@@ -257,6 +339,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 52
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -284,6 +370,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 90
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -308,6 +398,10 @@ inherited frameModpathSelection: TframeModpathSelection
       end
     end
     object tabVersion5Options: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Version 5 options'
       ImageIndex = 4
       object lblBeginningTime: TLabel
@@ -315,6 +409,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 159
         Width = 215
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Beginning time (BeginPeriod  BeginStep)'
       end
       object lblEndingTime: TLabel
@@ -322,6 +420,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 193
         Width = 178
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Ending time (EndPeriod  EndStep)'
       end
       object lblMaxSize: TLabel
@@ -329,6 +431,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 231
         Width = 129
         Height = 90
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Maximum size of composite budget file (MAXSIZ)'#13#10'(0 = use default' +
           ' value in MODPATH = 15,000,000 bytes)'
@@ -339,6 +445,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 3
         Width = 77
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Error tolerance'
       end
       object lblMaxTime: TLabel
@@ -346,6 +456,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 108
         Width = 128
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum tracking time'
       end
       object lblReleaseTime: TLabel
@@ -353,6 +467,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 56
         Width = 179
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Release time (backwards tracking)'
       end
       object cbCompact: TCheckBox
@@ -360,6 +478,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 108
         Width = 257
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Compact format (Options)'
         Enabled = False
         TabOrder = 6
@@ -369,6 +491,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 131
         Width = 257
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Binary output file (Options)'
         Enabled = False
         TabOrder = 8
@@ -378,6 +504,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 154
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 9
@@ -393,6 +523,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 190
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 10
@@ -408,6 +542,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 238
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 11
@@ -422,6 +560,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 27
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 2
         Text = '0'
         DataType = dtReal
@@ -433,6 +575,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 3
         Width = 257
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Compute budget in all cells'
         Enabled = False
         TabOrder = 0
@@ -443,6 +589,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 26
         Width = 286
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Summarize final status of particle'
         Enabled = False
         TabOrder = 1
@@ -452,6 +602,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 47
         Width = 286
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Allow unlimited budget file size'
         Checked = True
         Enabled = False
@@ -463,6 +617,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 67
         Width = 234
         Height = 35
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Stop computing paths after a specified maximum time'
         Enabled = False
         TabOrder = 4
@@ -474,6 +632,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 128
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 7
         Text = '0'
         DataType = dtReal
@@ -486,6 +648,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 80
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 5
         Text = '0'
         DataType = dtReal
@@ -494,6 +660,10 @@ inherited frameModpathSelection: TframeModpathSelection
       end
     end
     object tsVersion6Options: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Version 6 && 7 options'
       ImageIndex = 3
       object lblWeakSource: TLabel
@@ -501,6 +671,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 7
         Width = 253
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of weak sources (WeakSourceOption)'
       end
       object lblStopOption: TLabel
@@ -508,6 +682,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 63
         Width = 243
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'How partcle tracking terminated (StopOption)'
       end
       object lblStopTime: TLabel
@@ -515,6 +693,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 122
         Width = 189
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum tracking time (StopTime)'
       end
       object lblBudget: TLabel
@@ -522,6 +704,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 147
         Width = 213
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Budget checking (BudgetOutputOption)'
       end
       object lblTraceID: TLabel
@@ -529,6 +715,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 206
         Width = 131
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Particle to track (TraceID)'
       end
       object lblAdvObs: TLabel
@@ -536,6 +726,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 254
         Width = 166
         Height = 30
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Advection observations (AdvectiveObservationsOption)'
         WordWrap = True
       end
@@ -544,6 +738,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 63
         Width = 122
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of UZF flows'
       end
       object lblMnw2Iface: TLabel
@@ -551,6 +749,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 111
         Width = 138
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of MNW2 flows'
       end
       object lblResIface: TLabel
@@ -558,6 +760,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 167
         Width = 149
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of Reservoir flows'
       end
       object lblSfrIface: TLabel
@@ -565,6 +771,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 223
         Width = 120
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of SFR flows'
       end
       object lblEtsIface: TLabel
@@ -572,6 +782,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 7
         Width = 119
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of ETS flows'
       end
       object lblLakIface: TLabel
@@ -579,6 +793,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 276
         Width = 125
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Treatment of Lake flows'
       end
       object comboWeakSource: TJvImageComboBox
@@ -586,6 +804,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 29
         Width = 148
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -613,6 +835,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 82
         Width = 350
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -646,6 +872,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 119
         Width = 80
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 4
@@ -660,6 +890,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 166
         Width = 350
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -698,6 +932,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 203
         Width = 80
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Color = clBtnFace
         Enabled = False
         TabOrder = 8
@@ -713,6 +951,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 231
         Width = 262
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use retardation (RetardationOption)'
         Enabled = False
         TabOrder = 9
@@ -722,6 +964,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 302
         Width = 353
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -755,6 +1001,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 82
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -782,6 +1032,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 131
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -809,6 +1063,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 186
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -836,6 +1094,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 243
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -863,6 +1125,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 29
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -890,6 +1156,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 295
         Width = 145
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -914,6 +1184,10 @@ inherited frameModpathSelection: TframeModpathSelection
       end
     end
     object tabOutputTimes: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Output times'
       ImageIndex = 2
       object lblTimeMethod: TLabel
@@ -921,6 +1195,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 14
         Width = 247
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Method of specifying times (TimePointOption)'
       end
       object lblParticleInterval: TLabel
@@ -928,13 +1206,21 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 70
         Width = 255
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Time interval for output (ReleaseTimeIncrement)'
       end
       object lblMaxTimes: TLabel
         Left = 3
         Top = 122
-        Width = 95
-        Height = 60
+        Width = 114
+        Height = 45
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Maximum number of times allowed (TimePointCount)'
         WordWrap = True
       end
@@ -943,6 +1229,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 3
         Width = 201
         Height = 252
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Output times (TimePoints)'
         TabOrder = 0
         object lblTimeCount: TLabel
@@ -950,6 +1240,10 @@ inherited frameModpathSelection: TframeModpathSelection
           Top = 179
           Width = 95
           Height = 30
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Caption = 'Number of times (TimePointCount)'
           WordWrap = True
         end
@@ -959,6 +1253,10 @@ inherited frameModpathSelection: TframeModpathSelection
           Width = 23
           Height = 22
           Hint = 'Add row|Add a row below the bottom row.'
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Glyph.Data = {
             F6000000424DF600000000000000760000002800000010000000100000000100
             0400000000008000000000000000000000001000000000000000000000000000
@@ -978,6 +1276,10 @@ inherited frameModpathSelection: TframeModpathSelection
           Width = 23
           Height = 22
           Hint = 'Insert row|Insert a row above the selected row.'
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Glyph.Data = {
             F6000000424DF600000000000000760000002800000010000000100000000100
             0400000000008000000000000000000000001000000000000000000000000000
@@ -997,6 +1299,10 @@ inherited frameModpathSelection: TframeModpathSelection
           Width = 23
           Height = 22
           Hint = 'Delete row|Delete the selected row.'
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Glyph.Data = {
             36030000424D3603000000000000360000002800000010000000100000000100
             18000000000000030000120B0000120B00000000000000000000FFFFFFFFFFFF
@@ -1033,8 +1339,13 @@ inherited frameModpathSelection: TframeModpathSelection
           Top = 20
           Width = 195
           Height = 149
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           ColCount = 2
           DefaultColWidth = 20
+          DefaultRowHeight = 30
           Enabled = False
           FixedCols = 1
           RowCount = 2
@@ -1109,6 +1420,10 @@ inherited frameModpathSelection: TframeModpathSelection
           Top = 183
           Width = 57
           Height = 23
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           CheckMinValue = True
           ButtonKind = bkClassic
           Enabled = False
@@ -1121,6 +1436,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 32
         Width = 200
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         Color = clBtnFace
@@ -1149,6 +1468,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 88
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 2
         Text = '1'
         DataType = dtReal
@@ -1161,6 +1484,10 @@ inherited frameModpathSelection: TframeModpathSelection
         Top = 159
         Width = 145
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 3
         Text = '1000'
         DataType = dtInteger

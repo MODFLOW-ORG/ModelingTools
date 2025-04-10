@@ -954,7 +954,11 @@ uses
   ModflowCndWriterUnit in 'ModflowCndWriterUnit.pas',
   ModflowEstWriterUnit in 'ModflowEstWriterUnit.pas',
   frameScreenObjectCtpUnit in 'frameScreenObjectCtpUnit.pas' {frameScreenObjectCtp: TFrame},
-  frameScreenObjectEslUnit in 'frameScreenObjectEslUnit.pas' {frameScreenObjectEsl: TFrame};
+  frameScreenObjectEslUnit in 'frameScreenObjectEslUnit.pas' {frameScreenObjectEsl: TFrame},
+  Mf6.CndFileReaderUnit in '..\MF6InputReader\Mf6.CndFileReaderUnit.pas',
+  MF6.EstFileReaderUnit in '..\MF6InputReader\MF6.EstFileReaderUnit.pas',
+  Mf6.CtpFileReaderUnit in '..\MF6InputReader\Mf6.CtpFileReaderUnit.pas',
+  Mf6.EslFileReaderUnit in '..\MF6InputReader\Mf6.EslFileReaderUnit.pas';
 
 {$R *.res}
 

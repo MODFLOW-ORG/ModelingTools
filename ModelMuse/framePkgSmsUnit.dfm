@@ -26,18 +26,30 @@ inherited framePkgSms: TframePkgSms
     Top = 103
     Width = 495
     Height = 414
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tabBasic
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
     OnChange = pgcControlsChange
     object tabBasic: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Basic'
       object lblPrintOption: TLabel
         Left = 16
         Top = 4
         Width = 63
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Print option'
       end
       object lblComplexity: TLabel
@@ -45,6 +57,10 @@ inherited framePkgSms: TframePkgSms
         Top = 4
         Width = 61
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Complexity'
       end
       object lblSolutionGroupMaxIter: TLabel
@@ -52,6 +68,10 @@ inherited framePkgSms: TframePkgSms
         Top = 3
         Width = 157
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Solution group max iterations'
       end
       object lblUsePTC: TLabel
@@ -59,6 +79,10 @@ inherited framePkgSms: TframePkgSms
         Top = 124
         Width = 430
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Use pseudo-transient continuation (PTC)  (Inverse of  NO_PTC and' +
           ' no_ptc_option)'
@@ -68,6 +92,10 @@ inherited framePkgSms: TframePkgSms
         Top = 175
         Width = 397
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'Maximum number of allowed error messages (-1 for no limit) (MAXE' +
           'RROR)'
@@ -77,6 +105,10 @@ inherited framePkgSms: TframePkgSms
         Top = 244
         Width = 290
         Height = 15
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Print contents of memory ([MEMORY_PRINT_OPTION) '
       end
       object lblAtsMaxFrac: TLabel
@@ -84,6 +116,10 @@ inherited framePkgSms: TframePkgSms
         Top = 342
         Width = 201
         Height = 30
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 
           'max outer iterations fraction with ATS (ATS_OUTER_MAXIMUM_FRACTI' +
           'ON)'
@@ -94,6 +130,10 @@ inherited framePkgSms: TframePkgSms
         Top = 27
         Width = 113
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -124,6 +164,10 @@ inherited framePkgSms: TframePkgSms
         Top = 27
         Width = 97
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 145
@@ -154,6 +198,10 @@ inherited framePkgSms: TframePkgSms
         Top = 56
         Width = 249
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Continue even if no convergence'
         TabOrder = 2
       end
@@ -162,6 +210,10 @@ inherited framePkgSms: TframePkgSms
         Top = 79
         Width = 464
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Write outer solver convergence values to CSV file'
         TabOrder = 3
       end
@@ -170,6 +222,10 @@ inherited framePkgSms: TframePkgSms
         Top = 29
         Width = 121
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -180,6 +236,10 @@ inherited framePkgSms: TframePkgSms
         Top = 143
         Width = 297
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 297
@@ -210,6 +270,10 @@ inherited framePkgSms: TframePkgSms
         Top = 194
         Width = 121
         Height = 23
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         MaxValue = 2147483647.000000000000000000
         MinValue = -1.000000000000000000
         Value = 1.000000000000000000
@@ -220,6 +284,10 @@ inherited framePkgSms: TframePkgSms
         Top = 221
         Width = 321
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Check model input (Inverse of NOCHECK)'
         TabOrder = 7
       end
@@ -228,6 +296,10 @@ inherited framePkgSms: TframePkgSms
         Top = 268
         Width = 121
         Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
         DroppedWidth = 297
@@ -258,6 +330,10 @@ inherited framePkgSms: TframePkgSms
         Top = 297
         Width = 382
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use Newton formulation'
         TabOrder = 9
         OnClick = cbNewtonClick
@@ -267,6 +343,10 @@ inherited framePkgSms: TframePkgSms
         Top = 320
         Width = 406
         Height = 18
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Use Under_Relaxation option'
         Enabled = False
         TabOrder = 10
@@ -276,6 +356,10 @@ inherited framePkgSms: TframePkgSms
         Top = 102
         Width = 464
         Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Write inner solver convergence values to CSV file'
         TabOrder = 11
       end
@@ -284,6 +368,10 @@ inherited framePkgSms: TframePkgSms
         Top = 344
         Width = 153
         Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         TabOrder = 12
         Text = '0'
         DataType = dtReal
@@ -294,6 +382,10 @@ inherited framePkgSms: TframePkgSms
       end
     end
     object tabNonLinear: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Nonlinear'
       ImageIndex = 1
       object rdgNonlinearOptions: TRbwDataGrid4
@@ -301,8 +393,14 @@ inherited framePkgSms: TframePkgSms
         Top = 0
         Width = 487
         Height = 384
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         ColCount = 3
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         FixedCols = 1
         RowCount = 24
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
@@ -400,6 +498,10 @@ inherited framePkgSms: TframePkgSms
       end
     end
     object tabLinear: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Linear'
       ImageIndex = 2
       object rdgLinearOptions: TRbwDataGrid4
@@ -407,8 +509,14 @@ inherited framePkgSms: TframePkgSms
         Top = 0
         Width = 487
         Height = 384
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         ColCount = 3
+        DefaultColWidth = 80
+        DefaultRowHeight = 30
         FixedCols = 1
         RowCount = 23
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]

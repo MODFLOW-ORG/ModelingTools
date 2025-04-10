@@ -4,11 +4,24 @@ inherited framePackageHuf: TframePackageHuf
   DesignSize = (
     422
     275)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited memoComments: TMemo
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object cbSaveHeads: TCheckBox [3]
     Left = 16
     Top = 157
     Width = 288
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Save heads for hydrogeologic units (IOHUFHEADS)'
     Enabled = False
     TabOrder = 1
@@ -18,6 +31,10 @@ inherited framePackageHuf: TframePackageHuf
     Top = 180
     Width = 285
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Save flows for hydrogeologic units (IOHUFFLOWS)'
     Enabled = False
     TabOrder = 2
@@ -27,6 +44,10 @@ inherited framePackageHuf: TframePackageHuf
     Top = 203
     Width = 273
     Height = 62
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Reference surface for calculating depth'
     Enabled = False
     ItemIndex = 0

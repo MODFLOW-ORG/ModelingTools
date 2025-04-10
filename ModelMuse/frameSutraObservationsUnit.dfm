@@ -3,13 +3,15 @@ inherited frameSutraObservations: TframeSutraObservations
   ExplicitHeight = 281
   inherited pnlBottom: TPanel
     Top = 235
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 235
     ExplicitWidth = 347
-    DesignSize = (
-      565
-      46)
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     inherited seNumberOfTimes: TJvSpinEdit
       Left = 9
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 9
     end
     inherited btnDelete: TBitBtn
@@ -22,6 +24,7 @@ inherited frameSutraObservations: TframeSutraObservations
   inherited pnlGrid: TPanel
     Top = 193
     Height = 42
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 193
     ExplicitWidth = 347
     ExplicitHeight = 42
@@ -55,7 +58,6 @@ inherited frameSutraObservations: TframeSutraObservations
           CheckStyle = csCheck
           AutoAdjustColWidths = True
         end>
-      ExplicitWidth = 345
       ExplicitHeight = 40
       ColWidths = (
         64)
@@ -63,6 +65,7 @@ inherited frameSutraObservations: TframeSutraObservations
   end
   inherited pnlTop: TPanel
     Height = 193
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 347
     ExplicitHeight = 193
     DesignSize = (
@@ -71,6 +74,7 @@ inherited frameSutraObservations: TframeSutraObservations
     inherited lblSchedule: TLabel
       Width = 104
       Caption = 'Schedule (OBSSCH)'
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 104
     end
     object lblObservationFormat: TLabel [1]
@@ -88,11 +92,12 @@ inherited frameSutraObservations: TframeSutraObservations
       Caption = 'Name (OBSNAM)'
     end
     inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 345
     end
     inherited comboSchedule: TComboBox
       TabOrder = 2
-      ExplicitWidth = 333
+      StyleElements = [seFont, seClient, seBorder]
     end
     object comboObservationFormat: TComboBox
       Left = 5

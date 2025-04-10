@@ -2,20 +2,27 @@ inherited frameScreenObjectHfbMf6: TframeScreenObjectHfbMf6
   inherited pnlBottom: TPanel
     Top = 144
     Height = 172
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 144
     ExplicitWidth = 541
     ExplicitHeight = 172
     DesignSize = (
       541
       172)
+    inherited lblNumTimes: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
     object lblParameterName: TLabel [1]
       Left = 208
       Top = 46
-      Width = 153
+      Width = 87
       Height = 15
       Margins.Left = 8
       Caption = 'Parameter name'
       Enabled = False
+    end
+    inherited seNumberOfTimes: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
     end
     inherited btnDelete: TBitBtn
       ExplicitLeft = 453
@@ -62,15 +69,27 @@ inherited frameScreenObjectHfbMf6: TframeScreenObjectHfbMf6
     end
   end
   inherited pnlTop: TPanel
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 541
     inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitWidth = 539
     end
   end
   inherited pnlGrid: TPanel
     Height = 119
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 541
     ExplicitHeight = 119
+    inherited pnlEditGrid: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
+      end
+    end
     inherited rdgModflowBoundary: TRbwDataGrid4
       Height = 67
       ColCount = 4
@@ -171,7 +190,6 @@ inherited frameScreenObjectHfbMf6: TframeScreenObjectHfbMf6
           CheckStyle = csCheck
           AutoAdjustColWidths = True
         end>
-      ExplicitWidth = 539
       ExplicitHeight = 67
     end
   end

@@ -6,20 +6,30 @@ object frameRadioGrid: TframeRadioGrid
   TabOrder = 0
   object grpDescription: TGroupBox
     AlignWithMargins = True
-    Left = 3
-    Top = 3
-    Width = 317
-    Height = 237
+    Left = 4
+    Top = 4
+    Width = 316
+    Height = 236
+    Margins.Left = 4
+    Margins.Top = 4
     Margins.Right = 0
     Margins.Bottom = 0
     Align = alClient
     Caption = 'grpDescription'
     TabOrder = 0
+    ExplicitLeft = 3
+    ExplicitTop = 3
+    ExplicitWidth = 317
+    ExplicitHeight = 237
     object lblTop: TLabel
       Left = 160
       Top = 16
       Width = 32
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Alignment = taCenter
       Caption = 'lblTop'
     end
@@ -28,6 +38,10 @@ object frameRadioGrid: TframeRadioGrid
       Top = 102
       Width = 33
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'lblLeft'
       Enabled = True
       BorderStyle = bsBump
@@ -47,11 +61,15 @@ object frameRadioGrid: TframeRadioGrid
       AlignWithMargins = True
       Left = 48
       Top = 37
-      Width = 264
-      Height = 195
+      Width = 262
+      Height = 193
       Margins.Left = 46
       Margins.Top = 20
+      Margins.Right = 4
+      Margins.Bottom = 4
       Align = alClient
+      DefaultColWidth = 80
+      DefaultRowHeight = 30
       FixedCols = 1
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
       TabOrder = 0

@@ -2,6 +2,7 @@ inherited frameScreenObjectMnw1: TframeScreenObjectMnw1
   inherited pnlBottom: TPanel
     Top = 232
     Height = 84
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 232
     ExplicitHeight = 84
     DesignSize = (
@@ -9,6 +10,7 @@ inherited frameScreenObjectMnw1: TframeScreenObjectMnw1
       84)
     inherited lblNumTimes: TLabel
       Top = 55
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 55
     end
     object lblSite: TLabel [1]
@@ -20,6 +22,7 @@ inherited frameScreenObjectMnw1: TframeScreenObjectMnw1
     end
     inherited seNumberOfTimes: TJvSpinEdit
       Top = 43
+      StyleElements = [seFont, seClient, seBorder]
       TabOrder = 1
       ExplicitTop = 43
     end
@@ -43,10 +46,24 @@ inherited frameScreenObjectMnw1: TframeScreenObjectMnw1
       OnChange = edSiteLabelChange
     end
   end
+  inherited pnlTop: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+    inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+  end
   inherited pnlGrid: TPanel
     Height = 207
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 207
     inherited pnlEditGrid: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      inherited lblFormula: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited rdeFormula: TRbwDataEntry
+        StyleElements = [seFont, seClient, seBorder]
+      end
       object comboConductance: TJvImageComboBox
         Left = 199
         Top = 24

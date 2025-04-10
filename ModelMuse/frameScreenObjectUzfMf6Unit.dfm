@@ -40,7 +40,9 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited rdeFormula: TRbwDataEntry
+        Height = 23
         StyleElements = [seFont, seClient, seBorder]
+        ExplicitHeight = 23
       end
     end
     inherited rdgModflowBoundary: TRbwDataGrid4
@@ -287,7 +289,6 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
           CheckStyle = csCheck
           AutoAdjustColWidths = True
         end>
-      ExplicitWidth = 539
       ExplicitHeight = 100
       ColWidths = (
         64
@@ -547,8 +548,7 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
         Top = 0
         Width = 5
         Height = 182
-        ExplicitLeft = 8
-        ExplicitHeight = 177
+        ExplicitHeight = 184
       end
       object tvGwt: TJvPageListTreeView
         Left = 0
@@ -562,6 +562,7 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
         Indent = 19
         TabOrder = 0
         Items.Links = {00000000}
+        ExplicitHeight = 184
       end
       object jplGwt: TJvPageList
         Left = 126
@@ -570,6 +571,8 @@ inherited frameScreenObjectUzfMf6: TframeScreenObjectUzfMf6
         Height = 182
         PropagateEnable = False
         Align = alClient
+        ExplicitWidth = 408
+        ExplicitHeight = 184
       end
     end
   end

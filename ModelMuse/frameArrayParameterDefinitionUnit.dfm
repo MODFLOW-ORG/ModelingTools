@@ -1,10 +1,17 @@
 inherited frameArrayParameterDefinition: TframeArrayParameterDefinition
   inherited pnlParameterCount: TPanel
     TabOrder = 2
+    StyleElements = [seFont, seClient, seBorder]
+    inherited lblNumParameters: TLabel
+      StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited seNumberOfParameters: TJvSpinEdit
+      StyleElements = [seFont, seClient, seBorder]
+    end
   end
   inherited dgParameters: TRbwDataGrid4
-    Top = 60
-    Height = 129
+    Top = 61
+    Height = 127
     ColCount = 4
     TabOrder = 1
     OnMouseUp = dgParametersMouseUp
@@ -107,14 +114,18 @@ inherited frameArrayParameterDefinition: TframeArrayParameterDefinition
         CheckStyle = csCheck
         AutoAdjustColWidths = False
       end>
-    ExplicitTop = 60
-    ExplicitHeight = 129
+    ExplicitTop = 61
+    ExplicitHeight = 127
   end
   object pnlTop: TPanel
     Left = 0
     Top = 0
     Width = 320
     Height = 57
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
@@ -123,6 +134,10 @@ inherited frameArrayParameterDefinition: TframeArrayParameterDefinition
       Top = 8
       Width = 75
       Height = 15
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'lblParamValue'
       Enabled = False
     end
@@ -131,6 +146,10 @@ inherited frameArrayParameterDefinition: TframeArrayParameterDefinition
       Top = 31
       Width = 33
       Height = 22
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Color = clBtnFace
       Enabled = False
       TabOrder = 0
@@ -145,6 +164,10 @@ inherited frameArrayParameterDefinition: TframeArrayParameterDefinition
       Top = 35
       Width = 97
       Height = 17
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'cbUseZone'
       Enabled = False
       TabOrder = 1
@@ -155,6 +178,10 @@ inherited frameArrayParameterDefinition: TframeArrayParameterDefinition
       Top = 35
       Width = 97
       Height = 17
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'cbUseMultiplier'
       Enabled = False
       TabOrder = 2

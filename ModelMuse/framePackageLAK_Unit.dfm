@@ -4,11 +4,18 @@ inherited framePackageLAK: TframePackageLAK
   DesignSize = (
     422
     323)
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
   object lblTheta: TLabel [1]
     Left = 120
     Top = 146
     Width = 29
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Theta'
     Enabled = False
@@ -18,6 +25,10 @@ inherited framePackageLAK: TframePackageLAK
     Top = 174
     Width = 214
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Maximum number of iterations (NSSITR)'
     Enabled = False
@@ -27,15 +38,26 @@ inherited framePackageLAK: TframePackageLAK
     Top = 202
     Width = 172
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Convergence criterion (SSCNCR)'
     Enabled = False
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
   end
   object lblSurfDepth: TLabel [5]
     Left = 120
     Top = 227
     Width = 257
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Height of lake bottom undulations (SURFDEPTH)'
     Enabled = False
@@ -43,6 +65,7 @@ inherited framePackageLAK: TframePackageLAK
   inherited memoComments: TMemo
     Height = 75
     Anchors = [akLeft, akTop, akRight, akBottom]
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 75
   end
   object rdeTheta: TRbwDataEntry [7]
@@ -50,6 +73,10 @@ inherited framePackageLAK: TframePackageLAK
     Top = 143
     Width = 98
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -66,6 +93,10 @@ inherited framePackageLAK: TframePackageLAK
     Top = 171
     Width = 98
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -82,6 +113,10 @@ inherited framePackageLAK: TframePackageLAK
     Top = 199
     Width = 98
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -97,6 +132,10 @@ inherited framePackageLAK: TframePackageLAK
     Top = 252
     Width = 217
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Print lake output (LWRT)'
     Enabled = False
@@ -107,6 +146,10 @@ inherited framePackageLAK: TframePackageLAK
     Top = 224
     Width = 98
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Color = clBtnFace
     Enabled = False
@@ -122,6 +165,10 @@ inherited framePackageLAK: TframePackageLAK
     Top = 272
     Width = 281
     Height = 49
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akLeft, akBottom]
     Caption = 'Lake bathymetry (TABLEINPUT)'
     Enabled = False

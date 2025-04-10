@@ -4,6 +4,7 @@ inherited frameSutraBoundary: TframeSutraBoundary
   inherited pnlBottom: TPanel
     Top = 224
     Height = 128
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 224
     ExplicitHeight = 128
     DesignSize = (
@@ -12,6 +13,7 @@ inherited frameSutraBoundary: TframeSutraBoundary
     inherited lblNumTimes: TLabel
       Left = 65
       Top = 94
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 65
       ExplicitTop = 94
     end
@@ -25,6 +27,7 @@ inherited frameSutraBoundary: TframeSutraBoundary
     inherited seNumberOfTimes: TJvSpinEdit
       Left = 10
       Top = 88
+      StyleElements = [seFont, seClient, seBorder]
       TabOrder = 2
       ExplicitLeft = 10
       ExplicitTop = 88
@@ -72,6 +75,7 @@ inherited frameSutraBoundary: TframeSutraBoundary
   inherited pnlGrid: TPanel
     Top = 81
     Height = 143
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 81
     ExplicitHeight = 143
     inherited rdgSutraFeature: TRbwDataGrid4
@@ -192,7 +196,6 @@ inherited frameSutraBoundary: TframeSutraBoundary
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 318
       object lblFormula: TLabel
         Left = 136
         Top = 5
@@ -218,6 +221,7 @@ inherited frameSutraBoundary: TframeSutraBoundary
   end
   inherited pnlTop: TPanel
     Height = 81
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitHeight = 81
     DesignSize = (
       565
@@ -225,12 +229,17 @@ inherited frameSutraBoundary: TframeSutraBoundary
     inherited lblSchedule: TLabel
       Left = 1
       Top = 30
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 1
       ExplicitTop = 30
+    end
+    inherited pnlCaption: TPanel
+      StyleElements = [seFont, seClient, seBorder]
     end
     inherited comboSchedule: TComboBox
       Left = 1
       Top = 49
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 1
       ExplicitTop = 49
     end

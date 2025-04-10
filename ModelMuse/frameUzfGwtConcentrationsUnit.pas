@@ -47,7 +47,7 @@ resourcestring
 
   StrSpecifiedTemperature = 'Specified Temperature';
   StrInfiltrationTemperature = 'Infiltration Temperature';
-  StrEvapotranspirationTemperature = 'Evapotranspiration Temperature';
+  StrEvapotranspirationTemperature = 'Evaporation Fraction';
   StrInitialTemperature = 'Initial temperature';
   StrInitialConcentratio = 'Initial concentration';
 

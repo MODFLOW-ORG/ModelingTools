@@ -8,13 +8,21 @@ inherited framePackageWell: TframePackageWell
     207)
   inherited lblComments: TLabel
     Top = 106
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 106
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
   end
   object lblPhiRamp: TLabel [2]
     Left = 104
     Top = 34
     Width = 292
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Cell adjustment fraction (PHIRAMP - MODFLOW-NWT)'
   end
   inherited memoComments: TMemo
@@ -22,6 +30,7 @@ inherited framePackageWell: TframePackageWell
     Width = 398
     Height = 71
     TabOrder = 2
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 125
     ExplicitWidth = 398
     ExplicitHeight = 71
@@ -31,6 +40,10 @@ inherited framePackageWell: TframePackageWell
     Top = 31
     Width = 73
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 0
@@ -46,6 +59,10 @@ inherited framePackageWell: TframePackageWell
     Top = 59
     Width = 398
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Use tabfiles to define well pumpage (TABFILES) (MODFLOW-NWT 1.1)'
     Enabled = False
     TabOrder = 3

@@ -17,6 +17,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 218
     Width = 100
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Reference viscosity'
   end
   object lblThermalSpecies: TLabel [3]
@@ -24,6 +28,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 246
     Width = 84
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Thermal species'
   end
   object lblThermalFormulation: TLabel [4]
@@ -31,6 +39,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 277
     Width = 109
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Thermal formulation'
   end
   object lblThermalA2: TLabel [5]
@@ -38,6 +50,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 306
     Width = 60
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Thermal A2'
   end
   object lblThermalA3: TLabel [6]
@@ -45,6 +61,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 334
     Width = 60
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Thermal A3'
   end
   object lblThermalA4: TLabel [7]
@@ -52,6 +72,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 362
     Width = 60
     Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Thermal A4'
   end
   inherited memoComments: TMemo
@@ -64,6 +88,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 160
     Width = 185
     Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Specify viscosity'
     Enabled = False
     TabOrder = 1
@@ -73,6 +101,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 215
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 2
@@ -87,6 +119,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 183
     Width = 209
     Height = 26
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Write viscosity'
     Enabled = False
     TabOrder = 3
@@ -96,6 +132,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 243
     Width = 145
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     TabOrder = 4
@@ -105,6 +145,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 274
     Width = 145
     Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Style = csDropDownList
     Enabled = False
     TabOrder = 5
@@ -117,6 +161,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 303
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 6
@@ -131,6 +179,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 331
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 7
@@ -145,6 +197,10 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 359
     Width = 145
     Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Color = clBtnFace
     Enabled = False
     TabOrder = 8
@@ -159,9 +215,15 @@ inherited framePackageViscosity: TframePackageViscosity
     Top = 384
     Width = 715
     Height = 140
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     ColCount = 3
+    DefaultColWidth = 80
+    DefaultRowHeight = 30
     Enabled = False
     FixedCols = 1
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
