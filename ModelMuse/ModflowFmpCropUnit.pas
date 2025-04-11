@@ -1779,7 +1779,6 @@ end;
 
 procedure TCropItem.Assign(Source: TPersistent);
 var
-  Index: Integer;
   SourceItem: TCropItem;
 begin
   if Source is TCropItem then
@@ -2073,7 +2072,6 @@ end;
 function TCropItem.IsSame(AnotherItem: TOrderedItem): boolean;
 var
   OtherItem: TCropItem;
-  PropIndex: Integer;
 begin
   OtherItem := nil;
   result := (AnotherItem is TCropItem) and inherited IsSame(AnotherItem);

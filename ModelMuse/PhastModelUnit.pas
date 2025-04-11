@@ -19297,8 +19297,6 @@ var
   var
     Index: Integer;
     AChemItem: TChemSpeciesItem;
-    MstPackage: TGwtMstPackage;
-    GwtPackagesItem: TGwtPackagesItem;
   begin
     result := ModflowPackages.GweEstPackage.IsSelected;
     if result then
@@ -46398,7 +46396,6 @@ var
   Extension: string;
   GwtOrGweUsed:  Boolean;
   ChemIndex: Integer;
-  TempFileName: string;
 begin
   if ModelSelection = msModflowOwhm2 then
   begin

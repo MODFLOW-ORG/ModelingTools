@@ -244,7 +244,6 @@ var
   PrintIndex: TSurfaceWaterPrint;
   function RowToFarmOption(ARow: TSurfaceWaterRows): TFarmOption;
   var
-    ItemIndex: Integer;
     CanSelect: Boolean;
   begin
     CanSelect := True;

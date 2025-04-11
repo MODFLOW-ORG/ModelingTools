@@ -495,11 +495,7 @@ begin
           or (UztItem.Name = 'UZET')
           then
         begin
-          if TryFortranStrToFloat(FSplitter[2], UztItem.FloatValue) then
-          begin
-
-          end
-          else
+          if not TryFortranStrToFloat(FSplitter[2], UztItem.FloatValue) then
           begin
             UztItem.StringValue := FSplitter[2]
           end;
@@ -507,11 +503,7 @@ begin
         else if (UztItem.Name = 'AUXILIARY')
           then
         begin
-          if TryFortranStrToFloat(FSplitter[3], UztItem.FloatValue) then
-          begin
-
-          end
-          else
+          if not TryFortranStrToFloat(FSplitter[3], UztItem.FloatValue) then
           begin
             FSplitter.DelimitedText := CaseSensitiveLine;
             UztItem.StringValue := FSplitter[3]

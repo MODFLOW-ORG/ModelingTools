@@ -53,7 +53,6 @@ procedure TModflowGwtAdvWriter.WriteFile(AFileName: string; SpeciesIndex: Intege
 var
   Abbreviation: string;
   GwtFile: string;
-  SpeciesGwtFile: string;
 begin
   FSpeciesIndex := SpeciesIndex;
   if not Package.IsSelected then

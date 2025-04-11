@@ -958,7 +958,11 @@ uses
   Mf6.CndFileReaderUnit in '..\MF6InputReader\Mf6.CndFileReaderUnit.pas',
   MF6.EstFileReaderUnit in '..\MF6InputReader\MF6.EstFileReaderUnit.pas',
   Mf6.CtpFileReaderUnit in '..\MF6InputReader\Mf6.CtpFileReaderUnit.pas',
-  Mf6.EslFileReaderUnit in '..\MF6InputReader\Mf6.EslFileReaderUnit.pas';
+  Mf6.EslFileReaderUnit in '..\MF6InputReader\Mf6.EslFileReaderUnit.pas',
+  Mf6.SfeFileReaderUnit in '..\MF6InputReader\Mf6.SfeFileReaderUnit.pas',
+  Mf6.LkeFileReaderUnit in '..\MF6InputReader\Mf6.LkeFileReaderUnit.pas',
+  Mf6MweFileReaderUnit in '..\MF6InputReader\Mf6MweFileReaderUnit.pas',
+  Mf6.UzeFileReaderUnit in '..\MF6InputReader\Mf6.UzeFileReaderUnit.pas';
 
 {$R *.res}
 

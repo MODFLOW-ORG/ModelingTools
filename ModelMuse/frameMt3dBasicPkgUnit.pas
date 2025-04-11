@@ -85,7 +85,6 @@ resourcestring
 procedure TframeMt3dBasicPkg.GetData(Package: TModflowPackageSelection);
 var
   BasicPackage: TMt3dBasic;
-  RowIndex: Integer;
   Option: TMt3dUsgsOption;
 begin
   pcMt3d_Basic.ActivePageIndex := 0;
@@ -273,8 +272,6 @@ begin
 end;
 
 procedure TframeMt3dBasicPkg.EnableTimeControls;
-var
-  ShouldEnable: Boolean;
 begin
   if Assigned(OnEnableTimeControls) then
   begin

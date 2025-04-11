@@ -185,10 +185,6 @@ var
   ALine: string;
   ErrorLine: string;
   CaseSensitiveLine: string;
-  TS6_FileName: string;
-  Obs_FileName: string;
-  AuxIndex: Integer;
-  AUXILIARY_Name: string;
 begin
   Initialize;
   while not Stream.EndOfStream do

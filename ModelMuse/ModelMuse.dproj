@@ -2337,6 +2337,10 @@
         <DCCReference Include="..\MF6InputReader\MF6.EstFileReaderUnit.pas"/>
         <DCCReference Include="..\MF6InputReader\Mf6.CtpFileReaderUnit.pas"/>
         <DCCReference Include="..\MF6InputReader\Mf6.EslFileReaderUnit.pas"/>
+        <DCCReference Include="..\MF6InputReader\Mf6.SfeFileReaderUnit.pas"/>
+        <DCCReference Include="..\MF6InputReader\Mf6.LkeFileReaderUnit.pas"/>
+        <DCCReference Include="..\MF6InputReader\Mf6MweFileReaderUnit.pas"/>
+        <DCCReference Include="..\MF6InputReader\Mf6.UzeFileReaderUnit.pas"/>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

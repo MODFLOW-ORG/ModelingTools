@@ -1,4 +1,4 @@
-unit Mf6.LktFileReaderUnit;
+unit Mf6MweFileReaderUnit;
 
 interface
 
@@ -7,17 +7,17 @@ uses
   System.Generics.Collections;
 
 type
-  TLktOptions = class(TCustomMf6Persistent)
+  TMweOptions = class(TCustomMf6Persistent)
   private
     FFLOW_PACKAGE_NAME: string;
     AUXILIARY: TStringList;
     FLOW_PACKAGE_AUXILIARY_NAME: string;
     BOUNDNAMES: Boolean;
     FPRINT_INPUT: Boolean;
-    FPRINT_CONCENTRATION: Boolean;
+    FPRINT_TEMPERATURE: Boolean;
     FPRINT_FLOWS: Boolean;
     FSAVE_FLOWS: Boolean;
-    FCONCENTRATION: Boolean;
+    FTEMPERATURE: Boolean;
     FBUDGET: Boolean;
     FBUDGETCSV: Boolean;
     TS6_FileNames: TStringList;
@@ -30,47 +30,51 @@ type
     destructor Destroy; override;
     property FLOW_PACKAGE_NAME: string read FFLOW_PACKAGE_NAME;
     property PRINT_INPUT: Boolean read FPRINT_INPUT;
-    property PRINT_CONCENTRATION: Boolean read FPRINT_CONCENTRATION;
+    property PRINT_TEMPERATURE: Boolean read FPRINT_TEMPERATURE;
     property PRINT_FLOWS: Boolean read FPRINT_FLOWS;
     property SAVE_FLOWS: Boolean read FSAVE_FLOWS;
-    property CONCENTRATION: Boolean read FCONCENTRATION;
+    property TEMPERATURE: Boolean read FTEMPERATURE;
     property BUDGET: Boolean read FBUDGET;
     property BUDGETCSV: Boolean read FBUDGETCSV;
   end;
 
-  TLktPackageItem = class(TObject)
+  TMwePackageItem = class(TObject)
   private
-    Flakeno: Integer;
+    Fmawno: Integer;
     Fstrt: TMf6BoundaryValue;
     aux: TBoundaryValueList;
     Fboundname: string;
+    Fktf: Extended;
+    Ffthk: Extended;
   public
     constructor Create;
     destructor Destroy; override;
-    property lakeno: Integer read Flakeno;
+    property mawno: Integer read Fmawno;
     property strt: TMf6BoundaryValue read Fstrt;
+    property ktf: Extended read Fktf;
+    property fthk: Extended read Ffthk;
     property boundname: string read Fboundname;
   end;
 
-  TLktPackageItemList= TObjectList<TLktPackageItem>;
+  TMwePackageItemList= TObjectList<TMwePackageItem>;
 
-  TLktPackageData = class(TCustomMf6Persistent)
+  TMwePackageData = class(TCustomMf6Persistent)
   private
-    FItems: TLktPackageItemList;
+    FItems: TMwePackageItemList;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter; naux: Integer;
       BOUNDNAMES: Boolean);
     function GetCount: Integer;
-    function GetItem(Index: Integer): TLktPackageItem;
+    function GetItem(Index: Integer): TMwePackageItem;
   protected
     procedure Initialize; override;
   public
     constructor Create(PackageType: string); override;
     destructor Destroy; override;
     property Count: Integer read GetCount;
-    property Items[Index: Integer]: TLktPackageItem read GetItem; default;
+    property Items[Index: Integer]: TMwePackageItem read GetItem; default;
   end;
 
-  TLktPeriod = class(TCustomMf6Persistent)
+  TMwePeriod = class(TCustomMf6Persistent)
   private
     IPER: Integer;
     FItems: TNumberedItemList;
@@ -87,38 +91,37 @@ type
     property Items[Index: Integer]: TNumberedItem read GetItem; default;
   end;
 
-  TLktPeriodList = TObjectList<TLktPeriod>;
-  TLktPeriodArray = TArray<TLktPeriod>;
+  TMwePeriodList = TObjectList<TMwePeriod>;
+  TMwePeriodArray = TArray<TMwePeriod>;
 
-  TLkt = class(TDimensionedPackageReader)
+  TMwe = class(TDimensionedPackageReader)
   private
-    FOptions: TLktOptions;
-    FPackageData: TLktPackageData;
-    FPeriods: TLktPeriodList;
+    FOptions: TMweOptions;
+    FPackageData: TMwePackageData;
+    FPeriods: TMwePeriodList;
     FTimeSeriesPackages: TPackageList;
     FObservationsPackages: TPackageList;
     function GetObservation(Index: Integer): TPackage;
     function GetObservationCount: Integer;
-    function GetPeriod(Index: Integer): TLktPeriod;
+    function GetPeriod(Index: Integer): TMwePeriod;
     function GetPeriodCount: Integer;
     function GetTimeSeries(Index: Integer): TPackage;
     function GetTimeSeriesCount: Integer;
   public
     constructor Create(PackageType: string); override;
     destructor Destroy; override;
-    procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter;
-      const NPER: Integer); override;
-    property Options: TLktOptions read FOptions;
-    property PackageData: TLktPackageData read FPackageData;
+    procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter; const NPER: Integer); override;
+    property Options: TMweOptions read FOptions;
+    property PackageData: TMwePackageData read FPackageData;
     property PeriodCount: Integer read GetPeriodCount;
-    property Periods[Index: Integer]: TLktPeriod read GetPeriod;
+    property Periods[Index: Integer]: TMwePeriod read GetPeriod;
     property TimeSeriesCount: Integer read GetTimeSeriesCount;
     property TimeSeries[Index: Integer]: TPackage read GetTimeSeries;
     property ObservationCount: Integer read GetObservationCount;
     property Observations[Index: Integer]: TPackage read GetObservation;
   end;
 
-  TLktList = TList<TLkt>;
+  TMweList = TList<TMwe>;
 
 implementation
 
@@ -126,18 +129,19 @@ uses
   System.Generics.Defaults, ModelMuseUtilities, Mf6.TimeSeriesFileReaderUnit,
   Mf6.ObsFileReaderUnit;
 
-{ TLktOptions }
+{ TMweOptions }
 
-constructor TLktOptions.Create(PackageType: string);
+constructor TMweOptions.Create(PackageType: string);
 begin
   AUXILIARY := TStringList.Create;
   AUXILIARY.CaseSensitive := False;
   TS6_FileNames := TStringList.Create;
   Obs6_FileNames := TStringList.Create;
   inherited;
+
 end;
 
-destructor TLktOptions.Destroy;
+destructor TMweOptions.Destroy;
 begin
   AUXILIARY.Free;
   TS6_FileNames.Free;
@@ -145,7 +149,7 @@ begin
   inherited;
 end;
 
-procedure TLktOptions.Initialize;
+procedure TMweOptions.Initialize;
 begin
   inherited;
   FFLOW_PACKAGE_NAME := '';
@@ -153,17 +157,17 @@ begin
   FLOW_PACKAGE_AUXILIARY_NAME := '';
   BOUNDNAMES := False;
   FPRINT_INPUT := False;
-  FPRINT_CONCENTRATION := False;
+  FPRINT_TEMPERATURE := False;
   FPRINT_FLOWS := False;
   FSAVE_FLOWS := False;
-  FCONCENTRATION := False;
+  FTEMPERATURE := False;
   FBUDGET := False;
   FBUDGETCSV := False;
   TS6_FileNames.Clear;
   Obs6_FileNames.Clear;
 end;
 
-procedure TLktOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+procedure TMweOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
 var
   ALine: string;
   ErrorLine: string;
@@ -224,9 +228,9 @@ begin
     begin
       FPRINT_INPUT := True;
     end
-    else if FSplitter[0] = 'PRINT_CONCENTRATION' then
+    else if FSplitter[0] = 'PRINT_TEMPERATURE' then
     begin
-      FPRINT_CONCENTRATION := True;
+      FPRINT_TEMPERATURE := True;
     end
     else if FSplitter[0] = 'PRINT_FLOWS' then
     begin
@@ -236,11 +240,11 @@ begin
     begin
       FSAVE_FLOWS := True;
     end
-    else if (FSplitter[0] = 'CONCENTRATION')
+    else if (FSplitter[0] = 'TEMPERATURE')
       and (FSplitter.Count >= 3)
       and (FSplitter[1] = 'FILEOUT') then
     begin
-      FCONCENTRATION := True;
+      FTEMPERATURE := True;
     end
     else if (FSplitter[0] = 'BUDGET')
       and (FSplitter.Count >= 3)
@@ -278,65 +282,67 @@ begin
   end
 end;
 
-{ TLktPackageItem }
+{ TMwePackageItem }
 
-constructor TLktPackageItem.Create;
+constructor TMwePackageItem.Create;
 begin
-  Flakeno := 0;
+  Fmawno := 0;
   Fstrt.Initialize;
+  Fktf := 0;
+  Ffthk := 0;
   aux := TBoundaryValueList.Create;
   Fboundname := ''
 end;
 
-destructor TLktPackageItem.Destroy;
+destructor TMwePackageItem.Destroy;
 begin
   aux.Free;
   inherited;
 end;
 
-{ TLktPackageData }
+{ TMwePackageData }
 
-constructor TLktPackageData.Create(PackageType: string);
+constructor TMwePackageData.Create(PackageType: string);
 begin
-  FItems := TLktPackageItemList.Create;
+  FItems := TMwePackageItemList.Create;
   inherited;
 end;
 
-destructor TLktPackageData.Destroy;
+destructor TMwePackageData.Destroy;
 begin
   FItems.Free;
   inherited;
 end;
 
-function TLktPackageData.GetCount: Integer;
+function TMwePackageData.GetCount: Integer;
 begin
   result := FItems.Count;
 end;
 
-function TLktPackageData.GetItem(Index: Integer): TLktPackageItem;
+function TMwePackageData.GetItem(Index: Integer): TMwePackageItem;
 begin
   result := FItems[Index];
 end;
 
-procedure TLktPackageData.Initialize;
+procedure TMwePackageData.Initialize;
 begin
   inherited;
   FItems.Clear;
 end;
 
-procedure TLktPackageData.Read(Stream: TStreamReader; Unhandled: TStreamWriter;
+procedure TMwePackageData.Read(Stream: TStreamReader; Unhandled: TStreamWriter;
   naux: Integer; BOUNDNAMES: Boolean);
 var
   ALine: string;
   ErrorLine: string;
-  Item: TLktPackageItem;
+  Item: TMwePackageItem;
   ItemStart: Integer;
   AuxIndex: Integer;
   AValue: TMf6BoundaryValue;
   CaseSensitiveLine: string;
   NumberOfItems: Integer;
 begin
-  NumberOfItems := 2 + naux;
+  NumberOfItems := 4 + naux;
   Initialize;
   while not Stream.EndOfStream do
   begin
@@ -352,24 +358,24 @@ begin
     if ReadEndOfSection(ALine, ErrorLine, 'PACKAGEDATA', Unhandled) then
     begin
       FItems.Sort(
-        TComparer<TLktPackageItem>.Construct(
-          function(const Left, Right: TLktPackageItem): Integer
+        TComparer<TMwePackageItem>.Construct(
+          function(const Left, Right: TMwePackageItem): Integer
           begin
-            Result := Left.Flakeno - Right.Flakeno;
+            Result := Left.Fmawno - Right.Fmawno;
           end
         ));
       Exit;
     end;
 
     CaseSensitiveLine := ALine;
-    Item := TLktPackageItem.Create;
+    Item := TMwePackageItem.Create;
     try
       if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'PACKAGEDATA') then
       begin
         // do nothing
       end
       else if (FSplitter.Count >= NumberOfItems)
-        and TryStrToInt(FSplitter[0],Item.Flakeno)
+        and TryStrToInt(FSplitter[0],Item.Fmawno)
         then
       begin
         if TryFortranStrToFloat(FSplitter[1],Item.Fstrt.NumericValue) then
@@ -382,7 +388,19 @@ begin
           Item.Fstrt.StringValue := FSplitter[1];
         end;
 
-        ItemStart := 2;
+        if not TryFortranStrToFloat(FSplitter[2],Item.Fktf) then
+        begin
+          Unhandled.WriteLine(Format(StrUnrecognizedSPACK, [FPackageType]));
+          Unhandled.WriteLine(ErrorLine);
+        end;
+
+        if not TryFortranStrToFloat(FSplitter[3],Item.Ffthk) then
+        begin
+          Unhandled.WriteLine(Format(StrUnrecognizedSPACK, [FPackageType]));
+          Unhandled.WriteLine(ErrorLine);
+        end;
+
+        ItemStart := 4;
         for AuxIndex := 0 to naux - 1 do
         begin
           AValue.Initialize;
@@ -418,39 +436,39 @@ begin
   end;
 end;
 
-{ TLktPeriod }
+{ TMwePeriod }
 
-constructor TLktPeriod.Create(PackageType: string);
+constructor TMwePeriod.Create(PackageType: string);
 begin
   FItems := TNumberedItemList.Create;
   inherited;
 end;
 
-destructor TLktPeriod.Destroy;
+destructor TMwePeriod.Destroy;
 begin
   FItems.Free;
   inherited;
 end;
 
-function TLktPeriod.GetCount: Integer;
+function TMwePeriod.GetCount: Integer;
 begin
   result := FItems.Count;
 end;
 
-function TLktPeriod.GetItem(Index: Integer): TNumberedItem;
+function TMwePeriod.GetItem(Index: Integer): TNumberedItem;
 begin
   result := FItems[Index];
 end;
 
-procedure TLktPeriod.Initialize;
+procedure TMwePeriod.Initialize;
 begin
   inherited;
   FItems.Clear;
 end;
 
-procedure TLktPeriod.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+procedure TMwePeriod.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
 var
-  LktItem: TNumberedItem;
+  MweItem: TNumberedItem;
   ALine: string;
   ErrorLine: string;
   CaseSensitiveLine: string;
@@ -472,7 +490,7 @@ begin
       Exit;
     end;
 
-    LktItem.Initialize;
+    MweItem.Initialize;
     CaseSensitiveLine := ALine;
     if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'PERIOD') then
     begin
@@ -480,42 +498,39 @@ begin
     end
     else if FSplitter.Count >= 3 then
     begin
-      if TryStrToInt(FSplitter[0], LktItem.IdNumber) then
+      if TryStrToInt(FSplitter[0], MweItem.IdNumber) then
       begin
-        LktItem.Name := FSplitter[1];
-        if LktItem.Name = 'STATUS' then
+        MweItem.Name := FSplitter[1];
+        if MweItem.Name = 'STATUS' then
         begin
-          LktItem.StringValue := FSplitter[2];
+          MweItem.StringValue := FSplitter[2];
         end
-        else if (LktItem.Name = 'CONCENTRATION')
-          or (LktItem.Name = 'RAINFALL')
-          or (LktItem.Name = 'EVAPORATION')
-          or (LktItem.Name = 'RUNOFF')
-          or (LktItem.Name = 'EXT-INFLOW')
+        else if (MweItem.Name = 'CONCENTRATION')
+          or (MweItem.Name = 'RATE')
           then
         begin
-          if not TryFortranStrToFloat(FSplitter[2], LktItem.FloatValue) then
+          if not TryFortranStrToFloat(FSplitter[2], MweItem.FloatValue) then
           begin
-            LktItem.StringValue := FSplitter[2]
+            MweItem.StringValue := FSplitter[2]
           end;
         end
-        else if (LktItem.Name = 'AUXILIARY')
+        else if (MweItem.Name = 'AUXILIARY')
           then
         begin
-          if not TryFortranStrToFloat(FSplitter[3], LktItem.FloatValue) then
+          if not TryFortranStrToFloat(FSplitter[3], MweItem.FloatValue) then
           begin
             FSplitter.DelimitedText := CaseSensitiveLine;
-            LktItem.StringValue := FSplitter[3]
+            MweItem.StringValue := FSplitter[3]
           end;
           FSplitter.DelimitedText := CaseSensitiveLine;
-          LktItem.AuxName := FSplitter[2];
+          MweItem.AuxName := FSplitter[2];
         end
         else
         begin
           Unhandled.WriteLine(Format(StrUnrecognizedSPERI, [FPackageType]));
           Unhandled.WriteLine(ErrorLine);
         end;
-        FItems.Add(LktItem);
+        FItems.Add(MweItem);
       end
       else
       begin
@@ -529,21 +544,22 @@ begin
       Unhandled.WriteLine(ErrorLine);
     end;
   end;
+
 end;
 
-{ TLkt }
+{ TMwe }
 
-constructor TLkt.Create(PackageType: string);
+constructor TMwe.Create(PackageType: string);
 begin
   inherited;
-  FOptions := TLktOptions.Create(PackageType);
-  FPackageData := TLktPackageData.Create(PackageType);
-  FPeriods := TLktPeriodList.Create;
+  FOptions := TMweOptions.Create(PackageType);
+  FPackageData := TMwePackageData.Create(PackageType);
+  FPeriods := TMwePeriodList.Create;
   FTimeSeriesPackages := TPackageList.Create;
   FObservationsPackages := TPackageList.Create;
 end;
 
-destructor TLkt.Destroy;
+destructor TMwe.Destroy;
 begin
   FOptions.Free;
   FPackageData.Free;
@@ -553,42 +569,43 @@ begin
   inherited;
 end;
 
-function TLkt.GetObservation(Index: Integer): TPackage;
+function TMwe.GetObservation(Index: Integer): TPackage;
 begin
   result := FObservationsPackages[Index];
 end;
 
-function TLkt.GetObservationCount: Integer;
+function TMwe.GetObservationCount: Integer;
 begin
-  result := FObservationsPackages.Count
+  result := FObservationsPackages.Count;
 end;
 
-function TLkt.GetPeriod(Index: Integer): TLktPeriod;
+function TMwe.GetPeriod(Index: Integer): TMwePeriod;
 begin
   result := FPeriods[Index];
 end;
 
-function TLkt.GetPeriodCount: Integer;
+function TMwe.GetPeriodCount: Integer;
 begin
   result := FPeriods.Count;
 end;
 
-function TLkt.GetTimeSeries(Index: Integer): TPackage;
+function TMwe.GetTimeSeries(Index: Integer): TPackage;
 begin
   result := FTimeSeriesPackages[Index];
 end;
 
-function TLkt.GetTimeSeriesCount: Integer;
+function TMwe.GetTimeSeriesCount: Integer;
 begin
   result := FTimeSeriesPackages.Count;
 end;
 
-procedure TLkt.Read(Stream: TStreamReader; Unhandled: TStreamWriter; const NPER: Integer);
+procedure TMwe.Read(Stream: TStreamReader; Unhandled: TStreamWriter;
+  const NPER: Integer);
 var
   ALine: string;
   ErrorLine: string;
   IPER: Integer;
-  APeriod: TLktPeriod;
+  APeriod: TMwePeriod;
   TsPackage: TPackage;
   PackageIndex: Integer;
   TsReader: TTimeSeries;
@@ -597,7 +614,7 @@ var
 begin
   if Assigned(OnUpdataStatusBar) then
   begin
-    OnUpdataStatusBar(self, 'reading LKT package');
+    OnUpdataStatusBar(self, 'reading MWE package');
   end;
   while not Stream.EndOfStream do
   begin
@@ -630,7 +647,7 @@ begin
           begin
             break;
           end;
-          APeriod := TLktPeriod.Create(FPackageType);
+          APeriod := TMwePeriod.Create(FPackageType);
           FPeriods.Add(APeriod);
           APeriod.IPer := IPER;
           APeriod.Read(Stream, Unhandled);

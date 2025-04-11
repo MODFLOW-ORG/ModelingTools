@@ -306,7 +306,6 @@ begin
   FItems := TSftPackageItemList.Create;
   FItemDictionary := TSftPackageItemDictionary.Create;
   inherited;
-
 end;
 
 destructor TSftPackageData.Destroy;
@@ -515,11 +514,7 @@ begin
           or (SftItem.Name = 'INFLOW')
           then
         begin
-          if TryFortranStrToFloat(FSplitter[2], SftItem.FloatValue) then
-          begin
-
-          end
-          else
+          if not TryFortranStrToFloat(FSplitter[2], SftItem.FloatValue) then
           begin
             SftItem.StringValue := FSplitter[2]
           end;
@@ -527,11 +522,7 @@ begin
         else if (SftItem.Name = 'AUXILIARY')
           then
         begin
-          if TryFortranStrToFloat(FSplitter[3], SftItem.FloatValue) then
-          begin
-
-          end
-          else
+          if not TryFortranStrToFloat(FSplitter[3], SftItem.FloatValue) then
           begin
             FSplitter.DelimitedText := CaseSensitiveLine;
             SftItem.StringValue := FSplitter[3]
@@ -558,7 +549,6 @@ begin
       Unhandled.WriteLine(ErrorLine);
     end;
   end;
-
 end;
 
 { TSft }

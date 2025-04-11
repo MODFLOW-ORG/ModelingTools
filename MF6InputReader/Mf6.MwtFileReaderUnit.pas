@@ -299,7 +299,6 @@ constructor TMwtPackageData.Create(PackageType: string);
 begin
   FItems := TMwtPackageItemList.Create;
   inherited;
-
 end;
 
 destructor TMwtPackageData.Destroy;
@@ -491,11 +490,7 @@ begin
           or (MwtItem.Name = 'RATE')
           then
         begin
-          if TryFortranStrToFloat(FSplitter[2], MwtItem.FloatValue) then
-          begin
-
-          end
-          else
+          if not TryFortranStrToFloat(FSplitter[2], MwtItem.FloatValue) then
           begin
             MwtItem.StringValue := FSplitter[2]
           end;

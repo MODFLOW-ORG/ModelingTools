@@ -1050,7 +1050,6 @@ end;
 function TChemSpeciesItem.GetUsedForGWE: Boolean;
 var
   LocalModel: TCustomModel;
-  IgnoredNames: TStringList;
 begin
   result := False;
 

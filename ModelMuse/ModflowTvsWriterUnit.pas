@@ -262,7 +262,6 @@ var
   Cells: TValueCellList;
   CellIndex: Integer;
   ACell: TTvs_Cell;
-  AScreenObject: TScreenObject;
   ConvertibleDataSet: TDataArray;
   procedure WriteCellID;
   begin

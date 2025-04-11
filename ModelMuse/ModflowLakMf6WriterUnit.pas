@@ -2014,11 +2014,9 @@ var
   ASpecies: TMobileChemSpeciesItem;
   budgetfile: string;
   BaseFileName: string;
-//  SfrMf6Package: TSfrModflow6PackageSelection;
   concentrationfile: string;
   budgetCsvFile: string;
   NameOfLktObFile: string;
-  BudgetFileName: string;
 begin
   WriteBeginOptions;
   try
