@@ -56,6 +56,22 @@ type
     destructor Destroy; override;
   end;
 
+  TGweExchangeOptions = class(TCustomExchangeOptions)
+  private
+    GWFMODELNAME1: string;
+    GWFMODELNAME2: string;
+    ADV_SCHEME: string;
+    CND_XT3D_OFF: Boolean;
+    CND_XT3D_RHS: Boolean;
+    MVE6: TStringList;
+    procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+  protected
+    procedure Initialize; override;
+  public
+    constructor Create(PackageType: string); override;
+    destructor Destroy; override;
+  end;
+
   TExcDimensions = class(TCustomMf6Persistent)
   private
     NEXG: Integer;
@@ -114,6 +130,20 @@ type
     FData: TExcData;
     FObservationsPackages: TPackageList;
     FMvtPackages: TPackageList;
+  public
+    FDimensions2: TDimensions;
+    constructor Create(PackageType: string); override;
+    destructor Destroy; override;
+    procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter; const NPER: Integer); override;
+  end;
+
+  TGweGwe = class(TDimensionedPackageReader)
+  private
+    FOptions: TGweExchangeOptions;
+    FExcDimensions: TExcDimensions;
+    FData: TExcData;
+    FObservationsPackages: TPackageList;
+    FMvePackages: TPackageList;
   public
     FDimensions2: TDimensions;
     constructor Create(PackageType: string); override;
@@ -322,7 +352,6 @@ constructor TGwtExchangeOptions.Create(PackageType: string);
 begin
   MVT6 := TStringList.Create;
   inherited;
-
 end;
 
 destructor TGwtExchangeOptions.Destroy;
@@ -814,6 +843,143 @@ begin
     MvtReader := TMvt.Create(FPackageType);
     MvtPackage.Package := MvtReader;
     MvtPackage.ReadPackage(Unhandled, NPER);
+  end;
+
+end;
+
+{ TGweExchangeOptions }
+
+constructor TGweExchangeOptions.Create(PackageType: string);
+begin
+  MVE6 := TStringList.Create;
+  inherited;
+end;
+
+destructor TGweExchangeOptions.Destroy;
+begin
+  MVE6.Free;
+  inherited;
+end;
+
+procedure TGweExchangeOptions.Initialize;
+begin
+  inherited;
+  MVE6.Clear;
+  GWFMODELNAME1 := '';
+  GWFMODELNAME2 := '';
+  ADV_SCHEME := '';
+  CND_XT3D_OFF := False;
+  CND_XT3D_RHS := False;
+end;
+
+procedure TGweExchangeOptions.Read(Stream: TStreamReader;
+  Unhandled: TStreamWriter);
+begin
+
+end;
+
+{ TGweGwe }
+
+constructor TGweGwe.Create(PackageType: string);
+begin
+  inherited;
+  FOptions := TGweExchangeOptions.Create(PackageType);
+  FExcDimensions := TExcDimensions.Create(PackageType);
+  FData := TExcData.Create(PackageType);
+  FObservationsPackages := TPackageList.Create;
+  FMvePackages := TPackageList.Create;
+  FDimensions2.Initialize;
+end;
+
+destructor TGweGwe.Destroy;
+begin
+  FOptions.Free;
+  FExcDimensions.Free;
+  FData.Free;
+  FObservationsPackages.Free;
+  FMvePackages.Free;
+  inherited;
+end;
+
+procedure TGweGwe.Read(Stream: TStreamReader; Unhandled: TStreamWriter;
+  const NPER: Integer);
+var
+  ALine: string;
+  ErrorLine: string;
+  PackageIndex: Integer;
+  ObsReader: TObs;
+  ObsPackage: TPackage;
+  MvePackage: TPackage;
+  MveReader: TMvt;
+begin
+  if Assigned(OnUpdataStatusBar) then
+  begin
+    OnUpdataStatusBar(self, 'reading gwe-gwe exchange package');
+  end;
+  while not Stream.EndOfStream do
+  begin
+    ALine := Stream.ReadLine;
+    ErrorLine := ALine;
+    ALine := StripFollowingComments(ALine);
+    if ALine = '' then
+    begin
+      Continue;
+    end;
+
+    ALine := UpperCase(ALine);
+    FSplitter.DelimitedText := ALine;
+    if FSplitter[0] = 'BEGIN' then
+    begin
+      if FSplitter[1] ='OPTIONS' then
+      begin
+        FOptions.Read(Stream, Unhandled);
+      end
+      else if FSplitter[1] ='DIMENSIONS' then
+      begin
+        FExcDimensions.Read(Stream, Unhandled);
+      end
+      else if FSplitter[1] ='EXCHANGEDATA' then
+      begin
+        FData.Read(Stream, Unhandled, self.FDimensions, FDimensions2,
+          FOptions.AUXILIARY.Count, FOptions.BOUNDNAMES);
+      end
+      else
+      begin
+        Unhandled.WriteLine(Format(StrUnrecognizedSData, [FPackageType]));
+        Unhandled.WriteLine(ErrorLine);
+      end;
+    end
+    else
+    begin
+      Unhandled.WriteLine(Format(StrUnrecognizedSData, [FPackageType]));
+      Unhandled.WriteLine(ErrorLine);
+    end;
+  end;
+  for PackageIndex := 0 to FOptions.Obs6.Count - 1 do
+  begin
+    ObsPackage := TPackage.Create;
+    FObservationsPackages.Add(ObsPackage);
+    ObsPackage.FileType := FPackageType;
+    ObsPackage.FileName := FOptions.Obs6[PackageIndex];
+    ObsPackage.PackageName := '';
+
+    ObsReader := TObs.Create(FPackageType);
+    ObsReader.Dimensions := FDimensions;
+    ObsPackage.Package := ObsReader;
+    ObsPackage.ReadPackage(Unhandled, NPER);
+  end;
+
+  for PackageIndex := 0 to FOptions.MVE6.Count - 1 do
+  begin
+    MvePackage := TPackage.Create;
+    FMvePackages.Add(MvePackage);
+    MvePackage.FileType := 'MVE6';
+    MvePackage.FileName := FOptions.MVE6[PackageIndex];
+    MvePackage.PackageName := '';
+
+    MveReader := TMvt.Create(FPackageType);
+    MvePackage.Package := MveReader;
+    MvePackage.ReadPackage(Unhandled, NPER);
   end;
 
 end;

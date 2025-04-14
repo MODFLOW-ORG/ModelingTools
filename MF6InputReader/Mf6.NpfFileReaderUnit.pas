@@ -32,6 +32,8 @@ type
     FK22OVERK: Boolean;
     FK33OVERK: Boolean;
     TVK6_FileNames: TStringList;
+    FEXPORT_ARRAY_NETCDF: Boolean;
+    FEXPORT_ARRAY_ASCII: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
   protected
     procedure Initialize; override;
@@ -52,6 +54,8 @@ type
     property SAVE_SATURATION: Boolean read FSAVE_SATURATION;
     property K22OVERK: Boolean read FK22OVERK;
     property K33OVERK: Boolean read FK33OVERK;
+    property EXPORT_ARRAY_ASCII: Boolean read FEXPORT_ARRAY_ASCII;
+    property EXPORT_ARRAY_NETCDF: Boolean read FEXPORT_ARRAY_NETCDF;
   end;
 
   TNpfGridData = class(TCustomMf6Persistent)
@@ -145,7 +149,8 @@ begin
   FK22OVERK := False;
   FK33OVERK := False;
   TVK6_FileNames.Clear;
-
+  FEXPORT_ARRAY_ASCII := False;
+  FEXPORT_ARRAY_NETCDF := False;
 end;
 
 procedure TNpfOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -247,6 +252,15 @@ begin
       FSplitter.DelimitedText := CaseSensitiveLine;
       TVK6_FileName := FSplitter[2];
       TVK6_FileNames.Add(TVK6_FileName);
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_ASCII' then
+    begin
+      FEXPORT_ARRAY_ASCII := True;
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_NETCDF' then
+    begin
+      FEXPORT_ARRAY_NETCDF := True;
+      Unhandled.WriteLine(Format('The EXPORT_ARRAY_NETCDF in %s is not handled by this program.', [FPackageType]));
     end
     else
     begin

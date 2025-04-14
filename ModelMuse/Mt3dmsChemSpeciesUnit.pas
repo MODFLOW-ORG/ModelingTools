@@ -82,12 +82,12 @@ type
     FGwePorosityDataArrayDisplayName: string;
     FDecaySolidDataArrayName: string;
     FHeatCapacitySolidDataArrayName: string;
+    FHeatCapacitySolidDisplayName: string;
     FDensitySolidDataArrayName: string;
     FDecayWaterDataArrayName: string;
-    FDecaySolidDisplayName: string;
-    FHeatCapacitySolidDisplayName: string;
-    FDensitySolidDisplayName: string;
     FDecayWaterDisplayName: string;
+    FDecaySolidDisplayName: string;
+    FDensitySolidDisplayName: string;
     function GetName: string;
     procedure SetName(const Value: string); virtual;
     procedure UpdateDataArray(OnDataSetUsed: TObjectUsedEvent;

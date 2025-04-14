@@ -397,6 +397,12 @@ begin
           // a file exists but nothing is read from the file.
           // Therefore, nothing is done here.
         end
+        else if ExcPackage.FileType = 'GWF6-GWE6' then
+        begin
+          // As of MODFLOW 6.6.1,
+          // a file exists but nothing is read from the file.
+          // Therefore, nothing is done here.
+        end
         else
         begin
           FOutFile.WriteLine('Unrecognized groundwater exchange type.');
@@ -778,7 +784,8 @@ begin
       AModel.ModelType := UpperCase(FSplitter[0]);
       AModel.NameFile := FSplitter[1];
       AModel.ModelName := FSplitter[2];
-      if (AModel.ModelType <> 'GWF6') and (AModel.ModelType <> 'GWT6') then
+      if (AModel.ModelType <> 'GWF6') and (AModel.ModelType <> 'GWT6')
+         and (AModel.ModelType <> 'GWE6') then
       begin
         Unhandled.WriteLine('Error reading the model type in the following line.');
         Unhandled.WriteLine(ErrorLine);
@@ -881,7 +888,10 @@ begin
       AnExchange.ExchangeModelNameA := FSplitter[2];
       AnExchange.ExchangeModelNameB := FSplitter[3];
       ALine := UpperCase(FSplitter[0]);
-      if (ALine <> 'GWF6-GWF6') and (ALine <> 'GWF6-GWT6') and (ALine <> 'GWT6-GWT6') and (ALine <> 'GWF6-GWE6') then
+      if (ALine <> 'GWF6-GWF6') and (ALine <> 'GWF6-GWT6')
+        and (ALine <> 'GWT6-GWT6') and (ALine <> 'GWF6-GWE6')
+        and (ALine <> 'GWE6-GWE6')
+        then
       begin
         Unhandled.WriteLine('Error reading the exchange type in the following line.');
         Unhandled.WriteLine(ErrorLine);
@@ -1093,6 +1103,7 @@ var
   TransportNameFile: TTransportNameFile;
   PackageIndex: Integer;
   APackage: TPackage;
+  EnergyTransportNameFile: TEnergyTransportNameFile;
 begin
   if ModelType = 'GWF6' then
   begin
@@ -1112,6 +1123,18 @@ begin
     for PackageIndex := 0 to TransportNameFile.NfPackages.Count - 1 do
     begin
       APackage := TransportNameFile.NfPackages[PackageIndex];
+      if APackage.FileType = 'FMI6' then
+      begin
+        result := (APackage.Package as TFmi).FullBudgetFileName;
+      end;
+    end;
+  end
+  else if ModelType = 'GWE6' then
+  begin
+    EnergyTransportNameFile := FName as TEnergyTransportNameFile;
+    for PackageIndex := 0 to EnergyTransportNameFile.NfPackages.Count - 1 do
+    begin
+      APackage := EnergyTransportNameFile.NfPackages[PackageIndex];
       if APackage.FileType = 'FMI6' then
       begin
         result := (APackage.Package as TFmi).FullBudgetFileName;

@@ -11,12 +11,16 @@ type
   private
     FXT3D_OFF: Boolean;
     FXT3D_RHS: Boolean;
+    FEXPORT_ARRAY_NETCDF: Boolean;
+    FEXPORT_ARRAY_ASCII: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
   protected
     procedure Initialize; override;
   public
     property XT3D_OFF: Boolean read FXT3D_OFF;
     property XT3D_RHS: Boolean read FXT3D_RHS;
+    property EXPORT_ARRAY_ASCII: Boolean read FEXPORT_ARRAY_ASCII;
+    property EXPORT_ARRAY_NETCDF: Boolean read FEXPORT_ARRAY_NETCDF;
   end;
 
   TDspGridData = class(TCustomMf6Persistent)
@@ -65,6 +69,8 @@ begin
   inherited;
   FXT3D_OFF := False;
   FXT3D_RHS := False;
+  FEXPORT_ARRAY_ASCII := False;
+  FEXPORT_ARRAY_NETCDF := False;
 end;
 
 procedure TDspOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -99,6 +105,15 @@ begin
     else if FSplitter[0] = 'XT3D_RHS' then
     begin
       FXT3D_RHS := True;
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_ASCII' then
+    begin
+      FEXPORT_ARRAY_ASCII := True;
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_NETCDF' then
+    begin
+      FEXPORT_ARRAY_NETCDF := True;
+      Unhandled.WriteLine(Format('The EXPORT_ARRAY_NETCDF in %s is not handled by this program.', [FPackageType]));
     end
     else
     begin

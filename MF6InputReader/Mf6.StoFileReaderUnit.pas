@@ -13,6 +13,8 @@ type
     FSTORAGECOEFFICIENT: Boolean;
     FSS_CONFINED_ONLY: Boolean;
     FTVS6_FileNames: TStringList;
+    FEXPORT_ARRAY_NETCDF: Boolean;
+    FEXPORT_ARRAY_ASCII: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
   protected
     procedure Initialize; override;
@@ -21,6 +23,8 @@ type
     destructor Destroy; override;
     property SAVE_FLOWS: Boolean read FSAVE_FLOWS;
     property STORAGECOEFFICIENT: Boolean read FSTORAGECOEFFICIENT;
+    property EXPORT_ARRAY_ASCII: Boolean read FEXPORT_ARRAY_ASCII;
+    property EXPORT_ARRAY_NETCDF: Boolean read FEXPORT_ARRAY_NETCDF;
   end;
 
   TStoGridData = class(TCustomMf6Persistent)
@@ -100,6 +104,8 @@ procedure TStoOptions.Initialize;
 begin
   inherited;
   FTVS6_FileNames.Clear;
+  FEXPORT_ARRAY_ASCII := False;
+  FEXPORT_ARRAY_NETCDF := False;
 end;
 
 procedure TStoOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -149,6 +155,15 @@ begin
       FSplitter.DelimitedText := CaseSensitiveLine;
       TVS6_FileName := FSplitter[2];
       FTVS6_FileNames.Add(TVS6_FileName);
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_ASCII' then
+    begin
+      FEXPORT_ARRAY_ASCII := True;
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_NETCDF' then
+    begin
+      FEXPORT_ARRAY_NETCDF := True;
+      Unhandled.WriteLine(Format('The EXPORT_ARRAY_NETCDF in %s is not handled by this program.', [FPackageType]));
     end
     else
     begin

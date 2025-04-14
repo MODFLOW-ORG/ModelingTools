@@ -34459,5 +34459,18 @@ object TTaskHistory
         'Import'
         'MF-2015'
         'GWE')
+    end
+    item
+      Date = 45759.000000000000000000
+    end
+    item
+      Date = 45760.000000000000000000
+    end
+    item
+      Date = 45761.000000000000000000
+      Categories.Strings = (
+        'GWE'
+        'MF-2015'
+        'Import')
     end>
 end

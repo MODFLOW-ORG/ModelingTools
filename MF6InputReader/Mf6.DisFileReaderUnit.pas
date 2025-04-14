@@ -16,6 +16,10 @@ type
     FYORIGIN: Extended;
     FANGROT: Extended;
     ValidUnits: TStringList;
+    Fncf6_filename: string;
+    FEXPORT_ARRAY_NETCDF: Boolean;
+    FEXPORT_ARRAY_ASCII: Boolean;
+    Fgrb6_filename: string;
     function GetLengthUnit: Integer;
   protected
     procedure Initialize; override;
@@ -30,6 +34,10 @@ type
     property XORIGIN: Extended read FXORIGIN;
     property YORIGIN: Extended read FYORIGIN;
     property ANGROT: Extended read FANGROT;
+    property EXPORT_ARRAY_ASCII: Boolean read FEXPORT_ARRAY_ASCII;
+    property EXPORT_ARRAY_NETCDF: Boolean read FEXPORT_ARRAY_NETCDF;
+    property ncf6_filename: string read Fncf6_filename;
+    property grb6_filename: string read Fgrb6_filename;
   end;
 
   TDisOptions = class(TCustomDisOptions);
@@ -97,6 +105,10 @@ begin
   FXORIGIN := 0;
   FYORIGIN := 0;
   FANGROT := 0;
+  Fncf6_filename := '';
+  Fgrb6_filename := '';
+  FEXPORT_ARRAY_NETCDF := False;
+  FEXPORT_ARRAY_ASCII := False;
   inherited;
 end;
 
@@ -131,6 +143,15 @@ begin
       begin
         FNOGRB := True;
       end
+      else if FSplitter[0] = 'EXPORT_ARRAY_ASCII' then
+      begin
+        FEXPORT_ARRAY_ASCII := True;
+      end
+      else if FSplitter[0] = 'EXPORT_ARRAY_NETCDF' then
+      begin
+        FEXPORT_ARRAY_NETCDF := True;
+        Unhandled.WriteLine(Format('The EXPORT_ARRAY_NETCDF in %s is not handled by this program.', [FPackageType]));
+      end
       else if FSplitter.Count >= 2 then
       begin
         if FSplitter[0] = 'LENGTH_UNITS' then
@@ -159,6 +180,14 @@ begin
           begin
             HandleOption(ErrorLine, Unhandled);
           end;
+        end
+        else if (FSplitter[0] = 'NCF6') and (FSplitter[1] = 'FILEIN') and (FSplitter.Count >= 3) then
+        begin
+          Fncf6_filename := FSplitter[2];
+        end
+        else if (FSplitter[0] = 'GRB6') and (FSplitter[1] = 'FILEIN') and (FSplitter.Count >= 3) then
+        begin
+          Fgrb6_filename := FSplitter[2];
         end
         else
         begin

@@ -484,6 +484,7 @@ end;
 
 destructor TCtp.Destroy;
 begin
+  FOptions.Free;
   FCtpDimensions.Free;
   FPeriods.Free;
   FTimeSeriesPackages.Free;

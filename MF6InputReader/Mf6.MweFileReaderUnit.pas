@@ -1,4 +1,4 @@
-unit Mf6MweFileReaderUnit;
+unit Mf6.MweFileReaderUnit;
 
 interface
 

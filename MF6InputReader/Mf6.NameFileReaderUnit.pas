@@ -92,6 +92,7 @@ type
     FDimensions: TDimensions;
     FOCPackage: TPackage;
     FFmiPackage: TPackage;
+    FSpeciesName: string;
   protected
     procedure SetOnUpdataStatusBar(const Value: TOnUpdataStatusBar); override;
   public
@@ -104,21 +105,12 @@ type
     property NfPackages: Packages read FPackages;
     property OCPackage: TPackage read FOCPackage;
     property FmiPackage: TPackage read FFmiPackage;
+    property SpeciesName: string read FSpeciesName write FSpeciesName;
   end;
 
   TFlowNameFile = TNameFile<TFlowNameFileOptions, TFlowPackages>;
-  TTransportNameFile = class(TNameFile<TTransportNameFileOptions, TTransportPackages>)
-  private
-    FSpeciesName: string;
-  public
-    property SpeciesName: string read FSpeciesName write FSpeciesName;
-  end;
-  TEnergyTransportNameFile = class(TNameFile<TTransportNameFileOptions, TEnergyTransportPackages>)
-  private
-    FSpeciesName: string;
-  public
-    property SpeciesName: string read FSpeciesName write FSpeciesName;
-  end;
+  TTransportNameFile = class(TNameFile<TTransportNameFileOptions, TTransportPackages>);
+  TEnergyTransportNameFile = class(TNameFile<TTransportNameFileOptions, TEnergyTransportPackages>);
 
 
 implementation
@@ -133,7 +125,10 @@ uses
   Mf6.GncFileReaderUnit, Mf6.ExchangeFileReaderUnit, Mf6.AdvFileReaderUnit,
   Mf6.DspFileReaderUnit, Mf6.SsmFileReaderUnit, Mf6.MstFileReaderUnit, Mf6.IstFileReaderUnit,
   Mf6.SrcFileReaderUnit, Mf6.CncFileReaderUnit, Mf6.SftFileReaderUnit, Mf6.LktFileReaderUnit,
-  Mf6.MwtFileReaderUnit, Mf6.UztFileReaderUnit, Mf6.FmiFileReaderUnit, Mf6.MvtFileReaderUnit;
+  Mf6.MwtFileReaderUnit, Mf6.UztFileReaderUnit, Mf6.FmiFileReaderUnit, Mf6.MvtFileReaderUnit,
+  Mf6.CndFileReaderUnit, Mf6.EslFileReaderUnit, MF6.EstFileReaderUnit,
+  Mf6.CtpFileReaderUnit, Mf6.SfeFileReaderUnit, Mf6.LkeFileReaderUnit,
+  Mf6.MweFileReaderUnit, Mf6.UzeFileReaderUnit;
 
 { TCustomNameFileOptions }
 
@@ -480,6 +475,7 @@ begin
   FPackages := Packages.Create(PackageType);
   FOCPackage := nil;
   FFmiPackage := nil;
+  FSpeciesName := '';
 end;
 
 destructor TNameFile<Options, Packages>.Destroy;
@@ -588,6 +584,15 @@ var
   UzwtReader: TUzt;
   FmiReader: TFmi;
   MvtReader: TMvt;
+  CndReader: TCnd;
+  EstReader: TEst;
+  CtpReader: TCtp;
+  EslReader: TEsl;
+  SfeReader: TSfe;
+  LkeReader: TLke;
+  MweReader: TMwe;
+  UzeReader: TUze;
+  GweGweReader: TGweGwe;
 begin
   // First read discretization
   FDimensions.Initialize;
@@ -927,6 +932,82 @@ begin
       APackage.Package := MvtReader;
       APackage.ReadPackage(Unhandled, NPER);
     end
+
+    else if APackage.FileType = 'CND6' then
+    begin
+      CndReader := TCnd.Create(APackage.FileType);
+      CndReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      CndReader.Dimensions := FDimensions;
+      APackage.Package := CndReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'EST6' then
+    begin
+      EstReader := TEst.Create(APackage.FileType);
+      EstReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      EstReader.Dimensions := FDimensions;
+      APackage.Package := EstReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'CTP6' then
+    begin
+      CtpReader := TCtp.Create(APackage.FileType);
+      CtpReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      CtpReader.Dimensions := FDimensions;
+      APackage.Package := CtpReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'ESL6' then
+    begin
+      EslReader := TEsl.Create(APackage.FileType);
+      EslReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      EslReader.Dimensions := FDimensions;
+      APackage.Package := EslReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'SFE6' then
+    begin
+      SfeReader := TSfe.Create(APackage.FileType);
+      SfeReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      SfeReader.Dimensions := FDimensions;
+      APackage.Package := SfeReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'LKE6' then
+    begin
+      LkeReader := TLke.Create(APackage.FileType);
+      LkeReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      LkeReader.Dimensions := FDimensions;
+      APackage.Package := LkeReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'MWE6' then
+    begin
+      MweReader := TMwe.Create(APackage.FileType);
+      MweReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      MweReader.Dimensions := FDimensions;
+      APackage.Package := MweReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'UZE6' then
+    begin
+      UzeReader := TUze.Create(APackage.FileType);
+      UzeReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      UzeReader.Dimensions := FDimensions;
+      APackage.Package := UzeReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'GWE6-GWE6' then
+    begin
+      GweGweReader := TGweGwe.Create(APackage.FileType);
+      GweGweReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      GweGweReader.Dimensions := FDimensions;
+      GweGweReader.FDimensions2 := FDimensions;
+      APackage.Package := GweGweReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+
+
     else
     begin
       Unhandled.WriteLine('Unhandled package type');
