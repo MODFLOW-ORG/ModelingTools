@@ -243,7 +243,7 @@ uses
   ModelMuseUtilities, GeoRefUnit, SparseDataSets, SparseArrayUnit,
   QuadTreeClass, MeshRenumberingTypes, Mf6.TimeArraySeriesFileReaderUnit,
   Mf6.CndFileReaderUnit, Mf6.CtpFileReaderUnit, MF6.EstFileReaderUnit,
-  Mf6.EslFileReaderUnit;
+  Mf6.EslFileReaderUnit, Mf6.MweFileReaderUnit;
 
 resourcestring
   StrTheNameFileSDoe = 'The name file %s does not exist.';
@@ -634,6 +634,8 @@ var
   ChemItem: TMobileChemSpeciesItem;
   AModel: TModel;
   TransportModel: TTransportNameFile;
+  SpeciesName: string;
+  EnergyTransportModel: TEnergyTransportNameFile;
 begin
   if Assigned(OnUpdateStatusBar) then
   begin
@@ -664,22 +666,36 @@ begin
   begin
     Item := PackageData[index];
     AModel := TransportModels.GetModelByName(Item.modelname);
+    SpeciesName := '';
     if AModel = nil then
     begin
-      FErrorMessages.Add(Format('Unrecognized transport model "%s".', [Item.modelname]));
-      Exit;
-    end;
-    TransportModel := AModel.FName as TTransportNameFile;
-
-    if TransportModel.SpeciesName = '' then
-    begin
-      ChemItem := ChemComponents.Add;
-      ChemItem.Name := Item.auxspeciesname;
-      TransportModel.SpeciesName := Item.auxspeciesname;
+      AModel := EnergyTransportModels.GetModelByName(Item.modelname);
+      if AModel = nil then
+      begin
+        FErrorMessages.Add(Format('Unrecognized transport or energy transport model "%s".', [Item.modelname]));
+        Exit;
+      end
+      else
+      begin
+        EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+        SpeciesName := EnergyTransportModel.SpeciesName;
+      end;
     end
     else
     begin
-      ChemItem := ChemComponents.GetItemByName(TransportModel.SpeciesName)
+      TransportModel := AModel.FName as TTransportNameFile;
+      SpeciesName := TransportModel.SpeciesName;
+    end;
+
+    if SpeciesName = '' then
+    begin
+      ChemItem := ChemComponents.Add;
+      ChemItem.Name := Item.auxspeciesname;
+      SpeciesName := Item.auxspeciesname;
+    end
+    else
+    begin
+      ChemItem := ChemComponents.GetItemByName(SpeciesName)
     end;
 
     if SameText(ChemItem.Name, 'Density') then
@@ -717,10 +733,8 @@ var
   Model: TPhastModel;
   Chd: TChd;
   AModel: TModel;
-  APackage: TPackage;
   ModelIndex: Integer;
   TransportModel: TTransportNameFile;
-  PackageIndex: Integer;
   BoundNameObsDictionary: TBoundNameDictionary;
   CellIdObsDictionary: TCellIdObsDictionary;
   Ssm: TSsm;
@@ -1017,6 +1031,8 @@ var
       result.Modflow6Obs.General := [ogCHD];
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
 begin
   if Assigned(OnUpdateStatusBar) then
   begin
@@ -1169,30 +1185,54 @@ begin
           AModel := TransportModels[ModelIndex];
           TransportModel := AModel.FName as TTransportNameFile;
           FoundMatch := False;
-          for PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+          Ssm := TransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
           begin
-            APackage := TransportModel.NfPackages[PackageIndex];
-            if APackage.FileType = 'SSM6' then
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
             begin
-              Ssm := APackage.Package as TSsm;
-              for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
               begin
-                if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-                begin
-                  FoundMatch := True;
-                  TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-                  TransportSpeciesNames.Add(TransportModel.SpeciesName);
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(TransportModel.SpeciesName);
 
-                  break;
-                end;
+                break;
               end;
-              break;
             end;
           end;
+
           if not FoundMatch then
           begin
             TransportAuxNames.Add('');
             TransportSpeciesNames.Add(TransportModel.SpeciesName);
+          end;
+        end;
+
+        for ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+        begin
+          AModel := EnergyTransportModels[ModelIndex];
+          EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+          Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+          FoundMatch := False;
+          if Ssm <> nil then
+          begin
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+            begin
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+              begin
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+
+                break;
+              end;
+            end;
+          end;
+
+          if not FoundMatch then
+          begin
+            TransportAuxNames.Add('');
+            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
           end;
         end;
 
@@ -4013,10 +4053,8 @@ var
   Model: TPhastModel;
   Evt: TEvt;
   AModel: TModel;
-  APackage: TPackage;
   ModelIndex: Integer;
   TransportModel: TTransportNameFile;
-  PackageIndex: Integer;
   BoundNameObsDictionary: TBoundNameDictionary;
   CellIdObsDictionary: TCellIdObsDictionary;
   Ssm: TSsm;
@@ -4366,6 +4404,8 @@ var
       result.Modflow6Obs.General := [ogEvt];
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
 begin
   if Assigned(OnUpdateStatusBar) then
   begin
@@ -4449,31 +4489,41 @@ begin
         for ModelIndex := 0 to TransportModels.Count - 1 do
         begin
           AModel := TransportModels[ModelIndex];
+          FoundMatch := False;
           TransportModel := AModel.FName as TTransportNameFile;
-          for PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+          Ssm := TransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
           begin
-            APackage := TransportModel.NfPackages[PackageIndex];
-            FoundMatch := False;
-            if APackage.FileType = 'SSM6' then
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
             begin
-              Ssm := APackage.Package as TSsm;
-              for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
               begin
-                if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-                begin
-                  FoundMatch := True;
-                  TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-                  break;
-                end;
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                break;
               end;
-  //            Assert(FoundMatch);
-              break;
             end;
           end;
         end;
-        if TransportModels.Count > 0 then
+
+        for ModelIndex := 0 to EnergyTransportModels.Count - 1 do
         begin
-          Model.ModflowPackages.GwtProcess.IsSelected := True;
+          AModel := EnergyTransportModels[ModelIndex];
+          FoundMatch := False;
+          EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+          Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
+          begin
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+            begin
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+              begin
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                break;
+              end;
+            end;
+          end;
         end;
 
         LastTime := Model.ModflowStressPeriods.Last.EndTime;
@@ -4806,13 +4856,13 @@ begin
 
             AModel := TransportModels[ModelIndex];
             TransportModel := AModel.FName as TTransportNameFile;
-            Ssm := nil;
-            for PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+            Ssm := TransportModel.GetSsmPackage as TSsm;
+//            for PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
             begin
-              APackage := TransportModel.NfPackages[PackageIndex];
-              if APackage.FileType = 'SSM6' then
+//              APackage := TransportModel.NfPackages[PackageIndex];
+//              if APackage.FileType = 'SSM6' then
               begin
-                Ssm := APackage.Package as TSsm;
+//                Ssm := APackage.Package as TSsm;
                 ChemFound := False;
                 for SourceIndex := 0 to Ssm.Sources.Count - 1 do
                 begin
@@ -4845,7 +4895,7 @@ begin
                   ChemSpeciesItem := Model.MobileComponents.Add;
                   ChemSpeciesItem.Name := AuxName;
                 end;
-                break;
+//                break;
               end;
             end;
             if Ssm = nil then
@@ -4868,12 +4918,14 @@ begin
                   if (ATransportModel.ModelType = 'GWT6') then
                   begin
                     InnerTransportModel := ATransportModel.FName as TTransportNameFile;
-                    for PackageIndex := 0 to InnerTransportModel.NfPackages.Count  - 1 do
+                    Ssm := InnerTransportModel.GetSsmPackage as TSsm;
+                    if (Ssm <> nil) then
+//                    for PackageIndex := 0 to InnerTransportModel.NfPackages.Count  - 1 do
                     begin
-                      APackage := InnerTransportModel.NfPackages[PackageIndex];
-                      if APackage.FileType = 'SSM6' then
+//                      APackage := InnerTransportModel.NfPackages[PackageIndex];
+//                      if APackage.FileType = 'SSM6' then
                       begin
-                        Ssm := APackage.Package as TSsm;
+//                        Ssm := APackage.Package as TSsm;
                         for SourceIndex := 0 to Ssm.Sources.Count - 1 do
                         begin
                           AuxName := Ssm.Sources[SourceIndex].auxname;
@@ -4887,10 +4939,10 @@ begin
                           end;
                         end;
                       end;
-                      if TransportModel.SpeciesName <> '' then
-                      begin
-                        break;
-                      end;
+//                      if TransportModel.SpeciesName <> '' then
+//                      begin
+//                        break;
+//                      end;
                     end;
                     if TransportModel.SpeciesName <> '' then
                     begin
@@ -4917,13 +4969,14 @@ begin
 
             AModel := EnergyTransportModels[ModelIndex];
             EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
-            Ssm := nil;
-            for PackageIndex := 0 to EnergyTransportModel.NfPackages.Count  - 1 do
+            Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+            if Ssm <> nil then
+//            for PackageIndex := 0 to EnergyTransportModel.NfPackages.Count  - 1 do
             begin
-              APackage := EnergyTransportModel.NfPackages[PackageIndex];
-              if APackage.FileType = 'SSM6' then
+//              APackage := EnergyTransportModel.NfPackages[PackageIndex];
+//              if APackage.FileType = 'SSM6' then
               begin
-                Ssm := APackage.Package as TSsm;
+//                Ssm := APackage.Package as TSsm;
                 ChemFound := False;
                 for SourceIndex := 0 to Ssm.Sources.Count - 1 do
                 begin
@@ -4956,7 +5009,7 @@ begin
                   ChemSpeciesItem := Model.MobileComponents.Add;
                   ChemSpeciesItem.Name := AuxName;
                 end;
-                break;
+//                break;
               end;
             end;
             if Ssm = nil then
@@ -4979,12 +5032,14 @@ begin
                   if (ATransportModel.ModelType = 'GWE6') then
                   begin
                     InnerEnergyTransportModel := ATransportModel.FName as TEnergyTransportNameFile;
-                    for PackageIndex := 0 to InnerEnergyTransportModel.NfPackages.Count  - 1 do
+                    Ssm := InnerEnergyTransportModel.GetSsmPackage as TSsm;
+                    if (Ssm <> nil) then
+//                    for PackageIndex := 0 to InnerEnergyTransportModel.NfPackages.Count  - 1 do
                     begin
-                      APackage := InnerEnergyTransportModel.NfPackages[PackageIndex];
-                      if APackage.FileType = 'SSM6' then
+//                      APackage := InnerEnergyTransportModel.NfPackages[PackageIndex];
+//                      if APackage.FileType = 'SSM6' then
                       begin
-                        Ssm := APackage.Package as TSsm;
+//                        Ssm := APackage.Package as TSsm;
                         for SourceIndex := 0 to Ssm.Sources.Count - 1 do
                         begin
                           AuxName := Ssm.Sources[SourceIndex].auxname;
@@ -4998,10 +5053,10 @@ begin
                           end;
                         end;
                       end;
-                      if EnergyTransportModel.SpeciesName <> '' then
-                      begin
-                        break;
-                      end;
+//                      if EnergyTransportModel.SpeciesName <> '' then
+//                      begin
+//                        break;
+//                      end;
                     end;
                     if EnergyTransportModel.SpeciesName <> '' then
                     begin
@@ -5590,9 +5645,7 @@ var
   MvrUsed: Boolean;
   NewScreenObject: Boolean;
   MvrSource: TMvrSource;
-  APackage: TPackage;
   AuxMultIndex: Integer;
-//  AuxMultiplier: Extended;
   GhbMvrLinkArray: TGhbMvrLinkArray;
   GhbPeriod: TGhbPeriod;
   NextGhbPeriod: TGhbPeriod;
@@ -5877,6 +5930,8 @@ var
       result.Modflow6Obs.General := General;
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
 begin
   MvrSource.LakeOutlet := nil;
   if Assigned(OnUpdateStatusBar) then
@@ -6053,31 +6108,52 @@ begin
         for var ModelIndex := 0 to TransportModels.Count - 1 do
         begin
           AModel := TransportModels[ModelIndex];
+          FoundMatch := False;
           TransportModel := AModel.FName as TTransportNameFile;
-          for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+          Ssm := TransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
           begin
-            APackage := TransportModel.NfPackages[PackageIndex];
-            FoundMatch := False;
-            if APackage.FileType = 'SSM6' then
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
             begin
-              Ssm := APackage.Package as TSsm;
-              for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
               begin
-                if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-                begin
-                  FoundMatch := True;
-                  TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-                  TransportSpeciesNames.Add(TransportModel.SpeciesName);
-                  break;
-                end;
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(TransportModel.SpeciesName);
+                break;
               end;
-              break;
             end;
           end;
           if not FoundMatch then
           begin
             TransportAuxNames.Add('');
             TransportSpeciesNames.Add(TransportModel.SpeciesName);
+          end;
+        end;
+
+        for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+        begin
+          AModel := EnergyTransportModels[ModelIndex];
+          EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+          FoundMatch := False;
+          Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
+          begin
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+            begin
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+              begin
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+                break;
+              end;
+            end;
+          end;
+          if not FoundMatch then
+          begin
+            TransportAuxNames.Add('');
+            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
           end;
         end;
 
@@ -9251,13 +9327,15 @@ begin
     begin
       AModel := TransportModels[ModelIndex];
       TransportModel := AModel.FName as TTransportNameFile;
-      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+      Ssm := TransportModel.GetSsmPackage as TSsm;
+      if Ssm <> nil then
+//      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
       begin
-        APackage := TransportModel.NfPackages[PackageIndex];
+//        APackage := TransportModel.NfPackages[PackageIndex];
         FoundMatch := False;
-        if APackage.FileType = 'SSM6' then
+//        if APackage.FileType = 'SSM6' then
         begin
-          Ssm := APackage.Package as TSsm;
+//          Ssm := APackage.Package as TSsm;
           for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
           begin
             if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
@@ -9268,7 +9346,7 @@ begin
               break;
             end;
           end;
-          break;
+//          break;
         end;
       end;
       if not FoundMatch then
@@ -9759,6 +9837,7 @@ Type
     MawPeriod: TMawPeriod;
     MvrPeriod: TMvrPeriod;
     MwtPeriods: TMwtPeriodArray;
+    MwePeriods: TMwePeriodArray;
     SpcPeriods: TSpcPeriodArray;
     function Period: Integer;
     function SameContents(OtherLink: TMawMvrLink): Boolean;
@@ -9945,7 +10024,7 @@ var
     for ObsIndex := 0 to ObsList.Count - 1 do
     begin
       AnObs := ObsList[ObsIndex];
-      if AnsiSameText(AnObs.ObsType, 'concentration') then
+      if AnsiSameText(AnObs.ObsType, 'concentration') or AnsiSameText(AnObs.ObsType, 'temperature') then
       begin
         Include(MwtObs, mtoConcentration)
       end
@@ -9961,7 +10040,7 @@ var
       begin
         Include(MwtObs, mtoFromMvr)
       end
-      else if AnsiSameText(AnObs.ObsType, 'mwt') then
+      else if AnsiSameText(AnObs.ObsType, 'mwt') or AnsiSameText(AnObs.ObsType, 'mwe') then
       begin
         if AnObs.IdType2 = itNumber then
         begin
@@ -9994,6 +10073,18 @@ var
       end;
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
+  Mwe: TMwe;
+  MweList: TMweList;
+  MweNumberDictionaries: TNumberDictionaries;
+  MweBoundNameDictionaries: TBoundNameDictionaries;
+  MwePeriod: TMwePeriod;
+  MwePackageItem: TMwePackageItem;
+  MweBoundNameDictionary: TBoundNameDictionary;
+  MweNumberDictionary: TNumberDictionary;
+  MweMaps: TimeSeriesMaps;
+  AdjustedIndex: Integer;
 begin
   MvrSource.LakeOutlet := nil;
   ObsNameIndex := 0;
@@ -10020,9 +10111,13 @@ begin
   ObsLists := TObsLists.Create;
   MawMvrLinkList := TMawMvrLinkList.Create;
   MwtList := TMwtList.Create;
+  MweList := TMweList.Create;
   MwtMaps := TimeSeriesMaps.Create;
+  MweMaps := TimeSeriesMaps.Create;
   MwtNumberDictionaries := TNumberDictionaries.Create;
+  MweNumberDictionaries := TNumberDictionaries.Create;
   MwtBoundNameDictionaries := TBoundNameDictionaries.Create;
+  MweBoundNameDictionaries := TBoundNameDictionaries.Create;
   ListOfObsLists := TListOfObsLists.Create;
   TransportSpeciesNames := TStringList.Create;
   TransportAuxNames := TStringList.Create;
@@ -10035,25 +10130,20 @@ begin
     for var ModelIndex := 0 to TransportModels.Count - 1 do
     begin
       AModel := TransportModels[ModelIndex];
+      FoundMatch := False;
       TransportModel := AModel.FName as TTransportNameFile;
-      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+      Ssm := TransportModel.GetSsmPackage as TSsm;
+      if Ssm <> nil then
       begin
-        APackage := TransportModel.NfPackages[PackageIndex];
-        FoundMatch := False;
-        if APackage.FileType = 'SSM6' then
+        for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
         begin
-          Ssm := APackage.Package as TSsm;
-          for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
+          if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
           begin
-            if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-            begin
-              FoundMatch := True;
-              TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-              TransportSpeciesNames.Add(TransportModel.SpeciesName);
-              break;
-            end;
+            FoundMatch := True;
+            TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+            TransportSpeciesNames.Add(TransportModel.SpeciesName);
+            break;
           end;
-          break;
         end;
       end;
       if not FoundMatch then
@@ -10063,36 +10153,58 @@ begin
       end;
     end;
 
+    for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+    begin
+      AModel := EnergyTransportModels[ModelIndex];
+      FoundMatch := False;
+      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+      Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+      if Ssm <> nil then
+      begin
+        for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
+        begin
+          if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+          begin
+            FoundMatch := True;
+            TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+            break;
+          end;
+        end;
+      end;
+      if not FoundMatch then
+      begin
+        TransportAuxNames.Add('');
+        TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+      end;
+    end;
+
     FoundAny := False;
+
     for var ModelIndex := 0 to TransportModels.Count - 1 do
     begin
       FoundMwt := False;
       AModel := TransportModels[ModelIndex];
       TransportModel := AModel.FName as TTransportNameFile;
-      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+      Mwt := TransportModel.GetMwtPackage as TMwt;
+      if Mwt <> nil then
       begin
-        APackage := TransportModel.NfPackages[PackageIndex];
-        if APackage.FileType = 'MWT6' then
+        FlowPackageName := Mwt.Options.FLOW_PACKAGE_NAME;
+        if FlowPackageName = '' then
         begin
-          Mwt := APackage.Package as TMwt;
-          FlowPackageName := Mwt.Options.FLOW_PACKAGE_NAME;
-          if FlowPackageName = '' then
+          FlowPackageName := APackage.PackageName;
+        end;
+        if AnsiSameText(Package.PackageName, FlowPackageName) then
+        begin
+          MwtList.Add(Mwt);
+          FoundMwt := True;
+          FoundAny := True;
+          MwtMap := TimeSeriesMap.Create;
+          MwtMaps.Add(MwtMap);
+          for TimeSeriesIndex := 0 to Mwt.TimeSeriesCount - 1 do
           begin
-            FlowPackageName := APackage.PackageName;
-          end;
-          if AnsiSameText(Package.PackageName, FlowPackageName) then
-          begin
-            MwtList.Add(Mwt);
-            FoundMwt := True;
-            FoundAny := True;
-            MwtMap := TimeSeriesMap.Create;
-            MwtMaps.Add(MwtMap);
-            for TimeSeriesIndex := 0 to Mwt.TimeSeriesCount - 1 do
-            begin
-              TimeSeriesPackage := Mwt.TimeSeries[TimeSeriesIndex];
-              ImportTimeSeries(TimeSeriesPackage, MwtMap);
-            end;
-            break;
+            TimeSeriesPackage := Mwt.TimeSeries[TimeSeriesIndex];
+            ImportTimeSeries(TimeSeriesPackage, MwtMap);
           end;
         end;
       end;
@@ -10101,9 +10213,44 @@ begin
         MwtList.Add(nil);
       end;
     end;
+
+    for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+    begin
+      FoundMwt := False;
+      AModel := EnergyTransportModels[ModelIndex];
+      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+      Mwe := EnergyTransportModel.GetMwePackage as TMwe;
+      if Mwe <> nil then
+      begin
+        FlowPackageName := Mwe.Options.FLOW_PACKAGE_NAME;
+        if FlowPackageName = '' then
+        begin
+          FlowPackageName := APackage.PackageName;
+        end;
+        if AnsiSameText(Package.PackageName, FlowPackageName) then
+        begin
+          MweList.Add(Mwe);
+          FoundMwt := True;
+          FoundAny := True;
+          MwtMap := TimeSeriesMap.Create;
+          MweMaps.Add(MwtMap);
+          for TimeSeriesIndex := 0 to Mwe.TimeSeriesCount - 1 do
+          begin
+            TimeSeriesPackage := Mwe.TimeSeries[TimeSeriesIndex];
+            ImportTimeSeries(TimeSeriesPackage, MwtMap);
+          end;
+        end;
+      end;
+      if not FoundMwt then
+      begin
+        MweList.Add(nil);
+      end;
+    end;
+
     if not FoundAny then
     begin
       MwtList.Clear;
+      MweList.Clear;
     end;
 
     Options := Maw.Options;
@@ -10150,6 +10297,35 @@ begin
         end;
       end;
     end;
+
+    if MweList.Count > 0 then
+    begin
+      OutputControl := Model.ModflowOutputControl;
+      for var TransportIndex := 0 to MweList.Count - 1 do
+      begin
+        Mwe := MweList[TransportIndex];
+        if Mwe <> nil then
+        begin
+          if Mwe.Options.PRINT_TEMPERATURE then
+          begin
+            OutputControl.ConcentrationOC.PrintInListing := True;
+          end;
+          if Mwe.Options.TEMPERATURE then
+          begin
+            MawPackage.SaveGwtConcentration := True;
+          end;
+          if Mwe.Options.BUDGET then
+          begin
+            MawPackage.SaveGwtBudget := True;
+          end;
+          if Mwe.Options.BUDGETCSV then
+          begin
+            MawPackage.SaveGwtBudgetCsv := True;
+          end;
+        end;
+      end;
+    end;
+
     for var TransportIndex := 0 to MwtList.Count - 1 do
     begin
       MwtNumberDictionaries.Add(TNumberDictionary.Create);
@@ -10157,7 +10333,14 @@ begin
       ListOfObsLists.Add(TObsLists.Create)
     end;
 
-    if (Mvr = nil) and (MwtList.Count = 0) and (SpcList.Count = 0) then
+    for var TransportIndex := 0 to MweList.Count - 1 do
+    begin
+      MweNumberDictionaries.Add(TNumberDictionary.Create);
+      MweBoundNameDictionaries.Add(TBoundNameDictionary.Create);
+      ListOfObsLists.Add(TObsLists.Create)
+    end;
+
+    if (Mvr = nil) and (MwtList.Count = 0) and (MweList.Count = 0) and (SpcList.Count = 0) then
     begin
       MawMvrLink.MvrPeriod := nil;
       SetLength(MawMvrLink.MwtPeriods, 0);
@@ -10175,6 +10358,7 @@ begin
         MawMvrLinkArray[StressPeriodIndex].MvrPeriod := nil;
         MawMvrLinkArray[StressPeriodIndex].MawPeriod := nil;
         SetLength(MawMvrLinkArray[StressPeriodIndex].MwtPeriods, MwtList.Count);
+        SetLength(MawMvrLinkArray[StressPeriodIndex].MwePeriods, MweList.Count);
         SetLength(MawMvrLinkArray[StressPeriodIndex].SpcPeriods, SpcList.Count);
       end;
 
@@ -10213,6 +10397,19 @@ begin
         end;
       end;
 
+      for var TransportIndex := 0 to MweList.Count - 1 do
+      begin
+        Mwe := MweList[TransportIndex];
+        if Mwe <> nil then
+        begin
+          for StressPeriodIndex := 0 to Mwe.PeriodCount - 1 do
+          begin
+            MwePeriod := Mwe.Periods[StressPeriodIndex];
+            MawMvrLinkArray[MwePeriod.Period-1].MwePeriods[TransportIndex] := MwePeriod;
+          end;
+        end;
+      end;
+
       for StressPeriodIndex := 0 to Maw.PeriodCount - 1 do
       begin
         MawPeriod := Maw.Periods[StressPeriodIndex];
@@ -10237,6 +10434,14 @@ begin
           begin
             MawMvrLinkArray[StressPeriodIndex].MwtPeriods[TransportIndex] :=
               MawMvrLinkArray[StressPeriodIndex-1].MwtPeriods[TransportIndex];
+          end;
+        end;
+        for var TransportIndex := 0 to MweList.Count - 1 do
+        begin
+          if MawMvrLinkArray[StressPeriodIndex].MwePeriods[TransportIndex] = nil then
+          begin
+            MawMvrLinkArray[StressPeriodIndex].MwePeriods[TransportIndex] :=
+              MawMvrLinkArray[StressPeriodIndex-1].MwePeriods[TransportIndex];
           end;
         end;
         for var TransportIndex := 0 to SpcList.Count - 1 do
@@ -10300,6 +10505,25 @@ begin
           ObsFiles := Mwt.Observations[ObsPackageIndex].Package as TObs;
           GetObservations(MwtNumberDictionaries[TransportIndex],
             MwtBoundNameDictionaries[TransportIndex],
+            nil, ListOfObsLists[TransportIndex], ObsFiles);
+        end;
+      end;
+    end;
+
+    for var TransportIndex := 0 to MweList.Count - 1 do
+    begin
+      Mwe := MweList[TransportIndex];
+      if Mwe <> nil then
+      begin
+        if Mwe.ObservationCount > 0 then
+        begin
+          Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
+        end;
+        for ObsPackageIndex := 0 to Mwe.ObservationCount - 1 do
+        begin
+          ObsFiles := Mwe.Observations[ObsPackageIndex].Package as TObs;
+          GetObservations(MweNumberDictionaries[TransportIndex],
+            MweBoundNameDictionaries[TransportIndex],
             nil, ListOfObsLists[TransportIndex], ObsFiles);
         end;
       end;
@@ -10496,6 +10720,63 @@ begin
 
         end;
       end;
+
+      for var TransportIndex := 0 to MweList.Count - 1 do
+      begin
+        Mwe := MweList[TransportIndex];
+        if Mwe <> nil then
+        begin
+          MwePackageItem := Mwe.PackageData[WellIndex];
+          if MweList.Count+TransportIndex < ModflowMawBoundary.StartingConcentrations.Count then
+          begin
+            GwtItem := ModflowMawBoundary.StartingConcentrations[MweList.Count+TransportIndex]
+          end
+          else
+          begin
+            GwtItem := ModflowMawBoundary.StartingConcentrations.Add;
+          end;
+          GwtItem.Value := FortranFloatToStr(MwePackageItem.strt.NumericValue);
+
+          AModel := EnergyTransportModels[TransportIndex];
+          EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+          GwtItem.Name := EnergyTransportModel.SpeciesName;
+
+          MweBoundNameDictionary := MweBoundNameDictionaries[TransportIndex];
+          MweNumberDictionary := MweNumberDictionaries[TransportIndex];
+
+          BoundName := UpperCase(MwePackageItem.boundname);
+          if MweBoundNameDictionary.TryGetValue(BoundName, ObsList) then
+          begin
+            Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
+            AScreenObject.CreateMf6Obs;
+            AScreenObject.Modflow6Obs.Name := BoundName;
+            AssignMwtObservations(ObsList, MwtObs);
+            if MwtObs <> [] then
+            begin
+              AScreenObject.Modflow6Obs.MwtObs := AScreenObject.Modflow6Obs.MwtObs + MwtObs;
+              Include(Genus, TransportIndex);
+            end;
+          end;
+          if MweNumberDictionary.TryGetValue(PackageItem.wellno, ObsList) then
+          begin
+            Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
+            AScreenObject.CreateMf6Obs;
+            if AScreenObject.Modflow6Obs.Name = '' then
+            begin
+              Inc(ObsNameIndex);
+              AScreenObject.Modflow6Obs.Name := 'MWE_' + IntToStr(ObsNameIndex);
+            end;
+            AssignMwtObservations(ObsList, MwtObs);
+            if MwtObs <> [] then
+            begin
+              AScreenObject.Modflow6Obs.MwtObs := AScreenObject.Modflow6Obs.MwtObs + MwtObs;
+              Include(Genus, TransportIndex);
+            end;
+          end;
+
+        end;
+      end;
+
       if Genus <> [] then
       begin
         AScreenObject.Modflow6Obs.Genus := Genus;
@@ -10676,6 +10957,7 @@ begin
             SpcTimeItem := SpcPeriod[SettingIndex];
             AnItem := WellItems[SpcTimeItem.bndno];
             AnItem.GwtStatus[TransportIndex].GwtBoundaryStatus := gbsConstant;
+            AuxIndex := TransportAuxNames.IndexOf(SpcTimeItem.spcsetting.AuxName);
             if SpcTimeItem.spcsetting.ValueType = vtNumeric then
             begin
               AnItem.SpecifiedConcentrations[AuxIndex].Value :=
@@ -10764,6 +11046,78 @@ begin
             else
             begin
               FErrorMessages.Add(Format('Unrecognized mwtsetting "%s".', [ASetting.Name]))
+            end;
+          end;
+        end;
+      end;
+
+      for var TransportIndex := 0 to Length(MawMvrLink.MwePeriods) - 1 do
+      begin
+        MwePeriod := MawMvrLink.MwePeriods[TransportIndex];
+        AdjustedIndex := TransportIndex + Length(MawMvrLink.MwtPeriods);
+        if MwePeriod <> nil then
+        begin
+          MwtMap := MweMaps[TransportIndex];
+          for SettingIndex := 0 to MwePeriod.Count - 1 do
+          begin
+            ASetting := MwePeriod[SettingIndex];
+            AnItem := WellItems[ASetting.IdNumber];
+            if AnsiSameText(ASetting.Name, 'STATUS') then
+            begin
+              if AnsiSameText(ASetting.StringValue, 'ACTIVE') then
+              begin
+                AnItem.GwtStatus[AdjustedIndex].GwtBoundaryStatus := gbsActive;
+              end
+              else if AnsiSameText(ASetting.StringValue, 'INACTIVE') then
+              begin
+                AnItem.GwtStatus[AdjustedIndex].GwtBoundaryStatus := gbsInactive;
+              end
+              else if AnsiSameText(ASetting.StringValue, 'CONSTANT') then
+              begin
+                AnItem.GwtStatus[AdjustedIndex].GwtBoundaryStatus := gbsConstant;
+              end
+              else
+              begin
+                Assert(False)
+              end;
+            end
+            else if AnsiSameText(ASetting.Name, 'TEMPERATURE') then
+            begin
+              TimeSeriesName := UpperCase(ASetting.StringValue);
+              if (TimeSeriesName <> '') and MwtMap.TryGetValue(TimeSeriesName,
+                ImportedTimeSeriesName) then
+              begin
+                AnItem.SpecifiedConcentrations[AdjustedIndex].Value :=
+                  ImportedTimeSeriesName;
+              end
+              else
+              begin
+                AnItem.SpecifiedConcentrations[AdjustedIndex].Value :=
+                  FortranFloatToStr(ASetting.FloatValue);
+              end;
+            end
+            else if AnsiSameText(ASetting.Name, 'RATE') then
+            begin
+              TimeSeriesName := UpperCase(ASetting.StringValue);
+              if (TimeSeriesName <> '') and MwtMap.TryGetValue(TimeSeriesName,
+                ImportedTimeSeriesName) then
+              begin
+                AnItem.InjectionConcentrations[AdjustedIndex].Value :=
+                  ImportedTimeSeriesName;
+              end
+              else
+              begin
+                AnItem.InjectionConcentrations[AdjustedIndex].Value :=
+                  FortranFloatToStr(ASetting.FloatValue);
+              end;
+            end
+            else if AnsiSameText(ASetting.Name, 'AUXILIARY') then
+            begin
+              // ignore
+            end
+            else
+            begin
+              FErrorMessages.Add(Format('Unrecognized mwEsetting "%s".', [ASetting.Name]))
             end;
           end;
         end;
@@ -10877,9 +11231,13 @@ begin
     CellIds.Free;
     MawMvrLinkList.Free;
     MwtList.Free;
+    MweList.Free;
     MwtMaps.Free;
+    MweMaps.Free;
     MwtNumberDictionaries.Free;
+    MweNumberDictionaries.Free;
     MwtBoundNameDictionaries.Free;
+    MweBoundNameDictionaries.Free;
     ListOfObsLists.Free;
     TransportSpeciesNames.Free;
     TransportAuxNames.Free;
@@ -12381,7 +12739,6 @@ var
   Model: TPhastModel;
   Rch: TRch;
   AModel: TModel;
-  APackage: TPackage;
   TransportModel: TTransportNameFile;
   BoundNameObsDictionary: TBoundNameDictionary;
   CellIdObsDictionary: TCellIdObsDictionary;
@@ -12688,6 +13045,8 @@ var
       result.Modflow6Obs.General := [ogRch];
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
 begin
   if Assigned(OnUpdateStatusBar) then
   begin
@@ -12852,25 +13211,20 @@ begin
         for var ModelIndex := 0 to TransportModels.Count - 1 do
         begin
           AModel := TransportModels[ModelIndex];
+          FoundMatch := False;
           TransportModel := AModel.FName as TTransportNameFile;
-          for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+          Ssm := TransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
           begin
-            APackage := TransportModel.NfPackages[PackageIndex];
-            FoundMatch := False;
-            if APackage.FileType = 'SSM6' then
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
             begin
-              Ssm := APackage.Package as TSsm;
-              for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
               begin
-                if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-                begin
-                  FoundMatch := True;
-                  TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-                  TransportSpeciesNames.Add(TransportModel.SpeciesName);
-                  break;
-                end;
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(TransportModel.SpeciesName);
+                break;
               end;
-              break;
             end;
           end;
           if not FoundMatch then
@@ -12879,6 +13233,33 @@ begin
             TransportSpeciesNames.Add(TransportModel.SpeciesName);
           end;
         end;
+
+        for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+        begin
+          AModel := EnergyTransportModels[ModelIndex];
+          FoundMatch := False;
+          EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+          Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
+          begin
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+            begin
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+              begin
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+                break;
+              end;
+            end;
+          end;
+          if not FoundMatch then
+          begin
+            TransportAuxNames.Add('');
+            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+          end;
+        end;
+
 
         LastTime := Model.ModflowStressPeriods.Last.EndTime;
 
@@ -13249,9 +13630,7 @@ var
   MvrUsed: Boolean;
   NewScreenObject: Boolean;
   MvrSource: TMvrSource;
-  APackage: TPackage;
   AuxMultIndex: Integer;
-//  AuxMultiplier: Extended;
   RivMvrLinkArray: TRivMvrLinkArray;
   RivlPeriod: TRivPeriod;
   NextRivPeriod: TRivPeriod;
@@ -13556,6 +13935,8 @@ var
       result.Modflow6Obs.General := General;
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
 begin
   MvrSource.LakeOutlet := nil;
   if Assigned(OnUpdateStatusBar) then
@@ -13734,30 +14115,52 @@ begin
           AModel := TransportModels[ModelIndex];
           TransportModel := AModel.FName as TTransportNameFile;
           FoundMatch := False;
-          for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+          Ssm := TransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
           begin
-            APackage := TransportModel.NfPackages[PackageIndex];
             FoundMatch := False;
-            if APackage.FileType = 'SSM6' then
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
             begin
-              Ssm := APackage.Package as TSsm;
-              for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
               begin
-                if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-                begin
-                  FoundMatch := True;
-                  TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-                  TransportSpeciesNames.Add(TransportModel.SpeciesName);
-                  break;
-                end;
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(TransportModel.SpeciesName);
+                break;
               end;
-              break;
             end;
           end;
           if not FoundMatch then
           begin
             TransportAuxNames.Add('');
             TransportSpeciesNames.Add(TransportModel.SpeciesName);
+          end;
+        end;
+
+       for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+        begin
+          AModel := EnergyTransportModels[ModelIndex];
+          EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+          FoundMatch := False;
+          Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
+          begin
+            FoundMatch := False;
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+            begin
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+              begin
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+                break;
+              end;
+            end;
+          end;
+          if not FoundMatch then
+          begin
+            TransportAuxNames.Add('');
+            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
           end;
         end;
 
@@ -15983,13 +16386,15 @@ begin
     begin
       AModel := TransportModels[ModelIndex];
       TransportModel := AModel.FName as TTransportNameFile;
-      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+      Ssm := TransportModel.GetSsmPackage as TSsm;
+      if Ssm <> nil then
+//      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
       begin
-        APackage := TransportModel.NfPackages[PackageIndex];
+//        APackage := TransportModel.NfPackages[PackageIndex];
         FoundMatch := False;
-        if APackage.FileType = 'SSM6' then
+//        if APackage.FileType = 'SSM6' then
         begin
-          Ssm := APackage.Package as TSsm;
+//          Ssm := APackage.Package as TSsm;
           for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
           begin
             if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
@@ -16000,7 +16405,7 @@ begin
               break;
             end;
           end;
-          break;
+//          break;
         end;
       end;
       if not FoundMatch then
@@ -19363,13 +19768,15 @@ begin
     begin
       AModel := TransportModels[ModelIndex];
       TransportModel := AModel.FName as TTransportNameFile;
-      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+      Ssm := TransportModel.GetSsmPackage as TSsm;
+      if Ssm <> nil then
+//      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
       begin
-        APackage := TransportModel.NfPackages[PackageIndex];
+//        APackage := TransportModel.NfPackages[PackageIndex];
         FoundMatch := False;
-        if APackage.FileType = 'SSM6' then
+//        if APackage.FileType = 'SSM6' then
         begin
-          Ssm := APackage.Package as TSsm;
+//          Ssm := APackage.Package as TSsm;
           for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
           begin
             if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
@@ -19380,7 +19787,7 @@ begin
               break;
             end;
           end;
-          break;
+//          break;
         end;
       end;
       if not FoundMatch then
@@ -20480,6 +20887,8 @@ var
   ChemItem: TMobileChemSpeciesItem;
   AModel: TModel;
   TransportModel: TTransportNameFile;
+  SpeciesName: string;
+  EnergyTransportModel: TEnergyTransportNameFile;
 begin
   if Assigned(OnUpdateStatusBar) then
   begin
@@ -20531,26 +20940,42 @@ begin
 
   ChemComponents := Model.MobileComponents;
   PackageData := Vsc.PackageData;
+
   for index := 0 to PackageData.Count - 1 do
   begin
     Item := PackageData[index];
     AModel := TransportModels.GetModelByName(Item.modelname);
+
+    SpeciesName := '';
     if AModel = nil then
     begin
-      FErrorMessages.Add(Format('Unrecognized transport model "%s".', [Item.modelname]));
-      Exit;
-    end;
-    TransportModel := AModel.FName as TTransportNameFile;
-
-    if TransportModel.SpeciesName = '' then
-    begin
-      ChemItem := ChemComponents.Add;
-      ChemItem.Name := Item.auxspeciesname;
-      TransportModel.SpeciesName := Item.auxspeciesname;
+      AModel := EnergyTransportModels.GetModelByName(Item.modelname);
+      if AModel = nil then
+      begin
+        FErrorMessages.Add(Format('Unrecognized transport or energy transport model "%s".', [Item.modelname]));
+        Exit;
+      end
+      else
+      begin
+        EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+        SpeciesName := EnergyTransportModel.SpeciesName;
+      end;
     end
     else
     begin
-      ChemItem := ChemComponents.GetItemByName(TransportModel.SpeciesName)
+      TransportModel := AModel.FName as TTransportNameFile;
+      SpeciesName := TransportModel.SpeciesName;
+    end;
+
+    if SpeciesName = '' then
+    begin
+      ChemItem := ChemComponents.Add;
+      ChemItem.Name := Item.auxspeciesname;
+      SpeciesName := Item.auxspeciesname;
+    end
+    else
+    begin
+      ChemItem := ChemComponents.GetItemByName(SpeciesName)
     end;
 
     if SameText(ChemItem.Name, 'Viscosity') then
@@ -20568,7 +20993,6 @@ var
   AModel: TModel;
   TransportModel: TTransportNameFile;
   EnergyTransportModel: TEnergyTransportNameFile;
-  APackage: TPackage;
   Ssm: TSsm;
   Spc: TSpc;
   TimeSeriesPackage: TPackage;
@@ -20582,12 +21006,35 @@ begin
     FoundSpc := False;
     AModel := TransportModels[ModelIndex];
     TransportModel := AModel.FName as TTransportNameFile;
-    for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+    Ssm := TransportModel.GetSsmPackage as TSsm;
+    if Ssm <> nil then
     begin
-      APackage := TransportModel.NfPackages[PackageIndex];
-      if APackage.FileType = 'SSM6' then
+      for var SpcPackageIndex := 0 to Ssm.Count - 1 do
       begin
-        Ssm := APackage.Package as TSsm;
+        if SameText(Ssm[SpcPackageIndex].PackageName, Package.PackageName) then
+        begin
+          FoundSpc := True;
+          FoundAny := True;
+          Spc := Ssm[SpcPackageIndex].Package as TSpc;
+          SpcList.Add(Spc);
+          Map := TimeSeriesMap.Create;
+          Maps.Add(Map);
+          for var TimeSeriesIndex := 0 to Spc.TimeSeriesCount - 1 do
+          begin
+            TimeSeriesPackage := Spc.TimeSeries[TimeSeriesIndex];
+            ImportTimeSeries(TimeSeriesPackage, Map);
+          end;
+          break;
+        end;
+      end;
+    end;
+    if not FoundSpc then
+    begin
+      AModel := EnergyTransportModels[ModelIndex];
+      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+      Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+      if Ssm <> nil then
+      begin
         for var SpcPackageIndex := 0 to Ssm.Count - 1 do
         begin
           if SameText(Ssm[SpcPackageIndex].PackageName, Package.PackageName) then
@@ -20606,45 +21053,12 @@ begin
             break;
           end;
         end;
-        break;
       end;
-    end;
-    if not FoundSpc then
-    begin
-      AModel := EnergyTransportModels[ModelIndex];
-      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
-      for var PackageIndex := 0 to EnergyTransportModel.NfPackages.Count  - 1 do
+      if not FoundSpc then
       begin
-        APackage := EnergyTransportModel.NfPackages[PackageIndex];
-        if APackage.FileType = 'SSM6' then
-        begin
-          Ssm := APackage.Package as TSsm;
-          for var SpcPackageIndex := 0 to Ssm.Count - 1 do
-          begin
-            if SameText(Ssm[SpcPackageIndex].PackageName, Package.PackageName) then
-            begin
-              FoundSpc := True;
-              FoundAny := True;
-              Spc := Ssm[SpcPackageIndex].Package as TSpc;
-              SpcList.Add(Spc);
-              Map := TimeSeriesMap.Create;
-              Maps.Add(Map);
-              for var TimeSeriesIndex := 0 to Spc.TimeSeriesCount - 1 do
-              begin
-                TimeSeriesPackage := Spc.TimeSeries[TimeSeriesIndex];
-                ImportTimeSeries(TimeSeriesPackage, Map);
-              end;
-              break;
-            end;
-          end;
-          break;
-        end;
+        SpcList.Add(nil);
+        Maps.Add(nil)
       end;
-    end;
-    if not FoundSpc then
-    begin
-      SpcList.Add(nil);
-      Maps.Add(nil)
     end;
   end;
   if not FoundAny then
@@ -20749,9 +21163,6 @@ var
   MvrUsed: Boolean;
   NewScreenObject: Boolean;
   MvrSource: TMvrSource;
-  APackage: TPackage;
-//  AuxMultIndex: Integer;
-//  AuxMultiplier: Extended;
   WellMvrLinkArray: TWellMvrLinkArray;
   WellPeriod: TWelPeriod;
   NextWelPeriod: TWelPeriod;
@@ -21015,6 +21426,8 @@ var
       result.Modflow6Obs.General := General;
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
 begin
   MvrSource.LakeOutlet := nil;
   if Assigned(OnUpdateStatusBar) then
@@ -21202,29 +21615,50 @@ begin
           AModel := TransportModels[ModelIndex];
           TransportModel := AModel.FName as TTransportNameFile;
           FoundMatch := False;
-          for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+          Ssm := TransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
           begin
-            APackage := TransportModel.NfPackages[PackageIndex];
-            if APackage.FileType = 'SSM6' then
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
             begin
-              Ssm := APackage.Package as TSsm;
-              for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
               begin
-                if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-                begin
-                  FoundMatch := True;
-                  TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-                  TransportSpeciesNames.Add(TransportModel.SpeciesName);
-                  break;
-                end;
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(TransportModel.SpeciesName);
+                break;
               end;
-              break;
             end;
           end;
           if not FoundMatch then
           begin
             TransportAuxNames.Add('');
             TransportSpeciesNames.Add(TransportModel.SpeciesName);
+          end;
+        end;
+
+        for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+        begin
+          AModel := EnergyTransportModels[ModelIndex];
+          EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+          FoundMatch := False;
+          Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+          if Ssm <> nil then
+          begin
+            for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+            begin
+              if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+              begin
+                FoundMatch := True;
+                TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+                TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+                break;
+              end;
+            end;
+          end;
+          if not FoundMatch then
+          begin
+            TransportAuxNames.Add('');
+            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
           end;
         end;
 
@@ -22010,6 +22444,14 @@ begin
         Exit;
       end;
     end;
+    for var TransportIndex := 0 to Length(MwePeriods) - 1 do
+    begin
+      result := MwePeriods[TransportIndex] <> nil;
+      if result then
+      begin
+        Exit;
+      end;
+    end;
     for var TransportIndex := 0 to Length(SpcPeriods) - 1 do
     begin
       result := SpcPeriods[TransportIndex] <> nil;
@@ -22047,6 +22489,14 @@ begin
     end;
   end;
 
+  for var TransportIndex := 0 to Length(MwePeriods) - 1 do
+  begin
+    if MwePeriods[TransportIndex] <> nil then
+    begin
+      result := Max(result, MwePeriods[TransportIndex].Period);
+    end;
+  end;
+
   for var TransportIndex := 0 to Length(SpcPeriods) - 1 do
   begin
     if SpcPeriods[TransportIndex] <> nil then
@@ -22067,6 +22517,14 @@ begin
     for var Index := 0 to Length(MwtPeriods) - 1 do
     begin
       result := MwtPeriods[Index] = OtherLink.MwtPeriods[Index];
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    for var Index := 0 to Length(MwePeriods) - 1 do
+    begin
+      result := MwePeriods[Index] = OtherLink.MwePeriods[Index];
       if not result then
       begin
         Exit;

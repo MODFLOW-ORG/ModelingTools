@@ -106,6 +106,9 @@ type
     property OCPackage: TPackage read FOCPackage;
     property FmiPackage: TPackage read FFmiPackage;
     property SpeciesName: string read FSpeciesName write FSpeciesName;
+    function GetSsmPackage: TPackageReader;
+    function GetMwtPackage: TPackageReader;
+    function GetMwePackage: TPackageReader;
   end;
 
   TFlowNameFile = TNameFile<TFlowNameFileOptions, TFlowPackages>;
@@ -483,6 +486,54 @@ begin
   FPackages.Free;
   FOptions.Free;
   inherited;
+end;
+
+function TNameFile<Options, Packages>.GetMwePackage: TPackageReader;
+var
+  APackage: TPackage;
+begin
+  result := nil;
+  for var PackageIndex := 0 to NfPackages.Count  - 1 do
+  begin
+    APackage := NfPackages.Items[PackageIndex];
+    if APackage.FileType = 'MWE6' then
+    begin
+      Result := APackage.Package;
+      Exit;
+    end;
+  end;
+end;
+
+function TNameFile<Options, Packages>.GetMwtPackage: TPackageReader;
+var
+  APackage: TPackage;
+begin
+  result := nil;
+  for var PackageIndex := 0 to NfPackages.Count  - 1 do
+  begin
+    APackage := NfPackages.Items[PackageIndex];
+    if APackage.FileType = 'MWT6' then
+    begin
+      Result := APackage.Package;
+      Exit;
+    end;
+  end;
+end;
+
+function TNameFile<Options, Packages>.GetSsmPackage: TPackageReader;
+var
+  APackage: TPackage;
+begin
+  result := nil;
+  for var PackageIndex := 0 to NfPackages.Count  - 1 do
+  begin
+    APackage := NfPackages.Items[PackageIndex];
+    if APackage.FileType = 'SSM6' then
+    begin
+      Result := APackage.Package;
+      Exit;
+    end;
+  end;
 end;
 
 procedure TNameFile<Options, Packages>.Read(Stream: TStreamReader;
