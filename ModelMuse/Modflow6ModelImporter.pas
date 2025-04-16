@@ -243,7 +243,8 @@ uses
   ModelMuseUtilities, GeoRefUnit, SparseDataSets, SparseArrayUnit,
   QuadTreeClass, MeshRenumberingTypes, Mf6.TimeArraySeriesFileReaderUnit,
   Mf6.CndFileReaderUnit, Mf6.CtpFileReaderUnit, MF6.EstFileReaderUnit,
-  Mf6.EslFileReaderUnit, Mf6.MweFileReaderUnit;
+  Mf6.EslFileReaderUnit, Mf6.MweFileReaderUnit, Mf6.LkeFileReaderUnit,
+  Mf6.SfeFileReaderUnit, Mf6.UzeFileReaderUnit;
 
 resourcestring
   StrTheNameFileSDoe = 'The name file %s does not exist.';
@@ -15115,8 +15116,11 @@ type
     IsDiversion: Boolean;
     Added: Boolean;
     SftPackageData: TSftPackageItemList;
+    SfePackageData: TSfePackageItemList;
     SftBoundNameObs: TObservationLists;
+    SfeBoundNameObs: TObservationLists;
     SftIdObs: TObservationLists;
+    SfeIdObs: TObservationLists;
     InitialStage: TRealOption;
   public
     constructor Create;
@@ -15136,6 +15140,7 @@ type
     SfrPeriod: TSfrPeriod;
     MvrPeriod: TMvrPeriod;
     SftPeriods: TSftPeriodArray;
+    SfePeriods: TSfePeriodArray;
     SpcPeriods: TSpcPeriodArray;
     function Period: Integer;
     function SameContents(OtherLink: TSfrMvrLink): Boolean;
@@ -15292,6 +15297,19 @@ var
   Value: double;
   StartTime: double;
   EndTime: double;
+  SfeBoundNameDictionaries: TBoundNameDictionaries;
+  SfeBoundNameDictionary: TBoundNameDictionary;
+  SfeNumberDictionaries: TNumberDictionaries;
+  SfeSetingList: TNumberedItemLists;
+  SfeCONCENTRATION: TArray<TMf6BoundaryValueArray>;
+  SfeRAINFALL: TArray<TMf6BoundaryValueArray>;
+  SfeEVAPORATION: TArray<TMf6BoundaryValueArray>;
+  SfeRUNOFF: TArray<TMf6BoundaryValueArray>;
+  SfeINFLOW: TArray<TMf6BoundaryValueArray>;
+  SfeMaps: TimeSeriesMaps;
+  SfeList: TSfeList;
+  SfePeriodSettingsList: TSftPeriodSettings;
+  SfePeriodSettings: TPeriodSettings;
   procedure CreateReachList(SfrReachInfo: TSfrReachInfo);
   begin
     AReachList := TSfrReachInfoList.Create;
@@ -15411,6 +15429,10 @@ var
     Comment: string;
     PriorSfrItem: TSfrMf6Item;
     EndTime: double;
+    AdjustmentIndex: Integer;
+    SfePackage: TSfePackageItem;
+    SfeNumberDictionary: TNumberDictionary;
+    AdjustedIndex: Integer;
     procedure ReadCrossSection(ACrossSection: TSfr6CrossSection; CrossSection: TCrossSection);
     var
       RowIndex: Integer;
@@ -16016,6 +16038,56 @@ var
           Format('Concentration_Chem_%d_Period_%d', [TransportIndex+1, SfrMvrLink.Period]), SftMaps[TransportIndex], result);
 
       end;
+
+      for var TransportIndex := 0 to SfeList.Count - 1 do
+      begin
+        AdjustedIndex := TransportIndex + SfeList.Count;
+        SfePeriodSettings := SfePeriodSettingsList[TransportIndex];
+        SfeSetingList  := SfePeriodSettings[PeriodIndex];
+        AReachSettingsList := SfeSetingList[AReachList[0].PackageData.rno-1];
+
+        for SettingIndex := 0 to AReachSettingsList.Count - 1 do
+        begin
+          ASetting := AReachSettingsList[SettingIndex];
+          if AnsiSameText(ASetting.Name, 'STATUS') then
+          begin
+            if AnsiSameText(ASetting.StringValue, 'INACTIVE') then
+            begin
+              SfrItem.GwtStatus[AdjustedIndex].GwtBoundaryStatus := gbsInactive;
+            end
+            else if AnsiSameText(ASetting.StringValue, 'CONSTANT') then
+            begin
+              SfrItem.GwtStatus[AdjustedIndex].GwtBoundaryStatus := gbsConstant;
+            end
+            else
+            begin
+              Assert(AnsiSameText(ASetting.StringValue, 'ACTIVE'));
+            end;
+            Break;
+          end;
+        end;
+
+        UpdateReachSettings(AReachList, SfeSetingList, SfeCONCENTRATION[TransportIndex], 'TEMPERATURE');
+        SfrItem.SpecifiedConcentrations[AdjustedIndex].Value := BoundaryValuesToFormula(SfeCONCENTRATION[TransportIndex],
+          Format('Temperature_%d_Period_%d', [TransportIndex+1, SfrMvrLink.Period]), SfeMaps[TransportIndex], result);
+
+        UpdateReachSettings(AReachList, SfeSetingList, SfeRAINFALL[TransportIndex], 'RAINFALL');
+        SfrItem.RainfallConcentrations[AdjustedIndex].Value := BoundaryValuesToFormula(SfeRAINFALL[TransportIndex],
+          Format('Temperature_%d_Period_%d', [TransportIndex+1, SfrMvrLink.Period]), SfeMaps[TransportIndex], result);
+
+        UpdateReachSettings(AReachList, SfeSetingList, SfeEVAPORATION[TransportIndex], 'EVAPORATION');
+        SfrItem.EvapConcentrations[AdjustedIndex].Value := BoundaryValuesToFormula(SfeEVAPORATION[TransportIndex],
+          Format('Temperature_%d_Period_%d', [TransportIndex+1, SfrMvrLink.Period]), SfeMaps[TransportIndex], result);
+
+        UpdateReachSettings(AReachList, SfeSetingList, SfeRUNOFF[TransportIndex], 'RUNOFF');
+        SfrItem.RunoffConcentrations[AdjustedIndex].Value := BoundaryValuesToFormula(SfeRUNOFF[TransportIndex],
+          Format('Temperature_%d_Period_%d', [TransportIndex+1, SfrMvrLink.Period]), SfeMaps[TransportIndex], result);
+
+        UpdateReachSettings(AReachList, SfeSetingList, SfeINFLOW[TransportIndex], 'INFLOW');
+        SfrItem.InflowConcentrations[AdjustedIndex].Value := BoundaryValuesToFormula(SfeINFLOW[TransportIndex],
+          Format('Temperature_%d_Period_%d', [TransportIndex+1, SfrMvrLink.Period]), SfeMaps[TransportIndex], result);
+
+      end;
     end;
 
     if SfrBoundary.CrossSections.Count > 0 then
@@ -16095,6 +16167,46 @@ var
       begin
         result.Modflow6Obs.SftObs := result.Modflow6Obs.SftObs + SftObs;
         Include(Genus, TransportIndex);
+      end;
+    end;
+
+    AdjustmentIndex := FirstReach.SftPackageData.Count;
+    for var TransportIndex := 0 to FirstReach.SfePackageData.Count - 1 do
+    begin
+      SftObs := [];
+      SfePackage := FirstReach.SfePackageData[TransportIndex];
+      if SfePackage <> nil then
+      begin
+        BoundName := SfePackage.boundname;
+        if BoundName <> '' then
+        begin
+          SfeBoundNameDictionary := SfeBoundNameDictionaries[TransportIndex];
+          if SfeBoundNameDictionary.TryGetValue(UpperCase(Boundname), ObsList) then
+          begin
+            Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
+            result.CreateMf6Obs;
+            IncludeSftObservations(ObsList);
+            result.Modflow6Obs.Name := ValidName(Boundname);
+          end;
+        end;
+
+        SfeNumberDictionary := SfeNumberDictionaries[TransportIndex];
+        if SfeNumberDictionary.TryGetValue(FirstReach.PackageData.rno, ObsList) then
+        begin
+          Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
+          result.CreateMf6Obs;
+          IncludeSftObservations(ObsList);
+          if result.Modflow6Obs.Name = '' then
+          begin
+            Inc(ObsNameIndex);
+            result.Modflow6Obs.Name := 'SFE_' + IntToStr(ObsNameIndex);
+          end;
+        end;
+      end;
+      if SftObs <> [] then
+      begin
+        result.Modflow6Obs.SftObs := result.Modflow6Obs.SftObs + SftObs;
+        Include(Genus, TransportIndex+AdjustmentIndex);
       end;
     end;
     if Genus <> [] then
@@ -16251,6 +16363,18 @@ var
       end;
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
+  Sfe: TSfe;
+  SfePeriod: TSfePeriod;
+  AdjustedIndex: Integer;
+  SfeStrt: TArray<TMf6BoundaryValueArray>;
+  SfeStringValues: TArray<TOneDStringArray>;
+  SfeItem: TSfePackageItem;
+  SfeBoundNameObs: TObservationList;
+  SfeIdObs: TObservationList;
+  SfeSettingList: TNumberedItemLists;
+  SfeMap: TimeSeriesMap;
 begin
   SplitReachLists := nil;
   ObsNameIndex := 0;
@@ -16379,33 +16503,30 @@ begin
   SpcDictionaries := TSpcDictionaries.Create;
   SpcPeriodSettingsList := TListOfSpcTimeItemLists.Create;
   SfrScreenObjects := TSfrOrderList.Create;
+  SfeList := TSfeList.Create;
+  SfeMaps := TimeSeriesMaps.Create;
+  SfeNumberDictionaries := TNumberDictionaries.Create;
+  SfeBoundNameDictionaries := TBoundNameDictionaries.Create;
   try
     TransportAuxNames.CaseSensitive := False;
 
     for var ModelIndex := 0 to TransportModels.Count - 1 do
     begin
       AModel := TransportModels[ModelIndex];
+      FoundMatch := False;
       TransportModel := AModel.FName as TTransportNameFile;
       Ssm := TransportModel.GetSsmPackage as TSsm;
       if Ssm <> nil then
-//      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
       begin
-//        APackage := TransportModel.NfPackages[PackageIndex];
-        FoundMatch := False;
-//        if APackage.FileType = 'SSM6' then
+        for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
         begin
-//          Ssm := APackage.Package as TSsm;
-          for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
+          if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
           begin
-            if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-            begin
-              FoundMatch := True;
-              TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-              TransportSpeciesNames.Add(TransportModel.SpeciesName);
-              break;
-            end;
+            FoundMatch := True;
+            TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+            TransportSpeciesNames.Add(TransportModel.SpeciesName);
+            break;
           end;
-//          break;
         end;
       end;
       if not FoundMatch then
@@ -16414,6 +16535,33 @@ begin
         TransportSpeciesNames.Add(TransportModel.SpeciesName);
       end;
     end;
+
+    for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+    begin
+      AModel := EnergyTransportModels[ModelIndex];
+      FoundMatch := False;
+      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+      Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+      if Ssm <> nil then
+      begin
+        for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
+        begin
+          if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+          begin
+            FoundMatch := True;
+            TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+            break;
+          end;
+        end;
+      end;
+      if not FoundMatch then
+      begin
+        TransportAuxNames.Add('');
+        TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+      end;
+    end;
+
 
     ValidSfrSettings.CaseSensitive := False;
     ValidSfrSettings.Add('STATUS');
@@ -16488,9 +16636,49 @@ begin
         SftList.Add(nil);
       end;
     end;
+
+    for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+    begin
+      FoundSft := False;
+      AModel := EnergyTransportModels[ModelIndex];
+      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+      for var PackageIndex := 0 to EnergyTransportModel.NfPackages.Count  - 1 do
+      begin
+        APackage := EnergyTransportModel.NfPackages[PackageIndex];
+        if APackage.FileType = 'SFE6' then
+        begin
+          Sfe := APackage.Package as TSfe;
+          FlowPackageName := Sfe.Options.FLOW_PACKAGE_NAME;
+          if FlowPackageName = '' then
+          begin
+            FlowPackageName := APackage.PackageName;
+          end;
+          if AnsiSameText(Package.PackageName, FlowPackageName) then
+          begin
+            SfeList.Add(Sfe);
+            FoundSft := True;
+            FoundAny := True;
+            SftMap := TimeSeriesMap.Create;
+            SfeMaps.Add(SftMap);
+            for TimeSeriesIndex := 0 to Sfe.TimeSeriesCount - 1 do
+            begin
+              TimeSeriesPackage := Sfe.TimeSeries[TimeSeriesIndex];
+              ImportTimeSeries(TimeSeriesPackage, SftMap);
+            end;
+            break;
+          end;
+        end;
+      end;
+      if not FoundSft then
+      begin
+        SfeList.Add(nil);
+      end;
+    end;
+
     if not FoundAny then
     begin
       SftList.Clear;
+      SfeList.Clear;
     end;
     SetLength(SftStrt, SftList.Count);
     SetLength(SftCONCENTRATION, SftList.Count);
@@ -16499,6 +16687,14 @@ begin
     SetLength(SftRUNOFF, SftList.Count);
     SetLength(SftINFLOW, SftList.Count);
     SetLength(SftStringValues, SftList.Count);
+
+    SetLength(SfeStrt, SfeList.Count);
+    SetLength(SfeCONCENTRATION, SfeList.Count);
+    SetLength(SfeRAINFALL, SfeList.Count);
+    SetLength(SfeEVAPORATION, SfeList.Count);
+    SetLength(SfeRUNOFF, SfeList.Count);
+    SetLength(SfeINFLOW, SfeList.Count);
+    SetLength(SfeStringValues, SfeList.Count);
 
     if SftList.Count > 0 then
     begin
@@ -16528,6 +16724,35 @@ begin
       end;
     end;
 
+    if SfeList.Count > 0 then
+    begin
+      OutputControl := Model.ModflowOutputControl;
+      for var TransportIndex := 0 to SfeList.Count - 1 do
+      begin
+        Sfe := SfeList[TransportIndex];
+        if Sfe <> nil then
+        begin
+          if Sfe.Options.PRINT_TEMPERATURE then
+          begin
+            OutputControl.ConcentrationOC.PrintInListing := True;
+          end;
+          if Sfe.Options.TEMPERATURE then
+          begin
+            SfrPackage.SaveGwtConcentration := True;
+          end;
+          if Sfe.Options.BUDGET then
+          begin
+            SfrPackage.SaveGwtBudget := True;
+          end;
+          if Sfe.Options.BUDGETCSV then
+          begin
+            SfrPackage.SaveGwtBudgetCsv := True;
+          end;
+        end;
+      end;
+    end;
+
+
     for var TransportIndex := 0 to SftList.Count - 1 do
     begin
       SftNumberDictionaries.Add(TNumberDictionary.Create);
@@ -16535,7 +16760,14 @@ begin
       ListOfObsLists.Add(TObsLists.Create)
     end;
 
-    if (Mvr = nil) and (SftList.Count = 0) and (SpcList.Count = 0) then
+    for var TransportIndex := 0 to SfeList.Count - 1 do
+    begin
+      SfeNumberDictionaries.Add(TNumberDictionary.Create);
+      SfeBoundNameDictionaries.Add(TBoundNameDictionary.Create);
+      ListOfObsLists.Add(TObsLists.Create)
+    end;
+
+    if (Mvr = nil) and (SftList.Count = 0) and (SfeList.Count = 0) and (SpcList.Count = 0) then
     begin
       SfrMvrLink.MvrPeriod := nil;
       SetLength(SfrMvrLink.SftPeriods, 0);
@@ -16553,6 +16785,7 @@ begin
         SfrMvrLinkArray[StressPeriodIndex].MvrPeriod := nil;
         SfrMvrLinkArray[StressPeriodIndex].SfrPeriod := nil;
         SetLength(SfrMvrLinkArray[StressPeriodIndex].SftPeriods, SftList.Count);
+        SetLength(SfrMvrLinkArray[StressPeriodIndex].SfePeriods, SfeList.Count);
         SetLength(SfrMvrLinkArray[StressPeriodIndex].SpcPeriods, SpcList.Count)
       end;
 
@@ -16604,6 +16837,19 @@ begin
         end;
       end;
 
+      for var TransportIndex := 0 to SfeList.Count - 1 do
+      begin
+        Sfe := SfeList[TransportIndex];
+        if Sfe <> nil then
+        begin
+          for StressPeriodIndex := 0 to Sfe.PeriodCount - 1 do
+          begin
+            SfePeriod := Sfe.Periods[StressPeriodIndex];
+            SfrMvrLinkArray[SfePeriod.Period-1].SfePeriods[TransportIndex] := SfePeriod;
+          end;
+        end;
+      end;
+
       for StressPeriodIndex := 0 to Sfr.PeriodCount - 1 do
       begin
         SfrPeriod := Sfr.Periods[StressPeriodIndex];
@@ -16628,6 +16874,14 @@ begin
           begin
             SfrMvrLinkArray[StressPeriodIndex].SftPeriods[TransportIndex] :=
               SfrMvrLinkArray[StressPeriodIndex-1].SftPeriods[TransportIndex];
+          end;
+        end;
+        for var TransportIndex := 0 to SfeList.Count - 1 do
+        begin
+          if SfrMvrLinkArray[StressPeriodIndex].SfePeriods[TransportIndex] = nil then
+          begin
+            SfrMvrLinkArray[StressPeriodIndex].SfePeriods[TransportIndex] :=
+              SfrMvrLinkArray[StressPeriodIndex-1].SfePeriods[TransportIndex];
           end;
         end;
         for var TransportIndex := 0 to SpcList.Count - 1 do
@@ -16696,6 +16950,27 @@ begin
       end;
     end;
 
+    AdjustedIndex := SftList.Count;
+    for var TransportIndex := 0 to SfeList.Count - 1 do
+    begin
+      Sfe := SfeList[TransportIndex];
+      if Sfe <> nil then
+      begin
+        if Sfe.ObservationCount > 0 then
+        begin
+          Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
+        end;
+        for ObsPackageIndex := 0 to Sfe.ObservationCount - 1 do
+        begin
+          ObsFiles := Sfe.Observations[ObsPackageIndex].Package as TObs;
+          GetObservations(SfeNumberDictionaries[TransportIndex],
+            SfeBoundNameDictionaries[TransportIndex],
+            nil, ListOfObsLists[TransportIndex+AdjustedIndex], ObsFiles);
+        end;
+      end;
+    end;
+
+
     if Assigned(OnUpdateStatusBar) then
     begin
       OnUpdateStatusBar(self, 'importing SFR package');
@@ -16729,6 +17004,20 @@ begin
           else
           begin
             SfrReachInfo.SftPackageData.Add(nil);
+          end;
+        end;
+
+        for var TransportIndex := 0 to SfeList.Count - 1 do
+        begin
+          Sfe := SfeList[TransportIndex];
+          if Sfe <> nil then
+          begin
+            SfrReachInfo.SfePackageData.Add(Sfe.PackageData.ItemByID[
+              SfrReachInfo.PackageData.rno]);
+          end
+          else
+          begin
+            SfrReachInfo.SfePackageData.Add(nil);
           end;
         end;
 
@@ -16783,6 +17072,42 @@ begin
             end;
           end;
         end;
+
+        for var TransportIndex := 0 to SfeList.Count - 1 do
+        begin
+          Sfe := SfeList[TransportIndex];
+          if Sfe = nil then
+          begin
+            SfrReachInfo.SfeBoundNameObs.Add(nil);
+            SfrReachInfo.SfeIdObs.Add(nil);
+          end
+          else
+          begin
+            SfeItem := SfrReachInfo.SfePackageData[TransportIndex];
+            if SfeItem <> nil then
+            begin
+              if not SfeBoundNameDictionaries[TransportIndex].TryGetValue(
+                UpperCase(SfeItem.Boundname),
+                SfeBoundNameObs) then
+              begin
+                SfeBoundNameObs := nil
+              end;
+              SfrReachInfo.SfeBoundNameObs.Add(SfeBoundNameObs);
+
+              if not SfeNumberDictionaries[TransportIndex].TryGetValue(SfeItem.rno,
+                SfeIdObs) then
+              begin
+                SfeIdObs := nil;
+              end;
+              SfrReachInfo.SfeIdObs.Add(SfeIdObs);
+            end
+            else
+            begin
+              SfrReachInfo.SfeBoundNameObs.Add(nil);
+              SfrReachInfo.SfeIdObs.Add(nil);
+            end;
+          end;
+        end
       end;
 
       CrossSections := Sfr.CrossSections;
@@ -16897,11 +17222,18 @@ begin
 
         PeriodSettings := TPeriodSettings.Create;
         SftPeriodSettingsList := TSftPeriodSettings.Create;
+        SfePeriodSettingsList := TSftPeriodSettings.Create;
         try
           for var TransportIndex := 0 to SftList.Count - 1 do
           begin
             SftPeriodSettingsList.Add(TPeriodSettings.Create);
           end;
+
+          for var TransportIndex := 0 to SfeList.Count - 1 do
+          begin
+            SfePeriodSettingsList.Add(TPeriodSettings.Create);
+          end;
+
 
           for PeriodIndex := 0 to SfrMvrLinkList.Count - 1 do
           begin
@@ -16924,6 +17256,18 @@ begin
               begin
                 AReachSettingsList := TNumberedItemList.Create;
                 SftSettingList.Add(AReachSettingsList);
+              end;
+            end;
+
+            for var TransportIndex := 0 to SfeList.Count - 1 do
+            begin
+              SfePeriodSettings := SfePeriodSettingsList[TransportIndex];
+              SfeSettingList := TNumberedItemLists.Create;
+              SfePeriodSettings.Add(SfeSettingList);
+              for ReachIndex := 0 to PackageData.Count - 1 do
+              begin
+                AReachSettingsList := TNumberedItemList.Create;
+                SfeSettingList.Add(AReachSettingsList);
               end;
             end;
 
@@ -16955,6 +17299,23 @@ begin
                 end;
               end;
             end;
+
+            for var TransportIndex := 0 to SfeList.Count - 1 do
+            begin
+              SfePeriod := SfrMvrLinkList[PeriodIndex].SfePeriods[TransportIndex];
+              if SfePeriod <> nil then
+              begin
+                SfePeriodSettings := SfePeriodSettingsList[TransportIndex];
+                SfeSetingList  := SfePeriodSettings.Last;
+                for SettingIndex := 0 to SfePeriod.Count - 1 do
+                begin
+                  ASetting := SfePeriod[SettingIndex];
+                  Assert(ValidSftSettings.IndexOf(ASetting.Name)>=0);
+                  AReachSettingsList := SfeSetingList[ASetting.IdNumber-1];
+                  AReachSettingsList.Add(ASetting);
+                end;
+              end;
+            end
           end;
 
           ObjectCount := 0;
@@ -17030,6 +17391,23 @@ begin
                 if DefaultFormula = '' then
                 begin
                   SplitReachListWithBoundaryValues(AReachList, SftStrt[TransportIndex]);
+                end;
+              end;
+
+              for var TransportIndex := 0 to Length(SfeStrt) - 1 do
+              begin
+                SetLength(SfeStrt[TransportIndex], AReachList.Count);
+                for CellIndex := 0 to AReachList.Count - 1 do
+                begin
+
+                  SfeStrt[TransportIndex][CellIndex] :=
+                   AReachList[CellIndex].SfePackageData[TransportIndex].strt;
+                end;
+                DefaultFormula := BoundaryValuesToFormula(SfeStrt[TransportIndex],
+                  'dummyvariable', SfeMaps[TransportIndex]);
+                if DefaultFormula = '' then
+                begin
+                  SplitReachListWithBoundaryValues(AReachList, SfeStrt[TransportIndex]);
                 end;
               end;
 
@@ -17347,6 +17725,123 @@ begin
                     SplitReachListWithBoundaryValues(AReachList, SftINFLOW[TransportIndex]);
                   end;
                 end;
+
+                for var TransportIndex := 0 to Length(SfeStrt) - 1 do
+                begin
+                  SfeMap := SfeMaps[TransportIndex];
+                  SfePeriodSettings := SfePeriodSettingsList[TransportIndex];
+                  SfeSetingList  := SfePeriodSettings[PeriodIndex];
+
+                  SetLength(SfeStringValues[TransportIndex], AReachList.Count);
+                  for ReachIndex := 0 to AReachList.Count - 1 do
+                  begin
+                    SfeStringValues[TransportIndex][ReachIndex] := 'ACTIVE';
+                  end;
+                  NeedToSplit := False;
+                  for ReachIndex := 0 to AReachList.Count - 1 do
+                  begin
+                    AReachSettingsList := SfeSetingList[AReachList[ReachIndex].PackageData.rno-1];
+                    for SettingIndex := 0 to AReachSettingsList.Count - 1 do
+                    begin
+                      ASetting := AReachSettingsList[SettingIndex];
+                      if AnsiSameText(ASetting.Name, 'STATUS') then
+                      begin
+                        SfeStringValues[TransportIndex][ReachIndex] := ASetting.StringValue;
+                      end;
+                    end;
+                    if (ReachIndex > 0) and not AnsiSameText(SfeStringValues[TransportIndex][ReachIndex],
+                      SfeStringValues[TransportIndex][ReachIndex-1]) then
+                    begin
+                      NeedToSplit := True;
+                    end;
+                  end;
+                  if NeedToSplit then
+                  begin
+                    SplitReachListWithStrings(AReachList, SfeStringValues[TransportIndex]);
+                    SetLength(SfeStringValues[TransportIndex], AReachList.Count);
+                  end;
+
+                  SetLength(SfeCONCENTRATION[TransportIndex], AReachList.Count);
+                  if PeriodIndex = 0 then
+                  begin
+                    for ReachIndex := 0 to AReachList.Count - 1 do
+                    begin
+                      SfeCONCENTRATION[TransportIndex][ReachIndex].ValueType := vtNumeric;
+                      SfeCONCENTRATION[TransportIndex][ReachIndex].NumericValue :=
+                        AReachList[ReachIndex].SftPackageData[TransportIndex].strt.NumericValue;
+                    end;
+                  end;
+                  UpdateReachSettings(AReachList, SfeSetingList, SfeCONCENTRATION[TransportIndex], 'TEMPERATURE');
+                  DefaultFormula := BoundaryValuesToFormula(SfeCONCENTRATION[TransportIndex], 'dummyvariable', SfeMap);
+                  if DefaultFormula = '' then
+                  begin
+                    SplitReachListWithBoundaryValues(AReachList, SfeCONCENTRATION[TransportIndex]);
+                  end;
+
+                  SetLength(SfeRAINFALL[TransportIndex], AReachList.Count);
+                  if PeriodIndex = 0 then
+                  begin
+                    for ReachIndex := 0 to AReachList.Count - 1 do
+                    begin
+                      SfeRAINFALL[TransportIndex][ReachIndex].ValueType := vtNumeric;
+                      SfeRAINFALL[TransportIndex][ReachIndex].NumericValue := 0;
+                    end;
+                  end;
+                  UpdateReachSettings(AReachList, SfeSetingList, SfeRAINFALL[TransportIndex], 'RAINFALL');
+                  DefaultFormula := BoundaryValuesToFormula(SfeRAINFALL[TransportIndex], 'dummyvariable', SfeMap);
+                  if DefaultFormula = '' then
+                  begin
+                    SplitReachListWithBoundaryValues(AReachList, SfeRAINFALL[TransportIndex]);
+                  end;
+
+                  SetLength(SfeEVAPORATION[TransportIndex], AReachList.Count);
+                  if PeriodIndex = 0 then
+                  begin
+                    for ReachIndex := 0 to AReachList.Count - 1 do
+                    begin
+                      SfeEVAPORATION[TransportIndex][ReachIndex].ValueType := vtNumeric;
+                      SfeEVAPORATION[TransportIndex][ReachIndex].NumericValue := 0;
+                    end;
+                  end;
+                  UpdateReachSettings(AReachList, SfeSetingList, SfeEVAPORATION[TransportIndex], 'EVAPORATION');
+                  DefaultFormula := BoundaryValuesToFormula(SfeEVAPORATION[TransportIndex], 'dummyvariable', SfeMap);
+                  if DefaultFormula = '' then
+                  begin
+                    SplitReachListWithBoundaryValues(AReachList, SfeEVAPORATION[TransportIndex]);
+                  end;
+
+                  SetLength(SfeRUNOFF[TransportIndex], AReachList.Count);
+                  if PeriodIndex = 0 then
+                  begin
+                    for ReachIndex := 0 to AReachList.Count - 1 do
+                    begin
+                      SfeRUNOFF[TransportIndex][ReachIndex].ValueType := vtNumeric;
+                      SfeRUNOFF[TransportIndex][ReachIndex].NumericValue := 0;
+                    end;
+                  end;
+                  UpdateReachSettings(AReachList, SfeSetingList, SfeRUNOFF[TransportIndex], 'RUNOFF');
+                  DefaultFormula := BoundaryValuesToFormula(SfeRUNOFF[TransportIndex], 'dummyvariable', SfeMap);
+                  if DefaultFormula = '' then
+                  begin
+                    SplitReachListWithBoundaryValues(AReachList, SfeRUNOFF[TransportIndex]);
+                  end;
+
+                  SetLength(SfeINFLOW[TransportIndex], AReachList.Count);
+                  if PeriodIndex = 0 then
+                  begin
+                    for ReachIndex := 0 to AReachList.Count - 1 do
+                    begin
+                      SfeINFLOW[TransportIndex][ReachIndex].ValueType := vtNumeric;
+                      SfeINFLOW[TransportIndex][ReachIndex].NumericValue := 0;
+                    end;
+                  end;
+                  UpdateReachSettings(AReachList, SfeSetingList, SfeINFLOW[TransportIndex], 'INFLOW');
+                  DefaultFormula := BoundaryValuesToFormula(SfeINFLOW[TransportIndex], 'dummyvariable', SfeMap);
+                  if DefaultFormula = '' then
+                  begin
+                    SplitReachListWithBoundaryValues(AReachList, SfeINFLOW[TransportIndex]);
+                  end;
+                end;
               end;
 
               AScreenObject := CreateScreenObject(AReachList);
@@ -17496,6 +17991,7 @@ begin
         finally
           PeriodSettings.Free;
           SftPeriodSettingsList.Free;
+          SfePeriodSettingsList.Free;
         end;
 
       finally
@@ -17606,6 +18102,10 @@ begin
     SpcDictionaries.Free;
     SpcPeriodSettingsList.Free;
     SfrScreenObjects.Free;
+    SfeList.Free;
+    SfeMaps.Free;
+    SfeNumberDictionaries.Free;
+    SfeBoundNameDictionaries.Free;
   end;
 
 end;
@@ -19767,27 +20267,20 @@ begin
     for var ModelIndex := 0 to TransportModels.Count - 1 do
     begin
       AModel := TransportModels[ModelIndex];
+      FoundMatch := False;
       TransportModel := AModel.FName as TTransportNameFile;
       Ssm := TransportModel.GetSsmPackage as TSsm;
       if Ssm <> nil then
-//      for var PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
       begin
-//        APackage := TransportModel.NfPackages[PackageIndex];
-        FoundMatch := False;
-//        if APackage.FileType = 'SSM6' then
+        for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
         begin
-//          Ssm := APackage.Package as TSsm;
-          for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
+          if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
           begin
-            if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-            begin
-              FoundMatch := True;
-              TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-              TransportSpeciesNames.Add(TransportModel.SpeciesName);
-              break;
-            end;
+            FoundMatch := True;
+            TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+            TransportSpeciesNames.Add(TransportModel.SpeciesName);
+            break;
           end;
-//          break;
         end;
       end;
       if not FoundMatch then
@@ -19797,7 +20290,33 @@ begin
       end;
     end;
 
-    FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
+//    for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+//    begin
+//      AModel := EnergyTransportModels[ModelIndex];
+//      FoundMatch := False;
+//      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+//      Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+//      if Ssm <> nil then
+//      begin
+//        for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
+//        begin
+//          if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+//          begin
+//            FoundMatch := True;
+//            TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+//            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+//            break;
+//          end;
+//        end;
+//      end;
+//      if not FoundMatch then
+//      begin
+//        TransportAuxNames.Add('');
+//        TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+//      end;
+//    end;
+//
+//    FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
     for var SpcIndex := 0 to SpcList.Count - 1 do
     begin
       if SpcList[SpcIndex] <> nil then
@@ -22310,11 +22829,31 @@ begin
         Exit;
       end;
     end;
+    Assert(SfeBoundNameObs.Count = OtherInfo.SfeBoundNameObs.Count);
+    for var TransportIndex := 0 to SfeBoundNameObs.Count - 1 do
+    begin
+      result := SfeBoundNameObs[TransportIndex] =
+        OtherInfo.SfeBoundNameObs[TransportIndex];
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
     Assert(SftIdObs.Count = OtherInfo.SftIdObs.Count);
     for var TransportIndex := 0 to SftIdObs.Count - 1 do
     begin
       result := (SftIdObs[TransportIndex] = nil)
         and (OtherInfo.SftIdObs[TransportIndex] = nil);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    Assert(SfeIdObs.Count = OtherInfo.SfeIdObs.Count);
+    for var TransportIndex := 0 to SfeIdObs.Count - 1 do
+    begin
+      result := (SfeIdObs[TransportIndex] = nil)
+        and (OtherInfo.SfeIdObs[TransportIndex] = nil);
       if not result then
       begin
         Exit;
@@ -22329,8 +22868,12 @@ begin
   Diversions := TSfrDiversionItemList.Create;
   SftPackageData := TSftPackageItemList.Create;
   SftPackageData.OwnsObjects := False;
+  SfePackageData := TSfePackageItemList.Create;;
+  SfePackageData.OwnsObjects := False;
   SftBoundNameObs := TObservationLists.Create(False);
+  SfeBoundNameObs := TObservationLists.Create(False);
   SftIdObs := TObservationLists.Create(False);
+  SfeIdObs := TObservationLists.Create(False);
   InitialStage.Initialize;
 
 end;
@@ -22339,8 +22882,11 @@ destructor TSfrReachInfo.Destroy;
 begin
   Diversions.Free;
   SftPackageData.Free;
+  SfePackageData.Free;
   SftBoundNameObs.Free;
+  SfeBoundNameObs.Free;
   SftIdObs.Free;
+  SfeIdObs.Free;
   inherited;
 end;
 
@@ -22556,6 +23102,14 @@ begin
         Exit;
       end;
     end;
+    for var TransportIndex := 0 to Length(SfePeriods) - 1 do
+    begin
+      result := SfePeriods[TransportIndex] <> nil;
+      if result then
+      begin
+        Exit;
+      end;
+    end;
     for var TransportIndex := 0 to Length(SpcPeriods) - 1 do
     begin
       result := SpcPeriods[TransportIndex] <> nil;
@@ -22594,6 +23148,14 @@ begin
       end;
     end;
 
+    for var TransportIndex := 0 to Length(SfePeriods) - 1 do
+    begin
+      if SfePeriods[TransportIndex] <> nil then
+      begin
+        result := Max(result, SfePeriods[TransportIndex].Period);
+      end;
+    end;
+
     for var TransportIndex := 0 to Length(SpcPeriods) - 1 do
     begin
       if SpcPeriods[TransportIndex] <> nil then
@@ -22614,6 +23176,14 @@ begin
     for var Index := 0 to Length(SftPeriods) - 1 do
     begin
       result := SftPeriods[Index] = OtherLink.SftPeriods[Index];
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    for var Index := 0 to Length(SfePeriods) - 1 do
+    begin
+      result := SfePeriods[Index] = OtherLink.SfePeriods[Index];
       if not result then
       begin
         Exit;

@@ -93,6 +93,7 @@ type
     FOCPackage: TPackage;
     FFmiPackage: TPackage;
     FSpeciesName: string;
+    function GetPackageReader(const PackageName: string): TPackageReader;
   protected
     procedure SetOnUpdataStatusBar(const Value: TOnUpdataStatusBar); override;
   public
@@ -489,22 +490,17 @@ begin
 end;
 
 function TNameFile<Options, Packages>.GetMwePackage: TPackageReader;
-var
-  APackage: TPackage;
 begin
-  result := nil;
-  for var PackageIndex := 0 to NfPackages.Count  - 1 do
-  begin
-    APackage := NfPackages.Items[PackageIndex];
-    if APackage.FileType = 'MWE6' then
-    begin
-      Result := APackage.Package;
-      Exit;
-    end;
-  end;
+  result := GetPackageReader('MWE6');
 end;
 
 function TNameFile<Options, Packages>.GetMwtPackage: TPackageReader;
+begin
+  result := GetPackageReader('MWT6');
+end;
+
+function TNameFile<Options, Packages>.GetPackageReader(
+  const PackageName: string): TPackageReader;
 var
   APackage: TPackage;
 begin
@@ -512,7 +508,7 @@ begin
   for var PackageIndex := 0 to NfPackages.Count  - 1 do
   begin
     APackage := NfPackages.Items[PackageIndex];
-    if APackage.FileType = 'MWT6' then
+    if APackage.FileType = PackageName then
     begin
       Result := APackage.Package;
       Exit;
@@ -521,19 +517,8 @@ begin
 end;
 
 function TNameFile<Options, Packages>.GetSsmPackage: TPackageReader;
-var
-  APackage: TPackage;
 begin
-  result := nil;
-  for var PackageIndex := 0 to NfPackages.Count  - 1 do
-  begin
-    APackage := NfPackages.Items[PackageIndex];
-    if APackage.FileType = 'SSM6' then
-    begin
-      Result := APackage.Package;
-      Exit;
-    end;
-  end;
+  result := GetPackageReader('SSM6');
 end;
 
 procedure TNameFile<Options, Packages>.Read(Stream: TStreamReader;
