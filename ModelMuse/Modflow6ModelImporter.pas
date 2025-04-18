@@ -11133,7 +11133,7 @@ begin
             if MwtObs <> [] then
             begin
               AScreenObject.Modflow6Obs.MwtObs := AScreenObject.Modflow6Obs.MwtObs + MwtObs;
-              Include(Genus, TransportIndex);
+              Include(Genus, TransportIndex + MwtList.Count);
             end;
           end;
           if MweNumberDictionary.TryGetValue(PackageItem.wellno, ObsList) then
@@ -11149,7 +11149,7 @@ begin
             if MwtObs <> [] then
             begin
               AScreenObject.Modflow6Obs.MwtObs := AScreenObject.Modflow6Obs.MwtObs + MwtObs;
-              Include(Genus, TransportIndex);
+              Include(Genus, TransportIndex + MwtList.Count);
             end;
           end;
 
@@ -20195,11 +20195,15 @@ type
     UztPackageItemArray: TUztPackageItemArray;
     FTransportSettings: TTransportSettings;
     FSpcPeriodData: TImportSpcPeriodItemLists;
+    UzeBoundNameObs: TObservationLists;
+    UzeIdObs: TObservationLists;
+    UzePackageItemArray: TUzePackageItemArray;
+    FEnergyTransportSettings: TTransportSettings;
   public
     constructor Create;
     destructor Destroy; override;
     function Compatible(UzfData: TUzfData; Options: TUzfOptions): Boolean;
-    procedure SetTransportCounts(PeriodCount, TransportModelCount: Integer);
+    procedure SetTransportCounts(PeriodCount, TransportModelCount, EnergyTransportModelCount: Integer);
   end;
 
   TUzfDataList = TList<TUzfData>;
@@ -20210,6 +20214,7 @@ type
     UzfPeriod: TUzfPeriod;
     MvrPeriod: TMvrPeriod;
     UztPeriods: TUztPeriodArray;
+    UzePeriods: TUzePeriodArray;
     SpcPeriods: TSpcPeriodArray;
     function Period: Integer;
     function SameContents(OtherLink: TUzfMvrLink): Boolean;
@@ -20366,7 +20371,6 @@ var
         result := '';
         Assert(False);
       end;
-
     end;
   end;
   function NumberedItemToFormula(Value: TNumberedItem; Map: TimeSeriesMap): string;
@@ -20414,7 +20418,7 @@ var
       for ObsIndex := 0 to Obs.Count - 1 do
       begin
         AnObs := Obs[ObsIndex];
-        if AnsiSameText(AnObs.ObsType, 'concentration') then
+        if AnsiSameText(AnObs.ObsType, 'concentration') or AnsiSameText(AnObs.ObsType, 'temperature') then
         begin
           Include(UztObs, utoConcentration);
         end
@@ -20430,7 +20434,7 @@ var
         begin
           Include(UztObs, utoFromMvr);
         end
-        else if AnsiSameText(AnObs.ObsType, 'uzt') then
+        else if AnsiSameText(AnObs.ObsType, 'uzt') or AnsiSameText(AnObs.ObsType, 'uze') then
         begin
           Include(UztObs, utoUZT);
         end
@@ -20553,6 +20557,22 @@ var
       AScreenObject.Modflow6Obs.UzfObs := UzfObs;
     end;
   end;
+var
+  EnergyTransportModel: TEnergyTransportNameFile;
+  Uze: TUze;
+  UzeList: TUzeList;
+  UzeMap: TimeSeriesMap;
+  UzeMaps: TimeSeriesMaps;
+  UzeNumberDictionaries: TNumberDictionaries;
+  UzeBoundNameDictionaries: TBoundNameDictionaries;
+  UzePeriod: TUzePeriod;
+  UzePeriodItem: TNumberedItem;
+  ImportUzePeriodItem: TImportUztPeriodItem;
+  GweAdjustment: Integer;
+  UzeItem: TNumberedItem;
+  AdjustedIndex: Integer;
+  UzeNumberDictionary: TNumberDictionary;
+  UzeBoundNameDictionary: TBoundNameDictionary;
 begin
   MvrSource.LakeOutlet := nil;
   ObsNameIndex := 0;
@@ -20639,6 +20659,10 @@ begin
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
   SpcPeriodSettingsList := TListOfSpcTimeItemLists.Create;
+  UzeList := TUzeList.Create;
+  UzeMaps := TimeSeriesMaps.Create;
+  UzeNumberDictionaries := TNumberDictionaries.Create;
+  UzeBoundNameDictionaries := TBoundNameDictionaries.Create;
   try
     TransportAuxNames.CaseSensitive := False;
 
@@ -20668,33 +20692,33 @@ begin
       end;
     end;
 
-//    for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
-//    begin
-//      AModel := EnergyTransportModels[ModelIndex];
-//      FoundMatch := False;
-//      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
-//      Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
-//      if Ssm <> nil then
-//      begin
-//        for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
-//        begin
-//          if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
-//          begin
-//            FoundMatch := True;
-//            TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
-//            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
-//            break;
-//          end;
-//        end;
-//      end;
-//      if not FoundMatch then
-//      begin
-//        TransportAuxNames.Add('');
-//        TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
-//      end;
-//    end;
-//
-//    FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
+    for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+    begin
+      AModel := EnergyTransportModels[ModelIndex];
+      FoundMatch := False;
+      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+      Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+      if Ssm <> nil then
+      begin
+        for var SourceIndex := 0 to Ssm.Sources.Count - 1 do
+        begin
+          if SameText(Ssm.Sources[SourceIndex].pname, Package.PackageName) then
+          begin
+            FoundMatch := True;
+            TransportAuxNames.Add(Ssm.Sources[SourceIndex].auxname);
+            TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+            break;
+          end;
+        end;
+      end;
+      if not FoundMatch then
+      begin
+        TransportAuxNames.Add('');
+        TransportSpeciesNames.Add(EnergyTransportModel.SpeciesName);
+      end;
+    end;
+
+    FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
     for var SpcIndex := 0 to SpcList.Count - 1 do
     begin
       if SpcList[SpcIndex] <> nil then
@@ -20745,9 +20769,49 @@ begin
         UztList.Add(nil);
       end;
     end;
+
+    for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+    begin
+      FoundUzt := False;
+      AModel := EnergyTransportModels[ModelIndex];
+      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+      for var PackageIndex := 0 to EnergyTransportModel.NfPackages.Count  - 1 do
+      begin
+        APackage := EnergyTransportModel.NfPackages[PackageIndex];
+        if APackage.FileType = 'UZE6' then
+        begin
+          Uze := APackage.Package as TUze;
+          FlowPackageName := Uze.Options.FLOW_PACKAGE_NAME;
+          if FlowPackageName = '' then
+          begin
+            FlowPackageName := APackage.PackageName;
+          end;
+          if AnsiSameText(Package.PackageName, FlowPackageName) then
+          begin
+            UzeList.Add(Uze);
+            FoundUzt := True;
+            FoundAny := True;
+            UzeMap := TimeSeriesMap.Create;
+            UzeMaps.Add(UzeMap);
+            for TimeSeriesIndex := 0 to Uze.TimeSeriesCount - 1 do
+            begin
+              TimeSeriesPackage := Uze.TimeSeries[TimeSeriesIndex];
+              ImportTimeSeries(TimeSeriesPackage, UzeMap);
+            end;
+            break;
+          end;
+        end;
+      end;
+      if not FoundUzt then
+      begin
+        UzeList.Add(nil);
+      end;
+    end;
+
     if not FoundAny then
     begin
       UztList.Clear;
+      UzeList.Clear;
     end;
 
     if UztList.Count > 0 then
@@ -20778,10 +20842,45 @@ begin
       end;
     end;
 
+    if UzeList.Count > 0 then
+    begin
+      OutputControl := Model.ModflowOutputControl;
+      for var TransportIndex := 0 to UzeList.Count - 1 do
+      begin
+        Uze := UzeList[TransportIndex];
+        if Uze <> nil then
+        begin
+          if Uze.Options.PRINT_TEMPERATURE then
+          begin
+            OutputControl.ConcentrationOC.PrintInListing := True;
+          end;
+          if Uze.Options.TEMPERATURE then
+          begin
+            UzfPackage.SaveGwtConcentration := True;
+          end;
+          if Uze.Options.BUDGET then
+          begin
+            UzfPackage.SaveBudgetFile := True;
+          end;
+          if Uze.Options.BUDGETCSV then
+          begin
+            UzfPackage.SaveBudgetCsvFile := True;
+          end;
+        end;
+      end;
+    end;
+
     for var TransportIndex := 0 to UztList.Count - 1 do
     begin
       UztNumberDictionaries.Add(TNumberDictionary.Create);
       UztBoundNameDictionaries.Add(TBoundNameDictionary.Create);
+      ListOfObsLists.Add(TObsLists.Create);
+    end;
+
+    for var TransportIndex := 0 to UzeList.Count - 1 do
+    begin
+      UzeNumberDictionaries.Add(TNumberDictionary.Create);
+      UzeBoundNameDictionaries.Add(TBoundNameDictionary.Create);
       ListOfObsLists.Add(TObsLists.Create);
     end;
 
@@ -20817,7 +20916,22 @@ begin
       end;
     end;
 
-    if (Mvr = nil) and (UztList.Count = 0) and (SpcList.Count = 0) then
+    for var TransportIndex := 0 to UzeList.Count - 1 do
+    begin
+      Uze := UzeList[TransportIndex];
+      if Uze <> nil then
+      begin
+        for ObsPackageIndex := 0 to Uze.ObservationCount - 1 do
+        begin
+          ObsFiles := Uze.Observations[ObsPackageIndex].Package as TObs;
+          GetObservations(UzeNumberDictionaries[TransportIndex],
+            UzeBoundNameDictionaries[TransportIndex],
+            nil, ListOfObsLists[TransportIndex], ObsFiles);
+        end;
+      end;
+    end;
+
+    if (Mvr = nil) and (UztList.Count = 0) and (UzeList.Count = 0) and (SpcList.Count = 0) then
     begin
       UzfMvrLink.MvrPeriod := nil;
       for StressPeriodIndex := 0 to Uzf.PeriodCount - 1 do
@@ -20835,6 +20949,7 @@ begin
         UzfMvrLinkArray[StressPeriodIndex].MvrPeriod := nil;
         UzfMvrLinkArray[StressPeriodIndex].UzfPeriod := nil;
         SetLength(UzfMvrLinkArray[StressPeriodIndex].UztPeriods, UztList.Count);
+        SetLength(UzfMvrLinkArray[StressPeriodIndex].UzePeriods, UzeList.Count);
         SetLength(UzfMvrLinkArray[StressPeriodIndex].SpcPeriods, SpcList.Count);
       end;
       if Mvr <> nil then
@@ -20878,6 +20993,19 @@ begin
         end;
       end;
 
+      for var TransportIndex := 0 to UzeList.Count - 1 do
+      begin
+        Uze := UzeList[TransportIndex];
+        if Uze <> nil then
+        begin
+          for StressPeriodIndex := 0 to Uze.PeriodCount - 1 do
+          begin
+            UzePeriod := Uze.Periods[StressPeriodIndex];
+            UzfMvrLinkArray[UzePeriod.Period-1].UzePeriods[TransportIndex] := UzePeriod;
+          end;
+        end;
+      end;
+
       for StressPeriodIndex := 1 to Length(UzfMvrLinkArray) - 1 do
       begin
         if UzfMvrLinkArray[StressPeriodIndex].UzfPeriod = nil then
@@ -20907,6 +21035,15 @@ begin
           begin
             UzfMvrLinkArray[StressPeriodIndex].UztPeriods[TransportIndex] :=
               UzfMvrLinkArray[StressPeriodIndex-1].UztPeriods[TransportIndex];
+          end;
+        end;
+
+        for var TransportIndex := 0 to UzeList.Count - 1 do
+        begin
+          if UzfMvrLinkArray[StressPeriodIndex].UzePeriods[TransportIndex] = nil then
+          begin
+            UzfMvrLinkArray[StressPeriodIndex].UzePeriods[TransportIndex] :=
+              UzfMvrLinkArray[StressPeriodIndex-1].UzePeriods[TransportIndex];
           end;
         end;
       end;
@@ -20946,7 +21083,7 @@ begin
           UzfDataItem.FSpcPeriodData.Add(TImportSpcPeriodItemList.Create);
         end;
       end;
-      UzfDataItem.SetTransportCounts(UzfMvrLinkList.Count, UztList.Count);
+      UzfDataItem.SetTransportCounts(UzfMvrLinkList.Count, UztList.Count, UzeList.Count);
       UzfDataItem.MvrSource := UzfSources.IndexOf(PackageItem.iuzno) >= 0;
       RIndex := UzfReceivers.IndexOf(PackageItem.iuzno);
       UzfDataItem.MvrReceiver := RIndex >= 0;
@@ -21004,6 +21141,41 @@ begin
         else
         begin
           UzfDataItem.UztPackageItemArray[TransportIndex] := nil;
+        end;
+      end;
+
+      for var TransportIndex := 0 to UzeList.Count - 1 do
+      begin
+        Uze := UzeList[TransportIndex];
+        if Uze <> nil then
+        begin
+          UzfDataItem.UzePackageItemArray[TransportIndex] :=
+            Uze.PackageData[CellIndex];
+          BoundName := Uze.PackageData[CellIndex].boundname;
+          if BoundName <> '' then
+          begin
+            if UzeBoundNameDictionaries[TransportIndex].TryGetValue(UpperCase(BoundName), Obs) then
+            begin
+              UzfDataItem.UzeBoundNameObs.Add(Obs);
+            end
+            else
+            begin
+              UzfDataItem.UzeBoundNameObs.Add(nil);
+            end;
+          end;
+
+          if UztNumberDictionaries[TransportIndex].TryGetValue(PackageItem.iuzno, Obs) then
+          begin
+            UzfDataItem.UzeIdObs.Add(Obs);
+          end
+          else
+          begin
+            UzfDataItem.UzeIdObs.Add(nil);
+          end;
+        end
+        else
+        begin
+          UzfDataItem.UzePackageItemArray[TransportIndex] := nil;
         end;
       end;
     end;
@@ -21083,6 +21255,51 @@ begin
           end;
         end;
       end;
+
+      for var TransportIndex := 0 to UzeList.Count - 1 do
+      begin
+        UzePeriod := UzfMvrLinkList[PeriodIndex].UzePeriods[TransportIndex];
+        if UzePeriod <> nil then
+        begin
+          for CellIndex := 0 to UzePeriod.Count - 1 do
+          begin
+            UzePeriodItem := UzePeriod[CellIndex];
+            UzfDataItem := UzfData[UzePeriodItem.IdNumber-1];
+
+            ImportUzePeriodItem.Period := Period;
+            ImportUzePeriodItem.PeriodData := UzePeriodItem;
+
+            if AnsiSameText(UzePeriodItem.Name, 'STATUS')  then
+            begin
+              UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][usStatus]
+                := UzePeriodItem;
+            end
+            else if AnsiSameText(UzePeriodItem.Name, 'TEMPERATURE')  then
+            begin
+              UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][usConcentration]
+                := UzePeriodItem;
+            end
+            else if AnsiSameText(UzePeriodItem.Name, 'INFILTRATION')  then
+            begin
+              UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][usInfiltration]
+                := UzePeriodItem;
+            end
+            else if AnsiSameText(UzePeriodItem.Name, 'UZET')  then
+            begin
+              UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][usUzet]
+                := UzePeriodItem;
+            end
+            else if AnsiSameText(UzePeriodItem.Name, 'AUXILIARY')  then
+            begin
+               // ignore
+            end
+            else
+            begin
+              Assert(False);
+            end;
+          end;
+        end;
+      end;
     end;
 
     for UzfIndex := 0 to UzfData.Count - 1 do
@@ -21107,7 +21324,6 @@ begin
         MergedUzfData.Add(MergedList);
       end;
       MergedList.Add(UzfDataItem);
-
     end;
 
     for MergeIndex := 0 to MergedUzfData.Count - 1 do
@@ -21176,7 +21392,7 @@ begin
         for var TransportIndex := 0 to Length(UzfDataItem.UztPackageItemArray) - 1 do
         begin
           Uzt := UztList[TransportIndex];
-          if Uzt <> nil then          
+          if Uzt <> nil then
           begin
             ModflowUzfMf6Boundary.StartingConcentrations[TransportIndex].Value
               := FortranFloatToStr(UzfDataItem.UztPackageItemArray[TransportIndex].strt.NumericValue);
@@ -21185,6 +21401,22 @@ begin
             TransportModel := AModel.FName as TTransportNameFile;
             ModflowUzfMf6Boundary.StartingConcentrations[TransportIndex].Name
               := TransportModel.SpeciesName;
+          end;
+        end;
+
+        GweAdjustment := Length(UzfDataItem.UztPackageItemArray);
+        for var TransportIndex := 0 to Length(UzfDataItem.UzEPackageItemArray) - 1 do
+        begin
+          Uze := UzeList[TransportIndex];
+          if Uze <> nil then
+          begin
+            ModflowUzfMf6Boundary.StartingConcentrations[TransportIndex+GweAdjustment].Value
+              := FortranFloatToStr(UzfDataItem.UzePackageItemArray[TransportIndex].strt.NumericValue);
+
+            AModel := EnergyTransportModels[TransportIndex];
+            EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+            ModflowUzfMf6Boundary.StartingConcentrations[TransportIndex+GweAdjustment].Name
+              := EnergyTransportModel.SpeciesName;
           end;
         end;
 
@@ -21286,6 +21518,49 @@ begin
                 usUzet:
                   begin
                     UzfMf6Item.EvapConcentrations[TransportIndex].Value := NumberedItemToFormula(UztItem, UztMap);
+                  end;
+              end;
+            end;
+          end;
+
+          for var TransportIndex := 0 to length(UzfDataItem.FEnergyTransportSettings[PeriodIndex]) - 1 do
+          begin
+            AdjustedIndex := TransportIndex + length(UzfDataItem.FTransportSettings[PeriodIndex]);
+            UzeMap := UzeMaps[TransportIndex];
+            for var SettingIndex := Low(TUztSetting) to High(TUztSetting) do
+            begin
+              UzeItem := UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][SettingIndex];
+              case SettingIndex of
+                usStatus:
+                  begin
+                    if AnsiSameText(UzeItem.StringValue, 'ACTIVE') then
+                    begin
+                      UzfMf6Item.GwtStatus[AdjustedIndex].GwtBoundaryStatus := gbsActive;
+                    end
+                    else if AnsiSameText(UzeItem.StringValue, 'INACTIVE') then
+                    begin
+                      UzfMf6Item.GwtStatus[AdjustedIndex].GwtBoundaryStatus := gbsInactive;
+                    end
+                    else if AnsiSameText(UzeItem.StringValue, 'CONSTANT') then
+                    begin
+                      UzfMf6Item.GwtStatus[AdjustedIndex].GwtBoundaryStatus := gbsConstant;
+                    end
+                    else
+                    begin
+                      Assert(False);
+                    end;
+                  end;
+                usConcentration:
+                  begin
+                    UzfMf6Item.SpecifiedConcentrations[AdjustedIndex].Value := NumberedItemToFormula(UzeItem, UzeMap);
+                  end;
+                usInfiltration:
+                  begin
+                    UzfMf6Item.InfiltrationConcentrations[AdjustedIndex].Value := NumberedItemToFormula(UzeItem, UzeMap);
+                  end;
+                usUzet:
+                  begin
+                    UzfMf6Item.EvapConcentrations[AdjustedIndex].Value := NumberedItemToFormula(UzeItem, UzeMap);
                   end;
               end;
             end;
@@ -21397,7 +21672,33 @@ begin
             TransportModel := AModel.FName as TTransportNameFile;
             ModflowUzfMf6Boundary.StartingConcentrations[TransportIndex].Name
               := TransportModel.SpeciesName;
+          end;
+        end;
 
+        for var TransportIndex := 0 to UzeList.Count - 1 do
+        begin
+          AdjustedIndex := TransportIndex + UztList.Count;
+          Uze := UzeList[TransportIndex];
+          if Uze <> nil then
+          begin
+            SrtItem := AScreenObject.ImportedValues.Add;
+            SrtItem.Name := Format('Imported_strt_%', [AdjustedIndex+1]);
+            SrtItem.Values.DataType := rdtDouble;
+            SrtItem.Values.Count := MergedList.Count;
+
+            for CellIndex := 0 to MergedList.Count - 1 do
+            begin
+              UzfDataItem := MergedList[CellIndex];
+              SrtItem.Values.RealValues[CellIndex] :=
+                UzfDataItem.UzePackageItemArray[AdjustedIndex].strt.NumericValue;
+            end;
+            ModflowUzfMf6Boundary.StartingConcentrations[AdjustedIndex].Value :=
+              rsObjectImportedValuesR + '("' + SrtItem.Name + '")';
+
+            AModel := TransportModels[TransportIndex];
+            EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+            ModflowUzfMf6Boundary.StartingConcentrations[AdjustedIndex].Name
+              := EnergyTransportModel.SpeciesName;
           end;
         end;
 
@@ -21519,6 +21820,7 @@ begin
                 UzfMf6Item.GwtStatus[TransportIndex].GwtBoundaryStatus  := gbsConstant;
               end;
             end;
+
           end;
 
           for var TransportIndex := 0 to SpcList.Count - 1 do
@@ -21622,6 +21924,88 @@ begin
               end;
             end;
           end;
+
+          for var TransportIndex := 0 to length(UzfDataItem.FEnergyTransportSettings[PeriodIndex]) - 1 do
+          begin
+            AdjustedIndex := TransportIndex + length(UzfDataItem.FTransportSettings[PeriodIndex]);
+            UzfDataItem := MergedList.First;
+
+            HasSettings := False;
+            for var SettingIndex := Low(TUztSetting) to High(TUztSetting) do
+            begin
+               UzeItem := UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][SettingIndex];
+              if UzeItem.Name <> '' then
+              begin
+                HasSettings := True;
+                break;
+              end;
+            end;
+            if HasSettings then
+            begin
+              UzeMap := UzeMaps[TransportIndex];
+              for var SettingIndex := Low(TUztSetting) to High(TUztSetting) do
+              begin
+                if SettingIndex = usStatus then
+                begin
+                  UzfDataItem := MergedList.First;
+                  UzeItem := UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][SettingIndex];
+                  if UzeItem.Name <> '' then
+                  begin
+                    if AnsiSameText(UzeItem.StringValue, 'ACTIVE') then
+                    begin
+                      UzfMf6Item.GwtStatus[AdjustedIndex].GwtBoundaryStatus  := gbsActive;
+                    end
+                    else if AnsiSameText(UzeItem.StringValue, 'INACTIVE') then
+                    begin
+                      UzfMf6Item.GwtStatus[AdjustedIndex].GwtBoundaryStatus  := gbsInactive;
+                    end
+                    else if AnsiSameText(UzeItem.StringValue, 'CONSTANT') then
+                    begin
+                      UzfMf6Item.GwtStatus[AdjustedIndex].GwtBoundaryStatus  := gbsConstant;
+                    end
+                    else
+                    begin
+                      Assert(False);
+                    end;
+                  end;
+                end
+                else
+                begin
+                  ItemList := TUztPeriodItemList.Create;
+                  try
+                    for CellIndex := 0 to MergedList.Count - 1 do
+                    begin
+                      UzfDataItem := MergedList[CellIndex];
+                      UzeItem := UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][SettingIndex];
+                      ItemList.Add(UzeItem);
+                    end;
+                    case SettingIndex of
+                      usConcentration:
+                        begin
+                          UzfMf6Item.SpecifiedConcentrations[TransportIndex].Value :=
+                            ItemList.ConvertToFormula(Format('Imported_temp_%d_SP%d',
+                            [TransportIndex+1, PeriodIndex+1]), UzeMap, AScreenObject);
+                        end;
+                      usInfiltration:
+                        begin
+                          UzfMf6Item.InfiltrationConcentrations[TransportIndex].Value :=
+                            ItemList.ConvertToFormula(Format('Imported_infil_%d_SP%d',
+                            [TransportIndex+1, PeriodIndex+1]), UzeMap, AScreenObject);
+                        end;
+                      usUzet:
+                        begin
+                          UzfMf6Item.EvapConcentrations[TransportIndex].Value :=
+                            ItemList.ConvertToFormula(Format('Imported_uzet_%d_SP%d',
+                            [TransportIndex+1, PeriodIndex+1]), UzeMap, AScreenObject);
+                        end;
+                    end;
+                  finally
+                    ItemList.Free;
+                  end;
+                end;
+              end;
+            end;
+          end;
         end;
 
       end;
@@ -21710,9 +22094,6 @@ begin
           UztNumberDictionary := UztNumberDictionaries[TransportIndex];
           UztBoundNameDictionary := UztBoundNameDictionaries[TransportIndex];
 
-//          UztBoundNameObs: TObservationLists;
-//          UztIdObs: TObservationLists;
-
           BoundName := UzfDataItem.UztPackageItemArray[TransportIndex].boundname;
           if BoundName <> '' then
           begin
@@ -21741,8 +22122,50 @@ begin
               end;
             end;
           end;
-
         end;
+      end;
+
+      for var TransportIndex := 0 to UzeList.Count - 1 do
+      begin
+        Uze := UzeList[TransportIndex];
+        if Uze <> nil then
+        begin
+          UzeNumberDictionary := UzeNumberDictionaries[TransportIndex];
+          UzeBoundNameDictionary := UzeBoundNameDictionaries[TransportIndex];
+
+          BoundName := UzfDataItem.UzePackageItemArray[TransportIndex].boundname;
+          if BoundName <> '' then
+          begin
+            if UzeBoundNameDictionary.TryGetValue(UpperCase(BoundName), Obs) then
+            begin
+              if Obs.Count > 0 then
+              begin
+                AssignUztObservations(Obs, AScreenObject, UztObs, BoundName);
+                if UztObs <> [] then
+                begin
+                  AScreenObject.Modflow6Obs.UztObs := AScreenObject.Modflow6Obs.UztObs + UztObs;
+                  Include(Genus, TransportIndex+UztList.Count);
+                end;
+              end;
+            end;
+          end;
+          if UzeNumberDictionary.TryGetValue(UzfDataItem.PackageData.iuzno, Obs) then
+          begin
+            if Obs.Count > 0 then
+            begin
+              AssignUztObservations(Obs, AScreenObject, UztObs, BoundName);
+              if UztObs <> [] then
+              begin
+                AScreenObject.Modflow6Obs.UztObs := AScreenObject.Modflow6Obs.UztObs + UztObs;
+                Include(Genus, TransportIndex+UztList.Count);
+              end;
+            end;
+          end;
+        end;
+      end;
+      if Genus <> [] then
+      begin
+        AScreenObject.Modflow6Obs.Genus := Genus;
       end;
     end;
   finally
@@ -21768,6 +22191,10 @@ begin
     SpcMaps.Free;
     SpcDictionaries.Free;
     SpcPeriodSettingsList.Free;
+    UzeList.Free;
+    UzeMaps.Free;
+    UzeNumberDictionaries.Free;
+    UzeBoundNameDictionaries.Free;
   end;
 end;
 
@@ -23722,6 +24149,16 @@ begin
         Exit;
       end;
     end;
+
+    for var TransportIndex := 0 to Length(UzePeriods) - 1 do
+    begin
+      result := UzePeriods[TransportIndex] <> nil;
+      if result then
+      begin
+        Exit;
+      end;
+    end;
+
     for var TransportIndex := 0 to Length(SpcPeriods) - 1 do
     begin
       result := SpcPeriods[TransportIndex] <> nil;
@@ -23767,6 +24204,14 @@ begin
         result := Max(result, UztPeriods[TransportIndex].Period);
       end;
     end;
+
+    for var TransportIndex := 0 to Length(UzePeriods) - 1 do
+    begin
+      if UzePeriods[TransportIndex] <> nil then
+      begin
+        result := Max(result, UzePeriods[TransportIndex].Period);
+      end;
+    end;
   end;
 end;
 
@@ -23785,6 +24230,16 @@ begin
         Exit;
       end;
     end;
+
+    for var Index := 0 to Length(UzePeriods) - 1 do
+    begin
+      result := UzePeriods[Index] = OtherLink.UzePeriods[Index];
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+
     for var Index := 0 to Length(SpcPeriods) - 1 do
     begin
       result := SpcPeriods[Index] = OtherLink.SpcPeriods[Index];
@@ -23890,28 +24345,33 @@ end;
 constructor TUzfData.Create;
 begin
   PeriodData := TImportUzfPeriodItemList.Create;
-//  UztPackageData := TUztPackageItemList.Create(False);
   UztBoundNameObs := TObservationLists.Create(False);
   UztIdObs := TObservationLists.Create(False);
   FSpcPeriodData := TImportSpcPeriodItemLists.Create;
+
+  UzeBoundNameObs := TObservationLists.Create(False);
+  UzeIdObs := TObservationLists.Create(False);
 end;
 
 destructor TUzfData.Destroy;
 begin
   FSpcPeriodData.Free;
   PeriodData.Free;
-//  UztPackageData.Free;
   UztBoundNameObs.Free;
   UztIdObs.Free;
-  SetTransportCounts(0,0);
+  UzeBoundNameObs.Free;
+  UzeIdObs.Free;
+  SetTransportCounts(0,0, 0);
   inherited;
 end;
 
 procedure TUzfData.SetTransportCounts(PeriodCount,
-  TransportModelCount: Integer);
+  TransportModelCount, EnergyTransportModelCount: Integer);
 begin
   SetLength(FTransportSettings, PeriodCount, TransportModelCount);
+  SetLength(FEnergyTransportSettings, PeriodCount, EnergyTransportModelCount);
   SetLength(UztPackageItemArray, TransportModelCount);
+  SetLength(UzePackageItemArray, EnergyTransportModelCount);
   for var OuterIndex := 0 to Length(FTransportSettings) - 1 do
   begin
     for var InnerIndex := 0 to Length(FTransportSettings[0]) - 1 do
@@ -23920,7 +24380,16 @@ begin
       begin
         FTransportSettings[OuterIndex, InnerIndex, SettingIndex].Initialize;
       end;
-
+    end;
+  end;
+  for var OuterIndex := 0 to Length(FEnergyTransportSettings) - 1 do
+  begin
+    for var InnerIndex := 0 to Length(FEnergyTransportSettings[0]) - 1 do
+    begin
+      for var SettingIndex := Low(TUztSetting) to High(TUztSetting) do
+      begin
+        FEnergyTransportSettings[OuterIndex, InnerIndex, SettingIndex].Initialize;
+      end;
     end;
   end;
 end;
