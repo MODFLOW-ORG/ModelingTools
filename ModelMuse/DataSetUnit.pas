@@ -1987,35 +1987,11 @@ begin
       begin
         (LocalModel.Mesh as TSutraMesh3D).TopDataSet := nil
       end;
-//      if LocalModel.Mesh.FrontDataSet = self then
-//      begin
-//        LocalModel.Mesh.FrontDataSet := nil
-//      end;
-//      if LocalModel.Mesh.SideDataSet = self then
-//      begin
-//        LocalModel.Mesh.SideDataSet := nil
-//      end;
       if (LocalModel.Mesh as TSutraMesh3D).ThreeDDataSet = self then
       begin
         (LocalModel.Mesh as TSutraMesh3D).ThreeDDataSet := nil
       end;
 
-//      if LocalModel.Mesh.TopContourDataSet = self then
-//      begin
-//        LocalModel.Mesh.TopContourDataSet := nil
-//      end;
-//      if LocalModel.Mesh.FrontContourDataSet = self then
-//      begin
-//        LocalModel.Mesh.FrontContourDataSet := nil
-//      end;
-//      if LocalModel.Mesh.SideContourDataSet = self then
-//      begin
-//        LocalModel.Mesh.SideContourDataSet := nil
-//      end;
-//      if LocalModel.Mesh.ThreeDContourDataSet = self then
-//      begin
-//        LocalModel.Mesh.ThreeDContourDataSet := nil
-//      end;
     end;
   end;
 

@@ -82,6 +82,7 @@ type
   public
     procedure Assign(Source: TPersistent); override;
     function IsSame(AnotherItem: TOrderedItem): boolean; override;
+    destructor Destroy; override;
   published
     property Rate: string read GetRate write SetRate;
     property Invert: string read GetInvert write SetInvert;
@@ -920,6 +921,13 @@ destructor TLakeTimeItem.Destroy;
 var
   Index: Integer;
 begin
+  Stage := '0';
+  Rainfall := '0';
+  Evaporation := '0';
+  Runoff := '0';
+  Inflow := '0';
+  Withdrawal := '0';
+
   FGwtStatus.Free;
   for Index := 0 to FSpecifiedConcentrations.Count - 1 do
   begin
@@ -1478,6 +1486,16 @@ begin
   FRoughness := CreateFormulaObject(dsoTop);
   FWidth := CreateFormulaObject(dsoTop);
   FSlope := CreateFormulaObject(dsoTop);
+end;
+
+destructor TLakeOutletTimeItem.Destroy;
+begin
+  Rate := '0';
+  Invert := '0';
+  Roughness := '0';
+  Width := '0';
+  Slope := '0';
+  inherited;
 end;
 
 function TLakeOutletTimeItem.GetBoundaryFormula(Index: integer): string;
@@ -3701,6 +3719,10 @@ end;
 
 destructor TLakeTableItemMf6.Destroy;
 begin
+  Stage := '0';
+  Volume := '0';
+  SurfaceArea := '0';
+  ExchangeArea := '0';
   inherited;
 
   FObserverList.Free;
