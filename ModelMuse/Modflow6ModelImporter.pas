@@ -4849,8 +4849,67 @@ end;
 
 procedure TModflow6Importer.ImportEst(NameFile: TEnergyTransportNameFile;
   Package: TPackage);
+var
+  Model: TPhastModel;
+  EstPackage: TGweEstPackage;
+  Est: TEst;
+  Options: TEstOptions;
+  SpeciesIndex: Integer;
+  ChemSpecies: TMobileChemSpeciesItem;
+  GridData: TEstGridData;
+  DataArrayName: string;
 begin
+  Model := frmGoPhast.PhastModel;
+  EstPackage := Model.ModflowPackages.GweEstPackage;
+  EstPackage.IsSelected := True;
 
+  Est := Package.Package as TEst;
+  Options := Est.Options;
+  EstPackage.ZeroOrderDecayWater := Options.ZERO_ORDER_DECAY_WATER;
+  EstPackage.ZeroOrderDecaySolid := Options.ZERO_ORDER_DECAY_SOLID;
+  EstPackage.DensityWater := Options.DENSITY_WATER;
+  EstPackage.HeatCapacityWater := Options.HEAT_CAPACITY_WATER;
+  EstPackage.LatentHeatVaporization := Options.LATENT_HEAT_VAPORIZATION;
+
+  Model.DataArrayManager.CreateInitialDataSets;
+  Model.MobileComponents.UpdateAllDataArrays;
+
+  SpeciesIndex := Model.MobileComponents.IndexOfName(NameFile.SpeciesName);
+  Assert(SpeciesIndex >= 0);
+  ChemSpecies := Model.MobileComponents[SpeciesIndex];
+  ChemSpecies.Name := NameFile.SpeciesName;
+
+  GridData := Est.GridData;
+
+  if GridData.POROSITY <> nil then
+  begin
+    DataArrayName := ChemSpecies.GwePorosityDataArrayName;
+    Assign3DRealDataSet(DataArrayName, GridData.POROSITY);
+  end;
+
+  if (GridData.DECAY_WATER <> nil) then
+  begin
+    DataArrayName := ChemSpecies.DecayWaterDataArrayName;
+    Assign3DRealDataSet(DataArrayName, GridData.DECAY_WATER);
+  end;
+
+  if (GridData.DECAY_SOLID <> nil) then
+  begin
+    DataArrayName := ChemSpecies.DecaySolidDataArrayName;
+    Assign3DRealDataSet(DataArrayName, GridData.DECAY_SOLID);
+  end;
+
+  if (GridData.HEAT_CAPACITY_SOLID <> nil) then
+  begin
+    DataArrayName := ChemSpecies.HeatCapacitySolidDataArrayName;
+    Assign3DRealDataSet(DataArrayName, GridData.HEAT_CAPACITY_SOLID);
+  end;
+
+  if (GridData.DENSITY_SOLID <> nil) then
+  begin
+    DataArrayName := ChemSpecies.DensitySolidDataArrayName;
+    Assign3DRealDataSet(DataArrayName, GridData.DENSITY_SOLID);
+  end;
 end;
 
 procedure TModflow6Importer.ImportEvt(Package: TPackage;
@@ -19774,14 +19833,22 @@ end;
 
 procedure TModflow6Importer.ImportSSM(NameFile: TEnergyTransportNameFile;
   Package: TPackage);
+var
+  Model: TPhastModel;
+  SsmPackage: TGWtSsmPackage;
 begin
-
+  if Assigned(OnUpdateStatusBar) then
+  begin
+    OnUpdateStatusBar(self, 'importing SSM package');
+  end;
+  Model := frmGoPhast.PhastModel;
+  SsmPackage := Model.ModflowPackages.GweSsmPackage;
+  SsmPackage.IsSelected := True;
 end;
 
 procedure TModflow6Importer.ImportSSM(NameFile: TTransportNameFile;
   Package: TPackage);
 var
-//  Ssm: TSsm;
   Model: TPhastModel;
   SsmPackage: TGWtSsmPackage;
 begin

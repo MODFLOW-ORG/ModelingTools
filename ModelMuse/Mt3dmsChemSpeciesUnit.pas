@@ -215,7 +215,7 @@ type
     //MST package POROSITY
     property PorosityDataArrayName: string read FPorosityDataArrayName
       write SetPorosityDataArrayName;
-    //EST package POROSITY
+    // GWE EST package POROSITY
     property GwePorosityDataArrayName: string read FGwePorosityDataArrayName write SetGwePorosityDataArrayName;
     //MST package, DECAY
     property MobileDecayRateDataArrayName: string read FMobileDecayRateDataArrayName
