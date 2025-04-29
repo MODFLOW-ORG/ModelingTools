@@ -35901,6 +35901,63 @@ begin
       StartTestTime, EndTestTime, StartRangeExtended,EndRangeExtended, Model);
   end;
 
+  if PhastModel.GwtCncIsSelected
+    and (GwtCncBoundary <> nil)
+    and GwtCncBoundary.Used
+    and (Model.ModelSelection = msModflow2015)
+    then
+  begin
+     GwtCncBoundary.UpdateTimes(ModflowTimes,
+      StartTestTime, EndTestTime, StartRangeExtended,EndRangeExtended, Model);
+  end;
+
+  if PhastModel.GwtSrcIsSelected
+    and (GwtSrcBoundary <> nil)
+    and GwtSrcBoundary.Used
+    and (Model.ModelSelection = msModflow2015)
+    then
+  begin
+     GwtSrcBoundary.UpdateTimes(ModflowTimes,
+      StartTestTime, EndTestTime, StartRangeExtended,EndRangeExtended, Model);
+  end;
+
+  if PhastModel.GweCtpIsSelected
+    and (GweCtpBoundary <> nil)
+    and GweCtpBoundary.Used
+    and (Model.ModelSelection = msModflow2015)
+    then
+  begin
+     GweCtpBoundary.UpdateTimes(ModflowTimes,
+      StartTestTime, EndTestTime, StartRangeExtended,EndRangeExtended, Model);
+  end;
+
+  if PhastModel.GweEslIsSelected
+    and (GweEslBoundary <> nil)
+    and GweEslBoundary.Used
+    and (Model.ModelSelection = msModflow2015)
+    then
+  begin
+     GweEslBoundary.UpdateTimes(ModflowTimes,
+      StartTestTime, EndTestTime, StartRangeExtended,EndRangeExtended, Model);
+  end;
+
+  {
+    function GwtCncIsSelected: Boolean;
+    function GwtSrcIsSelected: Boolean;
+    function GweCtpIsSelected: Boolean;
+    function GweEslIsSelected: Boolean;
+
+
+    property GwtCncBoundary: TCncBoundary read GetGwtCncBoundary
+      write SetGwtCncBoundary stored StoreGwtCncBoundary;
+    property GwtSrcBoundary: TSrcBoundary read GetGwtSrcBoundary
+      write SetGwtSrcBoundary stored StoreGwtSrcBoundary;
+
+    property GweCtpBoundary: TCncBoundary read GetGweCtpBoundary
+      write SetGweCtpBoundary stored StoreGweCtpBoundary;
+    property GweEslBoundary: TSrcBoundary read GetGweEslBoundary
+      write SetGweEslBoundary stored StoreGweEslBoundary;
+  }
 end;
 
 procedure TScreenObject.CreateValueArrayStorage(

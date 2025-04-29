@@ -4292,6 +4292,38 @@ end;
 procedure TfrmSelectResultToImport.FormCreate(Sender: TObject);
 begin
   inherited;
+
+  FAdvancedFeatureCells := TCellLocationList.Create;
+  FCellLocationDictionary := TDictionary<Integer, TCellLocation>.Create;
+
+  comboClassification.Items.Add(StrModelResults);
+  comboClassification.Items.Add(StrUserDefined);
+  comboClassification.ItemIndex := 0;
+
+  FModifiedParentDataSets:= TList.Create;
+  FFormulaAssigners := TFormulaAssignerList.Create;
+
+  FItemDescriptions := TStringList.Create;
+  FItemTimes := TStringList.Create;
+  FItemDescriptions.OwnsObjects := True;
+  FItemTimes.OwnsObjects := True;
+
+  rdgModels.Cells[Ord(mcModelName), 0] := StrModel;
+  rdgModels.Cells[Ord(mcUse), 0] := StrImportData;
+  rdgModels.Cells[Ord(mcFileName), 0] := StrFileName;
+
+  FNewDataSetNames:= TStringList.Create;
+  FNewDefaultDataSetNames:= TStringList.Create;
+
+  FPeriods := TIntegerList.Create;
+  FSteps := TIntegerList.Create;
+  FTransportSteps := TIntegerList.Create;
+  FSwrSteps := TIntegerList.Create;
+
+  FDescriptions := TStringList.Create;
+//  FAskedUser := False;
+  SetDefaultDisplayOption;
+
   AssignFileFilterExtensions
 end;
 

@@ -48,9 +48,12 @@ type
     property TDis: TTDis read FTDis;
   end;
 
+  TMf6Simulation = class;
+
   TModel = class(TObject)
   private
     FOnUpdataStatusBar: TOnUpdataStatusBar;
+    FSimulation: TMf6Simulation;
     function GetFullBudgetFileName: string;
     procedure SetOnUpdataStatusBar(const Value: TOnUpdataStatusBar);
   public
@@ -63,6 +66,7 @@ type
     property FullBudgetFileName: string read GetFullBudgetFileName;
     property OnUpdataStatusBar: TOnUpdataStatusBar read FOnUpdataStatusBar
       write SetOnUpdataStatusBar;
+    property Simulation: TMf6Simulation read FSimulation write FSimulation;
   end;
 
   TModelList = class(TList<TModel>)

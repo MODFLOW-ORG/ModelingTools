@@ -53,7 +53,12 @@ type
     FDimensions: TTDisDimensions;
     FPeriodData: TTDisPeriodData;
     FAts: TAts;
+    FTimes: TDoubleList;
     function GetNPER: Integer;
+    function GetLastTime: double;
+    function GetStartTime(Index: Integer): double;
+    function GetEndTime(Index: Integer): double;
+    procedure InitializeFTimes;
   public
     constructor Create(PackageType: string); override;
     destructor Destroy; override;
@@ -64,6 +69,9 @@ type
     property PeriodData: TTDisPeriodData read FPeriodData;
     property Ats: TAts read FAts;
     property NPER: Integer read GetNPER;
+    property StartTime[Index: Integer]: double read GetStartTime;
+    property EndTime[Index: Integer]: double read GetEndTime;
+    property LastTime: double read GetLastTime;
   end;
 
 implementation
@@ -337,6 +345,7 @@ begin
   FDimensions := TTDisDimensions.Create(PackageType);
   FPeriodData := TTDisPeriodData.Create(PackageType);
   FAts := nil;
+  FTimes := TDoubleList.Create;
   inherited;
 
 end;
@@ -347,12 +356,45 @@ begin
   FDimensions.Free;
   FPeriodData.Free;
   FAts.Free;
+  FTimes.Free;
   inherited;
+end;
+
+function TTDis.GetEndTime(Index: Integer): double;
+begin
+  Result := FTimes[Index+1];
+end;
+
+function TTDis.GetLastTime: double;
+begin
+  InitializeFTimes;
+  Result := FTimes.Last;
 end;
 
 function TTDis.GetNPER: Integer;
 begin
   result := FDimensions.NPER;
+end;
+
+function TTDis.GetStartTime(Index: Integer): double;
+begin
+  Result := FTimes[Index];
+end;
+
+procedure TTDis.InitializeFTimes;
+var
+  TotalTime: double;
+begin
+  if FTimes.Count = 0 then
+  begin
+    TotalTime := 0;
+    FTimes.Add(TotalTime);
+    for var Index := 0 to PeriodData.Count - 1 do
+    begin
+      TotalTime := TotalTime + PeriodData[Index].PerLen;
+      FTimes.Add(TotalTime);
+    end;
+  end;
 end;
 
 procedure TTDis.Read(Stream: TStreamReader; Unhandled: TStreamWriter);

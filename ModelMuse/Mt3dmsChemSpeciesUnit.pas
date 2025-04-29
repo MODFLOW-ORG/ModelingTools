@@ -1060,7 +1060,7 @@ begin
       LocalModel := Model as TCustomModel;
       if LocalModel.GweUsed then
       begin
-        result := Name = strGweTemperature;
+        result := AnsiSameText(Name, strGweTemperature);
       end;
     end;
   end
@@ -1068,7 +1068,7 @@ begin
   begin
     result := (frmGoPhast.PhastModel.ModelSelection = msModflow2015)
       and frmGoPhast.PhastModel.GweUsed
-      and (Name = strGweTemperature);
+      and AnsiSameText(Name, strGweTemperature);
   end;
 end;
 
@@ -1090,7 +1090,7 @@ begin
 
     if LocalModel.GweUsed then
     begin
-      result := Name <> strGweTemperature;
+      result := not AnsiSameText(Name, strGweTemperature);
       if not result then
       begin
         Exit;

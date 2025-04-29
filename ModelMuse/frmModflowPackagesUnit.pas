@@ -2419,6 +2419,7 @@ procedure TfrmModflowPackages.frameGweProcessrcSelectionControllerEnabledChange(
 begin
   inherited;
   frameGweProcess.rcSelectionControllerEnabledChange(Sender);
+  UpdateGwtFrames;
   EnableChemSpecies;
   EnableGwePackages;
 end;
@@ -3011,7 +3012,7 @@ begin
           end
           else
           begin
-            if frameGwEProcess.Selected and (SpeciesName = StrGweTemperature)  then
+            if frameGwEProcess.Selected and AnsiSameText(SpeciesName, StrGweTemperature)  then
             begin
             {$IFDEF GWE}
               ChildNode := tvPackages.Items.AddChild(FGweParentNode,
@@ -3937,7 +3938,7 @@ begin
       for SpeciesIndex := 0 to frameChemSpecies.frameGridMobile.seNumber.AsInteger -1 do
       begin
         SpeciesName := frameChemSpecies.frameGridMobile.Grid.Cells[0, SpeciesIndex+1];
-        GweSpecies := frameGwEProcess.Selected and (SpeciesName = StrGweTemperature);
+        GweSpecies := frameGwEProcess.Selected and AnsiSameText(SpeciesName, StrGweTemperature);
         if not GweSpecies then
         begin
           if (IgnoredNames.IndexOf(SpeciesName) >= 0) or (SpeciesName = '') then
@@ -3946,10 +3947,10 @@ begin
           end;
         end;
 
-        if (SpeciesName = strGweTemperature) and frameGweProcess.Selected then
-        begin
-          Continue;
-        end;
+//        if AnsiSameText(SpeciesName, StrGweTemperature) and frameGweProcess.Selected then
+//        begin
+//          Continue;
+//        end;
 
         Inc(SpeciesCount);
 
@@ -4147,7 +4148,7 @@ begin
           if AnsiSameText(frameChemSpecies.frameGridMobile.Grid.Cells[0,RowIndex], StrGweTemperature) then
           begin
             FoundASpecies := True;
-            if frameChemSpecies.frameGridMobile.Grid.Cells[0,RowIndex] <> StrGweTemperature then
+            if not AnsiSameText(frameChemSpecies.frameGridMobile.Grid.Cells[0,RowIndex], StrGweTemperature) then
             begin
               frameChemSpecies.frameGridMobile.Grid.Cells[0,RowIndex] := StrGweTemperature;
               if Assigned(frameChemSpecies.frameGridMobile.Grid.OnSetEditText) then
@@ -5857,7 +5858,7 @@ begin
           Continue;
         end;
 
-        if (SpeciesName = strGweTemperature) and frameGweProcess.Selected then
+        if AnsiSameText(SpeciesName, strGweTemperature) and frameGweProcess.Selected then
         begin
           Continue;
         end;

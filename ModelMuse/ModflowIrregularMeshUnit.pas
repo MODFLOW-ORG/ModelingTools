@@ -28,6 +28,7 @@ type
   TCellEdge = class(TObject)
     Node1: Integer;
     Node2: Integer;
+    Cell: Integer;
     function IsSame(OtherEdge: TCellEdge): Boolean;
   end;
 
@@ -821,7 +822,8 @@ uses
   frmGoPhastUnit, BigCanvasMethods, System.Math, PhastModelUnit,
   LayerStructureUnit, ConvexHullUnit, System.Contnrs,
   ModflowGridUnit, ModelMuseUtilities, gpc, ContourUnit, EdgeDisplayUnit,
-  ScreenObjectUnit, DataSetNamesUnit, CellLocationUnit;
+  ScreenObjectUnit, DataSetNamesUnit, CellLocationUnit,
+  frmErrorsAndWarningsUnit;
 
 const
   ThinLine = 0.1;
@@ -6980,7 +6982,6 @@ var
   SegPointer: TSegment2DPtr;
   OutlineIndex: Integer;
   PriorPoint: TPoint2D;
-//  Data: Pointer;
   SegData: Pointer;
   PointIndex: Integer;
   DataIndex: Integer;
@@ -7052,6 +7053,7 @@ begin
         ACellEdge := TCellEdge.Create;
         ACellEdge.Node1 := PriorNode;
         ACellEdge.Node2 := ANode;
+        ACellEdge.Cell := CellIndex;
         X := ANode;
         Y := PriorNode;
         if Edges.Count > 0 then
@@ -7133,7 +7135,12 @@ begin
             raise;
           end;
           ASegment[2] := TwoDGrid.CellCorners[ACellEdge.Node2].Location;
-          Assert(Distance(ASegment[1], ASegment[2]) >0);
+          if Distance(ASegment[1], ASegment[2])  <= 0 then
+          begin
+            frmErrorsAndWarnings.AddWarning(Model, 'Cell edge has length zero.',
+              Format('The distance from node %d to node %d in cell %d is zero.',
+              [ACellEdge.Node1 + 1, ACellEdge.Node2 + 1, ACellEdge.Cell + 1]));
+          end;
           AllEdges[EIndex] := ASegment;
           SegmentEdges.AddPoint(ASegment[1].X, ASegment[1].Y, Addr(AllEdges[EIndex]));
           SegmentEdges.AddPoint(ASegment[2].X, ASegment[2].Y, Addr(AllEdges[EIndex]));

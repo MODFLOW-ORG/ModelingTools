@@ -109,6 +109,8 @@ type
     FNewScreenObjects: TScreenObjectList;
     FIDOMAIN: TIArray3D;
     FSpeciesIndex: Integer;
+    FTransportModel: TModel;
+    FEnergyTransportModel: TModel;
     procedure ImportFlowModelTiming;
     procedure ImportTransportModelTiming;
     procedure ImportSimulationOptions;
@@ -1545,6 +1547,7 @@ var
   OtherCellLists: TObjectList<TCncTimeItemIDList>;
   Aux: TMf6BoundaryValue;
   CellIds: TCellIdList;
+  TDis: TTDis;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TCncTimeItem; Period: Integer);
   var
     CncItem: TCncItem;
@@ -1745,14 +1748,15 @@ begin
       OnUpdateStatusBar(self, 'importing CNC package');
     end;
 
-    LastTime := Model.ModflowStressPeriods.Last.EndTime;
+    TDis := FTransportModel.Simulation.Timing.TDis;
+    LastTime := TDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
     for var PeriodIndex := 0 to Cnc.PeriodCount - 1 do
     begin
       APeriod := Cnc.Periods[PeriodIndex];
-      StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+      StartTime := TDis.StartTime[APeriod.Period-1];
       for var CncIndex := 0 to ItemList.Count - 1 do
       begin
         AnItem := ItemList[CncIndex];
@@ -2965,6 +2969,7 @@ var
   OtherCellLists: TObjectList<TCtpTimeItemIDList>;
   Aux: TMf6BoundaryValue;
   CellIds: TCellIdList;
+  TDis: TTDis;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TCtpTimeItem; Period: Integer);
   var
     CncItem: TCncItem;
@@ -3165,14 +3170,15 @@ begin
       OnUpdateStatusBar(self, 'importing CTP package');
     end;
 
-    LastTime := Model.ModflowStressPeriods.Last.EndTime;
+    TDis := FEnergyTransportModel.Simulation.Timing.TDis;
+    LastTime := TDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
     for var PeriodIndex := 0 to Ctp.PeriodCount - 1 do
     begin
       APeriod := Ctp.Periods[PeriodIndex];
-      StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+      StartTime := TDis.StartTime[APeriod.Period-1];
       for var CncIndex := 0 to ItemList.Count - 1 do
       begin
         AnItem := ItemList[CncIndex];
@@ -4489,6 +4495,7 @@ var
   OtherCellLists: TObjectList<TEslTimeItemIDList>;
   Aux: TMf6BoundaryValue;
   CellIds: TCellIdList;
+  TDis: TTDis;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TEslTimeItem; Period: Integer);
   var
     EslItem: TCncItem;
@@ -4689,14 +4696,15 @@ begin
       OnUpdateStatusBar(self, 'importing ESL package');
     end;
 
-    LastTime := Model.ModflowStressPeriods.Last.EndTime;
+    TDis := FEnergyTransportModel.Simulation.Timing.TDis;
+    LastTime := TDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
     for var PeriodIndex := 0 to Esl.PeriodCount - 1 do
     begin
       APeriod := Esl.Periods[PeriodIndex];
-      StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+      StartTime := TDis.StartTime[APeriod.Period-1];
       for var EslIndex := 0 to ItemList.Count - 1 do
       begin
         AnItem := ItemList[EslIndex];
@@ -5664,7 +5672,6 @@ var
   ChemFound: Boolean;
   NpfPackage: TPackage;
   EnergyTransportModel: TEnergyTransportNameFile;
-  AnEnergyTransportModel:  TModel;
   InnerEnergyTransportModel: TEnergyTransportNameFile;
 begin
   result := True;
@@ -5687,6 +5694,7 @@ begin
           ATransportModel := ASimulation.Models[ModelIndex];
           if (ATransportModel.ModelType = 'GWT6') then
           begin
+            ATransportModel.Simulation := ASimulation;
             if FFLowTransportLinks.TryGetValue(UpperCase(ATransportModel.ModelName), FlowModelName) then
             begin
               if AnsiSameText(FlowModelName, FFlowModel.ModelName) then
@@ -5697,6 +5705,7 @@ begin
           end
           else if (ATransportModel.ModelType = 'GWE6') then
           begin
+            ATransportModel.Simulation := ASimulation;
             if FFLowTransportLinks.TryGetValue(UpperCase(ATransportModel.ModelName), FlowModelName) then
             begin
               if AnsiSameText(FlowModelName, FFlowModel.ModelName) then
@@ -6122,14 +6131,16 @@ begin
 
       for ModelIndex := 0 to TransportModels.Count - 1 do
       begin
-        ATransportModel := TransportModels[ModelIndex];
-        ImportTransportModel(ATransportModel, ModelIndex);
+        FTransportModel := TransportModels[ModelIndex];
+        ImportTransportModel(FTransportModel, ModelIndex);
+        FTransportModel := nil;
       end;
 
       for ModelIndex := 0 to EnergyTransportModels.Count - 1 do
       begin
-        AnEnergyTransportModel := EnergyTransportModels[ModelIndex];
-        ImportEnergyTransportModel(AnEnergyTransportModel, ModelIndex + TransportModels.Count);
+        FEnergyTransportModel := EnergyTransportModels[ModelIndex];
+        ImportEnergyTransportModel(FEnergyTransportModel, ModelIndex + TransportModels.Count);
+        FEnergyTransportModel := nil;
       end;
 
     end;
@@ -6210,15 +6221,15 @@ begin
     end;
     StartTime := StartTime + SPData.PerLen;
     MfStressPeriod.EndTime := StartTime;
-    if SPData.PerLen <> 0 then    
-    begin    
+    if SPData.PerLen <> 0 then
+    begin
       MfStressPeriod.PeriodLength := SPData.PerLen;
-    end      
-    else    
-    begin    
-      MfStressPeriod.PeriodLength := 
+    end
+    else
+    begin
+      MfStressPeriod.PeriodLength :=
         MfStressPeriod.EndTime - MfStressPeriod.StartTime;
-    end;        
+    end;
     MfStressPeriod.TimeStepMultiplier := SPData.TSMult;
 
     if SPData.NSTP > 1 then
@@ -12903,10 +12914,10 @@ begin
               if FFlowModel <> nil then
               begin
                 ImportFlowModelTiming;
+                ImportTransportModelTiming;
               end
               else
               begin
-                ImportTransportModelTiming;
               end;
               ImportSolutionGroups;
               if not ImportFlowModel then
@@ -19473,6 +19484,7 @@ var
   OtherCellLists: TObjectList<TSrcTimeItemIDList>;
   Aux: TMf6BoundaryValue;
   CellIds: TCellIdList;
+  TDis: TTDis;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TSrcTimeItem; Period: Integer);
   var
     SrcItem: TCncItem;
@@ -19673,14 +19685,15 @@ begin
       OnUpdateStatusBar(self, 'importing SRC package');
     end;
 
-    LastTime := Model.ModflowStressPeriods.Last.EndTime;
+    TDis := FTransportModel.Simulation.Timing.TDis;
+    LastTime := TDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
     for var PeriodIndex := 0 to Src.PeriodCount - 1 do
     begin
       APeriod := Src.Periods[PeriodIndex];
-      StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+      StartTime := TDis.StartTime[APeriod.Period-1];
       for var CncIndex := 0 to ItemList.Count - 1 do
       begin
         AnItem := ItemList[CncIndex];
@@ -20423,6 +20436,8 @@ var
   SpeciesName: string;
   SpeciesIndex: Integer;
   GwtStressPeriod: TGwtStressPeriod;
+  StartTime: double;
+  NSTP: Integer;
 begin
   if Assigned(OnUpdateStatusBar) then
   begin
@@ -20462,52 +20477,173 @@ begin
 
 
   MFStressPeriods := PhastModel.ModflowStressPeriods;
-  Assert(MFStressPeriods.Count = StressPeriods.Dimensions.NPER);
-  for SPIndex := 0 to StressPeriods.PeriodData.Count - 1 do
+  if MFStressPeriods.Count <> StressPeriods.Dimensions.NPER then
   begin
-    SPData := StressPeriods.PeriodData[SPIndex];
-    MfStressPeriod := MFStressPeriods[SPIndex];
-    GwtStressPeriods := MfStressPeriod.GwtStressPeriods;
-    for var ModelIndex := 0 to FSimulation.Models.Count - 1 do
+    // How should this be handled if
+    // MFStressPeriods.Count <> StressPeriods.Dimensions.NPER
+    // and MFStressPeriods.Count <> 1?
+    if MFStressPeriods.Count = 1 then
     begin
-      AModel := FSimulation.Models[ModelIndex];
-      if AModel.ModelType = 'GWT6' then
+      MFStressPeriods.Clear;
+      MFStressPeriods.Capacity := StressPeriods.Dimensions.NPER;
+      StartTime := 0.0;
+      for SPIndex := 0 to StressPeriods.PeriodData.Count - 1 do
       begin
-        SpeciesName := (AModel.FName as TTransportNameFile).SpeciesName;
-        SpeciesIndex := PhastModel.MobileComponents.IndexOfName(SpeciesName);
-        while SpeciesIndex >= GwtStressPeriods.Count do
+        SPData := StressPeriods.PeriodData[SPIndex];
+        MfStressPeriod := MFStressPeriods.Add;
+        if (SPIndex = 0) and (SPData.PerLen = 0) then
         begin
-          GwtStressPeriods.Add;
+          MfStressPeriod.StartTime := StartTime-1;
+        end
+        else
+        begin
+          MfStressPeriod.StartTime := StartTime;
         end;
-        GwtStressPeriod := GwtStressPeriods[SpeciesIndex];
-        GwtStressPeriod.TimeStepMultiplier := SPData.TSMult;
-        GwtStressPeriod.NumberOfSteps := SPData.NSTP;
+        StartTime := StartTime + SPData.PerLen;
+        MfStressPeriod.EndTime := StartTime;
+        if SPData.PerLen <> 0 then
+        begin
+          MfStressPeriod.PeriodLength := SPData.PerLen;
+        end
+        else
+        begin
+          MfStressPeriod.PeriodLength :=
+            MfStressPeriod.EndTime - MfStressPeriod.StartTime;
+        end;
+        MfStressPeriod.TimeStepMultiplier := SPData.TSMult;
+
+        if SPData.NSTP > 1 then
+        begin
+          if SPData.TSMULT = 1 then
+          begin
+            MfStressPeriod.MaxLengthOfFirstTimeStep :=
+              SPData.PERLEN / SPData.NSTP;
+          end
+          else
+          begin
+            MfStressPeriod.MaxLengthOfFirstTimeStep :=
+              SPData.PERLEN * (SPData.TSMULT - 1)
+              / (IntPower(SPData.TSMULT, SPData.NSTP) - 1);
+          end;
+        end
+        else
+        begin
+          MfStressPeriod.MaxLengthOfFirstTimeStep := MfStressPeriod.PeriodLength;
+        end;
       end;
     end;
-  end;
-
-  if StressPeriods.Ats <> nil then
+  end
+  else
   begin
-    for AtsIndex := 0 to StressPeriods.Ats.Count - 1 do
+    StartTime := 0.0;
+    for SPIndex := 0 to StressPeriods.PeriodData.Count - 1 do
     begin
-      AtsPeriod := StressPeriods.Ats.AtsPeriod[AtsIndex];
-      if AtsPeriod.iperats <= 0 then
+      SPData := StressPeriods.PeriodData[SPIndex];
+      MfStressPeriod := MFStressPeriods[SPIndex];
+      GwtStressPeriods := MfStressPeriod.GwtStressPeriods;
+      for var ModelIndex := 0 to FSimulation.Models.Count - 1 do
       begin
-        FErrorMessages.Add('ATS period data for iperats <= 0 is skipped ')
-      end
-      else if AtsPeriod.iperats > MFStressPeriods.Count then
+        AModel := FSimulation.Models[ModelIndex];
+        if (AModel.ModelType = 'GWT6') then
+        begin
+          SpeciesName := (AModel.FName as TTransportNameFile).SpeciesName;
+          SpeciesIndex := PhastModel.MobileComponents.IndexOfName(SpeciesName);
+          while SpeciesIndex >= GwtStressPeriods.Count do
+          begin
+            GwtStressPeriods.Add;
+          end;
+          GwtStressPeriod := GwtStressPeriods[SpeciesIndex];
+          GwtStressPeriod.TimeStepMultiplier := SPData.TSMult;
+          GwtStressPeriod.NumberOfSteps := SPData.NSTP;
+          NSTP := MfStressPeriod.NumberOfSteps;
+          MfStressPeriod.PeriodLength := SPData.PerLen;
+          MfStressPeriod.StartTime := StartTime;
+          StartTime := StartTime + SPData.PerLen;
+          MfStressPeriod.EndTime := StartTime;
+
+          if NSTP > 1 then
+          begin
+            if SPData.TSMULT = 1 then
+            begin
+              MfStressPeriod.MaxLengthOfFirstTimeStep :=
+                SPData.PERLEN / NSTP;
+            end
+            else
+            begin
+              MfStressPeriod.MaxLengthOfFirstTimeStep :=
+                SPData.PERLEN * (MfStressPeriod.TimeStepMultiplier - 1)
+                / (IntPower(MfStressPeriod.TimeStepMultiplier, NSTP) - 1);
+            end;
+          end
+          else
+          begin
+            MfStressPeriod.MaxLengthOfFirstTimeStep := MfStressPeriod.PeriodLength;
+          end;
+
+        end
+        else if (AModel.ModelType = 'GWE6') then
+        begin
+          SpeciesName := (AModel.FName as TEnergyTransportNameFile).SpeciesName;
+          SpeciesIndex := PhastModel.MobileComponents.IndexOfName(SpeciesName);
+          while SpeciesIndex >= GwtStressPeriods.Count do
+          begin
+            GwtStressPeriods.Add;
+          end;
+          GwtStressPeriod := GwtStressPeriods[SpeciesIndex];
+          GwtStressPeriod.TimeStepMultiplier := SPData.TSMult;
+          GwtStressPeriod.NumberOfSteps := SPData.NSTP;
+          NSTP := MfStressPeriod.NumberOfSteps;
+          MfStressPeriod.PeriodLength := SPData.PerLen;
+          MfStressPeriod.StartTime := StartTime;
+          StartTime := StartTime + SPData.PerLen;
+          MfStressPeriod.EndTime := StartTime;
+
+          if NSTP > 1 then
+          begin
+            if SPData.TSMULT = 1 then
+            begin
+              MfStressPeriod.MaxLengthOfFirstTimeStep :=
+                SPData.PERLEN / NSTP;
+            end
+            else
+            begin
+              MfStressPeriod.MaxLengthOfFirstTimeStep :=
+                SPData.PERLEN * (MfStressPeriod.TimeStepMultiplier - 1)
+                / (IntPower(MfStressPeriod.TimeStepMultiplier, NSTP) - 1);
+            end;
+          end
+          else
+          begin
+            MfStressPeriod.MaxLengthOfFirstTimeStep := MfStressPeriod.PeriodLength;
+          end;
+
+        end;
+      end;
+    end;
+
+    if StressPeriods.Ats <> nil then
+    begin
+      for AtsIndex := 0 to StressPeriods.Ats.Count - 1 do
       begin
-        FErrorMessages.Add('ATS period data for iperats > NPER is skipped ')
-      end
-      else
-      begin
-        MfStressPeriod := MFStressPeriods[AtsPeriod.iperats-1];
-        MfStressPeriod.AtsUsed := True;
-        MfStressPeriod.AtsInitialStepSize := AtsPeriod.dt0;
-        MfStressPeriod.AtsMinimumStepSize := AtsPeriod.dtmin;
-        MfStressPeriod.AtsMaximumStepSize := AtsPeriod.dtmax;
-        MfStressPeriod.AtsAdjustmentFactor := AtsPeriod.dtadj;
-        MfStressPeriod.AtsFailureFactor := AtsPeriod.dtfailadj;
+        AtsPeriod := StressPeriods.Ats.AtsPeriod[AtsIndex];
+        if AtsPeriod.iperats <= 0 then
+        begin
+          FErrorMessages.Add('ATS period data for iperats <= 0 is skipped ')
+        end
+        else if AtsPeriod.iperats > MFStressPeriods.Count then
+        begin
+          FErrorMessages.Add('ATS period data for iperats > NPER is skipped ')
+        end
+        else
+        begin
+          MfStressPeriod := MFStressPeriods[AtsPeriod.iperats-1];
+          MfStressPeriod.AtsUsed := True;
+          MfStressPeriod.AtsInitialStepSize := AtsPeriod.dt0;
+          MfStressPeriod.AtsMinimumStepSize := AtsPeriod.dtmin;
+          MfStressPeriod.AtsMaximumStepSize := AtsPeriod.dtmax;
+          MfStressPeriod.AtsAdjustmentFactor := AtsPeriod.dtadj;
+          MfStressPeriod.AtsFailureFactor := AtsPeriod.dtfailadj;
+        end;
       end;
     end;
   end;

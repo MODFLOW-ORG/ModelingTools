@@ -88,7 +88,7 @@ type
     class function ObservationOutputExtension: string; override;
   end;
 
-    TModflowCtpWriter = class(TCustomSimpleGwtBoundaryWriter)
+  TModflowCtpWriter = class(TCustomSimpleGwtBoundaryWriter)
   protected
     FCtpPackage: TGweCtpPackage;
     FBoundaryFound: Boolean;
