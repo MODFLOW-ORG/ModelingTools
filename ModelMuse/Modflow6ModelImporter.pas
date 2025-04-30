@@ -23390,35 +23390,41 @@ begin
     end;
     if not FoundSpc then
     begin
-      AModel := EnergyTransportModels[ModelIndex];
-      EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
-      Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
-      if Ssm <> nil then
+      SpcList.Add(nil);
+      Maps.Add(nil)
+    end;
+  end;
+  for var ModelIndex := 0 to EnergyTransportModels.Count - 1 do
+  begin
+    FoundSpc := False;
+    AModel := EnergyTransportModels[ModelIndex];
+    EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
+    Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
+    if Ssm <> nil then
+    begin
+      for var SpcPackageIndex := 0 to Ssm.Count - 1 do
       begin
-        for var SpcPackageIndex := 0 to Ssm.Count - 1 do
+        if SameText(Ssm[SpcPackageIndex].PackageName, Package.PackageName) then
         begin
-          if SameText(Ssm[SpcPackageIndex].PackageName, Package.PackageName) then
+          FoundSpc := True;
+          FoundAny := True;
+          Spc := Ssm[SpcPackageIndex].Package as TSpc;
+          SpcList.Add(Spc);
+          Map := TimeSeriesMap.Create;
+          Maps.Add(Map);
+          for var TimeSeriesIndex := 0 to Spc.TimeSeriesCount - 1 do
           begin
-            FoundSpc := True;
-            FoundAny := True;
-            Spc := Ssm[SpcPackageIndex].Package as TSpc;
-            SpcList.Add(Spc);
-            Map := TimeSeriesMap.Create;
-            Maps.Add(Map);
-            for var TimeSeriesIndex := 0 to Spc.TimeSeriesCount - 1 do
-            begin
-              TimeSeriesPackage := Spc.TimeSeries[TimeSeriesIndex];
-              ImportTimeSeries(TimeSeriesPackage, Map);
-            end;
-            break;
+            TimeSeriesPackage := Spc.TimeSeries[TimeSeriesIndex];
+            ImportTimeSeries(TimeSeriesPackage, Map);
           end;
+          break;
         end;
       end;
-      if not FoundSpc then
-      begin
-        SpcList.Add(nil);
-        Maps.Add(nil)
-      end;
+    end;
+    if not FoundSpc then
+    begin
+      SpcList.Add(nil);
+      Maps.Add(nil)
     end;
   end;
   if not FoundAny then
