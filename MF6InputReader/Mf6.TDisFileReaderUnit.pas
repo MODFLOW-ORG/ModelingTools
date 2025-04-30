@@ -362,6 +362,7 @@ end;
 
 function TTDis.GetEndTime(Index: Integer): double;
 begin
+  InitializeFTimes;
   Result := FTimes[Index+1];
 end;
 
@@ -378,6 +379,7 @@ end;
 
 function TTDis.GetStartTime(Index: Integer): double;
 begin
+  InitializeFTimes;
   Result := FTimes[Index];
 end;
 

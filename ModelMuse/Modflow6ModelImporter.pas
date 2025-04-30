@@ -8,7 +8,8 @@ uses
   ScreenObjectUnit, DataSetUnit, System.Generics.Collections,
   System.Generics.Defaults, Mf6.ObsFileReaderUnit, ModflowLakMf6Unit,
   Mf6.MvrFileReaderUnit, GoPhastTypes, ModflowPackageSelectionUnit, FastGEO,
-  Vcl.Forms, Mf6.NameFileReaderUnit, Mf6.SpcFileReaderUnit;
+  Vcl.Forms, Mf6.NameFileReaderUnit, Mf6.SpcFileReaderUnit,
+  Mf6.TDisFileReaderUnit;
 
 resourcestring
   SWarningTheStartDateOfTheModelHas = 'Warning: The start date of the model has been added as a comment to the model description';
@@ -111,6 +112,7 @@ type
     FSpeciesIndex: Integer;
     FTransportModel: TModel;
     FEnergyTransportModel: TModel;
+    FTDis: TTDis;
     procedure ImportFlowModelTiming;
     procedure ImportTransportModelTiming;
     procedure ImportSimulationOptions;
@@ -213,7 +215,7 @@ implementation
 
 uses
   PhastModelUnit, frmGoPhastUnit, frmSelectFlowModelUnit,
-  Mf6.TDisFileReaderUnit, ModflowTimeUnit, ModflowOptionsUnit,
+  ModflowTimeUnit, ModflowOptionsUnit,
   Mf6.AtsFileReaderUnit, ModflowOutputControlUnit,
   Mf6.DisFileReaderUnit, LayerStructureUnit,
   UndoItems, AbstractGridUnit, ValueArrayStorageUnit,
@@ -809,7 +811,8 @@ var
   SpcDictionary: TSpcDictionary;
   SpcCell: TSpcTimeItem;
   SpcItem: TSpcTimeItem;
-  procedure AddItem(AScreenObject: TScreenObject; ACell: TChdTimeItem; Period: Integer);
+  TDis: TTDis;
+    procedure AddItem(AScreenObject: TScreenObject; ACell: TChdTimeItem; Period: Integer);
   var
     ChdItem: TChdItem;
     ImportedName: string;
@@ -1076,6 +1079,8 @@ begin
         SpcDictionaries.Add(nil);
       end;
     end;
+    TDis := FSimulation.Timing.TDis;
+    LastTime := FTDis.LastTime;
     OtherCellLists.OwnsObjects := False;
     try
       if (SpcList.Count = 0) then
@@ -1090,7 +1095,7 @@ begin
       begin
         // Make sure that all the stress periods defined in either the MVR or the
         // Chd package are imported.
-        SetLength(ChdSpcLinkArray, Model.ModflowStressPeriods.Count);
+        SetLength(ChdSpcLinkArray, TDis.PeriodData.Count);
         for PeriodIndex := 0 to Length(ChdSpcLinkArray) - 1 do
         begin
           ChdSpcLinkArray[PeriodIndex].ChdPeriod := nil;
@@ -1107,7 +1112,7 @@ begin
           end
           else
           begin
-            EndPeriod := Model.ModflowStressPeriods.Count;
+            EndPeriod := TDis.PeriodData.Count;
           end;
           for var Index := ChdPeriod.Period  to EndPeriod do
           begin
@@ -1131,7 +1136,7 @@ begin
               end
               else
               begin
-                EndPeriod := Model.ModflowStressPeriods.Count;
+                EndPeriod := TDis.PeriodData.Count;
               end;
               for var Index := SpcPeriod.Period to EndPeriod do
               begin
@@ -1240,14 +1245,14 @@ begin
           end;
         end;
 
-        LastTime := Model.ModflowStressPeriods.Last.EndTime;
+        LastTime := FTDis.LastTime;
 
         ObjectCount := 0;
         for PeriodIndex := 0 to ChdMvrLinkList.Count - 1 do
         begin
           ChdSpcLink := ChdMvrLinkList[PeriodIndex];
           APeriod := ChdSpcLink.ChdPeriod;
-          StartTime := Model.ModflowStressPeriods[ChdSpcLink.Period-1].StartTime;
+          StartTime := TDis.StartTime[ChdSpcLink.Period-1];
           for ChdIndex := 0 to ItemList.Count - 1 do
           begin
             AnItem := ItemList[ChdIndex];
@@ -1749,7 +1754,7 @@ begin
     end;
 
     TDis := FTransportModel.Simulation.Timing.TDis;
-    LastTime := TDis.LastTime;
+    LastTime := FTDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
@@ -2103,6 +2108,7 @@ var
   sig0: TValueArrayItem;
   ObsListIndex: Integer;
   ObsNameIndex: Integer;
+  TDis: TTDis;
   function CreateScreenObject(BoundName: String; Period: Integer): TScreenObject;
   var
     UndoCreateScreenObject: TCustomUndo;
@@ -2777,13 +2783,14 @@ begin
       NoDelayLists.Free;
     end;
 
-    LastTime := Model.ModflowStressPeriods.Last.EndTime;
+    TDis := FSimulation.Timing.TDis;
+    LastTime := FTDis.LastTime;
     PriorScreenObjects := TScreenObjectList.Create;
     try
       for PeriodIndex := 0 to CSub.PeriodCount - 1 do
       begin
         APeriod := CSub[PeriodIndex];
-        StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+        StartTime := TDis.StartTime[APeriod.Period-1];
         if PeriodIndex > 0 then        
         begin        
           for ScreenObjectIndex := 0 to PriorScreenObjects.Count - 1 do
@@ -3171,7 +3178,7 @@ begin
     end;
 
     TDis := FEnergyTransportModel.Simulation.Timing.TDis;
-    LastTime := TDis.LastTime;
+    LastTime := FTDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
@@ -3639,6 +3646,7 @@ var
   CellListIndex: Integer;
   Imported_Ddrn: TValueArrayItem;
   Imported_Multiplier: TValueArrayItem;
+  TDis: TTDis;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TDrnTimeItem; Period: Integer);
   var
     DrnItem: TDrnItem;
@@ -3898,6 +3906,8 @@ begin
   try
     OtherCellLists.OwnsObjects := False;
   try
+    TDis := FSimulation.Timing.TDis;
+    LastTime := FTDis.LastTime;
     if Mvr = nil then
     begin
       DrnMvrLink.MvrPeriod := nil;
@@ -3911,7 +3921,7 @@ begin
     begin
       // Make sure that all the stress periods defined in either the MVR or the
       // Drn package are imported.
-      SetLength(DrnlMvrLinkArray, Model.ModflowStressPeriods.Count);
+      SetLength(DrnlMvrLinkArray, TDis.PeriodData.Count);
       for PeriodIndex := 0 to Length(DrnlMvrLinkArray) - 1 do
       begin
         DrnMvrLink.DrnPeriod := nil;
@@ -3928,7 +3938,7 @@ begin
         end
         else
         begin
-          EndPeriod := Model.ModflowStressPeriods.Count;
+          EndPeriod := FTDis.PeriodData.Count;
         end;
         for Index := DrnlPeriod.Period  to EndPeriod do
         begin
@@ -3946,7 +3956,7 @@ begin
         end
         else
         begin
-          EndPeriod := Model.ModflowStressPeriods.Count;
+          EndPeriod := FTDis.PeriodData.Count;
         end;
         for Index := MvrPeriod.Period  to EndPeriod do
         begin
@@ -3988,7 +3998,7 @@ begin
       OnUpdateStatusBar(self, 'importing DRN package');
     end;
 
-    LastTime := Model.ModflowStressPeriods.Last.EndTime;
+    LastTime := FTDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
@@ -4000,7 +4010,7 @@ begin
       begin
         Continue;
       end;
-      StartTime := Model.ModflowStressPeriods[DrnMvrLink.Period-1].StartTime;
+      StartTime := TDis.StartTime[DrnMvrLink.Period-1];
       for DrnIndex := 0 to ItemList.Count - 1 do
       begin
         AnItem := ItemList[DrnIndex];
@@ -4697,7 +4707,7 @@ begin
     end;
 
     TDis := FEnergyTransportModel.Simulation.Timing.TDis;
-    LastTime := TDis.LastTime;
+    LastTime := FTDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
@@ -4993,6 +5003,7 @@ var
   ImportedPetm: TValueArrayItem;
   CellListIndex: Integer;
   TSName: string;
+  TDis: TTDis;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TEvtTimeItem; Period: Integer);
   var
     EvtItem: TEtsItem;
@@ -5399,13 +5410,14 @@ begin
           end;
         end;
 
-        LastTime := Model.ModflowStressPeriods.Last.EndTime;
+        TDis := FSimulation.Timing.TDis;
+        LastTime := FTDis.LastTime;
 
         ObjectCount := 0;
         for PeriodIndex := 0 to Evt.PeriodCount - 1 do
         begin
           APeriod := Evt.Periods[PeriodIndex];
-          StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+          StartTime := TDis.StartTime[APeriod.Period-1];
           for EvtIndex := 0 to ItemList.Count - 1 do
           begin
             AnItem := ItemList[EvtIndex];
@@ -6170,11 +6182,11 @@ begin
   begin
     OnUpdateStatusBar(self, 'importing TDIS package');
   end;
-  if FSimulation.Timing.TDis = nil then
+  if FTDis = nil then
   begin
     Exit;
   end;
-  StressPeriods := FSimulation.Timing.TDis;
+  StressPeriods := FTDis;
 
   PhastModel := frmGoPhast.PhastModel;
   MfOptions := PhastModel.ModflowOptions;
@@ -6537,6 +6549,7 @@ var
   SpcDictionary: TSpcDictionary;
   SpcCell: TSpcTimeItem;
   SpcItem: TSpcTimeItem;
+  TDis: TTDis;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TGhbTimeItem; const Period: Integer);
   var
     GhbItem: TGhbItem;
@@ -6845,6 +6858,7 @@ begin
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
   try
+    TDis := FSimulation.Timing.TDis;
     OtherCellLists.OwnsObjects := False;
     try
       FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
@@ -6872,7 +6886,7 @@ begin
       begin
         // Make sure that all the stress periods defined in either the MVR or the
         // Ghb package are imported.
-        SetLength(GhbMvrLinkArray, Model.ModflowStressPeriods.Count);
+        SetLength(GhbMvrLinkArray, TDis.PeriodData.Count);
         for PeriodIndex := 0 to Length(GhbMvrLinkArray) - 1 do
         begin
           GhbMvrLinkArray[PeriodIndex].GhbPeriod := nil;
@@ -6890,7 +6904,7 @@ begin
           end
           else
           begin
-            EndPeriod := Model.ModflowStressPeriods.Count;
+            EndPeriod := TDis.PeriodData.Count;
           end;
           for Index := GhbPeriod.Period  to EndPeriod do
           begin
@@ -6910,7 +6924,7 @@ begin
             end
             else
             begin
-              EndPeriod := Model.ModflowStressPeriods.Count;
+              EndPeriod := TDis.PeriodData.Count;
             end;
             for Index := MvrPeriod.Period  to EndPeriod do
             begin
@@ -6934,7 +6948,7 @@ begin
               end
               else
               begin
-                EndPeriod := Model.ModflowStressPeriods.Count;
+                EndPeriod := TDis.PeriodData.Count;
               end;
               for Index := SpcPeriod.Period to EndPeriod do
               begin
@@ -7033,7 +7047,7 @@ begin
           end;
         end;
 
-        LastTime := Model.ModflowStressPeriods.Last.EndTime;
+        LastTime := FTDis.LastTime;
 
         ACellList := nil;
         ObjectCount := 0;
@@ -7045,7 +7059,7 @@ begin
           begin
             Continue;
           end;
-          StartTime := Model.ModflowStressPeriods[GhbMvrLink.Period-1].StartTime;
+          StartTime := TDis.StartTime[GhbMvrLink.Period-1];
           for GhbIndex := 0 to ItemList.Count - 1 do
           begin
             AnItem := ItemList[GhbIndex];
@@ -7639,6 +7653,7 @@ var
   BoundarySegment: TSegment2D;
   Column: Integer;
   Row: Integer;
+  TDis: TTDis;
   function CreateScreenObject(LayerIndex: Integer): TScreenObject;
   begin
     result := TScreenObject.CreateWithViewDirection(
@@ -7679,14 +7694,15 @@ begin
     ScreenObjects[LayerIndex] := nil;
   end;
   Model.ModflowPackages.HfbPackage.IsSelected := True;
-  LastTime := Model.ModflowStressPeriods.Last.EndTime;
+  LastTime := FTDis.LastTime;
 
   Hfb := Package.Package as THfb;
+  TDis := FSimulation.Timing.TDis;
 
   for PeriodIndex := 0 to Hfb.Count - 1 do
   begin
     HfbPeriod := Hfb[PeriodIndex];
-    StartTime := Model.ModflowStressPeriods[HfbPeriod.Period-1].StartTime;
+    StartTime := TDis.StartTime[HfbPeriod.Period-1];
     for LayerIndex := 0 to Length(ScreenObjects) - 1 do
     begin
       AScreenObject := ScreenObjects[LayerIndex];
@@ -10325,6 +10341,7 @@ var
   Lke: TLke;
   LkePeriod: TLkePeriod;
   GweAdjustment: integer;
+  TDis: TTDis;
 begin
   FErrorMessages.Add('Be sure to check all lakes to make sure there are no extra lakes cells. If any are found, delete them.');
   // For each lake, define 3D data sets for Lake K, bottom elevation, and top elevation.
@@ -10609,7 +10626,7 @@ begin
     end
     else
     begin
-      SetLength(LakMvrLinkArray, Model.ModflowStressPeriods.Count);
+      SetLength(LakMvrLinkArray, TDis.PeriodData.Count);
       for StressPeriodIndex := 0 to Length(LakMvrLinkArray) - 1 do
       begin
         LakMvrLinkArray[StressPeriodIndex].MvrPeriod := nil;
@@ -10669,7 +10686,7 @@ begin
             end
             else
             begin
-              EndPeriod := Model.ModflowStressPeriods.Count;
+              EndPeriod := TDis.PeriodData.Count;
             end;
             for var Index := SpcPeriod.Period to EndPeriod do
             begin
@@ -10874,8 +10891,8 @@ begin
       ALake.FOutlets.Add(AnOutlet);
     end;
 
-    StartTime := Model.ModflowStressPeriods.First.StartTime;
-    EndTime := Model.ModflowStressPeriods.Last.EndTime;
+    StartTime := 0;
+    EndTime := FTDis.LastTime;
 
     for LakeIndex := 0 to Lakes.Count - 1 do
     begin
@@ -10912,7 +10929,7 @@ begin
 
       APeriod := LakMvrLinkList[PeriodIndex].LakPeriod;
       Period := LakMvrLinkList[PeriodIndex].Period;
-      StartTime := Model.ModflowStressPeriods[Period-1].StartTime;
+      StartTime := TDis.StartTime[Period-1];
 
       if APeriod <> nil then
       begin
@@ -11339,6 +11356,7 @@ var
   MweNumberDictionary: TNumberDictionary;
   MweMaps: TimeSeriesMaps;
   AdjustedIndex: Integer;
+  TDis: TTDis;
 begin
   MvrSource.LakeOutlet := nil;
   ObsNameIndex := 0;
@@ -11379,6 +11397,7 @@ begin
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
   try
+    TDis := FSimulation.Timing.TDis;
     FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
     TransportAuxNames.CaseSensitive := False;
     for var ModelIndex := 0 to TransportModels.Count - 1 do
@@ -11606,7 +11625,7 @@ begin
     end
     else
     begin
-      SetLength(MawMvrLinkArray, Model.ModflowStressPeriods.Count);
+      SetLength(MawMvrLinkArray, TDis.PeriodData.Count);
       for StressPeriodIndex := 0 to Length(MawMvrLinkArray) - 1 do
       begin
         MawMvrLinkArray[StressPeriodIndex].MvrPeriod := nil;
@@ -11873,8 +11892,8 @@ begin
             else
             begin
               AnItem := AScreenObject.ModflowMawBoundary.Values.Add as TMawItem;
-              AnItem.StartTime := Model.ModflowStressPeriods.First.StartTime;
-              AnItem.EndTime := Model.ModflowStressPeriods.First.EndTime;
+              AnItem.StartTime := 0;
+              AnItem.EndTime := FTDis.LastTime;
             end;
             AnItem.GwtStatus[TransportIndex].GwtBoundaryStatus := gbsConstant;
             if Aux.ValueType = vtNumeric then
@@ -12037,7 +12056,7 @@ begin
       end;
     end;
 
-    LastTime := Model.ModflowStressPeriods.Last.EndTime;
+    LastTime := FTDis.LastTime;
     for PeriodIndex := 0 to MawMvrLinkList.Count - 1 do
     begin
 
@@ -12048,7 +12067,7 @@ begin
         Continue;
       end;
 
-      StartTime := Model.ModflowStressPeriods[MawMvrLink.Period-1].StartTime;
+      StartTime := TDis.StartTime[MawMvrLink.Period-1];
       for ObjectIndex := 1 to Length(Wells) - 1 do
       begin
         AScreenObject := Wells[ObjectIndex];
@@ -12378,8 +12397,8 @@ begin
       end;
     end;
 
-    StartTime := Model.ModflowStressPeriods.First.StartTime;
-    EndTime := Model.ModflowStressPeriods.First.EndTime;
+    StartTime := 0;
+    EndTime := FTDis.LastTime;
     for ObjectIndex := 1 to Length(Wells) - 1 do
     begin
       AScreenObject := Wells[ObjectIndex];
@@ -12724,6 +12743,10 @@ begin
             FSimulation.OnUpdataStatusBar := OnUpdateStatusBar;
             FSimulations.Add(FSimulation);
             FSimulation.ReadSimulation(NameFiles[FileIndex]);
+            if FSimulation.Timing.TDis <> nil then
+            begin
+              FTDis := FSimulation.Timing.TDis;
+            end;
           finally
             FSimulation := nil;
           end;
@@ -12914,10 +12937,10 @@ begin
               if FFlowModel <> nil then
               begin
                 ImportFlowModelTiming;
-                ImportTransportModelTiming;
               end
               else
               begin
+                ImportTransportModelTiming;
               end;
               ImportSolutionGroups;
               if not ImportFlowModel then
@@ -13186,6 +13209,7 @@ var
   SectionDictionary: TSectionDictionary;
   SectionDictionaries: TSectionDictionaries;
   SourceSectionDictionary: TSourceSectionDictionary;
+  TDis: TTDis;
   function GetMapName(AScreenObject: TScreenObject): string;
   begin
     result := AScreenObject.Name + ' Per ' + IntToStr(PeriodIndex+1);
@@ -13199,12 +13223,13 @@ begin
   MvrPackage := Model.ModflowPackages.MvrPackage;
   MvrPackage.IsSelected := True;
 
-  EndTime := Model.ModflowStressPeriods.Last.EndTime;
+  EndTime := FTDis.LastTime;
   SectionDictionaries := TSectionDictionaries.Create;
   SourceSectionDictionary := TSourceSectionDictionary.Create;
   SourceDictionary := TMvrSourceDictionary.Create(TTMvrKeyComparer.Create);
   ReceiverDictionary := TMvrReceiverDictionary.Create(TTMvrKeyComparer.Create);
   try
+    TDis := FSimulation.Timing.TDis;
     for Index := 0 to FMvrSources.Count - 1 do
     begin
       ASource := FMvrSources[Index];
@@ -13257,7 +13282,7 @@ begin
       SectionDictionaries.Clear;
       SourceSectionDictionary.Clear;
       MvrPeriod := Mvr.Periods[PeriodIndex];
-      StartTime := Model.ModflowStressPeriods[MvrPeriod.Period-1].StartTime;
+      StartTime := TDis.StartTime[MvrPeriod.Period-1];
       SourceKey.Period := MvrPeriod.Period;
       ReceiverKey.Period := MvrPeriod.Period;
       for MvrIndex := 0 to MvrPeriod.Count - 1 do
@@ -14065,6 +14090,7 @@ var
   EndPeriod: Integer;
   AuxMultIndex: Integer;
   TSName: string;
+  TDis: TTDis;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TRchTimeItem; Period: Integer);
   var
     RchItem: TRchItem;
@@ -14343,6 +14369,7 @@ begin
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
   try
+    TDis := FSimulation.Timing.TDis;
     FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
     for var SpcIndex := 0 to SpcList.Count - 1 do
     begin
@@ -14366,7 +14393,7 @@ begin
     end
     else
     begin
-      SetLength(RchLinkArray, Model.ModflowStressPeriods.Count);
+      SetLength(RchLinkArray, TDis.PeriodData.Count);
       for PeriodIndex := 0 to Length(RchLinkArray) - 1 do
       begin
         RchLinkArray[PeriodIndex].RchPeriod := nil;
@@ -14383,7 +14410,7 @@ begin
         end
         else
         begin
-          EndPeriod := Model.ModflowStressPeriods.Count;
+          EndPeriod := FTDis.PeriodData.Count;
         end;
         for var Index := RchPeriod.Period  to EndPeriod do
         begin
@@ -14407,7 +14434,7 @@ begin
             end
             else
             begin
-              EndPeriod := Model.ModflowStressPeriods.Count;
+              EndPeriod := FTDis.PeriodData.Count;
             end;
             for var Index := SpcPeriod.Period to EndPeriod do
             begin
@@ -14515,7 +14542,7 @@ begin
         end;
 
 
-        LastTime := Model.ModflowStressPeriods.Last.EndTime;
+        LastTime := FTDis.LastTime;
 
         ObjectCount := 0;
         for PeriodIndex := 0 to RchLinkList.Count - 1 do
@@ -14526,7 +14553,7 @@ begin
           begin
             Continue;
           end;
-          StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+          StartTime := TDis.StartTime[APeriod.Period-1];
           for RchIndex := 0 to ItemList.Count - 1 do
           begin
             AnItem := ItemList[RchIndex];
@@ -15191,6 +15218,7 @@ var
   end;
 var
   EnergyTransportModel: TEnergyTransportNameFile;
+  TDis: TTDis;
 begin
   MvrSource.LakeOutlet := nil;
   if Assigned(OnUpdateStatusBar) then
@@ -15228,6 +15256,7 @@ begin
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
   try
+    TDis := FSimulation.Timing.TDis;
     FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
     for var SpcIndex := 0 to SpcList.Count - 1 do
     begin
@@ -15256,7 +15285,7 @@ begin
       begin
         // Make sure that all the stress periods defined in either the MVR or the
         // Riv package are imported.
-        SetLength(RivMvrLinkArray, Model.ModflowStressPeriods.Count);
+        SetLength(RivMvrLinkArray, TDis.PeriodData.Count);
         for PeriodIndex := 0 to Length(RivMvrLinkArray) - 1 do
         begin
           RivMvrLinkArray[PeriodIndex].RivPeriod := nil;
@@ -15273,7 +15302,7 @@ begin
           end
           else
           begin
-            EndPeriod := Model.ModflowStressPeriods.Count;
+            EndPeriod := FTDis.PeriodData.Count;
           end;
           for Index := RivlPeriod.Period  to EndPeriod do
           begin
@@ -15293,7 +15322,7 @@ begin
             end
             else
             begin
-              EndPeriod := Model.ModflowStressPeriods.Count;
+              EndPeriod := FTDis.PeriodData.Count;
             end;
             for Index := MvrPeriod.Period  to EndPeriod do
             begin
@@ -15317,7 +15346,7 @@ begin
               end
               else
               begin
-                EndPeriod := Model.ModflowStressPeriods.Count;
+                EndPeriod := FTDis.PeriodData.Count;
               end;
               for Index := SpcPeriod.Period to EndPeriod do
               begin
@@ -15418,7 +15447,7 @@ begin
           end;
         end;
 
-        LastTime := Model.ModflowStressPeriods.Last.EndTime;
+        LastTime := FTDis.LastTime;
 
         ACellList := nil;
         ObjectCount := 0;
@@ -15430,7 +15459,7 @@ begin
           begin
             Continue;
           end;
-          StartTime := Model.ModflowStressPeriods[RivMvrLink.Period-1].StartTime;
+          StartTime := TDis.StartTime[RivMvrLink.Period-1];
           for RivIndex := 0 to ItemList.Count - 1 do
           begin
             AnItem := ItemList[RivIndex];
@@ -16563,6 +16592,7 @@ var
   SfeList: TSfeList;
   SfePeriodSettingsList: TSftPeriodSettings;
   SfePeriodSettings: TPeriodSettings;
+  TDis: TTDis;
   procedure CreateReachList(SfrReachInfo: TSfrReachInfo);
   begin
     AReachList := TSfrReachInfoList.Create;
@@ -16873,6 +16903,7 @@ var
   begin
     MvrSource.LakeOutlet := nil;
     Inc(ObjectCount);
+    TDis := FSimulation.Timing.TDis;
 
     FirstReachNo := AReachList.First.PackageData.rno;
 
@@ -16988,7 +17019,7 @@ var
       SfrBoundary.InitialStage := RealValuesToFormula(Values, 'InitialStage', result);
     end;
 
-    EndTime := Model.ModflowStressPeriods.Last.EndTime;
+    EndTime := FTDis.LastTime;
 
     for var TransportIndex := 0 to TransportAuxNames.Count - 1 do
     begin
@@ -17009,7 +17040,7 @@ var
         else
         begin
           SfrItem := SfrBoundary.Values.Add as TSfrMf6Item;
-          SfrItem.StartTime := Model.ModflowStressPeriods.First.StartTime;
+          SfrItem.StartTime := 0;
           SfrItem.EndTime := EndTime;
         end;
         SfrItem.SpecifiedConcentrations[TransportIndex].Value :=
@@ -17027,7 +17058,7 @@ var
         else
         begin
           SfrItem := SfrBoundary.Values.Add as TSfrMf6Item;
-          SfrItem.StartTime := Model.ModflowStressPeriods.First.StartTime;
+          SfrItem.StartTime := 0;
           SfrItem.EndTime := EndTime;
         end;
         SfrItem.GwtStatus[TransportIndex].GwtBoundaryStatus := gbsActive;
@@ -17060,7 +17091,7 @@ var
       CrossSection := ACrossSectionPackage.Package as TCrossSection;
 
       CSItem := SfrBoundary.CrossSections.Add as TimeVaryingSfr6CrossSectionItem;
-      CSItem.StartTime := frmGoPhast.PhastModel.ModflowStressPeriods.First.StartTime;
+      CSItem.StartTime := 0;
       CSItem.EndTime := EndTime;
       ACrossSection := CSItem.CrossSection;
 
@@ -17114,7 +17145,6 @@ var
       RunoffBoundaryValues[CellIndex].NumericValue := 0;
     end;
 
-//    EndTime := Model.ModflowStressPeriods.Last.EndTime;
     for PeriodIndex := 0 to SfrMvrLinkList.Count - 1 do
     begin
       SfrMvrLink := SfrMvrLinkList[PeriodIndex];
@@ -17142,23 +17172,15 @@ var
         SfrItem := SfrBoundary.Values[PeriodIndex] as TSfrMf6Item;
       end;
 
-      StartTime := Model.ModflowStressPeriods[SfrMvrLink.Period-1].StartTime;
+      StartTime := TDis.StartTime[SfrMvrLink.Period-1];
       SfrItem.StartTime := StartTime;
       if SfrBoundary.Values.Count > 1 then
       begin
         PriorSfrItem := SfrBoundary.Values[SfrBoundary.Values.Count-2] as TSfrMf6Item;
         PriorSfrItem.EndTime := StartTime
       end;
-//      if PeriodIndex < SfrMvrLinkList.Count - 1 then
-//      begin
-//        SfrItem.EndTime := Model.ModflowStressPeriods[SfrMvrLink.Period].StartTime;
-//      end
-//      else
-//      begin
-        SfrItem.EndTime := EndTime;
-//      end;
+      SfrItem.EndTime := EndTime;
 
-//      SfrItem.StreamStatus := ssActive;
       AReachSettingsList := ASettingList[AReachList[0].PackageData.rno-1];
       for SettingIndex := 0 to AReachSettingsList.Count - 1 do
       begin
@@ -17197,7 +17219,7 @@ var
             end;
             CsItem := SfrBoundary.CrossSections.Add as TimeVaryingSfr6CrossSectionItem;
             CsItem.StartTime := StartTime;
-            CsItem.EndTime := Model.ModflowStressPeriods.Last.EndTime;
+            CsItem.EndTime := FTDis.LastTime;
 
             ReadCrossSection(CsItem.CrossSection, CrossSection);
           end;
@@ -18032,7 +18054,7 @@ begin
     end
     else
     begin
-      SetLength(SfrMvrLinkArray, Model.ModflowStressPeriods.Count);
+      SetLength(SfrMvrLinkArray, TDis.PeriodData.Count);
       for StressPeriodIndex := 0 to Length(SfrMvrLinkArray) - 1 do
       begin
         SfrMvrLinkArray[StressPeriodIndex].MvrPeriod := nil;
@@ -18067,7 +18089,7 @@ begin
             end
             else
             begin
-              EndPeriod := Model.ModflowStressPeriods.Count;
+              EndPeriod := TDis.PeriodData.Count;
             end;
             for Index := SpcPeriod.Period to EndPeriod do
             begin
@@ -19258,8 +19280,8 @@ begin
       SfrReachInfoList.Free;
     end;
 
-    StartTime := Model.ModflowStressPeriods.First.StartTime;
-    EndTime := Model.ModflowStressPeriods.Last.EndTime;
+    StartTime := 0;
+    EndTime := FTDis.LastTime;
     SfrScreenObjects.Sort(
       TComparer<TSfrOrder>.Construct(
         function(const Left, Right: TSfrOrder): Integer
@@ -19686,7 +19708,7 @@ begin
     end;
 
     TDis := FTransportModel.Simulation.Timing.TDis;
-    LastTime := TDis.LastTime;
+    LastTime := FTDis.LastTime;
 
     ACellList := nil;
     ObjectCount := 0;
@@ -20680,6 +20702,7 @@ var
   Map: TimeSeriesMap;
   ImportedTimeSeriesName: string;
   ElementCenter: TDualLocation;
+  TDis: TTDis;
   function CreateScreenObject(RootName: String): TScreenObject;
   var
     NewItem: TTvkItem;
@@ -20709,7 +20732,8 @@ begin
     OnUpdateStatusBar(self, 'importing TVK package');
   end;
   Model := frmGoPhast.PhastModel;
-  LastTime := Model.ModflowStressPeriods.Last.EndTime;
+  TDis := FSimulation.Timing.TDis;
+  LastTime := FTDis.LastTime;
 
   KDictionary := TDictionary<string, TScreenObject>.Create;
   K22Dictionary := TDictionary<string, TScreenObject>.Create;
@@ -20738,7 +20762,7 @@ begin
       K33Storage := nil;
 
       APeriod := Tvk[PeriodIndex];
-      StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+      StartTime := TDis.StartTime[APeriod.Period-1];
       if KScreenObject <> nil then
       begin
         Item := KScreenObject.ModflowTvkBoundary.Values.Last as TTvkItem;
@@ -20958,6 +20982,7 @@ var
   Map: TimeSeriesMap;
   ImportedTimeSeriesName: string;
   ElementCenter: TDualLocation;
+  TDis: TTDis;
   function CreateScreenObject(RootName: String): TScreenObject;
   var
     NewItem: TTvsItem;
@@ -20987,7 +21012,8 @@ begin
     OnUpdateStatusBar(self, 'importing TVS package');
   end;
   Model := frmGoPhast.PhastModel;
-  LastTime := Model.ModflowStressPeriods.Last.EndTime;
+  TDis := FSimulation.Timing.TDis;
+  LastTime := FTDis.LastTime;
 
   SsDictionary := TDictionary<string, TScreenObject>.Create;
   SyDictionary := TDictionary<string, TScreenObject>.Create;
@@ -21017,7 +21043,7 @@ begin
 //      K33Storage := nil;
 
       APeriod := Tvs[PeriodIndex];
-      StartTime := Model.ModflowStressPeriods[APeriod.Period-1].StartTime;
+      StartTime := TDis.StartTime[APeriod.Period-1];
       if SsScreenObject <> nil then
       begin
         Item := SsScreenObject.ModflowTvsBoundary.Values.Last as TTvsItem;
@@ -21583,6 +21609,7 @@ var
   AdjustedIndex: Integer;
   UzeNumberDictionary: TNumberDictionary;
   UzeBoundNameDictionary: TBoundNameDictionary;
+  TDis: TTDis;
 begin
   MvrSource.LakeOutlet := nil;
   ObsNameIndex := 0;
@@ -21676,6 +21703,7 @@ begin
   try
     TransportAuxNames.CaseSensitive := False;
 
+    TDis := FSimulation.Timing.TDis;
     for var ModelIndex := 0 to TransportModels.Count - 1 do
     begin
       AModel := TransportModels[ModelIndex];
@@ -21953,7 +21981,7 @@ begin
     end
     else
     begin
-      SetLength(UzfMvrLinkArray, Model.ModflowStressPeriods.Count);
+      SetLength(UzfMvrLinkArray, FTDis.PeriodData.Count);
       for StressPeriodIndex := 0 to Length(UzfMvrLinkArray) - 1 do
       begin
         UzfMvrLinkArray[StressPeriodIndex].MvrPeriod := nil;
@@ -22368,8 +22396,8 @@ begin
       AScreenObject.CreateUzfMf6Boundary;
       ModflowUzfMf6Boundary := AScreenObject.ModflowUzfMf6Boundary;
 
-      StartTime := Model.ModflowStressPeriods.First.StartTime;
-      EndTime := Model.ModflowStressPeriods.Last.EndTime;
+      StartTime := 0;
+      EndTime := FTDis.LastTime;
 
       UzfMf6Item := ModflowUzfMf6Boundary.Values.Add as TUzfMf6Item;
       UzfMf6Item.StartTime := StartTime;
@@ -22433,8 +22461,7 @@ begin
         for PeriodIndex := 0 to UzfDataItem.PeriodData.Count - 1 do
         begin
           ImportedUzfPeriodItem := UzfDataItem.PeriodData[PeriodIndex];
-          StartTime :=
-            Model.ModflowStressPeriods[ImportedUzfPeriodItem.Period-1].StartTime;
+          StartTime := TDis.StartTime[ImportedUzfPeriodItem.Period-1];
           PData := ImportedUzfPeriodItem.PeriodData;
           if ImportedUzfPeriodItem.Period > 1 then
           begin
@@ -22718,8 +22745,7 @@ begin
 
           UzfDataItem := MergedList.First;
           ImportedUzfPeriodItem := UzfDataItem.PeriodData[PeriodIndex];
-          StartTime :=
-            Model.ModflowStressPeriods[ImportedUzfPeriodItem.Period-1].StartTime;
+          StartTime := TDis.StartTime[ImportedUzfPeriodItem.Period-1];
           if ImportedUzfPeriodItem.Period > 1 then
           begin
             UzfMf6Item.EndTime := StartTime;
@@ -23762,6 +23788,7 @@ var
   end;
 var
   EnergyTransportModel: TEnergyTransportNameFile;
+  TDis: TTDis;
 begin
   MvrSource.LakeOutlet := nil;
   if Assigned(OnUpdateStatusBar) then
@@ -23807,6 +23834,7 @@ begin
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
   try
+    TDis := FSimulation.Timing.TDis;
     FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
     for var SpcIndex := 0 to SpcList.Count - 1 do
     begin
@@ -23834,7 +23862,7 @@ begin
       begin
         // Make sure that all the stress periods defined in either the MVR or the
         // WEL package are imported.
-        SetLength(WellMvrLinkArray, Model.ModflowStressPeriods.Count);
+        SetLength(WellMvrLinkArray, TDis.PeriodData.Count);
         for PeriodIndex := 0 to Length(WellMvrLinkArray) - 1 do
         begin
           WellMvrLinkArray[PeriodIndex].WelPeriod := nil;
@@ -23852,7 +23880,7 @@ begin
           end
           else
           begin
-            EndPeriod := Model.ModflowStressPeriods.Count;
+            EndPeriod := TDis.PeriodData.Count;
           end;
           for Index := WellPeriod.Period  to EndPeriod do
           begin
@@ -23872,7 +23900,7 @@ begin
             end
             else
             begin
-              EndPeriod := Model.ModflowStressPeriods.Count;
+              EndPeriod := TDis.PeriodData.Count;
             end;
             for Index := MvrPeriod.Period to EndPeriod do
             begin
@@ -23896,7 +23924,7 @@ begin
               end
               else
               begin
-                EndPeriod := Model.ModflowStressPeriods.Count;
+                EndPeriod := TDis.PeriodData.Count;
               end;
               for Index := SpcPeriod.Period to EndPeriod do
               begin
@@ -23996,7 +24024,7 @@ begin
           end;
         end;
 
-        LastTime := Model.ModflowStressPeriods.Last.EndTime;
+        LastTime := FTDis.LastTime;
 
         ACellList := nil;
         ObjectCount := 0;
@@ -24008,7 +24036,7 @@ begin
           begin
             Continue;
           end;
-          StartTime := Model.ModflowStressPeriods[WellMvrLink.Period-1].StartTime;
+          StartTime := TDis.StartTime[WellMvrLink.Period-1];
           for WelIndex := 0 to ItemList.Count - 1 do
           begin
             AnItem := ItemList[WelIndex];
