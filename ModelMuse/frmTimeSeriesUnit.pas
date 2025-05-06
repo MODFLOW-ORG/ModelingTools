@@ -182,6 +182,13 @@ end;
 
 procedure TfrmTimeSeries.FormDestroy(Sender: TObject);
 begin
+  for var Index := 0 to ComponentCount - 1 do
+  begin
+    if Components[Index] is TframeModflow6TimeSeries then
+    begin
+      TframeModflow6TimeSeries(Components[Index]).NilInterfaces;
+    end;
+  end;
   inherited;
   FPestNames.Free;
   FTimesSeries.Free;

@@ -235,6 +235,7 @@ end;
 destructor TTimesSeriesCollection.Destroy;
 begin
   FTimeSeriesDictionary.Free;
+  FTimeSeriesDictionary := nil;
   inherited;
 end;
 
@@ -1226,6 +1227,7 @@ destructor TCustomTimesSeriesCollection.Destroy;
 begin
   FTimes.Free;
   FSortedTimes.Free;
+  FSortedTimes := nil;
   inherited;
 end;
 

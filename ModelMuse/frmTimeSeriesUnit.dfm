@@ -4,6 +4,7 @@ inherited frmTimeSeries: TfrmTimeSeries
   Caption = 'Time Series'
   ClientHeight = 560
   ClientWidth = 624
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 640
   ExplicitHeight = 599
   TextHeight = 18

@@ -46,6 +46,7 @@ type
     procedure GetData(ATimesSeriesGroupItem: ITimeSeriesCollectionItem; PestNames: TStringList);
     procedure SetData;
     property GroupItem: ITimeSeriesCollectionItem read FTimesSeriesGroupItem;
+    procedure NilInterfaces;
     { Public declarations }
   end;
 
@@ -245,6 +246,12 @@ begin
   finally
     rrdgTimeSeries.EndUpdate
   end;
+end;
+
+procedure TframeModflow6TimeSeries.NilInterfaces;
+begin
+  FTimesSeriesGroup := nil;
+  FTimesSeriesGroupItem := nil;
 end;
 
 procedure TframeModflow6TimeSeries.InitializeGrid;
