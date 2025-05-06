@@ -252,6 +252,11 @@ uses
   Mf6.SfeFileReaderUnit, Mf6.UzeFileReaderUnit;
 
 resourcestring
+  SImportingTheGNCPackageCanBeProbl = 'Importing the GNC package can be '
+  + 'problematic. Consider using the original GNC file in the Model|MODFLOW '
+  + 'Name File dialog box instead of using the imported GNC.';
+  SImportingGNCPackage = 'importing GNC package';
+  SModelMuseOnlySupportTheGNCPackag = 'ModelMuse only support the GNC package for DISV models.';
   StrTheNameFileSDoe = 'The name file %s does not exist.';
   StrModelMuseCanNotSpPetm0 = 'ModelMuse can not specify a separate value fo' +
   'r petm0 in the EVt package.';
@@ -5686,6 +5691,7 @@ var
   EnergyTransportModel: TEnergyTransportNameFile;
   InnerEnergyTransportModel: TEnergyTransportNameFile;
 begin
+  frmGoPhast.PhastModel.ModflowPackages.GncPackage.IsSelected := False;
   result := True;
   TransportModels := TModelList.Create;
   EnergyTransportModels := TModelList.Create;
@@ -6348,16 +6354,16 @@ begin
   Model := frmGoPhast.PhastModel;
   if not Model.DisvUsed then
   begin
-    FErrorMessages.Add('ModelMuse only support the GNC package for DISV models.');
+    FErrorMessages.Add(SModelMuseOnlySupportTheGNCPackag);
     Exit;
   end;
   Model.ModflowPackages.GncPackage.IsSelected := True;
   if Assigned(OnUpdateStatusBar) then
   begin
-    OnUpdateStatusBar(self, 'importing GNC package');
+    OnUpdateStatusBar(self, SImportingGNCPackage);
   end;
 
-  FErrorMessages.Add('Importing the GNC package can be problematic. Consider using the original GNC file in the Model|MODFLOW Name File dialog box instead of using the imported GNC.');
+  FErrorMessages.Add(SImportingTheGNCPackageCanBeProbl);
 
   Gnc := Package.Package as TGnc;
   if Gnc.Options.EXPLICIT then

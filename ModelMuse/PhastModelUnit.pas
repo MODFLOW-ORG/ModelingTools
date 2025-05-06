@@ -42477,14 +42477,16 @@ begin
   end;
 
   LocalFormulaObject := FormulaObject as TFormulaObject;
+  // FormulaObject may be freed in ChangeFormula
+  // so it is set to nil here to prevent an access violation
+  // when it is set after calling ChangeFormula.
+  FormulaObject := nil;
   ParentModel.FormulaManager.ChangeFormula(LocalFormulaObject,
     NewFormula,
     Local3DCompiler,
     OnRemoveSubscription,
     OnRestoreSubscription, Subject);
   FormulaObject := LocalFormulaObject;
-
-//  FormulaObject := LocalFObject;
 end;
 
 procedure TCustomModel.ChangeGlobalVariable(const ParameterName: string;
