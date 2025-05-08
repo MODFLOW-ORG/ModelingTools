@@ -20083,6 +20083,7 @@ var
   FormulaObject: IFormulaObject;
 begin
   FDynamicTimesSeriesCollections.Free;
+  FDynamicTimesSeriesCollections := nil;
 //  FSubObservations.Free;
   FStoredMinimumFraction.Free;
   FreeAndNil(FFootprintWell);

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2025-05-07T22:05:20.239-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">ATES Run Model</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">ATES Run Model</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Select &quot;File|Export|MODFLOW 6 Input Files&quot; to run the model. The percent discrepancy in the first few stress periods can be high because there is no flow in the first few stress periods. You can check the energy budget in the list file to verify that the budget really is not a problem.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">For comparison with the original model described in mf6examples.pdf, import the temperatures at the following times: 210, 340 520, and 1270.</text></para>
+    <para styleclass="Normal"><image src="ATES_Temperatures_210.png" imagestyleclass="Default" scale="-70.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Plot of simulated temperature at 210 days</title><caption translate="true"><![CDATA[Plot of simulated temperature at 210 days]]></caption></image></para>
+    <para styleclass="Normal"><image src="ATES_Temperatures_340.png" imagestyleclass="Default" scale="-70.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Plot of simulated temperature at 340 days</title><caption translate="true"><![CDATA[Plot of simulated temperature at 340 days]]></caption></image></para>
+    <para styleclass="Normal"><image src="ATES_Temperatures_520.png" imagestyleclass="Default" scale="-70.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Plot of simulated temperature at 520 days</title><caption translate="true"><![CDATA[Plot of simulated temperature at 520 days]]></caption></image></para>
+    <para styleclass="Normal"><image src="ATES_Temperatures_1270.png" imagestyleclass="Default" scale="-70.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Plot of simulated temperature at 1270 days</title><caption translate="true"><![CDATA[Plot of simulated temperature at 1270 days]]></caption></image></para>
+  </body>
+</topic>

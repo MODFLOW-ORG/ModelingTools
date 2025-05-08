@@ -98,15 +98,16 @@ object frameModflow6TimeSeries: TframeModflow6TimeSeries
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
     TabOrder = 1
     OnSelectCell = rrdgTimeSeriesSelectCell
+    OnSetEditText = rrdgTimeSeriesSetEditText
     ExtendedAutoDistributeText = False
-    AutoMultiEdit = False
+    AutoMultiEdit = True
     AutoDistributeText = True
     AutoIncreaseColCount = True
     AutoIncreaseRowCount = True
     SelectedRowOrColumnColor = clAqua
     UnselectableColor = clBlack
     OnBeforeDrawCell = rrdgTimeSeriesBeforeDrawCell
-    ColorRangeSelection = False
+    ColorRangeSelection = True
     ColorSelectedColumn = False
     Columns = <
       item

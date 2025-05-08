@@ -32893,8 +32893,23 @@ begin
 end;
 
 procedure TfrmScreenObjectProperties.btnCancelClick(Sender: TObject);
+var
+  APage: TJvCustomPage;
+  AControl: TControl;
 begin
   inherited;
+  for var PageIndex := 0 to frameDynamicTimeSeries.plTimeSeries.PageCount - 1 do
+  begin
+    APage := frameDynamicTimeSeries.plTimeSeries[PageIndex];
+    for var ControlIndex := 0 to APage.ControlCount - 1 do
+    begin
+      AControl := APage.Controls[ControlIndex];
+      if AControl is TframeModflow6DynamicTimeSeries then
+      begin
+        TframeModflow6DynamicTimeSeries(AControl).NilInterface;
+      end;
+    end;
+  end;
   // If the user hasn't changed anything, don't force the user
   // to save the model.
   frmGoPhast.PhastModel.UpToDate := FPriorModelUpToDate;

@@ -4565,9 +4565,9 @@ begin
                 MaxTabCount := TabCount;
               end;
             end;
-            if ColCount <= ACol + MaxTabCount then
+            if ColCount <= ACol + MaxTabCount + 1 then
             begin
-              ColCount := ACol + MaxTabCount
+              ColCount := ACol + MaxTabCount + 1
             end;
           end;
           for LineIndex := 0 to AStringList.Count -1 do

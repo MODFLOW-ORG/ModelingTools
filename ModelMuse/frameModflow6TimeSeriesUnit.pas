@@ -35,6 +35,8 @@ type
       ARow: Integer);
     procedure btnInsertTimeClick(Sender: TObject);
     procedure btnCopyColumnClick(Sender: TObject);
+    procedure rrdgTimeSeriesSetEditText(Sender: TObject; ACol, ARow: LongInt; const
+        Value: string);
   private
     // @name contains @link(FTimesSeriesGroup)
     FTimesSeriesGroupItem: ITimeSeriesCollectionItem;
@@ -316,6 +318,20 @@ begin
     begin
       CanSelect := False;
     end;
+  end;
+end;
+
+procedure TframeModflow6TimeSeries.rrdgTimeSeriesSetEditText(Sender: TObject;
+    ACol, ARow: LongInt; const Value: string);
+begin
+  if rrdgTimeSeries.RowCount <> seTimeCount.AsInteger + Ord(tsrFirstTime) then
+  begin
+    seTimeCount.AsInteger := rrdgTimeSeries.RowCount - Ord(tsrFirstTime);;
+  end;
+
+  if seTimeSeriesCount.AsInteger <> rrdgTimeSeries.ColCount - Ord(tscFirstSeries) then
+  begin
+    seTimeSeriesCount.AsInteger := rrdgTimeSeries.ColCount - Ord(tscFirstSeries)
   end;
 end;
 

@@ -42,6 +42,7 @@ type
     procedure InitializeGrid;
     procedure GetData(ATimesSeriesGroup: IDyanmicTimesSeriesCollection; PestNames: TStringList);
     procedure SetData;
+    procedure NilInterface;
 //    property GroupItem: IDynamicTimeSeriesItem read FTimesSeriesGroupItem;
     { Public declarations }
   end;
@@ -247,6 +248,11 @@ begin
   finally
     rrdgTimeSeries.EndUpdate
   end;
+end;
+
+procedure TframeModflow6DynamicTimeSeries.NilInterface;
+begin
+  FTimesSeriesGroup := nil;
 end;
 
 procedure TframeModflow6DynamicTimeSeries.rrdgTimeSeriesBeforeDrawCell(

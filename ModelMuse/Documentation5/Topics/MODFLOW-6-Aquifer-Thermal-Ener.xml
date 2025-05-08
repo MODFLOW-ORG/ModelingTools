@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2025-05-07T18:12:49.372-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">MODFLOW 6 Aquifer Thermal Energy Storage</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">MODFLOW 6 Aquifer Thermal Energy Storage</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">This exercise reproduces the general features of ex-gwe-ates from the MODFLOW 6 examples. It is described in mf6examples.pdf distributed with MODFLOW6 as &quot;66 Aquifer Thermal Energy Storage.&quot; It is not an exact reproduction of the model. Among other changes, the model is based on a quad-tree refined grid rather than a triangular grid.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The model description in mf6examples.pdf states that it is a three layer model. However, it is implemented in a single layer divided into three zones rather than a model with multiple layers. Each zone represents a separate unit. This is only possible because the all the cells in the model are confined.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The model has a well along the left edge of the grid. All the cells in the middle unit will be refined and the cells near the well will be refined even more.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">A completed version of this model is distributed with ModelMuse. It is named ATES.gpt.</text></para>
+  </body>
+</topic>
