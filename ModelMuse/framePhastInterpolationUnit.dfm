@@ -47,8 +47,8 @@ object framePhastInterpolation: TframePhastInterpolation
   object cbPhastInterpolation: TJvCheckBox
     Left = 8
     Top = 16
-    Width = 182
-    Height = 20
+    Width = 179
+    Height = 17
     Caption = 'Use PHAST-style interpolation'
     Enabled = False
     TabOrder = 1

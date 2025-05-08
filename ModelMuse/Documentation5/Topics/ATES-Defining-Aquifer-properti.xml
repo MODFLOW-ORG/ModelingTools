@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2025-05-07T20:14:39.367-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2025-05-08T09:41:31.704-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd" status="Under Construction">
   <title translate="true">ATES Defining Aquifer properties</title>
   <body>
     <header>
@@ -148,11 +148,11 @@
     </table></para>
     <para styleclass="Normal"><image src="ATES_Default_Properties.png" imagestyleclass="Default" scale="-60.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture of the Edit Data Sets dialog box illustating the data sets that need to be edited</title><caption translate="true"><![CDATA[Screen capture of the Edit Data Sets dialog box illustating the data sets that need to be edited]]></caption></image></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">Now create a rectangle object to define the properties of the middle unit. It should extend from (0,35) to (135, 15). Its vertices should be the following.</text></para>
-    <para styleclass="Code Example"><text styleclass="Code Example" translate="true">0</text><tab /><text styleclass="Code Example" translate="true">35</text></para>
-    <para styleclass="Code Example"><text styleclass="Code Example" translate="true">135</text><tab /><text styleclass="Code Example" translate="true">35</text></para>
-    <para styleclass="Code Example"><text styleclass="Code Example" translate="true">135</text><tab /><text styleclass="Code Example" translate="true">15</text></para>
-    <para styleclass="Code Example"><text styleclass="Code Example" translate="true">0</text><tab /><text styleclass="Code Example" translate="true">15</text></para>
-    <para styleclass="Code Example" style="margin-bottom:10px;"><text styleclass="Code Example" translate="true">0</text><tab /><text styleclass="Code Example" translate="true">35</text></para>
+    <para styleclass="Code Example"><text styleclass="Code Example" translate="true">0</text><tab/><text styleclass="Code Example" translate="true">35</text></para>
+    <para styleclass="Code Example"><text styleclass="Code Example" translate="true">135</text><tab/><text styleclass="Code Example" translate="true">35</text></para>
+    <para styleclass="Code Example"><text styleclass="Code Example" translate="true">135</text><tab/><text styleclass="Code Example" translate="true">15</text></para>
+    <para styleclass="Code Example"><text styleclass="Code Example" translate="true">0</text><tab/><text styleclass="Code Example" translate="true">15</text></para>
+    <para styleclass="Code Example" style="margin-bottom:10px;"><text styleclass="Code Example" translate="true">0</text><tab/><text styleclass="Code Example" translate="true">35</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">Use the object to set the following properties.</text></para>
     <para styleclass="Normal"><table styleclass="Default" rowcount="6" colcount="2" style="border-width:2px; border-spacing:0px; border-collapse:collapse; cell-border-width:1px; border-color:#000000; border-style:solid;">
       <tr style="vertical-align:top">

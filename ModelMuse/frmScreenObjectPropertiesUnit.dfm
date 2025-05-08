@@ -20,7 +20,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
     Top = 0
     Width = 740
     Height = 516
-    ActivePage = tabDynamicTimeSeries
+    ActivePage = tabNodes
     Align = alClient
     TabHeight = 28
     TabOrder = 0
@@ -20797,6 +20797,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         ExtendedAutoDistributeText = False
         AutoMultiEdit = True
         AutoDistributeText = True
+        TabsOnly = False
         AutoIncreaseColCount = False
         AutoIncreaseRowCount = True
         SelectedRowOrColumnColor = clAqua

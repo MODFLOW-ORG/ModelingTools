@@ -108,6 +108,7 @@ object frameModflow6DynamicTimeSeries: TframeModflow6DynamicTimeSeries
     ExtendedAutoDistributeText = False
     AutoMultiEdit = True
     AutoDistributeText = True
+    TabsOnly = False
     AutoIncreaseColCount = True
     AutoIncreaseRowCount = True
     SelectedRowOrColumnColor = clAqua

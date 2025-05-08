@@ -10458,6 +10458,9 @@ const
 
 //               Bug fix: Fixed export of UZT observations when the observations
 //                were only specified as calibration observations.
+//               Enhancement: In certain tables, the user can now paste
+//                comma-separated text and have the text be properly distributed
+//                among the cells.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

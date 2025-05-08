@@ -134,7 +134,7 @@ object frameView: TframeView
     Exaggeration = 1.000000000000000000
     HorizontalDirection = hdRight
     Image32.Left = 0
-    Image32.Top = 157
+    Image32.Top = 167
     Image32.Width = 467
     Image32.Height = 208
     Image32.Margins.Left = 4

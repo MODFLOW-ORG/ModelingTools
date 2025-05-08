@@ -213,6 +213,7 @@ inherited frmModflowTime: TfrmModflowTime
         ExtendedAutoDistributeText = False
         AutoMultiEdit = True
         AutoDistributeText = True
+        TabsOnly = False
         AutoIncreaseColCount = False
         AutoIncreaseRowCount = True
         SelectedRowOrColumnColor = clAqua

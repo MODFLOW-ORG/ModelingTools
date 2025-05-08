@@ -4430,6 +4430,7 @@ var
       result := AString;
       AString := '';
     end;
+    result := Trim(result);
   end;
   procedure AssignTextToCell;
   var
