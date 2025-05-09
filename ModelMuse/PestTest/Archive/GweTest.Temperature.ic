@@ -1,0 +1,14 @@
+# Initial concentration file for Temperature file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+END OPTIONS
+
+BEGIN GRIDDATA
+  STRT LAYERED IPRN    12
+    CONSTANT   1.000000000000E-001  # STRT 1
+
+    CONSTANT   1.000000000000E-001  # STRT 2
+
+    CONSTANT   1.000000000000E-001  # STRT 3
+
+END GRIDDATA
+

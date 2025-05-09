@@ -1,0 +1,26 @@
+BEGIN OPTIONS
+  PRINT_INPUT
+END OPTIONS
+
+BEGIN TIMING
+  TDIS6 'GweTest.tdis'
+END TIMING
+
+BEGIN MODELS
+  GWF6 'GweTest.nam' 'MODFLOW'
+  GWT6 'GweTest.Chem.Gwt_nam' 'Chem'
+  GWE6 'GweTest.Temperature.Gwe_nam' 'Temperature'
+END MODELS
+
+BEGIN EXCHANGES
+  GWF6-GWT6 GweTest.Chem.gwfgwt MODFLOW Chem
+  GWF6-GWE6 GweTest.Temperature.gwfgwe MODFLOW Temperature
+END EXCHANGES
+
+BEGIN SOLUTIONGROUP     1
+  MXITER     1
+  IMS6 'GweTest.ims' 'MODFLOW' 
+  IMS6 'GweTest.Chem.ims' 'Chem' 
+  IMS6 'GweTest.Temperature.ims' 'Temperature' 
+END SOLUTIONGROUP
+

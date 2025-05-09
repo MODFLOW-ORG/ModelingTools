@@ -1511,7 +1511,10 @@ begin
   FormPosition.Left := Left;
   FormPosition.Width := Width;
   FormPosition.Height := Height;
-  frmGoPhast.DataSetsPosition := FormPosition;
+  if frmGoPhast <> nil then
+  begin
+    frmGoPhast.DataSetsPosition := FormPosition;
+  end;
 
   SelectedEdit := nil;
 

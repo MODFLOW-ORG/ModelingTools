@@ -995,7 +995,14 @@ begin
                         HeadDrawdown.FName := Obs.Name + '_C'
                           + IntToStr(ObsIndex) + '_' + IntToStr(Species);
                         FConcentrations[Species].Add(HeadDrawdown);
-                        DirectObsLines.Add(Format('  ID %0:s', ['conc_' + HeadDrawdown.FName]));
+                        if Model.MobileComponents[Species].UsedForGWE then
+                        begin
+                          DirectObsLines.Add(Format('  ID %0:s', ['temp_' + HeadDrawdown.FName]));
+                        end
+                        else
+                        begin
+                          DirectObsLines.Add(Format('  ID %0:s', ['conc_' + HeadDrawdown.FName]));
+                        end;
                         DirectObsLines.Add(Format('  LOCATION %0:g %1:g', [APoint.x, APoint.y]));
                         for ObservationIndex := 0 to Obs.CalibrationObservations.Count - 1 do
                         begin
@@ -5161,15 +5168,16 @@ begin
               begin
                 if CalibrationObservations.UsesMawConnectionNumber(IconIndex, AnObsType) then
                 begin
-                  DirectObsLines.Add(Format('  ID %s_%d', [obsnam, IconIndex]));
                   for CalibIndex := 0 to CalibrationObservations.Count - 1 do
                   begin
                     CalibObs := CalibrationObservations[CalibIndex];
                     if (CalibObs.ObSeries = osMwt)
                       and (AnObsType = CalibObs.MwtOb)
                       and (IconIndex = CalibObs.MawConnectionNumber)
+                      and (FSpeciesIndex = CalibObs.SpeciesIndex)
                       then
                     begin
+                      DirectObsLines.Add(Format('  ID %s_%d', [obsnam, IconIndex]));
                       DirectObsLines.Add(Format('  OBSNAME %0:s %1:g PRINT',
                         [CalibObs.Name, CalibObs.Time - StartTime]));
                       if CalibObs.Time = StartTime then
@@ -5187,13 +5195,15 @@ begin
             end
             else
             begin
-              DirectObsLines.Add(Format('  ID %s', [obsnam]));
               for CalibIndex := 0 to CalibrationObservations.Count - 1 do
               begin
                 CalibObs := CalibrationObservations[CalibIndex];
                 if (CalibObs.ObSeries = osMwt)
-                  and (AnObsType = CalibObs.MwtOb) then
+                  and (AnObsType = CalibObs.MwtOb)
+                  and (CalibObs.SpeciesIndex = FSpeciesIndex)
+                  then
                 begin
+                  DirectObsLines.Add(Format('  ID %s', [obsnam]));
                   DirectObsLines.Add(Format('  OBSNAME %0:s %1:g PRINT',
                     [CalibObs.Name, CalibObs.Time - StartTime]));
                   if CalibObs.Time = StartTime then
@@ -5500,13 +5510,13 @@ begin
             begin
               if (AnObsType in CalibObservations.UztObs[FSpeciesIndex]) then
               begin
-                DirectObsLines.Add(Format('  ID %s', [obsname]));
                 for CalibIndex := 0 to CalibObservations.Count - 1 do
                 begin
                   CalibObs := CalibObservations[CalibIndex];
                   if (CalibObs.ObSeries = osUzt)
                     and (AnObsType = CalibObs.UztOb) and (CalibObs.SpeciesIndex = FSpeciesIndex) then
                   begin
+                    DirectObsLines.Add(Format('  ID %s', [obsname]));
                     DirectObsLines.Add(Format('  OBSNAME %0:s %1:g PRINT',
                       [CalibObs.Name, CalibObs.Time - StartTime]));
                     if CalibObs.Time = StartTime then

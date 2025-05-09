@@ -1,0 +1,14 @@
+# OBS: Observation Utility file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+    DIGITS     10
+    PRINT_INPUT
+END OPTIONS
+
+BEGIN CONTINUOUS FILEOUT GweTest.Temperature.uze-temp_ob.csv
+  uet_uzf_1 temperature Object18 
+END CONTINUOUS
+
+BEGIN CONTINUOUS FILEOUT GweTest.Temperature.uze-uzt_ob.csv
+  ueu_uzf_1 uze Object18 
+END CONTINUOUS
+

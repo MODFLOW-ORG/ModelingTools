@@ -1,0 +1,68 @@
+BEGIN OPTIONS
+  LISTING GweTest.Mf6ObsExtInsLst
+  VALUES GweTest.Mf6Values
+END OPTIONS
+
+BEGIN OBSERVATION_FILES
+FILENAME "GweTest.Chem.ob_gw_out_concentration.csv" TEXT
+FILENAME "GweTest.Temperature.ob_gw_out_temperature.csv" TEXT
+FILENAME "GweTest.rvob_out_riv.csv" TEXT
+FILENAME "GweTest.Temperature.sfe_mass_flow_ob.csv" TEXT
+FILENAME "GweTest.Chem.mwt_concentration_ob.csv" TEXT
+FILENAME "GweTest.Chem.mwt_mwt_ob.csv" TEXT
+FILENAME "GweTest.Temperature.mwe_temperature_ob.csv" TEXT
+FILENAME "GweTest.Temperature.mwe_mwe_ob.csv" TEXT
+FILENAME "GweTest.Temperature.lke_concentration_ob.csv" TEXT
+FILENAME "GweTest.Chem.uzt-conc_ob.csv" TEXT
+FILENAME "GweTest.Chem.uzt-uzt_ob.csv" TEXT
+FILENAME "GweTest.Temperature.uze-temp_ob.csv" TEXT
+FILENAME "GweTest.Temperature.uze-uzt_ob.csv" TEXT
+END OBSERVATION_FILES
+
+BEGIN IDENTIFIERS
+  ID temp_MyObs_C1_1
+  LOCATION 450 -350
+  OBSNAME conc_MyObs_C1_1_1 1
+
+  ID temp_MyObs_C2_1
+  LOCATION 450 -450
+  OBSNAME conc_MyObs_C2_1_1 1
+
+  ID temp_MyObs_C3_1
+  LOCATION 350 -450
+  OBSNAME conc_MyObs_C3_1_1 1
+
+  ID temp_MyObs_C4_1
+  LOCATION 350 -350
+  OBSNAME conc_MyObs_C4_1_1 1
+
+  ID stmf_SFR_Obs_1
+  OBSNAME enflow 1 PRINT
+
+
+
+  ID mtemp_Maw_1
+  OBSNAME maw1 1 PRINT
+
+  ID mmwe_Maw_1
+  OBSNAME maw2 1 PRINT
+
+  ID letemp_Lkt_1
+  OBSNAME obs1 1 PRINT
+
+
+
+  ID uet_uzf_1
+  OBSNAME temp 1 PRINT
+
+  ID ueu_uzf_1
+  OBSNAME flow 1 PRINT
+
+END IDENTIFIERS
+
+BEGIN DERIVED_OBSERVATIONS
+# Defined by Object3
+  OBSNAME ob1 PRINT
+  INTERPOLATE 437.275985663082 -361.11111111111 conc_MyObs_C1_1_1 conc_MyObs_C2_1_1 conc_MyObs_C3_1_1 conc_MyObs_C4_1_1
+
+END DERIVED_OBSERVATIONS

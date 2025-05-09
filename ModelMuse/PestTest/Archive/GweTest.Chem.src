@@ -1,0 +1,16 @@
+# SRC: GWT Mass Source Loading Package file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+    AUXILIARY IFACE
+    BOUNDNAMES
+    PRINT_INPUT
+    SAVE_FLOWS
+END OPTIONS
+
+BEGIN DIMENSIONS
+  MAXBOUND     1
+END DIMENSIONS
+
+BEGIN PERIOD      1
+     1     8     4  1.000000000000E+000      0 'Object15'  # Stress periods: Layer Row Column smassrate IFACE boundname
+END PERIOD 
+

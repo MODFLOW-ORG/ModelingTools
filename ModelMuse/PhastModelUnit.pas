@@ -10461,6 +10461,9 @@ const
 //               Enhancement: In certain tables, the user can now paste
 //                comma-separated text and have the text be properly distributed
 //                among the cells.
+//               Bug fix: Fixed a bug that could cause an access violation if
+//                ModelMuse was closed while the Edit Data Sets dialog box
+//                was open.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

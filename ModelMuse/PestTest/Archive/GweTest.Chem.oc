@@ -1,0 +1,12 @@
+# Output Control file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+  BUDGET FILEOUT 'GweTest.Chem.cbc'
+  CONCENTRATION FILEOUT 'GweTest.Chem.conc'
+END OPTIONS
+
+BEGIN PERIOD      1
+  SAVE CONCENTRATION ALL
+  PRINT BUDGET ALL
+  SAVE BUDGET ALL
+END PERIOD 
+

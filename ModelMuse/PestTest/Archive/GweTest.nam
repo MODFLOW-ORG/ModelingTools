@@ -1,0 +1,23 @@
+# Name File for MODFLOW created on 5/9/2025 by ModelMuse Version 5.3.1.16
+BEGIN OPTIONS
+  LIST GweTest.lst
+  PRINT_INPUT
+  SAVE_FLOWS
+END OPTIONS
+
+BEGIN PACKAGES
+  DIS6         GweTest.dis  DIS
+  IC6          GweTest.ic  IC
+  NPF6         GweTest.npf  NPF
+  OC6          GweTest.oc  OC
+  CHD6         GweTest.chd  CHD-1
+  GHB6         GweTest.ghb  GHB-1
+  WEL6         GweTest.wel  WEL-1
+  RIV6         GweTest.riv  RIV-1
+  SFR6         GweTest.sfr  SFR-1
+  MAW6         GweTest.maw6  MAW-1
+  RCH6         GweTest.rch  RCH-1
+  LAK6         GweTest.lak6  LAK-1
+  UZF6         GweTest.uzf  UZF-1
+  MVR6         GweTest.mvr  MVR-1
+END PACKAGES

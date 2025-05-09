@@ -1,0 +1,12 @@
+# Output Control file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+  BUDGET FILEOUT 'GweTest.Temperature.cbc'
+  TEMPERATURE FILEOUT 'GweTest.Temperature.temp'
+END OPTIONS
+
+BEGIN PERIOD      1
+  SAVE TEMPERATURE ALL
+  PRINT BUDGET ALL
+  SAVE BUDGET ALL
+END PERIOD 
+

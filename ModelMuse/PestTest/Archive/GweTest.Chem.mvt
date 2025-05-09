@@ -1,0 +1,8 @@
+# MVR: Water Mover package file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+    PRINT_INPUT
+    SAVE_FLOWS
+    BUDGET FILEOUT GweTest.Chem.mvt_budget
+    BUDGETCSV FILEOUT GweTest.Chem.mvt_budget.csv
+END OPTIONS
+

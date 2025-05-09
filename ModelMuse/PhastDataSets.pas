@@ -26,11 +26,11 @@ type
     // @name stores the @link(TInterpolationDirection)s stored
     // in the @classname.
     FValues: array of TInterpolationDirection;
-    // See @link(Items).
-    function GetItems(const Index1, Index2, Index3: Integer):
+    // See @link(InterpDirection).
+    function GetInterpDirection(const Index1, Index2, Index3: Integer):
       TInterpolationDirection;
-    // See @link(Items).
-    procedure SetItems(const Index1, Index2, Index3: Integer;
+    // See @link(InterpDirection).
+    procedure SetInterpDirection(const Index1, Index2, Index3: Integer;
       const Value: TInterpolationDirection);
   public
     // @name sets the number of @link(TInterpolationDirection)s stored
@@ -40,8 +40,8 @@ type
     constructor Create(Quantum1, Quantum2, Quantum3: TSPAQuantum);
     // @name retrieves or stores a @link(TInterpolationDirection)
     // by its location.
-    property Items[const Index1, Index2, Index3: Integer]:
-      TInterpolationDirection read GetItems write SetItems; default;
+    property InterpDirections[const Index1, Index2, Index3: Integer]:
+      TInterpolationDirection read GetInterpDirection write SetInterpDirection; default;
   end;
 
   {
@@ -1008,7 +1008,7 @@ begin
   SetLength(FValues, 4);
 end;
 
-function T3DSparseInterpolationDirectionArray.GetItems(const Index1,
+function T3DSparseInterpolationDirectionArray.GetInterpDirection(const Index1,
   Index2, Index3: Integer): TInterpolationDirection;
 var
   resultPtr: Pointer;
@@ -1018,7 +1018,7 @@ begin
   result := FValues[Pred(longint(resultPtr))];
 end;
 
-procedure T3DSparseInterpolationDirectionArray.SetItems(const Index1,
+procedure T3DSparseInterpolationDirectionArray.SetInterpDirection(const Index1,
   Index2, Index3: Integer; const Value: TInterpolationDirection);
 var
   DataPtr: Pointer;
@@ -1203,7 +1203,7 @@ end;
 
 destructor TPhastInterpolationValues.Destroy;
 begin
-  if frmGoPhast.PhastModel <> nil then
+  if (frmGoPhast <> nil) and (frmGoPhast.PhastModel <> nil) then
   begin
     frmGoPhast.PhastModel.FormulaManager.Remove(FMixtureFormula, nil, nil, self);
   end;

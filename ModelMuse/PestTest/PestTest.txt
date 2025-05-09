@@ -1,5 +1,5 @@
 ..\Debug\Win32\ModelMuse.exe
-2060
+2137
 PestPilotPointTest.gpt
 	Archive\PestPilotPointTest.axml
 	Archive\PestPilotPointTest.chd
@@ -2060,3 +2060,80 @@ ArrayObsMF6.gpt
 	Archive\ArrayObsMF6.RunModflow.Bat
 	Archive\ArrayObsMF6.tdis
 	Archive\usgs.ArrayObsMF6.reference
+GweTest.gpt
+	Archive\GweTest.axml
+	Archive\GweTest.chd
+	Archive\GweTest.Chem.adv
+	Archive\GweTest.Chem.cnc
+	Archive\GweTest.Chem.dis
+	Archive\GweTest.Chem.dsp
+	Archive\GweTest.Chem.gwfgwt
+	Archive\GweTest.Chem.Gwt_nam
+	Archive\GweTest.Chem.ic
+	Archive\GweTest.Chem.ims
+	Archive\GweTest.Chem.lkt
+	Archive\GweTest.Chem.mst
+	Archive\GweTest.Chem.mvt
+	Archive\GweTest.Chem.mwt
+	Archive\GweTest.Chem.obs
+	Archive\GweTest.Chem.ob_mwt
+	Archive\GweTest.Chem.ob_uzt
+	Archive\GweTest.Chem.oc
+	Archive\GweTest.Chem.pestobs
+	Archive\GweTest.Chem.sft
+	Archive\GweTest.Chem.src
+	Archive\GweTest.Chem.ssm
+	Archive\GweTest.Chem.uzt
+	Archive\GweTest.dis
+	Archive\GweTest.ghb
+	Archive\GweTest.gsf
+	Archive\GweTest.ic
+	Archive\GweTest.ims
+	Archive\GweTest.jtf
+	Archive\GweTest.lak6
+	Archive\GweTest.maw6
+	Archive\GweTest.Mf6ExtractValues
+	Archive\GweTest.Mf6WriteIns
+	Archive\GweTest.mfsim.nam
+	Archive\GweTest.mvr
+	Archive\GweTest.nam
+	Archive\GweTest.nam.archive
+	Archive\GweTest.npf
+	Archive\GweTest.ob_rvob
+	Archive\GweTest.oc
+	Archive\GweTest.pst
+	Archive\GweTest.ptf
+	Archive\GweTest.pval
+	Archive\GweTest.rch
+	Archive\GweTest.riv
+	Archive\GweTest.RunModel.Bat
+	Archive\GweTest.RunModflow.Bat
+	Archive\GweTest.sfr
+	Archive\GweTest.tdis
+	Archive\GweTest.Temperature.adv
+	Archive\GweTest.Temperature.cnd
+	Archive\GweTest.Temperature.ctp
+	Archive\GweTest.Temperature.dis
+	Archive\GweTest.Temperature.esl
+	Archive\GweTest.Temperature.esl.tpl
+	Archive\GweTest.Temperature.est
+	Archive\GweTest.Temperature.Gwe_nam
+	Archive\GweTest.Temperature.gwfgwe
+	Archive\GweTest.Temperature.ic
+	Archive\GweTest.Temperature.ims
+	Archive\GweTest.Temperature.lke
+	Archive\GweTest.Temperature.mve
+	Archive\GweTest.Temperature.mwe
+	Archive\GweTest.Temperature.obs
+	Archive\GweTest.Temperature.ob_lke
+	Archive\GweTest.Temperature.ob_mwe
+	Archive\GweTest.Temperature.ob_sfe
+	Archive\GweTest.Temperature.ob_uze
+	Archive\GweTest.Temperature.oc
+	Archive\GweTest.Temperature.pestobs
+	Archive\GweTest.Temperature.sfe
+	Archive\GweTest.Temperature.ssm
+	Archive\GweTest.Temperature.uze
+	Archive\GweTest.uzf
+	Archive\GweTest.wel
+	Archive\usgs.GweTest.reference

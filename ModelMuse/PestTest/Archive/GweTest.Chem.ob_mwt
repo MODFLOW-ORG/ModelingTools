@@ -1,0 +1,14 @@
+# OBS: Observation Utility file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+    DIGITS     10
+    PRINT_INPUT
+END OPTIONS
+
+BEGIN CONTINUOUS FILEOUT GweTest.Chem.mwt_concentration_ob.csv
+ 'mconc_Maw_0' concentration  Object17 
+END CONTINUOUS
+
+BEGIN CONTINUOUS FILEOUT GweTest.Chem.mwt_mwt_ob.csv
+ 'mmwt_Maw_0' mwt  Object17 
+END CONTINUOUS
+

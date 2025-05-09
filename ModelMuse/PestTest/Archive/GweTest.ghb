@@ -1,0 +1,16 @@
+# GHB: General-Head Boundary package file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+    AUXILIARY IFACE Chem Temperature
+    BOUNDNAMES
+    PRINT_INPUT
+    SAVE_FLOWS
+END OPTIONS
+
+BEGIN DIMENSIONS
+  MAXBOUND     1
+END DIMENSIONS
+
+BEGIN PERIOD      1
+     1     1     1  1.000000000000E+000   1.000000000000E+000      0  2.000000000000E+000   3.000000000000E+000  'Object10'  # Data Set 6: Layer Row Column Bhead Cond IFACE Chem Temperature boundname
+END PERIOD 
+

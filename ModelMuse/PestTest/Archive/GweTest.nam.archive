@@ -1,0 +1,23 @@
+# Name File for MODFLOW created on 5/9/2025 by ModelMuse Version 5.3.1.16
+BEGIN OPTIONS
+  LIST ..\..\output\output.GweTest\GweTest.lst
+  PRINT_INPUT
+  SAVE_FLOWS
+END OPTIONS
+
+BEGIN PACKAGES
+  DIS6         ..\..\model\model.GweTest\GweTest.dis  DIS
+  IC6          ..\..\model\model.GweTest\GweTest.ic  IC
+  NPF6         ..\..\model\model.GweTest\GweTest.npf  NPF
+  OC6          ..\..\model\model.GweTest\GweTest.oc  OC
+  CHD6         ..\..\model\model.GweTest\GweTest.chd  CHD-1
+  GHB6         ..\..\model\model.GweTest\GweTest.ghb  GHB-1
+  WEL6         ..\..\model\model.GweTest\GweTest.wel  WEL-1
+  RIV6         ..\..\model\model.GweTest\GweTest.riv  RIV-1
+  SFR6         ..\..\model\model.GweTest\GweTest.sfr  SFR-1
+  MAW6         ..\..\model\model.GweTest\GweTest.maw6  MAW-1
+  RCH6         ..\..\model\model.GweTest\GweTest.rch  RCH-1
+  LAK6         ..\..\model\model.GweTest\GweTest.lak6  LAK-1
+  UZF6         ..\..\model\model.GweTest\GweTest.uzf  UZF-1
+  MVR6         ..\..\model\model.GweTest\GweTest.mvr  MVR-1
+END PACKAGES

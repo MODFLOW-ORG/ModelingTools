@@ -7,10 +7,11 @@ inherited frmDataSets: TfrmDataSets
   ClientHeight = 458
   ClientWidth = 620
   Font.Height = 19
+  StyleElements = [seFont, seClient, seBorder]
   OnActivate = FormActivate
   OnClose = FormClose
-  ExplicitWidth = 632
-  ExplicitHeight = 496
+  ExplicitWidth = 636
+  ExplicitHeight = 497
   TextHeight = 19
   object Splitter1: TSplitter
     Left = 295
@@ -29,8 +30,6 @@ inherited frmDataSets: TfrmDataSets
     Align = alBottom
     ParentColor = True
     TabOrder = 2
-    ExplicitTop = 381
-    ExplicitWidth = 614
     DesignSize = (
       620
       41)
@@ -63,7 +62,6 @@ inherited frmDataSets: TfrmDataSets
       NumGlyphs = 2
       TabOrder = 3
       OnClick = btnOKClick
-      ExplicitLeft = 416
     end
     object btnCancel: TBitBtn
       Left = 519
@@ -75,7 +73,6 @@ inherited frmDataSets: TfrmDataSets
       NumGlyphs = 2
       TabOrder = 4
       OnClick = btnCancelClick
-      ExplicitLeft = 513
     end
     object btnAdd: TButton
       Left = 8
@@ -105,7 +102,6 @@ inherited frmDataSets: TfrmDataSets
       NumGlyphs = 2
       TabOrder = 2
       OnClick = btnHelpClick
-      ExplicitLeft = 319
     end
   end
   object sbStatusBar: TStatusBar
@@ -116,8 +112,6 @@ inherited frmDataSets: TfrmDataSets
     Panels = <>
     ParentColor = True
     SimplePanel = True
-    ExplicitTop = 422
-    ExplicitWidth = 614
   end
   object tvDataSets: TTreeView
     Left = 0
@@ -134,8 +128,6 @@ inherited frmDataSets: TfrmDataSets
     OnChange = tvDataSetsChange
     OnChanging = tvDataSetsChanging
     OnMouseDown = tvDataSetsMouseDown
-    ExplicitWidth = 289
-    ExplicitHeight = 381
   end
   object pcDataSets: TJvPageControl
     Left = 300
@@ -145,8 +137,6 @@ inherited frmDataSets: TfrmDataSets
     ActivePage = tabParameters
     Align = alRight
     TabOrder = 1
-    ExplicitLeft = 294
-    ExplicitHeight = 381
     object tabBasic: TTabSheet
       Caption = 'Basic'
       DesignSize = (
@@ -396,6 +386,7 @@ inherited frmDataSets: TfrmDataSets
           Top = 128
           Width = 78
           Height = 19
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 12
           ExplicitTop = 128
           ExplicitWidth = 78
@@ -406,6 +397,7 @@ inherited frmDataSets: TfrmDataSets
           Top = 188
           Width = 78
           Height = 19
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 12
           ExplicitTop = 188
           ExplicitWidth = 78
@@ -416,6 +408,7 @@ inherited frmDataSets: TfrmDataSets
           Top = 128
           Width = 54
           Height = 19
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 184
           ExplicitTop = 128
           ExplicitWidth = 54
@@ -426,6 +419,7 @@ inherited frmDataSets: TfrmDataSets
           Top = 188
           Width = 54
           Height = 19
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 184
           ExplicitTop = 188
           ExplicitWidth = 54
@@ -436,6 +430,7 @@ inherited frmDataSets: TfrmDataSets
           Top = 252
           Width = 111
           Height = 19
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 12
           ExplicitTop = 252
           ExplicitWidth = 111
@@ -464,6 +459,7 @@ inherited frmDataSets: TfrmDataSets
           Left = 12
           Top = 153
           Height = 30
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = framePhastInterpolationrdeDistance1Change
           ExplicitLeft = 12
           ExplicitTop = 153
@@ -473,6 +469,7 @@ inherited frmDataSets: TfrmDataSets
           Left = 12
           Top = 211
           Height = 30
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = framePhastInterpolationrdeDistance2Change
           ExplicitLeft = 12
           ExplicitTop = 211
@@ -482,6 +479,7 @@ inherited frmDataSets: TfrmDataSets
           Left = 184
           Top = 153
           Height = 30
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = framePhastInterpolationrdeValue1Change
           ExplicitLeft = 184
           ExplicitTop = 153
@@ -491,6 +489,7 @@ inherited frmDataSets: TfrmDataSets
           Left = 184
           Top = 214
           Height = 30
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = framePhastInterpolationrdeValue2Change
           ExplicitLeft = 184
           ExplicitTop = 214
@@ -515,6 +514,7 @@ inherited frmDataSets: TfrmDataSets
           Width = 272
           Height = 27
           TabOrder = 7
+          StyleElements = [seFont, seClient, seBorder]
           OnChange = framePhastInterpolationedMixFormulaChange
           ExplicitLeft = 12
           ExplicitTop = 277

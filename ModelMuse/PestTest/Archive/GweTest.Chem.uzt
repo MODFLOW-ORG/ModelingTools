@@ -1,0 +1,24 @@
+# UZF6: Unsaturated-Zone Flow Package for MODFLOW 6 file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+BEGIN OPTIONS
+    FLOW_PACKAGE_NAME UZF-1
+    FLOW_PACKAGE_AUXILIARY_NAME  Chem
+    BOUNDNAMES
+    PRINT_INPUT
+    SAVE_FLOWS
+    CONCENTRATION FILEOUT GweTest.Chem.uzt_conc
+    BUDGET FILEOUT GweTest.Chem.uzt_budget
+    OBS6 FILEIN GweTest.Chem.ob_uzt
+END OPTIONS
+
+BEGIN PACKAGEDATA
+# <uzfno> <strt> [<aux(naux)>] [<boundname>
+       1  0.000000000000E+000  Object18
+END PACKAGEDATA
+
+BEGIN PERIOD      1
+# <uzfno> <uztsetting>
+     1 STATUS ACTIVE
+     1 INFILTRATION  1.100000000000E+000 
+
+END PERIOD 
+
