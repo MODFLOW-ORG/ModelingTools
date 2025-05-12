@@ -1,4 +1,4 @@
-ModelMuse – Version 5.3.1.0
+ModelMuse – Version 5.4.0.0
 
 NOTE: Any use of trade, product or firm names is for descriptive purposes 
       only and does not imply endorsement by the U.S. Government.
@@ -188,6 +188,17 @@ Add the following JCL directories to the Library path if they are not added
 automatically when installing the JCL.
 source\common
 source\windows
+
+When installing in the Community Edition, compile the programs in the 
+C:\Users\<user>\Documents\Embarcadero\Studio\23.0\CatalogRepository\JEDICodeLibraryJCL\install
+directory. The RegHelper can not be compiled until after JediInstaller is run
+because it creates the file jcld29win32.inc that is used in RegHelper.
+After running JediInstaller, compile RegHelper and run JediInstaller again with Delphi closed.
+Then open Delphi. You may get warning messages about some bpl packages not being found. 
+Open C:\Users\<user>\Documents\Embarcadero\Studio\23.0\CatalogRepository\JEDICodeLibraryJCL\packages\JclPackagesD290.groupproj.
+Then build all the packages in the group project (Project|Build All ProjectsO and install the experts.
+To install one of the experts, right-click on it and select "Install."
+
 JVCL Version 2023.11 was used in compiling ModelMuse. 
 When installed from the GetIt Package Manager, both the JCL and JVCL create
 installer programs. The installer programs, when run will install the JCL 
