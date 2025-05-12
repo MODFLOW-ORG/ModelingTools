@@ -3568,6 +3568,12 @@ begin
             ObservationType := 'interbed-compaction';
             Prefix := 'cico_';
           end;
+        coIntbedCompPct:
+          begin
+            OutputExtension := '.interbed-compaction_pct_ob' + OutputTypeExtension;
+            ObservationType := 'interbed-compaction-pct';
+            Prefix := 'cico_';
+          end;
         coInelastComp:
           begin
             OutputExtension := '.inelastic-compaction_ob' + OutputTypeExtension;
@@ -3731,7 +3737,7 @@ begin
 
           case AnObsType of
             coCSub, coInelastCSub, coElastCSub, coSk, coSke, coIntbedComp,
-            coInelastComp, coElastComp, coThickness:
+            coIntbedCompPct, coInelastComp, coElastComp, coThickness:
               begin
                 if (ScreenObject.ModflowCSub <> nil)
                   and ScreenObject.ModflowCSub.CSubPackageData.Used then

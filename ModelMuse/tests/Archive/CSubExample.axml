@@ -46,6 +46,7 @@
     <FileName Model_Name="CSubExample" FileType="Model Output">CSubExample.inelastic-csub_ob.csv</FileName>
     <FileName Model_Name="CSubExample" FileType="Model Output">CSubExample.InnerSolution.CSV</FileName>
     <FileName Model_Name="CSubExample" FileType="Model Output">CSubExample.interbed-compaction_ob.csv</FileName>
+    <FileName Model_Name="CSubExample" FileType="Model Output">CSubExample.interbed-compaction_pct_ob.csv</FileName>
     <FileName Model_Name="CSubExample" FileType="Model Output">CSubExample.lst</FileName>
     <FileName Model_Name="CSubExample" FileType="Model Output">CSubExample.ob_gw_out_head.csv</FileName>
     <FileName Model_Name="CSubExample" FileType="Model Output">CSubExample.OuterSolution.CSV</FileName>

@@ -563,7 +563,7 @@ begin
     for ObsIndex := 0 to FObservations.Count - 1 do
     begin
       CSubObs := FObservations[ObsIndex];
-      IbObsTypes := [coCSub, coInelastCSub, coElastCSub, coSk, coSke, coIntbedComp,
+      IbObsTypes := [coCSub, coInelastCSub, coElastCSub, coSk, coSke, coIntbedComp, coIntbedCompPct,
             coInelastComp, coElastComp, coThickness, coTheta, coDelayFlowTop, coDelayFlowBot, coDelayHead,
         coDelayGStress, coDelayEStress, coDelayPreConStress, coDelayComp,
         coDelayThickness, coDelayTheta]

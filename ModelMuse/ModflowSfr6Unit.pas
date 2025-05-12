@@ -829,17 +829,9 @@ type
       write SetStreambedThickness;
     property HydraulicConductivity: string read GetHydraulicConductivity
       write SetHydraulicConductivity;
-    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity
-  {$IFNDEF GWE}
-    stored False
-  {$ENDIF}
-    ;
-    property ThermalThickness: string read GetThermalThickness write SetThermalThickness
-  {$IFNDEF GWE}
-    stored False
-  {$ENDIF}
-    ;
-//  INITIALSTAGES
+    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity;
+    property ThermalThickness: string read GetThermalThickness write SetThermalThickness;
+    //  INITIALSTAGES
     property InitialStage: string read GetInitialStage write SetInitialStage;
     // @name is only for backwards compatibility. It is not used.
     property Roughness: string read FRoughness write FRoughness stored False;

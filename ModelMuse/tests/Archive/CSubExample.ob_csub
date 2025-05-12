@@ -1,4 +1,4 @@
-# OBS: Observation Utility file created on 4/6/2021 by ModelMuse version 4.3.0.46.
+# OBS: Observation Utility file created on 5/9/2025 by ModelMuse version 5.3.1.16.
 BEGIN OPTIONS
     DIGITS     10
     PRINT_INPUT
@@ -56,6 +56,13 @@ BEGIN CONTINUOUS FILEOUT CSubExample.interbed-compaction_ob.csv
   'cico_Well1_Loc_510_1' interbed-compaction   510
   'cico_Well1_Loc_720_1' interbed-compaction   720
   'cico_Well2_Loc_131_1' interbed-compaction   131
+END CONTINUOUS
+
+BEGIN CONTINUOUS FILEOUT CSubExample.interbed-compaction_pct_ob.csv
+  'cico_Well1_Loc_90_1' interbed-compaction-pct    90
+  'cico_Well1_Loc_300_1' interbed-compaction-pct   300
+  'cico_Well1_Loc_510_1' interbed-compaction-pct   510
+  'cico_Well1_Loc_720_1' interbed-compaction-pct   720
 END CONTINUOUS
 
 BEGIN CONTINUOUS FILEOUT CSubExample.elastic-compaction_ob.csv

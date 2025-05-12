@@ -863,17 +863,9 @@ type
     property InitialHead: string read GetInitialHead write SetInitialHead;
     // condeqn
     // ktf
-    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity
-  {$IFNDEF GWE}
-    stored False
-  {$ENDIF}
-    ;
+    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity;
     // fthk
-    property ThermalThickness: string read GetThermalThickness write SetThermalThickness
-  {$IFNDEF GWE}
-    stored False
-  {$ENDIF}
-    ;
+    property ThermalThickness: string read GetThermalThickness write SetThermalThickness;
     property ConductanceMethod: TMawConductanceMethod read FConductanceMethod
       write SetConductanceMethod;
     property WellScreens: TMawWellScreenCollection read FWellScreens

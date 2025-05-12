@@ -548,7 +548,10 @@ begin
           end;
           result := Model.ModflowPackages.GwtPackages[ChemIndex].GwtIms;
           Exit;
-//          FErrorMessages.Add('ModelMuse can not import GWE models.');
+        end
+        else if AnsiSameText(AModel.ModelType, 'PRT6') then
+        begin
+          FErrorMessages.Add('ModelMuse can not import PRT models.');
         end
         else
         begin
@@ -2294,6 +2297,10 @@ var
       else if Obs.ObsType = 'interbed-compaction' then
       begin
         Include(CSubObsSet, coIntbedComp)
+      end
+      else if Obs.ObsType = 'interbed-compaction-pct' then
+      begin
+        Include(CSubObsSet, coIntbedCompPct)
       end
       else if Obs.ObsType = 'elastic-compaction' then
       begin

@@ -576,18 +576,9 @@ type
     // strt
     property StartingStage: string read GetStartingStage write SetStartingStage;
     // ktf
-    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity
-  {$IFNDEF GWE}
-    stored False
-  {$ENDIF}
-    ;
+    property ThermalConductivity: string read GetThermalConductivity write SetThermalConductivity;
     // rbthcnd
-    property ThermalThickness: string read GetThermalThickness write SetThermalThickness
-  {$IFNDEF GWE}
-    stored False
-  {$ENDIF}
-    ;
-
+    property ThermalThickness: string read GetThermalThickness write SetThermalThickness;
     property PestStageFormula: string read GetPestStageFormula
       write SetPestStageFormula;
     property PestStageMethod: TPestParamMethod read FPestStageMethod

@@ -14,7 +14,7 @@ uses
 type
   TCSubOb = (coCSub, coInelastCSub, coElastCSub, coCoarseCSub, coCSubCell,
     coWcompCSubCell, coSk, coSke, coSkCell, coSkeCell, coEStressCell,
-    coGStressCell, coIntbedComp, coInelastComp, coElastComp, coCoarseCompaction,
+    coGStressCell, coIntbedComp, coIntbedCompPct, coInelastComp, coElastComp, coCoarseCompaction,
     coCompCell, coThickness, coCoarseThickness, coThickCell, coTheta,
     coCoarseTheta, coThetaCell, coDelayFlowTop, coDelayFlowBot,
     coDelayHead,
@@ -370,7 +370,7 @@ const
     'sk',
     'ske', 'sk-cell',
     'ske-cell', 'estress-cell',
-    'gstress-cell', 'interbed-compaction',
+    'gstress-cell', 'interbed-compaction', 'interbed-compaction-pct',
     'inelastic-compaction', 'elastic-compaction',
     'coarse-compaction', 'compaction-cell',
     'thickness', 'coarse-thickness',
@@ -2064,6 +2064,7 @@ initialization
   CSubOptionNames.Add('coEStressCell');
   CSubOptionNames.Add('coGStressCell');
   CSubOptionNames.Add('coIntbedComp');
+  CSubOptionNames.Add('coIntbedCompPct');
   CSubOptionNames.Add('coInelastComp');
   CSubOptionNames.Add('coElastComp');
   CSubOptionNames.Add('coCoarseCompaction');
@@ -2085,20 +2086,7 @@ initialization
   CSubOptionNames.Add('coDelayTheta');
   CSubOptionNames.Add('coPreConsStressCell');
 
-{
-  TCSubOb = (coCSub, coInelastCSub, coElastCSub, coCoarseCSub, coCSubCell,
-    coWcompCSubCell, coSk, coSke, coSkCell, coSkeCell, coEStressCell,
-    coGStressCell, coIntbedComp, coInelastComp, coElastComp, coCoarseCompaction,
-    coCompCell, coThickness, coCoarseThickness, coThickCell, coTheta,
-    coCoarseTheta, ooThetaCell, coDelayFlowTop, coDelayFlowBot,
-    coDelayHead,
-    coDelayGStress, coDelayEStress, coDelayPreConStress, coDelayComp,
-    coDelayThickness, coDelayTheta,
-    coPreConsStressCell);
-}
-
 finalization
   CSubOptionNames.Free;
   CSubObNames.Free;
-
 end.

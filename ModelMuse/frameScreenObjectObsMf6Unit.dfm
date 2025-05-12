@@ -18,7 +18,7 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
     Top = 71
     Width = 590
     Height = 448
-    ActivePage = tabCalibration
+    ActivePage = tabCSUB
     Align = alClient
     TabOrder = 1
     object tabBasic: TTabSheet
@@ -513,6 +513,9 @@ object frameScreenObjectObsMf6: TframeScreenObjectObsMf6
           'Effective stress in a GWF cell (estress-cell)'
           'Geostatic stress in a GWF cell (gstress-cell)'
           'Interbed compaction in interbeds (interbed-compaction)'
+          
+            'Interbed percent compaction in a interbed (interbedcompaction-pc' +
+            't)'
           
             'Inelastic interbed compaction in interbeds (inelastic-compaction' +
             ')'

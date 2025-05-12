@@ -361,43 +361,15 @@ type
       stored False
     {$ENDIF};
       // @name is used for the GWT (solute transport) in MODFLOW 6.
-    property GweProcess: TGwtProcess read FGweProcess write SetGweProcess
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
+    property GweProcess: TGwtProcess read FGweProcess write SetGweProcess;
     property GweAdvectionPackage: TGwtAdvectionPackage read FGweAdvectionPackage
-      write SetGweAdvectionPackage
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
+      write SetGweAdvectionPackage;
     property GweConductionAndDispersionPackage: TGweConductionAndDispersionPackage
-        read FGweConductionAndDispersionPackage write SetGweConductionAndDispersionPackage
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
-    property GweEstPackage: TGweEstPackage read FGweEstPackage write SetGweEstPackage
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
-    property GweSsmPackage: TGwtSsmPackage read FGweSsmPackage write SetGweSsmPackage
-     {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
-    property GweCtpPackage: TGweCtpPackage read FGweCtpPackage write SetGweCtpPackage
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
-    property GweEslPackage: TGweEslPackage read FGweEslPackage write SetGweEslPackage
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
+        read FGweConductionAndDispersionPackage write SetGweConductionAndDispersionPackage;
+    property GweEstPackage: TGweEstPackage read FGweEstPackage write SetGweEstPackage;
+    property GweSsmPackage: TGwtSsmPackage read FGweSsmPackage write SetGweSsmPackage;
+    property GweCtpPackage: TGweCtpPackage read FGweCtpPackage write SetGweCtpPackage;
+    property GweEslPackage: TGweEslPackage read FGweEslPackage write SetGweEslPackage;
 
     // Assign, Create, Destroy, and Reset must be updated each time a new
     // package is added.

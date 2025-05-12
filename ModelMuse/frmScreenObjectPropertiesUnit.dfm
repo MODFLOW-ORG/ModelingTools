@@ -2482,7 +2482,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         Top = 0
         Width = 537
         Height = 478
-        ActivePage = jvspMf6Obs
+        ActivePage = jvspWell
         PropagateEnable = False
         Align = alClient
         OnChange = jvplModflowBoundariesChange
@@ -3056,15 +3056,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 19
               end
               inherited lblTabfile: TLabel
-                Left = 504
+                Left = 447
                 Top = 122
-                Width = 46
+                Width = 66
                 Height = 19
                 Enabled = False
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitLeft = 504
+                ExplicitLeft = 447
                 ExplicitTop = 122
-                ExplicitWidth = 46
+                ExplicitWidth = 66
                 ExplicitHeight = 19
               end
               inherited lblTimeSeriesInterpolation: TLabel
@@ -3116,7 +3116,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               inherited fedTabfile: TJvFilenameEdit
                 Left = 9
                 Top = 119
-                Width = 489
+                Width = 432
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
                 ReadOnly = True
@@ -3124,7 +3124,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 OnChange = frameWellParamfedTabfileChange
                 ExplicitLeft = 9
                 ExplicitTop = 119
-                ExplicitWidth = 489
+                ExplicitWidth = 432
                 ExplicitHeight = 27
               end
             end
@@ -11092,7 +11092,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 427
                 inherited edDiameter: TLabeledEdit
                   Top = 21
-                  Width = 330
+                  Width = 322
                   Height = 27
                   EditLabel.Width = 166
                   EditLabel.Height = 19
@@ -11102,16 +11102,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
                   ExplicitTop = 21
-                  ExplicitWidth = 330
+                  ExplicitWidth = 322
                   ExplicitHeight = 27
                 end
                 inherited btnDiameter: TButton
-                  Left = 339
+                  Left = 331
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 339
+                  ExplicitLeft = 331
                 end
                 inherited edTortuosity: TLabeledEdit
-                  Width = 330
+                  Width = 322
                   Height = 27
                   EditLabel.Width = 186
                   EditLabel.Height = 19
@@ -11120,16 +11120,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 186
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 330
+                  ExplicitWidth = 322
                   ExplicitHeight = 27
                 end
                 inherited btnTortuosity: TButton
-                  Left = 339
+                  Left = 331
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 339
+                  ExplicitLeft = 331
                 end
                 inherited edRoughnessHeight: TLabeledEdit
-                  Width = 330
+                  Width = 322
                   Height = 27
                   EditLabel.Width = 217
                   EditLabel.Height = 19
@@ -11138,16 +11138,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 217
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 330
+                  ExplicitWidth = 322
                   ExplicitHeight = 27
                 end
                 inherited btnRoughnessHeight: TButton
-                  Left = 339
+                  Left = 331
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 339
+                  ExplicitLeft = 331
                 end
                 inherited edLowerCriticalR: TLabeledEdit
-                  Width = 330
+                  Width = 322
                   Height = 27
                   EditLabel.Width = 500
                   EditLabel.Height = 19
@@ -11156,16 +11156,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 500
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 330
+                  ExplicitWidth = 322
                   ExplicitHeight = 27
                 end
                 inherited btnLowerCriticalR: TButton
-                  Left = 339
+                  Left = 331
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 339
+                  ExplicitLeft = 331
                 end
                 inherited edHigherCriticalR: TLabeledEdit
-                  Width = 330
+                  Width = 322
                   Height = 27
                   EditLabel.Width = 504
                   EditLabel.Height = 19
@@ -11174,16 +11174,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 504
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 330
+                  ExplicitWidth = 322
                   ExplicitHeight = 27
                 end
                 inherited btnHigherCriticalR: TButton
-                  Left = 339
+                  Left = 331
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 339
+                  ExplicitLeft = 331
                 end
                 inherited edConductancePermeability: TLabeledEdit
-                  Width = 330
+                  Width = 322
                   Height = 27
                   EditLabel.Width = 337
                   EditLabel.Height = 19
@@ -11192,16 +11192,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 337
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 330
+                  ExplicitWidth = 322
                   ExplicitHeight = 27
                 end
                 inherited btnConductancePermeability: TButton
-                  Left = 339
+                  Left = 331
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 339
+                  ExplicitLeft = 331
                 end
                 inherited edElevation: TLabeledEdit
-                  Width = 330
+                  Width = 322
                   Height = 27
                   EditLabel.Width = 206
                   EditLabel.Height = 19
@@ -11210,16 +11210,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 206
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 330
+                  ExplicitWidth = 322
                   ExplicitHeight = 27
                 end
                 inherited btnElevation: TButton
-                  Left = 339
+                  Left = 331
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 339
+                  ExplicitLeft = 331
                 end
                 inherited edCads: TLabeledEdit
-                  Width = 330
+                  Width = 322
                   Height = 27
                   EditLabel.Width = 410
                   EditLabel.Height = 19
@@ -11228,14 +11228,14 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 410
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 330
+                  ExplicitWidth = 322
                   ExplicitHeight = 27
                 end
                 inherited btnCads: TButton
-                  Left = 339
+                  Left = 331
                   Top = 369
                   Width = 90
-                  ExplicitLeft = 339
+                  ExplicitLeft = 331
                   ExplicitTop = 369
                   ExplicitWidth = 90
                 end
@@ -11332,10 +11332,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   ExplicitWidth = 81
                 end
                 inherited btnFixedHead: TButton
-                  Left = 105
+                  Left = 79
                   Top = 70
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 105
+                  ExplicitLeft = 79
                   ExplicitTop = 70
                 end
                 inherited edFixedHead: TLabeledEdit
@@ -13817,14 +13817,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             inherited pgcMain: TPageControl
               Width = 537
               Height = 407
-              ActivePage = frameObsMf6.tabBasic
               OnChange = frameObsMf6pgcMainChange
               ExplicitWidth = 537
               ExplicitHeight = 407
               inherited tabBasic: TTabSheet
                 ExplicitTop = 30
-                ExplicitWidth = 529
-                ExplicitHeight = 373
+                ExplicitHeight = 414
                 inherited lblTypesOfFlowObservation: TLabel
                   Width = 183
                   Height = 19
@@ -13917,8 +13915,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               end
               inherited tabSFR: TTabSheet
                 ExplicitTop = 30
-                ExplicitWidth = 529
-                ExplicitHeight = 373
+                ExplicitHeight = 414
                 inherited lblSFR: TLabel
                   Width = 32
                   Height = 19
@@ -14039,23 +14036,29 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               end
               inherited tabCSUB: TTabSheet
                 ExplicitTop = 30
-                ExplicitHeight = 414
+                ExplicitWidth = 529
+                ExplicitHeight = 373
                 inherited splCSub: TSplitter
-                  Top = 309
+                  Top = 268
+                  Width = 529
                   ExplicitTop = 309
                   ExplicitWidth = 582
                 end
                 inherited chklstCSUB: TCheckListBox
-                  Height = 309
+                  Width = 529
+                  Height = 268
                   ItemHeight = 19
                   ScrollWidth = 600
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitHeight = 309
+                  ExplicitWidth = 529
+                  ExplicitHeight = 268
                 end
                 inherited pnlDelayBeds: TPanel
-                  Top = 314
+                  Top = 273
+                  Width = 529
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitTop = 314
+                  ExplicitTop = 273
+                  ExplicitWidth = 529
                   inherited lblDelayInterbedNumber: TLabel
                     Width = 357
                     Height = 19
@@ -14064,44 +14067,36 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     ExplicitHeight = 19
                   end
                   inherited chklstDelayBeds: TCheckListBox
+                    Width = 527
                     ItemHeight = 19
                     StyleElements = [seFont, seClient, seBorder]
+                    ExplicitWidth = 527
                   end
                 end
               end
               inherited tabCalibration: TTabSheet
                 ExplicitTop = 30
-                ExplicitWidth = 529
-                ExplicitHeight = 373
+                ExplicitHeight = 414
                 inherited framePestObs: TframePestObsMf6
-                  Width = 529
-                  Height = 373
-                  ExplicitWidth = 529
-                  ExplicitHeight = 373
+                  Height = 414
+                  ExplicitHeight = 414
                   inherited splObservations: TSplitter
-                    Top = 196
-                    Width = 529
+                    Top = 237
                     ExplicitTop = 194
                     ExplicitWidth = 573
                   end
                   inherited grpDirectObs: TGroupBox
-                    Width = 529
-                    Height = 196
-                    ExplicitWidth = 529
-                    ExplicitHeight = 196
+                    Height = 237
+                    ExplicitHeight = 237
                     inherited frameObservations: TframeGrid
                       Top = 21
-                      Width = 525
-                      Height = 173
+                      Height = 214
                       ExplicitTop = 21
-                      ExplicitWidth = 525
-                      ExplicitHeight = 173
+                      ExplicitHeight = 214
                       inherited Panel: TPanel
-                        Top = 115
-                        Width = 525
+                        Top = 156
                         StyleElements = [seFont, seClient, seBorder]
-                        ExplicitTop = 115
-                        ExplicitWidth = 525
+                        ExplicitTop = 156
                         inherited lbNumber: TLabel
                           Width = 218
                           Height = 19
@@ -14110,15 +14105,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                           ExplicitHeight = 19
                         end
                         inherited sbAdd: TSpeedButton
-                          Left = 282
+                          Left = 312
                           ExplicitLeft = 307
                         end
                         inherited sbInsert: TSpeedButton
-                          Left = 305
+                          Left = 337
                           ExplicitLeft = 332
                         end
                         inherited sbDelete: TSpeedButton
-                          Left = 326
+                          Left = 360
                           ExplicitLeft = 356
                         end
                         inherited seNumber: TJvSpinEdit
@@ -14128,32 +14123,24 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                         end
                       end
                       inherited Grid: TRbwDataGrid4
-                        Width = 525
-                        Height = 115
+                        Height = 156
                         OnButtonClick = frameChdParamdgModflowBoundaryButtonClick
-                        ExplicitWidth = 525
-                        ExplicitHeight = 115
+                        ExplicitHeight = 156
                       end
                     end
                   end
                   inherited grpObsComparisons: TGroupBox
-                    Top = 201
-                    Width = 529
-                    ExplicitTop = 201
-                    ExplicitWidth = 529
+                    Top = 242
+                    ExplicitTop = 242
                     inherited frameObsComparisons: TframeGrid
                       Top = 21
-                      Width = 525
                       Height = 149
                       ExplicitTop = 21
-                      ExplicitWidth = 525
                       ExplicitHeight = 149
                       inherited Panel: TPanel
                         Top = 114
-                        Width = 525
                         StyleElements = [seFont, seClient, seBorder]
                         ExplicitTop = 114
-                        ExplicitWidth = 525
                         inherited lbNumber: TLabel
                           Width = 262
                           Height = 19
@@ -14162,15 +14149,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                           ExplicitHeight = 19
                         end
                         inherited sbAdd: TSpeedButton
-                          Left = 282
+                          Left = 312
                           ExplicitLeft = 307
                         end
                         inherited sbInsert: TSpeedButton
-                          Left = 305
+                          Left = 337
                           ExplicitLeft = 332
                         end
                         inherited sbDelete: TSpeedButton
-                          Left = 326
+                          Left = 360
                           ExplicitLeft = 356
                         end
                         inherited seNumber: TJvSpinEdit
@@ -14180,9 +14167,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                         end
                       end
                       inherited Grid: TRbwDataGrid4
-                        Width = 525
                         Height = 114
-                        ExplicitWidth = 525
                         ExplicitHeight = 114
                       end
                     end

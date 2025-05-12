@@ -262,11 +262,7 @@ type
     // GWE CND package KTW
     property ThermalConductivityFluidDataArrayName: string
       read FThermalConductivityFluidDataArrayName
-      write SetThermalConductivityFluidDataArrayName
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
+      write SetThermalConductivityFluidDataArrayName;
     // retained for backwards compatiblity
     property ThermalConductivityFluid: string
       read FThermalConductivityFluidDataArrayName
@@ -274,11 +270,7 @@ type
     // GWE CND package KTS
     property ThermalConductivitySolidDataArrayName: string
       read FThermalConductivitySolidDataArrayName
-      write SetThermalConductivitySolidDataArrayName
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
+      write SetThermalConductivitySolidDataArrayName;
     // retained for backwards compatiblity
     property ThermalConductivitySolid: string
       read FThermalConductivitySolidDataArrayName
@@ -286,36 +278,19 @@ type
     // GWE EST package DECAY_WATER
     property DecayWaterDataArrayName: string
       read FDecayWaterDataArrayName
-      write SetDecayWaterDataArrayName
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
+      write SetDecayWaterDataArrayName;
     // GWE EST package DECAY_SOLID
     property DecaySolidDataArrayName: string
       read FDecaySolidDataArrayName
-      write SetDecaySolidDataArrayName
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
+      write SetDecaySolidDataArrayName;
     // GWE EST package HEAT_CAPACITY_SOLID
     property HeatCapacitySolidDataArrayName: string
       read FHeatCapacitySolidDataArrayName
-      write SetHeatCapacitySolidDataArrayName
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
+      write SetHeatCapacitySolidDataArrayName;
     // GWE EST package DENSITY_SOLID
     property DensitySolidDataArrayName: string
       read FDensitySolidDataArrayName
-      write SetDensitySolidDataArrayName
-    {$IFNDEF GWE}
-      stored False
-    {$ENDIF}
-      ;
-
+      write SetDensitySolidDataArrayName;
     //IST package, CIM
     property ImmobileInitialConcentrations: TStringList
       read FImmobileInitialConcentrations write SetImmobileInitialConcentrations;

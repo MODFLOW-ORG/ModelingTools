@@ -2333,11 +2333,7 @@ Type
       write SetSaveGwtConcentration
       stored True;
     // [STORAGE]
-    property Storage: Boolean read FStorage write SetStorage
-  {$IFNDEF GWE}
-    Stored False
-  {$ENDIF}
-    ;
+    property Storage: Boolean read FStorage write SetStorage;
   end;
 
   TSftSolverPrintChoice = (sftNone, sftSummary, sftDetailed);
@@ -7446,11 +7442,7 @@ Type
     property Scheme: TGwtScheme read FScheme write SetScheme;
     // ATS_PERCEL
     // fractional cell distance submitted by the ADV Package to the adaptive time stepping (ATS) package.
-    property StoredAtsPercel: TRealStorage read FStoredAtsPercel write SetStoredAtsPercel
-  {$IFNDEF GWE}
-    stored False
-  {$ENDIF}
-    ;
+    property StoredAtsPercel: TRealStorage read FStoredAtsPercel write SetStoredAtsPercel;
   end;
 
   // @name is used for the SSM package in both GWT and GWE MODFLOW 6 models
@@ -7496,7 +7488,6 @@ Type
   end;
 
   // @name is used for the CTP package in GWE MODFLOW 6 models.
-  { TODO -cGWE : Complete work for GWE }
   TGweCtpPackage = class(TCustomTransportValuePackage)
   private
     procedure GetCtpTemperatureUseList(Sender: TObject; NewUseList: TStringList);
@@ -7547,7 +7538,6 @@ Type
   end;
 
   // @name is used for the ESL package in GWE MODFLOW 6 models.
-  { TODO -cGWE : Complete work for GWE }
   TGweEslPackage = class(TCustomTransportSrcPackage)
   private
     procedure GetEslTemperatureUseList(Sender: TObject; NewUseList: TStringList);

@@ -290,11 +290,9 @@ inherited frmModflowOutputControl: TfrmModflowOutputControl
         end
         inherited comboP: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboREdit: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboFrequency: TJvImageComboBox
           Left = 22
@@ -318,15 +316,12 @@ inherited frmModflowOutputControl: TfrmModflowOutputControl
         end
         inherited comboPrintStyle: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboPrintFormat: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboSaveType: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited rcExternalFormat: TRbwController
           ControlList = <
@@ -430,11 +425,9 @@ inherited frmModflowOutputControl: TfrmModflowOutputControl
         end
         inherited comboP: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboREdit: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboFrequency: TJvImageComboBox
           Width = 422
@@ -456,15 +449,12 @@ inherited frmModflowOutputControl: TfrmModflowOutputControl
         end
         inherited comboPrintStyle: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboPrintFormat: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboSaveType: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited rcExternalFormat: TRbwController
           ControlList = <
@@ -853,27 +843,21 @@ inherited frmModflowOutputControl: TfrmModflowOutputControl
         end
         inherited comboP: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboREdit: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboFrequency: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboPrintStyle: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboPrintFormat: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited comboSaveType: TJvImageComboBox
           StyleElements = [seFont, seClient, seBorder]
-          ItemIndex = -1
         end
         inherited rcExternalFormat: TRbwController
           ControlList = <

@@ -10455,8 +10455,7 @@ const
 //    '5.3.1.15' Bug fix: Fixed export of grid data to 3D polyhedrons.
 //    '5.3.1.16' Bug fix: Fixed import of MODFLOW 6 models when the
 //                usgs.model.reference file is included.
-
-//               Bug fix: Fixed export of UZT observations when the observations
+//     '5.4.0.0' Bug fix: Fixed export of UZT observations when the observations
 //                were only specified as calibration observations.
 //               Enhancement: In certain tables, the user can now paste
 //                comma-separated text and have the text be properly distributed
@@ -10464,13 +10463,16 @@ const
 //               Bug fix: Fixed a bug that could cause an access violation if
 //                ModelMuse was closed while the Edit Data Sets dialog box
 //                was open.
+//               Enhancement: Added support for GWE models to ModelMuse.
+//               Enhancement: Added support for interbed-compaction-pct
+//                observation type in the CSUB package.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.3.1.16';
+  IIModelVersion = '5.4.0.0';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

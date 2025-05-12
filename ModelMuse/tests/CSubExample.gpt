@@ -70,7 +70,9 @@ object PhastModel: TPhastModel
     -38000.000000000000000000
     -40000.000000000000000000)
   ModflowPackages.ChdBoundary.IsSelected = True
+  ModflowPackages.ChdBoundary.UseMultiplier = False
   ModflowPackages.GhbBoundary.IsSelected = False
+  ModflowPackages.GhbBoundary.UseMultiplier = False
   ModflowPackages.LpfPackage.IsSelected = True
   ModflowPackages.LpfPackage.UseConstantCV = False
   ModflowPackages.LpfPackage.UseSaturatedThickness = False
@@ -108,8 +110,11 @@ object PhastModel: TPhastModel
   ModflowPackages.WelPackage.IsSelected = True
   ModflowPackages.WelPackage.PublishedPhiRamp.Value = 0.000001000000000000
   ModflowPackages.WelPackage.UseTabFiles = False
+  ModflowPackages.WelPackage.UseMultiplier = False
   ModflowPackages.RivPackage.IsSelected = False
+  ModflowPackages.RivPackage.UseMultiplier = False
   ModflowPackages.DrnPackage.IsSelected = False
+  ModflowPackages.DrnPackage.UseMultiplier = False
   ModflowPackages.DrtPackage.IsSelected = False
   ModflowPackages.RchPackage.IsSelected = True
   ModflowPackages.RchPackage.LayerOption = loTop
@@ -117,6 +122,7 @@ object PhastModel: TPhastModel
   ModflowPackages.RchPackage.MultiplierArrayNames = <>
   ModflowPackages.RchPackage.ZoneArrayNames = <>
   ModflowPackages.RchPackage.AssignmentMethod = umAssign
+  ModflowPackages.RchPackage.UseMultiplier = False
   ModflowPackages.EvtPackage.IsSelected = False
   ModflowPackages.EvtPackage.LayerOption = loTop
   ModflowPackages.EvtPackage.TimeVaryingLayers = False
@@ -127,6 +133,7 @@ object PhastModel: TPhastModel
   ModflowPackages.EtsPackage.TimeVaryingLayers = False
   ModflowPackages.EtsPackage.MultiplierArrayNames = <>
   ModflowPackages.EtsPackage.ZoneArrayNames = <>
+  ModflowPackages.EtsPackage.UseMultiplier = False
   ModflowPackages.ResPackage.IsSelected = False
   ModflowPackages.ResPackage.LayerOption = loTop
   ModflowPackages.ResPackage.TimeVaryingLayers = False
@@ -177,7 +184,7 @@ object PhastModel: TPhastModel
   ModflowPackages.GmgPackage.IUNITMHC = False
   ModflowPackages.GmgPackage.ISM = 0
   ModflowPackages.GmgPackage.ISC = 1
-  ModflowPackages.GmgPackage.DUP.Value = 0.699999999999999800
+  ModflowPackages.GmgPackage.DUP.Value = 0.700000000000000000
   ModflowPackages.GmgPackage.DLOW.Value = 0.001000000000000000
   ModflowPackages.GmgPackage.CHGLIMIT.Value = 0.001000000000000000
   ModflowPackages.GmgPackage.RELAX.Value = 1.000000000000000000
@@ -303,14 +310,14 @@ object PhastModel: TPhastModel
   ModflowPackages.NwtPackage.PrintFlag = 1
   ModflowPackages.NwtPackage.CorrectForCellBottom = 0
   ModflowPackages.NwtPackage.Option = noSimple
-  ModflowPackages.NwtPackage.DBDTheta.Value = 0.900000000000000100
+  ModflowPackages.NwtPackage.DBDTheta.Value = 0.900000000000000000
   ModflowPackages.NwtPackage.DBDKappa.Value = 0.000100000000000000
   ModflowPackages.NwtPackage.DBDGamma.Value = 0.000000000000000000
   ModflowPackages.NwtPackage.MomementumCoefficient.Value = 0.100000000000000000
   ModflowPackages.NwtPackage.BackFlag = 1
   ModflowPackages.NwtPackage.MaxBackIterations = 50
   ModflowPackages.NwtPackage.BackTol.Value = 1.100000000000000000
-  ModflowPackages.NwtPackage.BackReduce.Value = 0.699999999999999800
+  ModflowPackages.NwtPackage.BackReduce.Value = 0.700000000000000000
   ModflowPackages.NwtPackage.MaxIterInner = 50
   ModflowPackages.NwtPackage.IluMethod = nimKOrder
   ModflowPackages.NwtPackage.FillLimit = 7
@@ -369,6 +376,17 @@ object PhastModel: TPhastModel
   ModflowPackages.Mt3dmsChemReact.SorptionChoice = scLinear
   ModflowPackages.Mt3dmsChemReact.KineticChoice = kcNone
   ModflowPackages.Mt3dmsChemReact.OtherInitialConcChoice = oicDontUse
+  ModflowPackages.Mt3dmsChemReact.ReactionChoice = rcNone
+  ModflowPackages.Mt3dmsChemReact.ElectronDonor = -1
+  ModflowPackages.Mt3dmsChemReact.ElectronAcceptor = -1
+  ModflowPackages.Mt3dmsChemReact.StoredStochiometricRatio.Value = 1.000000000000000000
+  ModflowPackages.Mt3dmsChemReact.ElectronDonorCount = 0
+  ModflowPackages.Mt3dmsChemReact.ElectronAcceptorCount = 0
+  ModflowPackages.Mt3dmsChemReact.SolidFE = sfNo
+  ModflowPackages.Mt3dmsChemReact.SpecialCases = <>
+  ModflowPackages.Mt3dmsChemReact.EAProperties = <>
+  ModflowPackages.Mt3dmsChemReact.DecayRates = <>
+  ModflowPackages.Mt3dmsChemReact.Yields = <>
   ModflowPackages.Mt3dmsTransObs.IsSelected = False
   ModflowPackages.Mt3dmsTransObs.SaveBinary = sbSave
   ModflowPackages.Mt3dmsTransObs.StoredConcScaleFactor.Value = 1.000000000000000000
@@ -443,6 +461,9 @@ object PhastModel: TPhastModel
   ModflowPackages.ConduitFlowProcess.CfpPrintIterations = cpiPrint
   ModflowPackages.ConduitFlowProcess.StoredLayerTemperature.Value = 25.000000000000000000
   ModflowPackages.ConduitFlowProcess.OutputInterval = 1
+  ModflowPackages.ConduitFlowProcess.UseCads = False
+  ModflowPackages.ConduitFlowProcess.UseCadsRecharge = False
+  ModflowPackages.ConduitFlowProcess.RecordInputAndOutput = False
   ModflowPackages.SwiPackage.IsSelected = False
   ModflowPackages.SwiPackage.NumberOfSurfaces = 1
   ModflowPackages.SwiPackage.DensityChoice = dcLinear
@@ -545,6 +566,7 @@ object PhastModel: TPhastModel
   ModflowPackages.NpfPackage.UseXT3D = False
   ModflowPackages.NpfPackage.Xt3dOnRightHandSide = False
   ModflowPackages.NpfPackage.SaveSpecificDischarge = True
+  ModflowPackages.NpfPackage.SaveSaturation = True
   ModflowPackages.NpfPackage.UseHorizontalAnisotropy = False
   ModflowPackages.NpfPackage.UseVerticalAnisotropy = False
   ModflowPackages.StoPackage.IsSelected = True
@@ -564,7 +586,7 @@ object PhastModel: TPhastModel
   ModflowPackages.SmsPackage.StoredOuterHclose.Value = 0.000001000000000000
   ModflowPackages.SmsPackage.MaxOuterIterations = 100
   ModflowPackages.SmsPackage.UnderRelaxation = surNone
-  ModflowPackages.SmsPackage.StoredUnderRelaxTheta.Value = 0.699999999999999800
+  ModflowPackages.SmsPackage.StoredUnderRelaxTheta.Value = 0.700000000000000000
   ModflowPackages.SmsPackage.StoredUnderRelaxKappa.Value = 0.100000000000000000
   ModflowPackages.SmsPackage.StoredUnderRelaxGamma.Value = 0.200000000000000000
   ModflowPackages.SmsPackage.StoredUnderRelaxMomentum.Value = 0.001000000000000000
@@ -583,23 +605,34 @@ object PhastModel: TPhastModel
   ModflowPackages.SmsPackage.RcloseOption = sroAbsolute
   ModflowPackages.SmsPackage.StoredRelaxationFactor.Value = 0.970000000000000000
   ModflowPackages.SmsPackage.ScalingMethod = ssmNone
+  ModflowPackages.SmsPackage.StoredAtsOuterMaxFraction.Value = 0.333333333333333000
   ModflowPackages.RipPackage.IsSelected = False
   ModflowPackages.RipPackage.WritePlantGroupET = wpgDontWrite
   ModflowPackages.SfrModflow6Package.IsSelected = False
   ModflowPackages.SfrModflow6Package.MaxIteration = 100
+  ModflowPackages.SfrModflow6Package.MaxPicardIteration = 100
   ModflowPackages.SfrModflow6Package.StoredMaxDepthChange.Value = 0.000010000000000000
   ModflowPackages.SfrModflow6Package.SaveStageFile = True
   ModflowPackages.SfrModflow6Package.SaveBudgetFile = True
   ModflowPackages.SfrModflow6Package.PrintStage = True
   ModflowPackages.SfrModflow6Package.PrintFlows = True
   ModflowPackages.SfrModflow6Package.WriteConvergenceData = True
+  ModflowPackages.SfrModflow6Package.SaveGwtBudgetCsv = False
+  ModflowPackages.SfrModflow6Package.SaveGwtBudget = True
+  ModflowPackages.SfrModflow6Package.SaveGwtConcentration = True
+  ModflowPackages.SfrModflow6Package.Storage = False
   ModflowPackages.MawPackage.IsSelected = False
   ModflowPackages.MawPackage.PrintHead = True
-  ModflowPackages.MawPackage.SaveMnwHeads = True
-  ModflowPackages.MawPackage.SaveMnwFlows = True
+  ModflowPackages.MawPackage.SaveMawHeads = True
+  ModflowPackages.MawPackage.SaveMawFlows = True
+  ModflowPackages.MawPackage.SaveBudgetCsv = False
+  ModflowPackages.MawPackage.FlowCorrection = False
   ModflowPackages.MawPackage.IncludeWellStorage = True
-  ModflowPackages.MawPackage.StoredShutDownTheta.Value = 0.699999999999999800
+  ModflowPackages.MawPackage.FlowReduceCsv = False
+  ModflowPackages.MawPackage.StoredShutDownTheta.Value = 0.700000000000000000
   ModflowPackages.MawPackage.StoredShutDownKappa.Value = 0.000100000000000000
+  ModflowPackages.MawPackage.SaveGwtBudget = True
+  ModflowPackages.MawPackage.SaveGwtConcentration = True
   ModflowPackages.GncPackage.IsSelected = True
   ModflowPackages.GncPackage.EquationFormulation = efImplicit
   ModflowPackages.Mf6ObservationUtility.IsSelected = True
@@ -609,15 +642,26 @@ object PhastModel: TPhastModel
   ModflowPackages.LakMf6Package.PrintStage = False
   ModflowPackages.LakMf6Package.SaveStage = False
   ModflowPackages.LakMf6Package.SaveBudget = False
+  ModflowPackages.LakMf6Package.SaveBudgetCsv = False
   ModflowPackages.LakMf6Package.StoredSurfDepDepth.Value = 0.200000000000000000
   ModflowPackages.LakMf6Package.WriteConvergenceData = True
+  ModflowPackages.LakMf6Package.SaveGwtBudget = True
+  ModflowPackages.LakMf6Package.SaveGwtConcentration = True
+  ModflowPackages.LakMf6Package.SaveGwtBudgetCsv = True
+  ModflowPackages.LakMf6Package.MaxIterations = 100
+  ModflowPackages.LakMf6Package.StoredMaxStageChange.Value = 0.000010000000000000
   ModflowPackages.MvrPackage.IsSelected = False
   ModflowPackages.MvrPackage.SaveBudgetFile = True
+  ModflowPackages.MvrPackage.SaveCsvBudgetFile = True
   ModflowPackages.UzfMf6Package.IsSelected = False
   ModflowPackages.UzfMf6Package.GroundwaterET = ugecNoEt
   ModflowPackages.UzfMf6Package.UnsatET = uuecWaterContent
   ModflowPackages.UzfMf6Package.SimulateGroundwaterSeepage = False
+  ModflowPackages.UzfMf6Package.SaveBudgetCsvFile = False
   ModflowPackages.UzfMf6Package.WriteConvergenceData = True
+  ModflowPackages.UzfMf6Package.SaveGwtConcentration = True
+  ModflowPackages.UzfMf6Package.SaveWaterContent = True
+  ModflowPackages.UzfMf6Package.UseMultiplier = False
   ModflowPackages.Mt3dCts.IsSelected = False
   ModflowPackages.Mt3dCts.ForceOption = ctsDontForce
   ModflowPackages.Mt3dCts.WellPackageChoice = cwpcMnw2
@@ -634,6 +678,7 @@ object PhastModel: TPhastModel
   ModflowPackages.CSubPackage.SpecifyInitialDelayHead = False
   ModflowPackages.CSubPackage.EffectiveStressLag = True
   ModflowPackages.CSubPackage.OutputTypes = [coZDisplacement]
+  ModflowPackages.CSubPackage.WriteConvergenceData = True
   ModflowPackages.CSubPackage.Interbeds = <
     item
       Name = 'Upper Aquifer'
@@ -647,7 +692,202 @@ object PhastModel: TPhastModel
       Name = 'Lower Aquifer'
       InterbedType = itNoDelay
     end>
-  ModflowPackages.CSubPackage.WriteConvergenceData = True
+  ModflowPackages.GwtProcess.IsSelected = False
+  ModflowPackages.GwtProcess.SeparateGwt = False
+  ModflowPackages.GwtProcess.FLOW_IMBALANCE_CORRECTION = True
+  ModflowPackages.GwtDispersionPackage.IsSelected = False
+  ModflowPackages.GwtDispersionPackage.Xt3dRightHandSide = False
+  ModflowPackages.GwtDispersionPackage.LongitudinalDispTreatement = dtCombined
+  ModflowPackages.GwtDispersionPackage.TransverseDispTreatement = dtCombined
+  ModflowPackages.GwtDispersionPackage.UseTransverseDispForVertFlow = False
+  ModflowPackages.GwtDispersionPackage.SeparateDataSetsForEachSpecies = dtCombined
+  ModflowPackages.GwtAdvectionPackage.IsSelected = False
+  ModflowPackages.GwtAdvectionPackage.Scheme = gsUpstream
+  ModflowPackages.GwtAdvectionPackage.StoredAtsPercel.Value = 0.000000000000000000
+  ModflowPackages.GwtSsmPackage.IsSelected = False
+  ModflowPackages.GwtCncPackage.IsSelected = False
+  ModflowPackages.GwtCncPackage.UseMultiplier = False
+  ModflowPackages.GwtSrcPackage.IsSelected = False
+  ModflowPackages.GwtSrcPackage.UseMultiplier = False
+  ModflowPackages.GwtPackages = <>
+  ModflowPackages.FarmProcess4.IsSelected = False
+  ModflowPackages.FarmProcess4.FarmPrints = []
+  ModflowPackages.FarmProcess4.Routing_Information = foNotUsed
+  ModflowPackages.FarmProcess4.Print = True
+  ModflowPackages.FarmProcess4.WELLFIELD = False
+  ModflowPackages.FarmProcess4.Recompute = False
+  ModflowPackages.FarmProcess4.Farms.FarmOption = foStatic
+  ModflowPackages.FarmProcess4.Farms.ArrayList = alArray
+  ModflowPackages.FarmProcess4.EfficiencyOptions.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.EfficiencyOptions.ArrayList = alArray
+  ModflowPackages.FarmProcess4.EfficiencyImprovement.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.EfficiencyImprovement.ArrayList = alArray
+  ModflowPackages.FarmProcess4.DeficiencyScenario.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.DeficiencyScenario.ArrayList = alArray
+  ModflowPackages.FarmProcess4.ProrateDeficiency = pdoByDemand
+  ModflowPackages.FarmProcess4.WaterSource.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.WaterSource.ArrayList = alArray
+  ModflowPackages.FarmProcess4.Bare_Runoff_Fraction.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.Bare_Runoff_Fraction.ArrayList = alArray
+  ModflowPackages.FarmProcess4.Bare_Precipitation_Consumption_Fraction.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.Bare_Precipitation_Consumption_Fraction.ArrayList = alArray
+  ModflowPackages.FarmProcess4.Added_Demand_Runoff_Split.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.Added_Demand_Runoff_Split.ArrayList = alArray
+  ModflowPackages.FarmProcess4.Added_Crop_Demand_Flux.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.Added_Crop_Demand_Flux.ArrayList = alArray
+  ModflowPackages.FarmProcess4.Added_Crop_Demand_Rate.FarmOption = foNotUsed
+  ModflowPackages.FarmProcess4.Added_Crop_Demand_Rate.ArrayList = alArray
+  ModflowPackages.FarmSoil4.IsSelected = False
+  ModflowPackages.FarmSoil4.CapFringe.FarmOption = foNotUsed
+  ModflowPackages.FarmSoil4.CapFringe.ArrayList = alArray
+  ModflowPackages.FarmSoil4.Coefficient.FarmOption = foNotUsed
+  ModflowPackages.FarmSoil4.Coefficient.ArrayList = alList
+  ModflowPackages.FarmSoil4.SurfVertK.FarmOption = foNotUsed
+  ModflowPackages.FarmSoil4.SurfVertK.ArrayList = alArray
+  ModflowPackages.FarmSoil4.EffPrecipTable.FarmOption = foNotUsed
+  ModflowPackages.FarmSoil4.EffPrecipTable.ArrayList = alList
+  ModflowPackages.FarmSoil4.EffPrecipTableOption = ppcLength
+  ModflowPackages.FarmClimate4.IsSelected = False
+  ModflowPackages.FarmClimate4.StoredRefEtToBare.Value = 0.500000000000000000
+  ModflowPackages.FarmClimate4.Precipitation.FarmOption = foNotUsed
+  ModflowPackages.FarmClimate4.Precipitation.ArrayList = alArray
+  ModflowPackages.FarmClimate4.ReferenceET.FarmOption = foNotUsed
+  ModflowPackages.FarmClimate4.ReferenceET.ArrayList = alArray
+  ModflowPackages.FarmClimate4.Potential_Evaporation_Bare.FarmOption = foNotUsed
+  ModflowPackages.FarmClimate4.Potential_Evaporation_Bare.ArrayList = alArray
+  ModflowPackages.FarmClimate4.Direct_Recharge.FarmOption = foNotUsed
+  ModflowPackages.FarmClimate4.Direct_Recharge.ArrayList = alArray
+  ModflowPackages.FarmClimate4.DirectRechargeOption = droFlux
+  ModflowPackages.FarmClimate4.Precipitation_Potential_Consumption.FarmOption = foNotUsed
+  ModflowPackages.FarmClimate4.Precipitation_Potential_Consumption.ArrayList = alArray
+  ModflowPackages.FarmClimate4.PrecipPotConsum = ppcLength
+  ModflowPackages.FarmSurfaceWater4.IsSelected = False
+  ModflowPackages.FarmSurfaceWater4.Non_Routed_Delivery.FarmOption = foNotUsed
+  ModflowPackages.FarmSurfaceWater4.Non_Routed_Delivery.ArrayList = alArray
+  ModflowPackages.FarmSurfaceWater4.NRDOption = nrdoRate
+  ModflowPackages.FarmSurfaceWater4.Nrd_Infiltration_Location.FarmOption = foNotUsed
+  ModflowPackages.FarmSurfaceWater4.Nrd_Infiltration_Location.ArrayList = alArray
+  ModflowPackages.FarmSurfaceWater4.SurfaceWaterPrints = []
+  ModflowPackages.FarmSurfaceWater4.Semi_Routed_Delivery.FarmOption = foNotUsed
+  ModflowPackages.FarmSurfaceWater4.Semi_Routed_Delivery.ArrayList = alArray
+  ModflowPackages.FarmSurfaceWater4.SemiRoutedDeliveryLowerLimit.FarmOption = foNotUsed
+  ModflowPackages.FarmSurfaceWater4.SemiRoutedDeliveryLowerLimit.ArrayList = alArray
+  ModflowPackages.FarmSurfaceWater4.SemiRoutedDeliveryUpperLimit.FarmOption = foNotUsed
+  ModflowPackages.FarmSurfaceWater4.SemiRoutedDeliveryUpperLimit.ArrayList = alArray
+  ModflowPackages.FarmSurfaceWater4.StoredSemi_Routed_Delivery_Closure_Tolerance.Value = 0.020000000000000000
+  ModflowPackages.FarmSurfaceWater4.NoReturnFlow.FarmOption = foNotUsed
+  ModflowPackages.FarmSurfaceWater4.NoReturnFlow.ArrayList = alArray
+  ModflowPackages.FarmSurfaceWater4.SemiRoutedReturn.FarmOption = foNotUsed
+  ModflowPackages.FarmSurfaceWater4.SemiRoutedReturn.ArrayList = alArray
+  ModflowPackages.FarmSurfaceWater4.RoutedReturn.FarmOption = foNotUsed
+  ModflowPackages.FarmSurfaceWater4.RoutedReturn.ArrayList = alArray
+  ModflowPackages.FarmSurfaceWater4.ReturnOption = roNonDiversion
+  ModflowPackages.FarmSurfaceWater4.Rebuild_Fully_Routed_Return = False
+  ModflowPackages.FarmWells4.IsSelected = False
+  ModflowPackages.FarmWells4.FarmWellPrints = []
+  ModflowPackages.FarmWells4.MnwPumpSpread = pscTopNode
+  ModflowPackages.FarmWells4.WellXY = xyCells
+  ModflowPackages.FarmWells4.WellLayerChoice = plcLayer
+  ModflowPackages.FarmWells4.Smoothing = sNone
+  ModflowPackages.FarmWells4.ProrateDemand = pdNone
+  ModflowPackages.FarmAllotments.IsSelected = False
+  ModflowPackages.FarmAllotments.SurfaceWater.FarmOption = foNotUsed
+  ModflowPackages.FarmAllotments.SurfaceWater.ArrayList = alArray
+  ModflowPackages.FarmAllotments.SurfaceWaterAllotmentMethod = amRate
+  ModflowPackages.FarmAllotments.GroundWater.FarmOption = foNotUsed
+  ModflowPackages.FarmAllotments.GroundWater.ArrayList = alArray
+  ModflowPackages.FarmAllotments.GroundWaterAllotmentMethod = amRate
+  ModflowPackages.FarmLandUse.IsSelected = False
+  ModflowPackages.FarmLandUse.LandUseOption = luoSingle
+  ModflowPackages.FarmLandUse.CropLocation = rstStatic
+  ModflowPackages.FarmLandUse.LandUseFraction.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.LandUseFraction.ArrayList = alArray
+  ModflowPackages.FarmLandUse.LandUsePrints = []
+  ModflowPackages.FarmLandUse.SpecifyCropsToPrint = foNotUsed
+  ModflowPackages.FarmLandUse.CropCoeff.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.CropCoeff.ArrayList = alArray
+  ModflowPackages.FarmLandUse.ConsumptiveUse.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.ConsumptiveUse.ArrayList = alArray
+  ModflowPackages.FarmLandUse.Irrigation.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.Irrigation.ArrayList = alArray
+  ModflowPackages.FarmLandUse.RootDepth.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.RootDepth.ArrayList = alArray
+  ModflowPackages.FarmLandUse.RootPressure.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.RootPressure.ArrayList = alArray
+  ModflowPackages.FarmLandUse.GroundwaterRootInteraction.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.GroundwaterRootInteraction.ArrayList = alArray
+  ModflowPackages.FarmLandUse.TranspirationFraction.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.TranspirationFraction.ArrayList = alArray
+  ModflowPackages.FarmLandUse.EvapIrrigationFraction.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.EvapIrrigationFraction.ArrayList = alArray
+  ModflowPackages.FarmLandUse.EvapIrrigationOption = ioByCrop
+  ModflowPackages.FarmLandUse.FractionOfPrecipToSurfaceWater.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.FractionOfPrecipToSurfaceWater.ArrayList = alArray
+  ModflowPackages.FarmLandUse.FractionOfIrrigationToSurfaceWater.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.FractionOfIrrigationToSurfaceWater.ArrayList = alArray
+  ModflowPackages.FarmLandUse.FractionOfPrecipToSurfaceWaterIrrigationOption = ioByCrop
+  ModflowPackages.FarmLandUse.PondDepth.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.PondDepth.ArrayList = alArray
+  ModflowPackages.FarmLandUse.AddedDemand.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.AddedDemand.ArrayList = alArray
+  ModflowPackages.FarmLandUse.AddedDemandOption = doLength
+  ModflowPackages.FarmLandUse.NoCropUseMeansBareSoil.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.NoCropUseMeansBareSoil.ArrayList = alArray
+  ModflowPackages.FarmLandUse.StoredMinimumBareFraction.Value = 0.000001000000000000
+  ModflowPackages.FarmLandUse.ET_IrrigFracCorrection.FarmOption = foNotUsed
+  ModflowPackages.FarmLandUse.ET_IrrigFracCorrection.ArrayList = alArray
+  ModflowPackages.FarmLandUse.StoredRelaxFracHeadChange.Value = 1.000000000000000000
+  ModflowPackages.FarmSalinityFlush.IsSelected = False
+  ModflowPackages.FarmSalinityFlush.SalinityFlushPrints = []
+  ModflowPackages.FarmSalinityFlush.StoredExpressionMin.Value = 0.000000000000000000
+  ModflowPackages.FarmSalinityFlush.FarmSaltConcentrationsChoice.FarmOption = foNotUsed
+  ModflowPackages.FarmSalinityFlush.FarmSaltConcentrationsChoice.ArrayList = alArray
+  ModflowPackages.FarmSalinityFlush.FarmIrrigationUniformityChoice.FarmOption = foNotUsed
+  ModflowPackages.FarmSalinityFlush.FarmIrrigationUniformityChoice.ArrayList = alArray
+  ModflowPackages.FarmSalinityFlush.CropSalinityDemandChoice.FarmOption = foNotUsed
+  ModflowPackages.FarmSalinityFlush.CropSalinityDemandChoice.ArrayList = alArray
+  ModflowPackages.FarmSalinityFlush.CropSalinityToleranceChoice.FarmOption = foStatic
+  ModflowPackages.FarmSalinityFlush.CropSalinityToleranceChoice.ArrayList = alArray
+  ModflowPackages.FarmSalinityFlush.CropMaxLeachChoice.FarmOption = foNotUsed
+  ModflowPackages.FarmSalinityFlush.CropMaxLeachChoice.ArrayList = alArray
+  ModflowPackages.FarmSalinityFlush.CropLeachRequirementChoice.FarmOption = foStatic
+  ModflowPackages.FarmSalinityFlush.CropLeachRequirementChoice.ArrayList = alArray
+  ModflowPackages.FarmSalinityFlush.CropExtraWaterChoice.FarmOption = foStatic
+  ModflowPackages.FarmSalinityFlush.CropExtraWaterChoice.ArrayList = alArray
+  ModflowPackages.BuoyancyPackage.IsSelected = False
+  ModflowPackages.BuoyancyPackage.DensitySpecified = False
+  ModflowPackages.BuoyancyPackage.StoredRefDensity.Value = 997.080000000000000000
+  ModflowPackages.BuoyancyPackage.RightHandSide = False
+  ModflowPackages.BuoyancyPackage.WriteDensity = False
+  ModflowPackages.ViscosityPackage.IsSelected = False
+  ModflowPackages.ViscosityPackage.ViscositySpecified = False
+  ModflowPackages.ViscosityPackage.StoredRefViscosity.Value = 0.000890400000000000
+  ModflowPackages.ViscosityPackage.WriteViscosity = False
+  ModflowPackages.ViscosityPackage.ThermalFormulation = tfLinear
+  ModflowPackages.ViscosityPackage.StoredThermalA2.Value = 10.000000000000000000
+  ModflowPackages.ViscosityPackage.StoredThermalA3.Value = 248.370000000000000000
+  ModflowPackages.ViscosityPackage.StoredThermalA4.Value = 133.150000000000000000
+  ModflowPackages.TvkPackage.IsSelected = False
+  ModflowPackages.TvsPackage.IsSelected = False
+  ModflowPackages.GweProcess.IsSelected = False
+  ModflowPackages.GweProcess.SeparateGwt = False
+  ModflowPackages.GweProcess.FLOW_IMBALANCE_CORRECTION = True
+  ModflowPackages.GweAdvectionPackage.IsSelected = False
+  ModflowPackages.GweAdvectionPackage.Scheme = gsUpstream
+  ModflowPackages.GweAdvectionPackage.StoredAtsPercel.Value = 0.000000000000000000
+  ModflowPackages.GweConductionAndDispersionPackage.IsSelected = False
+  ModflowPackages.GweConductionAndDispersionPackage.Xt3dRightHandSide = False
+  ModflowPackages.GweEstPackage.IsSelected = False
+  ModflowPackages.GweEstPackage.ZeroOrderDecayWater = False
+  ModflowPackages.GweEstPackage.ZeroOrderDecaySolid = False
+  ModflowPackages.GweEstPackage.StoredDensityWater.Value = 1000.000000000000000000
+  ModflowPackages.GweEstPackage.StoredHeatCapacityWater.Value = 4184.000000000000000000
+  ModflowPackages.GweEstPackage.StoredLatentHeatVaporization.Value = 2453500.000000000000000000
+  ModflowPackages.GweSsmPackage.IsSelected = False
+  ModflowPackages.GweCtpPackage.IsSelected = False
+  ModflowPackages.GweCtpPackage.UseMultiplier = False
+  ModflowPackages.GweEslPackage.IsSelected = False
+  ModflowPackages.GweEslPackage.UseMultiplier = False
   FilesToArchive.Strings = (
     
       'C:\ModelingTools\ModelMuse\Installer\ModelMuse4_3\data\CSub Exam' +
@@ -660,76 +900,88 @@ object PhastModel: TPhastModel
       'ple\Csub_ActiveCells.shx'
     'C:\ModelingTools\ModelMuse\tests\CSubExample.gpt')
   ModelInputFiles.Strings = (
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.chd'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.csub'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.dis'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.ic'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.ims'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.nam.archive'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.npf'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.ob_csub'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.ob_gw'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.oc'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.rch'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.sto'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.tdis'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.wel'
-    'C:\ModelingTools\ModelMuse\CSubExample\mfsim.nam'
-    'C:\ModelingTools\ModelMuse\CSubExample\RunModflow.Bat.archive'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.chd'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.csub'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.dis'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.gsf'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.ic'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.ims'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.nam.archive'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.npf'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.ob_csub'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.ob_gw'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.oc'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.rch'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.sto'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.tdis'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.wel'
+    'C:\ModelingTools\ModelMuse\PracticeModel\mfsim.nam'
+    'C:\ModelingTools\ModelMuse\PracticeModel\RunModflow.Bat.archive'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\usgs.CSubExample.referenc' +
-      'e')
+      'C:\ModelingTools\ModelMuse\PracticeModel\usgs.CSubExample.refere' +
+      'nce')
   ModelOutputFiles.Strings = (
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.bhd'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.cbc'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.bhd'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.cbc'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.coarse-compac' +
-      'tion_ob.csv'
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.coarse-comp' +
+      'action_ob.csv'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.coarse-csub_o' +
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.coarse-csub' +
+      '_ob.csv'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.csub_z_dis'
+    
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.csub-cell_o' +
       'b.csv'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.csub_z_dis'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.csub-cell_ob.' +
-      'csv'
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.CsubConverg' +
+      'ence.CSV'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.delay-precons' +
-      'tress_ob.csv'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.dis.grb'
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.delay-preco' +
+      'nstress_ob.csv'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.dis.grb'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.elastic-compa' +
-      'ction_ob.csv'
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.elastic-com' +
+      'paction_ob.csv'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.elastic-csub_' +
-      'ob.csv'
-    
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.estress-cell_' +
-      'ob.csv'
-    
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.gstress-cell_' +
-      'ob.csv'
-    
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.inelastic-csu' +
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.elastic-csu' +
       'b_ob.csv'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.interbed-comp' +
-      'action_ob.csv'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.lst'
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.estress-cel' +
+      'l_ob.csv'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.ob_gw_out_hea' +
-      'd.csv'
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.gstress-cel' +
+      'l_ob.csv'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.sk-cell_ob.cs' +
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.inelastic-c' +
+      'sub_ob.csv'
+    
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.InnerSoluti' +
+      'on.CSV'
+    
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.interbed-co' +
+      'mpaction_ob.csv'
+    
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.interbed-co' +
+      'mpaction_pct_ob.csv'
+    'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.lst'
+    
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.ob_gw_out_h' +
+      'ead.csv'
+    
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.OuterSoluti' +
+      'on.CSV'
+    
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.sk-cell_ob.' +
+      'csv'
+    
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.theta_ob.cs' +
       'v'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.Solution.CSV'
-    'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.theta_ob.csv'
     
-      'C:\ModelingTools\ModelMuse\CSubExample\CSubExample.wcomp-csub-ce' +
-      'll_ob.csv'
-    'C:\ModelingTools\ModelMuse\CSubExample\mfsim.lst')
+      'C:\ModelingTools\ModelMuse\PracticeModel\CSubExample.wcomp-csub-' +
+      'cell_ob.csv'
+    'C:\ModelingTools\ModelMuse\PracticeModel\mfsim.lst')
   ModelFileName = 'C:\ModelingTools\ModelMuse\tests\CSubExample.gpt'
-  ModflowOptions.HDry = -1E20
-  ModflowOptions.HNoFlow = -2E20
   ModflowOptions.StoredHDry.Value = -1E20
   ModflowOptions.StoredHNoFlow.Value = -2E20
   ModflowOptions.ProjectDate = '2/28/2020'
@@ -738,6 +990,9 @@ object PhastModel: TPhastModel
   ModflowOptions.NewtonMF6 = True
   ModflowOptions.UnderRelaxationMF6 = False
   ModflowOptions.WriteBinaryGridFile = True
+  ModflowOptions.OwhmBasicOptions.Strings = (
+    '  MAX_RELATIVE_VOLUME_ERROR 2.0'
+    '  NO_SHOWPROGRESS')
   ModflowWettingOptions.WettingActive = False
   ModflowWettingOptions.WettingFactor = 1.000000000000000000
   ModflowWettingOptions.WettingEquation = 0
@@ -768,7 +1023,7 @@ object PhastModel: TPhastModel
   SutraMesh.Mesh2D.MeshGenControls.GeomPackOptions.KeepQuadsAlongEdges = True
   SutraMesh.Mesh2D.MeshGenControls.GeomPackOptions.MaxImprovementIterations = 3
   SutraMesh.Mesh2D.MeshGenControls.GeomPackOptions.MaxSmoothingIterations = 2
-  SutraMesh.Mesh2D.MeshGenControls.GeomPackOptions.StoredOptimizationBasedSmoothingCriterion.Value = 0.349999999999999900
+  SutraMesh.Mesh2D.MeshGenControls.GeomPackOptions.StoredOptimizationBasedSmoothingCriterion.Value = 0.350000000000000000
   SutraMesh.ElementDrawingChoice = dcAll
   SutraMesh.NodeDrawingChoice = dcEdge
   SutraMesh.MeshType = mt3D
@@ -804,6 +1059,10 @@ object PhastModel: TPhastModel
   SutraOptions.StoredFluidDensityCoefficientTemperature.Value = -0.375000000000000000
   SutraOptions.StoredViscosity.Value = 0.001000000000000000
   SutraOptions.StoredScaleFactor.Value = 1.000000000000000000
+  SutraOptions.StoredIceCompressibility.Value = 0.000000000000000000
+  SutraOptions.StoredIceSpecificHeat.Value = 2108.000000000000000000
+  SutraOptions.StoredIceThermalConductivity.Value = 2.140000000000000000
+  SutraOptions.StoredIceDensity.Value = 920.000000000000000000
   SutraOptions.StoredMatrixCompressibility.Value = 0.000000010000000000
   SutraOptions.StoredSolidGrainSpecificHeat.Value = 840.000000000000000000
   SutraOptions.StoredSolidGrainDiffusivity.Value = 3.500000000000000000
@@ -833,6 +1092,14 @@ object PhastModel: TPhastModel
   SutraOptions.LakeOptions.UseLakes = False
   SutraOptions.LakeOptions.AllNodesLakes = False
   SutraOptions.LakeOptions.SpecifyLakeBottom = False
+  SutraOptions.PestAnisotropyOptions.UsePmaxPmidAnisotropy = True
+  SutraOptions.PestAnisotropyOptions.UsePmaxPminAnisotropy = True
+  SutraOptions.PestAnisotropyOptions.UseAlmaxAlmidAnisotropy = True
+  SutraOptions.PestAnisotropyOptions.UseAlmaxAlminAnisotropy = True
+  SutraOptions.PestAnisotropyOptions.UseAtmaxAtmidAnisotropy = True
+  SutraOptions.PestAnisotropyOptions.UseAtmaxAtminAnisotropy = True
+  SutraOptions.RegionalProperties = <>
+  SutraOptions.ProductionUsed = False
   SutraOutputControl.ListingPrintFrequency = 9999
   SutraOutputControl.ListingOptions = [sloNPrint, sloCPandS, sloCVel, sloCCorT, sloCBudg, sloCScrn]
   SutraOutputControl.NE_PrintFrequency = 9999
@@ -869,7 +1136,67 @@ object PhastModel: TPhastModel
   FootprintProperties.SaveResultsText = False
   FootprintProperties.StoredMinimumDepthRateIndex.Value = 0.000001000000000000
   CtsSystems = <>
+  ModflowGlobalObservationComparisons = <>
+  SutraGlobalObservationComparisons = <>
+  Modflow6GlobalObservationComparisons = <>
+  SutraFluxObs.SpecPres = <>
+  SutraFluxObs.FluidFlow = <>
+  SutraFluxObs.SpecConc = <>
+  SutraFluxObs.GenFlow = <>
+  SutraFluxObs.GenTrans = <>
   VelocityVectors = <>
+  PilotPointData = <>
+  PestObsCollection.MaxResidualLimit.BooleanLimitValue = False
+  PestObsCollection.MaxResidualLimit.DataType = rdtDouble
+  PestObsCollection.MaxResidualLimit.IntegerLimitValue = 0
+  PestObsCollection.MaxResidualLimit.UseLimit = False
+  PestObsCollection.MinResidualLimit.BooleanLimitValue = False
+  PestObsCollection.MinResidualLimit.DataType = rdtDouble
+  PestObsCollection.MinResidualLimit.IntegerLimitValue = 0
+  PestObsCollection.MinResidualLimit.UseLimit = False
+  PestObsCollection.MaxWeightedResidualLimit.BooleanLimitValue = False
+  PestObsCollection.MaxWeightedResidualLimit.DataType = rdtDouble
+  PestObsCollection.MaxWeightedResidualLimit.IntegerLimitValue = 0
+  PestObsCollection.MaxWeightedResidualLimit.UseLimit = False
+  PestObsCollection.MinWeightedResidualLimit.BooleanLimitValue = False
+  PestObsCollection.MinWeightedResidualLimit.DataType = rdtDouble
+  PestObsCollection.MinWeightedResidualLimit.IntegerLimitValue = 0
+  PestObsCollection.MinWeightedResidualLimit.UseLimit = False
+  PestObsCollection.MaxTimeLimit.BooleanLimitValue = False
+  PestObsCollection.MaxTimeLimit.DataType = rdtDouble
+  PestObsCollection.MaxTimeLimit.IntegerLimitValue = 0
+  PestObsCollection.MaxTimeLimit.UseLimit = False
+  PestObsCollection.MinTimeLimit.BooleanLimitValue = False
+  PestObsCollection.MinTimeLimit.DataType = rdtDouble
+  PestObsCollection.MinTimeLimit.IntegerLimitValue = 0
+  PestObsCollection.MinTimeLimit.UseLimit = False
+  PestObsCollection = <>
+  Mt3dObsCollection.MaxResidualLimit.BooleanLimitValue = False
+  Mt3dObsCollection.MaxResidualLimit.DataType = rdtDouble
+  Mt3dObsCollection.MaxResidualLimit.IntegerLimitValue = 0
+  Mt3dObsCollection.MaxResidualLimit.UseLimit = False
+  Mt3dObsCollection.MinResidualLimit.BooleanLimitValue = False
+  Mt3dObsCollection.MinResidualLimit.DataType = rdtDouble
+  Mt3dObsCollection.MinResidualLimit.IntegerLimitValue = 0
+  Mt3dObsCollection.MinResidualLimit.UseLimit = False
+  Mt3dObsCollection.MaxWeightedResidualLimit.BooleanLimitValue = False
+  Mt3dObsCollection.MaxWeightedResidualLimit.DataType = rdtDouble
+  Mt3dObsCollection.MaxWeightedResidualLimit.IntegerLimitValue = 0
+  Mt3dObsCollection.MaxWeightedResidualLimit.UseLimit = False
+  Mt3dObsCollection.MinWeightedResidualLimit.BooleanLimitValue = False
+  Mt3dObsCollection.MinWeightedResidualLimit.DataType = rdtDouble
+  Mt3dObsCollection.MinWeightedResidualLimit.IntegerLimitValue = 0
+  Mt3dObsCollection.MinWeightedResidualLimit.UseLimit = False
+  Mt3dObsCollection.MaxTimeLimit.BooleanLimitValue = False
+  Mt3dObsCollection.MaxTimeLimit.DataType = rdtDouble
+  Mt3dObsCollection.MaxTimeLimit.IntegerLimitValue = 0
+  Mt3dObsCollection.MaxTimeLimit.UseLimit = False
+  Mt3dObsCollection.MinTimeLimit.BooleanLimitValue = False
+  Mt3dObsCollection.MinTimeLimit.DataType = rdtDouble
+  Mt3dObsCollection.MinTimeLimit.IntegerLimitValue = 0
+  Mt3dObsCollection.MinTimeLimit.UseLimit = False
+  Mt3dObsCollection = <>
+  Mf6TimesSeries = <>
   Diffusivity = 0.000000001000000000
   GridOptions.ChemicalDimensionX = True
   GridOptions.ChemicalDimensionY = True
@@ -1248,12 +1575,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = True
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -1263,8 +1598,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -1281,8 +1627,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
     end
     item
@@ -1358,12 +1713,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -1373,8 +1736,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -1391,8 +1765,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
       MixtureFormulas.Strings = (
         '')
@@ -1443,11 +1826,19 @@ object PhastModel: TPhastModel
         item
           StartTime = -1.000000000000000000
           EndTime = 43830.000000000000000000
+          Active = 'True'
           EndHead = '100'
           StartHead = '100'
+          Multiplier = '1'
+          GwtConcentrations = <>
         end>
       ScreenObject.ModflowChdBoundary.Parameters = <>
       ScreenObject.ModflowChdBoundary.Interp = mimLinearEnd
+      ScreenObject.ModflowChdBoundary.PestStartingHeadMethod = ppmAdd
+      ScreenObject.ModflowChdBoundary.PestEndingHeadMethod = ppmAdd
+      ScreenObject.ModflowChdBoundary.PestMultiplierMethod = ppmMultiply
+      ScreenObject.ModflowChdBoundary.PestConcentrationFormulas = <>
+      ScreenObject.ModflowChdBoundary.PestConcentrationMethods = <>
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -1467,12 +1858,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -1482,8 +1881,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -1500,8 +1910,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
       MixtureFormulas.Strings = (
         '')
@@ -1607,10 +2026,16 @@ object PhastModel: TPhastModel
           StartTime = -1.000000000000000000
           EndTime = 43830.000000000000000000
           RechargeRate = '0.00055'
+          Multiplier = '1'
+          GwtConcentrations = <>
         end>
       ScreenObject.ModflowRchBoundary.Parameters = <>
       ScreenObject.ModflowRchBoundary.RechargeLayers = <>
       ScreenObject.ModflowRchBoundary.Interp = mimStepwise
+      ScreenObject.ModflowRchBoundary.PestRechargeMethod = ppmMultiply
+      ScreenObject.ModflowRchBoundary.PestMultiplierMethod = ppmMultiply
+      ScreenObject.ModflowRchBoundary.PestConcentrationFormulas = <>
+      ScreenObject.ModflowRchBoundary.PestConcentrationMethods = <>
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 17
       ScreenObject.SectionStarts.Values = (
@@ -1647,12 +2072,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -1662,8 +2095,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -1680,8 +2124,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
     end
     item
@@ -1710,16 +2163,21 @@ object PhastModel: TPhastModel
       ScreenObject.SetValuesOfEnclosedCells = False
       ScreenObject.SetValuesOfIntersectedCells = True
       ScreenObject.ViewDirection = vdTop
-      ScreenObject.Visible = False
       ScreenObject.InterpValues = <>
       ScreenObject.ModflowWellBoundary.Values = <
         item
           EndTime = 21915.000000000000000000
           PumpingRate = '-72000'
+          Multiplier = '1'
+          GwtConcentrations = <>
         end>
       ScreenObject.ModflowWellBoundary.Parameters = <>
       ScreenObject.ModflowWellBoundary.FormulaInterpretation = fiSpecific
       ScreenObject.ModflowWellBoundary.Interp = mimStepwise
+      ScreenObject.ModflowWellBoundary.PestPumpingRateMethod = ppmMultiply
+      ScreenObject.ModflowWellBoundary.PestMultiplierMethod = ppmMultiply
+      ScreenObject.ModflowWellBoundary.PestConcentrationFormulas = <>
+      ScreenObject.ModflowWellBoundary.PestConcentrationMethods = <>
       ScreenObject.Modflow6Obs.Name = 'Well1'
       ScreenObject.Modflow6Obs.GroundwaterFlowObs = False
       ScreenObject.Modflow6Obs.GwFlowObsChoices = [gfoNearestNeighbor]
@@ -1732,8 +2190,14 @@ object PhastModel: TPhastModel
       ScreenObject.Modflow6Obs.CSubObs.CSubObsOptions = 
         'coInelastCSub,coElastCSub,coCoarseCSub,coCSubCell,coWcompCSubCel' +
         'l,coSkCell,coTheta,'
+      ScreenObject.Modflow6Obs.GwtObs = []
       ScreenObject.Modflow6Obs.CSubDelayCells = <>
       ScreenObject.Modflow6Obs.StoredUzfObsDepthFraction.Value = 0.000000000000000000
+      ScreenObject.Modflow6Obs.GenusColl = 0
+      ScreenObject.Modflow6Obs.SftObs = []
+      ScreenObject.Modflow6Obs.LktObs = []
+      ScreenObject.Modflow6Obs.MwtObs = []
+      ScreenObject.Modflow6Obs.UztObs = []
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -1753,12 +2217,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -1768,8 +2240,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -1786,8 +2269,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
     end
     item
@@ -1816,16 +2308,21 @@ object PhastModel: TPhastModel
       ScreenObject.SetValuesOfEnclosedCells = False
       ScreenObject.SetValuesOfIntersectedCells = True
       ScreenObject.ViewDirection = vdTop
-      ScreenObject.Visible = False
       ScreenObject.InterpValues = <>
       ScreenObject.ModflowWellBoundary.Values = <
         item
           EndTime = 21915.000000000000000000
           PumpingRate = '-72000'
+          Multiplier = '1'
+          GwtConcentrations = <>
         end>
       ScreenObject.ModflowWellBoundary.Parameters = <>
       ScreenObject.ModflowWellBoundary.FormulaInterpretation = fiSpecific
       ScreenObject.ModflowWellBoundary.Interp = mimStepwise
+      ScreenObject.ModflowWellBoundary.PestPumpingRateMethod = ppmMultiply
+      ScreenObject.ModflowWellBoundary.PestMultiplierMethod = ppmMultiply
+      ScreenObject.ModflowWellBoundary.PestConcentrationFormulas = <>
+      ScreenObject.ModflowWellBoundary.PestConcentrationMethods = <>
       ScreenObject.Modflow6Obs.Name = 'Well2'
       ScreenObject.Modflow6Obs.GroundwaterFlowObs = False
       ScreenObject.Modflow6Obs.GwFlowObsChoices = [gfoNearestNeighbor]
@@ -1838,8 +2335,14 @@ object PhastModel: TPhastModel
       ScreenObject.Modflow6Obs.CSubObs.CSubObsOptions = 
         'coInelastCSub,coElastCSub,coCoarseCSub,coCSubCell,coWcompCSubCel' +
         'l,coSkCell,coTheta,'
+      ScreenObject.Modflow6Obs.GwtObs = []
       ScreenObject.Modflow6Obs.CSubDelayCells = <>
       ScreenObject.Modflow6Obs.StoredUzfObsDepthFraction.Value = 0.000000000000000000
+      ScreenObject.Modflow6Obs.GenusColl = 0
+      ScreenObject.Modflow6Obs.SftObs = []
+      ScreenObject.Modflow6Obs.LktObs = []
+      ScreenObject.Modflow6Obs.MwtObs = []
+      ScreenObject.Modflow6Obs.UztObs = []
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -1859,12 +2362,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -1874,8 +2385,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -1892,8 +2414,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
     end
     item
@@ -2029,6 +2560,7 @@ object PhastModel: TPhastModel
           DelayKv = '2.5E-6'
           InitialDelayHeadOffset = '0'
         end>
+      ScreenObject.ModflowCSub.PestStressOffsetMethod = ppmAdd
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -2048,12 +2580,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -2063,8 +2603,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -2081,8 +2632,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
       MixtureFormulas.Strings = (
         ''
@@ -2225,6 +2785,7 @@ object PhastModel: TPhastModel
           DelayKv = '2.5E-6'
           InitialDelayHeadOffset = '0'
         end>
+      ScreenObject.ModflowCSub.PestStressOffsetMethod = ppmAdd
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -2244,12 +2805,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -2259,8 +2828,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -2277,8 +2857,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
       MixtureFormulas.Strings = (
         ''
@@ -2421,6 +3010,7 @@ object PhastModel: TPhastModel
           DelayKv = '2.5E-6'
           InitialDelayHeadOffset = '0'
         end>
+      ScreenObject.ModflowCSub.PestStressOffsetMethod = ppmAdd
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -2440,12 +3030,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -2455,8 +3053,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -2473,8 +3082,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
       MixtureFormulas.Strings = (
         ''
@@ -2571,6 +3189,7 @@ object PhastModel: TPhastModel
           DelayKv = '2.5E-6'
           InitialDelayHeadOffset = '0'
         end>
+      ScreenObject.ModflowCSub.PestStressOffsetMethod = ppmAdd
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -2590,12 +3209,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -2605,8 +3232,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -2623,8 +3261,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
     end
     item
@@ -2668,8 +3315,14 @@ object PhastModel: TPhastModel
       ScreenObject.Modflow6Obs.LakObs = []
       ScreenObject.Modflow6Obs.SfrObsLocation = solAll
       ScreenObject.Modflow6Obs.UzfObs = []
+      ScreenObject.Modflow6Obs.GwtObs = []
       ScreenObject.Modflow6Obs.CSubDelayCells = <>
       ScreenObject.Modflow6Obs.StoredUzfObsDepthFraction.Value = 0.000000000000000000
+      ScreenObject.Modflow6Obs.GenusColl = 0
+      ScreenObject.Modflow6Obs.SftObs = []
+      ScreenObject.Modflow6Obs.LktObs = []
+      ScreenObject.Modflow6Obs.MwtObs = []
+      ScreenObject.Modflow6Obs.UztObs = []
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 1
       ScreenObject.SectionStarts.Values = (
@@ -2690,12 +3343,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -2705,8 +3366,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -2723,8 +3395,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
     end
     item
@@ -2748,12 +3429,11 @@ object PhastModel: TPhastModel
       ScreenObject.HigherElevationFormula = 'Model_Top'
       ScreenObject.LineColor = clBlack
       ScreenObject.LowerElevationFormula = 'Layer_4_Bottom'
-      ScreenObject.Selected = False
+      ScreenObject.Selected = True
       ScreenObject.SetValuesByInterpolation = False
       ScreenObject.SetValuesOfEnclosedCells = False
       ScreenObject.SetValuesOfIntersectedCells = True
       ScreenObject.ViewDirection = vdTop
-      ScreenObject.Visible = False
       ScreenObject.InterpValues = <>
       ScreenObject.Modflow6Obs.Name = 'Well1_Loc'
       ScreenObject.Modflow6Obs.GroundwaterFlowObs = False
@@ -2765,10 +3445,16 @@ object PhastModel: TPhastModel
       ScreenObject.Modflow6Obs.SfrObsLocation = solAll
       ScreenObject.Modflow6Obs.UzfObs = []
       ScreenObject.Modflow6Obs.CSubObs.CSubObsOptions = 
-        'coEStressCell,coGStressCell,coIntbedComp,coElastComp,coCoarseCom' +
-        'paction,coDelayPreConStress,'
+        'coEStressCell,coGStressCell,coIntbedComp,coIntbedCompPct,coElast' +
+        'Comp,coCoarseCompaction,coDelayPreConStress,'
+      ScreenObject.Modflow6Obs.GwtObs = []
       ScreenObject.Modflow6Obs.CSubDelayCells = <>
       ScreenObject.Modflow6Obs.StoredUzfObsDepthFraction.Value = 0.000000000000000000
+      ScreenObject.Modflow6Obs.GenusColl = 0
+      ScreenObject.Modflow6Obs.SftObs = []
+      ScreenObject.Modflow6Obs.LktObs = []
+      ScreenObject.Modflow6Obs.MwtObs = []
+      ScreenObject.Modflow6Obs.UztObs = []
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -2788,12 +3474,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -2803,8 +3497,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -2821,8 +3526,17 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
     end
     item
@@ -2865,8 +3579,14 @@ object PhastModel: TPhastModel
       ScreenObject.Modflow6Obs.CSubObs.CSubObsOptions = 
         'coEStressCell,coGStressCell,coIntbedComp,coElastComp,coCoarseCom' +
         'paction,coDelayPreConStress,'
+      ScreenObject.Modflow6Obs.GwtObs = []
       ScreenObject.Modflow6Obs.CSubDelayCells = <>
       ScreenObject.Modflow6Obs.StoredUzfObsDepthFraction.Value = 0.000000000000000000
+      ScreenObject.Modflow6Obs.GenusColl = 0
+      ScreenObject.Modflow6Obs.SftObs = []
+      ScreenObject.Modflow6Obs.LktObs = []
+      ScreenObject.Modflow6Obs.MwtObs = []
+      ScreenObject.Modflow6Obs.UztObs = []
       ScreenObject.SectionStarts.DataType = rdtInteger
       ScreenObject.SectionStarts.Count = 0
       ScreenObject.SectionStarts.Values = (
@@ -2886,12 +3606,20 @@ object PhastModel: TPhastModel
       ScreenObject.PositionLocked = False
       ScreenObject.SutraBoundaries.FluidSource.Values = <>
       ScreenObject.SutraBoundaries.FluidSource.UseBCTime = False
+      ScreenObject.SutraBoundaries.FluidSource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.FluidSource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.MassEnergySource.Values = <>
       ScreenObject.SutraBoundaries.MassEnergySource.UseBCTime = False
+      ScreenObject.SutraBoundaries.MassEnergySource.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.MassEnergySource.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedPressure.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedPressure.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedPressure.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.Values = <>
       ScreenObject.SutraBoundaries.SpecifiedConcTemp.UseBCTime = False
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.SpecifiedConcTemp.PestAssociatedValueMethod = ppmMultiply
       ScreenObject.SutraBoundaries.Observations.Times = <>
       ScreenObject.SutraBoundaries.Observations.ObservationFormat = ofOBS
       ScreenObject.SutraBoundaries.Lake.InitialStage = '0'
@@ -2901,8 +3629,19 @@ object PhastModel: TPhastModel
       ScreenObject.SutraBoundaries.Lake.IsUsed = False
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.Values = <>
       ScreenObject.SutraBoundaries.GeneralFlowBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestBoundaryValueMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestLowerFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherPressureMethod = ppmAdd
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestHigherFlowRateMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GeneralFlowBoundary.PestUOutMethod = ppmMultiply
       ScreenObject.SutraBoundaries.GenTransportBoundary.Values = <>
       ScreenObject.SutraBoundaries.GenTransportBoundary.UseBCTime = False
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestBoundaryValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestAssociatedValueMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestLowerFlowUMethod = ppmMultiply
+      ScreenObject.SutraBoundaries.GenTransportBoundary.PestHigherFlowUMethod = ppmMultiply
       ScreenObject.ObjectLabel.Font.Charset = DEFAULT_CHARSET
       ScreenObject.ObjectLabel.Font.Color = clBlack
       ScreenObject.ObjectLabel.Font.Height = -11
@@ -2919,11 +3658,20 @@ object PhastModel: TPhastModel
       ScreenObject.ObjectVertexLabel.OffSetX = 0
       ScreenObject.ObjectVertexLabel.OffSetY = 20
       ScreenObject.ObjectVertexLabel.Visible = False
+      ScreenObject.SectionLabel.Font.Charset = DEFAULT_CHARSET
+      ScreenObject.SectionLabel.Font.Color = clBlack
+      ScreenObject.SectionLabel.Font.Height = -12
+      ScreenObject.SectionLabel.Font.Name = 'Segoe UI'
+      ScreenObject.SectionLabel.Font.Style = []
+      ScreenObject.SectionLabel.OffSetX = 0
+      ScreenObject.SectionLabel.OffSetY = 20
+      ScreenObject.SectionLabel.Visible = False
       ScreenObject.StoredMinimumFraction.Value = 0.000000000000000000
       ScreenObject.QuadtreeRefinementLevel = 0
+      ScreenObject.DynamicTimesSeriesCollections = <>
       SelectedVertices = <>
     end>
-  Version = '4.3.0.46'
+  Version = '5.3.1.16'
   GuiSettings.FrontHeight = 133
   GuiSettings.Height = 600
   GuiSettings.FrontX = -26845.878136200730000000
@@ -2935,7 +3683,7 @@ object PhastModel: TPhastModel
   GuiSettings.SideWidth = 229
   GuiSettings.SideX = -913.530465949820800000
   GuiSettings.SideY = -42863.799283154120000000
-  GuiSettings.Top = 264
+  GuiSettings.Top = 276
   GuiSettings.TopViewHeight = 302
   GuiSettings.TopViewWidth = 520
   GuiSettings.TopX = -26845.878136200730000000
@@ -3072,6 +3820,13 @@ object PhastModel: TPhastModel
       StartTime = -1.000000000000000000
       StressPeriodType = sptSteadyState
       TimeStepMultiplier = 1.000000000000000000
+      AtsUsed = False
+      StoredAtsInitialStepSize.Value = 0.000000000000000000
+      StoredAtsMinimumStepSize.Value = 0.000010000000000000
+      StoredAtsMaximumStepSize.Value = 1.000000000000000000
+      StoredAtsAdjustmentFactor.Value = 2.000000000000000000
+      StoredAtsFailureFactor.Value = 5.000000000000000000
+      GwtStressPeriods = <>
     end
     item
       DrawDownReference = False
@@ -3080,6 +3835,13 @@ object PhastModel: TPhastModel
       PeriodLength = 21915.000000000000000000
       StressPeriodType = sptTransient
       TimeStepMultiplier = 1.000000000000000000
+      AtsUsed = False
+      StoredAtsInitialStepSize.Value = 0.000000000000000000
+      StoredAtsMinimumStepSize.Value = 0.000010000000000000
+      StoredAtsMaximumStepSize.Value = 1.000000000000000000
+      StoredAtsAdjustmentFactor.Value = 2.000000000000000000
+      StoredAtsFailureFactor.Value = 5.000000000000000000
+      GwtStressPeriods = <>
     end
     item
       DrawDownReference = False
@@ -3089,6 +3851,13 @@ object PhastModel: TPhastModel
       StartTime = 21915.000000000000000000
       StressPeriodType = sptTransient
       TimeStepMultiplier = 1.000000000000000000
+      AtsUsed = False
+      StoredAtsInitialStepSize.Value = 0.000000000000000000
+      StoredAtsMinimumStepSize.Value = 0.000010000000000000
+      StoredAtsMaximumStepSize.Value = 1.000000000000000000
+      StoredAtsAdjustmentFactor.Value = 2.000000000000000000
+      StoredAtsFailureFactor.Value = 5.000000000000000000
+      GwtStressPeriods = <>
     end>
   SoluteTransport = False
   UseWaterTable = False
@@ -3127,6 +3896,19 @@ object PhastModel: TPhastModel
   ModflowOutputControl.DrawdownOC.Wrapping = wStrip
   ModflowOutputControl.BudgetFrequency = 1
   ModflowOutputControl.BudgetFrequencyChoice = fcTimeSteps
+  ModflowOutputControl.ConcentrationOC.ExternalFormat.ExtFormatPrefix = efp1P
+  ModflowOutputControl.ConcentrationOC.ExternalFormat.NumberFormat = nfE
+  ModflowOutputControl.ConcentrationOC.ExternalFormat.Width = 13
+  ModflowOutputControl.ConcentrationOC.ExternalFormat.Decimals = 5
+  ModflowOutputControl.ConcentrationOC.Frequency = 1
+  ModflowOutputControl.ConcentrationOC.FrequencyChoice = fcTimeSteps
+  ModflowOutputControl.ConcentrationOC.OutputFileType = oftText
+  ModflowOutputControl.ConcentrationOC.PrintFormat = nf10G_11_4
+  ModflowOutputControl.ConcentrationOC.PrintInListing = False
+  ModflowOutputControl.ConcentrationOC.SaveInExternalFile = True
+  ModflowOutputControl.ConcentrationOC.Wrapping = wStrip
+  ModflowOutputControl.SaveBudgetCSV = False
+  ModflowOutputControl.ExportArrays = False
   Mt3dmsOutputControl.SaveConcentrations = True
   Mt3dmsOutputControl.OutputFreqChoice = mofEndOfSimulation
   Mt3dmsOutputControl.PeriodicOutputCount = 1
@@ -3169,6 +3951,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3203,6 +3990,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3237,6 +4029,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3271,6 +4068,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3305,6 +4107,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TStringSparseDataSet'
@@ -3339,6 +4146,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3373,6 +4185,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3407,6 +4224,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3441,6 +4263,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3475,6 +4302,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3509,6 +4341,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TStringSparseDataSet'
@@ -3543,6 +4380,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3577,6 +4419,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3611,6 +4458,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3645,6 +4497,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3679,6 +4536,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealSparseDataSet'
@@ -3713,6 +4575,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TStringSparseDataSet'
@@ -3747,6 +4614,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -3782,6 +4654,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealPhastDataSet'
@@ -3816,6 +4693,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
       DataSet.InterpolationDirection = pidX
       DataSet.UsePHAST_InterpolationForAllCells = False
     end
@@ -3852,6 +4734,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
       DataSet.InterpolationDirection = pidX
       DataSet.UsePHAST_InterpolationForAllCells = False
     end
@@ -3888,6 +4775,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
       DataSet.InterpolationDirection = pidX
       DataSet.UsePHAST_InterpolationForAllCells = False
     end
@@ -3925,6 +4817,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -3960,6 +4857,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -3994,6 +4896,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4028,6 +4935,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4062,6 +4974,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4096,6 +5013,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4130,6 +5052,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4164,6 +5091,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dsoTop
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4198,6 +5130,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dsoTop
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4232,6 +5169,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dsoTop
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4266,6 +5208,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dsoTop
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4300,6 +5247,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dsoTop
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TRealPhastDataSet'
@@ -4334,6 +5286,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
       DataSet.InterpolationDirection = pidX
       DataSet.UsePHAST_InterpolationForAllCells = False
     end
@@ -4371,6 +5328,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4405,6 +5367,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4439,6 +5406,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4473,6 +5445,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4507,6 +5484,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end
     item
       DataSetClass = 'TDataArray'
@@ -4541,6 +5523,11 @@ object PhastModel: TPhastModel
       DataSet.Orientation = dso3D
       DataSet.AngleType = atNone
       DataSet.ContourInterval.Value = 0.000000000000000000
+      DataSet.PestParametersUsed = False
+      DataSet.PestParametersAllowed = True
+      DataSet.TemplateNeeded = False
+      DataSet.UseValuesForObservations = False
+      DataSet.StoredObservationDistance.Value = 0.000000000000000000
     end>
   CombinedDisplayColumn = 0
   CombinedDisplayRow = 20
@@ -4625,17 +5612,136 @@ object PhastModel: TPhastModel
   MinVectors.LogScaled = False
   MinVectors.VectorType = pvtPermeability
   MinVectors.VectorDirection = pvdMin
+  FmpCrops.PestParamMethod = ppmMultiply
   FmpCrops = <>
+  FmpSoils.PestParamMethod = ppmMultiply
   FmpSoils = <>
+  FmpClimate.PestParamMethod = ppmMultiply
   FmpClimate = <>
+  FmpAllotment.PestParamMethod = ppmMultiply
   FmpAllotment = <>
   Farms = <>
+  IrrigationTypes = <>
   GeoRef.OtherLengthUnits = 'Meters'
   GeoRef.OtherTimeUnits = 'Days'
   GeoRef.StartDate = 36526.000000000000000000
   GeoRef.Projection = 'N/A'
   GeoRef.ProjectionType = ptEpsg
   UseGsflowFormat = False
+  ParamGroups = <>
+  PestProperties.PestStatus = psInactive
+  PestProperties.TemplateCharacter = '@'
+  PestProperties.ExtendedTemplateCharacter = '%'
+  PestProperties.ArrayTemplateCharacter = '~'
+  PestProperties.ShowPilotPoints = False
+  PestProperties.StoredPilotPointSpacing.Value = 0.000000000000000000
+  PestProperties.PestControlData.PestRestart = prRestart
+  PestProperties.PestControlData.PestMode = pmRegularisation
+  PestProperties.PestControlData.MaxCompressionDimension = 1
+  PestProperties.PestControlData.StoredZeroLimit.Value = 0.000000000000000000
+  PestProperties.PestControlData.StoredInitalLambda.Value = 10.000000000000000000
+  PestProperties.PestControlData.StoredLambdaAdjustmentFactor.Value = 2.000000000000000000
+  PestProperties.PestControlData.StoredPhiRatioSufficient.Value = 0.300000000000000000
+  PestProperties.PestControlData.StoredPhiReductionLambda.Value = 0.010000000000000000
+  PestProperties.PestControlData.NumberOfLambdas = 10
+  PestProperties.PestControlData.JacobianUpdate = 0
+  PestProperties.PestControlData.LambdaForgive = lfForgive
+  PestProperties.PestControlData.DerivedForgive = dNoForgive
+  PestProperties.PestControlData.StoredRelativeMaxParamChange.Value = 3.000000000000000000
+  PestProperties.PestControlData.StoredFactorMaxParamChange.Value = 3.000000000000000000
+  PestProperties.PestControlData.StoredFactorOriginal.Value = 0.001000000000000000
+  PestProperties.PestControlData.BoundStick = 0
+  PestProperties.PestControlData.UpgradeParamVectorBending = upvbNoBending
+  PestProperties.PestControlData.StoredSwitchCriterion.Value = 0.100000000000000000
+  PestProperties.PestControlData.OptSwitchCount = 3
+  PestProperties.PestControlData.StoredSplitSlopeCriterion.Value = 0.000000000000000000
+  PestProperties.PestControlData.AutomaticUserIntervation = auiInactive
+  PestProperties.PestControlData.SensitivityReuse = srNoReuse
+  PestProperties.PestControlData.Boundscaling = bsBoundsScaling
+  PestProperties.PestControlData.MaxIterations = 50
+  PestProperties.PestControlData.StoredSlowConvergenceCriterion.Value = 0.005000000000000000
+  PestProperties.PestControlData.SlowConvergenceCountCriterion = 4
+  PestProperties.PestControlData.ConvergenceCountCriterion = 4
+  PestProperties.PestControlData.StoredParameterChangeConvergenceCriterion.Value = 0.005000000000000000
+  PestProperties.PestControlData.ParameterChangeConvergenceCount = 4
+  PestProperties.PestControlData.StoredObjectiveCriterion.Value = 0.000000000000000000
+  PestProperties.PestControlData.MakeFinalRun = mfrRun
+  PestProperties.PestControlData.StoredPhiAbandon.Value = 0.000000000000000000
+  PestProperties.PestControlData.WriteCovariance = wmDontWrite
+  PestProperties.PestControlData.WriteCorrelations = wmDontWrite
+  PestProperties.PestControlData.WriteEigenVectors = wmDontWrite
+  PestProperties.PestControlData.SaveResolution = srDontSave
+  PestProperties.PestControlData.SaveJacobian = sjSave
+  PestProperties.PestControlData.SaveJacobianIteration = sjiDontSave
+  PestProperties.PestControlData.VerboseRecord = vrVerbose
+  PestProperties.PestControlData.SaveInterimResiduals = sirSave
+  PestProperties.PestControlData.SaveParamIteration = spiSave
+  PestProperties.PestControlData.SaveParamRun = sprDontSave
+  PestProperties.SvdProperties.Mode = smNormal
+  PestProperties.SvdProperties.MaxSingularValues = 1000
+  PestProperties.SvdProperties.StoredEigenThreshold.Value = 0.000000500000000000
+  PestProperties.SvdProperties.EigenWrite = ewReduced
+  PestProperties.LsqrProperties.Mode = lmDeactivate
+  PestProperties.LsqrProperties.StoredMatrixTolerance.Value = 0.000100000000000000
+  PestProperties.LsqrProperties.StoredRightHandSideTolerance.Value = 0.000100000000000000
+  PestProperties.LsqrProperties.StoredConditionNumberLimit.Value = 1000.000000000000000000
+  PestProperties.LsqrProperties.MaxIteration = 0
+  PestProperties.LsqrProperties.LsqrWrite = lwWrite
+  PestProperties.ObservationGroups = <>
+  PestProperties.PriorInfoObservationGroups = <>
+  PestProperties.SpecifiedPilotPoints = <>
+  PestProperties.BetweenObservationsPilotPoints = <>
+  PestProperties.UseBetweenObservationsPilotPoints = False
+  PestProperties.ArrayPilotPointSelection = appsNone
+  PestProperties.StoredPilotPointBuffer.Value = 0.000000000000000000
+  PestProperties.StoredMinimumSeparation.Value = 0.000000000000000000
+  PestProperties.Regularization.StoredPhiMLim.Value = 0.000000000100000000
+  PestProperties.Regularization.StoredPhiMAccept.Value = 0.000000000105000000
+  PestProperties.Regularization.AutoPhiMAccept = True
+  PestProperties.Regularization.StoredFracPhiM.Value = 0.100000000000000000
+  PestProperties.Regularization.MemSave = msNoMemSave
+  PestProperties.Regularization.StoredWFInit.Value = 1.000000000000000000
+  PestProperties.Regularization.StoredWeightFactorMinimum.Value = 0.000000000100000000
+  PestProperties.Regularization.StoredWeightFactorMaximum.Value = 10000000000.000000000000000000
+  PestProperties.Regularization.StoredWFFac.Value = 1.300000000000000000
+  PestProperties.Regularization.StoredWeightFactorTolerance.Value = 0.010000000000000000
+  PestProperties.Regularization.LinearRegression = lfNoLinReg
+  PestProperties.Regularization.RegContinue = rcNoContinue
+  PestProperties.Regularization.RegularizationOption = 1
+  PestProperties.Regularization.OptimizationInterval = 1
+  PestProperties.Regularization.StoredRegWeightRatio.Value = 50.000000000000000000
+  PestProperties.Regularization.StoredRegularizationSingularValueThreshhold.Value = 0.500000000000000000
+  PestProperties.UseInitialValuePriorInfo = True
+  PestProperties.UseHorizontalSpatialContinuityPriorInfo = True
+  PestProperties.StoredSeachDistance.Value = 0.000000000000000000
+  PestProperties.MaxPilotPointsInRange = 4
+  PestProperties.UseVertSpatialContinuityPriorInfo = True
+  PestProperties.PredictionProperties.MinOrMax = mmMaximize
+  PestProperties.PredictionProperties.PredictiveNoise = pnNoNoise
+  PestProperties.PredictionProperties.StoredTargetPhi.Value = 0.000000000000000000
+  PestProperties.PredictionProperties.StoredAcceptedPhi.Value = 0.000000000000000000
+  PestProperties.PredictionProperties.StoredTestLambdaPhi.Value = 0.000000000000000000
+  PestProperties.PredictionProperties.StoredAbsoluteLamdaCriterion.Value = 0.000000000000000000
+  PestProperties.PredictionProperties.StoredRelativeLamdaCriterion.Value = 0.005000000000000000
+  PestProperties.PredictionProperties.StoredInitialLineSearchFactor.Value = 0.250000000000000000
+  PestProperties.PredictionProperties.StoredUpdateLineSearchFactor.Value = 1.500000000000000000
+  PestProperties.PredictionProperties.LineSearchRuns = 15
+  PestProperties.PredictionProperties.StoredAbsolutePredictionSwitch.Value = 0.000000000000000000
+  PestProperties.PredictionProperties.StoredRelativePredictionSwitch.Value = 0.500000000000000000
+  PestProperties.PredictionProperties.MaxNoPredictionImprovmentRuns = 4
+  PestProperties.PredictionProperties.StoredAbsoluteImprovementCriterion.Value = 0.000000000000000000
+  PestProperties.PredictionProperties.StoredRelativeImprovementCriterion.Value = 0.005000000000000000
+  PestProperties.PredictionProperties.NumberOfPredictionsToCompare = 4
+  PestProperties.ParetoProperties.StoredInitialParetoWeight.Value = 0.000000000000000000
+  PestProperties.ParetoProperties.StoredFinalParetoWeight.Value = 1.000000000000000000
+  PestProperties.ParetoProperties.ParetoIncrements = 10
+  PestProperties.ParetoProperties.InitialIterationCount = 0
+  PestProperties.ParetoProperties.IntermediateIterationCount = 1
+  PestProperties.ParetoProperties.FinalIterationCount = 0
+  PestProperties.ParetoProperties.AltTerminationOption = atoDontUse
+  PestProperties.ParetoProperties.AltDirection = adAbove
+  PestProperties.ParetoProperties.StoredAltThreshold.Value = 0.000000000000000000
+  PestProperties.ParetoProperties.AltIterations = 1
   SvdaPrepProperties.Method = smSvdQSqrRt
   SvdaPrepProperties.NumberOfSuperParameters = 1
   SvdaPrepProperties.RunSvdaPrep = True

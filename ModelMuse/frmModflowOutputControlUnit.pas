@@ -141,11 +141,6 @@ begin
   jvPages.ActivePage := jvspGeneral;
 
   frameMt3dmsTimes.Grid.Cells[0,0] := StrOutputTimesTIMPRS;
-
-{$IFNDEF GWE}
-  pltrPageNavigator.Items[5].Text := 'GWT';
-{$ENDIF}
-
   GetData;
 end;
 
