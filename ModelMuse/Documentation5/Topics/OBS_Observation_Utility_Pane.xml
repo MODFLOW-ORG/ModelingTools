@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2025-04-01T16:13:43.568-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd" status="Under Construction">
+<topic template="Default" modified="2025-05-13T14:31:14.767-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">OBS: Observation Utility Pane</title>
   <body>
     <header>
@@ -25,6 +25,7 @@
     <para styleclass="Normal"><text styleclass="Strong" translate="true">Observation Value (OBSVAL)</text><text styleclass="Normal" translate="true"> is the measured value to which the simulated value should be compared.</text></para>
     <para styleclass="Normal"><text styleclass="Strong" translate="true">Observation Weight (WEIGHT)</text><text styleclass="Normal" translate="true"> is the weight assigned to the observation.</text></para>
     <para styleclass="Normal"><text styleclass="Strong" translate="true">MAW Connection Number</text><text styleclass="Normal" translate="true"> is the connection number of a multiaquifer well to an individual cell (iconn). Iconn is 1 for the uppermost cell connected to a multiaquifer well and increase downward. This option is only available for certain observation types.</text></para>
+    <para styleclass="Normal"><text styleclass="Strong" translate="true">Chem. Species of Temperature</text><text styleclass="Normal" translate="true"> indicates the chemical species (in GWT models) or the temperature (in GWE models) associated with the observation in GWT and GWE models.</text></para>
     <para styleclass="Normal"><text styleclass="Strong" translate="true">Comment</text><text styleclass="Normal" translate="true"> is an optional comment about the observation.</text></para>
     <para styleclass="Heading2_atoc_"><text styleclass="Heading2_atoc_" translate="true">Comparison Observations</text></para>
     <para styleclass="Normal"><snippet src="ObsComparisons" inline="false"/></para>

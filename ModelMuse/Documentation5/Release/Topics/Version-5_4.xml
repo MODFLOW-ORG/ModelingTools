@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2025-05-13T13:57:48.253-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Version 5.4</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Version 5.4</text></para>
+    </header>
+    <para styleclass="Heading2_atoc_" style="text-indent:-18px; margin-left:18px;"><image src="hmtoggle_plus0.gif" scale="100.00%" styleclass="Heading2_atoc_" figurelistinclude="0"></image><tab /><toggle type="dropdown" print-expanded="true" help-expanded="true" defaultstyle="true" translate="true" src-collapsed="hmtoggle_plus0.gif" src-expanded="hmtoggle_plus1.gif" styleclass="Heading2_atoc_"><caption translate="true"><![CDATA[Version 5.4 May 20, 2025]]></caption></toggle></para>
+    <para styleclass="Heading2_atoc_" style="text-indent:-18px; margin-left:18px;"><table styleclass="Default" rowcount="1" colcount="1">
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Heading3_atocs_" style="text-indent:-18px; margin-left:18px;"><image src="hmtoggle_plus0.gif" scale="100.00%" styleclass="Heading3_atocs_" figurelistinclude="0"></image><tab /><toggle type="dropdown" print-expanded="true" help-expanded="true" defaultstyle="true" translate="true" src-collapsed="hmtoggle_plus0.gif" src-expanded="hmtoggle_plus1.gif" styleclass="Heading3_atocs_"><caption translate="true"><![CDATA[Enhancements]]></caption></toggle></para>
+          <para styleclass="Heading3_atocs_" style="text-indent:-18px; margin-left:18px;"><table styleclass="Default" rowcount="1" colcount="1">
+            <tr style="vertical-align:top">
+              <td>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for GWE models to ModelMuse.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">ModelMuse now issues a warning for objects that are intended to define head or drawdown observation locations but do not because they are outside the grid.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">ModelMuse can now import SUTRA meshes from Shapefiles.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for new sorption options in the IST package of MODFLOW 6.6.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for SORBATE option in MST and IST packages in MODFLOW 6.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for ATS_PERCEL option in ADV package in MODFLOW 6.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for STORAGE option and INITIALSTAGES blocks in the SFR package in MODFLOW 6.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">In certain tables, the user can now paste comma-separated text and have the text be properly distributed among the cells.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for interbed-compaction-pct observation type in the CSUB package.</text></para>
+              </td>
+            </tr>
+          </table></para>
+          <para styleclass="Heading3_atocs_" style="text-indent:-18px; margin-left:18px;"><image src="hmtoggle_plus0.gif" scale="100.00%" styleclass="Heading3_atocs_" figurelistinclude="0"></image><tab /><toggle type="dropdown" print-expanded="true" help-expanded="false" defaultstyle="true" translate="true" src-collapsed="hmtoggle_plus0.gif" src-expanded="hmtoggle_plus1.gif" styleclass="Heading3_atocs_"><caption translate="true"><![CDATA[Changes]]></caption></toggle></para>
+          <para styleclass="Heading3_atocs_" style="text-indent:-18px; margin-left:18px;"><table styleclass="Default" rowcount="1" colcount="1">
+            <tr style="vertical-align:top">
+              <td>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">ModelMuse now ensures that IDOMAIN is never set to -1 on the top and bottom layers.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">When importing the MAW package, the BOUNDNAME is now used as the object name if BOUNDNAME is not specified.</text></para>
+              </td>
+            </tr>
+          </table></para>
+          <para styleclass="Heading3_atocs_" style="text-indent:-18px; margin-left:18px;"><image src="hmtoggle_plus0.gif" scale="100.00%" styleclass="Heading3_atocs_" figurelistinclude="0"></image><tab /><toggle type="dropdown" print-expanded="true" help-expanded="false" defaultstyle="true" translate="true" src-collapsed="hmtoggle_plus0.gif" src-expanded="hmtoggle_plus1.gif" styleclass="Heading3_atocs_"><caption translate="true"><![CDATA[Bug fixes]]></caption></toggle></para>
+          <para styleclass="Heading3_atocs_" style="text-indent:-18px; margin-left:18px;"><table styleclass="Default" rowcount="1" colcount="1">
+            <tr style="vertical-align:top">
+              <td>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug in saving files that had MT3D Observation results in a way that prevented the files from being opened again.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">The nodes in the &quot;Model|MODFLOW Output Control&quot; dialog box have been restored.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug that could cause the input to the MVR package to be incorrect when the specification of a Lake source did not completely match the time discretization.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug that could cause the input to the MVR package to be incorrect when a lake source was connected to the nearest reach in an SFR receiver.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed display of MODPATH version 7 output in grids with non-zero grid angles.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug in saving binary head input file to a model archive.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed a bug that could cause an assertion failure when changing the model selection.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug in assigning the depth PEST modifier and PEST method for ETS boundaries.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed export of objects as shapefiles for certain MODFLOW 6 features.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed assigning properties of DRT boundaries.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed saving &quot;EXPORT_ARRAY_ASCII&quot; option in the MODFLOW Output Control dialog box.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug in importing WellFootprint results.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug importing MODFLOW-2005 and MODFLOW-NWT models in which the listing file was enclosed in single quotes.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed importing RCH, EVT, and ETS packages from MODFLOW-2005 and MODFLOW-NWT models when parameters are used in them.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed importing MODFLOW-6 models that include GWE models.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed export of MT3D-USGS SSM input file with non-MODFLOW 6 model.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug in importing ETS package.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed export of grid data to 3D polyhedrons.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed import of MODFLOW 6 models when the usgs.model.reference file is included.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed export of UZT observations when the observations were only specified as calibration observations.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed a bug that could cause an access violation if ModelMuse was closed while the Edit Data Sets dialog box was open.</text></para>
+              </td>
+            </tr>
+          </table></para>
+        </td>
+      </tr>
+    </table></para>
+  </body>
+</topic>

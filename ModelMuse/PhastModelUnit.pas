@@ -10451,7 +10451,7 @@ const
 //                non-MODFLOW 6 model.
 //    '5.3.1.13' Bug fix: Fixed bug in importing ETS package.
 //    '5.3.1.14' Change: When importing the MAW package, the BOUNDNAME is now
-//                used as the object name if BOUNDNAME is specified.
+//                used as the object name if BOUNDNAME is not specified.
 //    '5.3.1.15' Bug fix: Fixed export of grid data to 3D polyhedrons.
 //    '5.3.1.16' Bug fix: Fixed import of MODFLOW 6 models when the
 //                usgs.model.reference file is included.

@@ -16087,7 +16087,7 @@ initialization
   MfOwhmDate := EncodeDate(2016, 6, 15);
   MfCfpDate := EncodeDate(2011, 2, 23);
   ModelMateDate := EncodeDate(2013, 11, 19);
-  Mf6Date := EncodeDate(2025, 2, 10);
+  Mf6Date := EncodeDate(2025, 5, 12);
 //  Mf6WithGwtDate := EncodeDate(2022, 10, 26);
   Mt3dUsgsDate := EncodeDate(2019, 3, 8);
   ZoneBudMf6Date := Mf6Date;

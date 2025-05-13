@@ -5,12 +5,12 @@
 ;MMVersion is only updated for major releases e.g. 4.0, 5.0 etc.
 #define MMVersion "5" 
 ;MMCurrentVersion is updated for each version released
-#define MMCurrentVersion "5_3_1" 
+#define MMCurrentVersion "5_4" 
 ;#define MMCurrentVersion "5_1_Beta" 
 AppVerName=ModelMuse 5.3.1.0
 
 ;enable or disable the following to install in 32-bit or 64-bit mode
-#define Win64
+;#define Win64
 
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
@@ -36,7 +36,7 @@ Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
 #ifdef Win64
-ArchitecturesInstallIn64BitMode=x64 
+ArchitecturesInstallIn64BitMode=x64compatible 
 #endif
 
 [Languages]

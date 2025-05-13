@@ -682,7 +682,7 @@ inherited frmGoPhast: TfrmGoPhast
       end
     end
     object tbarEditGrid: TToolBar
-      Left = 165
+      Left = 422
       Top = 66
       Width = 212
       Height = 28
@@ -784,7 +784,7 @@ inherited frmGoPhast: TfrmGoPhast
       end
     end
     object tbarCreateScreenObject: TToolBar
-      Left = 390
+      Left = 165
       Top = 66
       Width = 244
       Height = 28
