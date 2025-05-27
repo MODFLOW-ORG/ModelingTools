@@ -61,7 +61,9 @@ inherited frmCustomSelectObjects: TfrmCustomSelectObjects
     Colors.UnfocusedColor = clGray
     Colors.UnfocusedSelectionColor = 13421772
     Colors.UnfocusedSelectionBorderColor = 13421772
+    DefaultNodeHeight = 22
     Header.AutoSizeIndex = 0
+    Header.Height = 18
     Header.MainColumn = -1
     Header.Options = [hoColumnResize, hoDrag]
     TabOrder = 0

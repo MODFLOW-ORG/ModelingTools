@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics,
   Controls, Forms, Dialogs, frmCustomGoPhastUnit, StdCtrls,
-  Buttons, ExtCtrls, VirtualTrees, ScreenObjectUnit;
+  Buttons, ExtCtrls, VirtualTrees, ScreenObjectUnit, VirtualTrees.BaseTree,
+  VirtualTrees.BaseAncestorVCL, VirtualTrees.AncestorVCL;
 
 type
   PScreenObjectNodeData = ^TScreenObjectNodeData;

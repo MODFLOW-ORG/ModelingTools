@@ -7,10 +7,9 @@ inherited frmErrorsAndWarnings: TfrmErrorsAndWarnings
   ClientHeight = 235
   ClientWidth = 472
   Position = poDefaultPosOnly
-  ExplicitLeft = 3
-  ExplicitTop = 3
-  ExplicitWidth = 484
-  ExplicitHeight = 273
+  StyleElements = [seFont, seClient, seBorder]
+  ExplicitWidth = 488
+  ExplicitHeight = 274
   TextHeight = 18
   object pnlBottom: TPanel
     Left = 0

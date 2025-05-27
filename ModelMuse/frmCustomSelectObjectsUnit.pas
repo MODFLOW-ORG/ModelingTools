@@ -5,7 +5,8 @@ interface
 uses
   System.Types, Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Contnrs, frmCustomGoPhastUnit, VirtualTrees, StdCtrls, Buttons,
-  ExtCtrls, ScreenObjectUnit, DataSetUnit;
+  ExtCtrls, ScreenObjectUnit, DataSetUnit, VirtualTrees.BaseAncestorVCL,
+  VirtualTrees.BaseTree, VirtualTrees.AncestorVCL, VirtualTrees.Types;
 
 type
   TVisibleGroupState = (vgsUndefined, vgsUnChecked, vgsChecked, vgs3State);

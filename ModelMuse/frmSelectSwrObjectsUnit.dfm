@@ -3,9 +3,9 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
   HelpKeyword = 'Select_SWR_Objects_Dialog_Box'
   Caption = 'Select SWR Objects'
   ClientWidth = 440
-  OnResize = FormResize
-  ExplicitWidth = 452
-  ExplicitHeight = 272
+  StyleElements = [seFont, seClient, seBorder]
+  ExplicitWidth = 458
+  ExplicitHeight = 248
   PixelsPerInch = 120
   TextHeight = 18
   object btnAddScreenObject: TSpeedButton
@@ -72,7 +72,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 192
+    Top = 159
     Width = 440
     Height = 42
     Align = alBottom
@@ -83,7 +83,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
       440
       42)
     object btnHelp: TBitBtn
-      Left = 165
+      Left = 167
       Top = 6
       Width = 83
       Height = 33
@@ -94,7 +94,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
       ExplicitLeft = 161
     end
     object btnOK: TBitBtn
-      Left = 254
+      Left = 256
       Top = 6
       Width = 83
       Height = 33
@@ -105,7 +105,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
       ExplicitLeft = 250
     end
     object btnCancel: TBitBtn
-      Left = 343
+      Left = 345
       Top = 6
       Width = 83
       Height = 33
@@ -121,7 +121,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
     Left = 3
     Top = 40
     Width = 200
-    Height = 149
+    Height = 116
     Margins.Top = 40
     Align = alLeft
     Colors.BorderColor = 15987699
@@ -142,6 +142,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
     Colors.UnfocusedSelectionColor = clWhite
     Colors.UnfocusedSelectionBorderColor = clWhite
     Header.AutoSizeIndex = 0
+    Header.Height = 18
     Header.MainColumn = -1
     TabOrder = 0
     TreeOptions.SelectionOptions = [toFullRowSelect, toMultiSelect]
@@ -150,6 +151,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
     OnInitNode = vstAvailableObjectsInitNode
     Touch.InteractiveGestures = [igPan, igPressAndTap]
     Touch.InteractiveGestureOptions = [igoPanSingleFingerHorizontal, igoPanSingleFingerVertical, igoPanInertia, igoPanGutter, igoParentPassthrough]
+    ExplicitHeight = 149
     Columns = <>
   end
   object vstSelectedObjects: TVirtualStringTree
@@ -157,7 +159,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
     Left = 237
     Top = 40
     Width = 200
-    Height = 149
+    Height = 116
     Margins.Top = 40
     Align = alRight
     Colors.BorderColor = 15987699
@@ -178,6 +180,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
     Colors.UnfocusedSelectionColor = clWhite
     Colors.UnfocusedSelectionBorderColor = clWhite
     Header.AutoSizeIndex = 0
+    Header.Height = 18
     Header.MainColumn = -1
     TabOrder = 1
     TreeOptions.SelectionOptions = [toFullRowSelect, toMultiSelect]
@@ -186,6 +189,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
     OnInitNode = vstSelectedObjectsInitNode
     Touch.InteractiveGestures = [igPan, igPressAndTap]
     Touch.InteractiveGestureOptions = [igoPanSingleFingerHorizontal, igoPanSingleFingerVertical, igoPanInertia, igoPanGutter, igoParentPassthrough]
+    ExplicitHeight = 149
     Columns = <>
   end
 end

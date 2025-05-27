@@ -8,7 +8,7 @@ uses
   SsButtonEd, RbwStringTreeCombo, StdCtrls, ComCtrls, JvExComCtrls, JvUpDown,
   JvExControls, JvxSlider, Mask, JvExMask, JvSpin,
   VirtualTrees, DataSetUnit, LegendUnit, RbwParser, ClassificationUnit,
-  SubscriptionUnit, GrayTabs;
+  SubscriptionUnit, GrayTabs, VirtualTrees.Types;
 
 type
   TframeCustomColor = class(TFrame)

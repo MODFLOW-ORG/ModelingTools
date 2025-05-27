@@ -4,6 +4,7 @@ inherited frmObservationComparisons: TfrmObservationComparisons
   Caption = 'Comparison Observations'
   ClientHeight = 311
   ClientWidth = 780
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 796
   ExplicitHeight = 350
   TextHeight = 18
@@ -77,8 +78,9 @@ inherited frmObservationComparisons: TfrmObservationComparisons
     Tree.Colors.UnfocusedColor = clGray
     Tree.Colors.UnfocusedSelectionColor = 13421772
     Tree.Colors.UnfocusedSelectionBorderColor = 13421772
-    Tree.DefaultNodeHeight = 20
+    Tree.DefaultNodeHeight = 22
     Tree.Header.AutoSizeIndex = 0
+    Tree.Header.Height = 18
     Tree.Header.MainColumn = -1
     Tree.TabOrder = 0
     Tree.OnChange = treecomboInPlaceEditorTreeChange
@@ -128,11 +130,13 @@ inherited frmObservationComparisons: TfrmObservationComparisons
     inherited Panel: TPanel
       Top = 235
       Width = 780
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 235
       ExplicitWidth = 780
       inherited lbNumber: TLabel
         Width = 55
         Height = 18
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitWidth = 55
         ExplicitHeight = 18
       end
@@ -150,6 +154,7 @@ inherited frmObservationComparisons: TfrmObservationComparisons
       end
       inherited seNumber: TJvSpinEdit
         Height = 26
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitHeight = 26
       end
     end

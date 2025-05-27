@@ -9,7 +9,7 @@ uses
   Vcl.Buttons, Vcl.ExtCtrls, SsButtonEd, RbwStringTreeCombo,
   System.Generics.Collections, VirtualTrees, frameGridUnit, GoPhastTypes,
   ObservationComparisonsUnit, UndoItems, PestObsUnit, ObsInterfaceUnit,
-  FluxObservationUnit, SutraPestObsUnit, ScreenObjectUnit;
+  FluxObservationUnit, SutraPestObsUnit, ScreenObjectUnit, VirtualTrees.Types;
 
 type
   TObsTreeItem = class(TObject)

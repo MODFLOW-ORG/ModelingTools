@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, frmCustomGoPhastUnit, StdCtrls, Buttons, ExtCtrls, VirtualTrees,
-  GoPhastTypes, Menus, ScreenObjectUnit;
+  GoPhastTypes, Menus, ScreenObjectUnit, VirtualTrees.Types,
+  VirtualTrees.BaseAncestorVCL, VirtualTrees.BaseTree, VirtualTrees.AncestorVCL;
 
 type
   TErrMessages = class(TStringList)

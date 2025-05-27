@@ -189,7 +189,9 @@ object frameCustomColor: TframeCustomColor
         Tree.Colors.UnfocusedColor = clGray
         Tree.Colors.UnfocusedSelectionColor = clWhite
         Tree.Colors.UnfocusedSelectionBorderColor = clWhite
+        Tree.DefaultNodeHeight = 19
         Tree.Header.AutoSizeIndex = 0
+        Tree.Header.Height = 15
         Tree.Header.MainColumn = -1
         Tree.TabOrder = 0
         Tree.TreeOptions.SelectionOptions = [toFullRowSelect]
@@ -309,11 +311,13 @@ object frameCustomColor: TframeCustomColor
         inherited rdeLimit: TRbwDataEntry
           Height = 28
           TabOrder = 0
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitHeight = 28
         end
         inherited comboBoolLimit: TComboBox
           Left = 89
           TabOrder = 1
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 89
         end
       end
@@ -328,7 +332,11 @@ object frameCustomColor: TframeCustomColor
         ExplicitTop = 24
         inherited rdeLimit: TRbwDataEntry
           Height = 28
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitHeight = 28
+        end
+        inherited comboBoolLimit: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
         end
       end
       object cbActiveOnly: TCheckBox

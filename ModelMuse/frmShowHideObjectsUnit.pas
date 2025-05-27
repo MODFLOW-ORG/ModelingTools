@@ -9,7 +9,9 @@ uses
   UndoItemsScreenObjects, Windows, SysUtils, Types, Classes, Variants,
   Graphics, Controls, Forms, Dialogs, StdCtrls, frmCustomGoPhastUnit,
   Buttons, ExtCtrls, Menus, ScreenObjectUnit, VirtualTrees,
-  frmCustomSelectObjectsUnit, ImgList, System.ImageList;
+  frmCustomSelectObjectsUnit, ImgList, System.ImageList,
+  VirtualTrees.BaseAncestorVCL, VirtualTrees.BaseTree, VirtualTrees.AncestorVCL,
+  VirtualTrees.Types;
 
 type
   TSelectChoice = (scShow, scSelect);
@@ -68,7 +70,7 @@ type
     procedure btnShowOrSelectClick(Sender: TObject);
     procedure vstObjectsGetImageIndexEx(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
-      var Ghosted: Boolean; var ImageIndex: VirtualTrees.TImageIndex;
+      var Ghosted: Boolean; var ImageIndex: TImageIndex;
       var ImageList: TCustomImageList);
     procedure FormDestroy(Sender: TObject); override;
     procedure miDeselectClick(Sender: TObject);
@@ -526,7 +528,7 @@ end;
 
 procedure TfrmShowHideObjects.vstObjectsGetImageIndexEx(
   Sender: TBaseVirtualTree; Node: PVirtualNode; Kind: TVTImageKind;
-  Column: TColumnIndex; var Ghosted: Boolean; var ImageIndex: VirtualTrees.TImageIndex;
+  Column: TColumnIndex; var Ghosted: Boolean; var ImageIndex: TImageIndex;
   var ImageList: TCustomImageList);
 var
   Data: PMyRec;

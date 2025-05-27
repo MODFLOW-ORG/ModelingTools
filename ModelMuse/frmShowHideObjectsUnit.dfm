@@ -7,6 +7,7 @@ inherited frmShowHideObjects: TfrmShowHideObjects
   ClientWidth = 418
   KeyPreview = True
   Position = poDesigned
+  StyleElements = [seFont, seClient, seBorder]
   OnClose = FormClose
   OnKeyUp = FormKeyUp
   ExplicitWidth = 434
@@ -15,6 +16,7 @@ inherited frmShowHideObjects: TfrmShowHideObjects
     Top = 259
     Width = 418
     Height = 158
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 259
     ExplicitWidth = 418
     ExplicitHeight = 158

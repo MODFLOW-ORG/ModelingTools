@@ -18,7 +18,7 @@ interface
 {#BACKUP TreeComboDemo\*.*}
 
 uses
-  SysUtils, Classes, Controls, StdCtrls, SsButtonEd, VirtualTrees, frmTreeUnit;
+  SysUtils, Classes, Controls, StdCtrls, SsButtonEd, VirtualTrees, frmTreeUnit, VirtualTrees.Types;
 
 type
 
