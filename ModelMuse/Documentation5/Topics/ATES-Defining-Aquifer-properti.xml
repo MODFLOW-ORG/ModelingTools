@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2025-05-13T15:06:56.722-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2025-06-01T14:21:24.744-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">ATES Defining Aquifer properties</title>
   <body>
     <header>
@@ -19,7 +19,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Density_Solid_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Density_Solid_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">2500</text></para>
@@ -27,7 +27,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Heat_Capacity_Solid_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Heat_Capacity_Solid_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">850</text></para>
@@ -35,7 +35,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Porosity_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Porosity_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">0.01</text></para>
@@ -43,7 +43,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Thermal_Conductivity_Fluid_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Thermal_Conductivity_Fluid_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">0.58</text></para>
@@ -51,7 +51,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Thermal_Conductivity_Solid_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Thermal_Conductivity_Solid_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">120960</text></para>
@@ -59,7 +59,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Horizontal_Transverse_Dispersivity_Horizontal_Flow_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Horizontal_Transverse_Dispersivity_Horizontal_Flow_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">0.01</text></para>
@@ -67,7 +67,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Longitudinal_Dispersivity_Horizontal_Flow_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Longitudinal_Dispersivity_Horizontal_Flow_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">0.01</text></para>
@@ -75,7 +75,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Longitudinal_Dispersivity_Vertical_Flow_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Longitudinal_Dispersivity_Vertical_Flow_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">0.1</text></para>
@@ -83,7 +83,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Vertical_Transverse_Dispersivity_Horizontal_Flow_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Vertical_Transverse_Dispersivity_Horizontal_Flow_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">0.01</text></para>
@@ -91,7 +91,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td>
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Vertical_Transverse_Dispersivity_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Vertical_Transverse_Dispersivity_GWE</text></para>
         </td>
         <td>
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">0.01</text></para>
@@ -146,7 +146,7 @@
         </td>
       </tr>
     </table></para>
-    <para styleclass="Normal"><image src="ATES_Default_Properties.png" imagestyleclass="Default" scale="-60.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture of the Edit Data Sets dialog box illustating the data sets that need to be edited</title><caption translate="true"><![CDATA[Screen capture of the Edit Data Sets dialog box illustating the data sets that need to be edited]]></caption></image></para>
+    <para styleclass="Normal"><image src="ATES_Default_Properties.png" imagestyleclass="Default" scale="-99.90%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture of the Edit Data Sets dialog box illustating the data sets that need to be edited</title><caption translate="true"><![CDATA[Screen capture of the Edit Data Sets dialog box illustating the data sets that need to be edited]]></caption></image></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">Now create a rectangle object to define the properties of the middle unit. It should extend from (0,35) to (135, 15). Its vertices should be the following.</text></para>
     <para styleclass="Code Example"><text styleclass="Code Example" translate="true">0,</text><tab /><text styleclass="Code Example" translate="true">35</text><br/><text styleclass="Code Example" translate="true">135,</text><tab /><text styleclass="Code Example" translate="true">35</text><br/><text styleclass="Code Example" translate="true">135,</text><tab /><text styleclass="Code Example" translate="true">15</text><br/><text styleclass="Code Example" translate="true">0,</text><tab /><text styleclass="Code Example" translate="true">15</text><br/><text styleclass="Code Example" translate="true">0,</text><tab /><text styleclass="Code Example" translate="true">35</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">Use the object to set the following properties.</text></para>
@@ -161,7 +161,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td style="width:273px;">
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Heat_Capacity_Solid_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Heat_Capacity_Solid_GWE</text></para>
         </td>
         <td style="width:271px;">
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">1100</text></para>
@@ -169,7 +169,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td style="width:273px;">
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Porosity_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Porosity_GWE</text></para>
         </td>
         <td style="width:271px;">
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">0.1</text></para>
@@ -177,7 +177,7 @@
       </tr>
       <tr style="vertical-align:top">
         <td style="width:273px;">
-          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Thermal_Conductivity_Solid_Temperature</text></para>
+          <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">Thermal_Conductivity_Solid_GWE</text></para>
         </td>
         <td style="width:271px;">
           <para styleclass="Table Cell"><text styleclass="Table Cell" translate="true">259200</text></para>
@@ -200,6 +200,6 @@
         </td>
       </tr>
     </table></para>
-    <para styleclass="Normal"><image src="ATES_Zone1_Properties.png" imagestyleclass="Default" scale="-70.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture illustrating setting the properties of zone 1 with an object</title><caption translate="true"><![CDATA[Screen capture illustrating setting the properties of zone 1 with an object]]></caption></image></para>
+    <para styleclass="Normal"><image src="ATES_Zone1_Properties.png" imagestyleclass="Default" scale="-99.90%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture illustrating setting the properties of zone 1 with an object</title><caption translate="true"><![CDATA[Screen capture illustrating setting the properties of zone 1 with an object]]></caption></image></para>
   </body>
 </topic>

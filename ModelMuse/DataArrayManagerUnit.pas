@@ -991,7 +991,7 @@ var
     begin
       FCustomModel.UpdateDataArrayDimensions(DataArray);
       DataArray.AssociatedDataSets := DataSetCreationData.AssociatedDataSets;
-      DataArray.Classification := DataSetCreationData.Classification;
+      DataArray.Classification := Classification;
     end;
   end;
 begin
@@ -1060,6 +1060,7 @@ begin
         DisplayName := StrUzeInitialTemperature;
         Classification := StrUze;
         ArrayNeeded := FCustomModel.GweUzeUsed;
+        NewFormula := '20.';
       end
       else
       begin
@@ -1067,12 +1068,12 @@ begin
         DisplayName := FUztInitConc.DisplayName + IntToStr(Index);
         Classification := FUztInitConc.Classification;
         ArrayNeeded := FUztInitConc.DataSetNeeded;
+        NewFormula := FUztInitConc.Formula;
       end;
       Orientation := FUztInitConc.Orientation;
       DataType := FUztInitConc.DataType;
       ArrayArrayShouldBeCreated :=
         FUztInitConc.DataSetShouldBeCreated;
-      NewFormula := FUztInitConc.Formula;
       Lock := FUztInitConc.Lock;
       AngleType := FUztInitConc.AngleType;
       HandleDataArray(FUztInitConc);
@@ -1094,50 +1095,6 @@ begin
     AngleType := FDataArrayCreationRecords[Index].AngleType;
 
     HandleDataArray(FDataArrayCreationRecords[Index]);
-//    DataArray := GetDataSetByName(DataSetName);
-//    Assert(Assigned(ArrayNeeded));
-//    if DataArray <> nil then
-//    begin
-//      DataArray.Name := DataSetName;
-//      DataArray.DisplayName := DisplayName;
-//      DataArray.Lock := Lock;
-//      DataArray.OnDataSetUsed := ArrayNeeded;
-//      FCustomModel.CreateVariables(DataArray);
-//      DataArray.AngleType := AngleType;
-//      DataArray.Classification := Classification;
-//      DataArray.Visible := FDataArrayCreationRecords[Index].Visible;
-//    end
-//    else if ArrayNeeded(self)
-//      or (Assigned(ArrayArrayShouldBeCreated)
-//      and ArrayArrayShouldBeCreated(self)) then
-//    begin
-//      DataArray := CreateNewDataArray(
-//        FDataArrayCreationRecords[Index].DataSetType, DataSetName, NewFormula,
-//        DisplayName,
-//        Lock, DataType, FDataArrayCreationRecords[Index].EvaluatedAt,
-//        Orientation, Classification);
-//      DataArray.OnDataSetUsed := ArrayNeeded;
-//      DataArray.Lock := Lock;
-//      DataArray.CheckMax := FDataArrayCreationRecords[Index].CheckMax;
-//      DataArray.CheckMin := FDataArrayCreationRecords[Index].CheckMin;
-//      DataArray.Max := FDataArrayCreationRecords[Index].Max;
-//      DataArray.Min := FDataArrayCreationRecords[Index].Min;
-//      DataArray.DisplayName := DisplayName;
-//      DataArray.AngleType := AngleType;
-//      DataArray.Visible := FDataArrayCreationRecords[Index].Visible;
-//    end;
-//    if DataArray <> nil then
-//    begin
-//      FCustomModel.UpdateDataArrayDimensions(DataArray);
-////      if FCustomModel.Grid <> nil then
-////      begin
-////        DataArray.UpdateDimensions(FCustomModel.Grid.LayerCount, FCustomModel.Grid.RowCount,
-////          FCustomModel.Grid.ColumnCount);
-////      end;
-//      DataArray.AssociatedDataSets := FDataArrayCreationRecords[
-//        Index].AssociatedDataSets;
-//      DataArray.Classification := FDataArrayCreationRecords[Index].Classification;
-//    end;
   end;
 
   DataArray := GetDataSetByName(rsActive);

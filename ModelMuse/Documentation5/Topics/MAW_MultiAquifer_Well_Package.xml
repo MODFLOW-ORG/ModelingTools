@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2025-06-01T10:35:55.005-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">MAW: Multi-Aquifer Well Package Pane</title>
   <body>
     <header>
       <para styleclass="Heading1"><text styleclass="Heading1" translate="true">MAW: Multi-Aquifer Well Package Pane</text></para>
     </header>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">The Multi-Aquifer Well package simulates wells whose open intervals extend beyond a single model cell. The pane for this package is on the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="MODFLOW_Packages_Dialog_Box" styleclass="Normal" style="font-weight:bold;" translate="true">MODFLOW Packages and Programs</link><text styleclass="Normal" translate="true"> dialog box under </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Head_Dependant_Flux" styleclass="Normal" style="font-weight:bold;" translate="true">Head Dependant Flux</link><text styleclass="Normal" translate="true">. The Multi-Aquifer Well package is part of MODFLOW-6.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">If the Multi-Aquifer Well package and either Groundwater Transport (GWT) or Groundwater Energy Transport (GWE) is also active, the Multi-Well Aquifer Transport (MWT) or the Multi-Well Aquifer Energy Transport (MWE) packages respectively will activated automatically.</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">Only point objects on the top view of the model that have zero Z formulas can be used to define Multi-Aquifer wells.</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">On the </text><text styleclass="Normal" style="font-weight:bold;" translate="true">MAW: Multi-Aquifer Well package</text><text styleclass="Normal" translate="true"> pane, the user sets six inputs for the Multi-Aquifer Well package.</text></para>
     <para styleclass="Strong"><text styleclass="Strong" translate="true">Print MAW heads to listing file</text><text styleclass="Normal" translate="true"> Checking this check box activates the PRINT_HEAD option in the MAW package. It causes the multi-aquifer well heads will be printed to the listing file.</text></para>

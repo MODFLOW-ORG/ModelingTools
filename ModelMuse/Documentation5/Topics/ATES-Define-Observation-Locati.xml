@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2025-05-13T14:58:00.729-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2025-06-01T15:20:12.487-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">ATES Define Observation Location</title>
   <body>
     <header>
       <para styleclass="Heading1"><text styleclass="Heading1" translate="true">ATES Define Observation Location</text></para>
     </header>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">We will define an observation location at the center of the well. This will help us evaluate how well the system is working. Create a point object near the center of the well. Use it to define an observation of well pumping rates and groundwater temperatures.</text></para>
-    <para styleclass="Normal"><image src="ATES_Observation.png" imagestyleclass="Default" scale="-70.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture of the Object Properties dialog box illustrating the specification of well flow and groundwater temperature</title><caption translate="true"><![CDATA[Screen capture of the Object Properties dialog box illustrating the specification of well flow and groundwater temperature]]></caption></image></para>
+    <para styleclass="Normal"><image src="ATES_Observation.png" imagestyleclass="Default" scale="-99.90%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture of the Object Properties dialog box illustrating the specification of well flow and groundwater temperature</title><caption translate="true"><![CDATA[Screen capture of the Object Properties dialog box illustrating the specification of well flow and groundwater temperature]]></caption></image></para>
   </body>
 </topic>

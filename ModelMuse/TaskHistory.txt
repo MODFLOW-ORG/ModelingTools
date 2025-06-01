@@ -34606,5 +34606,66 @@ object TTaskHistory
         'GWE'
         'Documentation'
         'Testing')
+    end
+    item
+      Date = 45791.000000000000000000
+    end
+    item
+      Date = 45792.000000000000000000
+    end
+    item
+      Date = 45793.000000000000000000
+    end
+    item
+      Date = 45794.000000000000000000
+    end
+    item
+      Date = 45795.000000000000000000
+    end
+    item
+      Date = 45796.000000000000000000
+    end
+    item
+      Date = 45797.000000000000000000
+    end
+    item
+      Date = 45798.000000000000000000
+    end
+    item
+      Date = 45799.000000000000000000
+    end
+    item
+      Date = 45800.000000000000000000
+    end
+    item
+      Date = 45801.000000000000000000
+    end
+    item
+      Date = 45802.000000000000000000
+    end
+    item
+      Date = 45803.000000000000000000
+    end
+    item
+      Date = 45804.000000000000000000
+    end
+    item
+      Date = 45805.000000000000000000
+    end
+    item
+      Date = 45806.000000000000000000
+    end
+    item
+      Date = 45807.000000000000000000
+    end
+    item
+      Date = 45808.000000000000000000
+    end
+    item
+      Date = 45809.000000000000000000
+      Categories.Strings = (
+        'GWE'
+        'MF-2015'
+        'Documentation')
     end>
 end

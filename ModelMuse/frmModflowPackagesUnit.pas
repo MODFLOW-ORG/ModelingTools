@@ -3137,6 +3137,7 @@ begin
     FframePkgSmsObjectList.Clear;
 
     frameGwtProcess.Selected := frmGoPhast.PhastModel.ModflowPackages.GwtProcess.IsSelected;
+    frameGweIms.NilNode;
     frameGweProcess.Selected := frmGoPhast.PhastModel.ModflowPackages.GweProcess.IsSelected;
     frameChemSpecies.GetMt3dmsChemSpecies(
       frmGoPhast.PhastModel.MobileComponents,
@@ -4619,6 +4620,8 @@ begin
     ParamGroups, FNewPackages);
     frmGoPhast.PhastModel.MobileComponents.CanCreateDataSets := False;
     try
+      frmGoPhast.PhastModel.ModflowPackages.GweProcess.IsSelected :=
+        frameGweProcess.Selected;
       MakeIgnoredSpeciesLast;
       frameChemSpecies.SetMt3dmsChemSpecies(
         frmGoPhast.PhastModel.MobileComponents,
@@ -5172,6 +5175,7 @@ begin
     framePkgTvs.nilNode;
     framePkgBuoyancy.NilNode;
     framePkgViscosity.NilNode;
+    frameGweProcess.NilNode;
   end;
 
   if frmGoPhast.DisvUsed then

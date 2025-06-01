@@ -89,7 +89,7 @@ type
     FDecaySolidDisplayName: string;
     FDensitySolidDisplayName: string;
     function GetName: string;
-    procedure SetName(const Value: string); virtual;
+    procedure SetName(Value: string); virtual;
     procedure UpdateDataArray(OnDataSetUsed: TObjectUsedEvent;
       const OldDataArrayName, NewName, NewDisplayName, NewFormula,
       AssociatedDataSets: string; ShouldCreate: boolean;
@@ -152,6 +152,7 @@ type
     procedure SetDensitySolidDataArrayName(const NewName: string);
     procedure SetHeatCapacitySolidDataArrayName(const NewName: string);
     function GetUsedForGWE: Boolean;
+    function LocalUsedForGWE(const NewName: string): Boolean;
   protected
     function IsSame(AnotherItem: TOrderedItem): boolean; override;
     procedure SetIndex(Value: Integer); override;
@@ -364,7 +365,7 @@ type
     procedure SetDiffusionCoefDataArrayName(const NewName: string);
   protected
     function IsSame(AnotherItem: TOrderedItem): boolean; override;
-    procedure SetName(const Value: string); override;
+    procedure SetName(Value: string); override;
   public
     procedure Assign(Source: TPersistent); override;
   published
@@ -410,6 +411,7 @@ const
   kRC3Prefix = 'Half_Saturation_Constant_';
   kSP1IMPrefix = 'Immobile_Partioning_Coefficient_';
   kUztStartConct = 'UZT_Unsaturated_Initial_Conc_';
+  kUztStartTemp = 'UZT_Unsaturated_Initial_Temperature';
   KPorosity = 'Mobile_Porosity_';
   KMobileDecayRate = 'Mobile_Decay_Rate_';
   KMobileSorbedDecayRate = 'Mobile_Sorbed_Decay_Rate_';
@@ -441,6 +443,7 @@ resourcestring
   StrDiffCoefPrefix = kDiffCoefPrefix;
   StrSP1IMPrefix = kSP1IMPrefix;
   StrUztStartConct = kUztStartConct;
+  StrUztStartTemp = kUztStartTemp;
   StrPorosity = kPorosity;
   StrMobileDecayRate = KMobileDecayRate;
   StrMobileSorbedDecayRate = KMobileSorbedDecayRate;
@@ -578,21 +581,14 @@ begin
     FDensitySolidDataArrayName := '';
     DensitySolidDataArrayName := SourceChem.DensitySolidDataArrayName;
 
-//    ImmobileInitialConcentrations.Clear;
     ImmobileInitialConcentrations := SourceChem.ImmobileInitialConcentrations;
-//    ImmobilePorosities.Clear;
     ImmobilePorosities := SourceChem.ImmobilePorosities;
     ImmobileVolumeFractions := SourceChem.ImmobileVolumeFractions;
 
-//    ImmobileMassTransferRates.Clear;
     ImmobileMassTransferRates := SourceChem.ImmobileMassTransferRates;
-//    ImmobileDecay.Clear;
     ImmobileDecay := SourceChem.ImmobileDecay;
-//    ImmobileDecaySorbed.Clear;
     ImmobileDecaySorbed := SourceChem.ImmobileDecaySorbed;
-//    ImmobileBulkDensities.Clear;
     ImmobileBulkDensities := SourceChem.ImmobileBulkDensities;
-//    ImmobileDistCoeficients.Clear;
     ImmobileDistCoeficients := SourceChem.ImmobileDistCoeficients;
     ImmobileFreundlichExponentSp2s := SourceChem.ImmobileFreundlichExponentSp2s;
     ImmobileSorptionCapacitySp2s := SourceChem.ImmobileSorptionCapacitySp2s;
@@ -1162,6 +1158,31 @@ begin
   end;
 end;
 
+function TChemSpeciesItem.LocalUsedForGWE(const NewName: string): Boolean;
+var
+  LocalModel: TCustomModel;
+begin
+  result := False;
+
+  if Model <> nil then
+  begin
+    if (Model.ModelSelection = msModflow2015) then
+    begin
+      LocalModel := Model as TCustomModel;
+      if LocalModel.GweUsed then
+      begin
+        result := AnsiSameText(NewName, strGweTemperature);
+      end;
+    end;
+  end
+  else
+  begin
+    result := (frmGoPhast.PhastModel.ModelSelection = msModflow2015)
+      and frmGoPhast.PhastModel.GweUsed
+      and AnsiSameText(NewName, strGweTemperature);
+  end;
+end;
+
 procedure TChemSpeciesItem.RenameDependents(NewName: string);
 var
   LocalModel: TCustomModel;
@@ -1334,7 +1355,7 @@ begin
     end;
     UpdateDataArray(LocalModel.SeparatedDensitySolidUsed,
       FDensitySolidDataArrayName, NewName,
-      FDensitySolidDisplayName, '1', 'MODFLOW 6 GWE ETS Package: DENSITY_SOLID',
+      FDensitySolidDisplayName, '2600', 'MODFLOW 6 GWE ETS Package: DENSITY_SOLID',
       DataSetUsed, StrGweClassification);
   end;
 
@@ -1444,7 +1465,7 @@ begin
     end;
     UpdateDataArray(LocalModel.SeparatedHeatCapacitySolidUsed,
       FHeatCapacitySolidDataArrayName, NewName,
-      FHeatCapacitySolidDisplayName, '1', 'MODFLOW 6 GWE ETS Package: HEAT_CAPACITY_SOLID',
+      FHeatCapacitySolidDisplayName, '800', 'MODFLOW 6 GWE ETS Package: HEAT_CAPACITY_SOLID',
       DataSetUsed, StrGweClassification);
   end;
 
@@ -2196,14 +2217,23 @@ end;
 procedure TChemSpeciesItem.SetInitialConcDataArrayName(const NewName: string);
 var
   LocalModel: TPhastModel;
+  Formula: string;
 begin
   LocalModel := Collection.Model as TPhastModel;
 
   if LocalModel <> nil then
   begin
+    if UsedForGWE then
+    begin
+      Formula := '20';
+    end
+    else
+    begin
+      Formula := '0';
+    end;
     UpdateDataArray(LocalModel.Mt3dMsInitialConcUsed,
       FInitialConcDataArrayName, NewName,
-      FInitialConcDisplayName, '0', 'MT3DMS or MT3D-USGS BTN package, SCONC'
+      FInitialConcDisplayName, Formula, 'MT3DMS or MT3D-USGS BTN package, SCONC'
         + sLineBreak + 'MODFLOW 6 GWT IC package, STRT'
         + sLineBreak + 'MODFLOW 6 GWE IC package, STRT',
       True, StrMT3DMS_GWT_GWE_Classificaton);
@@ -2230,6 +2260,7 @@ var
   LocalModel: TPhastModel;
   DataSetUsed: Boolean;
   ModflowPackages: TModflowPackages;
+  Classification: string;
 begin
   LocalModel := Collection.Model as TPhastModel;
 
@@ -2249,10 +2280,18 @@ begin
         DataSetUsed := True;
       end;
     end;
+    if UsedForGWE then
+    begin
+      Classification := StrGweClassification;
+    end
+    else
+    begin
+      Classification := StrGwtClassification;
+    end;
     UpdateDataArray(LocalModel.LongitudinalDispersionUsedPerSpecies,
       FLongDispHDataArrayName, NewName,
       FLongDispHDataArrayDisplayName, '10', StrMODFLOW6Dispersion_ALH,
-      DataSetUsed, StrGwtGweClassification);
+      DataSetUsed, Classification);
   end;
 
   SetCaseSensitiveStringProperty(FLongDispHDataArrayName, NewName);
@@ -2264,6 +2303,7 @@ var
   LocalModel: TPhastModel;
   DataSetUsed: Boolean;
   ModflowPackages: TModflowPackages;
+  Classification: string;
 begin
   LocalModel := Collection.Model as TPhastModel;
 
@@ -2283,10 +2323,18 @@ begin
         DataSetUsed := True;
       end;
     end;
+    if UsedForGWE then
+    begin
+      Classification := StrGweClassification;
+    end
+    else
+    begin
+      Classification := StrGwtClassification;
+    end;
     UpdateDataArray(LocalModel.SeparatedLongitudinalDispersionUsedPerSpecies,
       FLongDispVertDataArrayName, NewName,
       FLongDispVertDataArrayDisplayName, '1', StrMODFLOW6Dispersion_ALV,
-      DataSetUsed, StrGwtGweClassification);
+      DataSetUsed, Classification);
   end;
 
   SetCaseSensitiveStringProperty(FLongDispVertDataArrayName, NewName);
@@ -2495,7 +2543,7 @@ begin
   SetCaseSensitiveStringProperty(FMobileSorptionCapacityDataArrayName, NewName);
 end;
 
-procedure TChemSpeciesItem.SetName(const Value: string);
+procedure TChemSpeciesItem.SetName(Value: string);
 var
   LocalModel: TPhastModel;
   DomainIndex: Integer;
@@ -2506,8 +2554,14 @@ var
   NewImobileDataSetNames: TStringList;
   NewDataSetName: string;
   AName: string;
+  NewValue: string;
 begin
   Assert(Value <> '');
+  NewValue := Value;
+  if LocalUsedForGWE(Value) then
+  begin
+    Value := KGWE;
+  end;
   // data array names may need to change even if the species name does not.
   NewImobileDataSetNames := TStringList.Create;
   try
@@ -2881,10 +2935,20 @@ begin
       ImmobilePartioningCoefficientDataArrayName :=
         GenerateNewRoot(kSP1IMPrefix + Value);
 
-      FUztInitialConcDisplayName :=
-        GenerateNewRoot(StrUztStartConct + Value);
-      UztInitialConcDataArrayName :=
-        GenerateNewRoot(kUztStartConct + Value);
+      if UsedForGWE then
+      begin
+        FUztInitialConcDisplayName :=
+          GenerateNewRoot(StrUztStartTemp);
+        UztInitialConcDataArrayName :=
+          GenerateNewRoot(kUztStartTemp);
+      end
+      else
+      begin
+        FUztInitialConcDisplayName :=
+          GenerateNewRoot(StrUztStartConct + Value);
+        UztInitialConcDataArrayName :=
+          GenerateNewRoot(kUztStartConct + Value);
+      end;
 
       FPorosityDataArrayDisplayName :=
         GenerateNewRoot(StrPorosity + Value);
@@ -3083,8 +3147,8 @@ begin
 
       end;
     end;
-    RenameDependents(Value);
-    SetCaseSensitiveStringProperty(FName, Value);
+    RenameDependents(NewValue);
+    SetCaseSensitiveStringProperty(FName, NewValue);
   finally
     NewImobileDataSetNames.Free;
   end;
@@ -3241,7 +3305,7 @@ begin
     end;
     UpdateDataArray(LocalModel.SeparatedThermalConductivityUsed,
       FThermalConductivityFluidDataArrayName, NewName,
-      FThermalConductivityFluidDisplayName, '1', StrMODFLOW6CndKTW,
+      FThermalConductivityFluidDisplayName, '0.6', StrMODFLOW6CndKTW,
       DataSetUsed, StrGweClassification);
   end;
 
@@ -3274,7 +3338,7 @@ begin
     end;
     UpdateDataArray(LocalModel.SeparatedThermalConductivityUsed,
       FThermalConductivitySolidDataArrayName, NewName,
-      FThermalConductivitySolidDisplayName, '1', StrMODFLOW6CndKTS,
+      FThermalConductivitySolidDisplayName, '2', StrMODFLOW6CndKTS,
       DataSetUsed, StrGweClassification);
   end;
 
@@ -3287,6 +3351,7 @@ var
   LocalModel: TPhastModel;
   DataSetUsed: Boolean;
   ModflowPackages: TModflowPackages;
+  Classification: string;
 begin
   LocalModel := Collection.Model as TPhastModel;
 
@@ -3306,10 +3371,18 @@ begin
         DataSetUsed := True;
       end;
     end;
+    if UsedForGWE then
+    begin
+      Classification := StrGweClassification;
+    end
+    else
+    begin
+      Classification := StrGwtClassification;
+    end;
     UpdateDataArray(LocalModel.CombinedHorizontalTransverseDispersionUsedPerSpecies,
       FTransverseDispHDataArrayName, NewName,
       FTransverseDispHDataArrayDisplayName, '1', StrMODFLOW6Dispersion_ATH1,
-      DataSetUsed, StrGwtGweClassification);
+      DataSetUsed, Classification);
   end;
 
   SetCaseSensitiveStringProperty(FTransverseDispHDataArrayName, NewName);
@@ -3321,6 +3394,7 @@ var
   LocalModel: TPhastModel;
   DataSetUsed: Boolean;
   ModflowPackages: TModflowPackages;
+  Classification: string;
 begin
   LocalModel := Collection.Model as TPhastModel;
 
@@ -3340,10 +3414,18 @@ begin
         DataSetUsed := True;
       end;
     end;
+    if UsedForGWE then
+    begin
+      Classification := StrGweClassification;
+    end
+    else
+    begin
+      Classification := StrGwtClassification;
+    end;
     UpdateDataArray(LocalModel.SeparatedHorizontalTransverseDispersionUsedPerSpecies,
       FTransverseDispVertDataArrayName, NewName,
       FTransverseDispVertDataArrayDisplayName, '0.1', StrMODFLOW6Dispersion_ATH2,
-      DataSetUsed, StrGwtGweClassification);
+      DataSetUsed, Classification);
   end;
 
   SetCaseSensitiveStringProperty(FTransverseDispVertDataArrayName, NewName);
@@ -3353,14 +3435,23 @@ procedure TChemSpeciesItem.SetTransverseVertDispArrayNameDataArrayName(
   const NewName: string);
 var
   LocalModel: TPhastModel;
+  Classification: string;
 begin
   LocalModel := Collection.Model as TPhastModel;
   if LocalModel <> nil then
   begin
+    if UsedForGWE then
+    begin
+      Classification := StrGweClassification;
+    end
+    else
+    begin
+      Classification := StrGwtClassification;
+    end;
     UpdateDataArray(LocalModel.Mf6VTransDispUsed,
       FTransverseVertDispDataArrayName, NewName,
       FTransverseVertDispDisplayName, '0.', 'MODFLOW 6 DSP and CND packages, ATV',
-      LocalModel.AnyVTransDispUsed, StrGwtGweClassification);
+      LocalModel.AnyVTransDispUsed, Classification);
   end;
   SetCaseSensitiveStringProperty(FTransverseVertDispDataArrayName, NewName);
 end;
@@ -3373,14 +3464,26 @@ end;
 procedure TChemSpeciesItem.SetUztInitialConcDataArrayName(const NewName: string);
 var
   LocalModel: TPhastModel;
+  Classification: string;
+  Formula: string;
 begin
   LocalModel := Collection.Model as TPhastModel;
   if LocalModel <> nil then
   begin
+    if UsedForGWE then
+    begin
+      Classification := StrGweClassification;
+      Formula := '20.';
+    end
+    else
+    begin
+      Classification := StrGwtClassification;
+      Formula := '0.';
+    end;
     UpdateDataArray(LocalModel.Mf6UzfInitialConcentrationUsed,
       FUztInitialConcDataArrayName, NewName,
-      FUztInitialConcDisplayName, '0.', 'MODFLOW 6 UZT package, strt',
-      LocalModel.AnyUzfInitialConcentrationUsed, StrGwtClassification);
+      FUztInitialConcDisplayName, Formula, 'MODFLOW 6 UZT, UZE packages, strt',
+      LocalModel.AnyUzfInitialConcentrationUsed, Classification);
   end;
   SetCaseSensitiveStringProperty(FUztInitialConcDataArrayName, NewName);
 end;
@@ -3504,7 +3607,7 @@ begin
   SetCaseSensitiveStringProperty(FDiffusionCoefDataArrayName, NewName);
 end;
 
-procedure TMobileChemSpeciesItem.SetName(const Value: string);
+procedure TMobileChemSpeciesItem.SetName(Value: string);
 begin
   Assert(Value <> '');
   // data array names may need to change even if the species name does not.

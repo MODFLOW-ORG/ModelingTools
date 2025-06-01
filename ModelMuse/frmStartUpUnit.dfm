@@ -7,6 +7,7 @@ inherited frmStartUp: TfrmStartUp
   Caption = 'GoPhast'
   ClientHeight = 402
   ClientWidth = 735
+  StyleElements = [seFont, seClient, seBorder]
   OnClose = FormClose
   ExplicitWidth = 751
   ExplicitHeight = 441
@@ -20,8 +21,6 @@ inherited frmStartUp: TfrmStartUp
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 1
-    ExplicitTop = 356
-    ExplicitWidth = 739
     DesignSize = (
       735
       47)
@@ -49,7 +48,6 @@ inherited frmStartUp: TfrmStartUp
       NumGlyphs = 2
       TabOrder = 2
       OnClick = btnNextClick
-      ExplicitLeft = 647
     end
     object btnDontCreateGrid: TBitBtn
       Left = 452
@@ -63,7 +61,6 @@ inherited frmStartUp: TfrmStartUp
       TabOrder = 0
       Visible = False
       OnClick = btnDontCreateGridClick
-      ExplicitLeft = 460
     end
     object btnHelp: TBitBtn
       Left = 558
@@ -76,7 +73,6 @@ inherited frmStartUp: TfrmStartUp
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnHelpClick
-      ExplicitLeft = 566
     end
   end
   object pcStartup: TPageControl
@@ -86,12 +82,10 @@ inherited frmStartUp: TfrmStartUp
     Height = 355
     HelpType = htKeyword
     HelpKeyword = 'Initial_Grid_Dialog_Box'
-    ActivePage = tabModelChoice
+    ActivePage = tabInitialModflowGrid
     Align = alClient
     TabOrder = 0
     OnChange = pcStartupChange
-    ExplicitWidth = 739
-    ExplicitHeight = 356
     object tabModelChoice: TTabSheet
       HelpType = htKeyword
       HelpKeyword = 'Start_Up_Dialog_Box'
@@ -99,8 +93,8 @@ inherited frmStartUp: TfrmStartUp
       object rgChoice: TRadioGroup
         Left = 0
         Top = 0
-        Width = 731
-        Height = 323
+        Width = 727
+        Height = 322
         HelpType = htKeyword
         HelpKeyword = 'Start_Up_Dialog_Box'
         Align = alClient
@@ -125,12 +119,11 @@ inherited frmStartUp: TfrmStartUp
       object grpGeoRef: TGroupBox
         Left = 0
         Top = 0
-        Width = 735
-        Height = 323
+        Width = 727
+        Height = 322
         Align = alClient
         Caption = 'Geo Reference and Model Description'
         TabOrder = 0
-        ExplicitWidth = 731
         object lblSimStartTime: TLabel
           Left = 11
           Top = 267
@@ -148,7 +141,7 @@ inherited frmStartUp: TfrmStartUp
         object lblModelDescription: TLabel
           Left = 2
           Top = 20
-          Width = 731
+          Width = 723
           Height = 18
           Align = alTop
           Caption = 'Model description'
@@ -203,11 +196,10 @@ inherited frmStartUp: TfrmStartUp
         object mmoModelDescription: TMemo
           Left = 2
           Top = 38
-          Width = 731
+          Width = 723
           Height = 156
           Align = alTop
           TabOrder = 0
-          ExplicitWidth = 727
         end
         object calSimStartDate: TJvDateTimePicker
           Left = 11
@@ -245,13 +237,11 @@ inherited frmStartUp: TfrmStartUp
       object gbInitialGrid: TGroupBox
         Left = 0
         Top = 0
-        Width = 735
-        Height = 323
+        Width = 727
+        Height = 322
         Align = alClient
         Caption = 'Specify initial grid (optional)'
         TabOrder = 0
-        ExplicitWidth = 616
-        ExplicitHeight = 361
         object lblZDist: TLabel
           Left = 520
           Top = 110
@@ -388,41 +378,60 @@ inherited frmStartUp: TfrmStartUp
           inherited lblGridAngle: TLabel
             Width = 148
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 148
             ExplicitHeight = 18
           end
           inherited lblVerticalExaggeration: TLabel
             Width = 147
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 147
             ExplicitHeight = 18
           end
           inherited lblGridOrigin: TLabel
             Width = 77
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 77
             ExplicitHeight = 18
           end
           inherited lblOriginX: TLabel
             Width = 11
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 11
             ExplicitHeight = 18
           end
           inherited lblOriginY: TLabel
             Width = 9
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 9
             ExplicitHeight = 18
           end
           inherited lblOriginZ: TLabel
             Width = 9
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 9
             ExplicitHeight = 18
           end
+          inherited rdeAngle: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
           inherited rdeExaggeration: TRbwDataEntry
             Text = ''
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited rdeX: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited rdeY: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited rdeZ: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
           end
         end
       end
@@ -435,8 +444,8 @@ inherited frmStartUp: TfrmStartUp
       object gbInitialGridModflow: TGroupBox
         Left = 0
         Top = 41
-        Width = 735
-        Height = 282
+        Width = 727
+        Height = 281
         Margins.Left = 0
         Margins.Top = 40
         Margins.Right = 0
@@ -444,7 +453,6 @@ inherited frmStartUp: TfrmStartUp
         Align = alClient
         Caption = 'Specify initial grid (optional)'
         TabOrder = 0
-        ExplicitWidth = 731
         object Label8: TLabel
           Left = 344
           Top = 68
@@ -550,9 +558,9 @@ inherited frmStartUp: TfrmStartUp
           ChangeDisabledColor = True
         end
         object rdgInitialLayers: TRbwDataGrid4
-          Left = 507
+          Left = 480
           Top = 20
-          Width = 218
+          Width = 245
           Height = 259
           Align = alRight
           Anchors = [akLeft, akTop, akRight, akBottom]
@@ -620,9 +628,6 @@ inherited frmStartUp: TfrmStartUp
               AutoAdjustColWidths = True
             end>
           WordWrapRowCaptions = False
-          ExplicitLeft = 503
-          ExplicitWidth = 226
-          ExplicitHeight = 260
           ColWidths = (
             64
             64)
@@ -641,7 +646,6 @@ inherited frmStartUp: TfrmStartUp
         Height = 41
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 731
         object lblModflowSelection: TLabel
           Left = 195
           Top = 13
@@ -721,19 +725,21 @@ inherited frmStartUp: TfrmStartUp
         TabOrder = 2
         ExplicitLeft = 464
         ExplicitTop = 29
-        ExplicitWidth = 248
-        ExplicitHeight = 291
+        ExplicitWidth = 240
+        ExplicitHeight = 290
         inherited Panel: TPanel
-          Top = 226
-          Width = 248
+          Top = 225
+          Width = 240
           Height = 65
-          ExplicitTop = 226
-          ExplicitWidth = 248
+          StyleElements = [seFont, seClient, seBorder]
+          ExplicitTop = 225
+          ExplicitWidth = 240
           ExplicitHeight = 65
           inherited lbNumber: TLabel
             Width = 161
             Height = 18
             Caption = 'Number of layer groups'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 161
             ExplicitHeight = 18
           end
@@ -760,14 +766,15 @@ inherited frmStartUp: TfrmStartUp
           end
           inherited seNumber: TJvSpinEdit
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             Value = 3.000000000000000000
             OnChange = frameModelLayersseNumberChange
             ExplicitHeight = 26
           end
         end
         inherited Grid: TRbwDataGrid4
-          Width = 248
-          Height = 226
+          Width = 240
+          Height = 225
           ColCount = 2
           RowCount = 5
           OnSelectCell = frameModelLayersGridSelectCell
@@ -821,8 +828,8 @@ inherited frmStartUp: TfrmStartUp
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitWidth = 248
-          ExplicitHeight = 226
+          ExplicitWidth = 240
+          ExplicitHeight = 225
           ColWidths = (
             64
             64)
@@ -977,7 +984,6 @@ inherited frmStartUp: TfrmStartUp
           'Saturated'
           'Unsaturated')
         TabOrder = 3
-        ExplicitWidth = 170
       end
     end
     object tabInitialGridFootprint: TTabSheet
@@ -988,8 +994,8 @@ inherited frmStartUp: TfrmStartUp
       object gbFootprint: TGroupBox
         Left = 0
         Top = 0
-        Width = 731
-        Height = 323
+        Width = 727
+        Height = 322
         Align = alClient
         Caption = 'Specify initial grid (optional)'
         TabOrder = 0

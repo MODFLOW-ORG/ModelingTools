@@ -9133,7 +9133,6 @@ var
   FrameRatio: Real;
   E: Integer;
   D: Integer;
-//  Mesh: TSutraMesh3D;
   Limits: TGridLimit;
   Mesh: IMesh3D;
   DrawMesh: IDrawMesh;

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2025-05-13T14:54:33.872-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2025-06-01T14:21:41.724-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">ATES Activating GWE Model and Other Packages</title>
   <body>
     <header>
@@ -8,7 +8,7 @@
     </header>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">Activate the following packages in the &quot;Model|MODFLOW Packages and Programs&quot; dialog box.</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">STO, WEL, OBS, GWE, ADV, CND, EST, and SSM.</text></para>
-    <para styleclass="Normal"><image src="ATES_Packages.png" imagestyleclass="Default" scale="-60.00%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture of the MODFLOW Packages and Programs dialog box showing the selected packages</title><caption translate="true"><![CDATA[Screen capture of the MODFLOW Packages and Programs dialog box showing the selected packages]]></caption></image></para>
+    <para styleclass="Normal"><image src="ATES_Packages.png" imagestyleclass="Default" scale="-99.90%" styleclass="Image Caption" figurelistinclude="0"><title translate="true">Screen capture of the MODFLOW Packages and Programs dialog box showing the selected packages</title><caption translate="true"><![CDATA[Screen capture of the MODFLOW Packages and Programs dialog box showing the selected packages]]></caption></image></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">To better match the example model that comes with MODFLOW 6, make the following changes.</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">In the ADV package, select TVD.</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">In the EST package, set the Heat capacity of water to 4180 and the Latent heat of vaporization to 2500.</text></para>

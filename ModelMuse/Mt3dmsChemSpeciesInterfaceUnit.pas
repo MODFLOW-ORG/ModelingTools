@@ -5,7 +5,7 @@ interface
 type
   IChemSpeciesItem = interface(IInterface)
     function GetName: string;
-    procedure SetName(const Value: string);
+    procedure SetName(Value: string);
     property Name: string read GetName write SetName;
   end;
 

@@ -36,11 +36,11 @@ Either version may be used for installing ModelMuse.  Both contain
 the same version of ModelMuse for use on personal computers:
 
 For 32 or 64-bit operating systems:
-         ModelMuseSetup32_5_3_1.exe
-         ModelMuse32_5_3_1.zip
+         ModelMuseSetup32_5_4.exe
+         ModelMuse32_5_4.zip
 For 64-bit operating systems:
-         ModelMuseSetup64_5_3_1.exe
-         ModelMuse64_5_3_1.zip
+         ModelMuseSetup64_5_4.exe
+         ModelMuse64_5_4.zip
 
 Both distribution files contain:
 
@@ -52,7 +52,7 @@ Both distribution files contain:
           Example models
           Supplementary materials
 
-The file ModelMuseSource5_3_1.zip contains the source code for ModelMuse, 
+The file ModelMuseSource5_4.zip contains the source code for ModelMuse, 
          ModelMonitor, and MF2005_Importer.exe.
 
 B. INSTALLING
@@ -97,7 +97,7 @@ site:
       http://www.adobe.com/
 
 The zip files contain the same files in the same directory structure except
-that the top level directory is ModelMuse5_3. 
+that the top level directory is ModelMuse5_4. 
 To install it, unzip the file retaining the directory structure of the zip
 file. Unlike the installer, unzipping the files from a zip file will not 
 associate ModelMuse project files with extensions .gpt, .gpb, or .mmZLib 

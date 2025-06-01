@@ -97,40 +97,40 @@ begin
   FileNameToUse := FPestScriptFileName;
   WriteBeginGridData;
 
-  DataArray := Model.DataArrayManager.GetDataSetByName(KLongitudinalDispersH + '_' + FSpeciesName);
+  DataArray := Model.DataArrayManager.GetDataSetByName(KLongitudinalDispersH + '_' + KGWE);
   Assert(DataArray <> nil);
   WriteMf6_DataSet(DataArray, 'ALH');
-  WritePestZones(DataArray, FileNameToUse, 'ALH', '.' + FSpeciesName, 'ALH');
+  WritePestZones(DataArray, FileNameToUse, 'ALH', '.' + KGWE, 'ALH');
 
-  DataArray := Model.DataArrayManager.GetDataSetByName(KLongitudinalDispersV + '_' + FSpeciesName);
+  DataArray := Model.DataArrayManager.GetDataSetByName(KLongitudinalDispersV + '_' + KGWE);
   Assert(DataArray <> nil);
   WriteMf6_DataSet(DataArray, 'ALV');
-  WritePestZones(DataArray, FileNameToUse, 'ALV', '.' + FSpeciesName, 'ALV');
+  WritePestZones(DataArray, FileNameToUse, 'ALV', '.' + KGWE, 'ALV');
 
-  DataArray := Model.DataArrayManager.GetDataSetByName(KHorizontalTransvers + '_' + FSpeciesName);
+  DataArray := Model.DataArrayManager.GetDataSetByName(KHorizontalTransvers + '_' + KGWE);
   Assert(DataArray <> nil);
   WriteMf6_DataSet(DataArray, 'ATH1');
-  WritePestZones(DataArray, FileNameToUse, 'ATH1', '.' + FSpeciesName, 'ATH1');
+  WritePestZones(DataArray, FileNameToUse, 'ATH1', '.' + KGWE, 'ATH1');
 
-  DataArray := Model.DataArrayManager.GetDataSetByName(KVerticalTransverse + '_' + FSpeciesName);
+  DataArray := Model.DataArrayManager.GetDataSetByName(KVerticalTransverse + '_' + KGWE);
   Assert(DataArray <> nil);
   WriteMf6_DataSet(DataArray, 'ATH2');
-  WritePestZones(DataArray, FileNameToUse, 'ATH2', '.' + FSpeciesName, 'ATH2');
+  WritePestZones(DataArray, FileNameToUse, 'ATH2', '.' + KGWE, 'ATH2');
 
-  DataArray := Model.DataArrayManager.GetDataSetByName(rsVertical_Transv_Dispersivity + '_' + FSpeciesName);
+  DataArray := Model.DataArrayManager.GetDataSetByName(rsVertical_Transv_Dispersivity + '_' + KGWE);
   Assert(DataArray <> nil);
   WriteMf6_DataSet(DataArray, 'ATV');
-  WritePestZones(DataArray, FileNameToUse, 'ATV', '.' + FSpeciesName, 'ATV');
+  WritePestZones(DataArray, FileNameToUse, 'ATV', '.' + KGWE, 'ATV');
 
-  DataArray := Model.DataArrayManager.GetDataSetByName(rsThermalCondFluid + '_' + FSpeciesName);
+  DataArray := Model.DataArrayManager.GetDataSetByName(rsThermalCondFluid + '_' + KGWE);
   Assert(DataArray <> nil);
   WriteMf6_DataSet(DataArray, 'KTW');
-  WritePestZones(DataArray, FileNameToUse, 'KTW', '.' + FSpeciesName, 'KTW');
+  WritePestZones(DataArray, FileNameToUse, 'KTW', '.' + KGWE, 'KTW');
 
-  DataArray := Model.DataArrayManager.GetDataSetByName(rsThermalCondSolid + '_' + FSpeciesName);
+  DataArray := Model.DataArrayManager.GetDataSetByName(rsThermalCondSolid + '_' + KGWE);
   Assert(DataArray <> nil);
   WriteMf6_DataSet(DataArray, 'KTS');
-  WritePestZones(DataArray, FileNameToUse, 'KTS', '.' + FSpeciesName, 'KTS');
+  WritePestZones(DataArray, FileNameToUse, 'KTS', '.' + KGWE, 'KTS');
 
   WriteEndGridData;
 end;

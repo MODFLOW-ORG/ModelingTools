@@ -3,6 +3,8 @@ unit DataSetNamesUnit;
 interface
 
 const
+  KGWE = 'GWE';
+
   // @name is the name of the @link(TDataArray) that specifies whether an
   // element in PHAST is active or not.
   rsActive = 'Active';
@@ -1211,7 +1213,6 @@ resourcestring
 
   KSutraDefaultPath = 'C:\SutraSuite\SUTRA_2_2\bin\sutra_2_2.exe';
   KSutra30DefaultPath = 'C:\SutraSuite\SUTRA_3_0\bin\sutra_3_0.exe';
-//  KSutra40DefaultPath = 'C:\SutraSuite\SUTRA_3_0\bin\sutra_4_0.exe';
   KSutra40DefaultPath = 'C:\SutraSuite\SUTRA_4_0\bin\sutra_4_0.exe';
   StrMpathDefaultPath = 'C:\WRDAPP\Mpath.5_0\setup\Mpathr5_0.exe';
   StrMpathDefaultPathVersion6 = 'C:\WRDAPP\modpath.6_0\bin\mp6.exe';

@@ -154,12 +154,10 @@ resourcestring
   StrMt3dClassification = 'MT3DMS or MT3D-USGS';
   StrGwtClassification = 'GWT: Groundwater Transport';
   StrGweClassification = 'GWE: Groundwater Energy Transport';
-  StrGwtGweClassification = 'GWT, GWE: Groundwater Solute or Energy Transport';
 
   StrNoStressPeriods = 'No stress periods have been defined for MT3DMS.';
   StrMODFLOWFHBHeads = 'FHB Heads';
   StrMODFLOWFHBFlows = 'FHB Flows';
-//  StrFarmID = 'Farm_ID';
   StrFootprintInputClassification = 'WellFootprint';
   StrTheFollowingObjectNoCells = 'The following objects do not assign proper' +
   'ties to any cells.';
@@ -10476,7 +10474,6 @@ const
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }
-{ TODO : Support MODFLOW 6 Energy Transport Model. }
 { TODO : Add support for model splitting for use with parallel MODFLOW }
 { TODO : Support PEST++. }
 { TODO : Support SENSAN from the PEST suite of programs. }

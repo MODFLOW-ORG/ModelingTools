@@ -18,9 +18,6 @@ program ModelMuse;
 //  madListProcesses,
 //  madListModules,
 //  {$IFDEF Debug}
-//  TCOpenApp in 'C:\Program Files\Automated QA\TestComplete 6\Open Apps\Delphi&BCB\TCOpenApp.pas',
-//  tcOpenAppClasses in 'C:\Program Files\Automated QA\TestComplete 6\Open Apps\Delphi&BCB\tcOpenAppClasses.pas',
-//  tcPublicInfo in 'C:\Program Files\Automated QA\TestComplete 6\Open Apps\Delphi&BCB\tcPublicInfo.pas',
 //  {$ENDIF}
 
 {#BACKUP ModelMuse.mes}
