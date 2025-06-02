@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glposteffects.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLPostEffects.pas' rev: 36.00 (Windows)
 
-#ifndef GlposteffectsHPP
-#define GlposteffectsHPP
+#ifndef GLPostEffectsHPP
+#define GLPostEffectsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,23 +15,23 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Glstate.hpp>
-#include <Glcontext.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Gltexture.hpp>
-#include <Glgraphics.hpp>
-#include <Glstrings.hpp>
-#include <Glcustomshader.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glmaterial.hpp>
-#include <Gltextureformat.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLState.hpp>
+#include <GLContext.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLTexture.hpp>
+#include <GLGraphics.hpp>
+#include <GLStrings.hpp>
+#include <GLCustomShader.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLMaterial.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -208,4 +208,4 @@ using namespace Glposteffects;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlposteffectsHPP
+#endif	// GLPostEffectsHPP

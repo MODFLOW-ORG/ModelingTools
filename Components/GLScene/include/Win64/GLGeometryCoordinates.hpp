@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glgeometrycoordinates.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLGeometryCoordinates.pas' rev: 36.00 (Windows)
 
-#ifndef GlgeometrycoordinatesHPP
-#define GlgeometrycoordinatesHPP
+#ifndef GLGeometryCoordinatesHPP
+#define GLGeometryCoordinatesHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,9 +15,9 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Math.hpp>
-#include <Glvectorgeometry.hpp>
+#include <GLVectorGeometry.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -60,4 +60,4 @@ using namespace Glgeometrycoordinates;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlgeometrycoordinatesHPP
+#endif	// GLGeometryCoordinatesHPP

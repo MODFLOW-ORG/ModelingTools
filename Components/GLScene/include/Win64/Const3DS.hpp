@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Const3ds.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'Const3DS.pas' rev: 36.00 (Windows)
 
-#ifndef Const3dsHPP
-#define Const3dsHPP
+#ifndef Const3DSHPP
+#define Const3DSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,8 +15,8 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Types3ds.hpp>
+#include <SysInit.hpp>
+#include <Types3DS.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -819,4 +819,4 @@ using namespace Const3ds;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Const3dsHPP
+#endif	// Const3DSHPP

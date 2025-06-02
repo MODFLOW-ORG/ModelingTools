@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glcurvesandsurfaces.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLCurvesAndSurfaces.pas' rev: 36.00 (Windows)
 
-#ifndef GlcurvesandsurfacesHPP
-#define GlcurvesandsurfacesHPP
+#ifndef GLCurvesAndSurfacesHPP
+#define GLCurvesAndSurfacesHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,11 +15,11 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectorlists.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorLists.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -48,4 +48,4 @@ using namespace Glcurvesandsurfaces;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlcurvesandsurfacesHPP
+#endif	// GLCurvesAndSurfacesHPP

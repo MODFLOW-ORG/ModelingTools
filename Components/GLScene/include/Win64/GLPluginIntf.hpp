@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glpluginintf.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLPlugInIntf.pas' rev: 36.00 (Windows)
 
-#ifndef GlpluginintfHPP
-#define GlpluginintfHPP
+#ifndef GLPlugInIntfHPP
+#define GLPlugInIntfHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,7 +15,7 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -49,4 +49,4 @@ using namespace Glpluginintf;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlpluginintfHPP
+#endif	// GLPlugInIntfHPP

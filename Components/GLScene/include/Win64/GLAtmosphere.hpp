@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glatmosphere.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLAtmosphere.pas' rev: 36.00 (Windows)
 
-#ifndef GlatmosphereHPP
-#define GlatmosphereHPP
+#ifndef GLAtmosphereHPP
+#define GLAtmosphereHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,22 +15,22 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Globjects.hpp>
-#include <Glcadencer.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glcontext.hpp>
-#include <Glstrings.hpp>
-#include <Glcolor.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glstate.hpp>
-#include <Glvectortypes.hpp>
-#include <Glcoordinates.hpp>
-#include <Glbaseclasses.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLObjects.hpp>
+#include <GLCadencer.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLContext.hpp>
+#include <GLStrings.hpp>
+#include <GLColor.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLState.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLCoordinates.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -166,4 +166,4 @@ using namespace Glatmosphere;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlatmosphereHPP
+#endif	// GLAtmosphereHPP

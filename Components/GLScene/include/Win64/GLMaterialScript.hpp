@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glmaterialscript.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLMaterialScript.pas' rev: 36.00 (Windows)
 
-#ifndef GlmaterialscriptHPP
-#define GlmaterialscriptHPP
+#ifndef GLMaterialScriptHPP
+#define GLMaterialScriptHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
-#include <Vcl.Stdctrls.hpp>
-#include <Glvectortypes.hpp>
-#include <Gltexture.hpp>
-#include <Gltextureformat.hpp>
-#include <Glgraphics.hpp>
-#include <Glutils.hpp>
-#include <Glcolor.hpp>
-#include <Glcoordinates.hpp>
-#include <Glmaterial.hpp>
-#include <Glstate.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLTexture.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLGraphics.hpp>
+#include <GLUtils.hpp>
+#include <GLColor.hpp>
+#include <GLCoordinates.hpp>
+#include <GLMaterial.hpp>
+#include <GLState.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -246,4 +246,4 @@ using namespace Glmaterialscript;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlmaterialscriptHPP
+#endif	// GLMaterialScriptHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glsmoothnavigator.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSmoothNavigator.pas' rev: 36.00 (Windows)
 
-#ifndef GlsmoothnavigatorHPP
-#define GlsmoothnavigatorHPP
+#ifndef GLSmoothNavigatorHPP
+#define GLSmoothNavigatorHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,17 +15,17 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Types.hpp>
 #include <System.Classes.hpp>
-#include <Glscene.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glvectortypes.hpp>
-#include <Glnavigator.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glcoordinates.hpp>
-#include <Glscreen.hpp>
-#include <Glxcollection.hpp>
+#include <GLScene.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLNavigator.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLCoordinates.hpp>
+#include <GLScreen.hpp>
+#include <GLXCollection.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -473,4 +473,4 @@ using namespace Glsmoothnavigator;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlsmoothnavigatorHPP
+#endif	// GLSmoothNavigatorHPP

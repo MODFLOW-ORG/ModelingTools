@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfilex.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFileX.pas' rev: 36.00 (Windows)
 
-#ifndef GlfilexHPP
-#define GlfilexHPP
+#ifndef GLFileXHPP
+#define GLFileXHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,18 +15,18 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Gltexture.hpp>
-#include <Glvectorlists.hpp>
-#include <Glmaterial.hpp>
-#include <Filex.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLTexture.hpp>
+#include <GLVectorLists.hpp>
+#include <GLMaterial.hpp>
+#include <FileX.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -61,4 +61,4 @@ using namespace Glfilex;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlfilexHPP
+#endif	// GLFileXHPP

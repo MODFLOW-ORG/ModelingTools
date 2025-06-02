@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glsgenerics.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSGenerics.pas' rev: 36.00 (Windows)
 
-#ifndef GlsgenericsHPP
-#define GlsgenericsHPP
+#ifndef GLSGenericsHPP
+#define GLSGenericsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,10 +15,10 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
-#include <System.Syncobjs.hpp>
+#include <System.SyncObjs.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -189,4 +189,4 @@ using namespace Glsgenerics;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlsgenericsHPP
+#endif	// GLSGenericsHPP

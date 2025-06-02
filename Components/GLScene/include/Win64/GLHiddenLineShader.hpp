@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glhiddenlineshader.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLHiddenLineShader.pas' rev: 36.00 (Windows)
 
-#ifndef GlhiddenlineshaderHPP
-#define GlhiddenlineshaderHPP
+#ifndef GLHiddenLineShaderHPP
+#define GLHiddenLineShaderHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,16 +15,16 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Glcolor.hpp>
-#include <Glmaterial.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glstate.hpp>
-#include <Glcontext.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLColor.hpp>
+#include <GLMaterial.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLState.hpp>
+#include <GLContext.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -110,4 +110,4 @@ using namespace Glhiddenlineshader;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlhiddenlineshaderHPP
+#endif	// GLHiddenLineShaderHPP

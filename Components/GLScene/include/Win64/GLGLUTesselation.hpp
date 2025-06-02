@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glglutesselation.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLGLUTesselation.pas' rev: 36.00 (Windows)
 
-#ifndef GlglutesselationHPP
-#define GlglutesselationHPP
+#ifndef GLGLUTesselationHPP
+#define GLGLUTesselationHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,15 +15,15 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
-#include <Opengladapter.hpp>
-#include <Opengltokens.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glvectorlists.hpp>
-#include <Glvectorgeometry.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
+#include <OpenGLAdapter.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLVectorLists.hpp>
+#include <GLVectorGeometry.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -42,4 +42,4 @@ using namespace Glglutesselation;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlglutesselationHPP
+#endif	// GLGLUTesselationHPP

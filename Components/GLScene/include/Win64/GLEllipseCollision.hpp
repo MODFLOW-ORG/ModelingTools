@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glellipsecollision.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLEllipseCollision.pas' rev: 36.00 (Windows)
 
-#ifndef GlellipsecollisionHPP
-#define GlellipsecollisionHPP
+#ifndef GLEllipseCollisionHPP
+#define GLEllipseCollisionHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,11 +15,11 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Gloctree.hpp>
-#include <Glvectorlists.hpp>
-#include <Glvectortypes.hpp>
+#include <SysInit.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLOctree.hpp>
+#include <GLVectorLists.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -188,4 +188,4 @@ using namespace Glellipsecollision;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlellipsecollisionHPP
+#endif	// GLEllipseCollisionHPP

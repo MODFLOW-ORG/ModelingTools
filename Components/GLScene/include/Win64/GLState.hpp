@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glstate.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLState.pas' rev: 36.00 (Windows)
 
-#ifndef GlstateHPP
-#define GlstateHPP
+#ifndef GLStateHPP
+#define GLStateHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Opengltokens.hpp>
-#include <Glcrossplatform.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Gltextureformat.hpp>
+#include <System.SysUtils.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLCrossPlatform.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLTextureFormat.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -662,4 +662,4 @@ using namespace Glstate;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlstateHPP
+#endif	// GLStateHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glpluginmanager.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLPlugInManager.pas' rev: 36.00 (Windows)
 
-#ifndef GlpluginmanagerHPP
-#define GlpluginmanagerHPP
+#ifndef GLPlugInManagerHPP
+#define GLPlugInManagerHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,13 +15,13 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.Forms.hpp>
-#include <Glpluginintf.hpp>
+#include <GLPlugInIntf.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -140,4 +140,4 @@ using namespace Glpluginmanager;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlpluginmanagerHPP
+#endif	// GLPlugInManagerHPP

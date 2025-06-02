@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glvfspak.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLVfsPAK.pas' rev: 36.00 (Windows)
 
-#ifndef GlvfspakHPP
-#define GlvfspakHPP
+#ifndef GLVfsPAKHPP
+#define GLVfsPAKHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,11 +15,11 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
 #include <System.Contnrs.hpp>
-#include <System.Sysutils.hpp>
-#include <Glapplicationfileio.hpp>
+#include <System.SysUtils.hpp>
+#include <GLApplicationFileIO.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -118,4 +118,4 @@ using namespace Glvfspak;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlvfspakHPP
+#endif	// GLVfsPAKHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfileq3bsp.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFileQ3BSP.pas' rev: 36.00 (Windows)
 
-#ifndef Glfileq3bspHPP
-#define Glfileq3bspHPP
+#ifndef GLFileQ3BSPHPP
+#define GLFileQ3BSPHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,24 +15,24 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorlists.hpp>
-#include <Q3bsp.hpp>
-#include <Glbsp.hpp>
-#include <Gltexture.hpp>
-#include <Glgraphics.hpp>
-#include <Glstate.hpp>
-#include <Glutils.hpp>
-#include <Glmaterial.hpp>
-#include <Gltextureformat.hpp>
-#include <Glbaseclasses.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorLists.hpp>
+#include <Q3BSP.hpp>
+#include <GLBSP.hpp>
+#include <GLTexture.hpp>
+#include <GLGraphics.hpp>
+#include <GLState.hpp>
+#include <GLUtils.hpp>
+#include <GLMaterial.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -70,4 +70,4 @@ using namespace Glfileq3bsp;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Glfileq3bspHPP
+#endif	// GLFileQ3BSPHPP

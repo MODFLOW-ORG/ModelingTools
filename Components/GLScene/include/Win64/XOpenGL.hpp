@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Xopengl.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'XOpenGL.pas' rev: 36.00 (Windows)
 
-#ifndef XopenglHPP
-#define XopenglHPP
+#ifndef XOpenGLHPP
+#define XOpenGLHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,9 +15,9 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Opengltokens.hpp>
-#include <Glstate.hpp>
+#include <SysInit.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLState.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -97,4 +97,4 @@ using namespace Xopengl;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// XopenglHPP
+#endif	// XOpenGLHPP

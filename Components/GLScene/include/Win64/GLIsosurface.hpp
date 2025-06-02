@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glisosurface.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLIsosurface.pas' rev: 36.00 (Windows)
 
-#ifndef GlisosurfaceHPP
-#define GlisosurfaceHPP
+#ifndef GLIsosurfaceHPP
+#define GLIsosurfaceHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,13 +15,13 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectorlists.hpp>
-#include <Glmesh.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glvectortypes.hpp>
-#include <Gltypes.hpp>
+#include <SysInit.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorLists.hpp>
+#include <GLMesh.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -171,4 +171,4 @@ using namespace Glisosurface;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlisosurfaceHPP
+#endif	// GLIsosurfaceHPP

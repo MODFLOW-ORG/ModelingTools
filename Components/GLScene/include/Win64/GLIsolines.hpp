@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glisolines.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLIsolines.pas' rev: 36.00 (Windows)
 
-#ifndef GlisolinesHPP
-#define GlisolinesHPP
+#ifndef GLIsolinesHPP
+#define GLIsolinesHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,23 +15,23 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
 #include <System.Math.hpp>
 #include <System.Generics.Collections.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectorlists.hpp>
-#include <Globjects.hpp>
-#include <Glmultipolygon.hpp>
-#include <Glcoordinates.hpp>
-#include <Gltypes.hpp>
-#include <Glcolor.hpp>
-#include <Glspline.hpp>
-#include <Glspacetext.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glscene.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorLists.hpp>
+#include <GLObjects.hpp>
+#include <GLMultiPolygon.hpp>
+#include <GLCoordinates.hpp>
+#include <GLTypes.hpp>
+#include <GLColor.hpp>
+#include <GLSpline.hpp>
+#include <GLSpaceText.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLScene.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -121,4 +121,4 @@ using namespace Glisolines;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlisolinesHPP
+#endif	// GLIsolinesHPP

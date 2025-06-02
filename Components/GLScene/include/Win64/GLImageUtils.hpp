@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glimageutils.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLImageUtils.pas' rev: 36.00 (Windows)
 
-#ifndef GlimageutilsHPP
-#define GlimageutilsHPP
+#ifndef GLImageUtilsHPP
+#define GLImageUtilsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,15 +15,15 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
 #include <System.Math.hpp>
-#include <Opengltokens.hpp>
-#include <Glstrings.hpp>
-#include <Glcrossplatform.hpp>
-#include <Gltextureformat.hpp>
-#include <Glvectorgeometry.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLStrings.hpp>
+#include <GLCrossPlatform.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLVectorGeometry.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -112,4 +112,4 @@ using namespace Glimageutils;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlimageutilsHPP
+#endif	// GLImageUtilsHPP

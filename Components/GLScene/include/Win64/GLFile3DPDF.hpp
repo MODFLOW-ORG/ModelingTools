@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfile3dpdf.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFile3DPDF.pas' rev: 36.00 (Windows)
 
-#ifndef Glfile3dpdfHPP
-#define Glfile3dpdfHPP
+#ifndef GLFile3DPDFHPP
+#define GLFile3DPDFHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,20 +15,20 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
-#include <Winapi.Shellapi.hpp>
+#include <Winapi.ShellAPI.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <System.Strutils.hpp>
-#include <Glvectortypes.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectorlists.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glutils.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <System.StrUtils.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorLists.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLUtils.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -84,4 +84,4 @@ using namespace Glfile3dpdf;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Glfile3dpdfHPP
+#endif	// GLFile3DPDFHPP

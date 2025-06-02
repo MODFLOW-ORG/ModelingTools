@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glcompositeimage.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLCompositeImage.pas' rev: 36.00 (Windows)
 
-#ifndef GlcompositeimageHPP
-#define GlcompositeimageHPP
+#ifndef GLCompositeImageHPP
+#define GLCompositeImageHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Glcontext.hpp>
-#include <Opengltokens.hpp>
-#include <Glgraphics.hpp>
-#include <Gltexture.hpp>
-#include <Gltextureformat.hpp>
-#include <Glbaseclasses.hpp>
+#include <GLContext.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLGraphics.hpp>
+#include <GLTexture.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -80,4 +80,4 @@ using namespace Glcompositeimage;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlcompositeimageHPP
+#endif	// GLCompositeImageHPP

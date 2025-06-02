@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glpolynomials.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLPolynomials.pas' rev: 36.00 (Windows)
 
-#ifndef GlpolynomialsHPP
-#define GlpolynomialsHPP
+#ifndef GLPolynomialsHPP
+#define GLPolynomialsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,8 +15,8 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Glvectorgeometry.hpp>
+#include <SysInit.hpp>
+#include <GLVectorGeometry.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -44,4 +44,4 @@ using namespace Glpolynomials;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlpolynomialsHPP
+#endif	// GLPolynomialsHPP

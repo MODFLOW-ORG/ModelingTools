@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gltexture.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLTexture.pas' rev: 36.00 (Windows)
 
-#ifndef GltextureHPP
-#define GltextureHPP
+#ifndef GLTextureHPP
+#define GLTextureHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,29 +15,29 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Vcl.Imaging.Jpeg.hpp>
-#include <Vcl.Imaging.Pngimage.hpp>
-#include <Opengltokens.hpp>
-#include <Glcrossplatform.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glgraphics.hpp>
-#include <Glcontext.hpp>
-#include <Glstate.hpp>
-#include <Glcolor.hpp>
-#include <Glcoordinates.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glpipelinetransformation.hpp>
-#include <Gltextureformat.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glutils.hpp>
-#include <Glstrings.hpp>
-#include <Glvectortypes.hpp>
+#include <Vcl.Imaging.jpeg.hpp>
+#include <Vcl.Imaging.pngimage.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLCrossPlatform.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLGraphics.hpp>
+#include <GLContext.hpp>
+#include <GLState.hpp>
+#include <GLColor.hpp>
+#include <GLCoordinates.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLPipelineTransformation.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLUtils.hpp>
+#include <GLStrings.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -617,4 +617,4 @@ using namespace Gltexture;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GltextureHPP
+#endif	// GLTextureHPP

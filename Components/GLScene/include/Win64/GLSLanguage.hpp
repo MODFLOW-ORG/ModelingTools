@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glslanguage.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSLanguage.pas' rev: 36.00 (Windows)
 
-#ifndef GlslanguageHPP
-#define GlslanguageHPP
+#ifndef GLSLanguageHPP
+#define GLSLanguageHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,10 +15,10 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Inifiles.hpp>
-#include <System.Sysutils.hpp>
+#include <System.IniFiles.hpp>
+#include <System.SysUtils.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -114,4 +114,4 @@ using namespace Glslanguage;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlslanguageHPP
+#endif	// GLSLanguageHPP

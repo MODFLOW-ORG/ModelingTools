@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glbasemeshsilhouette.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLBaseMeshSilhouette.pas' rev: 36.00 (Windows)
 
-#ifndef GlbasemeshsilhouetteHPP
-#define GlbasemeshsilhouetteHPP
+#ifndef GLBaseMeshSilhouetteHPP
+#define GLBaseMeshSilhouetteHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,12 +15,12 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectorlists.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glsilhouette.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorLists.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLSilhouette.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -87,4 +87,4 @@ using namespace Glbasemeshsilhouette;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlbasemeshsilhouetteHPP
+#endif	// GLBaseMeshSilhouetteHPP

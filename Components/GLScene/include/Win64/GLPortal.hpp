@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glportal.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLPortal.pas' rev: 36.00 (Windows)
 
-#ifndef GlportalHPP
-#define GlportalHPP
+#ifndef GLPortalHPP
+#define GLPortalHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,16 +15,16 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glscene.hpp>
-#include <Glmaterial.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glrendercontextinfo.hpp>
+#include <System.SysUtils.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLScene.hpp>
+#include <GLMaterial.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLRenderContextInfo.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -144,4 +144,4 @@ using namespace Glportal;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlportalHPP
+#endif	// GLPortalHPP

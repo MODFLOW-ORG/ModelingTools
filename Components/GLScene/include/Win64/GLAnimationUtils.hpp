@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glanimationutils.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLAnimationUtils.pas' rev: 36.00 (Windows)
 
-#ifndef GlanimationutilsHPP
-#define GlanimationutilsHPP
+#ifndef GLAnimationUtilsHPP
+#define GLAnimationUtilsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,12 +15,12 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
 #include <System.Math.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorgeometry.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorGeometry.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -44,4 +44,4 @@ using namespace Glanimationutils;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlanimationutilsHPP
+#endif	// GLAnimationUtilsHPP

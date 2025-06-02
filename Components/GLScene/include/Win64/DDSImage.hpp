@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Ddsimage.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'DDSImage.pas' rev: 36.00 (Windows)
 
-#ifndef DdsimageHPP
-#define DdsimageHPP
+#ifndef DDSImageHPP
+#define DDSImageHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,15 +15,15 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glgraphics.hpp>
-#include <Opengltokens.hpp>
-#include <Glcontext.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLGraphics.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLContext.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -80,4 +80,4 @@ using namespace Ddsimage;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// DdsimageHPP
+#endif	// DDSImageHPP

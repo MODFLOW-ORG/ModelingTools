@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glsceneform.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSceneForm.pas' rev: 36.00 (Windows)
 
-#ifndef GlsceneformHPP
-#define GlsceneformHPP
+#ifndef GLSceneFormHPP
+#define GLSceneFormHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,17 +15,17 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <Winapi.Messages.hpp>
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.Forms.hpp>
-#include <Glscene.hpp>
-#include <Glcontext.hpp>
-#include <Glcrossplatform.hpp>
-#include <Glscreen.hpp>
-#include <Glwin32viewer.hpp>
+#include <GLScene.hpp>
+#include <GLContext.hpp>
+#include <GLCrossPlatform.hpp>
+#include <GLScreen.hpp>
+#include <GLWin32Viewer.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -148,4 +148,4 @@ using namespace Glsceneform;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlsceneformHPP
+#endif	// GLSceneFormHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfile3dssceneobjects.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFile3DSSceneObjects.pas' rev: 36.00 (Windows)
 
-#ifndef Glfile3dssceneobjectsHPP
-#define Glfile3dssceneobjectsHPP
+#ifndef GLFile3DSSceneObjectsHPP
+#define GLFile3DSSceneObjectsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,21 +15,21 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Math.hpp>
-#include <Opengladapter.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Opengltokens.hpp>
-#include <Glcontext.hpp>
-#include <Glscene.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glvectortypes.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glcoordinates.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glstate.hpp>
+#include <OpenGLAdapter.hpp>
+#include <GLVectorGeometry.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLContext.hpp>
+#include <GLScene.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLCoordinates.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLState.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -157,4 +157,4 @@ using namespace Glfile3dssceneobjects;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Glfile3dssceneobjectsHPP
+#endif	// GLFile3DSSceneObjectsHPP

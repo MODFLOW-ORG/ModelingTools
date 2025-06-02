@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Utils3ds.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'Utils3DS.pas' rev: 36.00 (Windows)
 
-#ifndef Utils3dsHPP
-#define Utils3dsHPP
+#ifndef Utils3DSHPP
+#define Utils3DSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,12 +15,12 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <File3ds.hpp>
-#include <Types3ds.hpp>
-#include <Glstrings.hpp>
+#include <System.SysUtils.hpp>
+#include <File3DS.hpp>
+#include <Types3DS.hpp>
+#include <GLStrings.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -101,4 +101,4 @@ using namespace Utils3ds;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Utils3dsHPP
+#endif	// Utils3DSHPP

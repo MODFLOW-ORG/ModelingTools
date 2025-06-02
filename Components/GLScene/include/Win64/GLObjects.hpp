@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Globjects.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLObjects.pas' rev: 36.00 (Windows)
 
-#ifndef GlobjectsHPP
-#define GlobjectsHPP
+#ifndef GLObjectsHPP
+#define GLObjectsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,29 +15,29 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Types.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Math.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
-#include <Glscene.hpp>
-#include <Opengladapter.hpp>
-#include <Opengltokens.hpp>
-#include <Glvectorlists.hpp>
-#include <Glpipelinetransformation.hpp>
-#include <Glcontext.hpp>
-#include <Glsilhouette.hpp>
-#include <Glcolor.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glnodes.hpp>
-#include <Glcoordinates.hpp>
-#include <Glspline.hpp>
-#include <Xopengl.hpp>
-#include <Glstate.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLScene.hpp>
+#include <OpenGLAdapter.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLVectorLists.hpp>
+#include <GLPipelineTransformation.hpp>
+#include <GLContext.hpp>
+#include <GLSilhouette.hpp>
+#include <GLColor.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLNodes.hpp>
+#include <GLCoordinates.hpp>
+#include <GLSpline.hpp>
+#include <XOpenGL.hpp>
+#include <GLState.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -713,4 +713,4 @@ using namespace Globjects;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlobjectsHPP
+#endif	// GLObjectsHPP

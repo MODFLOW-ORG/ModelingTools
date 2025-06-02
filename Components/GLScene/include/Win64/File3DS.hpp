@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'File3ds.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'File3DS.pas' rev: 36.00 (Windows)
 
-#ifndef File3dsHPP
-#define File3dsHPP
+#ifndef File3DSHPP
+#define File3DSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,10 +15,10 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Types3ds.hpp>
+#include <System.SysUtils.hpp>
+#include <Types3DS.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -241,4 +241,4 @@ using namespace File3ds;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// File3dsHPP
+#endif	// File3DSHPP

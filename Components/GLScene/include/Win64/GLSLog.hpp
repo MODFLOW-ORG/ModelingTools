@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glslog.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSLog.pas' rev: 36.00 (Windows)
 
-#ifndef GlslogHPP
-#define GlslogHPP
+#ifndef GLSLogHPP
+#define GLSLogHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
-#include <Winapi.Shellapi.hpp>
-#include <System.Strutils.hpp>
+#include <Winapi.ShellAPI.hpp>
+#include <System.StrUtils.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <System.Uitypes.hpp>
-#include <System.Syncobjs.hpp>
+#include <System.SysUtils.hpp>
+#include <System.UITypes.hpp>
+#include <System.SyncObjs.hpp>
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.Controls.hpp>
 
@@ -228,4 +228,4 @@ using namespace Glslog;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlslogHPP
+#endif	// GLSLogHPP

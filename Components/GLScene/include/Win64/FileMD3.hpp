@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Filemd3.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'FileMD3.pas' rev: 36.00 (Windows)
 
-#ifndef Filemd3HPP
-#define Filemd3HPP
+#ifndef FileMD3HPP
+#define FileMD3HPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,9 +15,9 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Glvectortypes.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -179,4 +179,4 @@ using namespace Filemd3;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Filemd3HPP
+#endif	// FileMD3HPP

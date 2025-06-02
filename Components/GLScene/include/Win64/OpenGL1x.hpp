@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Opengl1x.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'OpenGL1x.pas' rev: 36.00 (Windows)
 
-#ifndef Opengl1xHPP
-#define Opengl1xHPP
+#ifndef OpenGL1xHPP
+#define OpenGL1xHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,11 +15,11 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Math.hpp>
 #include <Winapi.Windows.hpp>
-#include <Glvectortypes.hpp>
+#include <GLVectorTypes.hpp>
 #include <System.Types.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -7412,4 +7412,4 @@ using namespace Opengl1x;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Opengl1xHPP
+#endif	// OpenGL1xHPP

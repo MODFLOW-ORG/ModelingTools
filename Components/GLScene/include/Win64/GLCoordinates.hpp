@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glcoordinates.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLCoordinates.pas' rev: 36.00 (Windows)
 
-#ifndef GlcoordinatesHPP
-#define GlcoordinatesHPP
+#ifndef GLCoordinatesHPP
+#define GLCoordinatesHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,13 +15,13 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
-#include <Opengltokens.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -222,4 +222,4 @@ using namespace Glcoordinates;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlcoordinatesHPP
+#endif	// GLCoordinatesHPP

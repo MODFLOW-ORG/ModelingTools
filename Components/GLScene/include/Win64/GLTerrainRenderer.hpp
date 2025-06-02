@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glterrainrenderer.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLTerrainRenderer.pas' rev: 36.00 (Windows)
 
-#ifndef GlterrainrendererHPP
-#define GlterrainrendererHPP
+#ifndef GLTerrainRendererHPP
+#define GLTerrainRendererHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,23 +15,23 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Types.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Glcoordinates.hpp>
-#include <Glheightdata.hpp>
-#include <Glmaterial.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glcontext.hpp>
-#include <Glroampatch.hpp>
-#include <Glvectorlists.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Xopengl.hpp>
-#include <Glutils.hpp>
-#include <Glvectortypes.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLCoordinates.hpp>
+#include <GLHeightData.hpp>
+#include <GLMaterial.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLContext.hpp>
+#include <GLROAMPatch.hpp>
+#include <GLVectorLists.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <XOpenGL.hpp>
+#include <GLUtils.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -148,4 +148,4 @@ using namespace Glterrainrenderer;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlterrainrendererHPP
+#endif	// GLTerrainRendererHPP

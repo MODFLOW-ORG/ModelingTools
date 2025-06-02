@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glcrossplatform.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLCrossPlatform.pas' rev: 36.00 (Windows)
 
-#ifndef GlcrossplatformHPP
-#define GlcrossplatformHPP
+#ifndef GLCrossPlatformHPP
+#define GLCrossPlatformHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,18 +15,18 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Types.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <System.Strutils.hpp>
+#include <System.SysUtils.hpp>
+#include <System.StrUtils.hpp>
 #include <Vcl.Consts.hpp>
 #include <Vcl.Graphics.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.Forms.hpp>
 #include <Vcl.Dialogs.hpp>
-#include <System.Uitypes.hpp>
+#include <System.UITypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -98,4 +98,4 @@ using namespace Glcrossplatform;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlcrossplatformHPP
+#endif	// GLCrossPlatformHPP

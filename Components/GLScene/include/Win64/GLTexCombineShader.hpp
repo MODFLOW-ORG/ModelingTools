@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gltexcombineshader.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLTexCombineShader.pas' rev: 36.00 (Windows)
 
-#ifndef GltexcombineshaderHPP
-#define GltexcombineshaderHPP
+#ifndef GLTexCombineShaderHPP
+#define GLTexCombineShaderHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Gltexture.hpp>
-#include <Glmaterial.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Gltexturecombiners.hpp>
-#include <Opengltokens.hpp>
-#include <Glstate.hpp>
-#include <Xopengl.hpp>
-#include <Glcontext.hpp>
-#include <Glutils.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <GLTexture.hpp>
+#include <GLMaterial.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLTextureCombiners.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLState.hpp>
+#include <XOpenGL.hpp>
+#include <GLContext.hpp>
+#include <GLUtils.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -91,4 +91,4 @@ using namespace Gltexcombineshader;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GltexcombineshaderHPP
+#endif	// GLTexCombineShaderHPP

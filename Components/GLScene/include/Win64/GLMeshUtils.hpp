@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glmeshutils.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLMeshUtils.pas' rev: 36.00 (Windows)
 
-#ifndef GlmeshutilsHPP
-#define GlmeshutilsHPP
+#ifndef GLMeshUtilsHPP
+#define GLMeshUtilsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Math.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glvectorlists.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLVectorLists.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -66,4 +66,4 @@ using namespace Glmeshutils;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlmeshutilsHPP
+#endif	// GLMeshUtilsHPP

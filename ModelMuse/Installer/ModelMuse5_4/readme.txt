@@ -137,13 +137,13 @@ or help are in the "ModelMuse Examples\data" folder.
 E. COMPILING
 
 The 32 and 64-bit version of ModelMuse and ModelMonitor are compiled with 
-Delphi 11.3 from Embarcadero.
+Delphi 12.3 from Embarcadero.
 http://www.embarcadero.com/ 
 It can also be compiled using the free community edition
 of Delphi from Embarcadero.
 https://www.embarcadero.com/products/delphi/starter
 
-The help system for ModelMuse is compiled with Help and Manual version 8
+The help system for ModelMuse is compiled with Help and Manual version 9
 from EC Software. http://www.helpandmanual.com/
 
 MF2005_Importer is compiled with the MinGW and MinGW64 GFortran compilers.
@@ -152,7 +152,7 @@ https://winlibs.com/
 
 EnhancedTemplateProcessor, Mf6ObsExtractor, Mf2005ObsExtractor, and 
 SutraObsExtractor are compiled with Lazarus (https://www.lazarus-ide.org/).
-They can also be compiled with Delphi 11.3
+They can also be compiled with Delphi 12.3
 
 ModelMuse uses a number of custom components that must be installed 
 in Delphi before compiling ModelMuse.  Some are included  
@@ -163,7 +163,7 @@ can be used with ModelMuse. The required changes are listed below.
 Installing some components may require administrative permissions on your computer.
 
 
-General instructions for installing packages in Delphi 11.3 and the
+General instructions for installing packages in Delphi 12.3 and the
 Delphi Community Edition.
 1. If the component can be installed with the "Tools|GetIt Package Manager", 
 do so.
@@ -332,7 +332,7 @@ http://www.madshi.net/
 Abbrevia
 http://sourceforge.net/projects/tpabbrevia/
 Deactivate UnzipZipxSupport in AbDefine.inc
-Abbrevia is also available through the GetIt Package Manager in Delphi 11.3 and later.
+Abbrevia is also available through the GetIt Package Manager in Delphi 12.3 and later.
 
 The Components directory has additional components that need to be installed. 
 They are in the following subdirectories of the Components directory.

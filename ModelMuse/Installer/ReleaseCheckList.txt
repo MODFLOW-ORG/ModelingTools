@@ -10,6 +10,7 @@
 4. Update revision history, including the release date.
 4a. Make sure no "not in released" bug fixes included. 
 4b. If relevant, update About box with new citation.
+4c. Update the default topic to be the topic for the new release.
 5. Build help - chm and html
 5a. Check that help works for new things.
 5b. Update "MODFLOW 6 Supported Features"

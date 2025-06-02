@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfilegl2.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFileGL2.pas' rev: 36.00 (Windows)
 
-#ifndef Glfilegl2HPP
-#define Glfilegl2HPP
+#ifndef GLFileGL2HPP
+#define GLFileGL2HPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,18 +15,18 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glmaterial.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Filegl2.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorlists.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLMaterial.hpp>
+#include <GLVectorGeometry.hpp>
+#include <FileGL2.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorLists.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -80,4 +80,4 @@ using namespace Glfilegl2;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Glfilegl2HPP
+#endif	// GLFileGL2HPP

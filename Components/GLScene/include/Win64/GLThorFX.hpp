@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glthorfx.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLThorFX.pas' rev: 36.00 (Windows)
 
-#ifndef GlthorfxHPP
-#define GlthorfxHPP
+#ifndef GLThorFXHPP
+#define GLThorFXHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,27 +15,27 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Types.hpp>
 #include <System.Math.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Glxcollection.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glcontext.hpp>
-#include <Glvectorlists.hpp>
-#include <Glvectortypes.hpp>
-#include <Glcadencer.hpp>
-#include <Glcolor.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glcoordinates.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glpipelinetransformation.hpp>
-#include <Glmanager.hpp>
-#include <Glstate.hpp>
-#include <Gltextureformat.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLXCollection.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLContext.hpp>
+#include <GLVectorLists.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLCadencer.hpp>
+#include <GLColor.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLCoordinates.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLPipelineTransformation.hpp>
+#include <GLManager.hpp>
+#include <GLState.hpp>
+#include <GLTextureFormat.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -163,4 +163,4 @@ using namespace Glthorfx;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlthorfxHPP
+#endif	// GLThorFXHPP

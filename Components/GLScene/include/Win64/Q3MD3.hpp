@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Q3md3.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'Q3MD3.pas' rev: 36.00 (Windows)
 
-#ifndef Q3md3HPP
-#define Q3md3HPP
+#ifndef Q3MD3HPP
+#define Q3MD3HPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,17 +15,17 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glvectorlists.hpp>
-#include <Glmaterial.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Filemd3.hpp>
-#include <Glvectortypes.hpp>
+#include <System.SysUtils.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLVectorLists.hpp>
+#include <GLMaterial.hpp>
+#include <GLPersistentClasses.hpp>
+#include <FileMD3.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -76,4 +76,4 @@ using namespace Q3md3;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Q3md3HPP
+#endif	// Q3MD3HPP

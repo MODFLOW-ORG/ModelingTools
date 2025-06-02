@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<map xmlns:xsi="http://www.w3.org/2001/XInclude">
+<map xmlns:xsi="http://www.w3.org/2001/XInclude" defaulttopic="Quick_Start_Guide">
   <topicref type="topic" id="395953610826682" build="ALL" modified="2022-01-24T16:26:29.777Z" icon="0" href="Abstract">
     <caption translate="true">Abstract</caption>
   </topicref>

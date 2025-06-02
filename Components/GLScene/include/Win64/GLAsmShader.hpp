@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glasmshader.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLAsmShader.pas' rev: 36.00 (Windows)
 
-#ifndef GlasmshaderHPP
-#define GlasmshaderHPP
+#ifndef GLAsmShaderHPP
+#define GLAsmShaderHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,18 +15,18 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Opengltokens.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
-#include <Gltexture.hpp>
-#include <Glcontext.hpp>
-#include <Glcustomshader.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glmaterial.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLTexture.hpp>
+#include <GLContext.hpp>
+#include <GLCustomShader.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLMaterial.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -114,4 +114,4 @@ using namespace Glasmshader;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlasmshaderHPP
+#endif	// GLAsmShaderHPP

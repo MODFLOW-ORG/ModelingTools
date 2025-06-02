@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glshadowhds.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLShadowHDS.pas' rev: 36.00 (Windows)
 
-#ifndef GlshadowhdsHPP
-#define GlshadowhdsHPP
+#ifndef GLShadowHDSHPP
+#define GLShadowHDSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Math.hpp>
-#include <Opengltokens.hpp>
-#include <Glvectorlists.hpp>
-#include <Glheightdata.hpp>
-#include <Glgraphics.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Gltexture.hpp>
-#include <Glvectortypes.hpp>
-#include <Glcoordinates.hpp>
-#include <Glmaterial.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLVectorLists.hpp>
+#include <GLHeightData.hpp>
+#include <GLGraphics.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLTexture.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLCoordinates.hpp>
+#include <GLMaterial.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -114,4 +114,4 @@ using namespace Glshadowhds;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlshadowhdsHPP
+#endif	// GLShadowHDSHPP

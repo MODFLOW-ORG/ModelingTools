@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfileoct.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFileOCT.pas' rev: 36.00 (Windows)
 
-#ifndef GlfileoctHPP
-#define GlfileoctHPP
+#ifndef GLFileOCTHPP
+#define GLFileOCTHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,22 +15,22 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Gltexture.hpp>
-#include <Glmaterial.hpp>
-#include <Glgraphics.hpp>
-#include <Glcrossplatform.hpp>
-#include <Glstate.hpp>
-#include <Glutils.hpp>
-#include <Gltextureformat.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Fileoct.hpp>
-#include <Glbaseclasses.hpp>
+#include <GLTexture.hpp>
+#include <GLMaterial.hpp>
+#include <GLGraphics.hpp>
+#include <GLCrossPlatform.hpp>
+#include <GLState.hpp>
+#include <GLUtils.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <FileOCT.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -68,4 +68,4 @@ using namespace Glfileoct;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlfileoctHPP
+#endif	// GLFileOCTHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gltileplane.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLTilePlane.pas' rev: 36.00 (Windows)
 
-#ifndef GltileplaneHPP
-#define GltileplaneHPP
+#ifndef GLTilePlaneHPP
+#define GLTilePlaneHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Glstate.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glcontext.hpp>
-#include <Glmaterial.hpp>
-#include <Globjects.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glvectorlists.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Xopengl.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLState.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLContext.hpp>
+#include <GLMaterial.hpp>
+#include <GLObjects.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLVectorLists.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <XOpenGL.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -153,4 +153,4 @@ using namespace Gltileplane;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GltileplaneHPP
+#endif	// GLTilePlaneHPP

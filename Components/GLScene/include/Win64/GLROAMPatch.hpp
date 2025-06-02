@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glroampatch.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLROAMPatch.pas' rev: 36.00 (Windows)
 
-#ifndef GlroampatchHPP
-#define GlroampatchHPP
+#ifndef GLROAMPatchHPP
+#define GLROAMPatchHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,16 +15,16 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
-#include <Opengltokens.hpp>
-#include <Xopengl.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glheightdata.hpp>
-#include <Glvectorlists.hpp>
-#include <Glcontext.hpp>
-#include <Glvectortypes.hpp>
-#include <Glisolines.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
+#include <OpenGLTokens.hpp>
+#include <XOpenGL.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLHeightData.hpp>
+#include <GLVectorLists.hpp>
+#include <GLContext.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLIsolines.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -174,4 +174,4 @@ using namespace Glroampatch;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlroampatchHPP
+#endif	// GLROAMPatchHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfilelmts.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFileLMTS.pas' rev: 36.00 (Windows)
 
-#ifndef GlfilelmtsHPP
-#define GlfilelmtsHPP
+#ifndef GLFileLMTSHPP
+#define GLFileLMTSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,20 +15,20 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glvectorlists.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Gltexture.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glgraphics.hpp>
-#include <Glmaterial.hpp>
-#include <Glbaseclasses.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLVectorLists.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLTexture.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLGraphics.hpp>
+#include <GLMaterial.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -168,4 +168,4 @@ using namespace Glfilelmts;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlfilelmtsHPP
+#endif	// GLFileLMTSHPP

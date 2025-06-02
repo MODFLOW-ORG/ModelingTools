@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glbehaviours.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLBehaviours.pas' rev: 36.00 (Windows)
 
-#ifndef GlbehavioursHPP
-#define GlbehavioursHPP
+#ifndef GLBehavioursHPP
+#define GLBehavioursHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,15 +15,15 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glvectortypes.hpp>
-#include <Glscene.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glxcollection.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glcoordinates.hpp>
+#include <System.SysUtils.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLScene.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLXCollection.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLCoordinates.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -148,4 +148,4 @@ using namespace Glbehaviours;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlbehavioursHPP
+#endif	// GLBehavioursHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glwin32viewer.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLWin32Viewer.pas' rev: 36.00 (Windows)
 
-#ifndef Glwin32viewerHPP
-#define Glwin32viewerHPP
+#ifndef GLWin32ViewerHPP
+#define GLWin32ViewerHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <Winapi.Messages.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Types.hpp>
 #include <Vcl.Graphics.hpp>
 #include <Vcl.Forms.hpp>
 #include <Vcl.Controls.hpp>
-#include <Glscene.hpp>
-#include <Glwin32context.hpp>
-#include <Glcontext.hpp>
-#include <System.Uitypes.hpp>
+#include <GLScene.hpp>
+#include <GLWin32Context.hpp>
+#include <GLContext.hpp>
+#include <System.UITypes.hpp>
 #include <Vcl.Menus.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -163,4 +163,4 @@ using namespace Glwin32viewer;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Glwin32viewerHPP
+#endif	// GLWin32ViewerHPP

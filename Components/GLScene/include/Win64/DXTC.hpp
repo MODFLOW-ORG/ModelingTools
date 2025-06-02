@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Dxtc.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'DXTC.pas' rev: 36.00 (Windows)
 
-#ifndef DxtcHPP
-#define DxtcHPP
+#ifndef DXTCHPP
+#define DXTCHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,10 +15,10 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
-#include <Opengltokens.hpp>
-#include <Gltextureformat.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLTextureFormat.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -331,4 +331,4 @@ using namespace Dxtc;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// DxtcHPP
+#endif	// DXTCHPP

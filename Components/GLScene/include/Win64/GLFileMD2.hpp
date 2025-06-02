@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfilemd2.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFileMD2.pas' rev: 36.00 (Windows)
 
-#ifndef Glfilemd2HPP
-#define Glfilemd2HPP
+#ifndef GLFileMD2HPP
+#define GLFileMD2HPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,13 +15,13 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Filemd2.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <FileMD2.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -56,4 +56,4 @@ using namespace Glfilemd2;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Glfilemd2HPP
+#endif	// GLFileMD2HPP

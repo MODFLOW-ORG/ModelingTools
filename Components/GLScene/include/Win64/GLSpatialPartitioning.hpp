@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glspatialpartitioning.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSpatialPartitioning.pas' rev: 36.00 (Windows)
 
-#ifndef GlspatialpartitioningHPP
-#define GlspatialpartitioningHPP
+#ifndef GLSpatialPartitioningHPP
+#define GLSpatialPartitioningHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Winapi.Opengl.hpp>
-#include <Glscene.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
-#include <Glcoordinates.hpp>
-#include <Glcontext.hpp>
-#include <Glwin32viewer.hpp>
-#include <Glspacepartition.hpp>
-#include <Glgeometrybb.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glstate.hpp>
-#include <Glpersistentclasses.hpp>
+#include <SysInit.hpp>
+#include <Winapi.OpenGL.hpp>
+#include <GLScene.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLCoordinates.hpp>
+#include <GLContext.hpp>
+#include <GLWin32Viewer.hpp>
+#include <GLSpacePartition.hpp>
+#include <GLGeometryBB.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLState.hpp>
+#include <GLPersistentClasses.hpp>
 #include <System.Classes.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -71,4 +71,4 @@ using namespace Glspatialpartitioning;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlspatialpartitioningHPP
+#endif	// GLSpatialPartitioningHPP

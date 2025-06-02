@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glrandomhds.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLRandomHDS.pas' rev: 36.00 (Windows)
 
-#ifndef GlrandomhdsHPP
-#define GlrandomhdsHPP
+#ifndef GLRandomHDSHPP
+#define GLRandomHDSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,28 +15,28 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
 #include <System.Math.hpp>
-#include <System.Sysutils.hpp>
-#include <System.Uitypes.hpp>
+#include <System.SysUtils.hpp>
+#include <System.UITypes.hpp>
 #include <System.Contnrs.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Vcl.Imaging.Jpeg.hpp>
+#include <Vcl.Imaging.jpeg.hpp>
 #include <Vcl.Forms.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Glvectortypes.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glheightdata.hpp>
-#include <Glterrainrenderer.hpp>
-#include <Gltexture.hpp>
-#include <Glcolor.hpp>
-#include <Glcoordinates.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glmaterial.hpp>
-#include <Glcontext.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLHeightData.hpp>
+#include <GLTerrainRenderer.hpp>
+#include <GLTexture.hpp>
+#include <GLColor.hpp>
+#include <GLCoordinates.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLMaterial.hpp>
+#include <GLContext.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -516,4 +516,4 @@ using namespace Glrandomhds;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlrandomhdsHPP
+#endif	// GLRandomHDSHPP

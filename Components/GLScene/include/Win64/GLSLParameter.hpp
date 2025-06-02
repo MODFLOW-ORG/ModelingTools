@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glslparameter.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSLParameter.pas' rev: 36.00 (Windows)
 
-#ifndef GlslparameterHPP
-#define GlslparameterHPP
+#ifndef GLSLParameterHPP
+#define GLSLParameterHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,13 +15,13 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Glstrings.hpp>
-#include <Opengltokens.hpp>
-#include <Glvectortypes.hpp>
-#include <Gltextureformat.hpp>
-#include <Glrendercontextinfo.hpp>
+#include <GLStrings.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLRenderContextInfo.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -137,4 +137,4 @@ using namespace Glslparameter;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlslparameterHPP
+#endif	// GLSLParameterHPP

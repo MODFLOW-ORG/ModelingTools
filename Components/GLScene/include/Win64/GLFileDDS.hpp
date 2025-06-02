@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfiledds.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFileDDS.pas' rev: 36.00 (Windows)
 
-#ifndef GlfileddsHPP
-#define GlfileddsHPP
+#ifndef GLFileDDSHPP
+#define GLFileDDSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Math.hpp>
-#include <Opengltokens.hpp>
-#include <Glcontext.hpp>
-#include <Glgraphics.hpp>
-#include <Gltextureformat.hpp>
-#include <Glsrgbe.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glstrings.hpp>
-#include <Glbaseclasses.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLContext.hpp>
+#include <GLGraphics.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLSRGBE.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLStrings.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -70,4 +70,4 @@ using namespace Glfiledds;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlfileddsHPP
+#endif	// GLFileDDSHPP

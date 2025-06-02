@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glsvfw.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSVfw.pas' rev: 36.00 (Windows)
 
-#ifndef GlsvfwHPP
-#define GlsvfwHPP
+#ifndef GLSVfwHPP
+#define GLSVfwHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,12 +15,12 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
-#include <Winapi.Mmsystem.hpp>
+#include <Winapi.MMSystem.hpp>
 #include <Winapi.Messages.hpp>
-#include <Winapi.Commdlg.hpp>
-#include <Winapi.Activex.hpp>
+#include <Winapi.CommDlg.hpp>
+#include <Winapi.ActiveX.hpp>
 #include <Vcl.Dialogs.hpp>
 #include <System.Types.hpp>
 
@@ -2015,4 +2015,4 @@ using namespace Glsvfw;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlsvfwHPP
+#endif	// GLSVfwHPP

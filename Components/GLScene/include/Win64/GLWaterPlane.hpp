@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glwaterplane.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLWaterPlane.pas' rev: 36.00 (Windows)
 
-#ifndef GlwaterplaneHPP
-#define GlwaterplaneHPP
+#ifndef GLWaterPlaneHPP
+#define GLWaterPlaneHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Opengltokens.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glscene.hpp>
-#include <Glvectorlists.hpp>
-#include <Glcrossplatform.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glcontext.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glvectortypes.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLScene.hpp>
+#include <GLVectorLists.hpp>
+#include <GLCrossPlatform.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLContext.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -131,4 +131,4 @@ using namespace Glwaterplane;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlwaterplaneHPP
+#endif	// GLWaterPlaneHPP

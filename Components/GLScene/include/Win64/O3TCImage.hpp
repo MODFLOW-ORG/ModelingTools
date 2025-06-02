@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'O3tcimage.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'O3TCImage.pas' rev: 36.00 (Windows)
 
-#ifndef O3tcimageHPP
-#define O3tcimageHPP
+#ifndef O3TCImageHPP
+#define O3TCImageHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Opengltokens.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glgraphics.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLGraphics.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -56,4 +56,4 @@ using namespace O3tcimage;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// O3tcimageHPP
+#endif	// O3TCImageHPP

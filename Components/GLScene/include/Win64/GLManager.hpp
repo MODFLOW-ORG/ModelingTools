@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glmanager.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLManager.pas' rev: 36.00 (Windows)
 
-#ifndef GlmanagerHPP
-#define GlmanagerHPP
+#ifndef GLManagerHPP
+#define GLManagerHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,7 +15,7 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
 #include <System.Types.hpp>
 
@@ -38,4 +38,4 @@ using namespace Glmanager;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlmanagerHPP
+#endif	// GLManagerHPP

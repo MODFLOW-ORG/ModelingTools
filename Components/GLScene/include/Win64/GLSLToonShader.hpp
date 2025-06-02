@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glsltoonshader.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSLToonShader.pas' rev: 36.00 (Windows)
 
-#ifndef GlsltoonshaderHPP
-#define GlsltoonshaderHPP
+#ifndef GLSLToonShaderHPP
+#define GLSLToonShaderHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,22 +15,22 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glstate.hpp>
-#include <Glcontext.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glcoordinates.hpp>
-#include <Gltextureformat.hpp>
-#include <Glcolor.hpp>
-#include <Gltexture.hpp>
-#include <Glmaterial.hpp>
-#include <Glslshader.hpp>
-#include <Glcustomshader.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLState.hpp>
+#include <GLContext.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLCoordinates.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLColor.hpp>
+#include <GLTexture.hpp>
+#include <GLMaterial.hpp>
+#include <GLSLShader.hpp>
+#include <GLCustomShader.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -110,4 +110,4 @@ using namespace Glsltoonshader;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlsltoonshaderHPP
+#endif	// GLSLToonShaderHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glsmemo.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSMemo.pas' rev: 36.00 (Windows)
 
-#ifndef GlsmemoHPP
-#define GlsmemoHPP
+#ifndef GLSMemoHPP
+#define GLSMemoHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <Winapi.Messages.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
-#include <System.Uitypes.hpp>
+#include <System.UITypes.hpp>
 #include <Vcl.Graphics.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.Forms.hpp>
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.Clipbrd.hpp>
-#include <Vcl.Stdctrls.hpp>
-#include <Vcl.Extctrls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.ExtCtrls.hpp>
 #include <System.Types.hpp>
 #include <Vcl.Menus.hpp>
 
@@ -938,4 +938,4 @@ using namespace Glsmemo;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlsmemoHPP
+#endif	// GLSMemoHPP

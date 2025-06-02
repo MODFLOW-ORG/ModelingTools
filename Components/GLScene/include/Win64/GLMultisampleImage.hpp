@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glmultisampleimage.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLMultisampleImage.pas' rev: 36.00 (Windows)
 
-#ifndef GlmultisampleimageHPP
-#define GlmultisampleimageHPP
+#ifndef GLMultisampleImageHPP
+#define GLMultisampleImageHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Opengltokens.hpp>
-#include <Glcontext.hpp>
-#include <Gltexture.hpp>
-#include <Glgraphics.hpp>
-#include <Gltextureformat.hpp>
-#include <Glbaseclasses.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLContext.hpp>
+#include <GLTexture.hpp>
+#include <GLGraphics.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -87,4 +87,4 @@ using namespace Glmultisampleimage;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlmultisampleimageHPP
+#endif	// GLMultisampleImageHPP

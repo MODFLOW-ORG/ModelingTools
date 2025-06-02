@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glscene.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLScene.pas' rev: 36.00 (Windows)
 
-#ifndef GlsceneHPP
-#define GlsceneHPP
+#ifndef GLSceneHPP
+#define GLSceneHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,40 +15,40 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <System.Uitypes.hpp>
+#include <System.SysUtils.hpp>
+#include <System.UITypes.hpp>
 #include <System.Math.hpp>
 #include <Vcl.Graphics.hpp>
 #include <Vcl.Controls.hpp>
-#include <Opengltokens.hpp>
-#include <Glstrings.hpp>
-#include <Glcontext.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glxcollection.hpp>
-#include <Glsilhouette.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glpipelinetransformation.hpp>
-#include <Glstate.hpp>
-#include <Glgraphics.hpp>
-#include <Glgeometrybb.hpp>
-#include <Glcrossplatform.hpp>
-#include <Glvectorlists.hpp>
-#include <Gltexture.hpp>
-#include <Glcolor.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glcoordinates.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glmaterial.hpp>
-#include <Gltextureformat.hpp>
-#include <Glselection.hpp>
-#include <Xopengl.hpp>
-#include <Glvectortypes.hpp>
-#include <Glapplicationfileio.hpp>
-#include <Glutils.hpp>
-#include <Glslog.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLStrings.hpp>
+#include <GLContext.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLXCollection.hpp>
+#include <GLSilhouette.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLPipelineTransformation.hpp>
+#include <GLState.hpp>
+#include <GLGraphics.hpp>
+#include <GLGeometryBB.hpp>
+#include <GLCrossPlatform.hpp>
+#include <GLVectorLists.hpp>
+#include <GLTexture.hpp>
+#include <GLColor.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLCoordinates.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLMaterial.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLSelection.hpp>
+#include <XOpenGL.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLApplicationFileIO.hpp>
+#include <GLUtils.hpp>
+#include <GLSLog.hpp>
 #include <System.Types.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -1327,4 +1327,4 @@ using namespace Glscene;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlsceneHPP
+#endif	// GLSceneHPP

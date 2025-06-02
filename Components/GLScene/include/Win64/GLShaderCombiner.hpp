@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glshadercombiner.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLShaderCombiner.pas' rev: 36.00 (Windows)
 
-#ifndef GlshadercombinerHPP
-#define GlshadercombinerHPP
+#ifndef GLShaderCombinerHPP
+#define GLShaderCombinerHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Glmaterial.hpp>
-#include <Glscene.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glstrings.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glbaseclasses.hpp>
+#include <GLMaterial.hpp>
+#include <GLScene.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLStrings.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -93,4 +93,4 @@ using namespace Glshadercombiner;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlshadercombinerHPP
+#endif	// GLShaderCombinerHPP

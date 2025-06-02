@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glconsole.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLConsole.pas' rev: 36.00 (Windows)
 
-#ifndef GlconsoleHPP
-#define GlconsoleHPP
+#ifndef GLConsoleHPP
+#define GLConsoleHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,29 +15,29 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <System.Typinfo.hpp>
+#include <System.SysUtils.hpp>
+#include <System.TypInfo.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Glcrossplatform.hpp>
-#include <Glscene.hpp>
-#include <Glcoordinates.hpp>
-#include <Globjects.hpp>
-#include <Glhudobjects.hpp>
-#include <Glwin32viewer.hpp>
-#include <Glbitmapfont.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glcontext.hpp>
-#include <Gltexture.hpp>
-#include <Glutils.hpp>
-#include <Glstrings.hpp>
-#include <Glmaterial.hpp>
-#include <Glvectortypes.hpp>
-#include <System.Uitypes.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glbaseclasses.hpp>
+#include <GLCrossPlatform.hpp>
+#include <GLScene.hpp>
+#include <GLCoordinates.hpp>
+#include <GLObjects.hpp>
+#include <GLHUDObjects.hpp>
+#include <GLWin32Viewer.hpp>
+#include <GLBitmapFont.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLContext.hpp>
+#include <GLTexture.hpp>
+#include <GLUtils.hpp>
+#include <GLStrings.hpp>
+#include <GLMaterial.hpp>
+#include <GLVectorTypes.hpp>
+#include <System.UITypes.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -362,4 +362,4 @@ using namespace Glconsole;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlconsoleHPP
+#endif	// GLConsoleHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glslshader.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSLShader.pas' rev: 36.00 (Windows)
 
-#ifndef GlslshaderHPP
-#define GlslshaderHPP
+#ifndef GLSLShaderHPP
+#define GLSLShaderHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,22 +15,22 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Opengltokens.hpp>
-#include <Opengladapter.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
-#include <Gltexture.hpp>
-#include <Glcontext.hpp>
-#include <Glcustomshader.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Gltextureformat.hpp>
-#include <Glslparameter.hpp>
-#include <Glmaterial.hpp>
-#include <Glstate.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <OpenGLTokens.hpp>
+#include <OpenGLAdapter.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLTexture.hpp>
+#include <GLContext.hpp>
+#include <GLCustomShader.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLSLParameter.hpp>
+#include <GLMaterial.hpp>
+#include <GLState.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -218,4 +218,4 @@ using namespace Glslshader;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlslshaderHPP
+#endif	// GLSLShaderHPP

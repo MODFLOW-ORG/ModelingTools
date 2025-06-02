@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glgizmoex.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLGizmoEx.pas' rev: 36.00 (Windows)
 
-#ifndef GlgizmoexHPP
-#define GlgizmoexHPP
+#ifndef GLGizmoExHPP
+#define GLGizmoExHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,31 +15,31 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Types.hpp>
-#include <Vcl.Stdctrls.hpp>
-#include <Glscene.hpp>
-#include <Glcolor.hpp>
-#include <Globjects.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glmaterial.hpp>
-#include <Glstrings.hpp>
-#include <Glgeomobjects.hpp>
-#include <Glbitmapfont.hpp>
-#include <Glwin32viewer.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glcoordinates.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glgeometrybb.hpp>
-#include <Glvectortypes.hpp>
-#include <Glcanvas.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glscreen.hpp>
-#include <Glstate.hpp>
-#include <Glselection.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <GLScene.hpp>
+#include <GLColor.hpp>
+#include <GLObjects.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLMaterial.hpp>
+#include <GLStrings.hpp>
+#include <GLGeomObjects.hpp>
+#include <GLBitmapFont.hpp>
+#include <GLWin32Viewer.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLCoordinates.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLGeometryBB.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLCanvas.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLScreen.hpp>
+#include <GLState.hpp>
+#include <GLSelection.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -637,4 +637,4 @@ using namespace Glgizmoex;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlgizmoexHPP
+#endif	// GLGizmoExHPP

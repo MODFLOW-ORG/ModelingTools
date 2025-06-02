@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glpolyhedron.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLPolyhedron.pas' rev: 36.00 (Windows)
 
-#ifndef GlpolyhedronHPP
-#define GlpolyhedronHPP
+#ifndef GLPolyhedronHPP
+#define GLPolyhedronHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,15 +15,15 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Winapi.Opengl.hpp>
+#include <SysInit.hpp>
+#include <Winapi.OpenGL.hpp>
 #include <System.Classes.hpp>
-#include <Glscene.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Globjects.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glmesh.hpp>
-#include <Glrendercontextinfo.hpp>
+#include <GLScene.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLObjects.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLMesh.hpp>
+#include <GLRenderContextInfo.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -126,4 +126,4 @@ using namespace Glpolyhedron;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlpolyhedronHPP
+#endif	// GLPolyhedronHPP

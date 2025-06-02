@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glbumpmaphds.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLBumpmapHDS.pas' rev: 36.00 (Windows)
 
-#ifndef GlbumpmaphdsHPP
-#define GlbumpmaphdsHPP
+#ifndef GLBumpmapHDSHPP
+#define GLBumpmapHDSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <System.Syncobjs.hpp>
-#include <Opengltokens.hpp>
-#include <Glcoordinates.hpp>
-#include <Glheightdata.hpp>
-#include <Glgraphics.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Gltexture.hpp>
-#include <Glmaterial.hpp>
-#include <Glutils.hpp>
-#include <Glvectortypes.hpp>
+#include <System.SysUtils.hpp>
+#include <System.SyncObjs.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLCoordinates.hpp>
+#include <GLHeightData.hpp>
+#include <GLGraphics.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLTexture.hpp>
+#include <GLMaterial.hpp>
+#include <GLUtils.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -87,4 +87,4 @@ using namespace Glbumpmaphds;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlbumpmaphdsHPP
+#endif	// GLBumpmapHDSHPP

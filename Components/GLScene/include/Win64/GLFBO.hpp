@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfbo.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFBO.pas' rev: 36.00 (Windows)
 
-#ifndef GlfboHPP
-#define GlfboHPP
+#ifndef GLFBOHPP
+#define GLFBOHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,20 +15,20 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
-#include <Opengltokens.hpp>
-#include <Glscene.hpp>
-#include <Glcontext.hpp>
-#include <Glstate.hpp>
-#include <Gltexture.hpp>
-#include <Glcolor.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glmultisampleimage.hpp>
-#include <Glgraphics.hpp>
-#include <Gltextureformat.hpp>
-#include <Glvectortypes.hpp>
-#include <Glslog.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLScene.hpp>
+#include <GLContext.hpp>
+#include <GLState.hpp>
+#include <GLTexture.hpp>
+#include <GLColor.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLMultisampleImage.hpp>
+#include <GLGraphics.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLSLog.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -173,4 +173,4 @@ using namespace Glfbo;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlfboHPP
+#endif	// GLFBOHPP

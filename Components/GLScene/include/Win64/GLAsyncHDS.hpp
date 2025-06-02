@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glasynchds.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLAsyncHDS.pas' rev: 36.00 (Windows)
 
-#ifndef GlasynchdsHPP
-#define GlasynchdsHPP
+#ifndef GLAsyncHDSHPP
+#define GLAsyncHDSHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,10 +15,10 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glheightdata.hpp>
+#include <System.SysUtils.hpp>
+#include <GLHeightData.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -95,4 +95,4 @@ using namespace Glasynchds;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlasynchdsHPP
+#endif	// GLAsyncHDSHPP

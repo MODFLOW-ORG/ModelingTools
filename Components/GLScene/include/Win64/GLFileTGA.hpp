@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glfiletga.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLFileTGA.pas' rev: 36.00 (Windows)
 
-#ifndef GlfiletgaHPP
-#define GlfiletgaHPP
+#ifndef GLFileTGAHPP
+#define GLFileTGAHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,11 +15,11 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Glgraphics.hpp>
+#include <GLGraphics.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -76,4 +76,4 @@ using namespace Glfiletga;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlfiletgaHPP
+#endif	// GLFileTGAHPP

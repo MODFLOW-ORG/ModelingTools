@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Q3bsp.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'Q3BSP.pas' rev: 36.00 (Windows)
 
-#ifndef Q3bspHPP
-#define Q3bspHPP
+#ifndef Q3BSPHPP
+#define Q3BSPHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,10 +15,10 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glvectortypes.hpp>
+#include <System.SysUtils.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -235,4 +235,4 @@ using namespace Q3bsp;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Q3bspHPP
+#endif	// Q3BSPHPP

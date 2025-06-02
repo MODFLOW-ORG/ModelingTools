@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glslfurshader.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSLFurShader.pas' rev: 36.00 (Windows)
 
-#ifndef GlslfurshaderHPP
-#define GlslfurshaderHPP
+#ifndef GLSLFurShaderHPP
+#define GLSLFurShaderHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,23 +15,23 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <Glscene.hpp>
-#include <Glbaseclasses.hpp>
-#include <Glstate.hpp>
-#include <Opengltokens.hpp>
-#include <Glcontext.hpp>
-#include <Glrendercontextinfo.hpp>
-#include <Glcoordinates.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
-#include <Gltextureformat.hpp>
-#include <Glcolor.hpp>
-#include <Gltexture.hpp>
-#include <Glmaterial.hpp>
-#include <Glslshader.hpp>
-#include <Glcustomshader.hpp>
+#include <GLScene.hpp>
+#include <GLBaseClasses.hpp>
+#include <GLState.hpp>
+#include <OpenGLTokens.hpp>
+#include <GLContext.hpp>
+#include <GLRenderContextInfo.hpp>
+#include <GLCoordinates.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLTextureFormat.hpp>
+#include <GLColor.hpp>
+#include <GLTexture.hpp>
+#include <GLMaterial.hpp>
+#include <GLSLShader.hpp>
+#include <GLCustomShader.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -139,4 +139,4 @@ using namespace Glslfurshader;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlslfurshaderHPP
+#endif	// GLSLFurShaderHPP

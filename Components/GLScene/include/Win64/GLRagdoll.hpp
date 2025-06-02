@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glragdoll.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLRagdoll.pas' rev: 36.00 (Windows)
 
-#ifndef GlragdollHPP
-#define GlragdollHPP
+#ifndef GLRagdollHPP
+#define GLRagdollHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,15 +15,15 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Glscene.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glvectorlists.hpp>
-#include <Globjects.hpp>
+#include <SysInit.hpp>
+#include <GLScene.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLVectorLists.hpp>
+#include <GLObjects.hpp>
 #include <System.Classes.hpp>
-#include <Glvectortypes.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -170,4 +170,4 @@ using namespace Glragdoll;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlragdollHPP
+#endif	// GLRagdollHPP

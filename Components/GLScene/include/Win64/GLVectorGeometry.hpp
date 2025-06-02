@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glvectorgeometry.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLVectorGeometry.pas' rev: 36.00 (Windows)
 
-#ifndef GlvectorgeometryHPP
-#define GlvectorgeometryHPP
+#ifndef GLVectorGeometryHPP
+#define GLVectorGeometryHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,11 +15,11 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Types.hpp>
 #include <System.Math.hpp>
-#include <Glvectortypes.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -898,4 +898,4 @@ using namespace Glvectorgeometry;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlvectorgeometryHPP
+#endif	// GLVectorGeometryHPP

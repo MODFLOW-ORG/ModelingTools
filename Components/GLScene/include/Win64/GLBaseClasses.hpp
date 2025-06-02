@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glbaseclasses.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLBaseClasses.pas' rev: 36.00 (Windows)
 
-#ifndef GlbaseclassesHPP
-#define GlbaseclassesHPP
+#ifndef GLBaseClassesHPP
+#define GLBaseClassesHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,12 +15,12 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glstrings.hpp>
-#include <Glpersistentclasses.hpp>
-#include <Glcrossplatform.hpp>
+#include <System.SysUtils.hpp>
+#include <GLStrings.hpp>
+#include <GLPersistentClasses.hpp>
+#include <GLCrossPlatform.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -187,4 +187,4 @@ using namespace Glbaseclasses;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GlbaseclassesHPP
+#endif	// GLBaseClassesHPP

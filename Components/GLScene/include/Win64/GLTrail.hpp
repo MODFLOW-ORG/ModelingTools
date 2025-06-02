@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gltrail.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLTrail.pas' rev: 36.00 (Windows)
 
-#ifndef GltrailHPP
-#define GltrailHPP
+#ifndef GLTrailHPP
+#define GLTrailHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,19 +15,19 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Glscene.hpp>
-#include <Glvectortypes.hpp>
-#include <Glmeshutils.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectorfileobjects.hpp>
-#include <Glmesh.hpp>
-#include <Globjects.hpp>
-#include <Glmaterial.hpp>
-#include <Glstrings.hpp>
-#include <Glbaseclasses.hpp>
+#include <System.SysUtils.hpp>
+#include <GLScene.hpp>
+#include <GLVectorTypes.hpp>
+#include <GLMeshUtils.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorFileObjects.hpp>
+#include <GLMesh.hpp>
+#include <GLObjects.hpp>
+#include <GLMaterial.hpp>
+#include <GLStrings.hpp>
+#include <GLBaseClasses.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -120,4 +120,4 @@ using namespace Gltrail;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// GltrailHPP
+#endif	// GLTrailHPP

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Glperlinnoise3d.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLPerlinNoise3D.pas' rev: 36.00 (Windows)
 
-#ifndef Glperlinnoise3dHPP
-#define Glperlinnoise3dHPP
+#ifndef GLPerlinNoise3DHPP
+#define GLPerlinNoise3DHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,10 +15,10 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <System.Math.hpp>
-#include <Glvectorgeometry.hpp>
-#include <Glvectortypes.hpp>
+#include <GLVectorGeometry.hpp>
+#include <GLVectorTypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -61,4 +61,4 @@ using namespace Glperlinnoise3d;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Glperlinnoise3dHPP
+#endif	// GLPerlinNoise3DHPP
