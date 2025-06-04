@@ -3048,7 +3048,7 @@ begin
   result := ThreeDElementCorner(CellID);
   APoint.X := Result.X;
   APoint.Y := Result.Y;
-  RotateFromGridCoordinatesToRealWorldCoordinates(APoint);
+  APoint:= RotateFromGridCoordinatesToRealWorldCoordinates(APoint);
   Result.X := APoint.X;
   Result.Y := APoint.Y;
 end;

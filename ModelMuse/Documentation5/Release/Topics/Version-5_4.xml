@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2025-06-01T15:30:47.369-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2025-06-04T09:35:07.001-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">Version 5.4</title>
   <body>
     <header>
@@ -60,6 +60,7 @@
                 <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed import of MODFLOW 6 models when the usgs.model.reference file is included.</text></para>
                 <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed export of UZT observations when the observations were only specified as calibration observations.</text></para>
                 <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed a bug that could cause an access violation if ModelMuse was closed while the Edit Data Sets dialog box was open.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed exporting grid data to 3D Polyhedron Shapefiles.</text></para>
               </td>
             </tr>
           </table></para>
