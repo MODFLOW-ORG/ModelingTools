@@ -404,13 +404,6 @@ begin
       UnitNumbers.Free;
     end;
 
-//    if Pos(' ', ExtractFileName(edNameFile.FileName)) > 0 then
-//    begin
-//      Beep;
-//      MessageDlg(StrTheNameOfTheMODF, mtError, [mbOK], 0);
-//      Exit;
-//    end;
-
     XOrigin := StrToFloat(rdeX.Text);
     YOrigin := StrToFloat(rdeY.Text);
     GridAngle := StrToFloat(rdeGridAngle.Text) * Pi/180;
@@ -492,15 +485,7 @@ begin
       Exit;
     end;
     SetCurrentDir(ExtractFileDir(NameFileName));
-//    if Copy(ListFileName,1,2) = '.\' then
-//    begin
-//      DelimPos := PosEx(PathDelim,ListFileName,3);
-//      if DelimPos > 0 then
-//      begin
-//        ListFileName := Copy(ListFileName,DelimPos+1,MaxInt);
-//      end;
-//
-//    end;
+
     ListFileName := ExpandFileName(ListFileName);
 
     ImportParameters := TImportParameters.Create;
@@ -525,8 +510,7 @@ begin
         finally
           frmConsoleLines.Free;
         end;
-  //      MessageDlg(Format(StrThereWasAnErrorR, [ListFileName]),
-  //        mtError, [mbOK], 0);
+
         Exit;
       end;
       if not FileExists(ListFileName) then
@@ -568,6 +552,7 @@ begin
     Enabled := True;
   end;
 end;
+
 procedure TfrmImportModflow.CreateParams(var Params: TCreateParams);
 begin
   inherited;
@@ -713,6 +698,7 @@ begin
       if not (MessageDlg(StrYouHaveSpecifiedT, mtWarning, [mbYes, mbNo], 0, mbNo) = mrYes) then
       begin
         result := False;
+        Exit;
       end;
     end;
 
@@ -720,6 +706,7 @@ begin
     begin
       ImportParameters.HeadFile := TempFileName;
       TFile.Delete(ImportParameters.HeadFile);
+      sbStatusBar.SimpleText := 'Copying head file.';
       TFile.Copy(fedHead.FileName, ImportParameters.HeadFile);
     end
     else
@@ -740,6 +727,7 @@ begin
     begin
       ImportParameters.FlowFile := TempFileName;
       TFile.Delete(ImportParameters.FlowFile);
+      sbStatusBar.SimpleText := 'Copying flow file.';
       TFile.Copy(fedFlow.FileName, ImportParameters.FlowFile);
     end
     else

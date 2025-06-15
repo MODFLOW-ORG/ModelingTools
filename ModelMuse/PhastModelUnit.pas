@@ -10454,6 +10454,9 @@ const
 //    '5.3.1.16' Bug fix: Fixed import of MODFLOW 6 models when the
 //                usgs.model.reference file is included.
 //    '5.3.1.17' Bug fix: Fixed exporting grid data to 3D Polyhedron Shapefiles.
+//    '5.3.1.18' Enhancement: When importing MODFLOW-2005 or MODFLOW-NWT
+//                submodels, messages are displayed indicating the progress in
+//                specifying the boundary conditions of the submodel.
 //     '5.4.0.0' Bug fix: Fixed export of UZT observations when the observations
 //                were only specified as calibration observations.
 //               Enhancement: In certain tables, the user can now paste

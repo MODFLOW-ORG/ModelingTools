@@ -4356,12 +4356,12 @@ begin
   end;
 end;
 
+
 { TModflow2005Importer }
 
 //constructor TModflow2005Importer.Create(const ImportParameters.ListFileName: string;
 //  ImportParameters.XOrigin, ImportParameters.YOrigin, ImportParameters.GridAngle: double; const ImportParameters.NameFile: string);
 constructor TModflow2005Importer.Create(ImportParameters: TImportParameters);
-
 var
   MZImporter: TMultZoneImporter;
   LakImporter: TLakImporter;
@@ -4719,6 +4719,10 @@ var
   DirIndex: TFlowDirection;
   LayerIndex: Integer;
   ModelName1, ModelName2, PackageName1, PackageName2: string;
+  TimeStepCount: Integer;
+  StressPeriod: Integer;
+  TimeStep: Integer;
+  StepNumber: Integer;
   procedure DefineBoundary;
   var
     LocationsToUse: TList;
@@ -4830,6 +4834,7 @@ var
         LocationsToUse := TObjectList.Create;
         Values := TList<TModflowDouble>.Create;
         try
+          LocationsToUse.Capacity := (LastCol-FirstCol+1)*2 + (LastRow-FirstRow+1)*2;
           Layer := frmGoPhast.PhastModel.ModflowLayerToDataSetLayer(LayerIndex);
           for RowIndex := FirstRow to LastRow do
           begin
@@ -4866,7 +4871,6 @@ var
               ScreenObject := ScreenObjectArray[LayerIndex-1, FlowDir];
             end;
 
-//            BoundaryScreenObjectList.Add(ScreenObject);
             ImportedFlows := ScreenObject.ImportedValues.Add;
             ImportedFlows.Name := StrParentModelFlows + '_SP_' + KPER.ToString
               + '_TS_' + KSTP.ToString;
@@ -4891,20 +4895,12 @@ var
               AnItem.StartTime := Times[StartTimePos];
               AnItem.EndTime := TOTIM;
               AnItem.BoundaryValue := rsObjectImportedValuesR + '("' + ImportedFlows.Name + '")';
-//            end
-//            else
-//            begin
-//              AnItem := ScreenObject.ModflowFhbFlowBoundary.Values.Add as TFhbItem;
-//              AnItem.StartTime := 0;
-//              AnItem.EndTime := TOTIM;
-//              AnItem.BoundaryValue := '0';
             end;
             AnItem := ScreenObject.ModflowFhbFlowBoundary.Values.Add as TFhbItem;
             AnItem.StartTime := TOTIM;
             AnItem.EndTime := TOTIM;
             AnItem.BoundaryValue := rsObjectImportedValuesR + '("' + ImportedFlows.Name + '")';
-//            TotTimeIndex := Times.IndexOf(TOTIM);
-          end;
+         end;
         finally
           LocationsToUse.Free;
           Values.Free;
@@ -4925,6 +4921,11 @@ var
     end;
   end;
 begin
+  TimeStepCount := frmGoPhast.PhastModel.ModflowStressPeriods.NumberOfSteps;
+  ProgressHandler(0, TimeStepCount);
+  StressPeriod := -1;
+  TimeStep := -1;
+  StepNumber := 0;
   SetLength(ScreenObjectArray, frmGoPhast.PhastModel.ModflowLayerCount);
   for LayerIndex := 0 to frmGoPhast.PhastModel.ModflowLayerCount-1 do
   begin
@@ -4988,7 +4989,15 @@ begin
                   ModelName1, ModelName2, PackageName1, PackageName2);
               end;
           end;
+          TextHandler(Format('Importing boundary flows. Stress Period: %d; time step: %d.', [KPER, KSTP]));
           DefineBoundary;
+          if (KPER <> StressPeriod) or (KSTP <> TimeStep) then
+          begin
+            StressPeriod := KPER;
+            TimeStep := KSTP;
+            Inc(StepNumber);
+            ProgressHandler(StepNumber, TimeStepCount);
+          end;
         end;
       finally
         FFileStream.Free;
@@ -5027,6 +5036,10 @@ var
   ActiveCells: TBool2DArray;
   ScreenObjectArray:  array of TScreenObject;
   LayerIndex: Integer;
+  TimeStepCount: Integer;
+  StressPeriod: Integer;
+  TimeStep: Integer;
+  StepNumber: Integer;
   procedure DefineBoundary;
   var
     LocationsToUse: TList;
@@ -5115,6 +5128,11 @@ var
     end;
   end;
 begin
+  TimeStepCount := frmGoPhast.PhastModel.ModflowStressPeriods.NumberOfSteps;
+  ProgressHandler(0, TimeStepCount);
+  StressPeriod := -1;
+  TimeStep := -1;
+  StepNumber := 0;
   SetLength(ScreenObjectArray, frmGoPhast.PhastModel.ModflowLayerCount);
   for LayerIndex := 0 to frmGoPhast.PhastModel.ModflowLayerCount - 1 do
   begin
@@ -5123,6 +5141,7 @@ begin
   if (FImportParameters.FirstCol > 0)
     and (FImportParameters.HeadFile <> '') then
   begin
+    TextHandler('Importing boundary heads.');
     ScreenObjectIndex := 0;
 //    StressPeriodIndex := 0;
     FirstRow := FImportParameters.FirstRow-1;
@@ -5160,7 +5179,15 @@ begin
           begin
             ReadModflowAsciiRealArray(FFileVariable, KSTP, KPER, PERTIM, TOTIM,
               DESC2, NCOL, NROW, ILAY, AnArray);
+            TextHandler(Format('Importing boundary heads. Stress Period: %d; time step: %d.', [KPER, KSTP]));
             DefineBoundary;
+            if (KPER <> StressPeriod) or (KSTP <> TimeStep) then
+            begin
+              StressPeriod := KPER;
+              TimeStep := KSTP;
+              Inc(StepNumber);
+              ProgressHandler(StepNumber, TimeStepCount);
+            end;
           end;
         finally
           CloseFile(FFileVariable.AFile);
@@ -5197,7 +5224,15 @@ begin
                     KSTP, KPER, PERTIM, TOTIM, DESC, NCOL, NROW, ILAY, AnArray);
                 end;
             end;
+            TextHandler(Format('Importing boundary heads. Stress Period: %d; time step: %d.', [KPER, KSTP]));
             DefineBoundary;
+            if (KPER <> StressPeriod) or (KSTP <> TimeStep) then
+            begin
+              StressPeriod := KPER;
+              TimeStep := KSTP;
+              Inc(StepNumber);
+              ProgressHandler(StepNumber, TimeStepCount);
+            end;
           end;
         finally
           FFileStream.Free;
@@ -5208,8 +5243,6 @@ begin
       Times.Free;
       ScreenObjectList.Free;
     end;
-
-
   end;
 end;
 
@@ -5362,6 +5395,8 @@ var
 begin
   if FImportParameters.Outline <> nil then
   begin
+    TextHandler('Inactivating cells outside model edge.');
+
     Grid := frmGoPhast.Grid;
     ObjectImporter := TSubModelInactiveImporter.Create(Self, 'BAS');
     try

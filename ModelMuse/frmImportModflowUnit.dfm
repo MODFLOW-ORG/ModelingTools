@@ -59,6 +59,8 @@ inherited frmImportModflow: TfrmImportModflow
       Margins.Bottom = 0
       Align = alBottom
       TabOrder = 4
+      ExplicitLeft = 2
+      ExplicitTop = 81
     end
     object sbStatusBar: TStatusBar
       Left = 1
@@ -389,8 +391,8 @@ inherited frmImportModflow: TfrmImportModflow
           Enabled = False
         end
         object fedHead: TJvFilenameEdit
-          Left = 8
-          Top = 48
+          Left = 3
+          Top = 46
           Width = 448
           Height = 26
           Filter = 
