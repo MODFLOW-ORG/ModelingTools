@@ -208,8 +208,10 @@ Package Manager.
 
 When using the Delphi Community Edition, the GetIt Package Manager can not 
 be use to install JCL or JVCL.
-Instructions on how to install them can be found at
+Instructions on how to install them in the Community Edition can be found at the following URLs.
 https://stackoverflow.com/questions/76801479/how-install-jcl-and-jvcl-on-delphi-11-3-ce-version
+https://www.youtube.com/watch?v=211-FBRymWk
+https://www.youtube.com/watch?v=y2piNOgjjk0
 
 Install Graphics32 (see below) before installing GLScene
 
