@@ -59,8 +59,6 @@ inherited frmImportModflow: TfrmImportModflow
       Margins.Bottom = 0
       Align = alBottom
       TabOrder = 4
-      ExplicitLeft = 2
-      ExplicitTop = 81
     end
     object sbStatusBar: TStatusBar
       Left = 1

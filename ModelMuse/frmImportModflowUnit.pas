@@ -121,6 +121,9 @@ resourcestring
   StrSDoesNotExist = 'The shapefile that you specified for the submodel boundary, "%s" does not exist';
   StrErrorReadingS = 'Error reading "%s". Check to make sure that it is the ' +
   'name file of a MODFLOW-2005 or MODFLOW-NWT model.';
+  StrModelMuseDoesNotH = 'ModelMuse does not handle flow in SFR or STR strea' +
+  'ms crossing the submodel boundary. ';
+  StrModelMuseDoesNotHSWR = 'ModelMuse does not handle flow in SWR crossing the submodel boundary. ';
 
 {$IF CompilerVersion < 24}
 // This is a workaround for a bug in SysUtils.DirectoryExists
@@ -204,12 +207,13 @@ var
   UnitNumber: string;
   SenFileName: string;
   PValFileName: string;
-//  DelimPos: Integer;
+  Problems: TStringList;
 begin
   inherited;
   PValFileName := '';
   Enabled := False;
   CurrentDir := GetCurrentDir;
+  Problems := TStringList.Create;
   try
     ModflowImporterName := ExtractFileDir(Application.ExeName)
       + '\' + 'MF2005_Importer.exe';
@@ -239,7 +243,7 @@ begin
     try
       Splitter.Delimiter := ' ';
       try
-      NameFile.LoadFromFile(NameFileName);
+        NameFile.LoadFromFile(NameFileName);
       except on ERangeError do
         begin
           Beep;
@@ -275,6 +279,30 @@ begin
                then
             begin
               Modflow2000Model := True;
+            end;
+            if Ftype = 'SFR' then
+            begin
+              Problems.Add('Flow from SFR streams in the parent model to SFR streams or lakes in the child model are not simulated.');
+            end;
+            if Ftype = 'STR' then
+            begin
+              Problems.Add('Flow from STR streams in the parent model to STR streams in the child model are not simulated.');
+            end;
+            if Ftype = 'SWR' then
+            begin
+              Problems.Add('Flow between SWR features in the parent model and submodel are not simulated.');
+            end;
+            if Ftype = 'UZF' then
+            begin
+              Problems.Add('UZF Rejected infiltration or groudwater dischage in the parement model and transferred to streams or lakes in the child model is not simulated.');
+            end;
+            if Ftype = 'DRT' then
+            begin
+              Problems.Add('DRT discharge dischage in the parement model and redirected to cells in the child model is not simulated.');
+            end;
+            if Ftype = 'LAK' then
+            begin
+              Problems.Add('Outflow from lakes in the parent model to SFR streams or lakes in the child model are not simulated.');
             end;
           end;
         end;
@@ -495,6 +523,23 @@ begin
         ModalResult := mrNone;
         Exit;
       end;
+
+      if (ImportParameters.HeadFile <> '') or (ImportParameters.FlowFile <> '') then
+      begin
+        if Problems.Count > 0 then
+        begin
+          Beep;
+          Problems.Insert(0, 'Your model contains one or more packages that could cause problems when attempting to extract a submodel.');
+          Problems.Add('');
+          Problems.Add('Do you want to continue?');
+          if not (MessageDlg(Problems.Text, mtError, [mbYes, mbNo, mbCancel], 0) = mrYes) then
+          begin
+            ModalResult := mrNone;
+            Exit;
+          end;
+        end;
+      end;
+
       FReadModflowInputProperly := False;
       Execute('"' + ModflowImporterName + '" '
         + ExtractFileName(NameFileName), HandleModflowConsolLine);
@@ -549,6 +594,7 @@ begin
     end;
   finally
     SetCurrentDir(CurrentDir);
+    Problems.Free;
     Enabled := True;
   end;
 end;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<helpproject xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="helpproject.xsd" version="2.0" isskin="false" isrepository="false">
+<helpproject xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="helpproject.xsd" version="2.2" isskin="false" isrepository="false">
   <config>
     <namespaces/>
     <export-task-groups>
@@ -10,7 +10,7 @@
               <task-config-value name="outputfile">ModflowGuide.chm</task-config-value>
               <task-config-value name="skin">..\CHM_LightBlue.hmskin</task-config-value>
               <task-config-value name="deletetemp">1</task-config-value>
-              <task-config-value name="make0include">CHM,ALLMODELS,INSIDE-MODFLOW,MODFLOW-NWT</task-config-value>
+              <task-config-value name="make0include">CHM,ALLMODELS,INSIDE-MODFLOW</task-config-value>
               <task-config-value name="make0status">*</task-config-value>
             </task-config-group>
           </export-task>
@@ -28,7 +28,7 @@
     <helpwindows>
       <helpwindow name="Main" left="-1" top="-1" width="-1" height="-1">
         <caption translate="true">&lt;%TITLE%&gt;</caption>
-        <window-options-chm navigation="true" navigationwidth="200" search="true" favorite="true" saveregistry="true" buttons="12366">
+        <window-options-chm navigation="true" navigationwidth="200" index="true" search="true" favorite="true" saveregistry="true" buttons="12366">
           <user-button name="home">
             <caption translate="true">home</caption>
           </user-button>
@@ -93,6 +93,7 @@
       <tablestyleclass name="Default">
         <style-set media="screen">width:auto; cell-padding:0px; cell-spacing:0px; page-break-inside:auto; border-width:0px; border-spacing:0px; cell-border-width:0px; border-style:none; background-color:none; head-row-background-color:none; alt-row-background-color:none;</style-set>
       </tablestyleclass>
+      <imagestyleclass name="Default"/>
     </styleclasses>
     <config-group name="project">
       <config-value name="title" translate="true">Online Guide to MODFLOW</config-value>
@@ -130,7 +131,7 @@
         <config-value name="MODFLOW-FMP2">MODFLOW-FMP2</config-value>
       </config-group>
       <config-value name="imageshortcuts_includebaggage">1</config-value>
-      <config-value name="make0include">CHM,ALLMODELS,INSIDE-MODFLOW,MODFLOW-NWT</config-value>
+      <config-value name="make0include">CHM,ALLMODELS,INSIDE-MODFLOW</config-value>
       <config-value name="make0status">*</config-value>
       <config-value name="make3include">HTML,ALLMODELS,INSIDE-MODFLOW</config-value>
       <config-value name="make3status">*</config-value>
@@ -422,7 +423,7 @@
       </config-group>
       <config-group name="rbwinst">
         <config-group name="project">
-          <config-value name="lastexport">3</config-value>
+          <config-value name="lastexport">0</config-value>
         </config-group>
       </config-group>
     </config-group>
