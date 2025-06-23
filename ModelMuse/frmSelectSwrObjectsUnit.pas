@@ -2,11 +2,16 @@ unit frmSelectSwrObjectsUnit;
 
 interface
 
+// Note: A version of VirtualTree more recent than the one distributed in the
+// Delphi GetIt Package Manager uses additional source code files
+// such as VirtualTrees.BaseTree.
+
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics,
   Controls, Forms, Dialogs, frmCustomGoPhastUnit, StdCtrls,
-  Buttons, ExtCtrls, VirtualTrees, ScreenObjectUnit, VirtualTrees.BaseTree,
-  VirtualTrees.BaseAncestorVCL, VirtualTrees.AncestorVCL;
+  Buttons, ExtCtrls, VirtualTrees, ScreenObjectUnit//, VirtualTrees.BaseTree,
+//  VirtualTrees.BaseAncestorVCL, VirtualTrees.AncestorVCL
+  ;
 
 type
   PScreenObjectNodeData = ^TScreenObjectNodeData;

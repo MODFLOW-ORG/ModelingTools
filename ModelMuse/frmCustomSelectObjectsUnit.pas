@@ -2,11 +2,16 @@ unit frmCustomSelectObjectsUnit;
 
 interface
 
+// Note: A version of VirtualTree more recent than the one distributed in the
+// Delphi GetIt Package Manager uses additional source code files
+// such as VirtualTrees.BaseTree.
+
 uses
   System.Types, Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Contnrs, frmCustomGoPhastUnit, VirtualTrees, StdCtrls, Buttons,
-  ExtCtrls, ScreenObjectUnit, DataSetUnit, VirtualTrees.BaseAncestorVCL,
-  VirtualTrees.BaseTree, VirtualTrees.AncestorVCL, VirtualTrees.Types;
+  ExtCtrls, ScreenObjectUnit, DataSetUnit //, VirtualTrees.BaseAncestorVCL,
+  //VirtualTrees.BaseTree, VirtualTrees.AncestorVCL, VirtualTrees.Types
+  ;
 
 type
   TVisibleGroupState = (vgsUndefined, vgsUnChecked, vgsChecked, vgs3State);

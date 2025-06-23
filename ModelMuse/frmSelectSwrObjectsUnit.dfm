@@ -83,7 +83,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
       440
       42)
     object btnHelp: TBitBtn
-      Left = 167
+      Left = 169
       Top = 6
       Width = 83
       Height = 33
@@ -94,7 +94,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
       ExplicitLeft = 161
     end
     object btnOK: TBitBtn
-      Left = 256
+      Left = 258
       Top = 6
       Width = 83
       Height = 33
@@ -105,7 +105,7 @@ inherited frmSelectSwrObjects: TfrmSelectSwrObjects
       ExplicitLeft = 250
     end
     object btnCancel: TBitBtn
-      Left = 345
+      Left = 347
       Top = 6
       Width = 83
       Height = 33

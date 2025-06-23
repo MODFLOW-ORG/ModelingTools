@@ -2,11 +2,16 @@ unit frmErrorsAndWarningsUnit;
 
 interface
 
+// Note: A version of VirtualTree more recent than the one distributed in the
+// Delphi GetIt Package Manager uses additional source code files
+// such as VirtualTrees.BaseTree.
+
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, frmCustomGoPhastUnit, StdCtrls, Buttons, ExtCtrls, VirtualTrees,
-  GoPhastTypes, Menus, ScreenObjectUnit, VirtualTrees.Types,
-  VirtualTrees.BaseAncestorVCL, VirtualTrees.BaseTree, VirtualTrees.AncestorVCL;
+  GoPhastTypes, Menus, ScreenObjectUnit, VirtualTrees.Types //,
+//  VirtualTrees.BaseAncestorVCL, VirtualTrees.BaseTree, VirtualTrees.AncestorVCL
+  ;
 
 type
   TErrMessages = class(TStringList)
