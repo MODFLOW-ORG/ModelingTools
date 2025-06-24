@@ -5,17 +5,23 @@ unit frmShowHideObjectsUnit;
 
 interface
 
-// Note: A version of VirtualTree more recent than the one distributed in the
-// Delphi GetIt Package Manager uses additional source code files
+// Note: the version of VirtualTree installed by the GetIt Package Manager
+// in the Delphi Community Edition (12.1) is different from the one installed
+// in the paid version of Delphi (12.3).
+// The more recent than the one distributed in the
+// Delphi 12.3 GetIt Package Manager uses additional source code files
 // such as VirtualTrees.BaseTree.
 
 uses
   UndoItemsScreenObjects, Windows, SysUtils, Types, Classes, Variants,
   Graphics, Controls, Forms, Dialogs, StdCtrls, frmCustomGoPhastUnit,
   Buttons, ExtCtrls, Menus, ScreenObjectUnit, VirtualTrees,
-  frmCustomSelectObjectsUnit, ImgList, System.ImageList //,
-//  VirtualTrees.BaseAncestorVCL, VirtualTrees.BaseTree, VirtualTrees.AncestorVCL,
-//  VirtualTrees.Types
+  frmCustomSelectObjectsUnit, ImgList, System.ImageList
+{$IFNDEF CommunityEdition}
+  ,
+  VirtualTrees.BaseAncestorVCL, VirtualTrees.BaseTree, VirtualTrees.AncestorVCL,
+  VirtualTrees.Types
+{$ENDIF}
   ;
 
 type

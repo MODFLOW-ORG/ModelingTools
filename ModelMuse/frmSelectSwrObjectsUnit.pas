@@ -2,15 +2,21 @@ unit frmSelectSwrObjectsUnit;
 
 interface
 
-// Note: A version of VirtualTree more recent than the one distributed in the
-// Delphi GetIt Package Manager uses additional source code files
+// Note: the version of VirtualTree installed by the GetIt Package Manager
+// in the Delphi Community Edition (12.1) is different from the one installed
+// in the paid version of Delphi (12.3).
+// The more recent than the one distributed in the
+// Delphi 12.3 GetIt Package Manager uses additional source code files
 // such as VirtualTrees.BaseTree.
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics,
   Controls, Forms, Dialogs, frmCustomGoPhastUnit, StdCtrls,
-  Buttons, ExtCtrls, VirtualTrees, ScreenObjectUnit//, VirtualTrees.BaseTree,
-//  VirtualTrees.BaseAncestorVCL, VirtualTrees.AncestorVCL
+  Buttons, ExtCtrls, VirtualTrees, ScreenObjectUnit
+{$IFNDEF CommunityEdition}
+  , VirtualTrees.BaseTree,
+  VirtualTrees.BaseAncestorVCL, VirtualTrees.AncestorVCL
+{$ENDIF}
   ;
 
 type
