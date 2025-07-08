@@ -4,6 +4,7 @@ inherited frmManageParameters: TfrmManageParameters
   Caption = 'Manage Parameters'
   ClientHeight = 557
   ClientWidth = 768
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 784
   ExplicitHeight = 596
   TextHeight = 18
@@ -57,7 +58,7 @@ inherited frmManageParameters: TfrmManageParameters
       Top = 6
       Width = 211
       Height = 33
-      Caption = 'Import Pval or Par file'
+      Caption = 'Import Pval, Par, or Bpa file'
       TabOrder = 0
       OnClick = btnImportPvalClick
     end
@@ -575,12 +576,14 @@ inherited frmManageParameters: TfrmManageParameters
         inherited Panel: TPanel
           Top = 439
           Width = 760
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 439
           ExplicitWidth = 760
           inherited lbNumber: TLabel
             Width = 200
             Height = 18
             Caption = 'Number of parameter groups'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 200
             ExplicitHeight = 18
           end
@@ -600,6 +603,7 @@ inherited frmManageParameters: TfrmManageParameters
           end
           inherited seNumber: TJvSpinEdit
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             OnChange = frameParameterGroupsseNumberChange
             ExplicitHeight = 26
           end
@@ -968,9 +972,9 @@ inherited frmManageParameters: TfrmManageParameters
   end
   object dlgOpenPval: TOpenDialog
     Filter = 
-      'Pval, Par, or Bpa files|*.pval;*.par;*.par.*;.bpa|Pval files (*.' +
-      'pval)|*.pval|Par files|*.par;*.par.*|Bpa files|*.bpa|All files|*' +
-      '.*'
+      'Pval, Par, or Bpa files|*.pval;*.par;*.par.*;*.bpa|Pval files (*' +
+      '.pval)|*.pval|Par files|*.par;*.par.*|Bpa files|*.bpa|All files|' +
+      '*.*'
     Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
     Left = 168
     Top = 48

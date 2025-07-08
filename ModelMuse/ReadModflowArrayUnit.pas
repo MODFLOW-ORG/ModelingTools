@@ -19,7 +19,7 @@ type
   TModflowSingleArray = array of array of TModflowFloat;
   TModflowDoubleArray = array of array of TModflowDouble;
   T3DTModflowArray = array of TModflowDoubleArray;
-  TMf6DoubleArraay = array of TModflowDouble;
+  TMf6DoubleArray = array of TModflowDouble;
   TModflowIntegerArray = array of array of Integer;
 
   TAuxArray = record
@@ -207,7 +207,7 @@ function CheckBudgetPrecision(AFile: TFileStream; out HufFormat: boolean;
 
 procedure ReadMf6AdvancedPackageList(AFile: TFileStream;
   var Step, Period: Integer; var PeriodTime, Totaltime: TModflowDouble;
-  var Text: TModflowDesc; var Data: TMf6DoubleArraay);
+  var Text: TModflowDesc; var Data: TMf6DoubleArray);
 
 implementation
 
@@ -2944,11 +2944,10 @@ end;
 
 procedure ReadMf6AdvancedPackageList(AFile: TFileStream;
   var Step, Period: Integer; var PeriodTime, Totaltime: TModflowDouble;
-  var Text: TModflowDesc; var Data: TMf6DoubleArraay);
+  var Text: TModflowDesc; var Data: TMf6DoubleArray);
 var
   MaxBound: Integer;
   Dummy: Integer;
-//  AValue: TModflowDouble;
   DataIndex: Integer;
 begin
   AFile.Read(Step, SizeOf(Step));

@@ -3107,7 +3107,7 @@ var
   PackageName2: string;
   PeriodTime: TModflowDouble;
   DESC: TModflowDesc;
-  Data: TMf6DoubleArraay;
+  Data: TMf6DoubleArray;
   SkipItem: TSkipReal;
   AdvScreenObject: TScreenObject;
   ValueItem: TValueArrayItem;
@@ -4570,7 +4570,7 @@ var
   Mf6Description: string;
   ModelName1, ModelName2, PackageName1, PackageName2: string;
   PeriodTime: TModflowDouble;
-  Data: TMf6DoubleArraay;
+  Data: TMf6DoubleArray;
   BoundaryArray: TMf6List;
   BoundaryAuxArray: TAuxLists;
   procedure RecordItem(Description: String;
