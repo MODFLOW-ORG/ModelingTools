@@ -558,6 +558,7 @@ begin
         ValIntList := TIntegerList.Create;
         InvalidParameters := TStringList.Create;
         try
+          InvalidParameters.Delimiter := ' ';
           MyList.Assign(rdgParameters.Cols[Ord(pcName)]);
           MyList.Delete(0);
           MyList.CaseSensitive := False;
@@ -579,7 +580,7 @@ begin
           if InvalidParameters.Count > 0 then
           begin
             Beep;
-            MessageDlg(Format(StrErrorReadingPvalF2, [InvalidParameters.Text]),
+            MessageDlg(Format(StrErrorReadingPvalF2, [InvalidParameters.DelimitedText]),
               mtError, [mbOK], 0);
           end;
 //          else
