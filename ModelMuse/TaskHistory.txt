@@ -34742,5 +34742,52 @@ object TTaskHistory
       Categories.Strings = (
         'Import'
         'Documentation')
+    end
+    item
+      Date = 45832.000000000000000000
+    end
+    item
+      Date = 45833.000000000000000000
+    end
+    item
+      Date = 45834.000000000000000000
+    end
+    item
+      Date = 45835.000000000000000000
+    end
+    item
+      Date = 45836.000000000000000000
+    end
+    item
+      Date = 45837.000000000000000000
+    end
+    item
+      Date = 45838.000000000000000000
+    end
+    item
+      Date = 45839.000000000000000000
+    end
+    item
+      Date = 45840.000000000000000000
+    end
+    item
+      Date = 45841.000000000000000000
+    end
+    item
+      Date = 45842.000000000000000000
+    end
+    item
+      Date = 45843.000000000000000000
+    end
+    item
+      Date = 45844.000000000000000000
+    end
+    item
+      Date = 45845.000000000000000000
+    end
+    item
+      Date = 45846.000000000000000000
+      Categories.Strings = (
+        'GW_Chart')
     end>
 end

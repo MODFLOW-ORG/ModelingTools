@@ -29,7 +29,8 @@ uses
   frmFarmFileTypeUnit in 'frmFarmFileTypeUnit.pas' {frmFarmFileType},
   DisclaimerTextUnit in 'DisclaimerTextUnit.pas',
   Mf6ObsUtilOutputReaderUnit in 'Mf6ObsUtilOutputReaderUnit.pas',
-  frmModflowModelUnitsUnit in 'frmModflowModelUnitsUnit.pas' {frmModflowModelUnits};
+  frmModflowModelUnitsUnit in 'frmModflowModelUnitsUnit.pas' {frmModflowModelUnits},
+  frmMf6AdvancedUnit in 'frmMf6AdvancedUnit.pas' {frmMf6Advanced};
 
 {$R *.RES}
 
@@ -50,6 +51,7 @@ begin
   Application.CreateForm(TfrmFarm, frmFarm);
   Application.CreateForm(TfrmFarmFileType, frmFarmFileType);
   Application.CreateForm(TfrmModflowModelUnits, frmModflowModelUnits);
+  Application.CreateForm(TfrmMf6Advanced, frmMf6Advanced);
   HandleParams;
   Application.Run;
 end.

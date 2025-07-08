@@ -258,6 +258,7 @@ type
     rdgValuesToIgnoreNM: TRbwDataGrid4;
     miFarmBudgets: TMenuItem;
     tmrRedrawDelay: TTimer;
+    miMODFLOW6AdvancedPackageFiles: TMenuItem;
     procedure Button1Click(Sender: TObject);
     procedure SerDataPointsClickPointer(Sender: TCustomSeries; ValueIndex, X,
       Y: Integer);
@@ -802,7 +803,7 @@ implementation
 
 uses StrUtils, frmAboutUnit, frmFormatUnit, TeeShape, frmLakePlotUnit,
   ExtractUnit, PiperGraphUnit,
-  frmFlowReader, frmConvertFlowsUnit, TeCanvas, frmFarmUnit;
+  frmFlowReader, frmConvertFlowsUnit, TeCanvas, frmFarmUnit, frmMf6AdvancedUnit;
 
 {$R *.DFM}
 
@@ -6203,6 +6204,7 @@ begin
     AList.Add(frmCellFlows);
     AList.Add(frmConvertFlows);
     AList.Add(frmFarm);
+    AList.Add(frmMf6Advanced);
     AForm := nil;
     if Sender = WaterBudgets1 then
     begin
@@ -6235,6 +6237,10 @@ begin
     else if Sender = miFarmBudgets then
     begin
       AForm := frmFarm;
+    end
+    else if Sender = miMODFLOW6AdvancedPackageFiles then
+    begin
+      AForm := frmMf6Advanced;
     end
     else
     begin
