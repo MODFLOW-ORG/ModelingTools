@@ -10469,6 +10469,11 @@ const
 //               Enhancement: Added support for interbed-compaction-pct
 //                observation type in the CSUB package.
 
+//               Bug fix: Specifying a log transformed parameter with an initial
+//                value less than or equal to zero now results in the generation
+//                of an error message in the Errors and Warnings dialog box
+//                instead of causing a divide by zero error.
+
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 

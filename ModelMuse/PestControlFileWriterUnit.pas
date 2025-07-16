@@ -133,6 +133,10 @@ resourcestring
   StrToDefinePriorinfo = 'To define prior-information equations for within-l' +
   'ayer continuity, the search distance musts be large enough that every pil' +
   'ot point has at least one neighbor that is within the search distance.';
+  StrLogTransformedPara = 'Log transformed parameter with an initial value l' +
+  'ess than or equal to zero.';
+  StrBecauseTheParamete = 'Because the parameter %s is specified as log tran' +
+  'sformed it should have an initial value greater than zero.';
 
 { TPestControlFileWriter }
 
@@ -630,7 +634,16 @@ var
     end;
     if Param.Transform = ptLog then
     begin
-      Equation := Format('1.0 * log(%0:s) = %1:g', [ParameterName, Log10(InitialValue)]);
+      if InitialValue > 0 then
+      begin
+        Equation := Format('1.0 * log(%0:s) = %1:g', [ParameterName, Log10(InitialValue)]);
+      end
+      else
+      begin
+        Equation := Format('1.0 * %0:s = %1:g', [ParameterName, InitialValue]);
+        frmErrorsAndWarnings.AddError(Model, StrLogTransformedPara,
+          Format(StrBecauseTheParamete, [ParameterName]));
+      end;
     end
     else
     begin
@@ -1398,7 +1411,7 @@ begin
   frmErrorsAndWarnings.RemoveErrorGroup(Model, StrInvalidPESTDelimit);
   frmErrorsAndWarnings.RemoveErrorGroup(Model, StrObservationGroupTa);
   frmErrorsAndWarnings.RemoveErrorGroup(Model, StrTheSearchDistance);
-
+  frmErrorsAndWarnings.RemoveErrorGroup(Model, StrLogTransformedPara);
 
   if not Model.PestUsed then
   begin

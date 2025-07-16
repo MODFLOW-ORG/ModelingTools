@@ -34789,5 +34789,31 @@ object TTaskHistory
       Date = 45846.000000000000000000
       Categories.Strings = (
         'GW_Chart')
+    end
+    item
+      Date = 45847.000000000000000000
+    end
+    item
+      Date = 45848.000000000000000000
+    end
+    item
+      Date = 45849.000000000000000000
+    end
+    item
+      Date = 45850.000000000000000000
+    end
+    item
+      Date = 45851.000000000000000000
+    end
+    item
+      Date = 45852.000000000000000000
+    end
+    item
+      Date = 45853.000000000000000000
+    end
+    item
+      Date = 45854.000000000000000000
+      Categories.Strings = (
+        'Bug fix')
     end>
 end
