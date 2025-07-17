@@ -10469,17 +10469,19 @@ const
 //               Enhancement: Added support for interbed-compaction-pct
 //                observation type in the CSUB package.
 
-//               Bug fix: Specifying a log transformed parameter with an initial
+//     '5.4.0.1' Bug fix: Specifying a log transformed parameter with an initial
 //                value less than or equal to zero now results in the generation
 //                of an error message in the Errors and Warnings dialog box
 //                instead of causing a divide by zero error.
+//               Bug fix: Fixed bug that prevented CSUB Z-Displacement values
+//                from being imported.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.0';
+  IIModelVersion = '5.4.0.1';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

@@ -3316,7 +3316,7 @@ begin
                           NTRANS, KPER, KSTP, ILAY, TOTIM, Description, Precision,
                           clData.Checked[Index]);
                       end;
-                      Description := Description;
+                      Description := ReplaceStr(Description, '-', '_');
                       While (KPER = FPeriods[Index])
                         and (KSTP = FSteps[Index])
                         and (NTRANS = FTransportSteps[Index])
@@ -3465,6 +3465,7 @@ begin
                             Exit;
                           end;
                         end;
+                        Description := ReplaceStr(Description, '-', '_');
                         PriorILay := ILAY;
                       end;
                     end;
@@ -4447,6 +4448,8 @@ begin
   begin
     HufName := '';
   end;
+
+  Description := ReplaceStr(Description, '-', '_');
 
   if ModelName1 <> '' then
   begin
