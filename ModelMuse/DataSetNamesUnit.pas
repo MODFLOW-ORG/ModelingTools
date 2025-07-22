@@ -1227,7 +1227,7 @@ resourcestring
   strModflowLgr2DefaultPath = 'C:\WRDAPP\mflgr.2_0\bin\mflgr.exe';
   strModflowNwtDefaultPath = 'C:\WRDAPP\MODFLOW-NWT_1.2.0\bin\MODFLOW-NWT.exe';
   strMt3dmsDefaultPath = 'C:\mt3dms5\bin\mt3dms5b.exe';
-  strMt3dUsgsDefaultPath = 'C:\WRDAPP\mt3dusgs1.0.1\bin\mt3d-usgs_1.0.1_32.exe';
+  strMt3dUsgsDefaultPath = 'C:\WRDAPP\mt3dusgs1.1.0\bin\mt3d-usgs_1.1.0_32.exe';
   strModflowCfpDefaultPath = 'C:\WRDAPP\CFP\mf2005cfp.exe';
   StrModelMonitorDefaultPath = 'ModelMonitor.exe';
   strModflowOwhmDefaultPath = 'C:\WRDAPP\MF_OWHM_v1_0\bin\MF_OWHM_Win32.exe';

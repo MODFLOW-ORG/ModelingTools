@@ -10475,13 +10475,19 @@ const
 //                instead of causing a divide by zero error.
 //               Bug fix: Fixed bug that prevented CSUB Z-Displacement values
 //                from being imported.
+//     '5.4.0.2' Bug fix: Fixed access violation caused by attempting to sort
+//                the entries in the MT3D observations in the Data Visualization
+//                dialog box.
+//               Bug Fix: In the MODFLOW Program Locations dialog box, the edit
+//                control for MT3D-USGS now will display with a red background
+//                if MT3D-USGS is not installed at the specified location.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.1';
+  IIModelVersion = '5.4.0.2';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

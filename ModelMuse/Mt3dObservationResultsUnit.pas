@@ -36,6 +36,7 @@ type
     FScreenObject: TObject;
     Fx: double;
     Fy: double;
+    FOriginalOrder: Integer;
     procedure SetName(const Value: string);
     procedure SetSimulatedValue(const Value: double);
     procedure SetStoredSimulatedValue(const Value: TRealStorage);
@@ -70,6 +71,7 @@ type
     procedure SetWeightedSimulated(const Value: double);
     procedure SetWeightedResidual(const Value: double);
     procedure Draw(const BitMap: TPersistent; const ZoomBox: TQrbwZoomBox2);
+    procedure SetOriginalOrder(const Value: Integer);
   public
     procedure Assign(Source: TPersistent); override;
     constructor Create(Collection: TCollection); override;
@@ -104,6 +106,7 @@ type
     property WeightedResidualText: string read FWeightedResidualText write SetWeightedResidualText;
     property Visible: Boolean read FVisible write SetVisible;
     property PlotLabel: Boolean read FPlotLabel write SetPlotLabel stored True;
+    property OriginalOrder: Integer read FOriginalOrder write SetOriginalOrder;
   end;
 
   TMt3dObsCollection = class(TPhastCollection)
@@ -229,6 +232,7 @@ begin
     WeightedResidualText := ObsSource.WeightedResidualText;
     Visible := ObsSource.Visible;
     PlotLabel := ObsSource.PlotLabel;
+    OriginalOrder := ObsSource.OriginalOrder;
 
   end
   else
@@ -427,6 +431,11 @@ end;
 procedure TMt3dObsResult.SetName(const Value: string);
 begin
   SetStringProperty(FName, Value);
+end;
+
+procedure TMt3dObsResult.SetOriginalOrder(const Value: Integer);
+begin
+  FOriginalOrder := Value;
 end;
 
 procedure TMt3dObsResult.SetPlotLabel(const Value: Boolean);
@@ -851,6 +860,7 @@ begin
       FileReader.Read(Time, SizeOf(Time));
       FileReader.Read(Value, SizeOf(Value));
       AnItem := Add;
+      AnItem.OriginalOrder := Count-1;
       AnItem.Name := AName;
       AnItem.Time := Time;
       AnItem.SimulatedValue := Value;

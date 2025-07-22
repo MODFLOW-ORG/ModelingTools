@@ -32,7 +32,7 @@ object frameMt3dObsResults: TframeMt3dObsResults
       object lblMaxSymbolSize: TLabel
         Left = 130
         Top = 357
-        Width = 160
+        Width = 158
         Height = 15
         Caption = 'Maximum symbol size (pixels)'
       end
@@ -63,14 +63,14 @@ object frameMt3dObsResults: TframeMt3dObsResults
         object lblMaximumTime: TLabel
           Left = 252
           Top = 86
-          Width = 82
+          Width = 81
           Height = 15
           Caption = 'Maximum time'
         end
         object lblMaxResidual: TLabel
           Left = 252
           Top = 24
-          Width = 99
+          Width = 98
           Height = 15
           Caption = 'Maximum residual'
         end
@@ -98,7 +98,7 @@ object frameMt3dObsResults: TframeMt3dObsResults
         object lblMaxWeightedResidual: TLabel
           Left = 252
           Top = 138
-          Width = 151
+          Width = 150
           Height = 15
           Caption = 'Maximum weighted residual'
         end
@@ -116,6 +116,12 @@ object frameMt3dObsResults: TframeMt3dObsResults
             Enabled = True
             ExplicitHeight = 23
           end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
         inline framelmtMaxResidual: TframeDisplayLimit
           Left = 252
@@ -130,6 +136,12 @@ object frameMt3dObsResults: TframeMt3dObsResults
             Height = 23
             Enabled = True
             ExplicitHeight = 23
+          end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
           end
         end
         inline framelmtMaximumTime: TframeDisplayLimit
@@ -146,6 +158,12 @@ object frameMt3dObsResults: TframeMt3dObsResults
             Enabled = True
             ExplicitHeight = 23
           end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
         inline framelmtMinResidual: TframeDisplayLimit
           Left = 3
@@ -160,6 +178,12 @@ object frameMt3dObsResults: TframeMt3dObsResults
             Height = 23
             Enabled = True
             ExplicitHeight = 23
+          end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
           end
         end
         inline framelmtMinWeightedResidual: TframeDisplayLimit
@@ -176,6 +200,12 @@ object frameMt3dObsResults: TframeMt3dObsResults
             Enabled = True
             ExplicitTop = 3
           end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
         inline framelmtMaxWeightedResidual: TframeDisplayLimit
           Left = 252
@@ -188,6 +218,12 @@ object frameMt3dObsResults: TframeMt3dObsResults
           ExplicitTop = 160
           inherited cbCheck: TCheckBox
             Enabled = True
+          end
+          inherited rdeLimit: TRbwDataEntry
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited comboBoolLimit: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
           end
         end
       end
@@ -568,14 +604,14 @@ object frameMt3dObsResults: TframeMt3dObsResults
       object lblMax: TLabel
         Left = 56
         Top = 9
-        Width = 36
+        Width = 35
         Height = 15
         Caption = 'lblMax'
       end
       object lblHalfMax: TLabel
         Left = 56
         Top = 41
-        Width = 58
+        Width = 57
         Height = 15
         Caption = 'lblHalfMax'
       end

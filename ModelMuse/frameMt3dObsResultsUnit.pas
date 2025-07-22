@@ -132,7 +132,7 @@ type
 implementation
 
 uses
-  frmGoPhastUnit, System.IOUtils, System.Generics.Collections, Mt3dmsTobUnit,
+  Contnrs, frmGoPhastUnit, System.IOUtils, System.Generics.Collections, Mt3dmsTobUnit,
   UndoItemsScreenObjects, GoPhastTypes, frmGoToUnit, xycommon, xygraph;
 
 type
@@ -159,10 +159,162 @@ resourcestring
 
 {$R *.dfm}
 
+function CompareName(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := AnsiCompareText(P1.Name, P2.Name);
+end;
+
+function CompareObjectName(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := AnsiCompareText(P1.ScreenObjectName, P2.ScreenObjectName);
+end;
+
+
+function CompareTime(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.Time - P2.Time);
+end;
+
+function CompareMeasured(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.Measured - P2.Measured);
+end;
+
+function CompareModeled(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.SimulatedValue - P2.SimulatedValue);
+end;
+
+function CompareResidual(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.Residual - P2.Residual);
+end;
+
+function CompareWeight(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.Weight - P2.Weight);
+end;
+
+function CompareWtMeas(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.WeightedMeasured - P2.WeightedMeasured);
+end;
+
+
+function CompareWtMod(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.WeightedSimulated - P2.WeightedSimulated);
+end;
+
+function CompareWtRes(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.WeightedResidual - P2.WeightedResidual);
+end;
+
+function CompareOriginalOrder(Item1, Item2: Pointer): Integer;
+var
+  P1, P2: TMt3dObsResult;
+begin
+  P1 := Item1;
+  P2 := Item2;
+  result := Sign(P1.OriginalOrder - P2.OriginalOrder);
+end;
+
+
+{
+    property Name: string read FName write SetName;
+    property ScreenObjectName: string read FScreenObjectName write SetScreenObjectName;
+    property StoredTime: TRealStorage read FStoredTime write SetStoredTime;
+    property StoredSimulatedValue: TRealStorage read FStoredSimulatedValue
+      write SetStoredSimulatedValue;
+    property StoredMeasured: TRealStorage read FStoredMeasured write SetStoredMeasured;
+    property StoredResidual: TRealStorage read FStoredResidual write SetStoredResidual;
+    property StoredWeight: TRealStorage read FStoredWeight write SetStoredWeight;
+    property StoredWeightedMeasured: TRealStorage read FStoredWeightedMeasured write SetStoredWeightedMeasured;
+    property StoredWeightedSimulated: TRealStorage read FStoredWeightedSimulated write SetStoredWeightedSimulated;
+    property StoredWeightedResidual: TRealStorage read FStoredWeightedResidual write SetStoredWeightedResidual;
+    property ResidualText: string read FResidualText write SetResidualText;
+    property WeightText: string read FWeightText write SetWeightText;
+    property WeightedMeasuredText: string read FWeightedMeasuredText write SetWeightedMeasuredText;
+    property WeightedSimulatedText: string read FWeightedSimulatedText write SetWeightedSimulatedText;
+    property WeightedResidualText: string read FWeightedResidualText write SetWeightedResidualText;
+    property Visible: Boolean read FVisible write SetVisible;
+    property PlotLabel: Boolean read FPlotLabel write SetPlotLabel stored True;
+}
 
 function CompareObservations(Item1, Item2: Pointer): Integer;
+var
+  Index: Integer;
+  CM: TCompareMethod;
+
+//pocName, pocObject, pocTime, pocMeasured,
+//    pocModeled, pocResidual, pocWeight, pocWtMeas, pocWtMod, pocWtRes,
+//    pocOriginalOrderr
 begin
   result := 0;
+  for Index := 0 to SortOrder.Count - 1 do
+  begin
+    CM := SortOrder[Index];
+    case CM.Method of
+      pocName: result := CompareName(Item1, Item2);
+      pocObject: result := CompareObjectName(Item1, Item2);
+      pocTime: result := CompareTime(Item1, Item2);
+      pocMeasured: result := CompareMeasured(Item1, Item2);
+      pocModeled: result := CompareModeled(Item1, Item2);
+      pocResidual: result := CompareResidual(Item1, Item2);
+      pocWeight: result := CompareWeight(Item1, Item2);
+      pocWtMeas: result := CompareWtMeas(Item1, Item2);
+      pocWtMod: result := CompareWtMod(Item1, Item2);
+      pocWtRes: result := CompareWtRes(Item1, Item2);
+      pocOriginalOrder: result := CompareOriginalOrder(Item1, Item2);
+      else Assert(False);
+    end;
+    if result <> 0 then
+    begin
+      Exit;
+    end;
+  end;
+ result := 0;
 end;
 
 { TCustomUndoChangeMt3dObsResults }
@@ -1024,5 +1176,34 @@ begin
     end;
   end;
 end;
+
+procedure InitializeSortOrder;
+var
+  Index: TMt3dObsColumns;
+  CM: TCompareMethod;
+begin
+  SortOrder.Free;
+  SortOrder := TObjectList.Create;
+  for Index := Low(TMt3dObsColumns) to High(TMt3dObsColumns) do
+  begin
+    CM := TCompareMethod.Create;
+    CM.Method := Index;
+    if CM.Method = pocOriginalOrder then
+    begin
+      SortOrder.Insert(0, CM)
+    end
+    else
+    begin
+      SortOrder.Add(CM)
+    end;
+  end;
+end;
+
+
+initialization
+  InitializeSortOrder;
+
+finalization
+  SortOrder.Free;
 
 end.

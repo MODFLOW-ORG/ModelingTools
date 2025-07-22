@@ -442,7 +442,7 @@ begin
   jvrltMt3dUsgs.Collapsed :=
     not frmGoPhast.PhastModel.Mt3dIsSelected
     or (frmGoPhast.PhastModel.ModflowPackages.Mt3dBasic.Mt3dVersion <> mvUSGS);
-  CheckControl(fedMt3dms);
+  CheckControl(fedMt3dUsgs);
 
   jvrltModelMate.Collapsed :=
     frmGoPhast.PhastModel.ModelMateProjectFileName  = '';

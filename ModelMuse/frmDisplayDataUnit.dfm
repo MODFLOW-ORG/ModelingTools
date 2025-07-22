@@ -4,8 +4,9 @@ inherited frmDisplayData: TfrmDisplayData
   Caption = 'Data Visualization'
   ClientHeight = 562
   ClientWidth = 778
-  ExplicitWidth = 790
-  ExplicitHeight = 600
+  StyleElements = [seFont, seClient, seBorder]
+  ExplicitWidth = 794
+  ExplicitHeight = 601
   TextHeight = 18
   object splSplit: TSplitter
     Left = 201
@@ -20,7 +21,7 @@ inherited frmDisplayData: TfrmDisplayData
     Top = 0
     Width = 572
     Height = 521
-    ActivePage = jvspPestObsResults
+    ActivePage = jvspMt3dObs
     PropagateEnable = False
     Align = alClient
     OnChange = pglstMainChange
@@ -56,12 +57,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblModpathFile: TLabel
               Width = 159
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 159
               ExplicitHeight = 18
             end
             inherited lblColorScheme: TLabel
               Width = 97
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 97
               ExplicitHeight = 18
             end
@@ -75,6 +78,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 216
               Width = 117
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 216
               ExplicitWidth = 117
               ExplicitHeight = 18
@@ -84,6 +88,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 222
               Width = 47
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 422
               ExplicitTop = 222
               ExplicitWidth = 47
@@ -92,6 +97,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblMaxTime: TLabel
               Width = 78
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 78
               ExplicitHeight = 18
             end
@@ -99,6 +105,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 278
               Width = 109
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 278
               ExplicitWidth = 109
               ExplicitHeight = 18
@@ -106,12 +113,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited fedModpathFile: TJvFilenameEdit
               Width = 497
               Height = 26
-              ExplicitWidth = 501
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 497
               ExplicitHeight = 26
             end
             inherited comboColorScheme: TComboBox
               Width = 351
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 351
               ExplicitHeight = 26
             end
@@ -121,6 +130,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited seColorExponent: TJvSpinEdit
               Top = 246
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 246
               ExplicitHeight = 26
             end
@@ -128,13 +138,15 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 402
               Top = 246
               Height = 26
-              ExplicitLeft = 406
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 402
               ExplicitTop = 246
               ExplicitHeight = 26
             end
             inherited comboModelSelection: TComboBox
               Top = 297
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 297
               ExplicitHeight = 26
             end
@@ -144,7 +156,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 140
               Anchors = [akTop, akRight]
               OnClick = frameModpathDisplaybtnColorSchemesClick
-              ExplicitLeft = 369
+              ExplicitLeft = 365
               ExplicitTop = 120
               ExplicitWidth = 140
             end
@@ -215,6 +227,7 @@ inherited frmDisplayData: TfrmDisplayData
         inherited lblTimeToPlot: TLabel
           Width = 84
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 84
           ExplicitHeight = 18
         end
@@ -225,6 +238,7 @@ inherited frmDisplayData: TfrmDisplayData
         inherited lblSquareSize: TLabel
           Width = 140
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 140
           ExplicitHeight = 18
         end
@@ -250,6 +264,7 @@ inherited frmDisplayData: TfrmDisplayData
         end
         inherited comboTimeToPlot: TJvComboBox
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitHeight = 26
         end
         inherited cbPlotUnconnected: TCheckBox
@@ -262,6 +277,7 @@ inherited frmDisplayData: TfrmDisplayData
         end
         inherited seSquareSize: TJvSpinEdit
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitHeight = 26
         end
         inherited dlgLinkColor: TColorDialog
@@ -298,12 +314,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblNegativeColor: TLabel
               Width = 190
               Height = 36
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 190
               ExplicitHeight = 36
             end
             inherited lblColorPositive: TLabel
               Width = 185
               Height = 36
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 185
               ExplicitHeight = 36
             end
@@ -311,6 +329,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 351
               Width = 206
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 351
               ExplicitWidth = 206
               ExplicitHeight = 18
@@ -318,83 +337,115 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblHeadObsResults: TLabel
               Width = 69
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 69
               ExplicitHeight = 18
             end
             inherited flnmedHeadObsResults: TJvFilenameEdit
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 26
             end
             inherited grpbxFilter: TGroupBox
               inherited lblMaximumTime: TLabel
                 Width = 101
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 101
                 ExplicitHeight = 18
               end
               inherited lblMaxResidual: TLabel
                 Width = 126
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 126
                 ExplicitHeight = 18
               end
               inherited lblMinimumTime: TLabel
                 Width = 97
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 97
                 ExplicitHeight = 18
               end
               inherited lblMinResidual: TLabel
                 Width = 122
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 122
                 ExplicitHeight = 18
               end
               inherited lblMinLayer: TLabel
                 Width = 100
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 100
                 ExplicitHeight = 18
               end
               inherited lblMaxLayer: TLabel
                 Width = 104
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 104
                 ExplicitHeight = 18
               end
               inherited framelmtMinimumTime: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaxResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaximumTime: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMinResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMinLayer: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaxLayer: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
@@ -410,6 +461,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited spinSymbolSize: TJvSpinEdit
               Top = 348
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 348
               ExplicitHeight = 26
             end
@@ -438,6 +490,7 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited pnlValueControls: TPanel
               Top = 334
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 334
               inherited btnCopy: TButton
                 Left = 151
@@ -469,12 +522,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblMax: TLabel
               Width = 44
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 44
               ExplicitHeight = 18
             end
             inherited lblHalfMax: TLabel
               Width = 71
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 71
               ExplicitHeight = 18
             end
@@ -489,11 +544,13 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited pnlGraphControls: TPanel
               Top = 318
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 318
               inherited lblGraphInstructions: TLabel
                 Width = 73
                 Height = 54
                 Anchors = [akLeft, akTop, akRight]
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 73
                 ExplicitHeight = 54
               end
@@ -503,17 +560,20 @@ inherited frmDisplayData: TfrmDisplayData
         inherited pnlBottom: TPanel
           Top = 485
           Width = 572
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 485
           ExplicitWidth = 572
           inherited lblRMS: TLabel
             Width = 222
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 222
             ExplicitHeight = 18
           end
           inherited comboModels: TComboBox
             Top = 4
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 4
             ExplicitHeight = 26
           end
@@ -552,18 +612,21 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblModpathFile: TLabel
               Width = 182
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 182
               ExplicitHeight = 18
             end
             inherited lblTimeToPlot: TLabel
               Width = 80
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 80
               ExplicitHeight = 18
             end
             inherited lblColorScheme: TLabel
               Width = 97
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 97
               ExplicitHeight = 18
             end
@@ -574,6 +637,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblColorAdjustment: TLabel
               Width = 117
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 117
               ExplicitHeight = 18
             end
@@ -581,6 +645,7 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 297
               Width = 47
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 317
               ExplicitWidth = 47
               ExplicitHeight = 18
@@ -588,6 +653,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblModelSelection: TLabel
               Width = 109
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 109
               ExplicitHeight = 18
             end
@@ -595,6 +661,7 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 297
               Width = 167
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 317
               ExplicitWidth = 167
               ExplicitHeight = 18
@@ -603,12 +670,14 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 32
               Width = 492
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 32
               ExplicitWidth = 492
               ExplicitHeight = 26
             end
             inherited comboTimeToPlot: TComboBox
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 26
             end
             inherited comboColorScheme: TComboBox
@@ -616,6 +685,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 190
               Width = 368
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 2
               ExplicitTop = 190
               ExplicitWidth = 368
@@ -623,21 +693,25 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited seColorExponent: TJvSpinEdit
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 26
             end
             inherited seCycles: TJvSpinEdit
               Left = 297
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 297
               ExplicitHeight = 26
             end
             inherited comboModelSelection: TComboBox
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 26
             end
             inherited setimeSeriesSize: TJvSpinEdit
               Left = 297
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 297
               ExplicitHeight = 26
             end
@@ -716,12 +790,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblModpathFile: TLabel
               Width = 165
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 165
               ExplicitHeight = 18
             end
             inherited lblColorScheme: TLabel
               Width = 97
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 97
               ExplicitHeight = 18
             end
@@ -732,6 +808,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblColorAdjustment: TLabel
               Width = 117
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 117
               ExplicitHeight = 18
             end
@@ -739,6 +816,7 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 329
               Width = 47
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 349
               ExplicitWidth = 47
               ExplicitHeight = 18
@@ -746,6 +824,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblModelSelection: TLabel
               Width = 109
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 109
               ExplicitHeight = 18
             end
@@ -753,6 +832,7 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 329
               Width = 148
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 349
               ExplicitWidth = 148
               ExplicitHeight = 18
@@ -761,19 +841,22 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 30
               Width = 500
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 30
-              ExplicitWidth = 504
+              ExplicitWidth = 500
               ExplicitHeight = 26
             end
             inherited comboColorScheme: TComboBox
               Width = 353
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 353
               ExplicitHeight = 26
             end
             inherited seColorExponent: TJvSpinEdit
               Top = 235
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 235
               ExplicitHeight = 26
             end
@@ -782,7 +865,8 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 235
               Width = 84
               Height = 26
-              ExplicitLeft = 333
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 329
               ExplicitTop = 235
               ExplicitWidth = 84
               ExplicitHeight = 26
@@ -792,6 +876,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 297
               Height = 26
               TabOrder = 8
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 2
               ExplicitTop = 297
               ExplicitHeight = 26
@@ -800,8 +885,9 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 329
               Top = 297
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               TabOrder = 7
-              ExplicitLeft = 333
+              ExplicitLeft = 329
               ExplicitTop = 297
               ExplicitHeight = 26
             end
@@ -811,7 +897,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 138
               Anchors = [akTop, akRight]
               OnClick = frameModpathEndpointDisplay1btnColorSchemesClick
-              ExplicitLeft = 371
+              ExplicitLeft = 367
               ExplicitTop = 120
               ExplicitWidth = 138
             end
@@ -867,6 +953,7 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited pnlLegend: TPanel
               Height = 465
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 465
               DesignSize = (
                 201
@@ -874,21 +961,25 @@ inherited frmDisplayData: TfrmDisplayData
               inherited lblMethod: TLabel
                 Width = 52
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 52
                 ExplicitHeight = 18
               end
               inherited lblColorLegendRows: TLabel
                 Width = 109
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 109
                 ExplicitHeight = 18
               end
               inherited comboMethod: TComboBox
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
               inherited seLegendRows: TJvSpinEdit
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
               inherited rdgLegend: TRbwDataGrid4
@@ -936,6 +1027,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblDataSet: TLabel
               Width = 212
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 212
               ExplicitHeight = 18
             end
@@ -943,6 +1035,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 284
               Width = 97
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 289
               ExplicitWidth = 97
               ExplicitHeight = 18
@@ -952,6 +1045,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 335
               Width = 47
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 463
               ExplicitTop = 315
               ExplicitWidth = 47
@@ -969,6 +1063,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 391
               Width = 117
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 401
               ExplicitWidth = 117
               ExplicitHeight = 18
@@ -976,6 +1071,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblComment: TLabel
               Width = 204
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 204
               ExplicitHeight = 18
             end
@@ -984,6 +1080,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 2
               Width = 34
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 443
               ExplicitTop = 2
               ExplicitWidth = 34
@@ -994,6 +1091,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 308
               Width = 253
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 8
               ExplicitTop = 308
               ExplicitWidth = 253
@@ -1003,7 +1101,8 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 411
               Top = 359
               Height = 26
-              ExplicitLeft = 415
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 411
               ExplicitTop = 359
               ExplicitHeight = 26
             end
@@ -1015,6 +1114,7 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 158
               Top = 418
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 158
               ExplicitTop = 418
               ExplicitHeight = 26
@@ -1030,14 +1130,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited udDataSets: TJvUpDown
               Left = 381
               Height = 26
-              ExplicitLeft = 385
+              ExplicitLeft = 381
               ExplicitHeight = 26
             end
             inherited rgUpdateLimitChoice: TRadioGroup
               Top = 200
               Width = 334
               ExplicitTop = 200
-              ExplicitWidth = 338
+              ExplicitWidth = 334
             end
             inherited virttreecomboDataSets: TRbwStringTreeCombo
               Left = 7
@@ -1045,13 +1145,14 @@ inherited frmDisplayData: TfrmDisplayData
               Height = 26
               Tree.DefaultNodeHeight = 20
               ExplicitLeft = 7
-              ExplicitWidth = 394
+              ExplicitWidth = 390
               ExplicitHeight = 26
             end
             inherited reComment: TRichEdit
               Width = 501
               Height = 111
               ParentFont = True
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 501
               ExplicitHeight = 111
             end
@@ -1059,7 +1160,7 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 284
               Top = 301
               Width = 120
-              ExplicitLeft = 288
+              ExplicitLeft = 284
               ExplicitTop = 301
               ExplicitWidth = 120
             end
@@ -1067,13 +1168,14 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 500
               Top = 26
               Height = 26
-              ExplicitLeft = 504
+              ExplicitLeft = 500
               ExplicitTop = 26
               ExplicitHeight = 26
             end
             inherited comboTime3D: TJvComboBox
               Left = 409
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 409
               ExplicitHeight = 26
             end
@@ -1084,18 +1186,21 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblLowerLimit: TLabel
               Width = 75
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 75
               ExplicitHeight = 18
             end
             inherited lblUpperLimit: TLabel
               Width = 75
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 75
               ExplicitHeight = 18
             end
             inherited lblValuesToIgnore: TLabel
               Width = 112
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 112
               ExplicitHeight = 18
             end
@@ -1104,6 +1209,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 453
               Width = 185
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 135
               ExplicitTop = 442
               ExplicitWidth = 185
@@ -1112,6 +1218,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblEpsilon: TLabel
               Width = 168
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 168
               ExplicitHeight = 18
             end
@@ -1122,8 +1229,12 @@ inherited frmDisplayData: TfrmDisplayData
                 ExplicitLeft = 2
                 ExplicitTop = -2
               end
+              inherited rdeLimit: TRbwDataEntry
+                StyleElements = [seFont, seClient, seBorder]
+              end
               inherited comboBoolLimit: TComboBox
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
             end
@@ -1132,8 +1243,12 @@ inherited frmDisplayData: TfrmDisplayData
                 Top = -2
                 ExplicitTop = -2
               end
+              inherited rdeLimit: TRbwDataEntry
+                StyleElements = [seFont, seClient, seBorder]
+              end
               inherited comboBoolLimit: TComboBox
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
             end
@@ -1153,8 +1268,12 @@ inherited frmDisplayData: TfrmDisplayData
             inherited seNumberOfValuesToIgnore: TJvSpinEdit
               Top = 445
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 445
               ExplicitHeight = 26
+            end
+            inherited rdeEpsilon: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
             end
           end
           inherited tabLegend: TTabSheet
@@ -1172,25 +1291,30 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited pnlLegend: TPanel
               Height = 468
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 468
               inherited lblMethod: TLabel
                 Width = 52
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 52
                 ExplicitHeight = 18
               end
               inherited lblColorLegendRows: TLabel
                 Width = 109
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 109
                 ExplicitHeight = 18
               end
               inherited comboMethod: TComboBox
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
               inherited seLegendRows: TJvSpinEdit
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
               inherited rdgLegend: TRbwDataGrid4
@@ -1255,13 +1379,15 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 59
               Height = 18
               Caption = 'Data set'
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 59
               ExplicitHeight = 18
             end
             inherited lblColorScheme: TLabel
               Top = 347
-              Width = 93
+              Width = 97
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 347
               ExplicitWidth = 97
               ExplicitHeight = 18
@@ -1271,6 +1397,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 370
               Width = 47
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 434
               ExplicitTop = 341
               ExplicitWidth = 47
@@ -1284,8 +1411,9 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited lblColorAdjustment: TLabel
               Top = 433
-              Width = 113
+              Width = 117
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 433
               ExplicitWidth = 117
               ExplicitHeight = 18
@@ -1293,6 +1421,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblComment: TLabel
               Width = 204
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 204
               ExplicitHeight = 18
             end
@@ -1301,6 +1430,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 52
               Height = 18
               Anchors = [akLeft, akBottom]
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 182
               ExplicitWidth = 52
               ExplicitHeight = 18
@@ -1310,6 +1440,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 107
               Height = 18
               Anchors = [akTop, akRight]
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 438
               ExplicitWidth = 107
               ExplicitHeight = 18
@@ -1320,6 +1451,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 152
               Height = 18
               Anchors = [akRight, akBottom]
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 341
               ExplicitTop = 244
               ExplicitWidth = 152
@@ -1329,6 +1461,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 364
               Width = 397
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 364
               ExplicitWidth = 397
               ExplicitHeight = 26
@@ -1337,8 +1470,9 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 414
               Top = 394
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               Anchors = [akRight, akBottom]
-              ExplicitLeft = 418
+              ExplicitLeft = 414
               ExplicitTop = 394
               ExplicitHeight = 26
             end
@@ -1349,6 +1483,7 @@ inherited frmDisplayData: TfrmDisplayData
             inherited seColorExponent: TJvSpinEdit
               Top = 448
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 448
               ExplicitHeight = 26
             end
@@ -1360,13 +1495,13 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited udDataSets: TJvUpDown
               Left = 286
-              ExplicitLeft = 290
+              ExplicitLeft = 286
             end
             inherited rgUpdateLimitChoice: TRadioGroup
               Top = 268
               Width = 305
               ExplicitTop = 268
-              ExplicitWidth = 309
+              ExplicitWidth = 305
             end
             inherited virttreecomboDataSets: TRbwStringTreeCombo
               Width = 279
@@ -1374,13 +1509,14 @@ inherited frmDisplayData: TfrmDisplayData
               Tree.DefaultNodeHeight = 20
               Anchors = [akLeft, akTop, akRight]
               OnChange = frameContourDatavirttreecomboDataSetsChange
-              ExplicitWidth = 283
+              ExplicitWidth = 279
               ExplicitHeight = 26
             end
             inherited reComment: TRichEdit
               Width = 533
               Height = 125
               ParentFont = True
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 533
               ExplicitHeight = 125
             end
@@ -1389,14 +1525,14 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 317
               Width = 121
               Height = 40
-              ExplicitLeft = 325
+              ExplicitLeft = 321
               ExplicitTop = 317
               ExplicitWidth = 121
               ExplicitHeight = 40
             end
             inherited btnEditContours: TButton
               Left = 418
-              ExplicitLeft = 422
+              ExplicitLeft = 418
             end
             inherited cbSpecifyContours: TJvCheckBox
               Left = 321
@@ -1404,14 +1540,14 @@ inherited frmDisplayData: TfrmDisplayData
               HotTrackFont.Height = -16
               HotTrackFont.Name = 'Arial'
               HotTrackFont.Pitch = fpVariable
-              ExplicitLeft = 325
+              ExplicitLeft = 321
             end
             inherited cbLabelContours: TCheckBox
               Left = 321
               Top = 211
               Height = 16
               Anchors = [akRight, akBottom]
-              ExplicitLeft = 325
+              ExplicitLeft = 321
               ExplicitTop = 211
               ExplicitHeight = 16
             end
@@ -1420,7 +1556,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 234
               Height = 24
               Anchors = [akRight, akBottom]
-              ExplicitLeft = 325
+              ExplicitLeft = 321
               ExplicitTop = 234
               ExplicitHeight = 24
             end
@@ -1428,6 +1564,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 230
               Height = 26
               Anchors = [akLeft, akBottom]
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 230
               ExplicitHeight = 26
             end
@@ -1435,6 +1572,7 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 318
               Width = 79
               Anchors = [akTop, akRight]
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 318
               ExplicitWidth = 79
             end
@@ -1442,8 +1580,9 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 321
               Top = 284
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               Anchors = [akRight, akBottom]
-              ExplicitLeft = 325
+              ExplicitLeft = 321
               ExplicitTop = 284
               ExplicitHeight = 26
             end
@@ -1457,18 +1596,21 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblLowerLimit: TLabel
               Width = 75
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 75
               ExplicitHeight = 18
             end
             inherited lblUpperLimit: TLabel
               Width = 75
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 75
               ExplicitHeight = 18
             end
             inherited lblValuesToIgnore: TLabel
               Width = 112
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 112
               ExplicitHeight = 18
             end
@@ -1476,6 +1618,7 @@ inherited frmDisplayData: TfrmDisplayData
               Top = 437
               Width = 185
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 437
               ExplicitWidth = 185
               ExplicitHeight = 18
@@ -1483,12 +1626,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblEpsilon: TLabel
               Width = 168
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 168
               ExplicitHeight = 18
             end
             inherited lblModel: TLabel
               Width = 123
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 123
               ExplicitHeight = 18
             end
@@ -1497,8 +1642,12 @@ inherited frmDisplayData: TfrmDisplayData
                 Top = 0
                 ExplicitTop = 0
               end
+              inherited rdeLimit: TRbwDataEntry
+                StyleElements = [seFont, seClient, seBorder]
+              end
               inherited comboBoolLimit: TComboBox
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
             end
@@ -1507,8 +1656,12 @@ inherited frmDisplayData: TfrmDisplayData
                 Top = 0
                 ExplicitTop = 0
               end
+              inherited rdeLimit: TRbwDataEntry
+                StyleElements = [seFont, seClient, seBorder]
+              end
               inherited comboBoolLimit: TComboBox
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitHeight = 26
               end
             end
@@ -1528,11 +1681,16 @@ inherited frmDisplayData: TfrmDisplayData
             inherited seNumberOfValuesToIgnore: TJvSpinEdit
               Top = 434
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 434
               ExplicitHeight = 26
             end
+            inherited rdeEpsilon: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
             inherited clbxModel: TJvCheckListBox
               ItemHeight = 18
+              StyleElements = [seFont, seClient, seBorder]
             end
           end
           inherited tabLegend: TTabSheet
@@ -1550,6 +1708,7 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited pnlLegend: TPanel
               Height = 468
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 468
               DesignSize = (
                 201
@@ -1560,6 +1719,7 @@ inherited frmDisplayData: TfrmDisplayData
                 Width = 52
                 Height = 18
                 Anchors = [akLeft, akBottom]
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitLeft = 2
                 ExplicitTop = 7
                 ExplicitWidth = 52
@@ -1570,6 +1730,7 @@ inherited frmDisplayData: TfrmDisplayData
                 Top = 371
                 Width = 109
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitLeft = 2
                 ExplicitTop = 380
                 ExplicitWidth = 109
@@ -1578,6 +1739,7 @@ inherited frmDisplayData: TfrmDisplayData
               inherited comboMethod: TComboBox
                 Left = 2
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitLeft = 2
                 ExplicitHeight = 26
               end
@@ -1585,6 +1747,7 @@ inherited frmDisplayData: TfrmDisplayData
                 Left = 2
                 Top = 392
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitLeft = 2
                 ExplicitTop = 392
                 ExplicitHeight = 26
@@ -1643,90 +1806,128 @@ inherited frmDisplayData: TfrmDisplayData
         inherited lblScale: TLabel
           Width = 130
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 130
           ExplicitHeight = 18
         end
         inherited lblMaxColor: TLabel
           Width = 105
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 105
           ExplicitHeight = 18
         end
         inherited lblMidColor: TLabel
           Width = 85
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 85
           ExplicitHeight = 18
         end
         inherited lblMinColor: TLabel
           Width = 101
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 101
           ExplicitHeight = 18
         end
         inherited lblVelocityColor: TLabel
           Width = 92
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 92
           ExplicitHeight = 18
         end
         inherited lblVectorSource: TLabel
           Width = 96
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 96
           ExplicitHeight = 18
         end
         inherited lblScale3D: TLabel
           Width = 130
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 130
           ExplicitHeight = 18
         end
         inherited lblMinSpacing2D: TLabel
           Width = 247
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 247
           ExplicitHeight = 18
         end
         inherited lblMinHorizontalSpacing3D: TLabel
           Width = 217
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 217
           ExplicitHeight = 18
         end
         inherited lblMinVerticalSpacing3D: TLabel
           Width = 200
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 200
           ExplicitHeight = 18
         end
         inherited lblLineThickness: TLabel
           Width = 99
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 99
           ExplicitHeight = 18
+        end
+        inherited rdeScale: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
         end
         inherited comboVectorSource: TComboBox
           Width = 487
           Height = 26
           Anchors = [akLeft, akTop, akRight]
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 487
           ExplicitHeight = 26
         end
+        inherited clrbxMax: TColorBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited clrbxMid: TColorBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited clrbxMin: TColorBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited clrbxVelocity: TColorBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited rdeScale3D: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
+        end
         inherited udVectors: TJvUpDown
-          Left = 494
+          Left = 490
           Width = 16
           Height = 26
-          ExplicitLeft = 494
+          ExplicitLeft = 490
           ExplicitWidth = 16
           ExplicitHeight = 26
         end
         inherited seMinSpacing2D: TJvSpinEdit
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitHeight = 26
+        end
+        inherited rdeMinHorizontalSpacing3D: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited rdeMinVerticalSpacing3D: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
         end
         inherited seLineThickness: TJvSpinEdit
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitHeight = 26
         end
       end
@@ -1759,6 +1960,7 @@ inherited frmDisplayData: TfrmDisplayData
         inherited lblTimeToPlot: TLabel
           Width = 84
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 84
           ExplicitHeight = 18
         end
@@ -1769,6 +1971,7 @@ inherited frmDisplayData: TfrmDisplayData
         inherited lblSquareSize: TLabel
           Width = 140
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 140
           ExplicitHeight = 18
         end
@@ -1794,6 +1997,7 @@ inherited frmDisplayData: TfrmDisplayData
         end
         inherited comboTimeToPlot: TJvComboBox
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitHeight = 26
         end
         inherited cbPlotUnconnected: TCheckBox
@@ -1806,6 +2010,7 @@ inherited frmDisplayData: TfrmDisplayData
         end
         inherited seSquareSize: TJvSpinEdit
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitHeight = 26
         end
       end
@@ -1845,6 +2050,7 @@ inherited frmDisplayData: TfrmDisplayData
           Left = 296
           Width = 276
           Height = 521
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 296
           ExplicitWidth = 276
           ExplicitHeight = 521
@@ -1857,17 +2063,20 @@ inherited frmDisplayData: TfrmDisplayData
           inherited pnlTop: TPanel
             Width = 276
             Height = 320
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 276
             ExplicitHeight = 320
             inherited lblDataSets: TLabel
               Width = 113
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 113
               ExplicitHeight = 18
             end
             inherited lstSelectedDataSets: TListBox
               Width = 270
               Height = 287
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 270
               ExplicitHeight = 287
             end
@@ -1876,12 +2085,14 @@ inherited frmDisplayData: TfrmDisplayData
             Top = 325
             Width = 276
             Height = 196
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 325
             ExplicitWidth = 276
             ExplicitHeight = 196
             inherited lblLayers: TLabel
               Width = 93
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 93
               ExplicitHeight = 18
             end
@@ -1890,6 +2101,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 99
               Height = 18
               Anchors = [akLeft, akBottom]
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 173
               ExplicitWidth = 99
               ExplicitHeight = 18
@@ -1898,12 +2110,14 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 270
               Height = 136
               ItemHeight = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 270
               ExplicitHeight = 136
             end
             inherited seLineThickness: TJvSpinEdit
               Top = 170
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               Anchors = [akLeft, akBottom]
               ExplicitTop = 170
               ExplicitHeight = 26
@@ -2016,31 +2230,37 @@ inherited frmDisplayData: TfrmDisplayData
         end
         inherited pnlTop: TPanel
           Width = 572
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 572
           inherited lblAnimationInterval: TLabel
             Width = 162
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 162
             ExplicitHeight = 18
           end
           inherited lblObservationFile: TLabel
             Width = 146
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 146
             ExplicitHeight = 18
           end
           inherited fedObservationFile: TJvFilenameEdit
             Width = 529
             Height = 26
-            ExplicitWidth = 533
+            StyleElements = [seFont, seClient, seBorder]
+            ExplicitWidth = 529
             ExplicitHeight = 26
           end
           inherited comboObservationType: TComboBox
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitHeight = 26
           end
           inherited seIncrement: TJvSpinEdit
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitHeight = 26
           end
         end
@@ -2076,12 +2296,13 @@ inherited frmDisplayData: TfrmDisplayData
         ExplicitWidth = 572
         inherited pnlBottom: TPanel
           Width = 572
-          ExplicitTop = 454
-          ExplicitWidth = 568
+          StyleElements = [seFont, seClient, seBorder]
+          ExplicitWidth = 572
           inherited lblRMS: TLabel
             Left = 6
             Width = 293
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitLeft = 6
             ExplicitWidth = 293
             ExplicitHeight = 18
@@ -2089,6 +2310,7 @@ inherited frmDisplayData: TfrmDisplayData
           inherited comboModels: TComboBox
             Left = 6
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitLeft = 6
             ExplicitHeight = 26
           end
@@ -2096,32 +2318,35 @@ inherited frmDisplayData: TfrmDisplayData
         inherited pgcObservations: TPageControl
           Width = 572
           ActivePage = framePestObs.tabValues
-          ExplicitWidth = 568
-          ExplicitHeight = 454
+          ExplicitWidth = 572
           inherited tabControls: TTabSheet
             ExplicitTop = 29
             ExplicitHeight = 422
             inherited lblNegativeColor: TLabel
               Width = 190
               Height = 36
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 190
               ExplicitHeight = 36
             end
             inherited lblColorPositive: TLabel
               Width = 185
               Height = 36
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 185
               ExplicitHeight = 36
             end
             inherited lblMaxSymbolSize: TLabel
               Width = 206
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 206
               ExplicitHeight = 18
             end
             inherited lblHeadObsResults: TLabel
               Width = 69
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 69
               ExplicitHeight = 18
             end
@@ -2129,6 +2354,7 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 2
               Top = 27
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               OnChange = framePestObsflnmedHeadObsResultsChange
               ExplicitLeft = 2
               ExplicitTop = 27
@@ -2138,78 +2364,109 @@ inherited frmDisplayData: TfrmDisplayData
               inherited lblMaximumTime: TLabel
                 Width = 101
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 101
                 ExplicitHeight = 18
               end
               inherited lblMaxResidual: TLabel
                 Width = 126
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 126
                 ExplicitHeight = 18
               end
               inherited lblMinimumTime: TLabel
                 Width = 97
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 97
                 ExplicitHeight = 18
               end
               inherited lblMinResidual: TLabel
                 Width = 122
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 122
                 ExplicitHeight = 18
               end
               inherited lblMinWeightedResidual: TLabel
                 Width = 189
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 189
                 ExplicitHeight = 18
               end
               inherited lblMaxWeightedResidual: TLabel
                 Width = 193
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 193
                 ExplicitHeight = 18
               end
               inherited framelmtMinimumTime: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaxResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaximumTime: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMinResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMinWeightedResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaxWeightedResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
             end
             inherited spinSymbolSize: TJvSpinEdit
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 26
             end
           end
@@ -2226,8 +2483,9 @@ inherited frmDisplayData: TfrmDisplayData
             inherited pnlValueControls: TPanel
               Top = 357
               Width = 564
-              ExplicitTop = 356
-              ExplicitWidth = 560
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitTop = 357
+              ExplicitWidth = 564
             end
           end
           inherited tabLegend: TTabSheet
@@ -2236,12 +2494,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblMax: TLabel
               Width = 44
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 44
               ExplicitHeight = 18
             end
             inherited lblHalfMax: TLabel
               Width = 71
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 71
               ExplicitHeight = 18
             end
@@ -2256,21 +2516,25 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited pnlGraphControls: TPanel
               Top = 324
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 324
               inherited lblGraphInstructions: TLabel
                 Width = 201
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 201
                 ExplicitHeight = 18
               end
               inherited lblWhatToPlot: TLabel
                 Width = 82
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 82
                 ExplicitHeight = 18
               end
               inherited clbWhatToPlot: TCheckListBox
                 ItemHeight = 18
+                StyleElements = [seFont, seClient, seBorder]
               end
             end
           end
@@ -2303,121 +2567,160 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblNegativeColor: TLabel
               Width = 190
               Height = 36
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 190
               ExplicitHeight = 36
             end
             inherited lblColorPositive: TLabel
               Width = 185
               Height = 36
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 185
               ExplicitHeight = 36
             end
             inherited lblMaxSymbolSize: TLabel
               Width = 206
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 206
               ExplicitHeight = 18
             end
             inherited lblHeadObsResults: TLabel
               Width = 69
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 69
               ExplicitHeight = 18
             end
             inherited fedHeadObsResults: TJvFilenameEdit
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 26
             end
             inherited grpbxFilter: TGroupBox
               inherited lblMaximumTime: TLabel
                 Width = 101
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 101
                 ExplicitHeight = 18
               end
               inherited lblMaxResidual: TLabel
                 Width = 126
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 126
                 ExplicitHeight = 18
               end
               inherited lblMinimumTime: TLabel
                 Width = 97
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 97
                 ExplicitHeight = 18
               end
               inherited lblMinResidual: TLabel
                 Width = 122
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 122
                 ExplicitHeight = 18
               end
               inherited lblMinWeightedResidual: TLabel
                 Width = 189
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 189
                 ExplicitHeight = 18
               end
               inherited lblMaxWeightedResidual: TLabel
                 Width = 193
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 193
                 ExplicitHeight = 18
               end
               inherited framelmtMinimumTime: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaxResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaximumTime: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMinResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMinWeightedResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
               inherited framelmtMaxWeightedResidual: TframeDisplayLimit
+                inherited rdeLimit: TRbwDataEntry
+                  StyleElements = [seFont, seClient, seBorder]
+                end
                 inherited comboBoolLimit: TComboBox
                   Height = 26
+                  StyleElements = [seFont, seClient, seBorder]
                   ExplicitHeight = 26
                 end
               end
             end
             inherited seSymbolSize: TJvSpinEdit
               Height = 26
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 26
             end
           end
           inherited tabValues: TTabSheet
             ExplicitTop = 29
+            ExplicitWidth = 564
             ExplicitHeight = 422
             inherited rdgMt3dObs: TRbwDataGrid4
+              Width = 564
               Height = 357
               ExplicitHeight = 357
             end
             inherited pnlValueControls: TPanel
               Top = 357
+              Width = 564
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 357
-              ExplicitWidth = 564
             end
           end
           inherited tabLegend: TTabSheet
@@ -2426,12 +2729,14 @@ inherited frmDisplayData: TfrmDisplayData
             inherited lblMax: TLabel
               Width = 44
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 44
               ExplicitHeight = 18
             end
             inherited lblHalfMax: TLabel
               Width = 71
               Height = 18
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 71
               ExplicitHeight = 18
             end
@@ -2445,10 +2750,12 @@ inherited frmDisplayData: TfrmDisplayData
             end
             inherited pnlGraphControls: TPanel
               Top = 324
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 324
               inherited lblGraphInstructions: TLabel
                 Width = 201
                 Height = 18
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitWidth = 201
                 ExplicitHeight = 18
               end
@@ -2457,15 +2764,18 @@ inherited frmDisplayData: TfrmDisplayData
         end
         inherited pnlBottom: TPanel
           Width = 572
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 572
           inherited lblRMS: TLabel
             Width = 293
             Height = 18
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 293
             ExplicitHeight = 18
           end
           inherited comboModels: TComboBox
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitHeight = 26
           end
         end
@@ -2486,24 +2796,25 @@ inherited frmDisplayData: TfrmDisplayData
     OnChanging = tvpglstMainChanging
     OnCustomDrawItem = tvpglstMainCustomDrawItem
     Items.NodeData = {
-      0307000000320000000000000000000000FFFFFFFFFFFFFFFF00000000050000
-      0000000000010A43006F006C006F007200200047007200690064003600000000
-      00000000000000FFFFFFFFFFFFFFFF000000000600000000000000010C43006F
-      006E0074006F0075007200200044006100740061004000000000000000000000
-      00FFFFFFFFFFFFFFFF00000000000000000000000001114D004F004400500041
-      0054004800200050006100740068006C0069006E006500730042000000000000
-      0000000000FFFFFFFFFFFFFFFF00000000040000000000000001124D004F0044
-      005000410054004800200045006E006400200050006F0069006E007400730044
-      0000000000000000000000FFFFFFFFFFFFFFFF00000000030000000000000001
-      134D004F00440050004100540048002000540069006D00650020005300650072
-      006900650073004E0000000000000000000000FFFFFFFFFFFFFFFF0000000002
-      000000000000000118480065006100640020004F006200730065007200760061
-      00740069006F006E00200052006500730075006C007400730036000000000000
-      0000000000FFFFFFFFFFFFFFFF000000000100000000000000010C5300740072
-      00650061006D0020004C0069006E006B007300}
+      07070000001054004A007600500061006700650049006E006400650078004E00
+      6F0064006500330000000000000000000000FFFFFFFFFFFFFFFF000000000005
+      00000000000000010A43006F006C006F00720020004700720069006400000037
+      0000000000000000000000FFFFFFFFFFFFFFFF00000000000600000000000000
+      010C43006F006E0074006F007500720020004400610074006100000041000000
+      0000000000000000FFFFFFFFFFFFFFFF0000000000000000000000000001114D
+      004F0044005000410054004800200050006100740068006C0069006E00650073
+      000000430000000000000000000000FFFFFFFFFFFFFFFF000000000004000000
+      0000000001124D004F0044005000410054004800200045006E00640020005000
+      6F0069006E00740073000000450000000000000000000000FFFFFFFFFFFFFFFF
+      0000000000030000000000000001134D004F0044005000410054004800200054
+      0069006D006500200053006500720069006500730000004F0000000000000000
+      000000FFFFFFFFFFFFFFFF000000000002000000000000000118480065006100
+      640020004F00620073006500720076006100740069006F006E00200052006500
+      730075006C00740073000000370000000000000000000000FFFFFFFFFFFFFFFF
+      00000000000100000000000000010C530074007200650061006D0020004C0069
+      006E006B007300}
     Items.Links = {
       0700000005000000060000000000000004000000030000000200000001000000}
-    ExplicitHeight = 520
   end
   object pnlBottom: TPanel
     Left = 0
@@ -2512,8 +2823,6 @@ inherited frmDisplayData: TfrmDisplayData
     Height = 41
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 520
-    ExplicitWidth = 774
     DesignSize = (
       778
       41)
@@ -2527,7 +2836,6 @@ inherited frmDisplayData: TfrmDisplayData
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnHelpClick
-      ExplicitLeft = 428
     end
     object btnApply: TBitBtn
       Left = 539
@@ -2557,7 +2865,6 @@ inherited frmDisplayData: TfrmDisplayData
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnApplyClick
-      ExplicitLeft = 535
     end
     object btnClose: TBitBtn
       Left = 646
@@ -2568,7 +2875,6 @@ inherited frmDisplayData: TfrmDisplayData
       Kind = bkClose
       NumGlyphs = 2
       TabOrder = 2
-      ExplicitLeft = 642
     end
   end
 end
