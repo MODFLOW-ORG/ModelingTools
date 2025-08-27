@@ -513,6 +513,7 @@ var
     N2: Integer;
     Value: single;
     AuxValue: single;
+    CTMP: TModflowDesc;
   begin
     result := True;
     try
@@ -664,6 +665,55 @@ var
               end;
             end;
           end;
+        5:
+          begin
+            if (AFile.Size-AFile.Position) < (NROW*NCOL*Abs(NLAY)) then
+            begin
+              result := false;
+              Exit;
+            end;
+            AFile.Read(NVAL, SizeOf(NVAL));
+            if (NVAL < 1) {or (NVAL > 15)} then
+            begin
+              result := false;
+              Exit;
+            end;
+            if NVAL > 1 then
+            begin
+              try
+                if (AFile.Size-AFile.Position) < (NROW*NCOL*Abs(NLAY)*NVAL) then
+                begin
+                  result := false;
+                  Exit;
+                end;
+                for Index := 2 to NVAL do
+                begin
+                  AFile.Read(CTMP, SizeOf(CTMP));
+                end;
+              except on EIntOverflow do
+                begin
+                  result := false;
+                  Exit;
+                end;
+              end;
+            end;
+            for LayerIndex := 0 to Abs(NLAY) - 1 do
+            begin
+              for RowIndex := 0 to NROW - 1 do
+              begin
+                for ColIndex := 0 to NCOL - 1 do
+                begin
+                  AFile.Read(AValue, SizeOf(AValue));
+                  try
+                    AnArray[LayerIndex, RowIndex, ColIndex] := AValue;
+                  except
+                    result := false;
+                    Exit;
+                  end;
+                end;
+              end;
+            end;
+          end;
         6:
           begin
             Assert(IsModflow6);
@@ -753,6 +803,7 @@ var
     N2: Integer;
     Value: double;
     AuxValue: double;
+    CTMP: TModflowDesc;
   begin
     result := True;
     try
@@ -905,6 +956,55 @@ var
                 except
                   result := false;
                   Exit;
+                end;
+              end;
+            end;
+          end;
+        5:
+          begin
+            AFile.Read(NVAL, SizeOf(NVAL));
+            if (NVAL < 1) {or  (NVAL > 15)} then
+            begin
+              result := false;
+              Exit;
+            end;
+            if NVAL > 1 then
+            begin
+              try
+                if (AFile.Size-AFile.Position) < (NROW*NCOL*Abs(NLAY)*NVAL) then
+                begin
+                  result := false;
+                  Exit;
+                end;
+                 for Index := 2 to NVAL do
+                begin
+                  AFile.Read(CTMP, SizeOf(CTMP));
+                end;
+              except on EIntOverflow do
+                begin
+                  result := false;
+                  Exit;
+                end;
+              end;
+            end;
+            if (AFile.Size-AFile.Position) < (NROW*NCOL*Abs(NLAY)) then
+            begin
+              result := false;
+              Exit;
+            end;
+            for LayerIndex := 0 to Abs(NLAY) - 1 do
+            begin
+              for RowIndex := 0 to NROW - 1 do
+              begin
+                for ColIndex := 0 to NCOL - 1 do
+                begin
+                  AFile.Read(AValue, SizeOf(AValue));
+                  try
+                    AnArray[LayerIndex, RowIndex, ColIndex] := AValue;
+                  except
+                    result := false;
+                    Exit;
+                  end;
                 end;
               end;
             end;
@@ -1063,6 +1163,7 @@ begin
       MF2005BudgetTerms.Add('    NETDISCHARGE');
       MF2005BudgetTerms.Add('      ZETASRF  1');
       MF2005BudgetTerms.Add('      ZETASRF  2');
+      MF2005BudgetTerms.Add('STREAM FLOW OUT ');
     end;
 
     HufFormat := False;

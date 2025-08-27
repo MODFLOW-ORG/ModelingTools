@@ -5275,6 +5275,7 @@ const
   StrSubVdOut = '.SubVdOut';
   StrSubNdCritHeadOut = '.SubNdCritHeadOut';
   StrSubDCritHeadOut = '.SubDCritHeadOut';
+  StrStrflowExt = '.str_flow';
 
   StrSubElasCompMLOut = '.SubElasCompMlOut';
   StrSubInelasCompMLOut = '.SubInelasCompMlOut';
@@ -10481,13 +10482,15 @@ const
 //               Bug Fix: In the MODFLOW Program Locations dialog box, the edit
 //                control for MT3D-USGS now will display with a red background
 //                if MT3D-USGS is not installed at the specified location.
+//     '5.4.0.3' Enhancement: ModelMuse can now plot the 'STREAM FLOW OUT' data
+//                written by the STR package.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.2';
+  IIModelVersion = '5.4.0.3';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

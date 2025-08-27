@@ -1690,7 +1690,7 @@ begin
         if not WritingTemplate then
         begin
           WriteToNameFile(StrDATABINARY,
-                    ISTCB2, ChangeFileExt(FNameOfFile,'.str_flow'), foOutput, Model);
+                    ISTCB2, ChangeFileExt(FNameOfFile,StrStrflowExt), foOutput, Model);
         end;
       end;
   else

@@ -492,6 +492,7 @@ resourcestring
   StrUZFWAterConent = 'UZF WAter Conent';
   StrMAWBudget = 'MAW Budget';
   StrHds = '.hds';
+  StrStrStreamFlowDesc = 'Str stream flow';
 
 {$R *.dfm}
 
@@ -1298,6 +1299,9 @@ begin
 
     FilterDescriptions.Add(StrBinaryFlowFiles);
     FileExtensions.Add(StrCbcExt);
+
+    FilterDescriptions.Add(StrStrStreamFlowDesc);
+    FileExtensions.Add(StrStrflowExt);
 
     FilterDescriptions.Add(StrGWTConcentrationFi);
     FileExtensions.Add(StrConc);
@@ -5836,6 +5840,7 @@ begin
     or (SameText(Extension, StrZeta))
     or (SameText(Extension, StrUzfRch))
     or (SameText(Extension, StrUzfDisch))
+    or (SameText(Extension, StrStrflowExt))
     then
   begin
     FResultFormat := mrFlux;
