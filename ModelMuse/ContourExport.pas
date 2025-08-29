@@ -97,6 +97,47 @@ type
     Match: TLineMatchRecord;
   end;
 
+procedure RemoveLine(Line: TPointList; QuadTree: TRbwQuadTree; PointDistance: double;
+  PointLists: TObjectList<TPointList>);
+var
+  PointsToRemove: TQuadPointInRegionArray;
+  LineMatch: TLineMatch;
+  APoint: TPoint2D;
+begin
+  APoint := Line.First;
+  QuadTree.FindPointsInCircle(APoint.x, APoint.y, PointDistance, PointsToRemove, True);
+  for var PointIndex := 0 to Length(PointsToRemove)- 1 do
+  begin
+    for var DataIndex := 0 to Length(PointsToRemove[PointIndex].Data) - 1 do
+    begin
+      LineMatch := PointsToRemove[PointIndex].Data[DataIndex];
+      if LineMatch.Match.PointList = Line then
+      begin
+        QuadTree.RemovePoint(LineMatch.Match.APoint.x, LineMatch.Match.APoint.y, LineMatch);
+        LineMatch.Free;
+      end;
+    end;
+  end;
+  APoint := Line.Last;
+  QuadTree.FindPointsInCircle(APoint.x, APoint.y, PointDistance, PointsToRemove, True);
+  for var PointIndex := 0 to Length(PointsToRemove)- 1 do
+  begin
+    for var DataIndex := 0 to Length(PointsToRemove[PointIndex].Data) - 1 do
+    begin
+      LineMatch := PointsToRemove[PointIndex].Data[DataIndex];
+      if LineMatch.Match.PointList = Line then
+      begin
+        QuadTree.RemovePoint(LineMatch.Match.APoint.x, LineMatch.Match.APoint.y, LineMatch);
+        LineMatch.Free;
+      end;
+    end;
+  end;
+  if PointLists <> nil then
+  begin
+    PointLists.Remove(Line);
+  end;
+end;
+
 procedure GlobalImportSegments(Sender: TObject;
   const Segments: TLine2DArray; Epsilon: Real;
   QuadTree: TRbwQuadTree; PointLists: TObjectList<TPointList>);
@@ -184,42 +225,6 @@ var
     LineMatchTemp.Match.MatchLocation := mlEnd;
     QuadTree.AddPoint(LineMatchTemp.Match.APoint.X, LineMatchTemp.Match.APoint.y, LineMatchTemp);
   end;
- procedure RemoveLine(Line: TPointList);
-  var
-    PointsToRemove: TQuadPointInRegionArray;
-    LineMatch: TLineMatch;
-    APoint: TPoint2D;
-  begin
-    APoint := Line.First;
-    QuadTree.FindPointsInCircle(APoint.x, APoint.y, PointDistance, PointsToRemove, True);
-    for var PointIndex := 0 to Length(PointsToRemove)- 1 do
-    begin
-      for var DataIndex := 0 to Length(PointsToRemove[PointIndex].Data) - 1 do
-      begin
-        LineMatch := PointsToRemove[PointIndex].Data[DataIndex];
-        if LineMatch.Match.PointList = Line then
-        begin
-          QuadTree.RemovePoint(LineMatch.Match.APoint.x, LineMatch.Match.APoint.y, LineMatch);
-          LineMatch.Free;
-        end;
-      end;
-    end;
-    APoint := Line.Last;
-    QuadTree.FindPointsInCircle(APoint.x, APoint.y, PointDistance, PointsToRemove, True);
-    for var PointIndex := 0 to Length(PointsToRemove)- 1 do
-    begin
-      for var DataIndex := 0 to Length(PointsToRemove[PointIndex].Data) - 1 do
-      begin
-        LineMatch := PointsToRemove[PointIndex].Data[DataIndex];
-        if LineMatch.Match.PointList = Line then
-        begin
-          QuadTree.RemovePoint(LineMatch.Match.APoint.x, LineMatch.Match.APoint.y, LineMatch);
-          LineMatch.Free;
-        end;
-      end;
-    end;
-    PointLists.Remove(Line);
-  end;
 begin
   Exaggeration := 1;
   if (frmGoPhast.ModelSelection in [msSutra22, msSutra30, msSutra40])
@@ -256,7 +261,7 @@ begin
     begin
       Point1 := Segments[Index][1];
       Point2 := Segments[Index][2];
-      PointDistance := Distance(Point1, Point2)/2;
+      PointDistance := Distance(Point1, Point2)/10;
       QuadTree.FindPointsInCircle(Point1.x, Point1.y, PointDistance, Points1, True);
       QuadTree.FindPointsInCircle(Point2.x, Point2.y, PointDistance, Points2, True);
       if Length(Points1) = 0 then
@@ -282,10 +287,12 @@ begin
           LineMatchR.APoint := Point1;
           if LineMatchR.MatchLocation = mlStart then
           begin
+            Assert(Distance(Point2, LineMatchR.PointList.First) < PointDistance);
             LineMatchR.PointList.Insert(0, LineMatchR.APoint);
           end
           else
           begin
+            Assert(Distance(Point2, LineMatchR.PointList.Last) < PointDistance);
             LineMatchR.PointList.Add(LineMatchR.APoint);
           end;
           AddMatchPoints(LineMatchR.PointList)
@@ -303,10 +310,12 @@ begin
           LineMatchR.APoint := Point2;
           if LineMatchR.MatchLocation = mlStart then
           begin
+            Assert(Distance(Point1, LineMatchR.PointList.First) < PointDistance);
             LineMatchR.PointList.Insert(0, LineMatchR.APoint);
           end
           else
           begin
+            Assert(Distance(Point1, LineMatchR.PointList.Last) < PointDistance);
             LineMatchR.PointList.Add(LineMatchR.APoint);
           end;
           AddMatchPoints(LineMatchR.PointList)
@@ -323,8 +332,16 @@ begin
           if LineMatch1.Match.PointList = LineMatch2.Match.PointList then
           begin
           // same lines
-            LineMatch1R.PointList.Add(LineMatch1R.PointList[0]);
-            RemoveMatchPoints(LineMatch1R.PointList);
+            if Distance(Point1, Point2) < PointDistance then
+            begin
+              // closed contour
+              RemoveMatchPoints(LineMatch1R.PointList);
+             end
+            else
+            begin
+              RemoveMatchPoints(LineMatch1R.PointList);
+              LineMatch1R.PointList.Add(LineMatch1R.PointList[0]);
+            end;
           end
           else
           begin
@@ -355,7 +372,7 @@ begin
                 LineMatch1R.PointList.Add(LineMatch2R.PointList[PointIndex]);
               end;
               AddMatchPoints(LineMatch1R.PointList);
-              RemoveLine(LineMatch2R.PointList);
+              RemoveLine(LineMatch2R.PointList, QuadTree, PointDistance, PointLists);
             end
             else
             begin
@@ -380,7 +397,7 @@ begin
                 LineMatch2R.PointList.Add(LineMatch1R.PointList[PointIndex]);
               end;
               AddMatchPoints(LineMatch2R.PointList);
-              RemoveLine(LineMatch1R.PointList);
+              RemoveLine(LineMatch1R.PointList, QuadTree, PointDistance, PointLists);
             end;
           end;
         end;
@@ -1004,6 +1021,11 @@ begin
 
                 if (FPointLists.Count> 0) then
                 begin
+                  for PointListIndex := 0 to FPointLists.Count - 1 do
+                  begin
+                    PointList := FPointLists[PointListIndex];
+                    RemoveLine(PointList, FQuadTree, Distance(PointList.First, PointList.Last)/10, nil);
+                  end;
                   try
                     MergePointLists;
                   except on E: Exception do

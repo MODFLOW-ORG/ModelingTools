@@ -10484,13 +10484,15 @@ const
 //                if MT3D-USGS is not installed at the specified location.
 //     '5.4.0.3' Enhancement: ModelMuse can now plot the 'STREAM FLOW OUT' data
 //                written by the STR package.
+//     '5.4.0.4' Bug Fix: Fixed bug that could cause an access violation when
+//                exporting contours to Shapefiles.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.3';
+  IIModelVersion = '5.4.0.4';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

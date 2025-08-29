@@ -1677,7 +1677,7 @@ begin
   try
     FQTreeNode.FindPointsInCircle(CenterX, CenterY, Radius, Sqr(Radius), List);
     SetLength(Points, List.Count);
-    if Sort then
+    if Sort and (List.Count > 1) then
     begin
       CircleCenterX := CenterX;
       CircleCenterY := CenterY;
