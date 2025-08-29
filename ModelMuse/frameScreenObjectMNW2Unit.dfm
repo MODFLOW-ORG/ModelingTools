@@ -15,17 +15,15 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
     BevelOuter = bvNone
     Caption = 'pnlCaption'
     TabOrder = 0
-    ExplicitWidth = 609
   end
   object pcMnw2: TPageControl
     Left = 0
     Top = 22
     Width = 541
     Height = 454
-    ActivePage = tabWellScreens
+    ActivePage = tabLossControls
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 609
     object tabBasic: TTabSheet
       HelpType = htKeyword
       HelpKeyword = 'MNW2_Basic_Tab'
@@ -330,56 +328,72 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
       ImageIndex = 1
       object lblWellRadius: TLabel
         Left = 3
-        Top = 3
+        Top = 51
         Width = 113
         Height = 18
         Caption = 'Well radius (Rw)'
       end
       object lblSkinRadius: TLabel
         Left = 3
-        Top = 32
+        Top = 80
         Width = 131
         Height = 18
         Caption = 'Skin radius (Rskin)'
       end
       object lblBCoefficient: TLabel
         Left = 3
-        Top = 91
+        Top = 139
         Width = 206
         Height = 18
         Caption = 'Linear well loss coefficient (B)'
       end
       object lblCCoefficient: TLabel
         Left = 3
-        Top = 123
+        Top = 171
         Width = 234
         Height = 18
         Caption = 'Non-linear well loss coefficient (C)'
       end
       object lblPCoefficient: TLabel
         Left = 3
-        Top = 155
+        Top = 203
         Width = 105
         Height = 18
         Caption = 'Power term (P)'
       end
       object lblCellToWellConductance: TLabel
         Left = 3
-        Top = 187
+        Top = 235
         Width = 219
         Height = 18
         Caption = 'Cell to well conductance (CWC)'
       end
       object lblKSkin: TLabel
         Left = 3
-        Top = 61
+        Top = 109
         Width = 233
         Height = 18
         Caption = 'Skin hydraulic conductivity (Kskin)'
       end
+      object lblOverrideNotice: TLabel
+        Left = 3
+        Top = 3
+        Width = 439
+        Height = 57
+        Caption = 
+          'If well screens are defined, the values for the well screens ove' +
+          'rride these values. '#13#10
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        WordWrap = True
+      end
       object edWellRadius: TJvComboEdit
         Left = 122
-        Top = 0
+        Top = 48
         Width = 364
         Height = 26
         ButtonWidth = 50
@@ -409,7 +423,7 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
       end
       object edSkinRadius: TJvComboEdit
         Left = 140
-        Top = 29
+        Top = 77
         Width = 346
         Height = 26
         ButtonWidth = 50
@@ -439,7 +453,7 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
       end
       object edKSkin: TJvComboEdit
         Left = 242
-        Top = 58
+        Top = 106
         Width = 244
         Height = 26
         ButtonWidth = 50
@@ -469,7 +483,7 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
       end
       object edBCoefficient: TJvComboEdit
         Left = 215
-        Top = 88
+        Top = 136
         Width = 271
         Height = 26
         ButtonWidth = 50
@@ -499,7 +513,7 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
       end
       object edCCoefficient: TJvComboEdit
         Left = 242
-        Top = 120
+        Top = 168
         Width = 244
         Height = 26
         ButtonWidth = 50
@@ -529,7 +543,7 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
       end
       object edPCoefficient: TJvComboEdit
         Left = 114
-        Top = 152
+        Top = 200
         Width = 372
         Height = 26
         ButtonWidth = 50
@@ -559,7 +573,7 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
       end
       object edCellToWellConductance: TJvComboEdit
         Left = 228
-        Top = 184
+        Top = 232
         Width = 258
         Height = 26
         ButtonWidth = 50
@@ -1142,7 +1156,6 @@ inherited frameScreenObjectMNW2: TframeScreenObjectMNW2
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 2
-        ExplicitWidth = 601
         object Label1: TLabel
           Left = 79
           Top = 9

@@ -22,6 +22,9 @@ type
   TMnwiObsColumns = (mocName, mocType, mocTime, mocValue, mocWeight, mocComment);
   TMnwiObsCompColumns = (moccName, moccObs1, moccObs2, moccValue, moccWeight, moccComment);
 
+  TLossTypes = set of TMnwLossType;
+
+
   TframeScreenObjectMNW2 = class(TframeScreenObject)
     pnlCaption: TPanel;
     pcMnw2: TPageControl;
@@ -98,6 +101,7 @@ type
     cbSaveMnwiBasic: TCheckBox;
     tabObservations: TTabSheet;
     framePestObsMnw2: TframePestObs;
+    lblOverrideNotice: TLabel;
     procedure edWellIdChange(Sender: TObject);
     procedure seLiftTableRowsChange(Sender: TObject);
     procedure rdgTimeTableEndUpdate(Sender: TObject);
@@ -186,7 +190,9 @@ type
     property VerticalWell: TCheckBoxState read FVerticalWell
       write SetVerticalWell;
     property Changing: Boolean read FChanging write SetChanging;
-    procedure UpdateVerticalScreenGridCell(ScreenIndex: Integer; VerticalScreen: TVerticalScreen; AValue: string; Column: TVerticalScreenColumns);
+    procedure UpdateVerticalScreenGridCell(ScreenIndex: Integer;
+      VerticalScreen: TVerticalScreen; AValue: string; Column: TVerticalScreenColumns);
+    function GetLossTypes: TLossTypes;
 //    procedure UpdatedSelectedCell;
     { Private declarations }
   public
@@ -372,16 +378,9 @@ end;
 
 procedure TframeScreenObjectMNW2.comboLossTypeChange(Sender: TObject);
 var
-  LossTypes: Set of TMnwLossType;
+  LossTypes: TLossTypes;
 begin
-  if comboLossType.ItemIndex < 0 then
-  begin
-    LossTypes := [mltNone, mltThiem, mltSkin, mltEquation, mtlSpecify]
-  end
-  else
-  begin
-    LossTypes := [TMnwLossType(comboLossType.ItemIndex)];
-  end;
+  LossTypes := GetLossTypes;
   tabLossControls.TabVisible :=
     LossTypes * [mltThiem, mltSkin, mltEquation, mtlSpecify] <> [];
   edWellRadius.Enabled :=
@@ -430,6 +429,18 @@ constructor TframeScreenObjectMNW2.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   framePumpLocationMethod.OnChange := edWellIdChange;
+end;
+
+function TframeScreenObjectMNW2.GetLossTypes: TLossTypes;
+begin
+  if comboLossType.ItemIndex < 0 then
+  begin
+    result := [mltNone, mltThiem, mltSkin, mltEquation, mtlSpecify];
+  end
+  else
+  begin
+    result := [TMnwLossType(comboLossType.ItemIndex)];
+  end;
 end;
 
 
@@ -1564,7 +1575,7 @@ end;
 procedure TframeScreenObjectMNW2.rdgVerticalScreensSelectCell(Sender: TObject;
   ACol, ARow: Integer; var CanSelect: Boolean);
 var
-  LossTypes : set of TMnwLossType;
+  LossTypes : TLossTypes;
 begin
   if ACol > Ord(vsZBot) then
   begin
