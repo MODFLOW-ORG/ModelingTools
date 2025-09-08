@@ -2443,7 +2443,7 @@ resourcestring
   StrSingularValueDecom = 'Singular value decomposition is deactivated. Do y' +
   'ou want to activate it?';
   StrPESTIsActiveButT = 'PEST is active but the PEST directory "%0:s" does n' +
-  'ot exist. Check the PEST directory in "Model|PEST Properties. Do you want' +
+  'ot exist. Check the PEST directory in "Model|PEST Properties. Do you want ' +
   'to continue anyway?';
   StrPLPROCWasNotFound = 'PLPROC was not found in %s.  Do you want to ' +
   'continue anyway?';
