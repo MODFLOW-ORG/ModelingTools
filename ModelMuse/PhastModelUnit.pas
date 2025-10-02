@@ -10486,13 +10486,14 @@ const
 //                written by the STR package.
 //     '5.4.0.4' Bug Fix: Fixed bug that could cause an access violation when
 //                exporting contours to Shapefiles.
+//     '5.4.0.5' Bug Fix: Fixed export of duplicate time steps in SUTRA.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.4';
+  IIModelVersion = '5.4.0.5';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

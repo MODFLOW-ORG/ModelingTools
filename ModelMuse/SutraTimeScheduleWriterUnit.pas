@@ -865,8 +865,8 @@ var
   NSLIST: Integer;
   TimeIndex: Integer;
   ISLIST: Integer;
-  ATime1: Single;
-  ATime2: Single;
+  ATime1: double;
+  ATime2: double;
   LastTime: double;
   LastScheduleTime: double;
 begin
@@ -899,16 +899,16 @@ begin
     begin
       ISLIST := FAllTimes.IndexOfClosest(Times[TimeIndex]);
       Assert(ISLIST >= 0);
-      // Reduce precision to single precision.
+
       ATime1 := Times[TimeIndex];
       ATime2 := FAllTimes[ISLIST];
-      if ATime1 <> ATime2 then
+      if not SameTimeValues(ATime1, ATime2) then
       begin
         Beep;
         MessageDlg(Format(StrSomethingWentWrong, [SCHNAM]), mtError, [mbOK], 0);
       end;
     end;
-//    Inc(ISLIST);
+
     WriteInteger(ISLIST);
     if (TimeIndex+1) mod 10 = 0 then
     begin

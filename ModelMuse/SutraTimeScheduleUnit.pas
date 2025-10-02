@@ -237,6 +237,7 @@ type
     property Schedules: TSutraTimeSchedules read GetSchedules write SetSchedules;
   end;
 
+function SameTimeValues(Value1, Value2: Double): boolean;
 
 implementation
 
@@ -250,6 +251,18 @@ resourcestring
   StrTimeScheduleAdjust = 'Time schedule adjusted';
   StrTheObject0sAdds = 'The object %0:s adds %1:d times to the time step sch' +
   'edule';
+
+function SameTimeValues(Value1, Value2: Double): boolean;
+const
+  TimeEpsilon = 1E-7;
+begin
+  result := Value1 = Value2;
+  if not result then
+  begin
+    result :=  (Abs(Value1 - Value2)/(Value1 + Value2)) < TimeEpsilon;
+  end;
+end;
+
 
   { TCustomSutraTimeSchedule }
 
@@ -964,10 +977,10 @@ begin
         Continue;
       end;
     end;
-    if AValue1 = AValue2 then
+    if SameTimeValues(AValue1, AValue2) then
     begin
       FAllTimes.Delete(TimeIndex);
-    end;
+    end
   end;
 end;
 

@@ -34958,5 +34958,103 @@ object TTaskHistory
       Date = 45898.000000000000000000
       Categories.Strings = (
         'Dialog boxes')
+    end
+    item
+      Date = 45899.000000000000000000
+    end
+    item
+      Date = 45900.000000000000000000
+    end
+    item
+      Date = 45901.000000000000000000
+    end
+    item
+      Date = 45902.000000000000000000
+    end
+    item
+      Date = 45903.000000000000000000
+    end
+    item
+      Date = 45904.000000000000000000
+    end
+    item
+      Date = 45905.000000000000000000
+    end
+    item
+      Date = 45906.000000000000000000
+    end
+    item
+      Date = 45907.000000000000000000
+    end
+    item
+      Date = 45908.000000000000000000
+    end
+    item
+      Date = 45909.000000000000000000
+    end
+    item
+      Date = 45910.000000000000000000
+    end
+    item
+      Date = 45911.000000000000000000
+    end
+    item
+      Date = 45912.000000000000000000
+    end
+    item
+      Date = 45913.000000000000000000
+    end
+    item
+      Date = 45914.000000000000000000
+    end
+    item
+      Date = 45915.000000000000000000
+    end
+    item
+      Date = 45916.000000000000000000
+    end
+    item
+      Date = 45917.000000000000000000
+    end
+    item
+      Date = 45918.000000000000000000
+    end
+    item
+      Date = 45919.000000000000000000
+    end
+    item
+      Date = 45920.000000000000000000
+    end
+    item
+      Date = 45921.000000000000000000
+    end
+    item
+      Date = 45922.000000000000000000
+    end
+    item
+      Date = 45923.000000000000000000
+    end
+    item
+      Date = 45924.000000000000000000
+    end
+    item
+      Date = 45925.000000000000000000
+    end
+    item
+      Date = 45926.000000000000000000
+    end
+    item
+      Date = 45927.000000000000000000
+    end
+    item
+      Date = 45928.000000000000000000
+    end
+    item
+      Date = 45929.000000000000000000
+    end
+    item
+      Date = 45930.000000000000000000
+      Categories.Strings = (
+        'Bug fix')
     end>
 end
