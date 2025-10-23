@@ -10487,13 +10487,17 @@ const
 //     '5.4.0.4' Bug Fix: Fixed bug that could cause an access violation when
 //                exporting contours to Shapefiles.
 //     '5.4.0.5' Bug Fix: Fixed export of duplicate time steps in SUTRA.
+//     '5.4.0.6' Bug fix: Changing a parameter for the LPF package to a PEST
+//                paramaeter now makes any associated multiplier or zone data
+//                sets optiona instead of required That will cause the data sets
+//                to no longer be used.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.5';
+  IIModelVersion = '5.4.0.6';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

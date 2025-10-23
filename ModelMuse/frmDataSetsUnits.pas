@@ -1346,6 +1346,10 @@ begin
   end;
   SelectedEdit.PestParametersUsed := cbParametersUsed.Checked;
   cbObservations.Enabled := cbParametersUsed.Checked;
+  if not cbObservations.Enabled then
+  begin
+    cbObservations.Checked := False;
+  end;
   rdeObservationSearchDistance.Enabled := cbParametersUsed.Checked;
 end;
 

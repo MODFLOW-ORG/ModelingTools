@@ -82,6 +82,8 @@ type
       const Value: double);
     procedure SetVertSpatialContinuityPriorInfoWeight(const Value: double);
     procedure SetUsedDirectly(const Value: Boolean);
+    function GetUseMultiplier: boolean;
+    function GetUseZone: boolean;
   protected
     // Besides setting the name of the parameter, @name also updates the
     // names of the @link(TDataArray)s used to define multiplier and zone
@@ -118,9 +120,9 @@ type
     property MultiplierName: string read FMultiplierName
       write SetMultiplierName;
     // @name specifies whether this parameter will use a multiplier array.
-    property UseMultiplier: boolean read FUseMultiplier write SetUseMultiplier stored True;
+    property UseMultiplier: boolean read GetUseMultiplier write SetUseMultiplier stored True;
     // @name specifies whether this parameter will use a zone array.
-    property UseZone: boolean read FUseZone write SetUseZone stored True;
+    property UseZone: boolean read GetUseZone write SetUseZone stored True;
     // @name is the name of the @link(TDataArray) used to define
     // MODFLOW zone arrays.
     property ZoneName: string read FZoneName write SetZoneName;
@@ -380,6 +382,31 @@ end;
 function TModflowSteadyParameter.GetHorizontalSpatialContinuityPriorInfoWeight: double;
 begin
   result := StoredHorizontalSpatialContinuityPriorInfoWeight.Value;
+end;
+
+function TModflowSteadyParameter.GetUseMultiplier: boolean;
+begin
+  if ParameterType = ptPEST then
+  begin
+    result := False;
+  end
+  else
+  begin
+    result := FUseMultiplier;
+  end;
+end;
+
+function TModflowSteadyParameter.GetUseZone: boolean;
+begin
+  if ParameterType = ptPEST then
+  begin
+    result := False;
+  end
+  else
+  begin
+    result := FUseZone;
+  end;
+
 end;
 
 function TModflowSteadyParameter.GetVertSpatialContinuityPriorInfoWeight: double;
