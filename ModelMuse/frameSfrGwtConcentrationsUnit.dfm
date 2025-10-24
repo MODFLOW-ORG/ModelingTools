@@ -2,6 +2,9 @@ inherited frameSfrGwtConcentrations: TframeSfrGwtConcentrations
   inherited rdgConcentrations: TRbwDataGrid4
     ColCount = 8
     FixedCols = 0
+    AutoMultiEdit = True
+    AutoDistributeText = True
+    AutoIncreaseRowCount = True
     Columns = <
       item
         AutoAdjustRowHeights = True
@@ -213,6 +216,10 @@ inherited frameSfrGwtConcentrations: TframeSfrGwtConcentrations
     StyleElements = [seFont, seClient, seBorder]
     inherited lblInitialConcentration: TLabel
       StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited btnedInitialConcentration: TssButtonEdit
+      Height = 23
+      ExplicitHeight = 23
     end
   end
 end

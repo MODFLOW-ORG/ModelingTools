@@ -10491,13 +10491,15 @@ const
 //                paramaeter now makes any associated multiplier or zone data
 //                sets optiona instead of required That will cause the data sets
 //                to no longer be used.
+//     '5.4.0.7' Bug fix: Fixed pasting text for multiple cells into the GWT
+//                tabs for the MODFLOW 6 Lake, MAW, and UZF packages.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.6';
+  IIModelVersion = '5.4.0.7';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

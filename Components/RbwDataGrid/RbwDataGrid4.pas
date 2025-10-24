@@ -4733,7 +4733,14 @@ begin
 
       if ColOrRow.LimitToList and ColOrRow.ComboUsed then
       begin
-        ShouldDistribute := False;
+        if (Pos(#9, Value) >= 1) or (Pos(#10, Value) >= 1) or (Pos(#13, Value) >= 1) then
+        begin
+          ShouldDistribute := True;
+        end
+        else
+        begin
+          ShouldDistribute := False;
+        end;
       end
       else
       begin

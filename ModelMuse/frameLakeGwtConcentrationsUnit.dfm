@@ -1,6 +1,9 @@
 inherited frameLakeGwtConcentrations: TframeLakeGwtConcentrations
   inherited rdgConcentrations: TRbwDataGrid4
     ColCount = 8
+    AutoMultiEdit = True
+    AutoDistributeText = True
+    AutoIncreaseRowCount = True
     Columns = <
       item
         AutoAdjustRowHeights = True
@@ -198,6 +201,7 @@ inherited frameLakeGwtConcentrations: TframeLakeGwtConcentrations
         CheckStyle = csCheck
         AutoAdjustColWidths = True
       end>
+    ExplicitTop = 36
     ColWidths = (
       64
       64
@@ -212,6 +216,10 @@ inherited frameLakeGwtConcentrations: TframeLakeGwtConcentrations
     StyleElements = [seFont, seClient, seBorder]
     inherited lblInitialConcentration: TLabel
       StyleElements = [seFont, seClient, seBorder]
+    end
+    inherited btnedInitialConcentration: TssButtonEdit
+      Height = 23
+      ExplicitHeight = 23
     end
   end
 end

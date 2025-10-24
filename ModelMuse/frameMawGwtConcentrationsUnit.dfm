@@ -1,6 +1,9 @@
 inherited frameMawGwtConcentrations: TframeMawGwtConcentrations
   inherited rdgConcentrations: TRbwDataGrid4
     FixedCols = 0
+    AutoMultiEdit = True
+    AutoDistributeText = True
+    AutoIncreaseRowCount = True
   end
   inherited pnl1: TPanel
     StyleElements = [seFont, seClient, seBorder]
