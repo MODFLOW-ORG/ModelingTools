@@ -338,7 +338,17 @@ begin
       for DirIndex := 0 to Directories.Count - 1 do
       begin
         TempPath := Directories[DirIndex];
-        TDirectory.Delete(TempPath, True);
+        if not TDirectory.Exists(TempPath) then
+        begin
+          Continue;
+        end;
+        try
+          TDirectory.Delete(TempPath, True);
+        except on EDirectoryNotFoundException do
+          begin
+            Continue;
+          end;
+        end;
         if TDirectory.Exists(TempPath) then
         begin
           Beep;

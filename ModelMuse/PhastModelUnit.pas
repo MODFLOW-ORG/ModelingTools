@@ -10494,6 +10494,8 @@ const
 //     '5.4.0.7' Bug fix: Fixed pasting text for multiple cells into the GWT
 //                tabs for the MODFLOW 6 Lake, MAW, and UZF packages.
 
+//               Bug fix: Fixed potential problem deleting temporary files.
+
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
