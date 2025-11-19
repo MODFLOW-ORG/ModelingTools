@@ -96,6 +96,10 @@ uses
   CellLocationUnit;
 
 resourcestring
+  STheMAWReceiverForTheMVRPackageCo = 'The MAW receiver for the MVR package '
+  + 'could not be located. It will be skipped. This may be a bug. Please report'
+  + ' to the ModelMuse developer.';
+  SErrorAssigningMVRReceiverInMAWPa = 'Error processing MAW package';
   StrTheFollowingObject = 'The following objects can not be used to define m' +
   'ulti-aquifer wells in the MAW package because they do not contain exactly one ' +
   'vertex.';
@@ -1708,8 +1712,21 @@ begin
     begin
       ACell := Cells[CellIndex] as TMawCell;
 
-      MvrReceiver.ReceiverKey.ScreenObject :=
-        ACell.MawBoundary.ScreenObject as TScreenObject;
+      if (ACell = nil) or (ACell.MawBoundary = nil)
+        or (ACell.MawBoundary.ScreenObject = nil) then
+      begin
+        frmErrorsAndWarnings.AddError(Model, SErrorAssigningMVRReceiverInMAWPa,
+          STheMAWReceiverForTheMVRPackageCo);
+        if MoverWriter <> nil then
+        begin
+          Continue;
+        end;
+      end
+      else
+      begin
+        MvrReceiver.ReceiverKey.ScreenObject :=
+          ACell.MawBoundary.ScreenObject as TScreenObject;
+      end;
       MvrReceiver.ReceiverValues.Index := ACell.WellNumber;
       if (MoverWriter <> nil) and not WritingTemplate then
       begin

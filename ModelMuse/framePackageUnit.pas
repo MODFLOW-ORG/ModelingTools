@@ -112,7 +112,10 @@ begin
       FAlternateNode.StateIndex := FNode.StateIndex;
     end;
 
-    FNode.TreeView.Invalidate;
+    if FNode.TreeView <> nil then
+    begin
+      FNode.TreeView.Invalidate;
+    end;
   end;
 end;
 
