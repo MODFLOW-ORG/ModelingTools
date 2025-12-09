@@ -5756,7 +5756,7 @@ begin
             AModel := TransportModels[ModelIndex];
             TransportModel := AModel.FName as TTransportNameFile;
             Ssm := TransportModel.GetSsmPackage as TSsm;
-//            for PackageIndex := 0 to TransportModel.NfPackages.Count  - 1 do
+            if Ssm <> nil then
             begin
 //              APackage := TransportModel.NfPackages[PackageIndex];
 //              if APackage.FileType = 'SSM6' then
@@ -7886,11 +7886,14 @@ begin
             if AnsiSameText(Options.NO_PTC, 'NO_PTC') then
             begin
               ImsPackage.UsePTC := upDontUseForAll
-            end;
-
-            if AnsiSameText(Options.no_ptc_option, 'FIRST') then
+            end
+            else if AnsiSameText(Options.no_ptc_option, 'FIRST') then
             begin
               ImsPackage.UsePTC := upDontUseForFirst
+            end
+            else
+            begin
+              ImsPackage.UsePTC := upDontUseForAll
             end;
           end;
 

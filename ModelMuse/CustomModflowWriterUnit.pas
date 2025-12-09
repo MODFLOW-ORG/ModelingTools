@@ -4303,8 +4303,14 @@ procedure TCustomFileWriter.WriteString(const Value: AnsiString);
 begin
   if Length(Value) > 0 then
   begin
-    FFileStream.Write(string(Value));
-//    UpdateExportTime;
+    try
+      FFileStream.Write(string(Value));
+    except on E: EWriteError do
+      begin
+        frmErrorsAndWarnings.AddError(Model, E.Message, 'No additional information');
+      end;
+    end;
+
   end;
 end;
 

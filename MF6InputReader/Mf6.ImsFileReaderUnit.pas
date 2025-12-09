@@ -159,9 +159,10 @@ begin
         if FSplitter.Count >= 2 then
         begin
           Fno_ptc_option := FSplitter[1];
-          if (Fno_ptc_option <> 'FIRST') and (Fno_ptc_option <> 'ALL') then
+          if (Fno_ptc_option <> 'FIRST') and (Fno_ptc_option <> 'ALL') and (Fno_ptc_option <> 'TRUE') then
           begin
             Unhandled.WriteLine(StrUnrecognizedImsOp);
+            Unhandled.WriteLine(ErrorLine);
           end;
         end;
       end
@@ -175,6 +176,7 @@ begin
           if (FPRINT_OPTION <> 'NONE') and (FPRINT_OPTION <> 'SUMMARY') and (FPRINT_OPTION <> 'ALL') then
           begin
             Unhandled.WriteLine(StrUnrecognizedImsOp);
+            Unhandled.WriteLine(ErrorLine);
           end;
         end
         else if FSplitter[0] = 'COMPLEXITY' then
@@ -183,6 +185,7 @@ begin
           if (FCOMPLEXITY <> 'SIMPLE') and (FCOMPLEXITY <> 'MODERATE') and (FCOMPLEXITY <> 'COMPLEX') then
           begin
             Unhandled.WriteLine(StrUnrecognizedImsOp);
+            Unhandled.WriteLine(ErrorLine);
           end;
         end
         else if FSplitter[0] = 'NO_PTC' then
@@ -192,6 +195,7 @@ begin
           if (Fno_ptc_option <> 'FIRST') and (Fno_ptc_option <> 'ALL') then
           begin
             Unhandled.WriteLine(StrUnrecognizedImsOp);
+            Unhandled.WriteLine(ErrorLine);
           end;
         end
         else if FSplitter[0] = 'ATS_OUTER_MAXIMUM_FRACTION' then
@@ -199,6 +203,7 @@ begin
           if not TryFortranStrToFloat(FSplitter[1], FATS_OUTER_MAXIMUM_FRACTION) then
           begin
             Unhandled.WriteLine(StrUnrecognizedImsOp);
+            Unhandled.WriteLine(ErrorLine);
           end;
         end
         else if FSplitter.Count >= 3 then

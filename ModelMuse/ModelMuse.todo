@@ -1,3 +1,4 @@
+{TODO 1 : Allow for multiple packages of the same type in MODFLOW 6}
 {TODO : Export to Paraview See https://www.hatarilabs.com/ih-en/basic-example-of-groundwater-modeling-in-modflow-6-and-visualization-with-paraview-and-flopy}
 {TODO -cArchive :
 Create an archive that meets OGW archive policy. This may involve

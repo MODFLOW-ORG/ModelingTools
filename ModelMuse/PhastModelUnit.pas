@@ -10493,15 +10493,17 @@ const
 //                to no longer be used.
 //     '5.4.0.7' Bug fix: Fixed pasting text for multiple cells into the GWT
 //                tabs for the MODFLOW 6 Lake, MAW, and UZF packages.
-
-//               Bug fix: Fixed potential problem deleting temporary files.
+//     '5.4.0.8' Bug fix: Fixed potential problem deleting temporary files.
+//               Bug Fix: handled some errors reading and writing files.
+//     '5.4.0.9' Bug fix: Fixed bug that caused access violations when importing
+//                MODFLOW 6 GWT models that lacked the SSM package.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.7';
+  IIModelVersion = '5.4.0.9';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

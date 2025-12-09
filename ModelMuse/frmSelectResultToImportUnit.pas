@@ -4227,7 +4227,11 @@ begin
         Beep;
         MessageDlg(E.message, mtInformation, [mbOK], 0);
       end;
-
+      on E: EdirectoryNotFoundException do
+      begin
+        Beep;
+        MessageDlg(E.message, mtInformation, [mbOK], 0);
+      end;
     end;
   finally
     NewDataSets.Free;
