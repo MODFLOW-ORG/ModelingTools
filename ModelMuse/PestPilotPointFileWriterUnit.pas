@@ -40,7 +40,9 @@ resourcestring
   'or pilot points to be employed.';
   StrThePilotPointBuffExpl = 'The Pilot Point buffer is specified on the Pil' +
   'ot Points pane of the PEST Properties dialog box.';
-  StrPestParametersWere = 'Pest parameters were not used where needed';
+  StrPestParametersWere = 'Pest parameters were not used where needed. Check ' +
+  'the following data sets to see if the "PEST parameters used" checkbox is ' +
+  'checked.';
   StrPestParametersWeredataset = 'Pest parameters were not used in the %s da' +
   'ta set';
 
