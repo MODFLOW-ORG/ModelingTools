@@ -5,7 +5,13 @@ interface
 uses System.Classes, SysUtils, CustomModflowWriterUnit, PhastModelUnit;
 
 type
-  TModflowDiscretizationWriter = class(TCustomModflowWriter)
+  TCustomDisWriter = class(TCustomModflowWriter)
+  protected
+    procedure HandleBinaryGridFileOption;
+    procedure WriteFile(const AFileName: string);
+  end;
+
+  TModflowDiscretizationWriter = class(TCustomDisWriter)
   private
 //    FNameOfFile: string;
     procedure WriteDataSet0;
@@ -18,7 +24,7 @@ type
     procedure WriteFile(const AFileName: string);
   end;
 
-  TMf6DisvWriter = class(TCustomModflowWriter)
+  TMf6DisvWriter = class(TCustomDisWriter)
   private
 //    FNameOfFile: string;
     procedure WriteDataSet0;
@@ -80,6 +86,10 @@ resourcestring
     'connected cells = %3:d) and (Layer, Row, Column) = (%4:d, %5:d, %6:d)';
   StrLayerCell = '(Layer, Cell) = (%0:d, %1:d) (Number of ' +
     'connected cells = %2:d) and (Layer, Cell) = (%3:d, %4:d)';
+  StrBinaryGridFileWil = 'Binary Grid File will not be created by MODFLOW';
+  StrWhenRunningPESTT = 'When running PEST, the binary grid file is usually ' +
+  'needed or PEST might fail. You can enable creation of the binary grid fil' +
+  'e in the "Model|MODFLOW Options dialog box."';
 
 { TModflowDiscretizationWriter }
 
@@ -305,6 +315,7 @@ var
   SpeciesIndex: Integer;
   AGwtFileName: string;
 begin
+  inherited;
   frmErrorsAndWarnings.RemoveErrorGroup(Model, StrInvalidSelectionOf);
   frmErrorsAndWarnings.RemoveWarningGroup(Model, StrTooManyStressPeri);
   frmErrorsAndWarnings.RemoveWarningGroup(Model, StrTimeStepToShort);
@@ -478,6 +489,7 @@ begin
 
 end;
 
+
 procedure TModflowDiscretizationWriter.WriteIDomain;
 var
   IDomainDataSet: TDataArray;
@@ -605,16 +617,7 @@ begin
         end;
         NewLine;
       end;
-
-      if not ModflowOptions.WriteBinaryGridFile then
-      begin
-        WriteString('NOGRB');
-        NewLine;
-      end
-      else
-      begin
-        Model.AddModelOutputFile(FNameOfFile + '.grb');
-      end;
+      HandleBinaryGridFileOption;
 
       OriginCorner := Model.Grid.TwoDElementCorner(0,Model.Grid.RowCount);
       WriteString('  XORIGIN');
@@ -1064,6 +1067,7 @@ var
   SpeciesIndex: Integer;
   AGwtFileName: string;
 begin
+  inherited;
   frmErrorsAndWarnings.RemoveWarningGroup(Model, StrOverlappingLayers);
   FTYPE := 'DISV6';
   FNameOfFile := FileName(AFileName);
@@ -1297,15 +1301,7 @@ begin
       NewLine;
     end;
 
-    if not ModflowOptions.WriteBinaryGridFile then
-    begin
-      WriteString('NOGRB');
-      NewLine;
-    end
-    else
-    begin
-      Model.AddModelOutputFile(FNameOfFile + '.grb');
-    end;
+    HandleBinaryGridFileOption;
 
     WriteExportAsciiArray;
     // XORIGIN not supported at this time.
@@ -1345,6 +1341,34 @@ begin
     NewLine;
   end;
 
+end;
+
+{ TCustomDisWriter }
+
+procedure TCustomDisWriter.HandleBinaryGridFileOption;
+var
+  ModflowOptions: TModflowOptions;
+begin
+  ModflowOptions := Model.ModflowOptions;
+  if not ModflowOptions.WriteBinaryGridFile then
+  begin
+    WriteString('NOGRB');
+    NewLine;
+    if Model.PestUsed then
+    begin
+      frmErrorsAndWarnings.AddWarning(Model, StrBinaryGridFileWil, StrWhenRunningPESTT);
+    end;
+  end
+  else
+  begin
+    Model.AddModelOutputFile(FNameOfFile + '.grb');
+  end;
+
+end;
+
+procedure TCustomDisWriter.WriteFile(const AFileName: string);
+begin
+  frmErrorsAndWarnings.RemoveWarningGroup(Model, StrBinaryGridFileWil);
 end;
 
 end.

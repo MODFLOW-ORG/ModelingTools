@@ -104,6 +104,11 @@ var
   LineMatch: TLineMatch;
   APoint: TPoint2D;
 begin
+  if Line.Count = 0 then
+  begin
+    Exit;
+  end;
+
   APoint := Line.First;
   QuadTree.FindPointsInCircle(APoint.x, APoint.y, PointDistance, PointsToRemove, True);
   for var PointIndex := 0 to Length(PointsToRemove)- 1 do
@@ -179,6 +184,11 @@ var
     PointsTemp: TQuadPointInRegionArray;
     LineMatchTemp: TLineMatch;
   begin
+    if Line.Count = 0 then
+    begin
+      Exit;
+    end;
+
     APoint := Line.First;
     QuadTree.FindPointsInCircle(APoint.x, APoint.y, PointDistance, PointsTemp, True);
     for var Index1 := 0 to Length(PointsTemp) - 1 do

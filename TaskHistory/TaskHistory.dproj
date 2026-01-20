@@ -97,7 +97,6 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <BT_BuildType>Debug</BT_BuildType>
-        <DCC_Define>madExcept;$(DCC_Define)</DCC_Define>
         <DCC_MapFile>3</DCC_MapFile>
     </PropertyGroup>
     <ItemGroup>

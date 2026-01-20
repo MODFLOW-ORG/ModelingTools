@@ -55,6 +55,7 @@ type
     btnCopyReport: TButton;
     tabAbout: TTabSheet;
     memoAbout: TMemo;
+    tmr1: TTimer;
     procedure seCategoryCountChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure seDayCountChange(Sender: TObject);
@@ -85,6 +86,7 @@ type
     procedure cbPartialDayEffort1CumulativeClick(Sender: TObject);
     procedure btnGenerateReportClick(Sender: TObject);
     procedure btnCopyReportClick(Sender: TObject);
+    procedure tmr1Timer(Sender: TObject);
   private
     FTaskHistory: TTaskHistory;
     FReadingFile: Boolean;
@@ -281,29 +283,40 @@ begin
 end;
 
 procedure TfrmTaskHistory.seDayCountChange(Sender: TObject);
-var
-  ADate: Extended;
-  RowIndex: Integer;
-  DateString: string;
+//var
+//  ADate: Extended;
+//  RowIndex: Integer;
+//  DateString: string;
+//  OldRowCount: Integer;
 begin
-  rdgTaskHistory.RowCount := seDayCount.AsInteger + 1;
-  if FReadingFile then
-  begin
-    Exit;
-  end;
-  ADate := dtpStartDate.Date;
-  rdgTaskHistory.BeginUpdate;
-  try
-    for RowIndex := 1 to rdgTaskHistory.RowCount - 1 do
-    begin
-      DateTimeToString(DateString, 'ddddd', ADate);
-      rdgTaskHistory.Cells[0,RowIndex] := DateString;
-      ADate := ADate + 1;
-    end;
-  finally
-    rdgTaskHistory.EndUpdate;
-  end;
-  FModified := True;
+  tmr1.Enabled := True;
+//  Screen.Cursor := crHourGlass;
+//  try
+//    OldRowCount := rdgTaskHistory.RowCount;
+//    rdgTaskHistory.RowCount := seDayCount.AsInteger + 1;
+//    if FReadingFile then
+//    begin
+//      Exit;
+//    end;
+//    if rdgTaskHistory.RowCount > OldRowCount then
+//    begin
+//      ADate := dtpStartDate.Date + OldRowCount;
+//      rdgTaskHistory.BeginUpdate;
+//      try
+//        for RowIndex := OldRowCount to rdgTaskHistory.RowCount - 1 do
+//        begin
+//          DateTimeToString(DateString, 'ddddd', ADate);
+//          rdgTaskHistory.Cells[0,RowIndex] := DateString;
+//          ADate := ADate + 1;
+//        end;
+//      finally
+//        rdgTaskHistory.EndUpdate;
+//      end;
+//    end;
+//    FModified := True;
+//  finally
+//    Screen.Cursor := crDefault;
+//  end;
 end;
 
 procedure TfrmTaskHistory.SetUpClassificationGrid;
@@ -851,6 +864,44 @@ procedure TfrmTaskHistory.seCategoryCountChange(Sender: TObject);
 begin
   SetUpClassificationGrid;
   FModified := True;
+end;
+
+procedure TfrmTaskHistory.tmr1Timer(Sender: TObject);
+var
+  ADate: Extended;
+  RowIndex: Integer;
+  DateString: string;
+  OldRowCount: Integer;
+begin
+  tmr1.Enabled := False;
+  Screen.Cursor := crHourGlass;
+  try
+    OldRowCount := rdgTaskHistory.RowCount;
+    rdgTaskHistory.RowCount := seDayCount.AsInteger + 1;
+    if FReadingFile then
+    begin
+      Exit;
+    end;
+    if rdgTaskHistory.RowCount > OldRowCount then
+    begin
+      ADate := dtpStartDate.Date + OldRowCount;
+      rdgTaskHistory.BeginUpdate;
+      try
+        for RowIndex := OldRowCount to rdgTaskHistory.RowCount - 1 do
+        begin
+          DateTimeToString(DateString, 'ddddd', ADate);
+          rdgTaskHistory.Cells[0,RowIndex] := DateString;
+          ADate := ADate + 1;
+        end;
+      finally
+        rdgTaskHistory.EndUpdate;
+      end;
+    end;
+    FModified := True;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+
 end;
 
 end.

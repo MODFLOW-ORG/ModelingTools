@@ -20,7 +20,7 @@ object frmTaskHistory: TfrmTaskHistory
     Top = 29
     Width = 643
     Height = 383
-    ActivePage = tabAbout
+    ActivePage = tabData
     Align = alClient
     TabOrder = 0
     OnChange = PageControl1Change
@@ -450,8 +450,6 @@ object frmTaskHistory: TfrmTaskHistory
         OnGetAxisLabel = chartCumEffortGetAxisLabel
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 631
-        ExplicitHeight = 307
         DefaultCanvas = 'TGDIPlusCanvas'
         ColorPaletteIndex = 13
       end
@@ -462,7 +460,6 @@ object frmTaskHistory: TfrmTaskHistory
         Height = 41
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 631
         object cbPartialDayEffort1Cumulative: TCheckBox
           Left = 19
           Top = 8
@@ -486,9 +483,6 @@ object frmTaskHistory: TfrmTaskHistory
         Height = 41
         Align = alBottom
         TabOrder = 0
-        ExplicitLeft = 240
-        ExplicitTop = 288
-        ExplicitWidth = 185
         object btnGenerateReport: TButton
           Left = 8
           Top = 6
@@ -647,10 +641,6 @@ object frmTaskHistory: TfrmTaskHistory
             AutoAdjustColWidths = True
           end>
         WordWrapRowCaptions = False
-        ExplicitLeft = 176
-        ExplicitTop = 104
-        ExplicitWidth = 320
-        ExplicitHeight = 120
       end
     end
     object tabAbout: TTabSheet
@@ -669,10 +659,6 @@ object frmTaskHistory: TfrmTaskHistory
           '')
         ReadOnly = True
         TabOrder = 0
-        ExplicitLeft = 224
-        ExplicitTop = 128
-        ExplicitWidth = 185
-        ExplicitHeight = 89
       end
     end
   end
@@ -684,7 +670,6 @@ object frmTaskHistory: TfrmTaskHistory
     Caption = 'ToolBar'
     Images = ImageList1
     TabOrder = 1
-    ExplicitWidth = 639
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -886,5 +871,12 @@ object frmTaskHistory: TfrmTaskHistory
       800080010000000080038001800100008003800180010000C3E78001C0030000
       FFC78001E0070000FE1FFFFFF81F000000000000000000000000000000000000
       000000000000}
+  end
+  object tmr1: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = tmr1Timer
+    Left = 404
+    Top = 179
   end
 end

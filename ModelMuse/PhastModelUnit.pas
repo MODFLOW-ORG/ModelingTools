@@ -10498,6 +10498,10 @@ const
 //     '5.4.0.9' Bug fix: Fixed bug that caused access violations when importing
 //                MODFLOW 6 GWT models that lacked the SSM package.
 
+//               Bug fix: Fixed a bug in exporting contours to a Shapefile.
+//               Enhancement: Added a warning if the NOGRB option is used when
+//                PEST is being used.
+
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
