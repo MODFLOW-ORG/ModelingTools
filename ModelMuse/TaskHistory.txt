@@ -35407,5 +35407,81 @@ object TTaskHistory
       Date = 46042.000000000000000000
       Categories.Strings = (
         'Error checking')
+    end
+    item
+      Date = 46043.000000000000000000
+    end
+    item
+      Date = 46044.000000000000000000
+    end
+    item
+      Date = 46045.000000000000000000
+    end
+    item
+      Date = 46046.000000000000000000
+    end
+    item
+      Date = 46047.000000000000000000
+    end
+    item
+      Date = 46048.000000000000000000
+    end
+    item
+      Date = 46049.000000000000000000
+    end
+    item
+      Date = 46050.000000000000000000
+    end
+    item
+      Date = 46051.000000000000000000
+    end
+    item
+      Date = 46052.000000000000000000
+    end
+    item
+      Date = 46053.000000000000000000
+    end
+    item
+      Date = 46054.000000000000000000
+    end
+    item
+      Date = 46055.000000000000000000
+    end
+    item
+      Date = 46056.000000000000000000
+    end
+    item
+      Date = 46057.000000000000000000
+    end
+    item
+      Date = 46058.000000000000000000
+    end
+    item
+      Date = 46059.000000000000000000
+    end
+    item
+      Date = 46060.000000000000000000
+    end
+    item
+      Date = 46061.000000000000000000
+      Categories.Strings = (
+        'PEST'
+        'Error checking'
+        'Bug fix')
+    end
+    item
+      Date = 46062.000000000000000000
+    end
+    item
+      Date = 46063.000000000000000000
+    end
+    item
+      Date = 46064.000000000000000000
+    end
+    item
+      Date = 46065.000000000000000000
+      Categories.Strings = (
+        'Dialog boxes'
+        'Export Shapefile')
     end>
 end

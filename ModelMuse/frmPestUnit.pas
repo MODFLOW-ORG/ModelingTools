@@ -2647,6 +2647,8 @@ var
   ReportedObs: TStringList;
   RowIndex: Integer;
   AName: string;
+  PilotPointLocations: TRbwQuadTree;
+  AnotherPoint: TPointItem;
 begin
   InvalidateModelEvent := nil;
   PestProperties := TPestProperties.Create(nil);
@@ -2676,18 +2678,39 @@ begin
       TArrayPilotPointSelection(comboArrayPattern.ItemIndex);
     PestProperties.PilotPointSpacing := rdePilotPointSpacing.RealValue;
 
-    PestProperties.SpecifiedPilotPoints.Capacity :=
-      framePilotPoints.seNumber.AsInteger;
-    Grid := framePilotPoints.Grid;
-    for ItemIndex := 0 to framePilotPoints.seNumber.AsInteger - 1 do
-    begin
-      if (Grid.Cells[Ord(ppcX), ItemIndex+1] <> '')
-        and (Grid.Cells[Ord(ppcY), ItemIndex+1] <> '') then
+    PilotPointLocations := TRbwQuadTree.Create(nil);
+    try
+      PestProperties.SpecifiedPilotPoints.Capacity :=
+        framePilotPoints.seNumber.AsInteger;
+      Grid := framePilotPoints.Grid;
+      for ItemIndex := 0 to framePilotPoints.seNumber.AsInteger - 1 do
       begin
-        PointItem := PestProperties.SpecifiedPilotPoints.Add as TPointItem;
-        PointItem.X := Grid.RealValue[Ord(ppcX), ItemIndex+1];
-        PointItem.Y := Grid.RealValue[Ord(ppcY), ItemIndex+1];
+        if (Grid.Cells[Ord(ppcX), ItemIndex+1] <> '')
+          and (Grid.Cells[Ord(ppcY), ItemIndex+1] <> '') then
+        begin
+          PointItem := PestProperties.SpecifiedPilotPoints.Add as TPointItem;
+          PointItem.X := Grid.RealValue[Ord(ppcX), ItemIndex+1];
+          PointItem.Y := Grid.RealValue[Ord(ppcY), ItemIndex+1];
+          if PilotPointLocations.Count = 0 then
+          begin
+            PilotPointLocations.AddPoint(PointItem.X, PointItem.Y, PointItem);
+          end
+          else
+          begin
+            AnotherPoint := PilotPointLocations.NearestPointsFirstData(PointItem.X, PointItem.Y);
+            if (AnotherPoint.X = PointItem.X) and (AnotherPoint.Y = PointItem.Y) then
+            begin
+              PointItem.Free;
+            end
+            else
+            begin
+              PilotPointLocations.AddPoint(PointItem.X, PointItem.Y, PointItem);
+            end;
+          end;
+        end;
       end;
+    finally
+      PilotPointLocations.Free;
     end;
 
     PestProperties.UseBetweenObservationsPilotPoints := cbUseBetweenObs.Checked;

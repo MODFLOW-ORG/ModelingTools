@@ -166,15 +166,23 @@ type
 
   TMnw2ItemIDObjectList = TObjectList<TMnw2ItemID>;
 
+  TMf6ObsItemID = class(TObject)
+    ID: string;
+  end;
+
+  TMf6ObsItemIDObjectList = TObjectList<TMf6ObsItemID>;
+
   TBoundaryClassification = class(TClassificationObject)
   private
     FDataArray: TDataArray;
     FTimeList: TCustomTimeList;
     FEdgeDisplay: TEdgeDisplayEdit;
     FMnw2ItemID: TMnw2ItemID;
+    FMf6ObsItemID: TMf6ObsItemID;
     FName: string;
     function GetClassifiedObject: TObject;
     function GetBoundaryType: TBoundaryType;
+    procedure NilAll;
   public
     function ClassificationName: string; Override;
     function FullClassification: string; Override;
@@ -182,6 +190,7 @@ type
     Constructor Create(AnObject: TCustomTimeList); overload;
     Constructor Create(const Name: string; AnObject: TEdgeDisplayEdit); overload;
     Constructor Create(const Name: string; AnObject: TMnw2ItemID); overload;
+    Constructor Create(const Name: string; AnObject: TMf6ObsItemID); overload;
     Constructor Create(const Name: string; AnObject: TObject); overload;
     property ClassifiedObject: TObject read GetClassifiedObject;
     property BoundaryType: TBoundaryType read GetBoundaryType;
@@ -242,6 +251,7 @@ uses IntListUnit, ScreenObjectUnit, PhastModelUnit, frmGoPhastUnit,
 
 var
   Mnw2Objects: TMnw2ItemIDObjectList = nil;
+  MffObsObjects: TMf6ObsItemIDObjectList = nil;
 
 function CompareStrings(List: TStringList; Index1, Index2: Integer): Integer;
 const
@@ -816,18 +826,14 @@ end;
 
 constructor TBoundaryClassification.Create(AnObject: TCustomTimeList);
 begin
+  NilAll;
   FTimeList := AnObject;
-  FDataArray := nil;
-  FEdgeDisplay := nil;
-  FMnw2ItemID := nil;
 end;
 
 constructor TBoundaryClassification.Create(AnObject: TDataArray);
 begin
+  NilAll;
   FDataArray := AnObject;
-  FTimeList := nil;
-  FEdgeDisplay := nil;
-  FMnw2ItemID := nil;
 end;
 
 constructor TBoundaryClassification.Create(const Name: string;
@@ -850,6 +856,10 @@ begin
   begin
     Create(Name, TMnw2ItemID(AnObject));
   end
+  else if AnObject is TMf6ObsItemID then
+  begin
+    Create(Name, TMf6ObsItemID(AnObject));
+  end
   else
   begin
     Assert(False);
@@ -859,21 +869,26 @@ end;
 constructor TBoundaryClassification.Create(const Name: string;
   AnObject: TMnw2ItemID);
 begin
+  NilAll;
   FName := Name;
-  FEdgeDisplay := nil;
-  FDataArray := nil;
-  FTimeList := nil;
   FMnw2ItemID := AnObject;
 end;
 
 constructor TBoundaryClassification.Create(const Name: string;
+  AnObject: TMf6ObsItemID);
+begin
+  NilAll;
+  FName := Name;
+  FMf6ObsItemID := AnObject
+end;
+
+
+constructor TBoundaryClassification.Create(const Name: string;
   AnObject: TEdgeDisplayEdit);
 begin
+  NilAll;
   FName := Name;
   FEdgeDisplay := AnObject;
-  FDataArray := nil;
-  FTimeList := nil;
-  FMnw2ItemID := nil;
 end;
 
 function TBoundaryClassification.FullClassification: string;
@@ -890,6 +905,10 @@ begin
   else if FEdgeDisplay <> nil then
   begin
     result := btMfHfb;
+  end
+  else if FMf6ObsItemID <> nil then
+  begin
+    result := btObsMf6;
   end
   else
   begin
@@ -915,8 +934,21 @@ begin
   else if FMnw2ItemID <> nil then
   begin
     result := FMnw2ItemID;
-    Assert(result <> nil);
+  end
+  else if FMf6ObsItemID <> nil then
+  begin
+    result := FMf6ObsItemID;
   end;
+  Assert(result <> nil);
+end;
+
+procedure TBoundaryClassification.NilAll;
+begin
+  FDataArray := nil;
+  FTimeList := nil;
+  FEdgeDisplay := nil;
+  FMnw2ItemID := nil;
+  FMf6ObsItemID := nil;
 end;
 
 procedure FileMnw2Objects;
@@ -942,6 +974,15 @@ begin
   Mnw2Item := TMnw2ItemID.Create;
   Mnw2Item.ID := StrMnw2ReactivationPumping;
   Mnw2Objects.Add(Mnw2Item);
+end;
+
+procedure FileMf6ObsObjects;
+var
+  Mf6ObsItemID: TMf6ObsItemID;
+begin
+  Mf6ObsItemID := TMf6ObsItemID.Create;
+  Mf6ObsItemID.ID := 'MF6 Observation Locations';
+  MffObsObjects.Add(Mf6ObsItemID)
 end;
 
 Procedure FillVirtualStringTreeWithDataSets(Tree : TVirtualStringTree;
@@ -1140,6 +1181,7 @@ var
   NodeDeleted: Boolean;
   Mnw2Item: TMnw2ItemID;
   Mnw2Index: integer;
+  Mf6ObsItemID: TMf6ObsItemID;
 begin
   LocalBoundaryClassifications.Clear;
   DummyRootClassification := TDummyClassification.Create(StrBoundaryConditions);
@@ -1243,6 +1285,26 @@ begin
         List.AddObject(Mnw2Item.ID, Mnw2Item);
       end;
     end;
+    if (frmGoPhast.PhastModel.ModelSelection = msModflow2015)
+      and frmGoPhast.PhastModel.ModflowPackages.Mf6ObservationUtility.IsSelected then
+    begin
+      ClassificationPosition := Classifications.IndexOf('MF6_Observation');
+      if ClassificationPosition < 0 then
+      begin
+        List := TStringList.Create;
+        Classifications.AddObject('MF6_Observation', List);
+      end
+      else
+      begin
+        List := Classifications.Objects[ClassificationPosition]
+          as TStringList;
+       end;
+      for var Mf6ObsIndex := 0 to MffObsObjects.Count - 1 do
+      begin
+        Mf6ObsItemID := MffObsObjects[Mf6ObsIndex];
+        List.AddObject(Mf6ObsItemID.ID, Mf6ObsItemID);
+      end;
+    end;
     Classifications.Sort;
     for Index := 0 to Classifications.Count - 1 do
     begin
@@ -1276,6 +1338,13 @@ begin
           ATree.Selected[VirtualNode] := (EdgeEdit.Edge = SelectedEdgeDisplay)
             and (EdgeEdit.DataIndex = SelectedEdgeDisplay.DataToPlot);
         end
+
+        else if AnObject is TMf6ObsItemID then
+        begin
+          Mf6ObsItemID := TMf6ObsItemID(AnObject);
+          ATree.Selected[VirtualNode] := True;
+        end
+
         else
         begin
           ATree.Selected[VirtualNode] := (AnObject = SelectedDataArray)
@@ -1399,11 +1468,15 @@ end;
 
 initialization
 
-Mnw2Objects := TMnw2ItemIDObjectList.Create;
+  Mnw2Objects := TMnw2ItemIDObjectList.Create;
   FileMnw2Objects;
+
+  MffObsObjects := TMf6ObsItemIDObjectList.Create;
+  FileMf6ObsObjects;
 
 finalization
   Mnw2Objects.Free;
+  MffObsObjects.Free;
 //  KillApp('ModelMuse Help');
 //  GlobalFont.Free;
 

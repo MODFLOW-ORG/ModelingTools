@@ -4,6 +4,7 @@ inherited frmPEST: TfrmPEST
   Caption = 'PEST Properties'
   ClientHeight = 484
   ClientWidth = 760
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 776
   ExplicitHeight = 523
   TextHeight = 18
@@ -36,7 +37,7 @@ inherited frmPEST: TfrmPEST
     Top = 0
     Width = 562
     Height = 442
-    ActivePage = jvspPriorInfoHorizContinuity
+    ActivePage = jvspPilotPoints
     PropagateEnable = False
     Align = alClient
     OnChange = plMainChange
@@ -1083,6 +1084,7 @@ inherited frmPEST: TfrmPEST
         inherited Panel: TPanel
           Top = 401
           Width = 562
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 401
           ExplicitWidth = 562
           DesignSize = (
@@ -1092,6 +1094,7 @@ inherited frmPEST: TfrmPEST
             Width = 209
             Height = 18
             Caption = 'Number of observation groups'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 209
             ExplicitHeight = 18
           end
@@ -1111,6 +1114,7 @@ inherited frmPEST: TfrmPEST
           end
           inherited seNumber: TJvSpinEdit
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             OnChange = frameObservationGroupsseNumberChange
             ExplicitHeight = 26
           end
@@ -1258,8 +1262,6 @@ inherited frmPEST: TfrmPEST
       HelpType = htKeyword
       HelpKeyword = 'PEST_Properties_Observation_G2'
       Caption = 'jvspObsGroupAssignments'
-      ExplicitWidth = 426
-      ExplicitHeight = 399
       inline frameParentObsGroups: TframeParentChild
         Left = 0
         Top = 0
@@ -1267,8 +1269,8 @@ inherited frmPEST: TfrmPEST
         Height = 442
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 426
-        ExplicitHeight = 399
+        ExplicitWidth = 562
+        ExplicitHeight = 442
         inherited tvTree: TTreeView
           Width = 562
           Height = 442
@@ -1322,6 +1324,7 @@ inherited frmPEST: TfrmPEST
               Top = 143
               Width = 237
               Height = 66
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 143
               ExplicitWidth = 237
               ExplicitHeight = 66
@@ -1331,6 +1334,7 @@ inherited frmPEST: TfrmPEST
                 Width = 151
                 Height = 18
                 Caption = 'Number of pilot points'
+                StyleElements = [seFont, seClient, seBorder]
                 ExplicitLeft = 82
                 ExplicitTop = 33
                 ExplicitWidth = 151
@@ -1357,6 +1361,7 @@ inherited frmPEST: TfrmPEST
                 Left = 11
                 Top = 30
                 Height = 26
+                StyleElements = [seFont, seClient, seBorder]
                 OnChange = framePilotPointsseNumberChange
                 ExplicitLeft = 11
                 ExplicitTop = 30
@@ -2024,6 +2029,7 @@ inherited frmPEST: TfrmPEST
         inherited Panel: TPanel
           Top = 344
           Width = 562
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 344
           ExplicitWidth = 562
           DesignSize = (
@@ -2033,6 +2039,7 @@ inherited frmPEST: TfrmPEST
             Width = 241
             Height = 18
             Caption = 'Number of prior information groups'
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 241
             ExplicitHeight = 18
           end
@@ -2050,6 +2057,7 @@ inherited frmPEST: TfrmPEST
           end
           inherited seNumber: TJvSpinEdit
             Height = 26
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitHeight = 26
           end
         end

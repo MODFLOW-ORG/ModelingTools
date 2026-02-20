@@ -10497,17 +10497,20 @@ const
 //               Bug Fix: handled some errors reading and writing files.
 //     '5.4.0.9' Bug fix: Fixed bug that caused access violations when importing
 //                MODFLOW 6 GWT models that lacked the SSM package.
-
-//               Bug fix: Fixed a bug in exporting contours to a Shapefile.
+//    '5.4.0.10' Bug fix: Fixed a bug in exporting contours to a Shapefile.
 //               Enhancement: Added a warning if the NOGRB option is used when
 //                PEST is being used.
+//               Enhancement: If the user attempts to specify pilot points with
+//                identical locations, the duplicate points will be ignored.
+//               Enhancement: Added the ability to export objects to shapefiles
+//                when they define MODFLOW 6 observation locations.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.9';
+  IIModelVersion = '5.4.0.10';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

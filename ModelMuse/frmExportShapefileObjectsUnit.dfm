@@ -4,6 +4,7 @@ inherited frmExportShapefileObjects: TfrmExportShapefileObjects
   Caption = 'Export Objects as Shapefile'
   ClientHeight = 480
   ClientWidth = 605
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 621
   ExplicitHeight = 519
   TextHeight = 18
@@ -31,6 +32,7 @@ inherited frmExportShapefileObjects: TfrmExportShapefileObjects
     Width = 605
     Height = 211
     TabOrder = 4
+    StyleElements = [seFont, seClient, seBorder]
     ExplicitTop = 269
     ExplicitWidth = 605
     ExplicitHeight = 211

@@ -2744,7 +2744,6 @@ view. }
     function GetModflowLak6: TLakeMf6;
     procedure SetModflowLak6(const Value: TLakeMf6);
     function StoreModflowLak6: Boolean;
-    function StoreModflow6Obs: Boolean;
     function GetModflowMvr: TMvrBoundary;
     procedure SetModflowMvr(const Value: TMvrBoundary);
     function StoreModflowMvr: Boolean;
@@ -3478,6 +3477,8 @@ view. }
     function StoreModflowMawBoundary: Boolean;
     function StoreModflowFhbHeadBoundary: Boolean;
     function StoreModflowFhbFlowBoundary: Boolean;
+    function StoreModflow6Obs: Boolean;
+
     // @name determines whether @link(WellBoundary) is stored.
     function StoreWell: boolean;
     // @name determines whether @link(FluxBoundary) is stored.

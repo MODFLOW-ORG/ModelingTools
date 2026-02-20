@@ -44,7 +44,7 @@ type
     btSutraSpecConcTemp, btSutraFluidFlux, btMassEnergyFlux, btSutraGeneralFlow,
     btSutraGenTransp, btMfFhb, btCFP, btMfFarm, btSWR, btMnw1, btMtmsObs, btRIP,
     btMt3dRchConc, mt3dUnsatConc, mt3dSatConc, btSfr_MF6, btMAW, btUzfMf6,
-    btSft, btCSub, btMvr, btCnc, btSrc, btTransK, btTransS);
+    btSft, btCSub, btMvr, btCnc, btSrc, btTransK, btTransS, btObsMf6);
 
   TBoundaryTypes = set of TBoundaryType;
 

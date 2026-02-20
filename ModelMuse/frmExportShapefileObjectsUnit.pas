@@ -204,7 +204,7 @@ begin
     begin
       BoundaryName := FBoundaryNames.Objects[BoundIndex] as TBoundaryName;
       TimeBoundaryUsed := False;
-      if not (BoundaryName.BoundaryType in [btMfHfb, btMfMnw, btMfObs]) then
+      if not (BoundaryName.BoundaryType in [btMfHfb, btMfMnw, btMfObs, btObsMf6]) then
       begin
         TimeBoundaryUsed := True;
       end;
@@ -474,6 +474,10 @@ begin
       begin
           result := True;
       end;
+    btObsMf6:
+      begin
+          result := True;
+      end;
   end;
 end;
 
@@ -696,6 +700,13 @@ begin
             result := True;
           end;
           if ScreenObject.StoreModflowFhbHeadBoundary and (fbtHead in FFhbBoundaryTypes) then
+          begin
+            result := True;
+          end;
+        end;
+      btObsMf6:
+        begin
+          if ScreenObject.StoreModflow6Obs then
           begin
             result := True;
           end;
@@ -1591,10 +1602,12 @@ var
   HeadObservations: THobBoundary;
   HeadObsDataSetsCount: Integer;
   FieldType: AnsiChar;
+  Mf6ObsFound: Boolean;
 begin
   FBoundDataSetCount := 0;
   FTimeBoundaryFound := False;
   HeadObsFound := False;
+  Mf6ObsFound := False;
   if FBoundaryNames.Count > 0 then
   begin
     // If the field definitions of any boundaries are updated,
@@ -1617,6 +1630,10 @@ begin
       if BoundaryName.BoundaryType = btMfObs then
       begin
         HeadObsFound := True;
+      end
+      else if BoundaryName.BoundaryType = btObsMf6 then
+      begin
+        Mf6ObsFound := True;
       end
       else if BoundaryName.BoundaryType = btMfHfb then
       begin
@@ -4847,7 +4864,8 @@ var
                 end;
               end;
             end;
-          end
+          end;
+        btObsMf6: ;
         else
           Assert(False);
       end;
@@ -5624,7 +5642,14 @@ begin
   Data := Sender.GetNodeData(Node);
   if Assigned(Data) then
   begin
-    CellText := Data.ClassificationObject.ClassificationName;
+    if Assigned(Data.ClassificationObject) then
+    begin
+      CellText := Data.ClassificationObject.ClassificationName;
+    end
+    else
+    begin
+      CellText := 'Missing text';
+    end;
   end;
 end;
 
