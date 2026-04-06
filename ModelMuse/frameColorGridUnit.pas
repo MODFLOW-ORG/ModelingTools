@@ -573,7 +573,7 @@ begin
   begin
     Exit;
   end;
-  if (AnObject = nil) then
+  if (AnObject = nil) or (AnObject is TMf6ObsItemID) then
   begin
     frameCheck3DMin.Enabled := False;
     frameCheck3DMax.Enabled := False;
@@ -714,7 +714,7 @@ begin
 
   lblLowerLimit.Caption := StrLowerLimit;
   lblUpperLimit.Caption := StrUpperLimit;
-  if (AnObject = nil) then
+  if (AnObject = nil)or (AnObject is TMf6ObsItemID) then
   begin
   end
   else if (AnObject is TDataArray) then

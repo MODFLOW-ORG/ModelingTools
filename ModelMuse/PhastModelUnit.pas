@@ -1968,6 +1968,7 @@ that affects the model output should also have a comment. }
   protected
     function GetGwtUsed: Boolean; override;
     function GetGweUsed: Boolean; override;
+    function GetPrtUsed: Boolean; override;
     procedure SetFrontDataSet(const Value: TDataArray); virtual;
     procedure SetSideDataSet(const Value: TDataArray); virtual;
     procedure SetTopDataSet(const Value: TDataArray); virtual;
@@ -10504,6 +10505,11 @@ const
 //                identical locations, the duplicate points will be ignored.
 //               Enhancement: Added the ability to export objects to shapefiles
 //                when they define MODFLOW 6 observation locations.
+
+//               Bug fix: Fixed display of warning about unconnected grids in
+//                MODFLOW 6 models.
+//               Bug fix: Fixed display of Data visualization dialog box in some
+//                models.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
@@ -38930,8 +38936,11 @@ begin
       end;
     end;
   end;
+  // PRT
+  if not result then
+  begin
 
-
+  end;
 //    and (ModflowPackages.ModPath.IsSelected or ModflowPackages.Mt3dBasic.IsSelected));
 end;
 
@@ -50849,6 +50858,25 @@ end;
 function TCustomModel.GetPrecipPotConsumptionUsed: TObjectUsedEvent;
 begin
   result := DoPrecipPotConsumptionUsed
+end;
+
+function TCustomModel.GetPrtUsed: Boolean;
+begin
+  result := False;
+  if ModelSelection = msModflow2015 then
+  begin
+    if  ModflowPackages.PrtModels.Count > 0 then
+    begin
+      for var PrtIndex := 0 to ModflowPackages.PrtModels.Count - 1 do
+      begin
+        if ModflowPackages.PrtModels[PrtIndex].PrtModel.IsSelected then
+        begin
+          result := True;
+          Exit;
+        end;
+      end;
+    end;
+  end;
 end;
 
 function TCustomModel.GetReservoirLayerUsed: TObjectUsedEvent;

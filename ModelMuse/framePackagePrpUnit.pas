@@ -11,10 +11,14 @@ type
   TframePackagePrp = class(TframePackage)
     RdeSolverTolerance: TRbwDataEntry;
     LblSolverTolerance: TLabel;
-    EXTEND_TRACKING: TCheckBox;
+    cbEXTEND_TRACKING: TCheckBox;
     ComboBox1: TComboBox;
     frameStopTime: TframeOptionalValue;
     lblPrpTrack: TLabel;
+    frameStopTravelTime: TframeOptionalValue;
+    cbSTOP_AT_WEAK_SINK: TCheckBox;
+    frameStopZone: TframeOptionalValue;
+    cbDRAPE: TCheckBox;
   private
     { Private declarations }
   public

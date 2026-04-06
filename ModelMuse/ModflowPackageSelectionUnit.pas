@@ -2917,11 +2917,15 @@ Type
   end;
 
   // these are used to represent tracking options in the PRT output control
-  TPrtTrackingOption = (ptoRelease, ptoExit, ptoTimeStep, ptoTerminate,
-    ptoWeakSink, ptoUserTime);
+  TPrtTrackingOption = (ptoRelease, ptoExit, ptoSubFeatureExit, ptoTimeStep, ptoTerminate,
+    ptoWeakSink, ptoUserTime, ptoDropped);
   TPrtTrackingOptions = set of TPrtTrackingOption;
 
   TPrtTrackingOutput = (ptoNone, ptoBinary, ptoCSV, ptoAll);
+
+  TPrtDryTracking = (pdtDrop, pdtStop, pdtStay);
+  TPrtCoordinateCheckMethod = (ccmEager, ccmNone);
+
 
   // @name represents one PRP package in one PRT model.
   TPrpPackage = class(TModflowPackageSelection)
@@ -2939,6 +2943,8 @@ Type
     FDrape: Boolean;
     FExtendTracking: Boolean;
     FPrtTrackingOutput: TPrtTrackingOutput;
+    FDryTrackingMethod: TPrtDryTracking;
+    FCoordinateCheckMethod: TPrtCoordinateCheckMethod;
     procedure SetReleaseTimes(const Value: TRealCollection);
     procedure SetBinaryTrackOutput(const Value: Boolean);
     procedure SetCsvTrackOutput(const Value: Boolean);
@@ -2971,6 +2977,8 @@ Type
     procedure SetReleaseTimeToleranceUsed(const Value: Boolean);
 
     procedure SetPrtTrackingOutput(const Value: TPrtTrackingOutput);
+    procedure SetDryTrackingMethod(const Value: TPrtDryTracking);
+    procedure SetCoordinateCheckMethod(const Value: TPrtCoordinateCheckMethod);
   public
     procedure Assign(Source: TPersistent); override;
     { TODO -cRefactor : Consider replacing Model with an interface. }
@@ -3007,6 +3015,8 @@ Type
     property StopZone: Integer read FStopZone write SetStopZone;
     // DRAPE]
     property Drape: Boolean read FDrape write SetDrape;
+    // DRY_TRACKING_METHOD
+    property DryTrackingMethod: TPrtDryTracking read FDryTrackingMethod write SetDryTrackingMethod;
     // RELEASE_TIMES or RELEASE_TIMESFILE
     property ReleaseTimes: TRealCollection read FReleaseTimes write SetReleaseTimes;
     // RELEASE_TIME_TOLERANCE
@@ -3017,6 +3027,8 @@ Type
     property ExtendTracking: Boolean read FExtendTracking write SetExtendTracking;
     // TrackCSV and Track (Binary)
     property PrtTrackingOutput: TPrtTrackingOutput read FPrtTrackingOutput write SetPrtTrackingOutput;
+    // COORDINATE_CHECK_METHOD
+    property CoordinateCheckMethod: TPrtCoordinateCheckMethod read FCoordinateCheckMethod write SetCoordinateCheckMethod;
  end;
 
   // @name is a collection item
@@ -31635,7 +31647,11 @@ begin
     ReleaseTimeTolerance := PrpSource.ReleaseTimeTolerance;
     ReleaseTimeFrequency := PrpSource.ReleaseTimeFrequency;
     ExtendTracking := PrpSource.ExtendTracking;
-    FPrtTrackingOutput := PrpSource.FPrtTrackingOutput
+    FPrtTrackingOutput := PrpSource.FPrtTrackingOutput;
+
+    CoordinateCheckMethod := ccmEager;
+    DryTrackingMethod := pdtDrop;
+
 
   end;
   inherited;
@@ -31743,6 +31759,9 @@ begin
   ExtendTracking := False;
   PrtTrackingOutput := ptoNone;
 
+  CoordinateCheckMethod := ccmEager;
+  DryTrackingMethod := pdtDrop;
+
   PackageIdentifier := StrPRPParticalReleas;
   Classification := StrParticleTracking;
   SelectionType := stCheckBox;
@@ -31753,6 +31772,16 @@ begin
   if FBinaryTrackOutput <> Value then
   begin
     FBinaryTrackOutput := Value;
+    InvalidateModel;
+  end;
+end;
+
+procedure TPrpPackage.SetCoordinateCheckMethod(
+  const Value: TPrtCoordinateCheckMethod);
+begin
+  if FCoordinateCheckMethod <> Value then
+  begin
+    FCoordinateCheckMethod := Value;
     InvalidateModel;
   end;
 end;
@@ -31771,6 +31800,15 @@ begin
   if FDrape <> Value then
   begin
     FDrape := Value;
+    InvalidateModel;
+  end;
+end;
+
+procedure TPrpPackage.SetDryTrackingMethod(const Value: TPrtDryTracking);
+begin
+  if FDryTrackingMethod <> Value then
+  begin
+    FDryTrackingMethod := Value;
     InvalidateModel;
   end;
 end;

@@ -723,7 +723,10 @@ begin
   try
     frmErrorsAndWarnings.RemoveErrorGroup(Model, StrFileForTheInitial);
     frmErrorsAndWarnings.RemoveErrorGroup(Model, StrWrongExtension);
-    frmErrorsAndWarnings.RemoveWarningGroup(Model, StrThereIsNoHydrauli);
+    if Model.ModelSelection <> msModflow2015 then
+    begin
+      frmErrorsAndWarnings.RemoveWarningGroup(Model, StrThereIsNoHydrauli);
+    end;
     frmErrorsAndWarnings.RemoveWarningGroup(Model, StrOneOrMoreLayersC);
 
     if Model.ModelSelection = msModflow2015 then

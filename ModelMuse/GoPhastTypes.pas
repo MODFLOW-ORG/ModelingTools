@@ -800,6 +800,7 @@ type
     procedure SetModelSelection(const Value: TModelSelection); virtual; abstract;
     function GetGwtUsed: Boolean; virtual; abstract;
     function GetGweUsed: Boolean; virtual; abstract;
+    function GetPrtUsed: Boolean; virtual; abstract;
     function _AddRef: Integer; stdcall;
     function _Release: Integer; stdcall;
     property ComponentState: TComponentState read GetComponentState;
@@ -816,6 +817,7 @@ type
     property DisplayName: string read GetDisplayName;
     property GwtUsed: Boolean read GetGwtUsed;
     property GweUsed: Boolean read GetGweUsed;
+    property PrtUsed: Boolean read GetPrtUsed;
   published
     property ModelSelection: TModelSelection read GetModelSelection
       write SetModelSelection;
@@ -1890,7 +1892,6 @@ function TBaseModel.GetInvalidate: TNotifyEvent;
 begin
   result := DoInvalidate;
 end;
-
 
 procedure TBaseModel.SetUpToDate(const Value : boolean);
 begin
