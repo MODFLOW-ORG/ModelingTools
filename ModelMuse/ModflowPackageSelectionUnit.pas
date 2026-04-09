@@ -2926,16 +2926,62 @@ Type
   TPrtDryTracking = (pdtDrop, pdtStop, pdtStay);
   TPrtCoordinateCheckMethod = (ccmEager, ccmNone);
 
+  TPrpPeriodDataItem = class(TOrderedItem)
+  private
+    FLast: Boolean;
+    FStoredStartTime: TRealStorage;
+    FFrequency: Integer;
+    FSteps: TGenericIntegerList;
+    FAll: Boolean;
+    FFirst: Boolean;
+    FStoredEndTime: TRealStorage;
+    function GetEndTime: double;
+    function GetStartTime: double;
+    procedure SetAll(const Value: Boolean);
+    procedure SetEndTime(const Value: double);
+    procedure SetFirst(const Value: Boolean);
+    procedure SetFrequency(const Value: Integer);
+    procedure SetLast(const Value: Boolean);
+    procedure SetStartTime(const Value: double);
+    procedure SetSteps(const Value: TGenericIntegerList);
+    procedure SetStoredEndTime(const Value: TRealStorage);
+    procedure SetStoredStartTime(const Value: TRealStorage);
+  protected
+    function IsSame(AnotherItem: TOrderedItem): boolean; override;
+  public
+    constructor Create(Collection: TCollection); override;
+    destructor Destroy; override;
+    procedure Assign(Source: TPersistent); override;
+    property StartTime: double read GetStartTime write SetStartTime;
+    property EndTime: double read GetEndTime write SetEndTime;
+  published
+    property StoredStartTime: TRealStorage read FStoredStartTime write SetStoredStartTime;
+    property StoredEndTime: TRealStorage read FStoredEndTime write SetStoredEndTime;
+    property All: Boolean read FAll write SetAll;
+    property First: Boolean read FFirst write SetFirst;
+    property Last: Boolean read FLast write SetLast;
+    property Frequency: Integer read FFrequency write SetFrequency;
+    property Steps: TGenericIntegerList read FSteps write SetSteps;
+  end;
+
+  TPrpPeriodData = class(TOrderedCollection)
+  private
+    function GetPeriodItem(Index: Integer): TPrpPeriodDataItem;
+    procedure SetPeriodItem(Index: Integer; const Value: TPrpPeriodDataItem);
+    Constructor Create(Model: IModelForTOrderedCollection);
+  public
+    function Add: TPrpPeriodDataItem;
+    property Items[Index: Integer]: TPrpPeriodDataItem read GetPeriodItem write SetPeriodItem; default;
+  end;
+
 
   // @name represents one PRP package in one PRT model.
   TPrpPackage = class(TModflowPackageSelection)
   private
     FReleaseTimes: TRealCollection;
-    FCsvTrackOutput: Boolean;
-    FBinaryTrackOutput: Boolean;
     FStoredStopTime: TOptionalRealValue;
     FStoredStopTravelTime: TOptionalRealValue;
-    FStoredSolverTolerance: TRealStorage;
+    FStoredSolverTolerance: TOptionalRealValue;
     FStoredReleaseTimeTolerance: TOptionalRealValue;
     FStoredReleaseTimeFrequency: TOptionalRealValue;
     FStopAtWeakSinks: Boolean;
@@ -2945,14 +2991,14 @@ Type
     FPrtTrackingOutput: TPrtTrackingOutput;
     FDryTrackingMethod: TPrtDryTracking;
     FCoordinateCheckMethod: TPrtCoordinateCheckMethod;
+    FPackageName: string;
+    FPeriodData: TPrpPeriodData;
     procedure SetReleaseTimes(const Value: TRealCollection);
-    procedure SetBinaryTrackOutput(const Value: Boolean);
-    procedure SetCsvTrackOutput(const Value: Boolean);
     procedure SetStoredStopTime(const Value: TOptionalRealValue);
     procedure SetStoredStopTravelTime(const Value: TOptionalRealValue);
     function GetSolverTolerance: double;
     procedure SetSolverTolerance(const Value: double);
-    procedure SetStoredSolverTolerance(const Value: TRealStorage);
+    procedure SetStoredSolverTolerance(const Value: TOptionalRealValue);
     procedure SetStopAtWeakSinks(const Value: Boolean);
     procedure SetStopZone(const Value: Integer);
     procedure SetDrape(const Value: Boolean);
@@ -2979,6 +3025,10 @@ Type
     procedure SetPrtTrackingOutput(const Value: TPrtTrackingOutput);
     procedure SetDryTrackingMethod(const Value: TPrtDryTracking);
     procedure SetCoordinateCheckMethod(const Value: TPrtCoordinateCheckMethod);
+    procedure SetPackageName(const Value: string);
+    function GetSolverToleranceUsed: Boolean;
+    procedure SetSolverToleranceUsed(const Value: Boolean);
+    procedure SetPeriodData(const Value: TPrpPeriodData);
   public
     procedure Assign(Source: TPersistent); override;
     { TODO -cRefactor : Consider replacing Model with an interface. }
@@ -2988,6 +3038,7 @@ Type
     procedure InitializeVariables; override;
     // EXIT_SOLVE_TOLERANCE
     property SolverTolerance: double read GetSolverTolerance write SetSolverTolerance;
+    property SolverToleranceUsed: Boolean read GetSolverToleranceUsed write SetSolverToleranceUsed;
     // Optional variable STOPTIME
     property StopTime: double read GetStopTime write SetStopTime;
     property StopTimeUsed: Boolean read GetStopTimeUsed write SetStopTimeUsed;
@@ -2999,12 +3050,16 @@ Type
     property ReleaseTimeFrequency: Double read GetReleaseTimeFrequency write SetReleaseTimeFrequency;
     property ReleaseTimeFrequencyUsed: Boolean read GetReleaseTimeFrequencyUsed write SetReleaseTimeFrequencyUsed;
   published
+    // pname
+    property PackageName: string read FPackageName write SetPackageName;
     // EXIT_SOLVE_TOLERANCE
-    property StoredSolverTolerance: TRealStorage read FStoredSolverTolerance write SetStoredSolverTolerance;
+    property StoredSolverTolerance: TOptionalRealValue read FStoredSolverTolerance write SetStoredSolverTolerance;
+    // [EXTEND_TRACKING
+    property ExtendTracking: Boolean read FExtendTracking write SetExtendTracking;
+    // TrackCSV and Track (Binary)
     // TRACK FILEOUT
-    property BinaryTrackOutput: Boolean read FBinaryTrackOutput write SetBinaryTrackOutput;
     // TRACKCSV FILEOUT
-    property CsvTrackOutput: Boolean read FCsvTrackOutput write SetCsvTrackOutput;
+    property PrtTrackingOutput: TPrtTrackingOutput read FPrtTrackingOutput write SetPrtTrackingOutput;
     // STOPTIME
     property StoredStopTime: TOptionalRealValue read FStoredStopTime write SetStoredStopTime;
     // STOPTRAVELTIME
@@ -3013,22 +3068,20 @@ Type
     property StopAtWeakSinks: Boolean read FStopAtWeakSinks write SetStopAtWeakSinks;
     // ISTOPZONE. Zero means not used.
     property StopZone: Integer read FStopZone write SetStopZone;
-    // DRAPE]
+    // DRAPE
     property Drape: Boolean read FDrape write SetDrape;
     // DRY_TRACKING_METHOD
     property DryTrackingMethod: TPrtDryTracking read FDryTrackingMethod write SetDryTrackingMethod;
-    // RELEASE_TIMES or RELEASE_TIMESFILE
-    property ReleaseTimes: TRealCollection read FReleaseTimes write SetReleaseTimes;
     // RELEASE_TIME_TOLERANCE
     property StoredReleaseTimeTolerance: TOptionalRealValue read FStoredReleaseTimeTolerance write SetStoredReleaseTimeTolerance;
     // RELEASE_TIME_FREQUENCY
     property StoredReleaseTimeFrequency: TOptionalRealValue read FStoredReleaseTimeFrequency write SetStoredReleaseTimeFrequency;
-    // Extend_Tracking
-    property ExtendTracking: Boolean read FExtendTracking write SetExtendTracking;
-    // TrackCSV and Track (Binary)
-    property PrtTrackingOutput: TPrtTrackingOutput read FPrtTrackingOutput write SetPrtTrackingOutput;
     // COORDINATE_CHECK_METHOD
     property CoordinateCheckMethod: TPrtCoordinateCheckMethod read FCoordinateCheckMethod write SetCoordinateCheckMethod;
+    // RELEASE_TIMES or RELEASE_TIMESFILE
+    property ReleaseTimes: TRealCollection read FReleaseTimes write SetReleaseTimes;
+    // PERIOD
+    property PeriodData: TPrpPeriodData read FPeriodData write SetPeriodData;
  end;
 
   // @name is a collection item
@@ -31635,24 +31688,21 @@ begin
   if Source is TPrpPackage then
   begin
     PrpSource := TPrpPackage(Source);
+    PackageName := PrpSource.PackageName;
     StoredSolverTolerance := PrpSource.StoredSolverTolerance;
-    BinaryTrackOutput := PrpSource.BinaryTrackOutput;
-    CsvTrackOutput := PrpSource.CsvTrackOutput;
+    ExtendTracking := PrpSource.ExtendTracking;
+    PrtTrackingOutput := PrpSource.PrtTrackingOutput;
     StoredStopTime := PrpSource.StoredStopTime;
     StoredStopTravelTime := PrpSource.StoredStopTravelTime;
     StopAtWeakSinks := PrpSource.StopAtWeakSinks;
     StopZone := PrpSource.StopZone;
     Drape := PrpSource.Drape;
+    DryTrackingMethod := PrpSource.DryTrackingMethod;
+    StoredReleaseTimeTolerance := PrpSource.StoredReleaseTimeTolerance;
+    StoredReleaseTimeFrequency := PrpSource.StoredReleaseTimeFrequency;
+    CoordinateCheckMethod := PrpSource.CoordinateCheckMethod;;
     ReleaseTimes := PrpSource.ReleaseTimes;
-    ReleaseTimeTolerance := PrpSource.ReleaseTimeTolerance;
-    ReleaseTimeFrequency := PrpSource.ReleaseTimeFrequency;
-    ExtendTracking := PrpSource.ExtendTracking;
-    FPrtTrackingOutput := PrpSource.FPrtTrackingOutput;
-
-    CoordinateCheckMethod := ccmEager;
-    DryTrackingMethod := pdtDrop;
-
-
+    PeriodData := PrpSource.PeriodData;
   end;
   inherited;
 end;
@@ -31660,24 +31710,30 @@ end;
 constructor TPrpPackage.Create(Model: TBaseModel);
 var
   InvalidateModelEvent: TNotifyEvent;
+  LocalModel: IModelForTOrderedCollection;
 begin
   inherited;
 
   if Model = nil then
   begin
     InvalidateModelEvent := nil;
+    LocalModel := nil;
   end
+
   else
   begin
     InvalidateModelEvent := Model.Invalidate;
+    LocalModel := Model as TPhastModel;
   end;
 
-  FStoredSolverTolerance := TRealStorage.Create(InvalidateModelEvent);
+  FStoredSolverTolerance := TOptionalRealValue.Create(InvalidateModelEvent);
   FStoredStopTime := TOptionalRealValue.Create(InvalidateModelEvent);
   FStoredStopTravelTime := TOptionalRealValue.Create(InvalidateModelEvent);
-  FReleaseTimes := TRealCollection.Create(InvalidateModelEvent);
   FStoredReleaseTimeTolerance := TOptionalRealValue.Create(InvalidateModelEvent);
   FStoredReleaseTimeFrequency := TOptionalRealValue.Create(InvalidateModelEvent);
+  FReleaseTimes := TRealCollection.Create(InvalidateModelEvent);
+  FPeriodData := TPrpPeriodData.Create(LocalModel);
+
   InitializeVariables();
 end;
 
@@ -31686,9 +31742,10 @@ begin
   FStoredSolverTolerance.Free;
   FStoredStopTime.Free;
   FStoredStopTravelTime.Free;
-  FReleaseTimes.Free;
   FStoredReleaseTimeTolerance.Free;
   FStoredReleaseTimeFrequency.Free;
+  FReleaseTimes.Free;
+  FPeriodData.Free;
 
   inherited;
 end;
@@ -31696,6 +31753,11 @@ end;
 function TPrpPackage.GetSolverTolerance: double;
 begin
   result := StoredSolverTolerance.Value;
+end;
+
+function TPrpPackage.GetSolverToleranceUsed: Boolean;
+begin
+  result := StoredSolverTolerance.Used;
 end;
 
 function TPrpPackage.GetStopTime: double;
@@ -31741,39 +31803,30 @@ end;
 procedure TPrpPackage.InitializeVariables;
 begin
   inherited;
+  FPackageName := '';
   SolverTolerance := 1.0e-5;
+  SolverToleranceUsed := False;
+  ExtendTracking := False;
+  PrtTrackingOutput := ptoNone;
   StopTime := 0.0;
   StopTimeUsed := False ;
   StopTravelTime := 0.0;
   StopTravelTimeUsed := False;
-  BinaryTrackOutput := False;
-  CsvTrackOutput := False;
   StopAtWeakSinks := False;
   StopZone := 0;
   Drape := False;
-  ReleaseTimes.clear;
+  DryTrackingMethod := pdtDrop;
   ReleaseTimeTolerance := 1.0e-10;
   ReleaseTimeToleranceUsed := False;
   ReleaseTimeFrequency := 0.0;
   ReleaseTimeFrequencyUsed := False;
-  ExtendTracking := False;
-  PrtTrackingOutput := ptoNone;
-
   CoordinateCheckMethod := ccmEager;
-  DryTrackingMethod := pdtDrop;
+  ReleaseTimes.clear;
+  PeriodData.Clear;
 
   PackageIdentifier := StrPRPParticalReleas;
   Classification := StrParticleTracking;
   SelectionType := stCheckBox;
-end;
-
-procedure TPrpPackage.SetBinaryTrackOutput(const Value: Boolean);
-begin
-  if FBinaryTrackOutput <> Value then
-  begin
-    FBinaryTrackOutput := Value;
-    InvalidateModel;
-  end;
 end;
 
 procedure TPrpPackage.SetCoordinateCheckMethod(
@@ -31782,15 +31835,6 @@ begin
   if FCoordinateCheckMethod <> Value then
   begin
     FCoordinateCheckMethod := Value;
-    InvalidateModel;
-  end;
-end;
-
-procedure TPrpPackage.SetCsvTrackOutput(const Value: Boolean);
-begin
-  if FCsvTrackOutput <> Value then
-  begin
-    FCsvTrackOutput := Value;
     InvalidateModel;
   end;
 end;
@@ -31821,6 +31865,11 @@ end;
 procedure TPrpPackage.SetSolverTolerance(const Value: double);
 begin
   StoredSolverTolerance.value := Value;
+end;
+
+procedure TPrpPackage.SetSolverToleranceUsed(const Value: Boolean);
+begin
+  StoredSolverTolerance.Used := Value;
 end;
 
 procedure TPrpPackage.SetStopAtWeakSinks(const Value: Boolean);
@@ -31890,6 +31939,20 @@ begin
   end;
 end;
 
+procedure TPrpPackage.SetPackageName(const Value: string);
+begin
+  if FPackageName <> Value then
+  begin
+    FPackageName := Value;
+    InvalidateModel;
+  end;
+end;
+
+procedure TPrpPackage.SetPeriodData(const Value: TPrpPeriodData);
+begin
+  FPeriodData.Assign(Value);
+end;
+
 procedure TPrpPackage.SetPrtTrackingOutput(const Value: TPrtTrackingOutput);
 begin
   if FPrtTrackingOutput <> Value then
@@ -31911,7 +31974,7 @@ begin
   FStoredReleaseTimeTolerance.Assign(Value);
 end;
 
-procedure TPrpPackage.SetStoredSolverTolerance(const Value: TRealStorage);
+procedure TPrpPackage.SetStoredSolverTolerance(const Value: TOptionalRealValue);
 begin
   FStoredSolverTolerance.Assign(Value);
 end;
@@ -32359,6 +32422,147 @@ end;
 procedure TGweCtpPackage.InitializeDisplay(TimeListIndex: Integer);
 begin
 
+end;
+
+{ TPrpPeriodDataItem }
+
+procedure TPrpPeriodDataItem.Assign(Source: TPersistent);
+var
+  PeriodDataItem: TPrpPeriodDataItem;
+begin
+  if Source is TPrpPeriodDataItem then
+    begin
+      PeriodDataItem := TPrpPeriodDataItem(Source);
+      StoredStartTime := PeriodDataItem.StoredStartTime;
+      StoredEndTime := PeriodDataItem.StoredEndTime;
+      All := PeriodDataItem.All;
+      First := PeriodDataItem.First;
+      Last := PeriodDataItem.Last;
+      Frequency := PeriodDataItem.Frequency;
+      Steps := PeriodDataItem.Steps;
+  end;
+  inherited;
+
+end;
+
+constructor TPrpPeriodDataItem.Create(Collection: TCollection);
+var
+  InvalidateModelEvent: TNotifyEvent;
+begin
+  inherited;
+  InvalidateModelEvent := OnInvalidateModelEvent;
+  FStoredStartTime := TRealStorage.Create(InvalidateModelEvent);
+  FStoredEndTime := TRealStorage.Create(InvalidateModelEvent);
+  FSteps := TGenericIntegerList.Create;
+end;
+
+destructor TPrpPeriodDataItem.Destroy;
+begin
+  FStoredStartTime.Free;
+  FStoredEndTime.Free;
+  FSteps.Free;
+
+  inherited;
+end;
+
+function TPrpPeriodDataItem.GetEndTime: double;
+begin
+  result := StoredEndTime.Value;
+end;
+
+function TPrpPeriodDataItem.GetStartTime: double;
+begin
+  result := StoredStartTime.Value;
+end;
+
+function TPrpPeriodDataItem.IsSame(AnotherItem: TOrderedItem): boolean;
+var
+  PeriodData: TPrpPeriodDataItem;
+begin
+  result := AnotherItem is TPrpPeriodDataItem;
+  if result then
+  begin
+    PeriodData := TPrpPeriodDataItem(AnotherItem);
+    result := (StartTime = PeriodData.StartTime)
+      and (EndTime = PeriodData.EndTime)
+      and (All = PeriodData.All)
+      and (First = PeriodData.First)
+      and (Last = PeriodData.Last)
+      and (Frequency = PeriodData.Frequency)
+      and Steps.IsSame(PeriodData.Steps);
+  end;
+end;
+
+procedure TPrpPeriodDataItem.SetAll(const Value: Boolean);
+begin
+  SetBooleanProperty(FAll, Value);
+end;
+
+procedure TPrpPeriodDataItem.SetEndTime(const Value: double);
+begin
+  StoredEndTime.Value := Value;
+end;
+
+procedure TPrpPeriodDataItem.SetFirst(const Value: Boolean);
+begin
+  SetBooleanProperty(FFirst, Value);
+end;
+
+procedure TPrpPeriodDataItem.SetFrequency(const Value: Integer);
+begin
+  SetIntegerProperty(FFrequency, Value);
+end;
+
+procedure TPrpPeriodDataItem.SetLast(const Value: Boolean);
+begin
+  SetBooleanProperty(FLast, Value);
+end;
+
+procedure TPrpPeriodDataItem.SetStartTime(const Value: double);
+begin
+  StoredStartTime.Value := Value;
+end;
+
+procedure TPrpPeriodDataItem.SetSteps(const Value: TGenericIntegerList);
+begin
+  if not Steps.IsSame(Value) then
+  begin
+    Steps.Assign(Value);
+    InvalidateModel
+  end;
+end;
+
+procedure TPrpPeriodDataItem.SetStoredEndTime(const Value: TRealStorage);
+begin
+  FStoredEndTime.Assign(Value);
+end;
+
+procedure TPrpPeriodDataItem.SetStoredStartTime(const Value: TRealStorage);
+begin
+  FStoredStartTime.Assign(Value);
+end;
+
+{ TPrpPeriodData }
+
+function TPrpPeriodData.Add: TPrpPeriodDataItem;
+begin
+  result := inherited Add as TPrpPeriodDataItem;
+end;
+
+constructor TPrpPeriodData.Create(Model: IModelForTOrderedCollection);
+begin
+  inherited Create(TPrpPeriodDataItem, Model);
+end;
+
+function TPrpPeriodData.GetPeriodItem(Index: Integer): TPrpPeriodDataItem;
+begin
+  result := inherited Items[Index] as TPrpPeriodDataItem
+end;
+
+procedure TPrpPeriodData.SetPeriodItem(Index: Integer;
+  const Value: TPrpPeriodDataItem);
+begin
+  inherited Items[Index] := Value;
 end;
 
 end.

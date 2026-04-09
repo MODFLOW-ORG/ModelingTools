@@ -34,7 +34,7 @@ type
     FLineThickness: Integer;
     procedure SetAllLayers(const Value: boolean);
     procedure SetDataArrays(const Value: TDataArrayObjectList);
-    procedure SetLayersToUse(const Value: TList<integer>);
+    procedure SetLayersToUse(const Value: TGenericIntegerList);
     procedure DataArrayChanged (Sender: TObject; const Item: TDataArray;
       Action: TCollectionNotification);
     procedure LayerChanged (Sender: TObject; const Item: integer;
@@ -49,7 +49,7 @@ type
     procedure Assign(Source: TCrossSection); reintroduce;
     procedure Clear;
     property AllLayers: boolean read FAllLayers write SetAllLayers;
-    property LayersToUse: TList<integer> read FLayersToUse write SetLayersToUse;
+    property LayersToUse: TGenericIntegerList read FLayersToUse write SetLayersToUse;
     property DataArrays: TDataArrayObjectList read FDataArrays write SetDataArrays;
     property Colors: TList<TColor> read FColors write SetColors;
     procedure Draw(ABitMap: TPersistent; ViewDirection: TViewDirection);
@@ -544,7 +544,7 @@ begin
   FDataArrays.AddRange(Value.ToArray);
 end;
 
-procedure TCrossSection.SetLayersToUse(const Value: TList<integer>);
+procedure TCrossSection.SetLayersToUse(const Value: TGenericIntegerList);
 begin
   FLayersToUse.Clear;
   FLayersToUse.AddRange(Value.ToArray);

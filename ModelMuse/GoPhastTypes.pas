@@ -520,7 +520,11 @@ type
     property Points[Index: Integer]: TPoint2D read GetPoint write SetPoint;
   end;
 
-  TGenericIntegerList = TList<integer>;
+  TGenericIntegerList = class(TList<integer>)
+  public
+    function IsSame(AnotherList: TGenericIntegerList): Boolean;
+    procedure Assign(AnotherList: TGenericIntegerList);
+  end;
   TListOfTIntegerList = TObjectList<TGenericIntegerList>;
 
   TGridLimit = record
@@ -3041,6 +3045,33 @@ begin
     if Assigned(OnChange) then
     begin
       OnChange(self);
+    end;
+  end;
+end;
+
+{ TGenericIntegerList }
+
+procedure TGenericIntegerList.Assign(AnotherList: TGenericIntegerList);
+begin
+  Count := AnotherList.Count;
+  for var Index := 0 to Count - 1 do
+  begin
+    Items[index] := AnotherList[Index];
+  end;
+end;
+
+function TGenericIntegerList.IsSame(AnotherList: TGenericIntegerList): Boolean;
+begin
+  result := (Count = AnotherList.Count);
+  if result then
+  begin
+    for var Index := 0 to Count - 1 do
+    begin
+      result := Items[Index] = AnotherList[Index];
+      if not result then
+      begin
+        Exit;
+      end;
     end;
   end;
 end;
