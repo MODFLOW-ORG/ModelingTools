@@ -129,56 +129,56 @@ begin
 
   comboDryTrackingMethod.ItemIndex := Ord(PrpPackage.DryTrackingMethod);
 
-   comboCOORDINATE_CHECK_METHOD.ItemIndex := Ord(PrpPackage.CoordinateCheckMethod);
+  comboCOORDINATE_CHECK_METHOD.ItemIndex := Ord(PrpPackage.CoordinateCheckMethod);
 
-   frameReleaseTimes.Grid.BeginUpdate;
-   try
-     frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleaseTimes.Grid, 0);
-     frameReleaseTimes.seNumber.Value := PrpPackage.ReleaseTimes.Count;
-     frameReleaseTimesseNumberChange(nil);
-     for var Index := 0 to PrpPackage.ReleaseTimes.Count - 1 do
-     begin
-       frameReleaseTimes.Grid.RealValue[0, Index+1] := PrpPackage.ReleaseTimes[Index].Value;
-     end;
-   finally
-     frameReleaseTimes.Grid.EndUpdate;
+  frameReleaseTimes.Grid.BeginUpdate;
+  try
+   frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleaseTimes.Grid, 0);
+   frameReleaseTimes.seNumber.Value := PrpPackage.ReleaseTimes.Count;
+   frameReleaseTimesseNumberChange(nil);
+   for var Index := 0 to PrpPackage.ReleaseTimes.Count - 1 do
+   begin
+     frameReleaseTimes.Grid.RealValue[0, Index+1] := PrpPackage.ReleaseTimes[Index].Value;
    end;
+  finally
+   frameReleaseTimes.Grid.EndUpdate;
+  end;
 
-   frameReleasePeriodData.Grid.BeginUpdate;
-   try
-     frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleasePeriodData.Grid, Ord(pdcStartTime));
-     frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithEndTimes(frameReleasePeriodData.Grid, Ord(pdcEndTime));
-     frameReleasePeriodData.seNumber.Value := PrpPackage.PeriodData.Count;
-     frameReleasePeriodDataseNumberChange(nil);
-     for var Index := 0 to PrpPackage.PeriodData.Count - 1 do
-     begin
-       frameReleasePeriodData.Grid.RealValue[Ord(pdcStartTime), Index+1] := PrpPackage.PeriodData[Index].StartTime;
-       frameReleasePeriodData.Grid.RealValue[Ord(pdcEndTime), Index+1] := PrpPackage.PeriodData[Index].EndTime;
-       frameReleasePeriodData.Grid.Checked[Ord(pdcAll), Index+1] := PrpPackage.PeriodData[Index].All;
-       frameReleasePeriodData.Grid.Checked[Ord(pdcFirst), Index+1] := PrpPackage.PeriodData[Index].First;
-       frameReleasePeriodData.Grid.Checked[Ord(pdcLast), Index+1] := PrpPackage.PeriodData[Index].Last;
-       frameReleasePeriodData.Grid.IntegerValue[Ord(pdcFrequency), Index+1] := PrpPackage.PeriodData[Index].Frequency;
-       frameReleasePeriodData.Grid.RealValue[Ord(pdcStartTime), Index+1] := PrpPackage.PeriodData[Index].StartTime;
-       Steps := TStringList.Create;
-       try
-         for var StepIndex := 0 to PrpPackage.PeriodData[Index].Steps.Count - 1 do
-         begin
-           Steps.Add(PrpPackage.PeriodData[Index].Steps[StepIndex].ToString);
-         end;
-         frameReleasePeriodData.Grid.Cells[Ord(pdcSteps), Index+1] := Steps.CommaText;
-       finally
-         Steps.Free;
+  frameReleasePeriodData.Grid.BeginUpdate;
+  try
+   frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleasePeriodData.Grid, Ord(pdcStartTime));
+   frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithEndTimes(frameReleasePeriodData.Grid, Ord(pdcEndTime));
+   frameReleasePeriodData.seNumber.Value := PrpPackage.PeriodData.Count;
+   frameReleasePeriodDataseNumberChange(nil);
+   for var Index := 0 to PrpPackage.PeriodData.Count - 1 do
+   begin
+     frameReleasePeriodData.Grid.RealValue[Ord(pdcStartTime), Index+1] := PrpPackage.PeriodData[Index].StartTime;
+     frameReleasePeriodData.Grid.RealValue[Ord(pdcEndTime), Index+1] := PrpPackage.PeriodData[Index].EndTime;
+     frameReleasePeriodData.Grid.Checked[Ord(pdcAll), Index+1] := PrpPackage.PeriodData[Index].All;
+     frameReleasePeriodData.Grid.Checked[Ord(pdcFirst), Index+1] := PrpPackage.PeriodData[Index].First;
+     frameReleasePeriodData.Grid.Checked[Ord(pdcLast), Index+1] := PrpPackage.PeriodData[Index].Last;
+     frameReleasePeriodData.Grid.IntegerValue[Ord(pdcFrequency), Index+1] := PrpPackage.PeriodData[Index].Frequency;
+     frameReleasePeriodData.Grid.RealValue[Ord(pdcStartTime), Index+1] := PrpPackage.PeriodData[Index].StartTime;
+     Steps := TStringList.Create;
+     try
+       for var StepIndex := 0 to PrpPackage.PeriodData[Index].Steps.Count - 1 do
+       begin
+         Steps.Add(PrpPackage.PeriodData[Index].Steps[StepIndex].ToString);
        end;
-
+       frameReleasePeriodData.Grid.Cells[Ord(pdcSteps), Index+1] := Steps.CommaText;
+     finally
+       Steps.Free;
      end;
 
-     //   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
-//  pdcFrequency, pdcSteps);
-
-
-   finally
-     frameReleasePeriodData.Grid.EndUpdate;
    end;
+
+   //   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
+  //  pdcFrequency, pdcSteps);
+
+
+  finally
+   frameReleasePeriodData.Grid.EndUpdate;
+  end;
 
   {  {
     // RELEASE_TIMES or RELEASE_TIMESFILE
@@ -215,11 +215,103 @@ end;
 procedure TframePackagePrp.SetData(Package: TModflowPackageSelection);
 var
   PrpPackage: TPrpPackage;
+  AnInt: Integer;
+  StepCount: Integer;
+  Steps: TStringList;
+  PrpSteps: TGenericIntegerList;
+  PeriodCount: Integer;
+  StartTime: Double;
+  EndTime: Double;
 begin
   inherited;
   PrpPackage := Package as TPrpPackage;
+
+  PrpPackage.PackageName := lbledtPackageName.Text;
+
+  PrpPackage.SolverTolerance := frameEXIT_SOLVE_TOLERANCE.RdeValue.RealValue;
+  PrpPackage.SolverToleranceUsed := frameEXIT_SOLVE_TOLERANCE.cbUsed.Checked;
+
+  PrpPackage.ExtendTracking := cbEXTEND_TRACKING.Checked;
+
+  PrpPackage.PrtTrackingOutput := TPrtTrackingOutput(comboTrackOutput.ItemIndex);
+
   PrpPackage.StopTimeUsed := frameStopTime.cbUsed.Checked;
   PrpPackage.StopTime := frameStopTime.RdeValue.RealValue;
+
+  PrpPackage.StopTravelTimeUsed := frameStopTravelTime.cbUsed.Checked;
+  PrpPackage.StopTravelTime := frameStopTravelTime.RdeValue.RealValue;
+
+  PrpPackage.StopAtWeakSinks := cbSTOP_AT_WEAK_SINK.Checked;
+
+  PrpPackage.Drape := cbDRAPE.Checked;
+
+  PrpPackage.StopZone := rdeISTOPZONE.IntegerValue;
+
+  PrpPackage.ReleaseTimeToleranceUsed := frameRELEASE_TIME_TOLERANCE.cbUsed.Checked;
+  PrpPackage.ReleaseTimeTolerance := frameRELEASE_TIME_TOLERANCE.RdeValue.RealValue;
+
+  PrpPackage.ReleaseTimeToleranceUsed := frameRELEASE_TIME_FREQUENCY.cbUsed.Checked;
+  PrpPackage.ReleaseTimeTolerance := frameRELEASE_TIME_FREQUENCY.RdeValue.RealValue;
+
+  PrpPackage.DryTrackingMethod := TPrtDryTracking(comboDryTrackingMethod.ItemIndex);
+
+  PrpPackage.CoordinateCheckMethod := TPrtCoordinateCheckMethod(comboCOORDINATE_CHECK_METHOD.ItemIndex);
+
+  PrpPackage.ReleaseTimes.Count := frameReleaseTimes.seNumber.AsInteger;
+  for var Index := 0 to PrpPackage.ReleaseTimes.Count - 1 do
+  begin
+    PrpPackage.ReleaseTimes[Index].Value := frameReleaseTimes.Grid.RealValueDefault[0, Index+1, 0];
+  end;
+
+  PeriodCount := 0;
+  PrpPackage.PeriodData.Count := frameReleasePeriodData.seNumber.AsInteger;
+  for var Index := 0 to PrpPackage.PeriodData.Count - 1 do
+  begin
+    if TryStrToFloat(frameReleasePeriodData.Grid.Cells[Ord(pdcStartTime), Index+1], StartTime)
+      and TryStrToFloat(frameReleasePeriodData.Grid.Cells[Ord(pdcEndTime), Index+1], EndTime) then
+    begin
+      Inc(PeriodCount);
+      PrpPackage.PeriodData[Index].StartTime := StartTime;
+      PrpPackage.PeriodData[Index].EndTime := EndTime;
+      PrpPackage.PeriodData[Index].All := frameReleasePeriodData.Grid.Checked[Ord(pdcAll), Index+1];
+      PrpPackage.PeriodData[Index].First := frameReleasePeriodData.Grid.Checked[Ord(pdcFirst), Index+1];
+      PrpPackage.PeriodData[Index].Last := frameReleasePeriodData.Grid.Checked[Ord(pdcLast), Index+1];
+      PrpPackage.PeriodData[Index].Frequency := frameReleasePeriodData.Grid.IntegerValueDefault[Ord(pdcFrequency), Index+1, -1];
+      PrpPackage.PeriodData[Index].StartTime := frameReleasePeriodData.Grid.RealValueDefault[Ord(pdcStartTime), Index+1, 0];
+      Steps := TStringList.Create;
+      try
+        Steps.CommaText := frameReleasePeriodData.Grid.Cells[Ord(pdcSteps), Index+1];
+        PrpSteps := PrpPackage.PeriodData[Index].Steps;
+        StepCount := 0;
+        PrpSteps.Capacity := Steps.Count;
+        for var StepIndex := 0 to Steps.Count - 1 do
+        begin
+          if TryStrToInt(Steps[StepIndex], AnInt) then
+          begin
+            if StepCount < PrpSteps.Count then
+            begin
+               PrpSteps[StepCount] := AnInt;
+            end
+            else
+            begin
+              PrpSteps.Add(AnInt);
+            end;
+            Inc(StepCount);
+          end;
+          PrpSteps.Count := StepCount;
+        end;
+      finally
+       Steps.Free;
+      end;
+    end;
+
+  end;
+  PrpPackage.PeriodData.Count := PeriodCount;
+
+   //   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
+  //  pdcFrequency, pdcSteps);
+
+
 
 end;
 
