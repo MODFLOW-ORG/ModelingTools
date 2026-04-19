@@ -2916,11 +2916,6 @@ Type
       read FLak_Source write SetLak_Source default sapVertical;
   end;
 
-  // these are used to represent tracking options in the PRT output control
-  TPrtTrackingOption = (ptoRelease, ptoExit, ptoSubFeatureExit, ptoTimeStep, ptoTerminate,
-    ptoWeakSink, ptoUserTime, ptoDropped);
-  TPrtTrackingOptions = set of TPrtTrackingOption;
-
   TPrtTrackingOutput = (ptoNone, ptoBinary, ptoCSV, ptoAll);
 
   TPrtDryTracking = (pdtDrop, pdtStop, pdtStay);
@@ -3097,15 +3092,26 @@ Type
     property PrpPackage: TPrpPackage read FPrpPackage write SetPrpPackage;
   end;
 
+  // these are used to represent tracking options in the PRT output control
+  TPrtTrackingOption = (ptoRelease, ptoExit, ptoSubFeatureExit, ptoTimeStep, ptoTerminate,
+    ptoWeakSink, ptoUserTime, ptoDropped);
+  TPrtTrackingOptions = set of TPrtTrackingOption;
+
+  TPrtOutputFile = (pofBinaryBudget, pofoCsvBudget, pofBinaryTrack, pofCsvTrack);
+  TPrtOutputFiles = set of TPrtOutputFile;
+
+
   TPrtModel = class(TPhastCollection)
   private
     FModel: TBaseModel;
     FZoneUsed: Boolean;
-    FRetentionFactorUsed: Boolean;
+    FRetardationFactorUsed: Boolean;
     FTrackTimes: TRealCollection;
     FIsSelected: Boolean;
     FPrtTrackingOptions: TPrtTrackingOptions;
-    procedure SetRetentionFactorUsed(const Value: Boolean);
+    FPrtOutputFiles: TPrtOutputFiles;
+    FPeriodData: TPrpPeriodData;
+    procedure SetRetardationFactorUsed(const Value: Boolean);
     procedure SetZoneUsed(const Value: Boolean);
     procedure SetTrackTimes(const Value: TRealCollection);
     procedure SetIsSelected(const Value: Boolean);
@@ -3114,6 +3120,8 @@ Type
     procedure InitializeVariables;
 
     procedure SetPrtTrackingOptions(const Value: TPrtTrackingOptions);
+    procedure SetPrtOutputFiles(const Value: TPrtOutputFiles);
+    procedure SetPeriodData(const Value: TPrpPeriodData);
   public
     procedure Assign(Source: TPersistent); override;
     constructor Create(Model: TBaseModel);
@@ -3121,13 +3129,15 @@ Type
     property Items[Index: Integer]: TPrpPackageItem read GetItem write SetItem;  default;
   published
     // RETFACTOR
-    property RetentionFactorUsed: Boolean read FRetentionFactorUsed write SetRetentionFactorUsed;
+    property RetardationFactorUsed: Boolean read FRetardationFactorUsed write SetRetardationFactorUsed;
     // IZONE
     property ZoneUsed: Boolean read FZoneUsed write SetZoneUsed;
 
     property TrackTimes: TRealCollection read FTrackTimes write SetTrackTimes;
     property IsSelected: Boolean  read FIsSelected write SetIsSelected;
     property PrtTrackingOptions: TPrtTrackingOptions read FPrtTrackingOptions write SetPrtTrackingOptions;
+    property PrtOutputFiles: TPrtOutputFiles read FPrtOutputFiles write SetPrtOutputFiles;
+    property PeriodData: TPrpPeriodData read FPeriodData write SetPeriodData;
   end;
 
   TPrtModelItem = class(TPhastCollectionItem)
@@ -31595,10 +31605,12 @@ begin
   begin
     PrtSource := TPrtModel(Source);
     ZoneUsed := PrtSource.ZoneUsed;
-    RetentionFactorUsed := PrtSource.RetentionFactorUsed;
+    RetardationFactorUsed := PrtSource.RetardationFactorUsed;
     TrackTimes := PrtSource.TrackTimes;
     IsSelected := PrtSource.IsSelected;
-    PrtTrackingOptions := PrtSource.PrtTrackingOptions
+    PrtTrackingOptions := PrtSource.PrtTrackingOptions;
+    PrtOutputFiles := PrtSource.PrtOutputFiles;
+    PeriodData  := PrtSource.PeriodData;
   end;
   inherited;
 end;
@@ -31618,11 +31630,13 @@ begin
   end;
   inherited Create(TPrpPackageItem, InvalidateModelEvent);
   FTrackTimes := TRealCollection.Create(InvalidateModelEvent);
+  FPeriodData := TPrpPeriodData.Create(Model as TPhastModel);
   InitializeVariables;
 end;
 
 destructor TPrtModel.Destroy;
 begin
+  FPeriodData.Free;
   FTrackTimes.Free;
   inherited;
 end;
@@ -31635,7 +31649,7 @@ end;
 procedure TPrtModel.InitializeVariables;
 begin
   clear;
-  RetentionFactorUsed := False;
+  RetardationFactorUsed := False;
   ZoneUsed := False;
   IsSelected := False;
   TrackTimes.clear;
@@ -31647,6 +31661,20 @@ begin
   inherited Items[Index] := Value;
 end;
 
+procedure TPrtModel.SetPeriodData(const Value: TPrpPeriodData);
+begin
+  FPeriodData.Assign(Value);
+end;
+
+procedure TPrtModel.SetPrtOutputFiles(const Value: TPrtOutputFiles);
+begin
+  if FPrtOutputFiles <> Value then
+  begin
+    FPrtOutputFiles := Value;
+    InvalidateModel;
+  end;
+end;
+
 procedure TPrtModel.SetPrtTrackingOptions(const Value: TPrtTrackingOptions);
 begin
   if FPrtTrackingOptions <> Value then
@@ -31656,11 +31684,11 @@ begin
   end;
 end;
 
-procedure TPrtModel.SetRetentionFactorUsed(const Value: Boolean);
+procedure TPrtModel.SetRetardationFactorUsed(const Value: Boolean);
 begin
-  if FRetentionFactorUsed <> Value then
+  if FRetardationFactorUsed <> Value then
   begin
-    FRetentionFactorUsed := Value;
+    FRetardationFactorUsed := Value;
     InvalidateModel;
   end;
 end;

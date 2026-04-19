@@ -317,15 +317,15 @@ inherited framePackagePrp: TframePackagePrp
         Height = 307
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 144
+        ExplicitTop = 57
         ExplicitWidth = 569
-        ExplicitHeight = 200
+        ExplicitHeight = 307
         inherited Panel: TPanel
           Top = 266
           Width = 569
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 244
-          ExplicitWidth = 354
+          ExplicitTop = 266
+          ExplicitWidth = 569
           inherited lbNumber: TLabel
             StyleElements = [seFont, seClient, seBorder]
           end
@@ -519,10 +519,8 @@ inherited framePackagePrp: TframePackagePrp
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitLeft = 5
-          ExplicitTop = 1
-          ExplicitWidth = 354
-          ExplicitHeight = 244
+          ExplicitWidth = 569
+          ExplicitHeight = 266
         end
       end
       object pnlReleasePeriodData: TPanel
@@ -532,7 +530,6 @@ inherited framePackagePrp: TframePackagePrp
         Height = 57
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 577
         object lblReleasePeriodData: TLabel
           AlignWithMargins = True
           Left = 4
@@ -564,16 +561,14 @@ inherited framePackagePrp: TframePackagePrp
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 561
-          Height = 49
+          Width = 534
+          Height = 30
           Align = alClient
           Caption = 
             'Release times can be specified as specific times or by specific ' +
             'period. If no release times are specified, particles will be rel' +
             'eased at the beginning of the first stress period.'
           WordWrap = True
-          ExplicitLeft = 0
-          ExplicitTop = 2
         end
       end
       inline frameReleaseTimes: TframeGrid
@@ -583,16 +578,15 @@ inherited framePackagePrp: TframePackagePrp
         Height = 307
         Align = alClient
         TabOrder = 1
-        ExplicitLeft = 91
-        ExplicitTop = 1
-        ExplicitWidth = 208
-        ExplicitHeight = 285
+        ExplicitTop = 57
+        ExplicitWidth = 569
+        ExplicitHeight = 307
         inherited Panel: TPanel
           Top = 266
           Width = 569
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 244
-          ExplicitWidth = 208
+          ExplicitTop = 266
+          ExplicitWidth = 569
           inherited lbNumber: TLabel
             StyleElements = [seFont, seClient, seBorder]
           end
@@ -651,8 +645,8 @@ inherited framePackagePrp: TframePackagePrp
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitWidth = 208
-          ExplicitHeight = 244
+          ExplicitWidth = 569
+          ExplicitHeight = 266
         end
       end
     end

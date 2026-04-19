@@ -60,6 +60,14 @@ uses
 
 {$R *.dfm}
 
+resourcestring
+  SReleaseTimes = 'Release times';
+  SSteps = 'Steps';
+  SStepFrequency = 'Step frequency';
+  SLastSteps = 'Last steps';
+  SFirstSteps = 'First steps';
+  SAllSteps = 'All steps';
+
 type
   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
   pdcFrequency, pdcSteps);
@@ -179,13 +187,6 @@ begin
   finally
    frameReleasePeriodData.Grid.EndUpdate;
   end;
-
-  {  {
-    // RELEASE_TIMES or RELEASE_TIMESFILE
-    property ReleaseTimes: TRealCollection read FReleaseTimes write SetReleaseTimes;
-    // PERIOD
-    property PeriodData: TPrpPeriodData read FPeriodData write SetPeriodData;
- }
 end;
 
 procedure TframePackagePrp.InitializeGrids;
@@ -195,11 +196,11 @@ begin
     ClearGrid(frameReleasePeriodData.Grid);
     frameReleasePeriodData.Grid.Cells[Ord(pdcStartTime), 0] := StrStartingTime;
     frameReleasePeriodData.Grid.Cells[Ord(pdcEndTime), 0] := StrEndingTime;
-    frameReleasePeriodData.Grid.Cells[Ord(pdcAll), 0] := 'All steps';
-    frameReleasePeriodData.Grid.Cells[Ord(pdcFirst), 0] := 'First steps';
-    frameReleasePeriodData.Grid.Cells[Ord(pdcLast), 0] := 'Last steps';
-    frameReleasePeriodData.Grid.Cells[Ord(pdcFrequency), 0] := 'Step frequency';
-    frameReleasePeriodData.Grid.Cells[Ord(pdcSteps), 0] := 'Steps';
+    frameReleasePeriodData.Grid.Cells[Ord(pdcAll), 0] := SAllSteps;
+    frameReleasePeriodData.Grid.Cells[Ord(pdcFirst), 0] := SFirstSteps;
+    frameReleasePeriodData.Grid.Cells[Ord(pdcLast), 0] := SLastSteps;
+    frameReleasePeriodData.Grid.Cells[Ord(pdcFrequency), 0] := SStepFrequency;
+    frameReleasePeriodData.Grid.Cells[Ord(pdcSteps), 0] := SSteps;
   finally
     frameReleasePeriodData.Grid.EndUpdate;
   end;
@@ -207,6 +208,7 @@ begin
   frameReleaseTimes.Grid.BeginUpdate;
   try
     ClearGrid(frameReleaseTimes.Grid);
+    frameReleaseTimes.Grid.Cells[0,0] := SReleaseTimes;
   finally
     frameReleaseTimes.Grid.EndUpdate;
   end;
@@ -298,8 +300,8 @@ begin
             end;
             Inc(StepCount);
           end;
-          PrpSteps.Count := StepCount;
         end;
+        PrpSteps.Count := StepCount;
       finally
        Steps.Free;
       end;
