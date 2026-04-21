@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, frameGridUnit,
   ModflowPackageSelectionUnit, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.CheckLst, JvExCheckLst, JvCheckListBox;
+  Vcl.CheckLst, JvExCheckLst, JvCheckListBox, JvPageList, framePackagePrpUnit,
+  FramePackageNodeLinkUnit;
 
 type
   // frame should be a @link(TframePackagePrp).
@@ -36,10 +37,20 @@ type
   private
     FOnPrpPackageDeleted: TPrpPackagedDeletedEvent;
     FOnPrpPackageAdded: TNotifyEvent;
+    FPackageTreeView: TTreeView;
+    FNode: TTreeNode;
+    FPageList: TJvPageList;
+    FLinkDictionary: TLinkDictionary;
+    FFrameNodeLinks: TLinkObjectList;
+    procedure ClearFrames;
+    function CreateNewPrpFrame: TframePackagePrp;
     Procedure Initialize;
     { Private declarations }
   public
-    procedure GetData(PrtModel: TPrtModel);
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure GetData(PrtModel: TPrtModel; PackageTreeView: TTreeView;
+      Node: TTreeNode; PageList: TJvPageList; LinkDictionary: TLinkDictionary);
     procedure SetData(PrtModel: TPrtModel);
     property OnPrpPackageAdded: TNotifyEvent read FOnPrpPackageAdded write FOnPrpPackageAdded;
     property OnPrpPackageDeleted: TPrpPackagedDeletedEvent read FOnPrpPackageDeleted write FOnPrpPackageDeleted;
@@ -71,16 +82,86 @@ type
   ppdcFrequency, ppdcSteps);
 
 
+procedure TframePrpMultiplePackages.ClearFrames;
+var
+  ALink: TFrameNodeLink;
+  Page: TJvStandardPage;
+begin
+  for var Index := 0 to FFrameNodeLinks.Count - 1 do
+  begin
+     ALink := FFrameNodeLinks[Index];
+     FLinkDictionary.Remove(ALink.Frame);
+     Page := ALink.Frame.Parent as TJvStandardPage;
+     Page.Free;
+     ALink.Node.Free;
+     ALink.Free;
+  end;
+end;
+
+constructor TframePrpMultiplePackages.Create(AOwner: TComponent);
+begin
+  inherited;
+  FFrameNodeLinks := TLinkObjectList.Create;
+end;
+
+function TframePrpMultiplePackages.CreateNewPrpFrame: TframePackagePrp;
+var
+  NewPage: TJvStandardPage;
+  ChildNode: TTreeNode;
+  Link: TFrameNodeLink;
+begin
+  Result := TframePackagePrp.Create(self);
+
+//  result.pgcControls.Anchors := result.pgcControls.Anchors + [akTop];
+//  result.Selected := True;
+//  FframePkgSmsObjectList.Add(result);
+  NewPage := TJvStandardPage.Create(self);
+  NewPage.Name := '';
+//  NewPage.HelpKeyword := 'SMS_Sparse_Matrix_Solution_Pac';
+  NewPage.PageList := FPageList;
+//  NewPage.OnShow := ShowImsPage;
+  result.Parent := NewPage;
+//  MemoWidth := result.MemoComments.Width;
+  result.Align := alClient;
+
+  ChildNode := FPackageTreeView.Items.AddChild(FNode, 'PRP');
+
+  Link := TFrameNodeLink.Create;
+  Link.Frame := Result;
+  Link.Node := ChildNode;
+  Link.AlternateNode := ChildNode;
+  FFrameNodeLinks.Add(Link);
+  FLinkDictionary.Add(Link.Frame, Link);
+
+
+  // PackageTreeView: TTreeView; Node: TTreeNode; PageList: TJvPageList;
+  // LinkDictionary: TLinkDictionary
+end;
+
 { TframePrpMultiplePackages }
 
-procedure TframePrpMultiplePackages.GetData(PrtModel: TPrtModel);
+destructor TframePrpMultiplePackages.Destroy;
+begin
+  FFrameNodeLinks.Free;
+  inherited;
+end;
+
+procedure TframePrpMultiplePackages.GetData(PrtModel: TPrtModel;
+  PackageTreeView: TTreeView; Node: TTreeNode; PageList: TJvPageList;
+  LinkDictionary: TLinkDictionary);
 var
   FileItem: TPrtOutputFile;
   TrackingOption: TPrtTrackingOption;
   PrpPackage: TPrpPackage;
   PeriodData: TPrpPeriodDataItem;
   StepList: TStringList;
+  NewPrpFrame: TframePackagePrp;
 begin
+  FPackageTreeView := PackageTreeView;
+  FNode := Node;
+  FPageList := PageList;
+  FLinkDictionary := LinkDictionary;
+
   Initialize;
   cbRetardationFactor.Checked := PrtModel.RetardationFactorUsed;
   cbUseParticleStopZones.Checked := PrtModel.ZoneUsed;
@@ -103,6 +184,12 @@ begin
       PrpPackage := PrtModel[Index].PrpPackage;
       framePrpPackages.Grid.Cells[Ord(pcName), Index+1] := PrpPackage.PackageName;
       framePrpPackages.Grid.Checked[Ord(pcUsed), Index+1] := PrpPackage.isSelected;
+      framePrpPackages.Grid.Objects[Ord(pcName), Index+1] := PrpPackage;
+
+      NewPrpFrame := CreateNewPrpFrame;
+      NewPrpFrame.GetData(PrpPackage);
+      framePrpPackages.Grid.Objects[Ord(pcUsed), Index+1] := NewPrpFrame;
+
     end;
   finally
     framePrpPackages.Grid.EndUpdate;
@@ -145,19 +232,16 @@ begin
   finally
     frameReleasePeriodData.Grid.EndUpdate;
   end;
-
-  {
-  TPackagePeriodDataColumns = (ppdcStartTime, ppdcEndTime, ppdcAll, ppdcFirst, ppdcLast,
-  ppdcFrequency, ppdcSteps);
-  }
 end;
 
 procedure TframePrpMultiplePackages.Initialize;
 begin
   framePrpPackages.Grid.BeginUpdate;
   try
+    ClearGrid(framePrpPackages.Grid);
     framePrpPackages.Grid.Cells[Ord(pcName ), 0] := StrPackageName;
     framePrpPackages.Grid.Cells[Ord(pcUsed ), 0] := StrPackageUsed;
+    framePrpPackages.seNumber.AsInteger := 0;
   finally
     framePrpPackages.Grid.EndUpdate;
   end;
@@ -187,8 +271,7 @@ begin
   chklstOutputFiles.UnCheckAll;
   chklstTrackEvents.UnCheckAll;
 
-
-
+  ClearFrames;
 end;
 
 procedure TframePrpMultiplePackages.SetData(PrtModel: TPrtModel);
@@ -203,6 +286,10 @@ var
   AnInt: Integer;
   StepCount: Integer;
   PrtTrackingOptions: TPrtTrackingOptions;
+  PackageColumn: TStrings;
+  PrpPackage: TPrpPackage;
+  PrpFrame: TframePackagePrp;
+  PackageIndex: Integer;
 begin
   PrtModel.RetardationFactorUsed := cbRetardationFactor.Checked;
   PrtModel.ZoneUsed := cbUseParticleStopZones.Checked;
@@ -227,18 +314,27 @@ begin
   end;
   PrtModel.PrtTrackingOptions := PrtTrackingOptions;
 
-//  framePrpPackages.Grid.BeginUpdate;
-//  try
-//    framePrpPackages.seNumber.AsInteger := PrtModel.Count;
-//    for var Index := 0 to PrtModel.Count - 1 do
-//    begin
-//      PrpPackage := PrtModel[Index].PrpPackage;
-//      framePrpPackages.Grid.Cells[Ord(pcName), Index+1] := PrpPackage.PackageName;
-//      framePrpPackages.Grid.Checked[Ord(pcUsed), Index+1] := PrpPackage.isSelected;
-//    end;
-//  finally
-//    framePrpPackages.Grid.EndUpdate;
-//  end;
+  PackageColumn := framePrpPackages.Grid.Cols[Ord(pcName)];
+  for var Index := PrtModel.Count - 1 downto 0 do
+  begin
+    PrpPackage := PrtModel[Index].PrpPackage;
+    PackageIndex := PackageColumn.IndexOfObject(PrpPackage);
+    if (PackageIndex < 0) or (PackageIndex > framePrpPackages.seNumber.AsInteger) then
+    begin
+      PrtModel.Delete(Index);
+    end;
+  end;
+  for var Index := 0 to framePrpPackages.seNumber.AsInteger - 1 do
+  begin
+    PrpPackage := (framePrpPackages.Grid.Objects[Ord(pcName), Index + 1] as TPrpPackageItem).PrpPackage;
+    If PrpPackage = nil then
+    begin
+      PrpPackage := (PrtModel.Add as TPrpPackageItem).PrpPackage;
+    end;
+    PrpFrame := framePrpPackages.Grid.Objects[Ord(pcUsed), Index + 1] as TframePackagePrp;
+    Assert(PrpFrame <> nil);
+    PrpFrame.GetData(PrpPackage);
+  end;
 
   PrtModel.TrackTimes.Count := frameTrackTimes.seNumber.AsInteger;
   for var Index := 0 to frameTrackTimes.seNumber.AsInteger - 1 do

@@ -9,7 +9,7 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 0
     Width = 640
     Height = 480
-    ActivePage = tabTrackByStressPeriod
+    ActivePage = tabPrpPackages
     Align = alClient
     TabOrder = 0
     object tabOptions: TTabSheet
@@ -137,7 +137,6 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
             Left = 6
             Top = 8
             StyleElements = [seFont, seClient, seBorder]
-            MinValue = 1.000000000000000000
             Value = 1.000000000000000000
             ExplicitLeft = 6
             ExplicitTop = 8

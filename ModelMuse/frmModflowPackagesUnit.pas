@@ -59,7 +59,7 @@ uses System.UITypes,
   framePackageFmp4AllotmentsUnit, framePackageFmp4LandUseUnit,
   framePackageFmp4SalinityFlushUnit, framePackageBuoyancyUnit,
   framePackageViscosityUnit, framePackageTvsUnit, framePackageUseMultiplierUnit,
-  frameGweCndPackageUnit, framePackageEstUnit;
+  frameGweCndPackageUnit, framePackageEstUnit, FramePackageNodeLinkUnit;
 
 type
 
@@ -81,18 +81,6 @@ type
     function Add: TTempPackageItem;
     property Items[Index: integer]: TTempPackageItem read GetItem
       write SetItem; default;
-  end;
-
-  TFrameNodeLink = class(TObject)
-  private
-    FNode: TTreeNode;
-    FFrame: TframePackage;
-    procedure SetNode(const Value: TTreeNode);
-    procedure SetFrame(const Value: TframePackage);
-  public
-    AlternateNode: TTreeNode;
-    property Node: TTreeNode read FNode write SetNode;
-    property Frame: TframePackage read FFrame write SetFrame;
   end;
 
   TfrmModflowPackages = class(TfrmCustomGoPhast)
@@ -433,8 +421,8 @@ type
     FSfrParameterInstances: TSfrParamInstances;
     FNewPackages: TTempPackageCollection;
     FCurrentPackages: TModflowPackages;
-    FFrameNodeLinks: TList;
-    FLinkDictionary: TDictionary<TframePackage, TFrameNodeLink>;
+    FFrameNodeLinks: TLinkObjectList;
+    FLinkDictionary: TLinkDictionary;
     FSettingNumber: Boolean;
     FGwtParentNode: TTreeNode;
     FGweParentNode: TTreeNode;
@@ -2214,8 +2202,8 @@ end;
 procedure TfrmModflowPackages.FormCreate(Sender: TObject);
 begin
   inherited;
-  FLinkDictionary := TDictionary<TframePackage, TFrameNodeLink>.Create;
-  FFrameNodeLinks := TObjectList.Create;
+  FLinkDictionary := TLinkDictionary.Create;
+  FFrameNodeLinks := TLinkObjectList.Create;
   framePkgGMG.pcGMG.ActivePageIndex := 0;
   frameMt3dmsAdvPkg.pcAdvection.ActivePageIndex := 0;
 
@@ -6536,18 +6524,6 @@ procedure TUndoChangeLgrPackageSelection.UpdateMt3dmsChemSpecies;
 begin
   FNewMobileComponents.Assign(frmGoPhast.PhastModel.MobileComponents);
   FNewImmobileComponents.Assign(frmGoPhast.PhastModel.ImmobileComponents);
-end;
-
-{ TFrameNodeLink }
-
-procedure TFrameNodeLink.SetFrame(const Value: TframePackage);
-begin
-  FFrame := Value;
-end;
-
-procedure TFrameNodeLink.SetNode(const Value: TTreeNode);
-begin
-  FNode := Value;
 end;
 
 end.

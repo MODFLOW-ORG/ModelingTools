@@ -960,7 +960,8 @@ uses
   Mf6.LkeFileReaderUnit in '..\MF6InputReader\Mf6.LkeFileReaderUnit.pas',
   Mf6.MweFileReaderUnit in '..\MF6InputReader\Mf6.MweFileReaderUnit.pas',
   Mf6.UzeFileReaderUnit in '..\MF6InputReader\Mf6.UzeFileReaderUnit.pas',
-  framePrpPackagesUnit in 'framePrpPackagesUnit.pas' {framePrpMultiplePackages: TFrame};
+  framePrpPackagesUnit in 'framePrpPackagesUnit.pas' {framePrpMultiplePackages: TFrame},
+  FramePackageNodeLinkUnit in 'FramePackageNodeLinkUnit.pas';
 
 {$R *.res}
 
