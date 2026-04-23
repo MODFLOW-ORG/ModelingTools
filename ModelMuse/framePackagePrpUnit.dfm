@@ -21,7 +21,7 @@ inherited framePackagePrp: TframePackagePrp
     Top = 144
     Width = 577
     Height = 394
-    ActivePage = tabReleasePeriodData
+    ActivePage = tabOptions
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet

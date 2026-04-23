@@ -3111,6 +3111,7 @@ Type
     FPrtTrackingOptions: TPrtTrackingOptions;
     FPrtOutputFiles: TPrtOutputFiles;
     FPeriodData: TPrpPeriodData;
+    FModelName: string;
     procedure SetRetardationFactorUsed(const Value: Boolean);
     procedure SetZoneUsed(const Value: Boolean);
     procedure SetTrackTimes(const Value: TRealCollection);
@@ -3122,12 +3123,14 @@ Type
     procedure SetPrtTrackingOptions(const Value: TPrtTrackingOptions);
     procedure SetPrtOutputFiles(const Value: TPrtOutputFiles);
     procedure SetPeriodData(const Value: TPrpPeriodData);
+    procedure SetModelName(const Value: string);
   public
     procedure Assign(Source: TPersistent); override;
     constructor Create(Model: TBaseModel);
     destructor Destroy; override;
     property Items[Index: Integer]: TPrpPackageItem read GetItem write SetItem;  default;
   published
+    property ModelName: string read FModelName write SetModelName;
     // RETFACTOR
     property RetardationFactorUsed: Boolean read FRetardationFactorUsed write SetRetardationFactorUsed;
     // IZONE
@@ -31604,6 +31607,7 @@ begin
   if Source is TPrtModel then
   begin
     PrtSource := TPrtModel(Source);
+    ModelName := PrtSource.ModelName;
     ZoneUsed := PrtSource.ZoneUsed;
     RetardationFactorUsed := PrtSource.RetardationFactorUsed;
     TrackTimes := PrtSource.TrackTimes;
@@ -31659,6 +31663,15 @@ end;
 procedure TPrtModel.SetItem(Index: Integer; const Value: TPrpPackageItem);
 begin
   inherited Items[Index] := Value;
+end;
+
+procedure TPrtModel.SetModelName(const Value: string);
+begin
+  if FModelName <> Value then
+  begin
+    FModelName := Value;
+    InvalidateModel;
+  end;
 end;
 
 procedure TPrtModel.SetPeriodData(const Value: TPrpPeriodData);

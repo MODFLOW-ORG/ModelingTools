@@ -1,25 +1,39 @@
-object framePrpMultiplePackages: TframePrpMultiplePackages
-  Left = 0
-  Top = 0
-  Width = 640
-  Height = 480
-  TabOrder = 0
-  object pcPrt: TPageControl
+inherited framePrpMultiplePackages: TframePrpMultiplePackages
+  Width = 665
+  Height = 507
+  ExplicitWidth = 665
+  ExplicitHeight = 507
+  inherited lblComments: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited lblPackage: TLabel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited memoComments: TMemo
+    Width = 634
+    Height = 75
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitWidth = 634
+    ExplicitHeight = 75
+  end
+  object pcPrt: TPageControl [3]
     Left = 0
-    Top = 0
-    Width = 640
-    Height = 480
+    Top = 151
+    Width = 665
+    Height = 356
     ActivePage = tabPrpPackages
-    Align = alClient
-    TabOrder = 0
+    Align = alBottom
+    TabOrder = 1
+    ExplicitWidth = 640
+    ExplicitHeight = 328
     object tabOptions: TTabSheet
       Caption = 'Options'
       object grpMIP: TGroupBox
         Left = 3
         Top = 3
-        Width = 246
+        Width = 446
         Height = 86
-        Caption = 'MIP Package'
+        Caption = 'Model Input Package (MIP)'
         TabOrder = 0
         object cbRetardationFactor: TCheckBox
           Left = 16
@@ -39,10 +53,10 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
         end
       end
       object grpOutputControl: TGroupBox
-        Left = 8
-        Top = 96
-        Width = 369
-        Height = 201
+        Left = 0
+        Top = 95
+        Width = 449
+        Height = 226
         Caption = 'Output Control (OC) Package'
         TabOrder = 1
         object lblOutputFiles: TLabel
@@ -53,7 +67,7 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
           Caption = 'Output Files'
         end
         object lblTrackEvents: TLabel
-          Left = 160
+          Left = 184
           Top = 24
           Width = 65
           Height = 15
@@ -62,8 +76,8 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
         object chklstOutputFiles: TJvCheckListBox
           Left = 11
           Top = 45
-          Width = 137
-          Height = 89
+          Width = 167
+          Height = 100
           DoubleBuffered = False
           ItemHeight = 17
           Items.Strings = (
@@ -76,10 +90,10 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
           TabOrder = 0
         end
         object chklstTrackEvents: TJvCheckListBox
-          Left = 160
-          Top = 48
-          Width = 185
-          Height = 145
+          Left = 184
+          Top = 45
+          Width = 257
+          Height = 172
           DoubleBuffered = False
           ItemHeight = 17
           Items.Strings = (
@@ -103,18 +117,18 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
       inline framePrpPackages: TframeGrid
         Left = 0
         Top = 0
-        Width = 632
-        Height = 450
+        Width = 657
+        Height = 326
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 632
-        ExplicitHeight = 450
+        ExplicitWidth = 657
+        ExplicitHeight = 298
         inherited Panel: TPanel
-          Top = 409
-          Width = 632
+          Top = 285
+          Width = 657
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 409
-          ExplicitWidth = 632
+          ExplicitTop = 257
+          ExplicitWidth = 657
           inherited lbNumber: TLabel
             Width = 184
             Caption = 'Number of PRP packages in model'
@@ -122,34 +136,35 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
             ExplicitWidth = 184
           end
           inherited sbAdd: TSpeedButton
-            Left = 332
-            ExplicitLeft = 241
+            Left = 561
+            ExplicitLeft = 561
           end
           inherited sbInsert: TSpeedButton
-            Left = 393
-            ExplicitLeft = 286
+            Left = 592
+            ExplicitLeft = 592
           end
           inherited sbDelete: TSpeedButton
-            Left = 452
-            ExplicitLeft = 330
+            Left = 623
+            ExplicitLeft = 623
           end
           inherited seNumber: TJvSpinEdit
             Left = 6
             Top = 8
             StyleElements = [seFont, seClient, seBorder]
-            Value = 1.000000000000000000
+            OnChange = framePrpPackagesseNumberChange
             ExplicitLeft = 6
             ExplicitTop = 8
           end
         end
         inherited Grid: TRbwDataGrid4
-          Width = 632
-          Height = 409
+          Width = 657
+          Height = 285
           ColCount = 2
+          OnEndUpdate = framePrpPackagesGridEndUpdate
           Columns = <
             item
               AutoAdjustRowHeights = False
-              AutoAdjustCaptionRowHeights = True
+              AutoAdjustCaptionRowHeights = False
               ButtonCaption = '...'
               ButtonFont.Charset = DEFAULT_CHARSET
               ButtonFont.Color = clWindowText
@@ -165,7 +180,7 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
               LimitToList = False
               MaxLength = 0
               ParentButtonFont = False
-              WordWrapCaptions = True
+              WordWrapCaptions = False
               WordWrapCells = False
               CaseSensitivePicklist = False
               CheckStyle = csCheck
@@ -173,7 +188,7 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
             end
             item
               AutoAdjustRowHeights = False
-              AutoAdjustCaptionRowHeights = True
+              AutoAdjustCaptionRowHeights = False
               ButtonCaption = '...'
               ButtonFont.Charset = DEFAULT_CHARSET
               ButtonFont.Color = clWindowText
@@ -195,8 +210,8 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitWidth = 632
-          ExplicitHeight = 409
+          ExplicitWidth = 657
+          ExplicitHeight = 257
         end
       end
     end
@@ -206,32 +221,32 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
       inline frameTrackTimes: TframeGrid
         Left = 0
         Top = 57
-        Width = 632
-        Height = 393
+        Width = 657
+        Height = 269
         Align = alClient
         TabOrder = 0
         ExplicitTop = 57
-        ExplicitWidth = 632
-        ExplicitHeight = 393
+        ExplicitWidth = 657
+        ExplicitHeight = 241
         inherited Panel: TPanel
-          Top = 352
-          Width = 632
+          Top = 228
+          Width = 657
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 352
-          ExplicitWidth = 632
+          ExplicitTop = 200
+          ExplicitWidth = 657
           inherited lbNumber: TLabel
             StyleElements = [seFont, seClient, seBorder]
           end
           inherited sbAdd: TSpeedButton
-            Left = 331
+            Left = 345
             ExplicitLeft = 331
           end
           inherited sbInsert: TSpeedButton
-            Left = 392
+            Left = 408
             ExplicitLeft = 392
           end
           inherited sbDelete: TSpeedButton
-            Left = 453
+            Left = 471
             ExplicitLeft = 453
           end
           inherited seNumber: TJvSpinEdit
@@ -239,16 +254,42 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
           end
         end
         inherited Grid: TRbwDataGrid4
-          Width = 632
-          Height = 352
-          ExplicitWidth = 632
-          ExplicitHeight = 352
+          Width = 657
+          Height = 228
+          Columns = <
+            item
+              AutoAdjustRowHeights = False
+              AutoAdjustCaptionRowHeights = False
+              ButtonCaption = '...'
+              ButtonFont.Charset = DEFAULT_CHARSET
+              ButtonFont.Color = clWindowText
+              ButtonFont.Height = -11
+              ButtonFont.Name = 'Tahoma'
+              ButtonFont.Style = []
+              ButtonUsed = False
+              ButtonWidth = 20
+              CheckMax = False
+              CheckMin = False
+              ComboUsed = False
+              Format = rcf4String
+              LimitToList = False
+              MaxLength = 0
+              ParentButtonFont = False
+              WordWrapCaptions = False
+              WordWrapCells = False
+              CaseSensitivePicklist = False
+              CheckStyle = csCheck
+              AutoAdjustColWidths = True
+            end>
+          ExplicitTop = 0
+          ExplicitWidth = 657
+          ExplicitHeight = 228
         end
       end
       object pnlTrackTime: TPanel
         Left = 0
         Top = 0
-        Width = 632
+        Width = 657
         Height = 57
         Align = alTop
         TabOrder = 1
@@ -256,7 +297,7 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 624
+          Width = 649
           Height = 49
           Align = alClient
           Caption = 
@@ -274,7 +315,7 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
       object pnlTrackPeriodData: TPanel
         Left = 0
         Top = 0
-        Width = 632
+        Width = 657
         Height = 57
         Align = alTop
         TabOrder = 0
@@ -282,7 +323,7 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 624
+          Width = 649
           Height = 49
           Align = alClient
           Caption = 
@@ -296,41 +337,45 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
       inline frameReleasePeriodData: TframeGrid
         Left = 0
         Top = 57
-        Width = 632
-        Height = 393
+        Width = 657
+        Height = 269
         Align = alClient
         TabOrder = 1
         ExplicitTop = 57
         ExplicitWidth = 632
         ExplicitHeight = 393
         inherited Panel: TPanel
-          Top = 352
-          Width = 632
+          Top = 228
+          Width = 657
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 352
-          ExplicitWidth = 632
+          ExplicitTop = 200
+          ExplicitWidth = 657
           inherited lbNumber: TLabel
             StyleElements = [seFont, seClient, seBorder]
           end
           inherited sbAdd: TSpeedButton
-            Left = 331
+            Left = 345
             ExplicitLeft = 181
           end
           inherited sbInsert: TSpeedButton
-            Left = 392
+            Left = 408
             ExplicitLeft = 215
           end
           inherited sbDelete: TSpeedButton
-            Left = 453
+            Left = 471
             ExplicitLeft = 249
           end
           inherited seNumber: TJvSpinEdit
+            Left = 6
+            Top = 8
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitLeft = 6
+            ExplicitTop = 8
           end
         end
         inherited Grid: TRbwDataGrid4
-          Width = 632
-          Height = 352
+          Width = 657
+          Height = 228
           ColCount = 7
           Columns = <
             item
@@ -501,9 +546,9 @@ object framePrpMultiplePackages: TframePrpMultiplePackages
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitTop = -2
-          ExplicitWidth = 632
-          ExplicitHeight = 352
+          ExplicitTop = 0
+          ExplicitWidth = 657
+          ExplicitHeight = 228
         end
       end
     end

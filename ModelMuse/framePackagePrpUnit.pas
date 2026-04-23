@@ -191,6 +191,8 @@ end;
 
 procedure TframePackagePrp.InitializeGrids;
 begin
+  pgcPRP.ActivePageIndex := 0;
+
   frameReleasePeriodData.Grid.BeginUpdate;
   try
     ClearGrid(frameReleasePeriodData.Grid);

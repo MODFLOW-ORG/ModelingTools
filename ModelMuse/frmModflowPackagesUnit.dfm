@@ -26,7 +26,7 @@ inherited frmModflowPackages: TfrmModflowPackages
     Top = 0
     Width = 577
     Height = 513
-    ActivePage = jvspGweProcess
+    ActivePage = jvspBCF
     PropagateEnable = False
     Align = alClient
     OnChange = jvplPackagesChange
@@ -14936,6 +14936,68 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
       end
     end
+    object jvspPRT: TJvStandardPage
+      Left = 0
+      Top = 0
+      Width = 577
+      Height = 513
+      Caption = 'jvspPRT'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      inline framePrtModels: TframePrtModels
+        Left = 0
+        Top = 0
+        Width = 577
+        Height = 513
+        Align = alClient
+        TabOrder = 0
+        ExplicitLeft = -63
+        ExplicitTop = 33
+        inherited framePrtModelsGrid: TframeGrid
+          Width = 577
+          Height = 513
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 640
+          ExplicitHeight = 480
+          inherited Panel: TPanel
+            Top = 472
+            Width = 577
+            StyleElements = [seFont, seClient, seBorder]
+            ExplicitTop = 439
+            ExplicitWidth = 640
+            inherited lbNumber: TLabel
+              Width = 162
+              Height = 18
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 162
+              ExplicitHeight = 18
+            end
+            inherited sbAdd: TSpeedButton
+              Left = 302
+              ExplicitLeft = 336
+            end
+            inherited sbInsert: TSpeedButton
+              Left = 357
+              ExplicitLeft = 397
+            end
+            inherited sbDelete: TSpeedButton
+              Left = 413
+              ExplicitLeft = 459
+            end
+            inherited seNumber: TJvSpinEdit
+              Height = 26
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitHeight = 26
+            end
+          end
+          inherited Grid: TRbwDataGrid4
+            Width = 577
+            Height = 472
+          end
+        end
+      end
+    end
   end
   object pnlBottom: TPanel
     Left = 0
@@ -15030,6 +15092,7 @@ inherited frmModflowPackages: TfrmModflowPackages
       OnExpanded = tvPackagesExpanded
       OnMouseDown = tvPackagesMouseDown
       OnMouseUp = tvPackagesMouseUp
+      ExplicitLeft = 6
     end
   end
   object rbwLpfParamCountController: TRbwController

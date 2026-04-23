@@ -59,7 +59,8 @@ uses System.UITypes,
   framePackageFmp4AllotmentsUnit, framePackageFmp4LandUseUnit,
   framePackageFmp4SalinityFlushUnit, framePackageBuoyancyUnit,
   framePackageViscosityUnit, framePackageTvsUnit, framePackageUseMultiplierUnit,
-  frameGweCndPackageUnit, framePackageEstUnit, FramePackageNodeLinkUnit;
+  frameGweCndPackageUnit, framePackageEstUnit, FramePackageNodeLinkUnit,
+  framePrtModelsUnit;
 
 type
 
@@ -313,6 +314,8 @@ type
     frameGweESL: TframePackageUseMultiplier;
     jvspGweIms: TJvStandardPage;
     frameGweIms: TframePkgSms;
+    jvspPRT: TJvStandardPage;
+    framePrtModels: TframePrtModels;
     procedure tvPackagesChange(Sender: TObject; Node: TTreeNode);
     procedure btnOKClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject); override;
@@ -433,6 +436,7 @@ type
     FframePkgSmsObjectList: TframePkgSmsObjectList;
     FGwtImsNode: TTreeNode;
     FTransportNode: TTreeNode;
+    FParticleTransportNode: TTreeNode;
     FChemNode: TTreeNode;
     FGweSolverNode: TTreeNode;
     FNewChemSpecies: Boolean;
@@ -706,6 +710,7 @@ resourcestring
   'now?';
   StrDoYouWantToFixT = 'Do you want to fix this?';
   StrDoYouWantToFixThese = 'Do you want to fix these?';
+  StrParticleTracking = 'Particle Tracking';
 
 {$R *.dfm}
 
@@ -2932,6 +2937,12 @@ begin
     AddNode(StrGroundwaterTranspor, StrGroundwaterTranspor, PriorNode);
     FTransportNode := PriorNode;
 
+  {$IFDEF PRT}
+    AddNode(StrParticleTracking, StrParticleTracking, PriorNode);
+    FParticleTransportNode := PriorNode;
+    FParticleTransportNode.Data := jvspPRT;
+  {$ENDIF}
+
     FChemNode := AddChildNode(StrChemSpecies, StrChemSpeciesMT3DA,
       FTransportNode);
     FChemNode.Data := jvspChemSpecies;
@@ -3073,6 +3084,11 @@ begin
   FillHfbGrid;
 
   GetSfrParamInstances;
+
+{$IFDEF PRT}
+  framePrtModels.GetData(frmGoPhast.PhastModel.ModflowPackages.PrtModels,
+    tvPackages, FParticleTransportNode, jvplPackages, FLinkDictionary);
+{$ENDIF}
 end;
 
 procedure TfrmModflowPackages.GetData;

@@ -1,39 +1,42 @@
-unit framePrpPackagesUnit;
+unit framePrpMultiplePackagesUnit;
 
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, frameGridUnit,
-  ModflowPackageSelectionUnit, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.CheckLst, JvExCheckLst, JvCheckListBox, JvPageList, framePackagePrpUnit,
-  FramePackageNodeLinkUnit;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, framePackageUnit, RbwController,
+  Vcl.StdCtrls, Vcl.ExtCtrls, frameGridUnit, Vcl.CheckLst, JvExCheckLst,
+  JvCheckListBox, Vcl.ComCtrls, JvPageList, FramePackageNodeLinkUnit,
+  framePackagePrpUnit, ModflowPackageSelectionUnit, frmCustomGoPhastUnit,
+  GoPhastTypes;
 
 type
   // frame should be a @link(TframePackagePrp).
   TPrpPackagedDeletedEvent = procedure (Sender: TObject; frame: TFrame) of Object;
 
-  TframePrpMultiplePackages = class(TFrame)
-    framePrpPackages: TframeGrid;
+  TframePrpMultiplePackages = class(TframePackage)
     pcPrt: TPageControl;
     tabOptions: TTabSheet;
-    tabPrpPackages: TTabSheet;
-    tabTrackTimes: TTabSheet;
-    frameTrackTimes: TframeGrid;
-    tabTrackByStressPeriod: TTabSheet;
-    pnlTrackPeriodData: TPanel;
-    lblTrackPeriodData: TLabel;
-    pnlTrackTime: TPanel;
-    lblTrackTime: TLabel;
-    frameReleasePeriodData: TframeGrid;
     grpMIP: TGroupBox;
     cbRetardationFactor: TCheckBox;
     cbUseParticleStopZones: TCheckBox;
     grpOutputControl: TGroupBox;
-    chklstOutputFiles: TJvCheckListBox;
     lblOutputFiles: TLabel;
-    chklstTrackEvents: TJvCheckListBox;
     lblTrackEvents: TLabel;
+    chklstOutputFiles: TJvCheckListBox;
+    chklstTrackEvents: TJvCheckListBox;
+    tabPrpPackages: TTabSheet;
+    framePrpPackages: TframeGrid;
+    tabTrackTimes: TTabSheet;
+    frameTrackTimes: TframeGrid;
+    pnlTrackTime: TPanel;
+    lblTrackTime: TLabel;
+    tabTrackByStressPeriod: TTabSheet;
+    pnlTrackPeriodData: TPanel;
+    lblTrackPeriodData: TLabel;
+    frameReleasePeriodData: TframeGrid;
+    procedure framePrpPackagesGridEndUpdate(Sender: TObject);
+    procedure framePrpPackagesseNumberChange(Sender: TObject);
   private
     FOnPrpPackageDeleted: TPrpPackagedDeletedEvent;
     FOnPrpPackageAdded: TNotifyEvent;
@@ -42,25 +45,32 @@ type
     FPageList: TJvPageList;
     FLinkDictionary: TLinkDictionary;
     FFrameNodeLinks: TLinkObjectList;
+    FMemoWidthDelta: Integer;
     procedure ClearFrames;
     function CreateNewPrpFrame: TframePackagePrp;
-    Procedure Initialize;
+    procedure SetMemoWidthDelta(const Value: Integer);
     { Private declarations }
   public
+    Procedure Initialize(PackageTreeView: TTreeView;
+      Node: TTreeNode; PageList: TJvPageList; LinkDictionary: TLinkDictionary);
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure GetData(PrtModel: TPrtModel; PackageTreeView: TTreeView;
-      Node: TTreeNode; PageList: TJvPageList; LinkDictionary: TLinkDictionary);
-    procedure SetData(PrtModel: TPrtModel);
+      Node: TTreeNode; PageList: TJvPageList; LinkDictionary: TLinkDictionary); reintroduce;
+    procedure SetData(PrtModel: TPrtModel); reintroduce;
     property OnPrpPackageAdded: TNotifyEvent read FOnPrpPackageAdded write FOnPrpPackageAdded;
     property OnPrpPackageDeleted: TPrpPackagedDeletedEvent read FOnPrpPackageDeleted write FOnPrpPackageDeleted;
+    property MemoWidthDelta: Integer read FMemoWidthDelta write SetMemoWidthDelta;
+    procedure ResizeFrame(Sender: TObject);
     { Public declarations }
   end;
 
+var
+  framePrpMultiplePackages: TframePrpMultiplePackages;
+
 implementation
 
-uses
-  frmCustomGoPhastUnit, GoPhastTypes;
+{$R *.dfm}
 
 resourcestring
   StrPackageName = 'Package Name';
@@ -72,15 +82,14 @@ resourcestring
   StrSteps = 'Steps';
   StrTrackingTime = 'Tracking Time';
 
-{$R *.dfm}
-
 type
   TPrpColumns = (pcName, pcUsed);
 
-type
   TPackagePeriodDataColumns = (ppdcStartTime, ppdcEndTime, ppdcAll, ppdcFirst, ppdcLast,
-  ppdcFrequency, ppdcSteps);
+    ppdcFrequency, ppdcSteps);
 
+
+{ TframePrpMultiplePackages }
 
 procedure TframePrpMultiplePackages.ClearFrames;
 var
@@ -125,6 +134,7 @@ begin
   result.Align := alClient;
 
   ChildNode := FPackageTreeView.Items.AddChild(FNode, 'PRP');
+  ChildNode.Data := NewPage;
 
   Link := TFrameNodeLink.Create;
   Link.Frame := Result;
@@ -132,18 +142,45 @@ begin
   Link.AlternateNode := ChildNode;
   FFrameNodeLinks.Add(Link);
   FLinkDictionary.Add(Link.Frame, Link);
-
-
-  // PackageTreeView: TTreeView; Node: TTreeNode; PageList: TJvPageList;
-  // LinkDictionary: TLinkDictionary
 end;
-
-{ TframePrpMultiplePackages }
 
 destructor TframePrpMultiplePackages.Destroy;
 begin
   FFrameNodeLinks.Free;
   inherited;
+end;
+
+procedure TframePrpMultiplePackages.framePrpPackagesGridEndUpdate(Sender:
+    TObject);
+begin
+  inherited;
+  if (ComponentState <> []) then
+  begin
+    Exit;
+  end;
+
+  framePrpPackages.GridEndUpdate(Sender);
+end;
+
+procedure TframePrpMultiplePackages.framePrpPackagesseNumberChange(Sender:
+    TObject);
+var
+  NewFrame: TframePackagePrp;
+begin
+  if (ControlState <> []) then
+  begin
+    Exit;
+  end;
+
+  framePrpPackages.seNumberChange(Sender);
+  for var Index := 0 to framePrpPackages.seNumber.AsInteger - 1 do
+  begin
+    if framePrpPackages.Grid.Objects[Ord(pcUsed), Index+1] = nil then
+    begin
+      NewFrame := CreateNewPrpFrame;
+      framePrpPackages.Grid.Objects[Ord(pcUsed), Index+1] := NewFrame;
+    end;
+  end;
 end;
 
 procedure TframePrpMultiplePackages.GetData(PrtModel: TPrtModel;
@@ -162,7 +199,7 @@ begin
   FPageList := PageList;
   FLinkDictionary := LinkDictionary;
 
-  Initialize;
+//  Initialize;
   cbRetardationFactor.Checked := PrtModel.RetardationFactorUsed;
   cbUseParticleStopZones.Checked := PrtModel.ZoneUsed;
 
@@ -234,8 +271,16 @@ begin
   end;
 end;
 
-procedure TframePrpMultiplePackages.Initialize;
+procedure TframePrpMultiplePackages.Initialize(PackageTreeView: TTreeView;
+      Node: TTreeNode; PageList: TJvPageList; LinkDictionary: TLinkDictionary);
 begin
+  FPackageTreeView := PackageTreeView;
+  FNode := Node;
+  FPageList := PageList;
+  FLinkDictionary := LinkDictionary;
+
+  pcPrt.ActivePageIndex := 0;
+
   framePrpPackages.Grid.BeginUpdate;
   try
     ClearGrid(framePrpPackages.Grid);
@@ -272,6 +317,11 @@ begin
   chklstTrackEvents.UnCheckAll;
 
   ClearFrames;
+end;
+
+procedure TframePrpMultiplePackages.ResizeFrame(Sender: TObject);
+begin
+  MemoComments.Width := Width - FMemoWidthDelta;
 end;
 
 procedure TframePrpMultiplePackages.SetData(PrtModel: TPrtModel);
@@ -333,7 +383,7 @@ begin
     end;
     PrpFrame := framePrpPackages.Grid.Objects[Ord(pcUsed), Index + 1] as TframePackagePrp;
     Assert(PrpFrame <> nil);
-    PrpFrame.GetData(PrpPackage);
+    PrpFrame.SetData(PrpPackage);
   end;
 
   PrtModel.TrackTimes.Count := frameTrackTimes.seNumber.AsInteger;
@@ -389,6 +439,11 @@ begin
       Inc(PeriodIndex);
     end;
   end;
+end;
+
+procedure TframePrpMultiplePackages.SetMemoWidthDelta(const Value: Integer);
+begin
+  FMemoWidthDelta := Value;
 end;
 
 end.
