@@ -11,12 +11,14 @@ object framePrtModels: TframePrtModels
     Height = 480
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 184
-    ExplicitTop = 136
+    ExplicitWidth = 640
+    ExplicitHeight = 480
     inherited Panel: TPanel
       Top = 439
       Width = 640
       StyleElements = [seFont, seClient, seBorder]
+      ExplicitTop = 439
+      ExplicitWidth = 640
       inherited lbNumber: TLabel
         Width = 123
         Caption = 'Number of PRT models'
@@ -25,12 +27,15 @@ object framePrtModels: TframePrtModels
       end
       inherited sbAdd: TSpeedButton
         Left = 336
+        ExplicitLeft = 336
       end
       inherited sbInsert: TSpeedButton
         Left = 397
+        ExplicitLeft = 397
       end
       inherited sbDelete: TSpeedButton
         Left = 459
+        ExplicitLeft = 459
       end
       inherited seNumber: TJvSpinEdit
         Left = 6

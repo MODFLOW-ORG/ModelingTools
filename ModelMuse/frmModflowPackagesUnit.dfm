@@ -8821,7 +8821,10 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitWidth = 457
               inherited grpDescription: TGroupBox
                 Width = 453
+                ExplicitLeft = 4
+                ExplicitTop = 4
                 ExplicitWidth = 453
+                ExplicitHeight = 277
                 inherited lblTop: TLabel
                   Left = 168
                   Width = 214
@@ -8863,6 +8866,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               inherited grpDescription: TGroupBox
                 Width = 453
                 Height = 356
+                ExplicitLeft = 4
+                ExplicitTop = 4
                 ExplicitWidth = 453
                 ExplicitHeight = 356
                 inherited lblTop: TLabel
@@ -9017,6 +9022,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               inherited grpDescription: TGroupBox
                 Width = 453
                 Height = 296
+                ExplicitLeft = 4
+                ExplicitTop = 4
                 ExplicitWidth = 453
                 ExplicitHeight = 296
                 inherited lblTop: TLabel
@@ -9057,7 +9064,10 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitWidth = 457
               inherited grpDescription: TGroupBox
                 Width = 453
+                ExplicitLeft = 4
+                ExplicitTop = 4
                 ExplicitWidth = 453
+                ExplicitHeight = 141
                 inherited lblTop: TLabel
                   Width = 60
                   Height = 18
@@ -9094,7 +9104,10 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitWidth = 457
               inherited grpDescription: TGroupBox
                 Width = 453
+                ExplicitLeft = 4
+                ExplicitTop = 4
                 ExplicitWidth = 453
+                ExplicitHeight = 207
                 inherited lblTop: TLabel
                   Width = 87
                   Height = 18
@@ -9134,6 +9147,8 @@ inherited frmModflowPackages: TfrmModflowPackages
               inherited grpDescription: TGroupBox
                 Width = 453
                 Height = 275
+                ExplicitLeft = 4
+                ExplicitTop = 4
                 ExplicitWidth = 453
                 ExplicitHeight = 275
                 inherited lblTop: TLabel
@@ -13809,6 +13824,7 @@ inherited frmModflowPackages: TfrmModflowPackages
             inherited pnl2: TPanel
               Width = 554
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitTop = 154
               ExplicitWidth = 554
             end
           end
@@ -14942,8 +14958,6 @@ inherited frmModflowPackages: TfrmModflowPackages
       Width = 577
       Height = 513
       Caption = 'jvspPRT'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inline framePrtModels: TframePrtModels
         Left = 0
         Top = 0
@@ -14951,21 +14965,19 @@ inherited frmModflowPackages: TfrmModflowPackages
         Height = 513
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = -63
-        ExplicitTop = 33
+        ExplicitWidth = 577
+        ExplicitHeight = 513
         inherited framePrtModelsGrid: TframeGrid
           Width = 577
           Height = 513
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 640
-          ExplicitHeight = 480
+          ExplicitWidth = 577
+          ExplicitHeight = 513
           inherited Panel: TPanel
             Top = 472
             Width = 577
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitTop = 439
-            ExplicitWidth = 640
+            ExplicitTop = 472
+            ExplicitWidth = 577
             inherited lbNumber: TLabel
               Width = 162
               Height = 18
@@ -14975,15 +14987,15 @@ inherited frmModflowPackages: TfrmModflowPackages
             end
             inherited sbAdd: TSpeedButton
               Left = 302
-              ExplicitLeft = 336
+              ExplicitLeft = 302
             end
             inherited sbInsert: TSpeedButton
               Left = 357
-              ExplicitLeft = 397
+              ExplicitLeft = 357
             end
             inherited sbDelete: TSpeedButton
               Left = 413
-              ExplicitLeft = 459
+              ExplicitLeft = 413
             end
             inherited seNumber: TJvSpinEdit
               Height = 26
@@ -14994,6 +15006,8 @@ inherited frmModflowPackages: TfrmModflowPackages
           inherited Grid: TRbwDataGrid4
             Width = 577
             Height = 472
+            ExplicitWidth = 577
+            ExplicitHeight = 472
           end
         end
       end
@@ -15007,6 +15021,7 @@ inherited frmModflowPackages: TfrmModflowPackages
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    OnClick = pnlBottomClick
     DesignSize = (
       764
       41)
@@ -15076,7 +15091,7 @@ inherited frmModflowPackages: TfrmModflowPackages
         OnChange = comboModelChange
       end
     end
-    object tvPackages: TTreeView
+    object tvPackages: TJvTreeView
       Left = 1
       Top = 65
       Width = 175
@@ -15087,12 +15102,13 @@ inherited frmModflowPackages: TfrmModflowPackages
       ReadOnly = True
       StateImages = ilCheckImages
       TabOrder = 1
+      Visible = False
       OnChange = tvPackagesChange
       OnCustomDrawItem = tvPackagesCustomDrawItem
       OnExpanded = tvPackagesExpanded
       OnMouseDown = tvPackagesMouseDown
       OnMouseUp = tvPackagesMouseUp
-      ExplicitLeft = 6
+      ItemHeight = 20
     end
   end
   object rbwLpfParamCountController: TRbwController
@@ -15537,7 +15553,6 @@ inherited frmModflowPackages: TfrmModflowPackages
     Top = 256
   end
   object TimerBringToFront: TTimer
-    Interval = 100
     OnTimer = TimerBringToFrontTimer
     Left = 483
     Top = 336

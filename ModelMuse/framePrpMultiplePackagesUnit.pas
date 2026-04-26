@@ -105,6 +105,7 @@ begin
      ALink.Node.Free;
      ALink.Free;
   end;
+  FFrameNodeLinks.Clear;
 end;
 
 constructor TframePrpMultiplePackages.Create(AOwner: TComponent);
@@ -119,12 +120,12 @@ var
   ChildNode: TTreeNode;
   Link: TFrameNodeLink;
 begin
-  Result := TframePackagePrp.Create(self);
+  Result := TframePackagePrp.Create(nil);
 
 //  result.pgcControls.Anchors := result.pgcControls.Anchors + [akTop];
 //  result.Selected := True;
 //  FframePkgSmsObjectList.Add(result);
-  NewPage := TJvStandardPage.Create(self);
+  NewPage := TJvStandardPage.Create(nil);
   NewPage.Name := '';
 //  NewPage.HelpKeyword := 'SMS_Sparse_Matrix_Solution_Pac';
   NewPage.PageList := FPageList;
@@ -146,6 +147,7 @@ end;
 
 destructor TframePrpMultiplePackages.Destroy;
 begin
+  ClearFrames;
   FFrameNodeLinks.Free;
   inherited;
 end;
