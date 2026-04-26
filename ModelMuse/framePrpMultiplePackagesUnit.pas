@@ -46,11 +46,11 @@ type
     FLinkDictionary: TLinkDictionary;
     FFrameNodeLinks: TLinkObjectList;
     FMemoWidthDelta: Integer;
-    procedure ClearFrames;
     function CreateNewPrpFrame: TframePackagePrp;
     procedure SetMemoWidthDelta(const Value: Integer);
     { Private declarations }
   public
+    procedure ClearFrames;
     Procedure Initialize(PackageTreeView: TTreeView;
       Node: TTreeNode; PageList: TJvPageList; LinkDictionary: TLinkDictionary);
     constructor Create(AOwner: TComponent); override;
@@ -103,7 +103,7 @@ begin
      Page := ALink.Frame.Parent as TJvStandardPage;
      Page.Free;
      ALink.Node.Free;
-     ALink.Free;
+//     ALink.Free;
   end;
   FFrameNodeLinks.Clear;
 end;

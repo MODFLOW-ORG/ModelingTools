@@ -2207,6 +2207,7 @@ begin
   Handle;
   inherited;
   FIsLoaded := False;
+  framePrtModels.ClearFrames;
 end;
 
 procedure TfrmModflowPackages.FormCreate(Sender: TObject);

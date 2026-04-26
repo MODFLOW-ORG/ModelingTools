@@ -20,11 +20,11 @@ type
     FPageList: TJvPageList;
     FLinkDictionary: TLinkDictionary;
     FFrameNodeLinks: TLinkObjectList;
-    procedure ClearFrames;
     function CreateNewPrtFrame: TframePrpMultiplePackages;
     Procedure Initialize;
     { Private declarations }
   public
+    procedure ClearFrames;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure GetData(PrtModels: TPrtModels; PackageTreeView: TTreeView;
@@ -58,8 +58,9 @@ begin
      Page := ALink.Frame.Parent as TJvStandardPage;
      Page.Free;
      ALink.Node.Free;
-     ALink.Free;
+//     ALink.Free;
   end;
+  FFrameNodeLinks.Clear;
 end;
 
 constructor TframePrtModels.Create(AOwner: TComponent);
@@ -74,12 +75,17 @@ var
   ChildNode: TTreeNode;
   Link: TFrameNodeLink;
 begin
-  Result := TframePrpMultiplePackages.Create(nil);
+//  Result := TframePrpMultiplePackages.Create(nil);
 
 //  result.pgcControls.Anchors := result.pgcControls.Anchors + [akTop];
 //  result.Selected := True;
 //  FframePkgSmsObjectList.Add(result);
   NewPage := TJvStandardPage.Create(nil);
+  Result := TframePrpMultiplePackages.Create(NewPage);
+
+//  result.pgcControls.Anchors := result.pgcControls.Anchors + [akTop];
+//  result.Selected := True;
+//  FframePkgSmsObjectList.Add(result);
   NewPage.Name := '';
 //  NewPage.HelpKeyword := 'SMS_Sparse_Matrix_Solution_Pac';
   NewPage.PageList := FPageList;
