@@ -20,10 +20,10 @@ object framePrtModels: TframePrtModels
       ExplicitTop = 439
       ExplicitWidth = 640
       inherited lbNumber: TLabel
-        Width = 123
+        Width = 122
         Caption = 'Number of PRT models'
         StyleElements = [seFont, seClient, seBorder]
-        ExplicitWidth = 123
+        ExplicitWidth = 122
       end
       inherited sbAdd: TSpeedButton
         Left = 336
@@ -50,6 +50,8 @@ object framePrtModels: TframePrtModels
       Width = 640
       Height = 439
       ColCount = 2
+      OnSetEditText = framePrtModelsGridGridSetEditText
+      OnBeforeDrawCell = framePrtModelsGridGridBeforeDrawCell
       OnEndUpdate = framePrtModelsGridGridEndUpdate
       Columns = <
         item

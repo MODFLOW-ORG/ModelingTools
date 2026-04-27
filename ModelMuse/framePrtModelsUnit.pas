@@ -6,15 +6,18 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, frameGridUnit,
   framePrpMultiplePackagesUnit, JvPageList, FramePackageNodeLinkUnit,
-  ModflowPackageSelectionUnit;
+  ModflowPackageSelectionUnit, System.AnsiStrings;
 
 type
   TframePrtModels = class(TFrame)
     framePrtModelsGrid: TframeGrid;
+    procedure framePrtModelsGridGridBeforeDrawCell(Sender: TObject; ACol, ARow:
+        LongInt);
     procedure framePrtModelsGridGridEndUpdate(Sender: TObject);
+    procedure framePrtModelsGridGridSetEditText(Sender: TObject; ACol, ARow:
+        LongInt; const Value: string);
     procedure framePrtModelsGridseNumberChange(Sender: TObject);
   private
-    FMemoWidthDelta: Integer;
     FPackageTreeView: TTreeView;
     FNode: TTreeNode;
     FPageList: TJvPageList;
@@ -82,6 +85,7 @@ begin
 //  FframePkgSmsObjectList.Add(result);
   NewPage := TJvStandardPage.Create(nil);
   Result := TframePrpMultiplePackages.Create(NewPage);
+  Result.lblPackage.Caption := 'PRT: Particle Tracking';
 
 //  result.pgcControls.Anchors := result.pgcControls.Anchors + [akTop];
 //  result.Selected := True;
@@ -105,7 +109,7 @@ begin
   FFrameNodeLinks.Add(Link);
   FLinkDictionary.Add(Link.Frame, Link);
   Result.Initialize(FPackageTreeView, FNode, FPageList, FLinkDictionary);
-;
+
 end;
 
 destructor TframePrtModels.Destroy;
@@ -113,6 +117,24 @@ begin
   ClearFrames;
   FFrameNodeLinks.Free;
   inherited;
+end;
+
+procedure TframePrtModels.framePrtModelsGridGridBeforeDrawCell(Sender: TObject;
+    ACol, ARow: LongInt);
+var
+  AName: string;
+begin
+  if (ACol = Ord(pmcName)) and (ARow >= 1) then
+  begin
+    AName := framePrtModelsGrid.Grid.Cells[ACol, ARow];
+    for var RowIndex := ARow - 1 downto 1 do
+    begin
+      if SameText(AName,framePrtModelsGrid.Grid.Cells[ACol, RowIndex]) then
+      begin
+        framePrtModelsGrid.Grid.Canvas.Brush.Color := clRed;
+      end;
+    end;
+  end;
 end;
 
 procedure TframePrtModels.framePrtModelsGridGridEndUpdate(Sender: TObject);
@@ -123,6 +145,25 @@ begin
   end;
 
   framePrtModelsGrid.GridEndUpdate(Sender);
+end;
+
+procedure TframePrtModels.framePrtModelsGridGridSetEditText(Sender: TObject;
+    ACol, ARow: LongInt; const Value: string);
+var
+  Frame: TframePrpMultiplePackages;
+  ALink: TFrameNodeLink;
+begin
+  if (ACol = Ord(pmcName)) and (ARow >= 1) then
+  begin
+    if framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), ARow] <> nil then
+    begin
+      Frame := framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), ARow] as TframePrpMultiplePackages;
+      if FLinkDictionary.TryGetValue(Frame, ALink) then
+      begin
+        ALink.Node.Text := Value + ': (PRT Particle Tracking)';
+      end;
+    end;
+  end;
 end;
 
 procedure TframePrtModels.framePrtModelsGridseNumberChange(Sender: TObject);
@@ -141,6 +182,16 @@ begin
     begin
       NewFrame := CreateNewPrtFrame;
       framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index+1] := NewFrame;
+      FNode.Expanded := True;
+      Assert(FPackageTreeView <> nil);
+      Assert(Assigned(FPackageTreeView.OnChange));
+      FPackageTreeView.OnChange(FPackageTreeView, FNode);
+
+      framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1] := Format('PRT%d', [Index+1]);
+      framePrtModelsGrid.Grid.Checked[Ord(pmcUsed), Index+1] := True;
+
+      framePrtModelsGridGridSetEditText(framePrtModelsGrid.Grid, Ord(pmcName),
+        Index+1, framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1]);
     end;
   end;
 end;

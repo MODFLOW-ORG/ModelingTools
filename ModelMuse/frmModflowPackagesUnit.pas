@@ -393,7 +393,6 @@ type
     procedure frameGridMobileGridSetEditText(Sender: TObject; ACol,
       ARow: Integer; const Value: string);
     procedure EnableMt3dTimeControls(Sender: TObject);
-    procedure FormHide(Sender: TObject);
     procedure frameGwtProcessrcSelectionControllerEnabledChange(
       Sender: TObject);
     procedure frameGridMobileGridStateChange(Sender: TObject; ACol,
@@ -415,7 +414,6 @@ type
     procedure frameGweProcessrcSelectionControllerEnabledChange(
       Sender: TObject);
     procedure frameGweProcessrgSimulationChoiceClick(Sender: TObject);
-    procedure pnlBottomClick(Sender: TObject);
   private
     FIsLoaded: boolean;
     CurrentParameterType: TParameterType;
@@ -1890,9 +1888,6 @@ begin
   inherited;
   BringToFront;
   framePkgLPF.FrameResize(self);
-  // if tvPackages is visible at first, there tends to be access violations.
-  // Is this a bug in the VCL?
-//  tvPackages.Visible := True;
   TimerBringToFront.Enabled := False;
 end;
 
@@ -5890,14 +5885,6 @@ begin
   end;
 end;
 
-procedure TfrmModflowPackages.FormHide(Sender: TObject);
-begin
-  inherited;
-  // if tvPackages is visible at first, there tends to be access violations.
-  // Is this a bug in the VCL?
-  tvPackages.Visible := False;
-end;
-
 procedure TfrmModflowPackages.framePkgBuoyancycbSpecifyDensityClick(Sender:
     TObject);
 var
@@ -6010,12 +5997,6 @@ begin
   begin
     Grid.Cells[ACol, ARow] := dlgOpenSelectExternalFile.FileName;
   end;
-end;
-
-procedure TfrmModflowPackages.pnlBottomClick(Sender: TObject);
-begin
-  inherited;
-  tvPackages.Visible := True;
 end;
 
 procedure TfrmModflowPackages.tvHufParameterTypesChange(Sender: TObject;

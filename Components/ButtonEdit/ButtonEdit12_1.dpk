@@ -30,7 +30,7 @@ package ButtonEdit12_1;
 requires
   rtl,
   vcl,
-  VirtualTreesDR;
+  VirtualTreesR;
 
 contains
   SsButtonEd in 'SsButtonEd.pas',

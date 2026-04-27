@@ -6,6 +6,7 @@ inherited frmModflowPackages: TfrmModflowPackages
   StyleElements = [seFont, seClient, seBorder]
   OnActivate = jvplPackagesChange
   OnClose = FormClose
+  ExplicitWidth = 780
   ExplicitHeight = 593
   TextHeight = 18
   object JvNetscapeSplitter1: TJvNetscapeSplitter
@@ -93,11 +94,11 @@ inherited frmModflowPackages: TfrmModflowPackages
             ExplicitHeight = 18
           end
           inherited btnDelete: TBitBtn
-            Left = 233
+            Left = 231
             Enabled = True
             TabOrder = 1
             OnClick = frameParameterDefinition_btnDeleteClick
-            ExplicitLeft = 233
+            ExplicitLeft = 231
           end
           inherited seNumberOfParameters: TJvSpinEdit
             Height = 26
@@ -266,13 +267,13 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 553
+          Width = 551
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 553
+          ExplicitWidth = 551
         end
         inherited rdgOptions: TRbwDataGrid4
-          Width = 553
-          ExplicitWidth = 553
+          Width = 551
+          ExplicitWidth = 551
         end
         inherited rcSelectionController: TRbwController
           ControlList = <
@@ -351,9 +352,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited cbSaveHeads: TCheckBox
           Width = 441
@@ -798,12 +799,12 @@ inherited frmModflowPackages: TfrmModflowPackages
         inherited memoComments: TMemo
           Left = 6
           Top = 64
-          Width = 568
+          Width = 566
           Height = 59
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 6
           ExplicitTop = 64
-          ExplicitWidth = 568
+          ExplicitWidth = 566
           ExplicitHeight = 59
         end
         inherited rdePCGMaxOuter: TRbwDataEntry
@@ -1003,10 +1004,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 545
+          Width = 543
           Height = 124
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 545
+          ExplicitWidth = 543
           ExplicitHeight = 124
         end
         inherited rdePhiRamp: TRbwDataEntry
@@ -1410,10 +1411,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 544
+          Width = 542
           Height = 81
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 544
+          ExplicitWidth = 542
           ExplicitHeight = 81
         end
         inherited pnLayerOption: TPanel
@@ -1438,8 +1439,8 @@ inherited frmModflowPackages: TfrmModflowPackages
             Caption = 'Time varying recharge layers'
           end
           inherited rgAssignmentMethod: TRadioGroup
-            Width = 544
-            ExplicitWidth = 544
+            Width = 542
+            ExplicitWidth = 542
           end
         end
         inherited rcSelectionController: TRbwController
@@ -1549,10 +1550,10 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 65
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 65
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited pnLayerOption: TPanel
           Width = 577
@@ -1678,9 +1679,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited pnLayerOption: TPanel
           Width = 577
@@ -1824,10 +1825,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 545
+          Width = 543
           Height = 366
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 545
+          ExplicitWidth = 543
           ExplicitHeight = 366
         end
         inherited pnLayerOption: TPanel
@@ -1979,10 +1980,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           Height = 223
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
           ExplicitHeight = 223
         end
         inherited rdeTheta: TRbwDataEntry
@@ -2225,12 +2226,12 @@ inherited frmModflowPackages: TfrmModflowPackages
             end
             inherited memoComments: TMemo
               Left = 10
-              Width = 559
+              Width = 557
               Height = 47
               Anchors = [akLeft, akTop, akRight, akBottom]
               StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 10
-              ExplicitWidth = 559
+              ExplicitWidth = 557
               ExplicitHeight = 47
             end
             inherited cbSfrUnsatflow: TCheckBox95
@@ -2520,11 +2521,11 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           Height = 66
           Anchors = [akLeft, akTop, akRight, akBottom]
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
           ExplicitHeight = 66
         end
         inherited pnLayerOption: TPanel
@@ -2726,10 +2727,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           Height = 142
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
           ExplicitHeight = 142
         end
         inherited pcGMG: TJvPageControl
@@ -2947,23 +2948,23 @@ inherited frmModflowPackages: TfrmModflowPackages
             inherited comboGmgIadamp: TJvImageComboBox
               Left = 304
               Top = 41
-              Width = 119
+              Width = 117
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
               ExplicitLeft = 304
               ExplicitTop = 41
-              ExplicitWidth = 119
+              ExplicitWidth = 117
               ExplicitHeight = 28
             end
             inherited comboGmgIsc: TJvImageComboBox
               Left = 304
-              Width = 119
+              Width = 117
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
               ExplicitLeft = 304
-              ExplicitWidth = 119
+              ExplicitWidth = 117
               ExplicitHeight = 28
             end
             inherited rdeGmgDamp: TRbwDataEntry
@@ -3116,12 +3117,12 @@ inherited frmModflowPackages: TfrmModflowPackages
         inherited memoComments: TMemo
           Left = 19
           Top = 63
-          Width = 555
+          Width = 553
           Height = 109
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 19
           ExplicitTop = 63
-          ExplicitWidth = 555
+          ExplicitWidth = 553
           ExplicitHeight = 109
         end
         inherited rdeSipMxiter: TRbwDataEntry
@@ -3321,11 +3322,11 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 63
-          Width = 558
+          Width = 556
           Height = 109
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 63
-          ExplicitWidth = 558
+          ExplicitWidth = 556
           ExplicitHeight = 109
         end
         inherited rdeDe4Itmx: TRbwDataEntry
@@ -3500,11 +3501,11 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 63
-          Width = 558
+          Width = 556
           Height = 388
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 63
-          ExplicitWidth = 558
+          ExplicitWidth = 556
           ExplicitHeight = 388
         end
         inherited rdeDryHead: TRbwDataEntry
@@ -3657,9 +3658,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited pcModpath: TPageControl
           Left = 0
@@ -3752,7 +3753,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitLeft = 359
               ExplicitTop = 296
               ExplicitHeight = 28
@@ -3781,7 +3781,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitTop = 190
               ExplicitHeight = 28
             end
@@ -3801,14 +3800,12 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited comboRchSource: TJvImageComboBox
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
           end
@@ -4022,7 +4019,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitLeft = 371
               ExplicitHeight = 28
             end
@@ -4031,7 +4027,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitLeft = 371
               ExplicitHeight = 28
             end
@@ -4040,7 +4035,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitLeft = 371
               ExplicitHeight = 28
             end
@@ -4049,7 +4043,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitLeft = 371
               ExplicitHeight = 28
             end
@@ -4058,7 +4051,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitLeft = 371
               ExplicitHeight = 28
             end
@@ -4067,7 +4059,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               TabOrder = 12
               ExplicitLeft = 371
               ExplicitHeight = 28
@@ -4147,7 +4138,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited rdeParticleInterval: TRbwDataEntry
@@ -4490,11 +4480,11 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Left = 19
-          Width = 555
+          Width = 553
           Height = 287
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 19
-          ExplicitWidth = 555
+          ExplicitWidth = 553
           ExplicitHeight = 287
         end
         inherited comboPrintOption: TJvImageComboBox
@@ -4502,15 +4492,14 @@ inherited frmModflowPackages: TfrmModflowPackages
           Height = 28
           StyleElements = [seFont, seClient, seBorder]
           ItemHeight = 22
-          ItemIndex = -1
           ExplicitTop = 378
           ExplicitHeight = 28
         end
         inherited gbMnwiOptions: TGroupBox
           Top = 412
-          Width = 517
+          Width = 515
           ExplicitTop = 412
-          ExplicitWidth = 517
+          ExplicitWidth = 515
           inherited cbWellOutput: TCheckBox
             Width = 558
             ExplicitWidth = 558
@@ -4577,7 +4566,7 @@ inherited frmModflowPackages: TfrmModflowPackages
           Width = 546
           Height = 435
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 546
+          ExplicitWidth = 544
           ExplicitHeight = 435
         end
         inherited rcSelectionController: TRbwController
@@ -4631,10 +4620,8 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Left = 8
-          Width = 566
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 8
-          ExplicitWidth = 566
         end
         inherited pcSub: TPageControl
           Width = 577
@@ -4739,19 +4726,19 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitHeight = 18
             end
             inherited sbAdd: TSpeedButton
-              Left = 425
+              Left = 423
               Top = 144
               ExplicitLeft = 491
               ExplicitTop = 322
             end
             inherited sbInsert: TSpeedButton
-              Left = 454
+              Left = 452
               Top = 144
               ExplicitLeft = 520
               ExplicitTop = 322
             end
             inherited sbDelete: TSpeedButton
-              Left = 483
+              Left = 481
               Top = 144
               ExplicitLeft = 549
               ExplicitTop = 322
@@ -4761,9 +4748,9 @@ inherited frmModflowPackages: TfrmModflowPackages
               ExplicitWidth = 209
             end
             inherited rdgOutput: TRbwDataGrid4
-              Width = 549
+              Width = 547
               Height = 101
-              ExplicitWidth = 549
+              ExplicitWidth = 547
               ExplicitHeight = 101
             end
             inherited seNumExportPeriods: TJvSpinEdit
@@ -4959,11 +4946,11 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 79
-          Width = 558
+          Width = 556
           Height = 52
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 79
-          ExplicitWidth = 558
+          ExplicitWidth = 556
           ExplicitHeight = 52
         end
         inherited pcSWT: TPageControl
@@ -5016,22 +5003,22 @@ inherited frmModflowPackages: TfrmModflowPackages
             inherited gbIthk: TGroupBox
               Left = 12
               Top = 0
-              Width = 549
+              Width = 547
               Height = 86
               ExplicitLeft = 12
               ExplicitTop = 0
-              ExplicitWidth = 549
+              ExplicitWidth = 547
               ExplicitHeight = 86
               inherited rgIthkConstant: TRadioButton
-                Width = 542
-                ExplicitWidth = 542
+                Width = 540
+                ExplicitWidth = 540
               end
               inherited rbIthkVariable: TRadioButton
                 Top = 40
-                Width = 542
+                Width = 540
                 Height = 40
                 ExplicitTop = 40
-                ExplicitWidth = 542
+                ExplicitWidth = 540
                 ExplicitHeight = 40
               end
             end
@@ -5049,7 +5036,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitTop = 114
               ExplicitWidth = 549
               ExplicitHeight = 28
@@ -5060,7 +5046,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitTop = 173
               ExplicitWidth = 549
               ExplicitHeight = 28
@@ -5071,7 +5056,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitTop = 236
               ExplicitWidth = 549
               ExplicitHeight = 28
@@ -5979,10 +5963,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 553
+          Width = 551
           Height = 393
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 553
+          ExplicitWidth = 551
           ExplicitHeight = 393
         end
         inherited rdeHYDNOH: TRbwDataEntry
@@ -6122,9 +6106,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited pcNWT: TPageControl
           Width = 577
@@ -6218,7 +6202,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitWidth = 118
               ExplicitHeight = 28
             end
@@ -6236,7 +6219,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitLeft = 1
               ExplicitWidth = 119
               ExplicitHeight = 28
@@ -6466,7 +6448,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               StyleElements = [seFont, seClient, seBorder]
               DroppedWidth = 358
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitLeft = 2
               ExplicitTop = 63
               ExplicitWidth = 358
@@ -6603,7 +6584,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitWidth = 230
               ExplicitHeight = 28
             end
@@ -6613,7 +6593,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               StyleElements = [seFont, seClient, seBorder]
               DroppedWidth = 230
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitWidth = 230
               ExplicitHeight = 28
             end
@@ -6815,9 +6794,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited pcMt3d_Basic: TPageControl
           Width = 577
@@ -7058,9 +7037,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited spinMaxOuter: TJvSpinEdit
           Height = 26
@@ -7164,11 +7143,11 @@ inherited frmModflowPackages: TfrmModflowPackages
         inherited memoComments: TMemo
           Left = 6
           Top = 63
-          Width = 568
+          Width = 566
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 6
           ExplicitTop = 63
-          ExplicitWidth = 568
+          ExplicitWidth = 566
         end
         inherited pcAdvection: TPageControl
           Top = 147
@@ -7702,9 +7681,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited PageControl1: TPageControl
           Top = 157
@@ -7765,11 +7744,11 @@ inherited frmModflowPackages: TfrmModflowPackages
             end
             inherited rdgYieldCoefficient: TRbwDataGrid4
               Left = 2
-              Width = 559
+              Width = 557
               Height = 130
               FixedCols = 0
               ExplicitLeft = 2
-              ExplicitWidth = 559
+              ExplicitWidth = 557
               ExplicitHeight = 130
             end
             inherited cbInitialConcChoice: TCheckBox
@@ -7804,7 +7783,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Width = 375
               Height = 26
               StyleElements = [seFont, seClient, seBorder]
-              ItemIndex = -1
               ExplicitWidth = 375
               ExplicitHeight = 26
             end
@@ -7979,9 +7957,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited grpbxConcentrationObservations: TGroupBox
           Width = 557
@@ -8011,7 +7989,6 @@ inherited frmModflowPackages: TfrmModflowPackages
             Height = 28
             StyleElements = [seFont, seClient, seBorder]
             ItemHeight = 22
-            ItemIndex = -1
             ExplicitHeight = 28
           end
           inherited cbLogTransform: TCheckBox
@@ -8049,7 +8026,6 @@ inherited frmModflowPackages: TfrmModflowPackages
             Height = 28
             StyleElements = [seFont, seClient, seBorder]
             ItemHeight = 22
-            ItemIndex = -1
             ExplicitHeight = 28
           end
         end
@@ -8113,7 +8089,7 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited lblPackage: TLabel
-          Width = 78
+          Width = 76
           Height = 18
           Anchors = [akLeft, akTop, akRight]
           WordWrap = True
@@ -8123,11 +8099,11 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 80
-          Width = 464
+          Width = 462
           Height = 71
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 80
-          ExplicitWidth = 464
+          ExplicitWidth = 462
           ExplicitHeight = 71
         end
         inherited pcControls: TPageControl
@@ -8293,7 +8269,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited rdeDamp: TRbwDataEntry
@@ -8312,7 +8287,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited rdeCnvg_Lb: TRbwDataEntry
@@ -8333,7 +8307,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitTop = 280
               ExplicitHeight = 28
             end
@@ -9377,9 +9350,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited pgcConduits: TPageControl
           Top = 134
@@ -9557,9 +9530,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited pcSWI: TPageControl
           Width = 577
@@ -9679,7 +9652,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               StyleElements = [seFont, seClient, seBorder]
               DroppedWidth = 346
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitWidth = 346
               ExplicitHeight = 28
             end
@@ -9982,10 +9954,10 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 516
         end
         inherited memoComments: TMemo
-          Width = 294
+          Width = 292
           Height = 88
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 294
+          ExplicitWidth = 292
           ExplicitHeight = 88
         end
         inherited jvplSwr: TJvPageList
@@ -10072,7 +10044,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitTop = 318
               ExplicitHeight = 28
             end
@@ -10089,7 +10060,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitTop = 420
               ExplicitHeight = 28
             end
@@ -10243,16 +10213,16 @@ inherited frmModflowPackages: TfrmModflowPackages
                 ExplicitWidth = 209
               end
               inherited rgEvapAssignmentMethod: TRadioGroup
-                Width = 212
-                ExplicitWidth = 212
+                Width = 210
+                ExplicitWidth = 210
               end
               inherited rgLateralInflowAssignmentMethod: TRadioGroup
-                Width = 212
-                ExplicitWidth = 212
+                Width = 210
+                ExplicitWidth = 210
               end
               inherited rgStageAssignmentMethod: TRadioGroup
-                Width = 212
-                ExplicitWidth = 212
+                Width = 210
+                ExplicitWidth = 210
               end
             end
           end
@@ -10726,7 +10696,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitWidth = 243
               ExplicitHeight = 28
             end
@@ -10841,7 +10810,7 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited lblByNodeFrequency: TLabel
-          Left = 389
+          Left = 387
           Width = 73
           Height = 18
           StyleElements = [seFont, seClient, seBorder]
@@ -10850,7 +10819,7 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited lblQSumFrequency: TLabel
-          Left = 389
+          Left = 387
           Width = 73
           Height = 18
           StyleElements = [seFont, seClient, seBorder]
@@ -10859,9 +10828,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited seMaxIterations: TJvSpinEdit
           Height = 26
@@ -10872,51 +10841,50 @@ inherited frmModflowPackages: TfrmModflowPackages
           Height = 28
           StyleElements = [seFont, seClient, seBorder]
           ItemHeight = 22
-          ItemIndex = -1
           ExplicitHeight = 28
         end
         inherited rdeLossExponent: TRbwDataEntry
           StyleElements = [seFont, seClient, seBorder]
         end
         inherited fedWellFileName: TJvFilenameEdit
-          Width = 294
+          Width = 292
           Height = 26
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 294
+          ExplicitWidth = 292
           ExplicitHeight = 26
         end
         inherited fedByNode: TJvFilenameEdit
           Top = 351
-          Width = 367
+          Width = 365
           Height = 26
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 351
-          ExplicitWidth = 367
+          ExplicitWidth = 365
           ExplicitHeight = 26
         end
         inherited fedQSum: TJvFilenameEdit
-          Width = 367
+          Width = 365
           Height = 26
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 367
+          ExplicitWidth = 365
           ExplicitHeight = 26
         end
         inherited comboByNodeFrequency: TJvImageComboBox
-          Left = 389
+          Left = 387
           Top = 348
           Height = 28
           StyleElements = [seFont, seClient, seBorder]
           ItemHeight = 22
-          ExplicitLeft = 389
+          ExplicitLeft = 387
           ExplicitTop = 348
           ExplicitHeight = 28
         end
         inherited comboQSumFrequency: TJvImageComboBox
-          Left = 389
+          Left = 387
           Height = 28
           StyleElements = [seFont, seClient, seBorder]
           ItemHeight = 22
-          ExplicitLeft = 389
+          ExplicitLeft = 387
           ExplicitHeight = 28
         end
         inherited rcSelectionController: TRbwController
@@ -10986,25 +10954,25 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited rdgOptions: TRbwDataGrid4
           Top = 170
-          Width = 558
+          Width = 556
           Height = 337
           ExplicitTop = 170
-          ExplicitWidth = 558
+          ExplicitWidth = 556
           ExplicitHeight = 337
         end
         inherited comboInterblockMethod: TJvImageComboBox
-          Width = 294
+          Width = 292
           Height = 28
           StyleElements = [seFont, seClient, seBorder]
           DroppedWidth = 564
           ItemHeight = 22
-          ExplicitWidth = 294
+          ExplicitWidth = 292
           ExplicitHeight = 28
         end
         inherited rcSelectionController: TRbwController
@@ -11065,15 +11033,14 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 545
+          Width = 543
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 545
+          ExplicitWidth = 543
         end
         inherited comboStorageChoice: TJvImageComboBox
           Height = 28
           StyleElements = [seFont, seClient, seBorder]
           ItemHeight = 22
-          ItemIndex = -1
           ExplicitHeight = 28
         end
         inherited rcSelectionController: TRbwController
@@ -11124,10 +11091,10 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 63
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 63
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited pgcControls: TPageControl
           Top = 102
@@ -11210,7 +11177,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited seMaxErrors: TJvSpinEdit
@@ -11472,9 +11438,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 36
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited seMaxIterations: TJvSpinEdit
           Height = 26
@@ -11587,9 +11553,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 553
+          Width = 551
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 553
+          ExplicitWidth = 551
         end
         inherited cbIncludeWellStorage: TCheckBox
           Width = 553
@@ -11743,9 +11709,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited comboOutputFormat: TComboBox
           Height = 26
@@ -11825,9 +11791,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited rdeSurfaceDepressionDepth: TRbwDataEntry
           StyleElements = [seFont, seClient, seBorder]
@@ -11989,9 +11955,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 289
+          Width = 287
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 289
+          ExplicitWidth = 287
         end
         inherited rdeNumberOfTrailingWaves: TRbwDataEntry
           StyleElements = [seFont, seClient, seBorder]
@@ -12173,10 +12139,10 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 63
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 63
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited rdeTimeWeightingFactor: TRbwDataEntry
           StyleElements = [seFont, seClient, seBorder]
@@ -12277,9 +12243,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited comboForce: TComboBox
           Width = 565
@@ -12345,7 +12311,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
+          ExplicitWidth = 556
         end
         inherited pcCsub: TPageControl
           Width = 577
@@ -12445,14 +12413,12 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited comboCompressionMethod: TJvImageComboBox
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
           end
@@ -12628,13 +12594,13 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 54
         end
         inherited memoComments: TMemo
-          Width = 546
+          Width = 544
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 546
+          ExplicitWidth = 544
         end
         inherited rgScheme: TRadioGroup
-          Width = 546
-          ExplicitWidth = 546
+          Width = 544
+          ExplicitWidth = 544
         end
         inherited rdeAdePercel: TRbwDataEntry
           StyleElements = [seFont, seClient, seBorder]
@@ -13055,9 +13021,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited cpnlgrp1: TCategoryPanelGroup
           Width = 577
@@ -13069,14 +13035,14 @@ inherited frmModflowPackages: TfrmModflowPackages
             Height = 377
             StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 462
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExplicitHeight = 377
             inherited rdgFarms: TRbwDataGrid4
-              Width = 554
+              Width = 550
               Height = 345
               FixedCols = 0
               OnButtonClick = OwhmFrameButtonClick
-              ExplicitWidth = 554
+              ExplicitWidth = 550
               ExplicitHeight = 345
             end
           end
@@ -13086,7 +13052,7 @@ inherited frmModflowPackages: TfrmModflowPackages
             TabOrder = 1
             StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 340
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExplicitHeight = 122
             inherited cbWellField: TCheckBox
               Height = 37
@@ -13102,7 +13068,7 @@ inherited frmModflowPackages: TfrmModflowPackages
             TabOrder = 2
             StyleElements = [seFont, seClient, seBorder]
             ExplicitTop = 310
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExpandedHeight = 242
             inherited lblQClose: TLabel
               Left = 74
@@ -13212,21 +13178,22 @@ inherited frmModflowPackages: TfrmModflowPackages
           inherited cpnlOutput: TCategoryPanel
             Height = 310
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExplicitHeight = 310
             inherited clbPrint: TCheckListBox
-              Width = 554
+              Width = 550
               Height = 238
               ItemHeight = 18
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 554
+              ExplicitWidth = 550
               ExplicitHeight = 238
             end
             inherited Panel1: TPanel
               Top = 238
-              Width = 554
+              Width = 550
               StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 238
+              ExplicitWidth = 550
               inherited lblPrintRouting: TLabel
                 Width = 280
                 Height = 18
@@ -13324,10 +13291,10 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Left = 17
-          Width = 557
+          Width = 555
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 17
-          ExplicitWidth = 557
+          ExplicitWidth = 555
         end
         inherited rdgSoils: TRbwDataGrid4
           Width = 577
@@ -13397,9 +13364,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited rdgClimate: TRbwDataGrid4
           Top = 198
@@ -13462,10 +13429,10 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 63
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 63
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited cpnlgrp1: TCategoryPanelGroup
           Width = 577
@@ -13601,9 +13568,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited clbPrint: TCheckListBox
           ItemHeight = 18
@@ -13756,10 +13723,10 @@ inherited frmModflowPackages: TfrmModflowPackages
         end
         inherited memoComments: TMemo
           Top = 63
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 63
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited cpnlgrp1: TCategoryPanelGroup
           Width = 577
@@ -13768,17 +13735,17 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 402
           inherited cpnlDataSets: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             inherited rdgLandUse: TRbwDataGrid4
-              Width = 554
+              Width = 550
               FixedCols = 0
               OnButtonClick = OwhmFrameButtonClick
-              ExplicitWidth = 554
+              ExplicitWidth = 550
             end
           end
           inherited cpnlOptions: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             inherited lblLandUsePerCell: TLabel
               Width = 118
               Height = 18
@@ -13814,18 +13781,18 @@ inherited frmModflowPackages: TfrmModflowPackages
           end
           inherited cpnlPrint: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             inherited clbPrint: TCheckListBox
-              Width = 554
+              Width = 550
               ItemHeight = 18
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 554
+              ExplicitWidth = 550
             end
             inherited pnl2: TPanel
-              Width = 554
+              Width = 550
               StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 154
-              ExplicitWidth = 554
+              ExplicitWidth = 550
             end
           end
         end
@@ -13884,7 +13851,7 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited lblPackage: TLabel
-          Width = 78
+          Width = 76
           Height = 18
           Anchors = [akLeft, akTop, akRight]
           StyleElements = [seFont, seClient, seBorder]
@@ -13892,9 +13859,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited cpnlgrp1: TCategoryPanelGroup
           Width = 577
@@ -13903,22 +13870,22 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 394
           inherited cpnlPrint: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             ExpandedHeight = 81
             inherited clbPrint: TCheckListBox
-              Width = 554
+              Width = 550
               ItemHeight = 18
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 554
+              ExplicitWidth = 550
             end
           end
           inherited cpnlOptions: TCategoryPanel
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitWidth = 556
+            ExplicitWidth = 552
             inherited pnl1: TPanel
-              Width = 554
+              Width = 550
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 554
+              ExplicitWidth = 550
               inherited lblExpressionMin: TLabel
                 Width = 214
                 Height = 18
@@ -13931,10 +13898,10 @@ inherited frmModflowPackages: TfrmModflowPackages
               end
             end
             inherited rdgSalinityFlush: TRbwDataGrid4
-              Width = 554
+              Width = 550
               FixedCols = 0
               OnButtonClick = OwhmFrameButtonClick
-              ExplicitWidth = 554
+              ExplicitWidth = 550
             end
           end
         end
@@ -14003,9 +13970,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited cbSpecifyDensity: TCheckBox
           Top = 157
@@ -14123,9 +14090,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 558
+          Width = 556
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 558
+          ExplicitWidth = 556
         end
         inherited cbSpecifyViscosity: TCheckBox
           OnClick = framePkgViscositycbSpecifyViscosityClick
@@ -14406,13 +14373,13 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 54
         end
         inherited memoComments: TMemo
-          Width = 546
+          Width = 544
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 546
+          ExplicitWidth = 544
         end
         inherited rgScheme: TRadioGroup
-          Width = 546
-          ExplicitWidth = 546
+          Width = 544
+          ExplicitWidth = 544
         end
         inherited rdeAdePercel: TRbwDataEntry
           StyleElements = [seFont, seClient, seBorder]
@@ -14541,9 +14508,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 36
         end
         inherited memoComments: TMemo
-          Width = 546
+          Width = 544
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 546
+          ExplicitWidth = 544
         end
         inherited rdeDensityWater: TRbwDataEntry
           StyleElements = [seFont, seClient, seBorder]
@@ -14773,9 +14740,9 @@ inherited frmModflowPackages: TfrmModflowPackages
           ExplicitHeight = 18
         end
         inherited memoComments: TMemo
-          Width = 546
+          Width = 544
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 546
+          ExplicitWidth = 544
         end
         inherited pgcControls: TPageControl
           Width = 577
@@ -14856,7 +14823,6 @@ inherited frmModflowPackages: TfrmModflowPackages
               Height = 28
               StyleElements = [seFont, seClient, seBorder]
               ItemHeight = 22
-              ItemIndex = -1
               ExplicitHeight = 28
             end
             inherited seMaxErrors: TJvSpinEdit
@@ -15021,12 +14987,13 @@ inherited frmModflowPackages: TfrmModflowPackages
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    OnClick = pnlBottomClick
+    ExplicitTop = 505
+    ExplicitWidth = 762
     DesignSize = (
       764
       41)
     object btnHelp: TBitBtn
-      Left = 347
+      Left = 345
       Top = 2
       Width = 108
       Height = 33
@@ -15035,9 +15002,10 @@ inherited frmModflowPackages: TfrmModflowPackages
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnHelpClick
+      ExplicitLeft = 343
     end
     object btnOK: TBitBtn
-      Left = 461
+      Left = 459
       Top = 2
       Width = 108
       Height = 33
@@ -15046,9 +15014,10 @@ inherited frmModflowPackages: TfrmModflowPackages
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnOKClick
+      ExplicitLeft = 457
     end
     object btnCancel: TBitBtn
-      Left = 575
+      Left = 573
       Top = 2
       Width = 108
       Height = 33
@@ -15057,6 +15026,7 @@ inherited frmModflowPackages: TfrmModflowPackages
       NumGlyphs = 2
       TabOrder = 2
       OnClick = btnCancelClick
+      ExplicitLeft = 571
     end
   end
   object pnlLeft: TPanel
@@ -15066,6 +15036,7 @@ inherited frmModflowPackages: TfrmModflowPackages
     Height = 513
     Align = alLeft
     TabOrder = 0
+    ExplicitHeight = 505
     object pnlModel: TPanel
       Left = 1
       Top = 1
@@ -15102,13 +15073,13 @@ inherited frmModflowPackages: TfrmModflowPackages
       ReadOnly = True
       StateImages = ilCheckImages
       TabOrder = 1
-      Visible = False
       OnChange = tvPackagesChange
       OnCustomDrawItem = tvPackagesCustomDrawItem
       OnExpanded = tvPackagesExpanded
       OnMouseDown = tvPackagesMouseDown
       OnMouseUp = tvPackagesMouseUp
       ItemHeight = 20
+      ExplicitHeight = 439
     end
   end
   object rbwLpfParamCountController: TRbwController
