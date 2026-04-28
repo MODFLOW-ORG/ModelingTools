@@ -442,13 +442,12 @@ type
   private
     function GetItem(Index: Integer): TFarmEfficienciesItem;
     procedure SetItem(Index: Integer; const Value: TFarmEfficienciesItem);
-    function GetFirst: TFarmEfficienciesItem;
   public
     function Add: TFarmEfficienciesItem;
     constructor Create(Model: IModelForTOrderedCollection);
     property Items[Index: Integer]: TFarmEfficienciesItem read GetItem
       write SetItem; default;
-    property First: TFarmEfficienciesItem read GetFirst;
+    function First: TFarmEfficienciesItem; reintroduce;
     procedure Loaded;
   end;
 
@@ -2521,7 +2520,7 @@ begin
   result := DiversionChoice = rtLocation;
 end;
 
-function TFarmEfficiencyCollection.GetFirst: TFarmEfficienciesItem;
+function TFarmEfficiencyCollection.First: TFarmEfficienciesItem;
 begin
   result := inherited First as TFarmEfficienciesItem;
 end;

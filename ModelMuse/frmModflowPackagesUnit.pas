@@ -3565,6 +3565,7 @@ begin
     APackage.Node := Link.Node;
     Frame.SetData(APackage);
   end;
+  framePrtModels.SetData(Packages.PrtModels);
 end;
 
 procedure TfrmModflowPackages.StorePackageDataInFrames(

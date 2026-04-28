@@ -108,7 +108,7 @@ begin
   Link.AlternateNode := ChildNode;
   FFrameNodeLinks.Add(Link);
   FLinkDictionary.Add(Link.Frame, Link);
-  Result.Initialize(FPackageTreeView, FNode, FPageList, FLinkDictionary);
+  Result.Initialize(FPackageTreeView, ChildNode, FPageList, FLinkDictionary);
 
 end;
 
@@ -132,6 +132,7 @@ begin
       if SameText(AName,framePrtModelsGrid.Grid.Cells[ACol, RowIndex]) then
       begin
         framePrtModelsGrid.Grid.Canvas.Brush.Color := clRed;
+        Exit;
       end;
     end;
   end;
@@ -222,8 +223,9 @@ begin
       framePrtModelsGrid.Grid.Objects[Ord(pmcName), Index+1] := PrtModel;
 
       NewPrtFrame := CreateNewPrtFrame;
-      NewPrtFrame.GetData(PrtModel, PackageTreeView, Node, PageList, LinkDictionary);
+      NewPrtFrame.GetData(PrtModel);
       framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index+1] := NewPrtFrame;
+      framePrtModelsGridGridSetEditText(framePrtModelsGrid.Grid, Ord(pmcName), Index+1, PrtModel.ModelName);
     end;
 
   finally
@@ -252,6 +254,8 @@ var
   PackageIndex: Integer;
   PrtFrame: TframePrpMultiplePackages;
   Link: TFrameNodeLink;
+  AnObject: TObject;
+  ModelItem: TPrtModelItem;
 begin
   PackageColumn := framePrtModelsGrid.Grid.Cols[Ord(pmcName)];
   for var Index := PrtModels.Count - 1 downto 0 do
@@ -265,17 +269,25 @@ begin
   end;
   for var Index := 0 to framePrtModelsGrid.seNumber.AsInteger - 1 do
   begin
-    PrtModel := (framePrtModelsGrid.Grid.Objects[Ord(pmcName), Index + 1] as TPrtModelItem).PrtModel;
-    If PrtModel = nil then
+    AnObject := framePrtModelsGrid.Grid.Objects[Ord(pmcName), Index + 1];
+    if AnObject <> nil then
     begin
-      PrtModel := (PrtModels.Add as TPrtModelItem).PrtModel;
+      PrtModel := AnObject as TPrtModel;
+    end
+    else
+    begin
+      ModelItem := PrtModels.Add as TPrtModelItem;
+      PrtModel := ModelItem.PrtModel;
+      ModelItem.Index := Index;
     end;
+    PrtModel.ModelName := framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index + 1];
+    PrtModel.IsSelected := framePrtModelsGrid.Grid.Checked[Ord(pmcUsed), Index + 1];
     PrtFrame := framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index + 1] as TframePrpMultiplePackages;
     Assert(PrtFrame <> nil);
 
     if FLinkDictionary.TryGetValue(PrtFrame, Link) then
     begin
-      PrtFrame.GetData(PrtModel, FPackageTreeView, Link.Node, FPageList, FLinkDictionary);
+      PrtFrame.SetData(PrtModel);
     end
     else
     begin

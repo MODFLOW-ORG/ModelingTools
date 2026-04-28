@@ -31539,8 +31539,11 @@ begin
   begin
     PrtSource := TPrtModelItem(Source);
     PrtModel := PrtSource.PrtModel;
+  end
+  else
+  begin
+    inherited;
   end;
-  inherited;
 end;
 
 constructor TPrtModelItem.Create(Collection: TCollection);
@@ -31576,9 +31579,11 @@ begin
   if Source is TPrpPackageItem then
   begin
     PrpPackage := TPrpPackageItem(Source).PrpPackage;
+  end
+  else
+  begin
+    inherited;
   end;
-  inherited;
-
 end;
 
 constructor TPrpPackageItem.Create(Collection: TCollection);
@@ -32481,9 +32486,11 @@ begin
       Last := PeriodDataItem.Last;
       Frequency := PeriodDataItem.Frequency;
       Steps := PeriodDataItem.Steps;
+  end
+  else
+  begin
+    inherited;
   end;
-  inherited;
-
 end;
 
 constructor TPrpPeriodDataItem.Create(Collection: TCollection);

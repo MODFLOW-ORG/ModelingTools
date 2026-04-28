@@ -28,59 +28,59 @@ inherited framePackagePrp: TframePackagePrp
       Caption = 'Options'
       object lblCOORDINATE_CHECK_METHOD: TLabel
         Left = 223
-        Top = 323
-        Width = 171
+        Top = 291
+        Width = 169
         Height = 15
         Caption = 'COORDINATE_CHECK_METHOD'
       end
       object lblDRY_TRACKING_METHOD: TLabel
         Left = 221
-        Top = 266
-        Width = 139
+        Top = 234
+        Width = 137
         Height = 15
         Caption = 'DRY_TRACKING_METHOD'
       end
       object lblISTOPZONE: TLabel
         Left = 221
-        Top = 39
-        Width = 62
+        Top = 7
+        Width = 61
         Height = 15
         Caption = 'ISTOPZONE'
       end
       object lblTrackOutput: TLabel
         Left = 25
-        Top = 122
-        Width = 69
+        Top = 90
+        Width = 68
         Height = 15
         Caption = 'Track Output'
       end
       object cbDRAPE: TCheckBox
         Left = 24
-        Top = 344
+        Top = 312
         Width = 153
         Height = 17
         Caption = 'DRAPE'
-        TabOrder = 11
+        TabOrder = 10
       end
       object cbEXTEND_TRACKING: TCheckBox
         Left = 24
-        Top = 99
+        Top = 67
         Width = 153
         Height = 17
         Caption = 'EXTEND_TRACKING'
-        TabOrder = 3
+        TabOrder = 2
       end
       object cbSTOP_AT_WEAK_SINK: TCheckBox
         Left = 25
-        Top = 283
+        Top = 251
         Width = 153
         Height = 17
         Caption = 'STOP_AT_WEAK_SINK'
-        TabOrder = 9
+        TabOrder = 8
       end
       object comboCOORDINATE_CHECK_METHOD: TJvImageComboBox
         Left = 222
-        Top = 344
+        Top = 312
         Width = 145
         Height = 25
         Style = csOwnerDrawVariable
@@ -90,7 +90,7 @@ inherited framePackagePrp: TframePackagePrp
         ImageWidth = 0
         ItemHeight = 19
         ItemIndex = 0
-        TabOrder = 12
+        TabOrder = 11
         Items = <
           item
             Brush.Style = bsClear
@@ -105,7 +105,7 @@ inherited framePackagePrp: TframePackagePrp
       end
       object comboDryTrackingMethod: TJvImageComboBox
         Left = 221
-        Top = 287
+        Top = 255
         Width = 145
         Height = 25
         Style = csOwnerDrawVariable
@@ -115,7 +115,7 @@ inherited framePackagePrp: TframePackagePrp
         ImageWidth = 0
         ItemHeight = 19
         ItemIndex = 0
-        TabOrder = 10
+        TabOrder = 9
         Items = <
           item
             Brush.Style = bsClear
@@ -135,12 +135,12 @@ inherited framePackagePrp: TframePackagePrp
       end
       object comboTrackOutput: TComboBox
         Left = 25
-        Top = 143
+        Top = 111
         Width = 145
         Height = 23
         Style = csDropDownList
         ItemIndex = 0
-        TabOrder = 5
+        TabOrder = 4
         Text = 'None'
         Items.Strings = (
           'None'
@@ -150,19 +150,19 @@ inherited framePackagePrp: TframePackagePrp
       end
       inline frameEXIT_SOLVE_TOLERANCE: TframeOptionalValue
         Left = 1
-        Top = 45
+        Top = 13
         Width = 176
         Height = 56
-        TabOrder = 1
+        TabOrder = 0
         ExplicitLeft = 1
-        ExplicitTop = 45
+        ExplicitTop = 13
         inherited LblVariableLabel: TLabel
           Left = 25
-          Width = 131
+          Width = 129
           Caption = 'EXIT_SOLVE_TOLERANCE'
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 25
-          ExplicitWidth = 131
+          ExplicitWidth = 129
         end
         inherited cbUsed: TCheckBox
           Left = 3
@@ -176,19 +176,19 @@ inherited framePackagePrp: TframePackagePrp
       end
       inline frameRELEASE_TIME_FREQUENCY: TframeOptionalValue
         Left = 197
-        Top = 174
+        Top = 142
         Width = 176
         Height = 56
-        TabOrder = 7
+        TabOrder = 6
         ExplicitLeft = 197
-        ExplicitTop = 174
+        ExplicitTop = 142
         inherited LblVariableLabel: TLabel
           Left = 25
-          Width = 148
+          Width = 147
           Caption = 'RELEASE_TIME_FREQUENCY'
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 25
-          ExplicitWidth = 148
+          ExplicitWidth = 147
         end
         inherited cbUsed: TCheckBox
           TabOrder = 1
@@ -201,19 +201,19 @@ inherited framePackagePrp: TframePackagePrp
       end
       inline frameRELEASE_TIME_TOLERANCE: TframeOptionalValue
         Left = 197
-        Top = 105
+        Top = 73
         Width = 176
         Height = 56
-        TabOrder = 4
+        TabOrder = 3
         ExplicitLeft = 197
-        ExplicitTop = 105
+        ExplicitTop = 73
         inherited LblVariableLabel: TLabel
           Left = 26
-          Width = 147
+          Width = 145
           Caption = 'RELEASE_TIME_TOLERANCE'
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 26
-          ExplicitWidth = 147
+          ExplicitWidth = 145
         end
         inherited cbUsed: TCheckBox
           TabOrder = 1
@@ -226,17 +226,17 @@ inherited framePackagePrp: TframePackagePrp
       end
       inline frameStopTime: TframeOptionalValue
         Left = 1
-        Top = 172
+        Top = 140
         Width = 176
         Height = 56
-        TabOrder = 6
+        TabOrder = 5
         ExplicitLeft = 1
-        ExplicitTop = 172
+        ExplicitTop = 140
         inherited LblVariableLabel: TLabel
-          Width = 55
+          Width = 53
           Caption = 'STOPTIME'
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 55
+          ExplicitWidth = 53
         end
         inherited cbUsed: TCheckBox
           TabOrder = 1
@@ -250,21 +250,21 @@ inherited framePackagePrp: TframePackagePrp
       end
       inline frameStopTravelTime: TframeOptionalValue
         Left = -8
-        Top = 221
+        Top = 189
         Width = 176
         Height = 56
-        TabOrder = 8
+        TabOrder = 7
         ExplicitLeft = -8
-        ExplicitTop = 221
+        ExplicitTop = 189
         inherited LblVariableLabel: TLabel
           Left = 33
           Top = 13
-          Width = 94
+          Width = 91
           Caption = 'STOPTRAVELTIME'
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 33
           ExplicitTop = 13
-          ExplicitWidth = 94
+          ExplicitWidth = 91
         end
         inherited cbUsed: TCheckBox
           Left = 9
@@ -282,25 +282,14 @@ inherited framePackagePrp: TframePackagePrp
           ExplicitTop = 31
         end
       end
-      object lbledtPackageName: TLabeledEdit
-        Left = 25
-        Top = 16
-        Width = 121
-        Height = 23
-        EditLabel.Width = 79
-        EditLabel.Height = 15
-        EditLabel.Caption = 'Package Name'
-        TabOrder = 0
-        Text = ''
-      end
       object rdeISTOPZONE: TRbwDataEntry
         Left = 221
-        Top = 60
+        Top = 28
         Width = 145
         Height = 22
         Color = clBtnFace
         Enabled = False
-        TabOrder = 2
+        TabOrder = 1
         Text = '0'
         DataType = dtInteger
         Max = 1.000000000000000000
@@ -561,14 +550,16 @@ inherited framePackagePrp: TframePackagePrp
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 534
-          Height = 30
+          Width = 561
+          Height = 49
           Align = alClient
           Caption = 
             'Release times can be specified as specific times or by specific ' +
             'period. If no release times are specified, particles will be rel' +
             'eased at the beginning of the first stress period.'
           WordWrap = True
+          ExplicitWidth = 534
+          ExplicitHeight = 30
         end
       end
       inline frameReleaseTimes: TframeGrid

@@ -27,7 +27,6 @@ type
     comboCOORDINATE_CHECK_METHOD: TJvImageComboBox;
     lblISTOPZONE: TLabel;
     rdeISTOPZONE: TRbwDataEntry;
-    lbledtPackageName: TLabeledEdit;
     pgcPRP: TPageControl;
     tabOptions: TTabSheet;
     tabReleaseTimes: TTabSheet;
@@ -107,8 +106,6 @@ begin
   InitializeGrids;
 
   PrpPackage := Package as TPrpPackage;
-
-  lbledtPackageName.Text := PrpPackage.PackageName;
 
   frameEXIT_SOLVE_TOLERANCE.RdeValue.RealValue := PrpPackage.SolverTolerance;
   frameEXIT_SOLVE_TOLERANCE.cbUsed.Checked := PrpPackage.SolverToleranceUsed;
@@ -229,8 +226,6 @@ var
 begin
   inherited;
   PrpPackage := Package as TPrpPackage;
-
-  PrpPackage.PackageName := lbledtPackageName.Text;
 
   PrpPackage.SolverTolerance := frameEXIT_SOLVE_TOLERANCE.RdeValue.RealValue;
   PrpPackage.SolverToleranceUsed := frameEXIT_SOLVE_TOLERANCE.cbUsed.Checked;

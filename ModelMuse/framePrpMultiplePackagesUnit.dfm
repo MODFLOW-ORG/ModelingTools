@@ -67,7 +67,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         object lblTrackEvents: TLabel
           Left = 184
           Top = 24
-          Width = 65
+          Width = 64
           Height = 15
           Caption = 'Track Events'
         end
@@ -104,7 +104,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
             'TRACK_USERTIME'
             'TRACK_DROPPED')
           ParentDoubleBuffered = False
-          ScrollWidth = 167
+          ScrollWidth = 164
           TabOrder = 1
         end
       end
@@ -158,6 +158,8 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Width = 657
           Height = 285
           ColCount = 2
+          OnSetEditText = framePrpPackagesGridSetEditText
+          OnBeforeDrawCell = framePrpPackagesGridBeforeDrawCell
           OnEndUpdate = framePrpPackagesGridEndUpdate
           Columns = <
             item
@@ -225,12 +227,12 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         TabOrder = 0
         ExplicitTop = 57
         ExplicitWidth = 657
-        ExplicitHeight = 241
+        ExplicitHeight = 269
         inherited Panel: TPanel
           Top = 228
           Width = 657
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 200
+          ExplicitTop = 228
           ExplicitWidth = 657
           inherited lbNumber: TLabel
             StyleElements = [seFont, seClient, seBorder]
@@ -294,13 +296,15 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 370
-          Height = 15
+          Width = 649
+          Height = 49
           Align = alClient
           Caption = 
             'Tracking times can be specified as specific times or by specific' +
             ' period. '
           WordWrap = True
+          ExplicitWidth = 369
+          ExplicitHeight = 15
         end
       end
     end
@@ -318,13 +322,15 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 370
-          Height = 15
+          Width = 649
+          Height = 49
           Align = alClient
           Caption = 
             'Tracking times can be specified as specific times or by specific' +
             ' period. '
           WordWrap = True
+          ExplicitWidth = 369
+          ExplicitHeight = 15
         end
       end
       inline frameReleasePeriodData: TframeGrid
@@ -335,13 +341,13 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         Align = alClient
         TabOrder = 1
         ExplicitTop = 57
-        ExplicitWidth = 632
-        ExplicitHeight = 393
+        ExplicitWidth = 657
+        ExplicitHeight = 269
         inherited Panel: TPanel
           Top = 228
           Width = 657
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 200
+          ExplicitTop = 228
           ExplicitWidth = 657
           inherited lbNumber: TLabel
             StyleElements = [seFont, seClient, seBorder]
