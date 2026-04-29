@@ -23,11 +23,13 @@ type
     FPageList: TJvPageList;
     FLinkDictionary: TLinkDictionary;
     FFrameNodeLinks: TLinkObjectList;
+    FGettingData: Boolean;
     function CreateNewPrtFrame: TframePrpMultiplePackages;
     Procedure Initialize;
+    procedure ClearFrames;
     { Private declarations }
   public
-    procedure ClearFrames;
+    procedure Finalize;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure GetData(PrtModels: TPrtModels; PackageTreeView: TTreeView;
@@ -37,6 +39,9 @@ type
   end;
 
 implementation
+
+uses
+  frmCustomGoPhastUnit;
 
 resourcestring
   StrPRTModelName = 'PRT Model Name';
@@ -119,6 +124,12 @@ begin
   inherited;
 end;
 
+procedure TframePrtModels.Finalize;
+begin
+  ClearFrames;
+  ClearGrid(framePrtModelsGrid.Grid);
+end;
+
 procedure TframePrtModels.framePrtModelsGridGridBeforeDrawCell(Sender: TObject;
     ACol, ARow: LongInt);
 var
@@ -177,22 +188,25 @@ begin
   end;
 
   framePrtModelsGrid.seNumberChange(Sender);
-  for var Index := 0 to framePrtModelsGrid.seNumber.AsInteger - 1 do
+  if not FGettingData then
   begin
-    if framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index+1] = nil then
+    for var Index := 0 to framePrtModelsGrid.seNumber.AsInteger - 1 do
     begin
-      NewFrame := CreateNewPrtFrame;
-      framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index+1] := NewFrame;
-      FNode.Expanded := True;
-      Assert(FPackageTreeView <> nil);
-      Assert(Assigned(FPackageTreeView.OnChange));
-      FPackageTreeView.OnChange(FPackageTreeView, FNode);
+      if framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index+1] = nil then
+      begin
+        NewFrame := CreateNewPrtFrame;
+        framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index+1] := NewFrame;
+        FNode.Expanded := True;
+        Assert(FPackageTreeView <> nil);
+        Assert(Assigned(FPackageTreeView.OnChange));
+        FPackageTreeView.OnChange(FPackageTreeView, FNode);
 
-      framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1] := Format('PRT%d', [Index+1]);
-      framePrtModelsGrid.Grid.Checked[Ord(pmcUsed), Index+1] := True;
+        framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1] := Format('PRT%d', [Index+1]);
+        framePrtModelsGrid.Grid.Checked[Ord(pmcUsed), Index+1] := True;
 
-      framePrtModelsGridGridSetEditText(framePrtModelsGrid.Grid, Ord(pmcName),
-        Index+1, framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1]);
+        framePrtModelsGridGridSetEditText(framePrtModelsGrid.Grid, Ord(pmcName),
+          Index+1, framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1]);
+      end;
     end;
   end;
 end;
@@ -204,32 +218,37 @@ var
   PrtModel: TPrtModel;
   NewPrtFrame: TframePrpMultiplePackages;
 begin
-  Initialize;
-
-  FPackageTreeView := PackageTreeView;
-  FNode := Node;
-  FPageList := PageList;
-  FLinkDictionary := LinkDictionary;
-
-
-  framePrtModelsGrid.Grid.BeginUpdate;
+  FGettingData := True;
   try
-    framePrtModelsGrid.seNumber.AsInteger := PrtModels.Count;
-    for var Index := 0 to PrtModels.Count - 1 do
-    begin
-      PrtModel := PrtModels[Index].PrtModel;
-      framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1] := PrtModel.ModelName;
-      framePrtModelsGrid.Grid.Checked[Ord(pmcUsed), Index+1] := PrtModel.IsSelected;
-      framePrtModelsGrid.Grid.Objects[Ord(pmcName), Index+1] := PrtModel;
+    Initialize;
 
-      NewPrtFrame := CreateNewPrtFrame;
-      NewPrtFrame.GetData(PrtModel);
-      framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index+1] := NewPrtFrame;
-      framePrtModelsGridGridSetEditText(framePrtModelsGrid.Grid, Ord(pmcName), Index+1, PrtModel.ModelName);
+    FPackageTreeView := PackageTreeView;
+    FNode := Node;
+    FPageList := PageList;
+    FLinkDictionary := LinkDictionary;
+
+
+    framePrtModelsGrid.Grid.BeginUpdate;
+    try
+      framePrtModelsGrid.seNumber.AsInteger := PrtModels.Count;
+      for var Index := 0 to PrtModels.Count - 1 do
+      begin
+        PrtModel := PrtModels[Index].PrtModel;
+        framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1] := PrtModel.ModelName;
+        framePrtModelsGrid.Grid.Checked[Ord(pmcUsed), Index+1] := PrtModel.IsSelected;
+        framePrtModelsGrid.Grid.Objects[Ord(pmcName), Index+1] := PrtModel;
+
+        NewPrtFrame := CreateNewPrtFrame;
+        NewPrtFrame.GetData(PrtModel);
+        framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), Index+1] := NewPrtFrame;
+        framePrtModelsGridGridSetEditText(framePrtModelsGrid.Grid, Ord(pmcName), Index+1, PrtModel.ModelName);
+      end;
+
+    finally
+      framePrtModelsGrid.Grid.EndUpdate;
     end;
-
   finally
-    framePrtModelsGrid.Grid.EndUpdate;
+    FGettingData := False;
   end;
 end;
 
@@ -239,30 +258,48 @@ begin
 
   framePrtModelsGrid.Grid.BeginUpdate;
   try
+    ClearGrid(framePrtModelsGrid.Grid);
     framePrtModelsGrid.Grid.Cells[Ord(pmcName), 0] := StrPRTModelName;
     framePrtModelsGrid.Grid.Cells[Ord(pmcUsed), 0] := StrModelUsed;
   finally
     framePrtModelsGrid.Grid.EndUpdate;
   end;
 
+  framePrtModelsGrid.seNumber.AsInteger := 0;
 end;
 
 procedure TframePrtModels.SetData(PrtModels: TPrtModels);
 var
   PackageColumn: TStrings;
   PrtModel: TPrtModel;
-  PackageIndex: Integer;
+//  PackageIndex: Integer;
   PrtFrame: TframePrpMultiplePackages;
   Link: TFrameNodeLink;
   AnObject: TObject;
   ModelItem: TPrtModelItem;
+  ModelFound: Boolean;
+  StoredModel: TPrtModel;
 begin
   PackageColumn := framePrtModelsGrid.Grid.Cols[Ord(pmcName)];
   for var Index := PrtModels.Count - 1 downto 0 do
   begin
     PrtModel := PrtModels[Index].PrtModel;
-    PackageIndex := PackageColumn.IndexOfObject(PrtModel);
-    if (PackageIndex < 0) or (PackageIndex > framePrtModelsGrid.seNumber.AsInteger) then
+    ModelFound := False;
+    for var PackageIndex := 1 to PackageColumn.Count - 1 do
+    begin
+      AnObject := PackageColumn.Objects[PackageIndex];
+      if AnObject <> nil then
+      begin
+        StoredModel := AnObject as TPrtModel;
+        if StoredModel.OriginalId = PrtModel.OriginalId then
+        begin
+          ModelFound := True;
+          PackageColumn.Objects[PackageIndex] := PrtModel;
+          break;
+        end;
+      end;
+    end;
+    if not ModelFound then
     begin
       PrtModels.Delete(Index);
     end;

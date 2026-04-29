@@ -17,6 +17,10 @@ uses SysUtils, Classes, GoPhastTypes, OrderedCollectionUnit, DataSetUnit,
 const
   KSfrDefaultPicardIterations = 100;
 
+var
+  OriginalPrtModelId: Integer = 0;
+  OriginalPrpPackageID: Integer = 0;
+
 Type
   TSelectionType = (stCheckBox, stRadioButton);
 
@@ -2988,6 +2992,7 @@ Type
     FCoordinateCheckMethod: TPrtCoordinateCheckMethod;
     FPackageName: string;
     FPeriodData: TPrpPeriodData;
+    FOriginalId: Integer;
     procedure SetReleaseTimes(const Value: TRealCollection);
     procedure SetStoredStopTime(const Value: TOptionalRealValue);
     procedure SetStoredStopTravelTime(const Value: TOptionalRealValue);
@@ -3024,6 +3029,7 @@ Type
     function GetSolverToleranceUsed: Boolean;
     procedure SetSolverToleranceUsed(const Value: Boolean);
     procedure SetPeriodData(const Value: TPrpPeriodData);
+    procedure SetOriginalId(const Value: Integer);
   public
     procedure Assign(Source: TPersistent); override;
     { TODO -cRefactor : Consider replacing Model with an interface. }
@@ -3044,6 +3050,7 @@ Type
     property ReleaseTimeToleranceUsed: Boolean read GetReleaseTimeToleranceUsed write SetReleaseTimeToleranceUsed;
     property ReleaseTimeFrequency: Double read GetReleaseTimeFrequency write SetReleaseTimeFrequency;
     property ReleaseTimeFrequencyUsed: Boolean read GetReleaseTimeFrequencyUsed write SetReleaseTimeFrequencyUsed;
+    property OriginalId: Integer read FOriginalId write SetOriginalId;
   published
     // pname
     property PackageName: string read FPackageName write SetPackageName;
@@ -3112,6 +3119,7 @@ Type
     FPrtOutputFiles: TPrtOutputFiles;
     FPeriodData: TPrpPeriodData;
     FModelName: string;
+    FOriginalId: Integer;
     procedure SetRetardationFactorUsed(const Value: Boolean);
     procedure SetZoneUsed(const Value: Boolean);
     procedure SetTrackTimes(const Value: TRealCollection);
@@ -3124,11 +3132,13 @@ Type
     procedure SetPrtOutputFiles(const Value: TPrtOutputFiles);
     procedure SetPeriodData(const Value: TPrpPeriodData);
     procedure SetModelName(const Value: string);
+    procedure SetOriginalId(const Value: Integer);
   public
     procedure Assign(Source: TPersistent); override;
     constructor Create(Model: TBaseModel);
     destructor Destroy; override;
     property Items[Index: Integer]: TPrpPackageItem read GetItem write SetItem;  default;
+    property OriginalId: Integer read FOriginalId write SetOriginalId;
   published
     property ModelName: string read FModelName write SetModelName;
     // RETFACTOR
@@ -3153,6 +3163,7 @@ Type
     procedure Assign(Source: TPersistent); override;
   published
     property PrtModel: TPrtModel read FPrtModel write SetPrtModel;
+
   end;
 
   TPrtModels = class(TPhastCollection)
@@ -31620,6 +31631,7 @@ begin
     PrtTrackingOptions := PrtSource.PrtTrackingOptions;
     PrtOutputFiles := PrtSource.PrtOutputFiles;
     PeriodData  := PrtSource.PeriodData;
+    OriginalId := PrtSource.OriginalId;
   end;
   inherited;
 end;
@@ -31641,6 +31653,8 @@ begin
   FTrackTimes := TRealCollection.Create(InvalidateModelEvent);
   FPeriodData := TPrpPeriodData.Create(Model as TPhastModel);
   InitializeVariables;
+  OriginalId := OriginalPrtModelID;
+  Inc(OriginalPrtModelID);
 end;
 
 destructor TPrtModel.Destroy;
@@ -31677,6 +31691,11 @@ begin
     FModelName := Value;
     InvalidateModel;
   end;
+end;
+
+procedure TPrtModel.SetOriginalId(const Value: Integer);
+begin
+  FOriginalId := Value;
 end;
 
 procedure TPrtModel.SetPeriodData(const Value: TPrpPeriodData);
@@ -31749,6 +31768,7 @@ begin
     CoordinateCheckMethod := PrpSource.CoordinateCheckMethod;;
     ReleaseTimes := PrpSource.ReleaseTimes;
     PeriodData := PrpSource.PeriodData;
+    OriginalId := PrpSource.OriginalId;
   end;
   inherited;
 end;
@@ -31781,6 +31801,8 @@ begin
   FPeriodData := TPrpPeriodData.Create(LocalModel);
 
   InitializeVariables();
+  OriginalId := OriginalPrpPackageID;
+  Inc(OriginalPrpPackageID);
 end;
 
 destructor TPrpPackage.Destroy;
@@ -31983,6 +32005,11 @@ begin
     FExtendTracking := Value;
     InvalidateModel;
   end;
+end;
+
+procedure TPrpPackage.SetOriginalId(const Value: Integer);
+begin
+  FOriginalId := Value;
 end;
 
 procedure TPrpPackage.SetPackageName(const Value: string);

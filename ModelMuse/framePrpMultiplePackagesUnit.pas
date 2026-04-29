@@ -135,6 +135,7 @@ begin
 //  NewPage.HelpKeyword := 'SMS_Sparse_Matrix_Solution_Pac';
   NewPage.PageList := FPageList;
 //  NewPage.OnShow := ShowImsPage;
+  result.MemoWidthDelta := result.Width - result.MemoComments.Width;
   result.Parent := NewPage;
 //  MemoWidth := result.MemoComments.Width;
   result.Align := alClient;
@@ -215,7 +216,7 @@ procedure TframePrpMultiplePackages.framePrpPackagesseNumberChange(Sender:
 var
   NewFrame: TframePackagePrp;
 begin
-  if (ControlState <> []) then
+  if FGettingData or (ControlState <> []) then
   begin
     Exit;
   end;
@@ -381,6 +382,7 @@ begin
     chklstTrackEvents.UnCheckAll;
 
     ClearFrames;
+
   finally
     FInitializing := False;
   end;
@@ -406,8 +408,10 @@ var
   PackageColumn: TStrings;
   PrpPackage: TPrpPackage;
   PrpFrame: TframePackagePrp;
-  PackageIndex: Integer;
   PackageItem: TPrpPackageItem;
+  PackageFound: Boolean;
+  AnObject: TObject;
+  StoredPackage: TPrpPackage;
 begin
   PrtModel.RetardationFactorUsed := cbRetardationFactor.Checked;
   PrtModel.ZoneUsed := cbUseParticleStopZones.Checked;
@@ -436,8 +440,22 @@ begin
   for var Index := PrtModel.Count - 1 downto 0 do
   begin
     PrpPackage := PrtModel[Index].PrpPackage;
-    PackageIndex := PackageColumn.IndexOfObject(PrpPackage);
-    if (PackageIndex < 0) or (PackageIndex > framePrpPackages.seNumber.AsInteger) then
+    PackageFound := False;
+    for var PackageIndex := 1 to PackageColumn.Count - 1 do
+    begin
+      AnObject := PackageColumn.Objects[PackageIndex];
+      if AnObject <> nil then
+      begin
+        StoredPackage := AnObject as TPrpPackage;
+        if PrpPackage.OriginalId = StoredPackage.OriginalId then
+        begin
+          PackageFound := True;
+          PackageColumn.Objects[PackageIndex] := PrpPackage;
+          Break;
+        end;
+      end;
+    end;
+    if not PackageFound then
     begin
       PrtModel.Delete(Index);
     end;

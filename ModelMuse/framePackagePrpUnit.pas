@@ -39,14 +39,18 @@ type
     lblReleasePeriodData: TLabel;
     procedure frameReleasePeriodDataseNumberChange(Sender: TObject);
     procedure frameReleaseTimesseNumberChange(Sender: TObject);
+    procedure FrameResize(Sender: TObject);
     procedure frameStopTimecbUsedClick(Sender: TObject);
     procedure frameStopTimeRdeValueChange(Sender: TObject);
   private
+    FMemoWidthDelta: Integer;
     procedure InitializeGrids;
+    procedure SetMemoWidthDelta(const Value: Integer);
     { Private declarations }
   public
     procedure GetData(Package: TModflowPackageSelection); override;
     procedure SetData(Package: TModflowPackageSelection); override;
+    property MemoWidthDelta: Integer read FMemoWidthDelta write SetMemoWidthDelta;
   end;
 
 var
@@ -82,6 +86,12 @@ procedure TframePackagePrp.frameReleaseTimesseNumberChange(Sender: TObject);
 begin
   inherited;
   frameReleaseTimes.seNumberChange(Sender);
+end;
+
+procedure TframePackagePrp.FrameResize(Sender: TObject);
+begin
+  inherited;
+  MemoComments.Width := Width - FMemoWidthDelta;
 end;
 
 procedure TframePackagePrp.frameStopTimecbUsedClick(Sender: TObject);
@@ -312,6 +322,11 @@ begin
 
 
 
+end;
+
+procedure TframePackagePrp.SetMemoWidthDelta(const Value: Integer);
+begin
+  FMemoWidthDelta := Value;
 end;
 
 end.
