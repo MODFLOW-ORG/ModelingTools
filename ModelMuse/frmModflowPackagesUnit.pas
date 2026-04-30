@@ -2939,9 +2939,16 @@ begin
     FTransportNode := PriorNode;
 
   {$IFDEF PRT}
-    AddNode(StrParticleTracking, StrParticleTracking, PriorNode);
-    FParticleTransportNode := PriorNode;
-    FParticleTransportNode.Data := jvspPRT;
+    if frmGoPhast.ModelSelection = msModflow2015 then
+    begin
+      AddNode(StrParticleTracking, StrParticleTracking, PriorNode);
+      FParticleTransportNode := PriorNode;
+      FParticleTransportNode.Data := jvspPRT;
+    end
+    else
+    begin
+      FParticleTransportNode := nil;
+    end;
   {$ENDIF}
 
     FChemNode := AddChildNode(StrChemSpecies, StrChemSpeciesMT3DA,
@@ -3088,8 +3095,11 @@ begin
   GetSfrParamInstances;
 
 {$IFDEF PRT}
-  framePrtModels.GetData(frmGoPhast.PhastModel.ModflowPackages.PrtModels,
-    tvPackages, FParticleTransportNode, jvplPackages, FLinkDictionary);
+  if frmGoPhast.ModelSelection = msModflow2015 then
+  begin
+    framePrtModels.GetData(frmGoPhast.PhastModel.ModflowPackages.PrtModels,
+      tvPackages, FParticleTransportNode, jvplPackages, FLinkDictionary);
+  end;
 {$ENDIF}
 end;
 
@@ -3565,7 +3575,12 @@ begin
     APackage.Node := Link.Node;
     Frame.SetData(APackage);
   end;
-  framePrtModels.SetData(Packages.PrtModels);
+{$IFDEF PRT}
+  if frmGoPhast.ModelSelection = msModflow2015 then
+  begin
+    framePrtModels.SetData(Packages.PrtModels);
+  end;
+{$ENDIF}
 end;
 
 procedure TfrmModflowPackages.StorePackageDataInFrames(

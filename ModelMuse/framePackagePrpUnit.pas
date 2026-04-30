@@ -64,12 +64,12 @@ uses
 {$R *.dfm}
 
 resourcestring
-  SReleaseTimes = 'Release times';
+  SReleaseTimes = 'Release Times';
   SSteps = 'Steps';
-  SStepFrequency = 'Step frequency';
-  SLastSteps = 'Last steps';
-  SFirstSteps = 'First steps';
-  SAllSteps = 'All steps';
+  SStepFrequency = 'Step Frequency';
+  SLastSteps = 'Last Step';
+  SFirstSteps = 'First Step';
+  SAllSteps = 'All Steps';
 
 type
   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
@@ -186,11 +186,6 @@ begin
      end;
 
    end;
-
-   //   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
-  //  pdcFrequency, pdcSteps);
-
-
   finally
    frameReleasePeriodData.Grid.EndUpdate;
   end;
@@ -316,12 +311,6 @@ begin
 
   end;
   PrpPackage.PeriodData.Count := PeriodCount;
-
-   //   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
-  //  pdcFrequency, pdcSteps);
-
-
-
 end;
 
 procedure TframePackagePrp.SetMemoWidthDelta(const Value: Integer);

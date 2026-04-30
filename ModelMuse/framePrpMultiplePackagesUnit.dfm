@@ -21,15 +21,15 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabPrpPackages
+    ActivePage = tabOptions
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
       Caption = 'Options'
       object grpMIP: TGroupBox
-        Left = 3
+        Left = 279
         Top = 3
-        Width = 446
+        Width = 274
         Height = 86
         Caption = 'Model Input Package (MIP)'
         TabOrder = 0
@@ -44,7 +44,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         object cbUseParticleStopZones: TCheckBox
           Left = 16
           Top = 48
-          Width = 169
+          Width = 229
           Height = 17
           Caption = 'Use particle stop zones'
           TabOrder = 1
@@ -55,6 +55,8 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         Top = 95
         Width = 449
         Height = 226
+        HelpType = htKeyword
+        HelpKeyword = 'Particle-Transport'
         Caption = 'Output Control (OC) Package'
         TabOrder = 1
         object lblOutputFiles: TLabel
@@ -106,6 +108,22 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           ParentDoubleBuffered = False
           ScrollWidth = 164
           TabOrder = 1
+        end
+      end
+      object gbSimulation: TGroupBox
+        Left = 12
+        Top = 3
+        Width = 261
+        Height = 86
+        Caption = 'Simulation'
+        TabOrder = 2
+        object cbRunAsSeparateSimulation: TCheckBox
+          Left = 3
+          Top = 24
+          Width = 255
+          Height = 17
+          Caption = 'Run as a separate simulation'
+          TabOrder = 0
         end
       end
     end
@@ -301,9 +319,9 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Align = alClient
           Caption = 
             'Tracking times can be specified as specific times or by specific' +
-            ' period. '
+            ' period. In this tab, tracking times are specified by time.'
           WordWrap = True
-          ExplicitWidth = 369
+          ExplicitWidth = 617
           ExplicitHeight = 15
         end
       end
@@ -327,9 +345,9 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Align = alClient
           Caption = 
             'Tracking times can be specified as specific times or by specific' +
-            ' period. '
+            ' period. In this tab, tracking times are specified by period. '
           WordWrap = True
-          ExplicitWidth = 369
+          ExplicitWidth = 630
           ExplicitHeight = 15
         end
       end
@@ -375,7 +393,8 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         inherited Grid: TRbwDataGrid4
           Width = 657
           Height = 228
-          ColCount = 7
+          ColCount = 8
+          DefaultColWidth = 50
           Columns = <
             item
               AutoAdjustRowHeights = True
@@ -419,6 +438,34 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
               LimitToList = False
               MaxLength = 0
               ParentButtonFont = False
+              WordWrapCaptions = True
+              WordWrapCells = False
+              CaseSensitivePicklist = False
+              CheckStyle = csCheck
+              AutoAdjustColWidths = True
+            end
+            item
+              AutoAdjustRowHeights = True
+              AutoAdjustCaptionRowHeights = True
+              ButtonCaption = '...'
+              ButtonFont.Charset = DEFAULT_CHARSET
+              ButtonFont.Color = clWindowText
+              ButtonFont.Height = -12
+              ButtonFont.Name = 'Segoe UI'
+              ButtonFont.Style = []
+              ButtonUsed = False
+              ButtonWidth = 20
+              CheckMax = False
+              CheckMin = False
+              ComboUsed = True
+              Format = rcf4String
+              LimitToList = False
+              MaxLength = 0
+              ParentButtonFont = False
+              PickList.Strings = (
+                'Both'
+                'Print'
+                'Save')
               WordWrapCaptions = True
               WordWrapCells = False
               CaseSensitivePicklist = False

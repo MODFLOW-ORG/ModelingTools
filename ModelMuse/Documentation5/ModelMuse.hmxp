@@ -143,7 +143,7 @@
       <config-value name="deffont">font-family:'MS Sans Serif'; font-size:8pt; color:#000000;</config-value>
       <config-value name="contents"></config-value>
       <config-value name="topicprefix"></config-value>
-      <config-value name="autohelpstart">4538</config-value>
+      <config-value name="autohelpstart">4541</config-value>
       <config-value name="autohelpincrement">1</config-value>
       <config-value name="autohelpanchor">1</config-value>
       <config-value name="searchpath">.\;.\Used Images\;.\ScreenShots\;.\ModflowGuide\;.\Topics\Invisible\;.\ModflowGuide\Figures\;.\Topics\</config-value>
@@ -642,7 +642,7 @@ document.write('</frameset>');
       </config-group>
       <config-group name="rbwinst">
         <config-group name="project">
-          <config-value name="lastexport">3</config-value>
+          <config-value name="lastexport">0</config-value>
         </config-group>
       </config-group>
       <config-group name="richard">
@@ -1566,6 +1566,7 @@ document.write('</frameset>');
       <helpcontext-number href="ParentColumn" value="3608"/>
       <helpcontext-number href="ParentLayer" value="3609"/>
       <helpcontext-number href="ParentRow" value="3610"/>
+      <helpcontext-number href="Particle-Transport" value="4539"/>
       <helpcontext-number href="PCG_Preconditioned_Conjugate_Gradiant" value="2770"/>
       <helpcontext-number href="PCG_Preconditioned_Conjugate_Gradiant#HCLOSE" value="3538"/>
       <helpcontext-number href="PCGN_Preconditioned_Conjugate_" value="3769"/>
@@ -1646,6 +1647,8 @@ document.write('</frameset>');
       <helpcontext-number href="Properties_Tab#Z_Coordinate" value="3539"/>
       <helpcontext-number href="Properties_TabHUF" value="3516"/>
       <helpcontext-number href="Properties_TabHUF#HGUVANI" value="4301"/>
+      <helpcontext-number href="PRP-Particle-Release-Point-Pac" value="4541"/>
+      <helpcontext-number href="PRT-Particle-Tracking-Model" value="4540"/>
       <helpcontext-number href="Pumping-Rate-Interpretation" value="4514"/>
       <helpcontext-number href="Quick_Start_Guide" value="3386"/>
       <helpcontext-number href="RadToDeg" value="1400"/>

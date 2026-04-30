@@ -35,6 +35,8 @@ type
     pnlTrackPeriodData: TPanel;
     lblTrackPeriodData: TLabel;
     frameReleasePeriodData: TframeGrid;
+    cbRunAsSeparateSimulation: TCheckBox;
+    gbSimulation: TGroupBox;
     procedure framePrpPackagesGridBeforeDrawCell(Sender: TObject; ACol, ARow:
         LongInt);
     procedure framePrpPackagesGridEndUpdate(Sender: TObject);
@@ -77,13 +79,16 @@ implementation
 
 {$R *.dfm}
 
+uses frmGoPhastUnit;
+
 resourcestring
+  SPrintOrSave = 'Print or Save';
   SParticleReleasePointPRPPackage = 'Particle Release Point (PRP) Package';
   StrPackageName = 'Package Name';
   StrPackageUsed = 'Package Used';
-  StrAllSteps = 'All steps';
-  StrFirstSteps = 'First steps';
-  StrLastSteps = 'Last steps';
+  StrAllSteps = 'All Steps';
+  StrFirstSteps = 'First Step';
+  StrLastSteps = 'Last Step';
   StrStepFrequency = 'Step frequency';
   StrSteps = 'Steps';
   StrTrackingTime = 'Tracking Time';
@@ -91,7 +96,7 @@ resourcestring
 type
   TPrpColumns = (pcName, pcUsed);
 
-  TPackagePeriodDataColumns = (ppdcStartTime, ppdcEndTime, ppdcAll, ppdcFirst, ppdcLast,
+  TPackagePeriodDataColumns = (ppdcStartTime, ppdcEndTime, ppdcPrintSave, ppdcAll, ppdcFirst, ppdcLast,
     ppdcFrequency, ppdcSteps);
 
 
@@ -125,19 +130,14 @@ var
   ChildNode: TTreeNode;
   Link: TFrameNodeLink;
 begin
-
-//  result.pgcControls.Anchors := result.pgcControls.Anchors + [akTop];
-//  result.Selected := True;
-//  FframePkgSmsObjectList.Add(result);
   NewPage := TJvStandardPage.Create(nil);
   Result := TframePackagePrp.Create(NewPage);
   NewPage.Name := '';
-//  NewPage.HelpKeyword := 'SMS_Sparse_Matrix_Solution_Pac';
+  NewPage.HelpKeyword := 'PRP-Particle-Release-Point-Pac';
   NewPage.PageList := FPageList;
 //  NewPage.OnShow := ShowImsPage;
   result.MemoWidthDelta := result.Width - result.MemoComments.Width;
   result.Parent := NewPage;
-//  MemoWidth := result.MemoComments.Width;
   result.Align := alClient;
   Result.lblPackage.Caption := SParticleReleasePointPRPPackage;
 
@@ -254,81 +254,80 @@ var
 begin
   FGettingData := True;
   try
-    //  FPackageTreeView := PackageTreeView;
-    //  FNode := Node;
-    //  FPageList := PageList;
-    //  FLinkDictionary := LinkDictionary;
+    cbRetardationFactor.Checked := PrtModel.RetardationFactorUsed;
+    cbUseParticleStopZones.Checked := PrtModel.ZoneUsed;
+    cbRunAsSeparateSimulation.Checked := PrtModel.RunAsSeparateSimulation;
 
-    //  Initialize;
-      cbRetardationFactor.Checked := PrtModel.RetardationFactorUsed;
-      cbUseParticleStopZones.Checked := PrtModel.ZoneUsed;
+    for FileItem in PrtModel.PrtOutputFiles do
+    begin
+      chklstOutputFiles.Checked[Ord(FileItem)] := True;
+    end;
 
-      for FileItem in PrtModel.PrtOutputFiles do
+    for TrackingOption in PrtModel.PrtTrackingOptions do
+    begin
+      chklstTrackEvents.Checked[Ord(TrackingOption)] := True;
+    end;
+
+    framePrpPackages.Grid.BeginUpdate;
+    try
+      framePrpPackages.seNumber.AsInteger := PrtModel.Count;
+      for var Index := 0 to PrtModel.Count - 1 do
       begin
-        chklstOutputFiles.Checked[Ord(FileItem)] := True;
-      end;
+        PrpPackage := PrtModel[Index].PrpPackage;
+        framePrpPackages.Grid.Cells[Ord(pcName), Index+1] := PrpPackage.PackageName;
+        framePrpPackages.Grid.Checked[Ord(pcUsed), Index+1] := PrpPackage.isSelected;
+        framePrpPackages.Grid.Objects[Ord(pcName), Index+1] := PrpPackage;
 
-      for TrackingOption in PrtModel.PrtTrackingOptions do
+        NewPrpFrame := CreateNewPrpFrame;
+        NewPrpFrame.GetData(PrpPackage);
+        framePrpPackages.Grid.Objects[Ord(pcUsed), Index+1] := NewPrpFrame;
+        framePrpPackagesGridSetEditText(framePrpPackages.Grid, Ord(pcName), Index+1, PrpPackage.PackageName);
+      end;
+    finally
+      framePrpPackages.Grid.EndUpdate;
+    end;
+
+    frameTrackTimes.Grid.BeginUpdate;
+    try
+      frameTrackTimes.seNumber.AsInteger := PrtModel.TrackTimes.Count;
+      for var Index := 0 to PrtModel.TrackTimes.Count - 1 do
       begin
-        chklstTrackEvents.Checked[Ord(TrackingOption)] := True;
+        frameTrackTimes.Grid.RealValue[0, Index+1] := PrtModel.TrackTimes[Index].Value;
       end;
+    finally
+      frameTrackTimes.Grid.EndUpdate;
+    end;
 
-      framePrpPackages.Grid.BeginUpdate;
-      try
-        framePrpPackages.seNumber.AsInteger := PrtModel.Count;
-        for var Index := 0 to PrtModel.Count - 1 do
-        begin
-          PrpPackage := PrtModel[Index].PrpPackage;
-          framePrpPackages.Grid.Cells[Ord(pcName), Index+1] := PrpPackage.PackageName;
-          framePrpPackages.Grid.Checked[Ord(pcUsed), Index+1] := PrpPackage.isSelected;
-          framePrpPackages.Grid.Objects[Ord(pcName), Index+1] := PrpPackage;
+    frameReleasePeriodData.Grid.BeginUpdate;
+    try
+      frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleasePeriodData.Grid, Ord(ppdcStartTime));
+      frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithEndTimes(frameReleasePeriodData.Grid, Ord(ppdcEndTime));
 
-          NewPrpFrame := CreateNewPrpFrame;
-          NewPrpFrame.GetData(PrpPackage);
-          framePrpPackages.Grid.Objects[Ord(pcUsed), Index+1] := NewPrpFrame;
-          framePrpPackagesGridSetEditText(framePrpPackages.Grid, Ord(pcName), Index+1, PrpPackage.PackageName);
-        end;
-      finally
-        framePrpPackages.Grid.EndUpdate;
-      end;
-
-      frameTrackTimes.Grid.BeginUpdate;
-      try
-        frameTrackTimes.seNumber.AsInteger := PrtModel.TrackTimes.Count;
-        for var Index := 0 to PrtModel.TrackTimes.Count - 1 do
-        begin
-          frameTrackTimes.Grid.RealValue[0, Index+1] := PrtModel.TrackTimes[Index].Value;
-        end;
-      finally
-        frameTrackTimes.Grid.EndUpdate;
-      end;
-
-      frameReleasePeriodData.Grid.BeginUpdate;
-      try
-        frameReleasePeriodData.seNumber.AsInteger := PrtModel.PeriodData.Count;
-        for var Index := 0 to PrtModel.PeriodData.Count - 1 do
-        begin
-          PeriodData := PrtModel.PeriodData[Index];
-          frameReleasePeriodData.Grid.RealValue[Ord(ppdcStartTime), Index+1] := PeriodData.StartTime;
-          frameReleasePeriodData.Grid.RealValue[Ord(ppdcEndTime), Index+1] := PeriodData.EndTime;
-          frameReleasePeriodData.Grid.Checked[Ord(ppdcAll), Index+1] := PeriodData.All;
-          frameReleasePeriodData.Grid.Checked[Ord(ppdcFirst), Index+1] := PeriodData.First;
-          frameReleasePeriodData.Grid.Checked[Ord(ppdcLast), Index+1] := PeriodData.Last;
-          frameReleasePeriodData.Grid.IntegerValue[Ord(ppdcFrequency), Index+1] := PeriodData.Frequency;
-          StepList := TStringList.Create;
-          try
-            for var StepIndex := 0 to PeriodData.Steps.Count - 1 do
-            begin
-              StepList.Add(PeriodData.Steps[StepIndex].ToString);
-            end;
-            frameReleasePeriodData.Grid.Cells[Ord(ppdcSteps), Index+1] := StepList.commaText;
-          finally
-            StepList.Free;
+      frameReleasePeriodData.seNumber.AsInteger := PrtModel.PeriodData.Count;
+      for var Index := 0 to PrtModel.PeriodData.Count - 1 do
+      begin
+        PeriodData := PrtModel.PeriodData[Index];
+        frameReleasePeriodData.Grid.RealValue[Ord(ppdcStartTime), Index+1] := PeriodData.StartTime;
+        frameReleasePeriodData.Grid.RealValue[Ord(ppdcEndTime), Index+1] := PeriodData.EndTime;
+        frameReleasePeriodData.Grid.ItemIndex[Ord(ppdcPrintSave), Index+1] := Ord(PeriodData.OCMethod);
+        frameReleasePeriodData.Grid.Checked[Ord(ppdcAll), Index+1] := PeriodData.All;
+        frameReleasePeriodData.Grid.Checked[Ord(ppdcFirst), Index+1] := PeriodData.First;
+        frameReleasePeriodData.Grid.Checked[Ord(ppdcLast), Index+1] := PeriodData.Last;
+        frameReleasePeriodData.Grid.IntegerValue[Ord(ppdcFrequency), Index+1] := PeriodData.Frequency;
+        StepList := TStringList.Create;
+        try
+          for var StepIndex := 0 to PeriodData.Steps.Count - 1 do
+          begin
+            StepList.Add(PeriodData.Steps[StepIndex].ToString);
           end;
+          frameReleasePeriodData.Grid.Cells[Ord(ppdcSteps), Index+1] := StepList.commaText;
+        finally
+          StepList.Free;
         end;
-      finally
-        frameReleasePeriodData.Grid.EndUpdate;
       end;
+    finally
+      frameReleasePeriodData.Grid.EndUpdate;
+    end;
   finally
     FGettingData := False;
   end;
@@ -361,6 +360,7 @@ begin
       ClearGrid(frameReleasePeriodData.Grid);
       frameReleasePeriodData.Grid.Cells[Ord(ppdcStartTime), 0] := StrStartingTime;
       frameReleasePeriodData.Grid.Cells[Ord(ppdcEndTime), 0] := StrEndingTime;
+      frameReleasePeriodData.Grid.Cells[Ord(ppdcPrintSave), 0] := SPrintOrSave;
       frameReleasePeriodData.Grid.Cells[Ord(ppdcAll), 0] := StrAllSteps;
       frameReleasePeriodData.Grid.Cells[Ord(ppdcFirst), 0] := StrFirstSteps;
       frameReleasePeriodData.Grid.Cells[Ord(ppdcLast), 0] := StrLastSteps;
@@ -415,6 +415,7 @@ var
 begin
   PrtModel.RetardationFactorUsed := cbRetardationFactor.Checked;
   PrtModel.ZoneUsed := cbUseParticleStopZones.Checked;
+  PrtModel.RunAsSeparateSimulation := cbRunAsSeparateSimulation.Checked;
 
   PrtOutputFiles := [];
   for var Index := 0 to chklstOutputFiles.Items.Count -1 do
@@ -495,6 +496,11 @@ begin
       else
       begin
         PeriodData := PrtModel.PeriodData.Add;
+      end;
+
+      if frameReleasePeriodData.Grid.ItemIndex[Ord(ppdcPrintSave), Index+1] >= 0 then
+      begin
+        PeriodData.OCMethod := TPrtOCMethod(frameReleasePeriodData.Grid.ItemIndex[Ord(ppdcPrintSave), Index+1]);
       end;
 
       PeriodData.All := frameReleasePeriodData.Grid.Checked[Ord(ppdcAll), Index+1];

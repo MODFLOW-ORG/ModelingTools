@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-04-30T12:29:31.240-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Particle Transport</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Particle Transport Pane</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The Particle Transport pane is on the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="MODFLOW_Packages_Dialog_Box" styleclass="Normal" style="font-weight:bold;" translate="true">MODFLOW Packages and Programs</link><text styleclass="Normal" translate="true"> dialog box. It is used to define the Particle Transport (PRT) models in MODFLOW 6 models. </text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">There can be multiple PRT models associated with a single groundwater flow model. The user can define PRT models by setting the number of PRT models to a value greater than or equal to one. The user can then specify the names of the model(s). Model names can be up to 16 ASCII characters in length and are not case sensitive. Model names can not contain blank characters. Model Names must be unique.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">In addition to the model name, the user can also specify whether a model is &quot;used&quot;. If the model is not &quot;used&quot;, input for it will not be created when running MODFLOW 6. </text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">For each PRT model, a separate </text><link displaytype="text" defaultstyle="true" type="topiclink" href="PRT-Particle-Tracking-Model" styleclass="Normal" translate="true">PRT pane</link><text styleclass="Normal" translate="true"> will be created in which the properties of the PRT model are specified.</text></para>
+  </body>
+</topic>

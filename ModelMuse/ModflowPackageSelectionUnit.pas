@@ -2924,6 +2924,8 @@ Type
 
   TPrtDryTracking = (pdtDrop, pdtStop, pdtStay);
   TPrtCoordinateCheckMethod = (ccmEager, ccmNone);
+  // Output Control method.
+  TPrtOCMethod = (pomBoth, pomPrint, pomSave);
 
   TPrpPeriodDataItem = class(TOrderedItem)
   private
@@ -2934,6 +2936,7 @@ Type
     FAll: Boolean;
     FFirst: Boolean;
     FStoredEndTime: TRealStorage;
+    FOCMethod: TPrtOCMethod;
     function GetEndTime: double;
     function GetStartTime: double;
     procedure SetAll(const Value: Boolean);
@@ -2945,6 +2948,7 @@ Type
     procedure SetSteps(const Value: TGenericIntegerList);
     procedure SetStoredEndTime(const Value: TRealStorage);
     procedure SetStoredStartTime(const Value: TRealStorage);
+    procedure SetOCMethod(const Value: TPrtOCMethod);
   protected
     function IsSame(AnotherItem: TOrderedItem): boolean; override;
   public
@@ -2956,6 +2960,7 @@ Type
   published
     property StoredStartTime: TRealStorage read FStoredStartTime write SetStoredStartTime;
     property StoredEndTime: TRealStorage read FStoredEndTime write SetStoredEndTime;
+    property OCMethod: TPrtOCMethod read FOCMethod write SetOCMethod;
     property All: Boolean read FAll write SetAll;
     property First: Boolean read FFirst write SetFirst;
     property Last: Boolean read FLast write SetLast;
@@ -2972,7 +2977,6 @@ Type
     function Add: TPrpPeriodDataItem;
     property Items[Index: Integer]: TPrpPeriodDataItem read GetPeriodItem write SetPeriodItem; default;
   end;
-
 
   // @name represents one PRP package in one PRT model.
   TPrpPackage = class(TModflowPackageSelection)
@@ -3120,6 +3124,7 @@ Type
     FPeriodData: TPrpPeriodData;
     FModelName: string;
     FOriginalId: Integer;
+    FRunAsSeparateSimulation: Boolean;
     procedure SetRetardationFactorUsed(const Value: Boolean);
     procedure SetZoneUsed(const Value: Boolean);
     procedure SetTrackTimes(const Value: TRealCollection);
@@ -3133,6 +3138,7 @@ Type
     procedure SetPeriodData(const Value: TPrpPeriodData);
     procedure SetModelName(const Value: string);
     procedure SetOriginalId(const Value: Integer);
+    procedure SetRunAsSeparateSimulation(const Value: Boolean);
   public
     procedure Assign(Source: TPersistent); override;
     constructor Create(Model: TBaseModel);
@@ -3151,6 +3157,7 @@ Type
     property PrtTrackingOptions: TPrtTrackingOptions read FPrtTrackingOptions write SetPrtTrackingOptions;
     property PrtOutputFiles: TPrtOutputFiles read FPrtOutputFiles write SetPrtOutputFiles;
     property PeriodData: TPrpPeriodData read FPeriodData write SetPeriodData;
+    property RunAsSeparateSimulation: Boolean read FRunAsSeparateSimulation write SetRunAsSeparateSimulation;
   end;
 
   TPrtModelItem = class(TPhastCollectionItem)
@@ -31632,6 +31639,7 @@ begin
     PrtOutputFiles := PrtSource.PrtOutputFiles;
     PeriodData  := PrtSource.PeriodData;
     OriginalId := PrtSource.OriginalId;
+    RunAsSeparateSimulation := PrtSource.RunAsSeparateSimulation;
   end;
   inherited;
 end;
@@ -31726,6 +31734,15 @@ begin
   if FRetardationFactorUsed <> Value then
   begin
     FRetardationFactorUsed := Value;
+    InvalidateModel;
+  end;
+end;
+
+procedure TPrtModel.SetRunAsSeparateSimulation(const Value: Boolean);
+begin
+  if FRunAsSeparateSimulation <> Value then
+  begin
+    FRunAsSeparateSimulation := Value;
     InvalidateModel;
   end;
 end;
@@ -32508,6 +32525,7 @@ begin
       PeriodDataItem := TPrpPeriodDataItem(Source);
       StoredStartTime := PeriodDataItem.StoredStartTime;
       StoredEndTime := PeriodDataItem.StoredEndTime;
+      OCMethod := PeriodDataItem.OCMethod;
       All := PeriodDataItem.All;
       First := PeriodDataItem.First;
       Last := PeriodDataItem.Last;
@@ -32560,6 +32578,7 @@ begin
     PeriodData := TPrpPeriodDataItem(AnotherItem);
     result := (StartTime = PeriodData.StartTime)
       and (EndTime = PeriodData.EndTime)
+      and (OCMethod = PeriodData.OCMethod)
       and (All = PeriodData.All)
       and (First = PeriodData.First)
       and (Last = PeriodData.Last)
@@ -32591,6 +32610,15 @@ end;
 procedure TPrpPeriodDataItem.SetLast(const Value: Boolean);
 begin
   SetBooleanProperty(FLast, Value);
+end;
+
+procedure TPrpPeriodDataItem.SetOCMethod(const Value: TPrtOCMethod);
+begin
+  if FOCMethod <> Value then
+  begin
+    FOCMethod := Value;
+    InvalidateModel
+  end;
 end;
 
 procedure TPrpPeriodDataItem.SetStartTime(const Value: double);

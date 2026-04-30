@@ -83,20 +83,12 @@ var
   ChildNode: TTreeNode;
   Link: TFrameNodeLink;
 begin
-//  Result := TframePrpMultiplePackages.Create(nil);
-
-//  result.pgcControls.Anchors := result.pgcControls.Anchors + [akTop];
-//  result.Selected := True;
-//  FframePkgSmsObjectList.Add(result);
   NewPage := TJvStandardPage.Create(nil);
   Result := TframePrpMultiplePackages.Create(NewPage);
   Result.lblPackage.Caption := 'PRT: Particle Tracking';
 
-//  result.pgcControls.Anchors := result.pgcControls.Anchors + [akTop];
-//  result.Selected := True;
-//  FframePkgSmsObjectList.Add(result);
   NewPage.Name := '';
-//  NewPage.HelpKeyword := 'SMS_Sparse_Matrix_Solution_Pac';
+  NewPage.HelpKeyword := 'PRT-Particle-Tracking-Model';
   NewPage.PageList := FPageList;
 //  NewPage.OnShow := ShowImsPage;
   result.Parent := NewPage;

@@ -28,21 +28,21 @@ inherited framePackagePrp: TframePackagePrp
     object tabOptions: TTabSheet
       Caption = 'Options'
       object lblCOORDINATE_CHECK_METHOD: TLabel
-        Left = 300
+        Left = 316
         Top = 261
         Width = 169
         Height = 15
         Caption = 'COORDINATE_CHECK_METHOD'
       end
       object lblDRY_TRACKING_METHOD: TLabel
-        Left = 298
+        Left = 314
         Top = 204
         Width = 137
         Height = 15
         Caption = 'DRY_TRACKING_METHOD'
       end
       object lblISTOPZONE: TLabel
-        Left = 297
+        Left = 313
         Top = 13
         Width = 61
         Height = 15
@@ -80,7 +80,7 @@ inherited framePackagePrp: TframePackagePrp
         TabOrder = 8
       end
       object comboCOORDINATE_CHECK_METHOD: TJvImageComboBox
-        Left = 299
+        Left = 315
         Top = 282
         Width = 145
         Height = 25
@@ -105,7 +105,7 @@ inherited framePackagePrp: TframePackagePrp
           end>
       end
       object comboDryTrackingMethod: TJvImageComboBox
-        Left = 298
+        Left = 314
         Top = 225
         Width = 145
         Height = 25
@@ -135,9 +135,9 @@ inherited framePackagePrp: TframePackagePrp
           end>
       end
       object comboTrackOutput: TComboBox
-        Left = 25
+        Left = 26
         Top = 127
-        Width = 145
+        Width = 257
         Height = 23
         Style = csDropDownList
         ItemIndex = 0
@@ -177,12 +177,12 @@ inherited framePackagePrp: TframePackagePrp
         end
       end
       inline frameRELEASE_TIME_FREQUENCY: TframeOptionalValue
-        Left = 273
+        Left = 289
         Top = 142
         Width = 256
         Height = 56
         TabOrder = 6
-        ExplicitLeft = 273
+        ExplicitLeft = 289
         ExplicitTop = 142
         ExplicitWidth = 256
         inherited LblVariableLabel: TLabel
@@ -203,12 +203,12 @@ inherited framePackagePrp: TframePackagePrp
         end
       end
       inline frameRELEASE_TIME_TOLERANCE: TframeOptionalValue
-        Left = 273
+        Left = 289
         Top = 73
         Width = 272
         Height = 56
         TabOrder = 3
-        ExplicitLeft = 273
+        ExplicitLeft = 289
         ExplicitTop = 73
         ExplicitWidth = 272
         inherited LblVariableLabel: TLabel
@@ -289,7 +289,7 @@ inherited framePackagePrp: TframePackagePrp
         end
       end
       object rdeISTOPZONE: TRbwDataEntry
-        Left = 298
+        Left = 314
         Top = 34
         Width = 145
         Height = 22
@@ -302,21 +302,126 @@ inherited framePackagePrp: TframePackagePrp
         ChangeDisabledColor = True
       end
     end
-    object tabReleasePeriodData: TTabSheet
-      Caption = 'Release Period Data'
-      ImageIndex = 2
-      inline frameReleasePeriodData: TframeGrid
+    object tabReleaseTimes: TTabSheet
+      Caption = 'ReleaseTimes'
+      ImageIndex = 1
+      object pnlReleaseTimes: TPanel
         Left = 0
-        Top = 57
+        Top = 0
         Width = 569
-        Height = 307
+        Height = 65
+        Align = alTop
+        TabOrder = 0
+        object lblReleaseTimes: TLabel
+          AlignWithMargins = True
+          Left = 4
+          Top = 4
+          Width = 561
+          Height = 57
+          Align = alClient
+          Caption = 
+            'Release times can be specified as specific times or by specific ' +
+            'period. If no release times are specified, particles will be rel' +
+            'eased at the beginning of the first stress period.'
+          WordWrap = True
+          ExplicitWidth = 534
+          ExplicitHeight = 30
+        end
+      end
+      inline frameReleaseTimes: TframeGrid
+        Left = 0
+        Top = 65
+        Width = 569
+        Height = 299
         Align = alClient
         TabOrder = 1
         ExplicitTop = 57
         ExplicitWidth = 569
         ExplicitHeight = 307
         inherited Panel: TPanel
-          Top = 266
+          Top = 258
+          Width = 569
+          StyleElements = [seFont, seClient, seBorder]
+          ExplicitTop = 266
+          ExplicitWidth = 569
+          inherited lbNumber: TLabel
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited sbAdd: TSpeedButton
+            Left = 408
+            Top = 8
+            ExplicitLeft = 169
+            ExplicitTop = 8
+          end
+          inherited sbInsert: TSpeedButton
+            Left = 462
+            Top = 8
+            ExplicitLeft = 192
+            ExplicitTop = 8
+          end
+          inherited sbDelete: TSpeedButton
+            Left = 520
+            Top = 8
+            ExplicitLeft = 216
+            ExplicitTop = 8
+          end
+          inherited seNumber: TJvSpinEdit
+            Left = 6
+            Top = 8
+            StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameReleaseTimesseNumberChange
+            ExplicitLeft = 6
+            ExplicitTop = 8
+          end
+        end
+        inherited Grid: TRbwDataGrid4
+          Width = 569
+          Height = 258
+          Columns = <
+            item
+              AutoAdjustRowHeights = True
+              AutoAdjustCaptionRowHeights = True
+              ButtonCaption = '...'
+              ButtonFont.Charset = DEFAULT_CHARSET
+              ButtonFont.Color = clWindowText
+              ButtonFont.Height = -11
+              ButtonFont.Name = 'Tahoma'
+              ButtonFont.Style = []
+              ButtonUsed = False
+              ButtonWidth = 20
+              CheckMax = False
+              CheckMin = False
+              ComboUsed = True
+              Format = rcf4Real
+              LimitToList = False
+              MaxLength = 0
+              ParentButtonFont = False
+              WordWrapCaptions = True
+              WordWrapCells = False
+              CaseSensitivePicklist = False
+              CheckStyle = csCheck
+              AutoAdjustColWidths = True
+            end>
+          ExplicitWidth = 569
+          ExplicitHeight = 266
+        end
+      end
+    end
+    object tabReleasePeriodData: TTabSheet
+      Caption = 'Release Period Data'
+      ImageIndex = 2
+      inline frameReleasePeriodData: TframeGrid
+        Left = 0
+        Top = 65
+        Width = 569
+        Height = 299
+        Align = alClient
+        TabOrder = 1
+        ExplicitTop = 57
+        ExplicitWidth = 569
+        ExplicitHeight = 307
+        inherited Panel: TPanel
+          Top = 258
           Width = 569
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 266
@@ -343,8 +448,9 @@ inherited framePackagePrp: TframePackagePrp
         end
         inherited Grid: TRbwDataGrid4
           Width = 569
-          Height = 266
+          Height = 258
           ColCount = 7
+          DefaultColWidth = 50
           Columns = <
             item
               AutoAdjustRowHeights = True
@@ -515,14 +621,14 @@ inherited framePackagePrp: TframePackagePrp
               AutoAdjustColWidths = True
             end>
           ExplicitWidth = 569
-          ExplicitHeight = 266
+          ExplicitHeight = 258
         end
       end
       object pnlReleasePeriodData: TPanel
         Left = 0
         Top = 0
         Width = 569
-        Height = 57
+        Height = 65
         Align = alTop
         TabOrder = 0
         object lblReleasePeriodData: TLabel
@@ -530,7 +636,7 @@ inherited framePackagePrp: TframePackagePrp
           Left = 4
           Top = 4
           Width = 561
-          Height = 49
+          Height = 57
           Align = alClient
           Caption = 
             'Release times can be specified as specific times or by specific ' +
@@ -539,111 +645,6 @@ inherited framePackagePrp: TframePackagePrp
           WordWrap = True
           ExplicitWidth = 534
           ExplicitHeight = 30
-        end
-      end
-    end
-    object tabReleaseTimes: TTabSheet
-      Caption = 'ReleaseTimes'
-      ImageIndex = 1
-      object pnlReleaseTimes: TPanel
-        Left = 0
-        Top = 0
-        Width = 569
-        Height = 57
-        Align = alTop
-        TabOrder = 0
-        object lblReleaseTimes: TLabel
-          AlignWithMargins = True
-          Left = 4
-          Top = 4
-          Width = 561
-          Height = 49
-          Align = alClient
-          Caption = 
-            'Release times can be specified as specific times or by specific ' +
-            'period. If no release times are specified, particles will be rel' +
-            'eased at the beginning of the first stress period.'
-          WordWrap = True
-          ExplicitWidth = 534
-          ExplicitHeight = 30
-        end
-      end
-      inline frameReleaseTimes: TframeGrid
-        Left = 0
-        Top = 57
-        Width = 569
-        Height = 307
-        Align = alClient
-        TabOrder = 1
-        ExplicitTop = 57
-        ExplicitWidth = 569
-        ExplicitHeight = 307
-        inherited Panel: TPanel
-          Top = 266
-          Width = 569
-          StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 266
-          ExplicitWidth = 569
-          inherited lbNumber: TLabel
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited sbAdd: TSpeedButton
-            Left = 408
-            Top = 8
-            ExplicitLeft = 169
-            ExplicitTop = 8
-          end
-          inherited sbInsert: TSpeedButton
-            Left = 462
-            Top = 8
-            ExplicitLeft = 192
-            ExplicitTop = 8
-          end
-          inherited sbDelete: TSpeedButton
-            Left = 520
-            Top = 8
-            ExplicitLeft = 216
-            ExplicitTop = 8
-          end
-          inherited seNumber: TJvSpinEdit
-            Left = 6
-            Top = 8
-            StyleElements = [seFont, seClient, seBorder]
-            OnChange = frameReleaseTimesseNumberChange
-            ExplicitLeft = 6
-            ExplicitTop = 8
-          end
-        end
-        inherited Grid: TRbwDataGrid4
-          Width = 569
-          Height = 266
-          Columns = <
-            item
-              AutoAdjustRowHeights = True
-              AutoAdjustCaptionRowHeights = True
-              ButtonCaption = '...'
-              ButtonFont.Charset = DEFAULT_CHARSET
-              ButtonFont.Color = clWindowText
-              ButtonFont.Height = -11
-              ButtonFont.Name = 'Tahoma'
-              ButtonFont.Style = []
-              ButtonUsed = False
-              ButtonWidth = 20
-              CheckMax = False
-              CheckMin = False
-              ComboUsed = True
-              Format = rcf4Real
-              LimitToList = False
-              MaxLength = 0
-              ParentButtonFont = False
-              WordWrapCaptions = True
-              WordWrapCells = False
-              CaseSensitivePicklist = False
-              CheckStyle = csCheck
-              AutoAdjustColWidths = True
-            end>
-          ExplicitWidth = 569
-          ExplicitHeight = 266
         end
       end
     end
