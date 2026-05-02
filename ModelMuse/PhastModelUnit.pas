@@ -154,6 +154,7 @@ resourcestring
   StrMt3dClassification = 'MT3DMS or MT3D-USGS';
   StrGwtClassification = 'GWT: Groundwater Transport';
   StrGweClassification = 'GWE: Groundwater Energy Transport';
+  StrPrtClassification = 'PRT: Particle Tracking';
 
   StrNoStressPeriods = 'No stress periods have been defined for MT3DMS.';
   StrMODFLOWFHBHeads = 'FHB Heads';
@@ -4624,6 +4625,8 @@ that affects the model output should also have a comment. }
     property Mt3d_LktIsSelected;
     function Mf6VTransDispUsed(Sender: TObject): boolean;
     function AnyVTransDispUsed: Boolean;
+    function PrtRetardationUsed(Sender: TObject): boolean;
+    function PrtZoneUsed(Sender: TObject): boolean;
   published
     property Mf6TimesSeries;
 
@@ -13482,6 +13485,62 @@ end;
 function TPhastModel.PhastUsed(Sender: TObject): boolean;
 begin
   result := ModelSelection = msPhast;
+end;
+
+function TPhastModel.PrtRetardationUsed(Sender: TObject): boolean;
+var
+  DataArray: TDataArray;
+  function DataArrayUsed(PrtModels: TPrtModels): boolean;
+  var
+    Index: Integer;
+    AModel: TPrtModel;
+  begin
+    result := False;
+    for Index := 0 to PrtModels.Count - 1 do
+    begin
+      AModel := PrtModels[Index].PrtModel;
+      if AModel.RetardationDataArrayName = DataArray.Name then
+      begin
+        result := AModel.IsSelected and AModel.RetardationFactorUsed;
+        Exit;
+      end;
+    end;
+  end;
+begin
+  result := (ModelSelection = msModflow2015);
+  if result then
+  begin
+    DataArray := Sender as TDataArray;
+    result := DataArrayUsed(ModflowPackages.PrtModels);
+  end;
+end;
+
+function TPhastModel.PrtZoneUsed(Sender: TObject): boolean;
+var
+  DataArray: TDataArray;
+  function DataArrayUsed(PrtModels: TPrtModels): boolean;
+  var
+    Index: Integer;
+    AModel: TPrtModel;
+  begin
+    result := False;
+    for Index := 0 to PrtModels.Count - 1 do
+    begin
+      AModel := PrtModels[Index].PrtModel;
+      if AModel.ZoneDataArrayName = DataArray.Name then
+      begin
+        result := AModel.IsSelected and AModel.ZoneUsed;
+        Exit;
+      end;
+    end;
+  end;
+begin
+  result := (ModelSelection = msModflow2015);
+  if result then
+  begin
+    DataArray := Sender as TDataArray;
+    result := DataArrayUsed(ModflowPackages.PrtModels);
+  end;
 end;
 
 function TPhastModel.DoPorosityUsed(Sender: TObject): boolean;

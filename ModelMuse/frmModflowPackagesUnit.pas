@@ -4641,6 +4641,7 @@ begin
     FTransientListParameters, FSfrParameterInstances, FHufParameters,
     ParamGroups, FNewPackages);
     frmGoPhast.PhastModel.MobileComponents.CanCreateDataSets := False;
+    frmGoPhast.PhastModel.ModflowPackages.PrtModels.CanCreateDataSets := False;
     try
       frmGoPhast.PhastModel.ModflowPackages.GweProcess.IsSelected :=
         frameGweProcess.Selected;
@@ -4656,6 +4657,7 @@ begin
       Undo.UpdateMt3dmsChemSpecies;
     finally
       frmGoPhast.PhastModel.MobileComponents.CanCreateDataSets := True;
+      frmGoPhast.PhastModel.ModflowPackages.PrtModels.CanCreateDataSets := True;
     end;
 
   frmGoPhast.UndoStack.Submit(Undo);

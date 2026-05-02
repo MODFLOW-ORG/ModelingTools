@@ -3034,6 +3034,7 @@ Type
     procedure SetSolverToleranceUsed(const Value: Boolean);
     procedure SetPeriodData(const Value: TPrpPeriodData);
     procedure SetOriginalId(const Value: Integer);
+    function IsSame(AnotherPackage: TPrpPackage): boolean;
   public
     procedure Assign(Source: TPersistent); override;
     { TODO -cRefactor : Consider replacing Model with an interface. }
@@ -3091,10 +3092,12 @@ Type
  end;
 
   // @name is a collection item
-  TPrpPackageItem = class(TPhastCollectionItem)
+  TPrpPackageItem = class(TOrderedItem)
   private
     FPrpPackage: TPrpPackage;
     procedure SetPrpPackage(const Value: TPrpPackage);
+  protected
+    function IsSame(AnotherItem: TOrderedItem): boolean; override;
   public
     constructor Create(Collection: TCollection); override;
     destructor Destroy; override;
@@ -3112,9 +3115,8 @@ Type
   TPrtOutputFiles = set of TPrtOutputFile;
 
 
-  TPrtModel = class(TPhastCollection)
+  TPrtModel = class(TOrderedCollection)
   private
-    FModel: TBaseModel;
     FZoneUsed: Boolean;
     FRetardationFactorUsed: Boolean;
     FTrackTimes: TRealCollection;
@@ -3125,6 +3127,11 @@ Type
     FModelName: string;
     FOriginalId: Integer;
     FRunAsSeparateSimulation: Boolean;
+    FRetardationDataArrayName: string;
+    FZoneDataArrayName: string;
+    FCanCreateDataSets: Boolean;
+    FRetardationDataArrayDisplayName: string;
+    FZoneDataArrayDisplayName: string;
     procedure SetRetardationFactorUsed(const Value: Boolean);
     procedure SetZoneUsed(const Value: Boolean);
     procedure SetTrackTimes(const Value: TRealCollection);
@@ -3139,9 +3146,18 @@ Type
     procedure SetModelName(const Value: string);
     procedure SetOriginalId(const Value: Integer);
     procedure SetRunAsSeparateSimulation(const Value: Boolean);
+    procedure SetRetardationDataArrayName(const Value: string);
+    procedure SetZoneDataArrayName(const Value: string);
+    procedure UpdateDataArray(OnDataSetUsed: TObjectUsedEvent;
+      const OldDataArrayName, NewName, NewDisplayName, NewFormula,
+      AssociatedDataSets: string; ShouldCreate: boolean;
+      const Classification: string);
+    property CanCreateDataSets: Boolean read FCanCreateDataSets
+      write FCanCreateDataSets;
+    function IsSame(AnOrderedCollection: TOrderedCollection): boolean; override;
   public
     procedure Assign(Source: TPersistent); override;
-    constructor Create(Model: TBaseModel);
+    constructor Create(Model: IModelForTOrderedCollection);
     destructor Destroy; override;
     property Items[Index: Integer]: TPrpPackageItem read GetItem write SetItem;  default;
     property OriginalId: Integer read FOriginalId write SetOriginalId;
@@ -3151,19 +3167,22 @@ Type
     property RetardationFactorUsed: Boolean read FRetardationFactorUsed write SetRetardationFactorUsed;
     // IZONE
     property ZoneUsed: Boolean read FZoneUsed write SetZoneUsed;
-
     property TrackTimes: TRealCollection read FTrackTimes write SetTrackTimes;
     property IsSelected: Boolean  read FIsSelected write SetIsSelected;
     property PrtTrackingOptions: TPrtTrackingOptions read FPrtTrackingOptions write SetPrtTrackingOptions;
     property PrtOutputFiles: TPrtOutputFiles read FPrtOutputFiles write SetPrtOutputFiles;
     property PeriodData: TPrpPeriodData read FPeriodData write SetPeriodData;
     property RunAsSeparateSimulation: Boolean read FRunAsSeparateSimulation write SetRunAsSeparateSimulation;
+    property RetardationDataArrayName: string read FRetardationDataArrayName write SetRetardationDataArrayName;
+    property ZoneDataArrayName: string read FZoneDataArrayName write SetZoneDataArrayName;
   end;
 
-  TPrtModelItem = class(TPhastCollectionItem)
+  TPrtModelItem = class(TOrderedItem)
   private
     FPrtModel: TPrtModel;
     procedure SetPrtModel(const Value: TPrtModel);
+  protected
+    function IsSame(AnotherItem: TOrderedItem): boolean; override;
   public
     constructor Create(Collection: TCollection); override;
     destructor Destroy; override;
@@ -3173,13 +3192,16 @@ Type
 
   end;
 
-  TPrtModels = class(TPhastCollection)
+  TPrtModels = class(TOrderedCollection)
   private
-    FModel: TBaseModel;
+    FCanCreateDataSets: Boolean;
     function GetItem(Index: Integer): TPrtModelItem;
     procedure SetItem(Index: Integer; const Value: TPrtModelItem);
+    procedure SetCanCreateDataSets(const Value: Boolean);
   public
-    constructor Create(Model: TBaseModel);
+    constructor Create(Model: IModelForTOrderedCollection);
+    property CanCreateDataSets: Boolean read FCanCreateDataSets
+      write SetCanCreateDataSets;
   public
     property Items[Index: Integer]: TPrtModelItem read GetItem write SetItem; default;
   end;
@@ -8018,9 +8040,12 @@ uses Contnrs , PhastModelUnit, ModflowOptionsUnit,
   ModflowCSubWriterUnit,
   ModflowGwtSpecifiedConcUnit, ModflowCncWriterUnit, ModflowFmp4WriterUnit, DataSetNamesUnit,
   ModflowTvkUnit, ModflowTvsUnit,
-  ModflowTvkWriterUnit, ModflowTvsWriterUnit, ModflowConstantHeadBoundaryUnit, ModflowWellUnit;
+  ModflowTvkWriterUnit, ModflowTvsWriterUnit, ModflowConstantHeadBoundaryUnit, ModflowWellUnit,
+  UpdateDataArrayUnit;
 
 resourcestring
+  SPrtZone_ = 'PrtZone_';
+  SPrtRetardation_ = 'PrtRetardation_';
   StrInTheSubsidencePa = 'In the Subsidence package, one or more starting ti' +
   'me is after the ending time';
   StrInTheSubsidenceAn = 'In the Subsidence and Aquifer-System Compaction Pa' +
@@ -31567,13 +31592,22 @@ end;
 constructor TPrtModelItem.Create(Collection: TCollection);
 begin
   inherited;
-  FPrtModel := TPrtModel.Create((Collection as TPrtModels).FModel);
+  FPrtModel := TPrtModel.Create((Collection as TPrtModels).Model);
 end;
 
 destructor TPrtModelItem.Destroy;
 begin
   FPrtModel.Free;
   inherited;
+end;
+
+function TPrtModelItem.IsSame(AnotherItem: TOrderedItem): boolean;
+begin
+  result := (AnotherItem is TPrtModelItem);
+  if result then
+  begin
+    result := PrtModel.IsSame(TPrtModelItem(AnotherItem).PrtModel);
+  end;
 end;
 
 procedure TPrtModel.SetIsSelected(const Value: Boolean);
@@ -31607,13 +31641,22 @@ end;
 constructor TPrpPackageItem.Create(Collection: TCollection);
 begin
   inherited;
-  FPrpPackage := TPrpPackage.Create((Collection as TPrtModel).FModel);
+  FPrpPackage := TPrpPackage.Create((Collection as TPrtModel).Model as TCustomModel);
 end;
 
 destructor TPrpPackageItem.Destroy;
 begin
   FPrpPackage.Free;
   inherited;
+end;
+
+function TPrpPackageItem.IsSame(AnotherItem: TOrderedItem): boolean;
+begin
+  result := (AnotherItem is TPrpPackageItem);
+  if result then
+  begin
+    result := PrpPackage.IsSame(TPrpPackageItem(AnotherItem).PrpPackage);
+  end;
 end;
 
 procedure TPrpPackageItem.SetPrpPackage(const Value: TPrpPackage);
@@ -31640,15 +31683,16 @@ begin
     PeriodData  := PrtSource.PeriodData;
     OriginalId := PrtSource.OriginalId;
     RunAsSeparateSimulation := PrtSource.RunAsSeparateSimulation;
+    RetardationDataArrayName := PrtSource.RetardationDataArrayName;
+    ZoneDataArrayName := PrtSource.ZoneDataArrayName;
   end;
   inherited;
 end;
 
-constructor TPrtModel.Create(Model: TBaseModel);
+constructor TPrtModel.Create(Model: IModelForTOrderedCollection);
 var
   InvalidateModelEvent: TNotifyEvent;
 begin
-  FModel := Model;
   if Model = nil then
   begin
     InvalidateModelEvent := nil;
@@ -31657,9 +31701,9 @@ begin
   begin
     InvalidateModelEvent := Model.Invalidate;
   end;
-  inherited Create(TPrpPackageItem, InvalidateModelEvent);
+  inherited Create(TPrpPackageItem, Model);
   FTrackTimes := TRealCollection.Create(InvalidateModelEvent);
-  FPeriodData := TPrpPeriodData.Create(Model as TPhastModel);
+  FPeriodData := TPrpPeriodData.Create(Model);
   InitializeVariables;
   OriginalId := OriginalPrtModelID;
   Inc(OriginalPrtModelID);
@@ -31687,15 +31731,73 @@ begin
   PrtTrackingOptions := [ptoRelease, ptoExit, ptoTimeStep, ptoTerminate, ptoWeakSink, ptoUserTime];
 end;
 
+function TPrtModel.IsSame(AnOrderedCollection: TOrderedCollection): boolean;
+var
+  PrtModel: TPrtModel;
+begin
+  result := (AnOrderedCollection is TPrtModel) and inherited IsSame(AnOrderedCollection);
+  if result then
+  begin
+    PrtModel := AnOrderedCollection as TPrtModel;
+    result := (ModelName = PrtModel.ModelName)
+      and (RetardationFactorUsed = PrtModel.RetardationFactorUsed)
+      and (ZoneUsed = PrtModel.ZoneUsed)
+      and TrackTimes.IsSame(PrtModel.TrackTimes)
+      and (IsSelected = PrtModel.IsSelected)
+      and (PrtTrackingOptions = PrtModel.PrtTrackingOptions)
+      and (PrtOutputFiles = PrtModel.PrtOutputFiles)
+      and PeriodData.IsSame(PrtModel.PeriodData)
+      and (RunAsSeparateSimulation = PrtModel.RunAsSeparateSimulation)
+      and (RetardationDataArrayName = PrtModel.RetardationDataArrayName)
+      and (ZoneDataArrayName = PrtModel.ZoneDataArrayName)
+  end;
+end;
+
 procedure TPrtModel.SetItem(Index: Integer; const Value: TPrpPackageItem);
 begin
   inherited Items[Index] := Value;
 end;
 
 procedure TPrtModel.SetModelName(const Value: string);
+var
+  OldRoot: string;
+  NewRoot: string;
 begin
   if FModelName <> Value then
   begin
+    if UpperCase(FModelName) = UpperCase(Value) then
+    begin
+      OldRoot := GenerateNewRoot(FModelName);
+      NewRoot := GenerateNewRoot(Value);
+
+      FRetardationDataArrayDisplayName := StringReplace(
+        FRetardationDataArrayDisplayName,
+        OldRoot,NewRoot, []);
+      RetardationDataArrayName := StringReplace(
+        FRetardationDataArrayName,
+        OldRoot,NewRoot, []);
+
+      FZoneDataArrayDisplayName := StringReplace(
+        FZoneDataArrayDisplayName,
+        OldRoot,NewRoot, []);
+      ZoneDataArrayName := StringReplace(
+        FZoneDataArrayName,
+        OldRoot,NewRoot, []);
+
+    end
+    else
+    begin
+      FRetardationDataArrayDisplayName :=
+        GenerateNewRoot(SPrtRetardation_ + Value);
+      RetardationDataArrayName :=
+        GenerateNewRoot(SPrtRetardation_ + Value);
+
+      FZoneDataArrayDisplayName :=
+        GenerateNewRoot(SPrtZone_ + Value);
+      ZoneDataArrayName :=
+        GenerateNewRoot(SPrtZone_ + Value);
+    end;
+
     FModelName := Value;
     InvalidateModel;
   end;
@@ -31729,6 +31831,32 @@ begin
   end;
 end;
 
+procedure TPrtModel.SetRetardationDataArrayName(const Value: string);
+var
+  LocalModel: TPhastModel;
+  DataSetUsed: Boolean;
+begin
+  LocalModel := Model as TPhastModel;
+  if LocalModel <> nil then
+  begin
+    DataSetUsed := False;
+    if IsSelected and RetardationFactorUsed then
+    begin
+      DataSetUsed := True;
+    end;
+    UpdateDataArray(LocalModel.PrtRetardationUsed,
+      FRetardationDataArrayName, Value,
+      FRetardationDataArrayDisplayName, '1', 'PRT MIP Package: RETFACTOR',
+      DataSetUsed, StrPrtClassification);
+  end;
+
+  if FRetardationDataArrayName <> Value then
+  begin
+    FRetardationDataArrayName:= Value;
+    InvalidateModel;
+  end;
+end;
+
 procedure TPrtModel.SetRetardationFactorUsed(const Value: Boolean);
 begin
   if FRetardationFactorUsed <> Value then
@@ -31752,12 +31880,74 @@ begin
   FTrackTimes.Assign(Value);
 end;
 
+procedure TPrtModel.SetZoneDataArrayName(const Value: string);
+var
+  LocalModel: TPhastModel;
+  DataSetUsed: Boolean;
+begin
+  LocalModel := Model as TPhastModel;
+  if LocalModel <> nil then
+  begin
+    DataSetUsed := False;
+    if IsSelected and ZoneUsed then
+    begin
+      DataSetUsed := True;
+    end;
+    UpdateDataArray(LocalModel.PrtZoneUsed,
+      FZoneDataArrayName, Value,
+      FZoneDataArrayDisplayName, '1', 'PRT MIP Package: IZONE',
+      DataSetUsed, StrPrtClassification);
+  end;
+
+  if FZoneDataArrayName <> Value then
+  begin
+    FZoneDataArrayName:= Value;
+    InvalidateModel;
+  end;
+end;
+
 procedure TPrtModel.SetZoneUsed(const Value: Boolean);
 begin
   if FZoneUsed <> Value then
   begin
     FZoneUsed := Value;
     InvalidateModel;
+  end;
+end;
+
+procedure TPrtModel.UpdateDataArray(OnDataSetUsed: TObjectUsedEvent;
+  const OldDataArrayName, NewName, NewDisplayName, NewFormula,
+  AssociatedDataSets: string; ShouldCreate: boolean;
+  const Classification: string);
+var
+  UpdataDat: TUpdataDataArrayRecord;
+  IgnoredNames: TStringList;
+  LocalModel: TCustomModel;
+begin
+  if Model <> nil then
+  begin
+    if ShouldCreate then
+    begin
+      if not CanCreateDataSets then
+      begin
+        ShouldCreate := False;
+      end;
+    end;
+    LocalModel := Model as TCustomModel;
+
+    UpdataDat.Model := LocalModel;
+    UpdataDat.OnDataSetUsed := OnDataSetUsed;
+    UpdataDat.OldDataArrayName := OldDataArrayName;
+    UpdataDat.NewName := NewName;
+    UpdataDat.NewDisplayName := NewDisplayName;
+    UpdataDat.NewFormula := NewFormula;
+    UpdataDat.AssociatedDataSets := AssociatedDataSets;
+    UpdataDat.ShouldCreate := ShouldCreate;
+    UpdataDat.Classification := Classification;
+    UpdataDat.Orientation := dso3D;
+    UpdataDat.DataType := rdtDouble;
+
+    UpdateOrCreateDataArray(UpdataDat);
   end;
 end;
 
@@ -31912,6 +32102,25 @@ begin
   PackageIdentifier := StrPRPParticalReleas;
   Classification := StrParticleTracking;
   SelectionType := stCheckBox;
+end;
+
+function TPrpPackage.IsSame(AnotherPackage: TPrpPackage): boolean;
+begin
+  result := (PackageName = AnotherPackage.PackageName)
+    and StoredSolverTolerance.IsSame(AnotherPackage.StoredSolverTolerance)
+    and (ExtendTracking = AnotherPackage.ExtendTracking)
+    and (PrtTrackingOutput = AnotherPackage.PrtTrackingOutput)
+    and StoredStopTime.IsSame(AnotherPackage.StoredStopTime)
+    and StoredStopTravelTime.IsSame(AnotherPackage.StoredStopTravelTime)
+    and (StopAtWeakSinks = AnotherPackage.StopAtWeakSinks)
+    and (StopZone = AnotherPackage.StopZone)
+    and (Drape = AnotherPackage.Drape)
+    and (DryTrackingMethod = AnotherPackage.DryTrackingMethod)
+    and StoredReleaseTimeTolerance.IsSame(AnotherPackage.StoredReleaseTimeTolerance)
+    and StoredReleaseTimeFrequency.IsSame(AnotherPackage.StoredReleaseTimeFrequency)
+    and (CoordinateCheckMethod = AnotherPackage.CoordinateCheckMethod)
+    and ReleaseTimes.IsSame(AnotherPackage.ReleaseTimes)
+    and PeriodData.IsSame(AnotherPackage.PeriodData);
 end;
 
 procedure TPrpPackage.SetCoordinateCheckMethod(
@@ -32081,27 +32290,23 @@ end;
 
 { TPrtModels }
 
-constructor TPrtModels.Create(Model: TBaseModel);
-var
-  InvalidateModelEvent: TNotifyEvent;
+constructor TPrtModels.Create(Model: IModelForTOrderedCollection);
 begin
-  if Model = nil then
-  begin
-    InvalidateModelEvent := nil;
-  end
-  else
-  begin
-    InvalidateModelEvent := Model.Invalidate;
-  end;
-
-  inherited Create(TPrtModelItem, InvalidateModelEvent);
-  Fmodel := Model;
-
+  inherited Create(TPrtModelItem, Model);
 end;
 
 function TPrtModels.GetItem(Index: Integer): TPrtModelItem;
 begin
   result := inherited Items[Index] as TPrtModelItem;
+end;
+
+procedure TPrtModels.SetCanCreateDataSets(const Value: Boolean);
+begin
+  FCanCreateDataSets := Value;
+  for var Index := 0 to Count - 1 do
+  begin
+    Items[Index].PrtModel.CanCreateDataSets := Value
+  end;
 end;
 
 procedure TPrtModels.SetItem(Index: Integer; const Value: TPrtModelItem);

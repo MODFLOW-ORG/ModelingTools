@@ -1070,7 +1070,7 @@ begin
   FTvsPackage.Classification := StrFlowPackages;
   FTvsPackage.SelectionType := stCheckBox;
 
-  FPrtModels := TPrtModels.Create(Model);
+  FPrtModels := TPrtModels.Create(Model as TCustomModel);
 
 end;
 

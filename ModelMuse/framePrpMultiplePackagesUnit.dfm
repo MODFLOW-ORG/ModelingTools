@@ -36,7 +36,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         object cbRetardationFactor: TCheckBox
           Left = 16
           Top = 24
-          Width = 169
+          Width = 201
           Height = 17
           Caption = 'Use retardation factor'
           TabOrder = 0

@@ -725,6 +725,7 @@ type
     FUsed: boolean;
     procedure SetUsed(const Value: boolean);
   public
+    function IsSame(AnotherOptionalValue: TOptionalRealValue): Boolean;
     procedure Assign(Source: TPersistent); override;
   published
     property Used: boolean read FUsed write SetUsed;
@@ -3035,6 +3036,13 @@ begin
     Used := TOptionalRealValue(Source).Used;
   end;
   inherited;
+end;
+
+function TOptionalRealValue.IsSame(
+  AnotherOptionalValue: TOptionalRealValue): Boolean;
+begin
+  result := (Value = AnotherOptionalValue.Value)
+    and (Used = AnotherOptionalValue.Used)
 end;
 
 procedure TOptionalRealValue.SetUsed(const Value: boolean);
