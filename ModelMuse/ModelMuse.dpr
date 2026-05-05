@@ -962,7 +962,9 @@ uses
   Mf6.UzeFileReaderUnit in '..\MF6InputReader\Mf6.UzeFileReaderUnit.pas',
   FramePackageNodeLinkUnit in 'FramePackageNodeLinkUnit.pas',
   framePrtModelsUnit in 'framePrtModelsUnit.pas' {framePrtModels: TFrame},
-  framePrpMultiplePackagesUnit in 'framePrpMultiplePackagesUnit.pas' {framePrpMultiplePackages: TFrame};
+  framePrpMultiplePackagesUnit in 'framePrpMultiplePackagesUnit.pas' {framePrpMultiplePackages: TFrame},
+  ModflowPrpUnit in 'ModflowPrpUnit.pas',
+  PrtInterfacesUnit in 'PrtInterfacesUnit.pas';
 
 {$R *.res}
 

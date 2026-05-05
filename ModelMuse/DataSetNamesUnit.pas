@@ -909,6 +909,7 @@ resourcestring
   StrLongitudinalDispersV = KLongitudinalDispersV;
   StrLongitudinalDispersH = KLongitudinalDispersH;
   StrMODFLOW6MSTPackag = 'MODFLOW 6 MST Package: POROSITY';
+  StrMODFLOW6MIPPackag = 'MODFLOW 6 MIP Package: POROSITY';
   StrMODFLOW6DSPPacka = 'MODFLOW 6, DSP Package: ALH';
   StrMODFLOw6DSPPackaath1 = 'MODFLOw 6, DSP Package: ATH1';
   StrMODFLOw6DSPPackaATV = 'MODFLOw 6, DSP Package: ATV';

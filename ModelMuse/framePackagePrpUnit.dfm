@@ -30,34 +30,34 @@ inherited framePackagePrp: TframePackagePrp
       object lblCOORDINATE_CHECK_METHOD: TLabel
         Left = 316
         Top = 261
-        Width = 169
+        Width = 171
         Height = 15
         Caption = 'COORDINATE_CHECK_METHOD'
       end
       object lblDRY_TRACKING_METHOD: TLabel
         Left = 314
         Top = 204
-        Width = 137
+        Width = 139
         Height = 15
         Caption = 'DRY_TRACKING_METHOD'
       end
       object lblISTOPZONE: TLabel
         Left = 313
         Top = 13
-        Width = 61
+        Width = 62
         Height = 15
         Caption = 'ISTOPZONE'
       end
       object lblTrackOutput: TLabel
         Left = 26
-        Top = 106
-        Width = 68
+        Top = 128
+        Width = 69
         Height = 15
         Caption = 'Track Output'
       end
       object cbDRAPE: TCheckBox
         Left = 26
-        Top = 298
+        Top = 320
         Width = 153
         Height = 17
         Caption = 'DRAPE'
@@ -65,7 +65,7 @@ inherited framePackagePrp: TframePackagePrp
       end
       object cbEXTEND_TRACKING: TCheckBox
         Left = 25
-        Top = 75
+        Top = 97
         Width = 216
         Height = 17
         Caption = 'EXTEND_TRACKING'
@@ -73,7 +73,7 @@ inherited framePackagePrp: TframePackagePrp
       end
       object cbSTOP_AT_WEAK_SINK: TCheckBox
         Left = 25
-        Top = 275
+        Top = 297
         Width = 223
         Height = 17
         Caption = 'STOP_AT_WEAK_SINK'
@@ -136,7 +136,7 @@ inherited framePackagePrp: TframePackagePrp
       end
       object comboTrackOutput: TComboBox
         Left = 26
-        Top = 127
+        Top = 149
         Width = 257
         Height = 23
         Style = csDropDownList
@@ -160,11 +160,11 @@ inherited framePackagePrp: TframePackagePrp
         ExplicitWidth = 224
         inherited LblVariableLabel: TLabel
           Left = 25
-          Width = 129
+          Width = 131
           Caption = 'EXIT_SOLVE_TOLERANCE'
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 25
-          ExplicitWidth = 129
+          ExplicitWidth = 131
         end
         inherited cbUsed: TCheckBox
           Left = 3
@@ -187,11 +187,11 @@ inherited framePackagePrp: TframePackagePrp
         ExplicitWidth = 256
         inherited LblVariableLabel: TLabel
           Left = 25
-          Width = 147
+          Width = 148
           Caption = 'RELEASE_TIME_FREQUENCY'
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 25
-          ExplicitWidth = 147
+          ExplicitWidth = 148
         end
         inherited cbUsed: TCheckBox
           TabOrder = 1
@@ -213,11 +213,11 @@ inherited framePackagePrp: TframePackagePrp
         ExplicitWidth = 272
         inherited LblVariableLabel: TLabel
           Left = 25
-          Width = 145
+          Width = 147
           Caption = 'RELEASE_TIME_TOLERANCE'
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 25
-          ExplicitWidth = 145
+          ExplicitWidth = 147
         end
         inherited cbUsed: TCheckBox
           TabOrder = 1
@@ -230,18 +230,18 @@ inherited framePackagePrp: TframePackagePrp
       end
       inline frameStopTime: TframeOptionalValue
         Left = 2
-        Top = 164
+        Top = 186
         Width = 222
         Height = 56
         TabOrder = 5
         ExplicitLeft = 2
-        ExplicitTop = 164
+        ExplicitTop = 186
         ExplicitWidth = 222
         inherited LblVariableLabel: TLabel
-          Width = 53
+          Width = 55
           Caption = 'STOPTIME'
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 53
+          ExplicitWidth = 55
         end
         inherited cbUsed: TCheckBox
           TabOrder = 1
@@ -255,22 +255,22 @@ inherited framePackagePrp: TframePackagePrp
       end
       inline frameStopTravelTime: TframeOptionalValue
         Left = -8
-        Top = 213
+        Top = 235
         Width = 232
         Height = 56
         TabOrder = 7
         ExplicitLeft = -8
-        ExplicitTop = 213
+        ExplicitTop = 235
         ExplicitWidth = 232
         inherited LblVariableLabel: TLabel
           Left = 33
           Top = 13
-          Width = 91
+          Width = 94
           Caption = 'STOPTRAVELTIME'
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 33
           ExplicitTop = 13
-          ExplicitWidth = 91
+          ExplicitWidth = 94
         end
         inherited cbUsed: TCheckBox
           Left = 9
@@ -300,6 +300,14 @@ inherited framePackagePrp: TframePackagePrp
         DataType = dtInteger
         Max = 1.000000000000000000
         ChangeDisabledColor = True
+      end
+      object cbLocalZ: TCheckBox
+        Left = 26
+        Top = 74
+        Width = 191
+        Height = 17
+        Caption = 'LOCAL_Z'
+        TabOrder = 12
       end
     end
     object tabReleaseTimes: TTabSheet
@@ -335,14 +343,14 @@ inherited framePackagePrp: TframePackagePrp
         Height = 299
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 57
+        ExplicitTop = 65
         ExplicitWidth = 569
-        ExplicitHeight = 307
+        ExplicitHeight = 299
         inherited Panel: TPanel
           Top = 258
           Width = 569
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 266
+          ExplicitTop = 258
           ExplicitWidth = 569
           inherited lbNumber: TLabel
             StyleElements = [seFont, seClient, seBorder]
@@ -403,7 +411,7 @@ inherited framePackagePrp: TframePackagePrp
               AutoAdjustColWidths = True
             end>
           ExplicitWidth = 569
-          ExplicitHeight = 266
+          ExplicitHeight = 258
         end
       end
     end
@@ -417,14 +425,14 @@ inherited framePackagePrp: TframePackagePrp
         Height = 299
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 57
+        ExplicitTop = 65
         ExplicitWidth = 569
-        ExplicitHeight = 307
+        ExplicitHeight = 299
         inherited Panel: TPanel
           Top = 258
           Width = 569
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 266
+          ExplicitTop = 258
           ExplicitWidth = 569
           inherited lbNumber: TLabel
             StyleElements = [seFont, seClient, seBorder]

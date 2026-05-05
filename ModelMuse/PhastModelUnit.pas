@@ -38994,6 +38994,17 @@ begin
         end;
       end;
     end;
+    if not result and (ModelSelection = msModflow2015) then
+    begin
+      for var Index := 0 to ModflowPackages.PrtModels.Count - 1 do
+      begin
+        if ModflowPackages.PrtModels[Index].PrtModel.IsSelected then
+        begin
+          result := True;
+          Exit;
+        end;
+      end;
+    end;
   end;
   // PRT
   if not result then

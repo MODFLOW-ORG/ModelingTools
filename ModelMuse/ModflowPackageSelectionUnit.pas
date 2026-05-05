@@ -12,7 +12,7 @@ uses SysUtils, Classes, GoPhastTypes, OrderedCollectionUnit, DataSetUnit,
   ModpathParticleUnit, ModflowBoundaryDisplayUnit, ScreenObjectUnit,
   ModflowBoundaryUnit, Mt3dmsChemSpeciesUnit, System.Generics.Collections,
   Mt3dSftUnit, ModflowCSubInterbed, OrderedCollectionInterfaceUnit,
-  Mt3dmsChemSpeciesInterfaceUnit;
+  Mt3dmsChemSpeciesInterfaceUnit, PrtInterfacesUnit;
 
 const
   KSfrDefaultPicardIterations = 100;
@@ -2979,7 +2979,7 @@ Type
   end;
 
   // @name represents one PRP package in one PRT model.
-  TPrpPackage = class(TModflowPackageSelection)
+  TPrpPackage = class(TModflowPackageSelection, IPrpPackage)
   private
     FReleaseTimes: TRealCollection;
     FStoredStopTime: TOptionalRealValue;
@@ -2997,6 +2997,7 @@ Type
     FPackageName: string;
     FPeriodData: TPrpPeriodData;
     FOriginalId: Integer;
+    FLocalZ: Boolean;
     procedure SetReleaseTimes(const Value: TRealCollection);
     procedure SetStoredStopTime(const Value: TOptionalRealValue);
     procedure SetStoredStopTravelTime(const Value: TOptionalRealValue);
@@ -3035,6 +3036,12 @@ Type
     procedure SetPeriodData(const Value: TPrpPeriodData);
     procedure SetOriginalId(const Value: Integer);
     function IsSame(AnotherPackage: TPrpPackage): boolean;
+    procedure SetLocalZ(const Value: Boolean);
+    function GetPackageName: string;
+    function _AddRef: Integer; stdcall;
+    function _Release: Integer; stdcall;
+    { IUnknown, implementation is not reference-counted }
+    function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
   public
     procedure Assign(Source: TPersistent); override;
     { TODO -cRefactor : Consider replacing Model with an interface. }
@@ -3058,9 +3065,11 @@ Type
     property OriginalId: Integer read FOriginalId write SetOriginalId;
   published
     // pname
-    property PackageName: string read FPackageName write SetPackageName;
+    property PackageName: string read GetPackageName write SetPackageName;
     // EXIT_SOLVE_TOLERANCE
     property StoredSolverTolerance: TOptionalRealValue read FStoredSolverTolerance write SetStoredSolverTolerance;
+    // LOCAL_Z
+    property LocalZ: Boolean read FLocalZ write SetLocalZ;
     // [EXTEND_TRACKING
     property ExtendTracking: Boolean read FExtendTracking write SetExtendTracking;
     // TrackCSV and Track (Binary)
@@ -3115,7 +3124,7 @@ Type
   TPrtOutputFiles = set of TPrtOutputFile;
 
 
-  TPrtModel = class(TOrderedCollection)
+  TPrtModel = class(TOrderedCollection, IPrtModel)
   private
     FZoneUsed: Boolean;
     FRetardationFactorUsed: Boolean;
@@ -3152,6 +3161,7 @@ Type
       const OldDataArrayName, NewName, NewDisplayName, NewFormula,
       AssociatedDataSets: string; ShouldCreate: boolean;
       const Classification: string);
+    function GetModelName: string;
     property CanCreateDataSets: Boolean read FCanCreateDataSets
       write FCanCreateDataSets;
     function IsSame(AnOrderedCollection: TOrderedCollection): boolean; override;
@@ -3162,7 +3172,7 @@ Type
     property Items[Index: Integer]: TPrpPackageItem read GetItem write SetItem;  default;
     property OriginalId: Integer read FOriginalId write SetOriginalId;
   published
-    property ModelName: string read FModelName write SetModelName;
+    property ModelName: string read GetModelName write SetModelName;
     // RETFACTOR
     property RetardationFactorUsed: Boolean read FRetardationFactorUsed write SetRetardationFactorUsed;
     // IZONE
@@ -31721,6 +31731,11 @@ begin
   result := inherited Items[Index] as TPrpPackageItem;
 end;
 
+function TPrtModel.GetModelName: string;
+begin
+  result := FModelName;
+end;
+
 procedure TPrtModel.InitializeVariables;
 begin
   clear;
@@ -31962,6 +31977,7 @@ begin
     PrpSource := TPrpPackage(Source);
     PackageName := PrpSource.PackageName;
     StoredSolverTolerance := PrpSource.StoredSolverTolerance;
+    LocalZ := PrpSource.LocalZ;
     ExtendTracking := PrpSource.ExtendTracking;
     PrtTrackingOutput := PrpSource.PrtTrackingOutput;
     StoredStopTime := PrpSource.StoredStopTime;
@@ -32065,6 +32081,11 @@ begin
    result := StoredReleaseTimeTolerance.Used;
 end;
 
+function TPrpPackage.GetPackageName: string;
+begin
+  result := FPackageName;
+end;
+
 function TPrpPackage.GetReleaseTimeFrequency: double;
 begin
    result := StoredReleaseTimeFrequency.Value;
@@ -32080,6 +32101,7 @@ begin
   inherited;
   FPackageName := '';
   SolverTolerance := 1.0e-5;
+  LocalZ := False;
   SolverToleranceUsed := False;
   ExtendTracking := False;
   PrtTrackingOutput := ptoNone;
@@ -32108,6 +32130,7 @@ function TPrpPackage.IsSame(AnotherPackage: TPrpPackage): boolean;
 begin
   result := (PackageName = AnotherPackage.PackageName)
     and StoredSolverTolerance.IsSame(AnotherPackage.StoredSolverTolerance)
+    and (LocalZ = AnotherPackage.LocalZ)
     and (ExtendTracking = AnotherPackage.ExtendTracking)
     and (PrtTrackingOutput = AnotherPackage.PrtTrackingOutput)
     and StoredStopTime.IsSame(AnotherPackage.StoredStopTime)
@@ -32121,6 +32144,14 @@ begin
     and (CoordinateCheckMethod = AnotherPackage.CoordinateCheckMethod)
     and ReleaseTimes.IsSame(AnotherPackage.ReleaseTimes)
     and PeriodData.IsSame(AnotherPackage.PeriodData);
+end;
+
+function TPrpPackage.QueryInterface(const IID: TGUID; out Obj): HResult;
+begin
+  If GetInterface(IID, Obj) Then
+    Result := S_OK
+  Else
+    Result := E_NOINTERFACE
 end;
 
 procedure TPrpPackage.SetCoordinateCheckMethod(
@@ -32233,6 +32264,15 @@ begin
   end;
 end;
 
+procedure TPrpPackage.SetLocalZ(const Value: Boolean);
+begin
+  if FLocalZ <> Value then
+  begin
+    FLocalZ := Value;
+    InvalidateModel;
+  end;
+end;
+
 procedure TPrpPackage.SetOriginalId(const Value: Integer);
 begin
   FOriginalId := Value;
@@ -32286,6 +32326,16 @@ end;
 procedure TPrpPackage.SetStoredStopTravelTime(const Value: TOptionalRealValue);
 begin
   FStoredStopTravelTime.Assign(Value);
+end;
+
+function TPrpPackage._AddRef: Integer;
+begin
+  result := 1;
+end;
+
+function TPrpPackage._Release: Integer;
+begin
+  result := 1;
 end;
 
 { TPrtModels }

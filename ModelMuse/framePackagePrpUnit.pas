@@ -37,6 +37,7 @@ type
     frameReleasePeriodData: TframeGrid;
     pnlReleasePeriodData: TPanel;
     lblReleasePeriodData: TLabel;
+    cbLocalZ: TCheckBox;
     procedure frameReleasePeriodDataseNumberChange(Sender: TObject);
     procedure frameReleaseTimesseNumberChange(Sender: TObject);
     procedure FrameResize(Sender: TObject);
@@ -121,6 +122,7 @@ begin
   frameEXIT_SOLVE_TOLERANCE.cbUsed.Checked := PrpPackage.SolverToleranceUsed;
 
   cbEXTEND_TRACKING.Checked := PrpPackage.ExtendTracking;
+  cbLocalZ.Checked := PrpPackage.LocalZ;
 
   comboTrackOutput.ItemIndex := Ord(PrpPackage.PrtTrackingOutput);
 
@@ -235,6 +237,7 @@ begin
   PrpPackage.SolverTolerance := frameEXIT_SOLVE_TOLERANCE.RdeValue.RealValue;
   PrpPackage.SolverToleranceUsed := frameEXIT_SOLVE_TOLERANCE.cbUsed.Checked;
 
+  PrpPackage.LocalZ := cbLocalZ.Checked;
   PrpPackage.ExtendTracking := cbEXTEND_TRACKING.Checked;
 
   PrpPackage.PrtTrackingOutput := TPrtTrackingOutput(comboTrackOutput.ItemIndex);

@@ -1340,7 +1340,8 @@ begin
     StrPHASTMEDIAporosit
     + sLineBreak + StrMODPATHBasicData
     + sLineBreak + StrMT3DMSBTNPackage
-    + sLineBreak + StrMODFLOW6MSTPackag;
+    + sLineBreak + StrMODFLOW6MSTPackag
+    + sLineBreak + StrMODFLOW6MIPPackag;
   FDataArrayCreationRecords[Index].CheckMax := False;
   FDataArrayCreationRecords[Index].CheckMin := True;
   FDataArrayCreationRecords[Index].Min := 0;
