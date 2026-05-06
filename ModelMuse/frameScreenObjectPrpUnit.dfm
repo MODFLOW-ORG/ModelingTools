@@ -1,0 +1,73 @@
+inherited frameScreenObjectPrp: TframeScreenObjectPrp
+  object lblPackage: TLabel
+    Left = 3
+    Top = 40
+    Width = 68
+    Height = 15
+    Caption = 'PRP Package'
+  end
+  object pnlTop: TPanel
+    Left = 0
+    Top = 0
+    Width = 541
+    Height = 25
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 0
+    object pnlCaption: TPanel
+      Left = 0
+      Top = 0
+      Width = 541
+      Height = 25
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 0
+    end
+  end
+  object rstcPrpPackage: TRbwStringTreeCombo
+    Left = 3
+    Top = 61
+    Width = 398
+    Height = 23
+    Tree.Left = 0
+    Tree.Top = 0
+    Tree.Width = 624
+    Tree.Height = 441
+    Tree.Align = alClient
+    Tree.DefaultNodeHeight = 19
+    Tree.Header.AutoSizeIndex = 0
+    Tree.Header.Height = 15
+    Tree.Header.MainColumn = -1
+    Tree.TabOrder = 0
+    Tree.OnGetText = rstcPrpPackageTreeGetText
+    Tree.OnGetNodeDataSize = rstcPrpPackageTreeGetNodeDataSize
+    Tree.OnInitNode = rstcPrpPackageTreeInitNode
+    Tree.Touch.InteractiveGestures = [igPan, igPressAndTap]
+    Tree.Touch.InteractiveGestureOptions = [igoPanSingleFingerHorizontal, igoPanSingleFingerVertical, igoPanInertia, igoPanGutter, igoParentPassthrough]
+    Tree.ExplicitWidth = 200
+    Tree.ExplicitHeight = 100
+    Tree.Columns = <>
+    Enabled = True
+    Glyph.Data = {
+      36020000424D3602000000000000360000002800000010000000080000000100
+      2000000000000002000000000000000000000000000000000000F0F0F000F0F0
+      F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000F0F0F00000000000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000F0F0F000C0C0C000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000000000000000000000000000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000C0C0C000C0C0C000C0C0C000F0F0F000F0F0F000F0F0F000F0F0F0000000
+      000000000000000000000000000000000000F0F0F000F0F0F000F0F0F000C0C0
+      C000C0C0C000C0C0C000C0C0C000C0C0C000F0F0F000F0F0F000000000000000
+      00000000000000000000000000000000000000000000F0F0F000C0C0C000C0C0
+      C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000F0F0F000F0F0F000F0F0
+      F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0
+      F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000}
+    NumGlyphs = 2
+    TabOrder = 1
+  end
+end

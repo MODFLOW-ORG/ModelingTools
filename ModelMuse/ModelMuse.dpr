@@ -964,7 +964,8 @@ uses
   framePrtModelsUnit in 'framePrtModelsUnit.pas' {framePrtModels: TFrame},
   framePrpMultiplePackagesUnit in 'framePrpMultiplePackagesUnit.pas' {framePrpMultiplePackages: TFrame},
   ModflowPrpUnit in 'ModflowPrpUnit.pas',
-  PrtInterfacesUnit in 'PrtInterfacesUnit.pas';
+  PrtInterfacesUnit in 'PrtInterfacesUnit.pas',
+  frameScreenObjectPrpUnit in 'frameScreenObjectPrpUnit.pas' {frameScreenObjectPrp: TFrame};
 
 {$R *.res}
 

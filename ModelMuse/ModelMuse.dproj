@@ -2353,6 +2353,11 @@
         </DCCReference>
         <DCCReference Include="ModflowPrpUnit.pas"/>
         <DCCReference Include="PrtInterfacesUnit.pas"/>
+        <DCCReference Include="frameScreenObjectPrpUnit.pas">
+            <Form>frameScreenObjectPrp</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

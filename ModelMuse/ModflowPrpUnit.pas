@@ -6,30 +6,27 @@ uses ZLib, Classes, SysUtils, RbwParser, GoPhastTypes,
   ModflowBoundaryUnit, SubscriptionUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   OrderedCollectionUnit, ModflowCellUnit, RealListUnit,
-  Modflow6DynamicTimeSeriesInterfaceUnit, PrtInterfacesUnit;
+  Modflow6DynamicTimeSeriesInterfaceUnit, PrtInterfacesUnit,
+  ModpathParticleUnit;
 
 type
   TPrpBoundary = class(TModflowSteadyBoundary)
   private
     FPrtModelName: string;
     FPrpPackageName: string;
-    FZFormula: IFormulaObject;
-    FZObserver: TObserver;
     FPrtModel: IPrtModel;
     FPrpPackage: IPrpPackage;
-    function GetZ: string;
-    function GetZObserver: TObserver;
+    FParticleStorage: TParticleStorage;
     procedure SetPrtModelName(const Value: string);
     procedure SetPrpPackageName(const Value: string);
-    procedure SetZ(const Value: string);
     function GetPrtModelName: string;
     function GetPrpPackageName: string;
+    procedure SetParticleStorage(const Value: TParticleStorage);
   protected
     procedure HandleChangedValue(Observer: TObserver); override;
     function GetUsedObserver: TObserver; override;
     procedure GetPropertyObserver(Sender: TObject; List: TList); override;
     procedure CreateFormulaObjects; override;
-    property ZObserver: TObserver read GetZObserver;
     function BoundaryObserverPrefix: string; override;
     procedure CreateObservers; override;
     procedure CreateObserver(ObserverNameRoot: string; var Observer: TObserver;
@@ -44,7 +41,7 @@ type
   published
     property PrtModelName: string read GetPrtModelName write SetPrtModelName;
     property PrpPackageName: string read GetPrpPackageName write SetPrpPackageName;
-    property ZFormula: string read GetZ write SetZ;
+    property ParticleStorage: TParticleStorage read FParticleStorage write SetParticleStorage;
   end;
 
 const
@@ -66,7 +63,7 @@ begin
     SourecPRP := TPrpBoundary(Source);
     PrtModelName := SourecPRP.PrtModelName;
     PrpPackageName := SourecPRP.PrpPackageName;
-    ZFormula := SourecPRP.ZFormula;
+    ParticleStorage := SourecPRP.ParticleStorage;
   end
   else
   begin
@@ -82,15 +79,14 @@ end;
 constructor TPrpBoundary.Create(Model: TBaseModel; ScreenObject: TObject);
 begin
   inherited;
-  ZFormula := '1';
   PrtModelName := '';
   PrpPackageName := '';
+  FParticleStorage := TParticleStorage.Create(Model);
 end;
 
 procedure TPrpBoundary.CreateFormulaObjects;
 begin
   inherited;
-  FZFormula := CreateFormulaObjectBlocks(dso3D);
 
 end;
 
@@ -113,26 +109,16 @@ end;
 
 procedure TPrpBoundary.CreateObservers;
 begin
-  if (ScreenObject <> nil) and (ParentModel <> nil) then
-  begin
-    FObserverList.Add(ZObserver);
-  end;
 end;
 
 destructor TPrpBoundary.Destroy;
 begin
-  ZFormula := '0';
-
+  FParticleStorage.Free;
   inherited;
 end;
 
 procedure TPrpBoundary.GetPropertyObserver(Sender: TObject; List: TList);
 begin
-  if (Sender = FZFormula as TObject)
-    and (PrpZPosition < List.Count) then
-  begin
-    List.Add(FObserverList[PrpZPosition]);
-  end;
 end;
 
 function TPrpBoundary.GetPrtModelName: string;
@@ -181,38 +167,6 @@ begin
   result := FUsedObserver;
 end;
 
-function TPrpBoundary.GetZ: string;
-begin
-  Result := FZFormula.Formula;
-  if ScreenObject <> nil then
-  begin
-    ResetBoundaryObserver(PrpZPosition);
-  end;
-end;
-
-function TPrpBoundary.GetZObserver: TObserver;
-var
-  Model: TPhastModel;
-  Observer: TObserver;
-begin
-  if FZObserver = nil then
-  begin
-    if ParentModel <> nil then
-    begin
-      Model := ParentModel as TPhastModel;
-//      Observer := Model.HfbDisplayer;
-      Observer := nil;
-    end
-    else
-    begin
-      Observer := nil;
-    end;
-    CreateObserver('PRP_Z_', FZObserver, Observer);
-//    FObserverList.Add(FZObserver);
-  end;
-  result := FZObserver;
-end;
-
 procedure TPrpBoundary.HandleChangedValue(Observer: TObserver);
 var
   Model: TPhastModel;
@@ -242,7 +196,7 @@ procedure TPrpBoundary.InvalidateDisplay;
 begin
   if Used and (ParentModel <> nil) then
   begin
-    HandleChangedValue(ZObserver);
+//    HandleChangedValue(ZObserver);
   end;
 end;
 
@@ -285,6 +239,11 @@ begin
   end;
 end;
 
+procedure TPrpBoundary.SetParticleStorage(const Value: TParticleStorage);
+begin
+  FParticleStorage.Assign(Value);
+end;
+
 procedure TPrpBoundary.SetPrpPackageName(const Value: string);
 var
   Model: TPhastModel;
@@ -316,12 +275,6 @@ begin
   begin
     FPrpPackageName := Value;
   end;
-end;
-
-procedure TPrpBoundary.SetZ(const Value: string);
-begin
-  UpdateFormulaBlocks(Value, PrpZPosition, FZFormula);
-
 end;
 
 end.
