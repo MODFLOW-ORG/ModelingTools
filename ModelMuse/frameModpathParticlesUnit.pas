@@ -334,7 +334,7 @@ var
   ShouldEnable: Boolean;
 begin
   EnableTrackingTimeGrid;
-  ShouldEnable := ((TrackingDirection = tdForward) or (MPathVersion = mp6));
+  ShouldEnable := ((TrackingDirection = tdForward) or (MPathVersion in [mp6, mp7]));
   seTimeCount.Enabled := ShouldEnable;
   sbAddTime.Enabled := ShouldEnable;
   sbInsertTime.Enabled := ShouldEnable;
@@ -344,14 +344,14 @@ end;
 procedure TframeModpathParticles.EnableDeleteTimeButton;
 begin
   sbDeleteTime.Enabled :=
-    ((TrackingDirection = tdForward) or (MPathVersion= mp6))
+    ((TrackingDirection = tdForward) or (MPathVersion in [mp6, mp7]))
     and (seTimeCount.AsInteger > 1);
 end;
 
 procedure TframeModpathParticles.EnableTrackingTimeGrid;
 begin
   rdgReleaseTimes.Enabled := (seTimeCount.AsInteger > 0)
-    and ((TrackingDirection = tdForward) or (MPathVersion= mp6));
+    and ((TrackingDirection = tdForward) or (MPathVersion in [mp6, mp7]));
 end;
 
 procedure TframeModpathParticles.gbParticlesCheckBoxClick(Sender: TObject);
