@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, frameScreenObjectUnit, Vcl.StdCtrls,
   ArgusDataEntry, Vcl.ExtCtrls, SsButtonEd, RbwStringTreeCombo, VirtualTrees,
   UndoItemsScreenObjects, System.Generics.Collections, frameModpathParticlesUnit,
-  Vcl.Mask, JvExMask, JvSpin, JvExStdCtrls, JvGroupBox, Vcl.Grids, RbwDataGrid4;
+  Vcl.Mask, JvExMask, JvSpin, JvExStdCtrls, JvGroupBox, Vcl.Grids,
+  RbwDataGrid4, VirtualTrees.BaseTree;
 
 type
   TPrpPackageRecord = record
@@ -22,8 +23,16 @@ type
     lblPackage: TLabel;
     rstcPrpPackage: TRbwStringTreeCombo;
     frameModpathParticles: TframeModpathParticles;
+    procedure frameModpathParticlescbLeftFaceClick(Sender: TObject);
     procedure frameModpathParticlesgbParticlesCheckBoxClick(Sender: TObject);
+    procedure frameModpathParticlesrdgSpecificSetEditText(Sender: TObject; ACol,
+        ARow: LongInt; const Value: string);
+    procedure frameModpathParticlesrgChoiceClick(Sender: TObject);
+    procedure frameModpathParticlesrgCylinderOrientationClick(Sender: TObject);
+    procedure frameModpathParticlesseCylRadiusChange(Sender: TObject);
     procedure frameModpathParticlesseSpecificParticleCountChange(Sender: TObject);
+    procedure frameModpathParticlesseXChange(Sender: TObject);
+    procedure rstcPrpPackageChange(Sender: TObject);
     procedure rstcPrpPackageTreeGetNodeDataSize(Sender: TBaseVirtualTree; var
         NodeDataSize: Integer);
     procedure rstcPrpPackageTreeGetText(Sender: TBaseVirtualTree; Node:
@@ -32,17 +41,22 @@ type
     procedure rstcPrpPackageTreeInitNode(Sender: TBaseVirtualTree; ParentNode,
         Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
   private
+    FOnEdited: TNotifyEvent;
+    FGettingData: Boolean;
     procedure InitializeControls;
-    Procedure GetNodeCaption(Node: PVirtualNode; CellText: string; Sender: TBaseVirtualTree);
+    Procedure GetNodeCaption(Node: PVirtualNode; var CellText: string; Sender: TBaseVirtualTree);
     procedure FillListOfScreenObjects(ListOfScreenObjects: TList;
       List: TScreenObjectEditCollection);
     procedure GetModpathParticles(ListOfScreenObjects: TList);
-    procedure StoreParticles(List: TScreenObjectEditCollection; SetAll: Boolean; ClearAll: Boolean);
+    procedure StoreParticles(List: TScreenObjectEditCollection; SetAll: Boolean;
+      ClearAll: Boolean);
+    procedure DoPrpChanged;
     { Private declarations }
   public
     procedure GetData(List: TScreenObjectEditCollection);
     procedure SetData(List: TScreenObjectEditCollection; SetAll: boolean;
       ClearAll: boolean);
+    property OnEdited: TNotifyEvent read FOnEdited write FOnEdited;
     { Public declarations }
   end;
 
@@ -60,6 +74,14 @@ uses
 const
   KNone = 'none';
 
+procedure TframeScreenObjectPrp.DoPrpChanged;
+begin
+  if Assigned(OnEdited) and not FGettingData then
+  begin
+    OnEdited(self);
+  end;
+end;
+
 procedure TframeScreenObjectPrp.FillListOfScreenObjects(
   ListOfScreenObjects: TList; List: TScreenObjectEditCollection);
 var
@@ -70,10 +92,24 @@ begin
   begin
     ScreenObject := List[Index].ScreenObject;
     if (ScreenObject.ElevationCount in [ecOne, ecTwo])
-      and (ScreenObject.ModflowPrpBoundary <> nil) then
+      and (ScreenObject.ModflowPrpBoundary <> nil)
+      and ScreenObject.ModflowPrpBoundary.Used then
     begin
       ListOfScreenObjects.Add(ScreenObject);
     end;
+  end;
+end;
+
+procedure TframeScreenObjectPrp.frameModpathParticlescbLeftFaceClick(Sender:
+    TObject);
+begin
+  inherited;
+//  if IsLoaded then
+  begin
+    (Sender as TCheckBox).AllowGrayed := False;
+    frameModpathParticles.CreateParticles;
+    DoPrpChanged;
+//    StoreModPath;
   end;
 end;
 
@@ -100,8 +136,64 @@ begin
 //  begin
     Check.AllowGrayed := False;
     frameModpathParticles.CreateParticles;
+    DoPrpChanged;
 //    StoreParticles;
 //  end;
+end;
+
+procedure TframeScreenObjectPrp.frameModpathParticlesrdgSpecificSetEditText(
+    Sender: TObject; ACol, ARow: LongInt; const Value: string);
+begin
+  inherited;
+//  if IsLoaded then
+  begin
+    frameModpathParticles.CreateParticles;
+    DoPrpChanged;
+  end;
+end;
+
+procedure TframeScreenObjectPrp.frameModpathParticlesrgChoiceClick(Sender:
+    TObject);
+begin
+  inherited;
+  if frameModpathParticles.rgChoice.ItemIndex >= 0 then
+  begin
+    frameModpathParticles.plParticlePlacement.ActivePageIndex :=
+      frameModpathParticles.rgChoice.ItemIndex;
+//    if IsLoaded then
+    begin
+      frameModpathParticles.CreateParticles;
+    end;
+  end
+  else
+  begin
+    frameModpathParticles.plParticlePlacement.ActivePage
+      := frameModpathParticles.jvspBlank;
+  end;
+  DoPrpChanged;
+end;
+
+procedure
+    TframeScreenObjectPrp.frameModpathParticlesrgCylinderOrientationClick(
+    Sender: TObject);
+begin
+  inherited;
+//  if isLoaded then
+  begin
+    frameModpathParticles.CreateParticles;
+    DoPrpChanged;
+  end;
+end;
+
+procedure TframeScreenObjectPrp.frameModpathParticlesseCylRadiusChange(Sender:
+    TObject);
+begin
+  inherited;
+//  if IsLoaded then
+  begin
+    frameModpathParticles.CreateParticles;
+    DoPrpChanged;
+  end;
 end;
 
 procedure
@@ -112,6 +204,25 @@ begin
   frameModpathParticles.UpdateRowCount;
   frameModpathParticles.seSpecificParticleCount.MinValue := 0;
   frameModpathParticles.CreateParticles;
+  DoPrpChanged;
+end;
+
+procedure TframeScreenObjectPrp.frameModpathParticlesseXChange(Sender: TObject);
+begin
+  inherited;
+//  if IsLoaded then
+  begin
+    if Sender = frameModpathParticles.seSphereLayerCount then
+    begin
+      frameModpathParticles.seSphereLayerCount.MinValue := 2;
+    end
+    else
+    begin
+      (Sender as TJvSpinEdit).MinValue := 1;
+    end;
+    frameModpathParticles.CreateParticles;
+    DoPrpChanged;
+  end;
 end;
 
 procedure TframeScreenObjectPrp.GetData(List: TScreenObjectEditCollection);
@@ -128,72 +239,80 @@ var
   AllTheSamePrpPackage: Boolean;
   ScreenObject: TScreenObject;
 begin
-  InitializeControls;
-  Assert(List.Count > 0);
-  ListOfScreenObjects := TList.Create;
+  FGettingData := True;
   try
-    ANode := rstcPrpPackage.Tree.GetFirst;
-    Assert(ANode <> nil);
-    FillListOfScreenObjects(ListOfScreenObjects, List);
-    if ListOfScreenObjects.Count = 0 then
-    begin
-      rstcPrpPackage.Tree.Selected[ANode] := True;
-    end
-    else
-    begin
-      FirstScreenObject := ListOfScreenObjects[0];
-      ModelName := FirstScreenObject.ModflowPrpBoundary.PrtModelName;
-      PackageName := FirstScreenObject.ModflowPrpBoundary.PrpPackageName;
-      AllTheSamePrpPackage := True;
-      for var ObjectIndex := 1 to ListOfScreenObjects.Count - 1 do
+    InitializeControls;
+    Assert(List.Count > 0);
+    ListOfScreenObjects := TList.Create;
+    try
+      ANode := rstcPrpPackage.Tree.GetFirst;
+      Assert(ANode <> nil);
+      FillListOfScreenObjects(ListOfScreenObjects, List);
+      if ListOfScreenObjects.Count = 0 then
       begin
-        AnotherScreenObject := ListOfScreenObjects[ObjectIndex];
-        if not AnsiSameText(AnotherScreenObject.ModflowPrpBoundary.PrtModelName, ModelName)
-          or not AnsiSameText(AnotherScreenObject.ModflowPrpBoundary.PrpPackageName, PackageName) then
-        begin
-          AllTheSamePrpPackage := False;
-          break;
-        end;
-      end;
-
-      if AllTheSamePrpPackage then
+        rstcPrpPackage.Tree.Selected[ANode] := True;
+        NodeData := rstcPrpPackage.Tree.GetNodeData(ANode);
+        rstcPrpPackage.Text := NodeData.ModelName;
+      end
+      else
       begin
-        ANode := rstcPrpPackage.Tree.GetNextSibling(ANode);
-        While ANode <> nil do
+        FirstScreenObject := ListOfScreenObjects[0];
+        ModelName := FirstScreenObject.ModflowPrpBoundary.PrtModelName;
+        PackageName := FirstScreenObject.ModflowPrpBoundary.PrpPackageName;
+        AllTheSamePrpPackage := True;
+        for var ObjectIndex := 1 to ListOfScreenObjects.Count - 1 do
         begin
-          NodeData := rstcPrpPackage.Tree.GetNodeData(ANode);
-          if AnsiSameText(NodeData.ModelName, ModelName) then
+          AnotherScreenObject := ListOfScreenObjects[ObjectIndex];
+          if not AnsiSameText(AnotherScreenObject.ModflowPrpBoundary.PrtModelName, ModelName)
+            or not AnsiSameText(AnotherScreenObject.ModflowPrpBoundary.PrpPackageName, PackageName) then
           begin
-            ChildNode := rstcPrpPackage.Tree.GetFirstChild(ANode);
-            while ChildNode <> nil do
-            begin
-              NodeData := rstcPrpPackage.Tree.GetNodeData(ChildNode);
-              if AnsiSameText(NodeData.PackageName, PackageName) then
-              begin
-                SelectedNode := ChildNode;
-                rstcPrpPackage.Tree.Selected[SelectedNode] := True;
-                break;
-              end;
-              ChildNode := rstcPrpPackage.Tree.GetNextSibling(ChildNode);
-            end;
+            AllTheSamePrpPackage := False;
             break;
           end;
-          ANode := rstcPrpPackage.Tree.GetNextSibling(ANode);
         end;
-      end;
 
-      ListOfScreenObjects.Clear;
-      ListOfScreenObjects.Capacity := List.Count;
-      for var Index := 0 to List.Count - 1 do
-      begin
-        ScreenObject := List[Index].ScreenObject;
-        ListOfScreenObjects.Add(ScreenObject);
-      end;
+        if AllTheSamePrpPackage then
+        begin
+          ANode := rstcPrpPackage.Tree.GetNextSibling(ANode);
+          While ANode <> nil do
+          begin
+            NodeData := rstcPrpPackage.Tree.GetNodeData(ANode);
+            if AnsiSameText(NodeData.ModelName, ModelName) then
+            begin
+              ChildNode := rstcPrpPackage.Tree.GetFirstChild(ANode);
+              while ChildNode <> nil do
+              begin
+                NodeData := rstcPrpPackage.Tree.GetNodeData(ChildNode);
+                if AnsiSameText(NodeData.PackageName, PackageName) then
+                begin
+                  SelectedNode := ChildNode;
+                  rstcPrpPackage.Tree.Selected[SelectedNode] := True;
+                  rstcPrpPackage.Text := NodeData.ModelName + '.' + NodeData.PackageName;
+                  break;
+                end;
+                ChildNode := rstcPrpPackage.Tree.GetNextSibling(ChildNode);
+              end;
+              break;
+            end;
+            ANode := rstcPrpPackage.Tree.GetNextSibling(ANode);
+          end;
+        end;
 
-      GetModpathParticles(ListOfScreenObjects);
+        ListOfScreenObjects.Clear;
+        ListOfScreenObjects.Capacity := List.Count;
+        for var Index := 0 to List.Count - 1 do
+        begin
+          ScreenObject := List[Index].ScreenObject;
+          ListOfScreenObjects.Add(ScreenObject);
+        end;
+
+        GetModpathParticles(ListOfScreenObjects);
+      end;
+    finally
+      ListOfScreenObjects.Free;
     end;
   finally
-    ListOfScreenObjects.Free;
+    FGettingData := False;
   end;
 end;
 
@@ -452,19 +571,34 @@ begin
 end;
 
 procedure TframeScreenObjectPrp.GetNodeCaption(Node: PVirtualNode;
-  CellText: string; Sender: TBaseVirtualTree);
+  var CellText: string; Sender: TBaseVirtualTree);
 var
   PrpData: PPrpPackageRecord;
 begin
   PrpData := Sender.GetNodeData(Node);
 
-  if PrpData.PackageName = '' then
+  if rstcPrpPackage.SelectingText then
   begin
-    CellText := PrpData.ModelName;
+    if PrpData.PackageName = '' then
+    begin
+      CellText := PrpData.ModelName;
+    end
+    else
+    begin
+      CellText := PrpData.ModelName + '.' + PrpData.PackageName;
+    end;
   end
   else
   begin
-    CellText := PrpData.PackageName;
+    if PrpData.PackageName = '' then
+    begin
+      CellText := PrpData.ModelName;
+    end
+    else
+    begin
+      CellText := PrpData.PackageName;
+    end;
+
   end;
 end;
 
@@ -478,6 +612,13 @@ begin
   rstcPrpPackage.Tree.RootNodeCount := PrtModels.Count + 1;
 
   frameModpathParticles.InitializeFrame;
+  frameModpathParticles.gbParticles.Checked := False;
+end;
+
+procedure TframeScreenObjectPrp.rstcPrpPackageChange(Sender: TObject);
+begin
+  inherited;
+  DoPrpChanged;
 end;
 
 procedure TframeScreenObjectPrp.rstcPrpPackageTreeGetNodeDataSize(Sender:
@@ -522,7 +663,7 @@ begin
     end
     else
     begin
-      PrtModel := PrtModels[ParentNode.Index-1].PrtModel;
+      PrtModel := PrtModels[Node.Index-1].PrtModel;
       Data.ModelName := PrtModel.ModelName;
       Data.PackageName := '';
       Sender.ChildCount[Node] := PrtModel.Count;
@@ -568,6 +709,7 @@ begin
       end;
       if AScreenObject.ModflowPrpBoundary <> nil then
       begin
+        AScreenObject.ModflowPrpBoundary.IsUsed := True;
         AScreenObject.ModflowPrpBoundary.PrtModelName := SelectedData.ModelName;
         AScreenObject.ModflowPrpBoundary.PrpPackageName := SelectedData.PackageName;
       end;

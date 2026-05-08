@@ -29,6 +29,7 @@ type
     FfrmTree: TfrmTree;
     FFocusedNode: PVirtualNode;
     FOnCanClose: TCanCloseEvent;
+    FSelectingText: Boolean;
     procedure SetDropDownHeight(const Value: integer);
     procedure EnsureForm;
     procedure AssignDefaultGlyph;
@@ -42,6 +43,7 @@ type
   public
     Constructor Create(AnOwner: TComponent); override;
     property FocusedNode: PVirtualNode read FFocusedNode write SetFocusedNode;
+    property SelectingText: Boolean read FSelectingText write FSelectingText;
     { Public declarations }
   published
     property Tree: TVirtualStringTree read FTree;
@@ -200,18 +202,23 @@ begin
     FTree.OnMouseDown := FfrmTree.TreeMouseDown;
     if FfrmTree.ShowModal = mrOK then
     begin
-      FFocusedNode := FTree.FocusedNode;
-      if FFocusedNode = nil then
-      begin
-        Text := '';
-      end
-      else
-      begin
-        if Assigned(FTree.OnGetText) then
+      SelectingText := True;
+      try
+        FFocusedNode := FTree.FocusedNode;
+        if FFocusedNode = nil then
         begin
-          FTree.OnGetText(FTree, FFocusedNode, 0, ttNormal, CellText);
-          Text := CellText
+          Text := '';
+        end
+        else
+        begin
+          if Assigned(FTree.OnGetText) then
+          begin
+            FTree.OnGetText(FTree, FFocusedNode, 0, ttNormal, CellText);
+            Text := CellText
+          end;
         end;
+      finally
+        SelectingText := False;
       end;
     end;
   finally

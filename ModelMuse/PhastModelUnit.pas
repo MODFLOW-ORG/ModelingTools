@@ -4543,6 +4543,7 @@ that affects the model output should also have a comment. }
     function GwtSrcIsSelected: Boolean;
     function GweCtpIsSelected: Boolean;
     function GweEslIsSelected: Boolean;
+    function PrpMf6IsSelected: Boolean;
     function PackageIsSelected(APackage: TObject): Boolean;
     procedure ExportModflowLgrModel(const FileName: string;
       RunModel, ExportModpath, NewBudgetFileForModpath, ExportZoneBudget,
@@ -13485,6 +13486,27 @@ end;
 function TPhastModel.PhastUsed(Sender: TObject): boolean;
 begin
   result := ModelSelection = msPhast;
+end;
+
+function TPhastModel.PrpMf6IsSelected: Boolean;
+var
+  PrtModels: TPrtModels;
+  PrtModel: TPrtModel;
+begin
+  result := False;
+  if (ModelSelection = msModflow2015) then
+  begin
+    PrtModels := ModflowPackages.PrtModels;
+    for var ModelIndex := 0 to PrtModels.Count - 1 do
+    begin
+      PrtModel := PrtModels[ModelIndex].PrtModel;
+      result := PrtModel.Count > 0;
+      if result then
+      begin
+        Exit;
+      end;
+    end;
+  end;
 end;
 
 function TPhastModel.PrtRetardationUsed(Sender: TObject): boolean;

@@ -18,7 +18,6 @@ inherited frameScreenObjectPrp: TframeScreenObjectPrp
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 541
     object pnlCaption: TPanel
       Left = 0
       Top = 0
@@ -27,7 +26,6 @@ inherited frameScreenObjectPrp: TframeScreenObjectPrp
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 541
     end
   end
   object rstcPrpPackage: TRbwStringTreeCombo
@@ -75,107 +73,180 @@ inherited frameScreenObjectPrp: TframeScreenObjectPrp
       F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000F0F0F000}
     NumGlyphs = 2
     TabOrder = 1
+    OnChange = rstcPrpPackageChange
   end
   inline frameModpathParticles: TframeModpathParticles
-    Left = -4
-    Top = 120
-    Width = 545
+    Left = 0
+    Top = 124
+    Width = 547
     Height = 311
+    Align = alBottom
     TabOrder = 2
     TabStop = True
-    ExplicitLeft = -4
-    ExplicitTop = 120
+    ExplicitTop = 124
+    ExplicitWidth = 547
     inherited gbParticles: TJvGroupBox
+      Width = 547
       OnCheckBoxClick = frameModpathParticlesgbParticlesCheckBoxClick
-      ExplicitLeft = 4
-      ExplicitTop = -30
+      ExplicitWidth = 547
       inherited lblTimeCount: TLabel
         Visible = False
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited sbAddTime: TSpeedButton
+        Left = 402
         Visible = False
+        ExplicitLeft = 402
       end
       inherited sbInsertTime: TSpeedButton
+        Left = 435
         Visible = False
+        ExplicitLeft = 435
       end
       inherited sbDeleteTime: TSpeedButton
+        Left = 468
         Visible = False
+        ExplicitLeft = 468
       end
       inherited lblMessage: TLabel
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited rgChoice: TRadioGroup
         TabOrder = 0
+        OnClick = frameModpathParticlesrgChoiceClick
       end
       inherited GLSceneViewer1: TGLSceneViewer
         TabOrder = 3
       end
       inherited plParticlePlacement: TJvPageList
-        ActivePage = frameModpathParticles.jvspIndividual
         inherited jvspGrid: TJvStandardPage
           inherited lblX: TLabel
+            Width = 159
+            Height = 15
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitWidth = 159
+            ExplicitHeight = 15
           end
           inherited lblY: TLabel
+            Width = 159
+            Height = 15
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitWidth = 159
+            ExplicitHeight = 15
           end
           inherited lblZ: TLabel
+            Width = 159
+            Height = 15
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitWidth = 159
+            ExplicitHeight = 15
+          end
+          inherited cbLeftFace: TCheckBox
+            OnClick = frameModpathParticlescbLeftFaceClick
+          end
+          inherited cbRightFace: TCheckBox
+            OnClick = frameModpathParticlescbLeftFaceClick
+          end
+          inherited cbFrontFace: TCheckBox
+            OnClick = frameModpathParticlescbLeftFaceClick
+          end
+          inherited cbBackFace: TCheckBox
+            OnClick = frameModpathParticlescbLeftFaceClick
+          end
+          inherited cbBottomFace: TCheckBox
+            OnClick = frameModpathParticlescbLeftFaceClick
+          end
+          inherited cbTopFace: TCheckBox
+            OnClick = frameModpathParticlescbLeftFaceClick
+          end
+          inherited cbInternal: TCheckBox
+            OnClick = frameModpathParticlescbLeftFaceClick
           end
           inherited seX: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseXChange
           end
           inherited seY: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseXChange
           end
           inherited seZ: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseXChange
           end
         end
         inherited jvspCylinder: TJvStandardPage
           inherited lblCylParticleCount: TLabel
+            Width = 149
+            Height = 30
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitWidth = 149
+            ExplicitHeight = 30
           end
           inherited lblClylLayerCount: TLabel
+            Width = 152
+            Height = 15
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitWidth = 152
+            ExplicitHeight = 15
           end
           inherited lblCylRadius: TLabel
             StyleElements = [seFont, seClient, seBorder]
           end
+          inherited rgCylinderOrientation: TRadioGroup
+            OnClick = frameModpathParticlesrgCylinderOrientationClick
+          end
           inherited seCylParticleCount: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseXChange
           end
           inherited seCylLayerCount: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseXChange
           end
           inherited seCylRadius: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseCylRadiusChange
           end
         end
         inherited jvspSphere: TJvStandardPage
           inherited lblSpherParticleCount: TLabel
+            Width = 149
+            Height = 30
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitWidth = 149
+            ExplicitHeight = 30
           end
           inherited lblSpherelLayerCount: TLabel
+            Width = 152
+            Height = 15
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitWidth = 152
+            ExplicitHeight = 15
           end
           inherited lblSphereRadius: TLabel
             StyleElements = [seFont, seClient, seBorder]
           end
+          inherited rgSphereOrientation: TRadioGroup
+            OnClick = frameModpathParticlesrgCylinderOrientationClick
+          end
           inherited seSphereParticleCount: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseXChange
           end
           inherited seSphereLayerCount: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseXChange
           end
           inherited seSphereRadius: TJvSpinEdit
             StyleElements = [seFont, seClient, seBorder]
+            OnChange = frameModpathParticlesseCylRadiusChange
           end
         end
         inherited jvspIndividual: TJvStandardPage
           inherited rdgSpecific: TRbwDataGrid4
             FixedCols = 0
+            OnSetEditText = frameModpathParticlesrdgSpecificSetEditText
           end
           inherited pnlBottom: TPanel
             StyleElements = [seFont, seClient, seBorder]

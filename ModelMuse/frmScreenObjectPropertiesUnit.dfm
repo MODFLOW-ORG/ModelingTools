@@ -2482,7 +2482,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         Top = 0
         Width = 537
         Height = 478
-        ActivePage = jvspMNW2
+        ActivePage = jvspPRP
         PropagateEnable = False
         Align = alClient
         OnChange = jvplModflowBoundariesChange
@@ -9317,7 +9317,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 end
                 inherited comboLossType: TJvImageComboBox
                   StyleElements = [seFont, seClient, seBorder]
-                  ItemIndex = -1
                 end
                 inherited edPartialPenetration: TJvComboEdit
                   Left = 227
@@ -9488,11 +9487,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 end
               end
               inherited tabDischargeAdjustment: TTabSheet
-                ExplicitWidth = 529
-                ExplicitHeight = 423
-                DesignSize = (
-                  529
-                  423)
                 inherited lblReferenceHead: TLabel
                   StyleElements = [seFont, seClient, seBorder]
                 end
@@ -11097,7 +11091,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 427
                 inherited edDiameter: TLabeledEdit
                   Top = 21
-                  Width = 314
+                  Width = 298
                   Height = 27
                   EditLabel.Width = 166
                   EditLabel.Height = 19
@@ -11106,16 +11100,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
                   ExplicitTop = 21
-                  ExplicitWidth = 314
+                  ExplicitWidth = 298
                   ExplicitHeight = 27
                 end
                 inherited btnDiameter: TButton
-                  Left = 323
+                  Left = 307
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 323
+                  ExplicitLeft = 307
                 end
                 inherited edTortuosity: TLabeledEdit
-                  Width = 314
+                  Width = 298
                   Height = 27
                   EditLabel.Width = 186
                   EditLabel.Height = 19
@@ -11123,16 +11117,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 186
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 314
+                  ExplicitWidth = 298
                   ExplicitHeight = 27
                 end
                 inherited btnTortuosity: TButton
-                  Left = 323
+                  Left = 307
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 323
+                  ExplicitLeft = 307
                 end
                 inherited edRoughnessHeight: TLabeledEdit
-                  Width = 314
+                  Width = 298
                   Height = 27
                   EditLabel.Width = 217
                   EditLabel.Height = 19
@@ -11140,16 +11134,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 217
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 314
+                  ExplicitWidth = 298
                   ExplicitHeight = 27
                 end
                 inherited btnRoughnessHeight: TButton
-                  Left = 323
+                  Left = 307
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 323
+                  ExplicitLeft = 307
                 end
                 inherited edLowerCriticalR: TLabeledEdit
-                  Width = 314
+                  Width = 298
                   Height = 27
                   EditLabel.Width = 500
                   EditLabel.Height = 19
@@ -11157,16 +11151,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 500
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 314
+                  ExplicitWidth = 298
                   ExplicitHeight = 27
                 end
                 inherited btnLowerCriticalR: TButton
-                  Left = 323
+                  Left = 307
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 323
+                  ExplicitLeft = 307
                 end
                 inherited edHigherCriticalR: TLabeledEdit
-                  Width = 314
+                  Width = 298
                   Height = 27
                   EditLabel.Width = 504
                   EditLabel.Height = 19
@@ -11174,16 +11168,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 504
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 314
+                  ExplicitWidth = 298
                   ExplicitHeight = 27
                 end
                 inherited btnHigherCriticalR: TButton
-                  Left = 323
+                  Left = 307
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 323
+                  ExplicitLeft = 307
                 end
                 inherited edConductancePermeability: TLabeledEdit
-                  Width = 314
+                  Width = 298
                   Height = 27
                   EditLabel.Width = 337
                   EditLabel.Height = 19
@@ -11192,16 +11186,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 337
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 314
+                  ExplicitWidth = 298
                   ExplicitHeight = 27
                 end
                 inherited btnConductancePermeability: TButton
-                  Left = 323
+                  Left = 307
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 323
+                  ExplicitLeft = 307
                 end
                 inherited edElevation: TLabeledEdit
-                  Width = 314
+                  Width = 298
                   Height = 27
                   EditLabel.Width = 206
                   EditLabel.Height = 19
@@ -11209,16 +11203,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 206
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 314
+                  ExplicitWidth = 298
                   ExplicitHeight = 27
                 end
                 inherited btnElevation: TButton
-                  Left = 323
+                  Left = 307
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 323
+                  ExplicitLeft = 307
                 end
                 inherited edCads: TLabeledEdit
-                  Width = 314
+                  Width = 298
                   Height = 27
                   EditLabel.Width = 410
                   EditLabel.Height = 19
@@ -11227,14 +11221,14 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 410
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 314
+                  ExplicitWidth = 298
                   ExplicitHeight = 27
                 end
                 inherited btnCads: TButton
-                  Left = 323
+                  Left = 307
                   Top = 369
                   Width = 90
-                  ExplicitLeft = 323
+                  ExplicitLeft = 307
                   ExplicitTop = 369
                   ExplicitWidth = 90
                 end
@@ -11331,10 +11325,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   ExplicitWidth = 81
                 end
                 inherited btnFixedHead: TButton
-                  Left = 53
+                  Left = 1
                   Top = 70
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 53
+                  ExplicitLeft = 1
                   ExplicitTop = 70
                 end
                 inherited edFixedHead: TLabeledEdit
@@ -19136,6 +19130,253 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 OnButtonClick = frameChdParamdgModflowBoundaryButtonClick
                 ExplicitWidth = 535
                 ExplicitHeight = 333
+              end
+            end
+          end
+        end
+        object jvspPRP: TJvStandardPage
+          Left = 0
+          Top = 0
+          Width = 537
+          Height = 478
+          Caption = 'jvspPRP'
+          inline framePRP: TframeScreenObjectPrp
+            Left = 0
+            Top = 0
+            Width = 537
+            Height = 478
+            Align = alClient
+            TabOrder = 0
+            ExplicitWidth = 537
+            ExplicitHeight = 478
+            inherited lblPackage: TLabel
+              Width = 102
+              Height = 19
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 102
+              ExplicitHeight = 19
+            end
+            inherited pnlTop: TPanel
+              Width = 537
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 537
+              inherited pnlCaption: TPanel
+                Width = 537
+                StyleElements = [seFont, seClient, seBorder]
+                ExplicitWidth = 537
+              end
+            end
+            inherited rstcPrpPackage: TRbwStringTreeCombo
+              Height = 27
+              Tree.DefaultNodeHeight = 23
+              Tree.Header.Height = 19
+              ExplicitHeight = 27
+            end
+            inherited frameModpathParticles: TframeModpathParticles
+              Top = 167
+              Width = 537
+              ExplicitTop = 167
+              ExplicitWidth = 537
+              inherited gbParticles: TJvGroupBox
+                Width = 537
+                ExplicitWidth = 537
+                inherited lblTimeCount: TLabel
+                  Width = 43
+                  Height = 19
+                  StyleElements = [seFont, seClient, seBorder]
+                  ExplicitWidth = 43
+                  ExplicitHeight = 19
+                end
+                inherited lblMessage: TLabel
+                  Height = 133
+                  StyleElements = [seFont, seClient, seBorder]
+                  ExplicitHeight = 133
+                end
+                inherited plParticlePlacement: TJvPageList
+                  inherited jvspGrid: TJvStandardPage
+                    inherited lblX: TLabel
+                      Width = 154
+                      Height = 38
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 154
+                      ExplicitHeight = 38
+                    end
+                    inherited lblY: TLabel
+                      Width = 154
+                      Height = 38
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 154
+                      ExplicitHeight = 38
+                    end
+                    inherited lblZ: TLabel
+                      Width = 152
+                      Height = 38
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 152
+                      ExplicitHeight = 38
+                    end
+                    inherited seX: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                    inherited seY: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                    inherited seZ: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                  end
+                  inherited jvspCylinder: TJvStandardPage
+                    inherited lblCylParticleCount: TLabel
+                      Width = 147
+                      Height = 38
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 147
+                      ExplicitHeight = 38
+                    end
+                    inherited lblClylLayerCount: TLabel
+                      Width = 149
+                      Height = 38
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 149
+                      ExplicitHeight = 38
+                    end
+                    inherited lblCylRadius: TLabel
+                      Width = 111
+                      Height = 19
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 111
+                      ExplicitHeight = 19
+                    end
+                    inherited seCylParticleCount: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                    inherited seCylLayerCount: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                    inherited seCylRadius: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                  end
+                  inherited jvspSphere: TJvStandardPage
+                    inherited lblSpherParticleCount: TLabel
+                      Width = 147
+                      Height = 38
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 147
+                      ExplicitHeight = 38
+                    end
+                    inherited lblSpherelLayerCount: TLabel
+                      Width = 149
+                      Height = 38
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 149
+                      ExplicitHeight = 38
+                    end
+                    inherited lblSphereRadius: TLabel
+                      Width = 103
+                      Height = 19
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitWidth = 103
+                      ExplicitHeight = 19
+                    end
+                    inherited seSphereParticleCount: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                    inherited seSphereLayerCount: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                    inherited seSphereRadius: TJvSpinEdit
+                      Height = 27
+                      StyleElements = [seFont, seClient, seBorder]
+                      ExplicitHeight = 27
+                    end
+                  end
+                  inherited jvspIndividual: TJvStandardPage
+                    inherited pnlBottom: TPanel
+                      StyleElements = [seFont, seClient, seBorder]
+                      inherited lblCount: TLabel
+                        Width = 43
+                        Height = 19
+                        StyleElements = [seFont, seClient, seBorder]
+                        ExplicitWidth = 43
+                        ExplicitHeight = 19
+                      end
+                      inherited seSpecificParticleCount: TJvSpinEdit
+                        Height = 27
+                        StyleElements = [seFont, seClient, seBorder]
+                        ExplicitHeight = 27
+                      end
+                    end
+                  end
+                end
+                inherited seTimeCount: TJvSpinEdit
+                  Height = 27
+                  StyleElements = [seFont, seClient, seBorder]
+                  ExplicitHeight = 27
+                end
+              end
+              inherited GLScene1: TGLScene
+                inherited GLDummyCube: TGLDummyCube
+                  Direction.Coordinates = {D36D79B2D7B35DBF010000BF00000000}
+                  Scale.Coordinates = {00000040000000400000004000000000}
+                  Up.Coordinates = {1C1DAFBEBC8FF0BE1155503F00000000}
+                  inherited GLLightSource1: TGLLightSource
+                    Position.Coordinates = {0000204100002041000020410000803F}
+                  end
+                  inherited BottomPlane: TGLPlane
+                    Material.BackProperties.Diffuse.Color = {0AD7633FD7A3F03ECDCC4C3E0000803F}
+                    Material.FrontProperties.Diffuse.Color = {00000000000000000000803F0000803F}
+                    Direction.Coordinates = {000000002EBDBBB3000080BF00000000}
+                    Position.Coordinates = {00000000000000000000003F0000803F}
+                    Up.Coordinates = {00000000000080BF2EBDBB3300000000}
+                  end
+                  inherited LeftPlane: TGLPlane
+                    Material.FrontProperties.Diffuse.Color = {8FC2753FCDCC4C3FD7A3303F0000803F}
+                    Direction.Coordinates = {0000803F000000002EBD3BB300000000}
+                    Position.Coordinates = {000000BF00000000000000000000803F}
+                  end
+                  inherited BackPlane: TGLPlane
+                    Material.FrontProperties.Diffuse.Color = {EBE0E03EE4DB5B3FE4DB5B3F0000803F}
+                    Direction.Coordinates = {000000000000803F2EBD3BB300000000}
+                    Position.Coordinates = {00000000000000BF000000000000803F}
+                    Up.Coordinates = {000000002EBD3BB3000080BF00000000}
+                  end
+                  inherited GLCylinder1: TGLCylinder
+                    Position.Coordinates = {0000003F00000000000000BF0000803F}
+                  end
+                  inherited GLCylinder2: TGLCylinder
+                    Direction.Coordinates = {000000000000803F2EBD3BB300000000}
+                    Position.Coordinates = {0000003F0000003F000000000000803F}
+                    Up.Coordinates = {000000002EBD3BB3000080BF00000000}
+                  end
+                  inherited GLCylinder3: TGLCylinder
+                    Position.Coordinates = {000000000000003F000000BF0000803F}
+                    Up.Coordinates = {000080BF2EBD3BB30000000000000000}
+                  end
+                end
+                inherited GLLightSource2: TGLLightSource
+                  Position.Coordinates = {0000803F00000000000040400000803F}
+                  SpotDirection.Coordinates = {00000000000000000000803F00000000}
+                end
+                inherited GLCamera: TGLCamera
+                  Position.Coordinates = {0000000000000000000020410000803F}
+                end
               end
             end
           end

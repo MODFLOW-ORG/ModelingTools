@@ -38,6 +38,7 @@ type
     procedure InvalidateDisplay;
     procedure Loaded;
     procedure RemoveModelLink(AModel: TBaseModel);
+    function Used: boolean; override;
   published
     property PrtModelName: string read GetPrtModelName write SetPrtModelName;
     property PrpPackageName: string read GetPrpPackageName write SetPrpPackageName;
@@ -61,6 +62,7 @@ begin
   if Source is TPrpBoundary then
   begin
     SourecPRP := TPrpBoundary(Source);
+    IsUsed := SourecPRP.IsUsed;
     PrtModelName := SourecPRP.PrtModelName;
     PrpPackageName := SourecPRP.PrpPackageName;
     ParticleStorage := SourecPRP.ParticleStorage;
@@ -237,6 +239,13 @@ begin
   begin
     FPrtModelName := Value;
   end;
+end;
+
+function TPrpBoundary.Used: boolean;
+begin
+  result := inherited Used
+    and (PrtModelName <> '')
+    and (PrpPackageName <> '')
 end;
 
 procedure TPrpBoundary.SetParticleStorage(const Value: TParticleStorage);

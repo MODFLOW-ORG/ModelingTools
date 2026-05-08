@@ -83,7 +83,8 @@ uses System.UITypes, Windows,
   frameDynamicScreenObjectsContainerUnit, Modflow6DynamicTimeSeriesUnit,
   frameScreenObjectCfpRechargeFractionUnit, frameScreenObjectTransientKUnit,
   frameScreenObjectTransientSUnit, frameScreenObjectCtpUnit,
-  frameScreenObjectEslUnit;
+  frameScreenObjectEslUnit, frameScreenObjectPrpUnit, VirtualTrees.BaseTree,
+  VirtualTrees;
 
   { TODO : Consider making this a property sheet like the Object Inspector that
   could stay open at all times.  Boundary conditions and vertices might be
@@ -521,6 +522,8 @@ type
     jvspGweESL: TJvStandardPage;
     frameGweCTP: TframeScreenObjectCtp;
     frameGweESL: TframeScreenObjectEsl;
+    jvspPRP: TJvStandardPage;
+    framePRP: TframeScreenObjectPrp;
     // @name changes which check image is displayed for the selected item
     // in @link(jvtlModflowBoundaryNavigator).
     procedure jvtlModflowBoundaryNavigatorMouseDown(Sender: TObject;
@@ -1730,6 +1733,7 @@ type
     FSwtPestObs_Node: TJvPageIndexNode;
     FTvkNode: TJvPageIndexNode;
     FTvsNode: TJvPageIndexNode;
+    FPrpNode: TJvPageIndexNode;
     // @name is used to store the column that the user last selected
     // in one of the grids for boundary-condition, time-varying stress.
     // For boundary conditions that allow PHAST-style interpolation,
@@ -2395,13 +2399,15 @@ type
     procedure GetSfr6Boundary(const ScreenObjectList: TList);
     procedure UpdateSfr6Node(Sender: TObject);
     procedure GetMawBoundary(const ScreenObjectList: TList);
+    procedure MawChanged(Sender: TObject);
     procedure GetCSubBoundary(const ScreenObjectList: TList);
+    procedure CSubChanged(Sender: TObject);
     procedure GetCncBoundary(const ScreenObjectList: TList);
     procedure GetSrcBoundary(const ScreenObjectList: TList);
     procedure GetCtpBoundary(const ScreenObjectList: TList);
     procedure GetEslBoundary(const ScreenObjectList: TList);
-    procedure MawChanged(Sender: TObject);
-    procedure CSubChanged(Sender: TObject);
+    procedure GetPrpBoundary(const ScreenObjectList: TList);
+    procedure PrpChanged(Sender: TObject);
     procedure AssignTransientHfbFormulas(const Row, Col: Integer);
     procedure UpdateHfbBoundaryState(Boundary: THfbBoundary;
       ScreenObjectIndex: Integer; var State: TCheckBoxState);
@@ -2642,6 +2648,7 @@ type
     procedure CreateSwtPestObsNode(AScreenObject: TScreenObject);
     procedure CreateTvkNode;
     procedure CreateTvsNode;
+    procedure CreatePrpNode;
     procedure InitializeVertexGrid;
     procedure InitializePhastSpecifiedHeadGrid;
     procedure InitializePhastSpecifiedFluxGrid;
@@ -2863,9 +2870,10 @@ uses Math, JvToolEdit, frmGoPhastUnit, AbstractGridUnit,
   ModflowFmp4FractionOfIrrigToSurfaceWaterUnit, ModflowFmp4AddedDemandUnit,
   ModflowFmp4CropHasSalinityDemandUnit, ModflowFmp4AddedDemandRunoffSplitUnit,
   DataArrayManagerUnit, DataSetNamesUnit, frameModflow6DynamicTimeSeriesUnit,
-  ModflowTvkUnit, ModflowTvsUnit;
+  ModflowTvkUnit, ModflowTvsUnit, ModflowPrpUnit;
 
 resourcestring
+  SPRPPackage = 'PRP Package';
   StrConcentrationObserv = 'Concentration Observations: ';
   StrFluxObserv = 'Flux Observations: ';
   StrUseToSetGridElem = 'Use to set grid element size';
@@ -4532,6 +4540,10 @@ begin
     begin
       // do nothing
     end
+    else if jvtlModflowBoundaryNavigator.Selected = FPrpNode then
+    begin
+      // do nothing
+    end
 
     else
     begin
@@ -4730,6 +4742,7 @@ begin
   CreateGweEslNode;
   CreateGwtCncNode;
   CreateGwtSrcNode;
+  CreatePrpNode;
   CreateModpathNode;
   CreateMt3d_LktNode;
   CreateMt3d_SftNode;
@@ -5501,8 +5514,7 @@ begin
     if (cbIntersectedCells.State = cbUnchecked)
       and (cbEnclosedCells.State = cbUnchecked) then
     begin
-//      ShowError :=
-//        ((FDRN_Node <> nil) and (FDRN_Node.StateIndex <> 1));
+      ShowError := False;
       BoundaryNodeList := TList.Create;
       try
         BoundaryNodeList.Add(FCHD_Node);
@@ -5598,9 +5610,9 @@ begin
         BoundaryNodeList.Add(FFmp4AddedDemandRunoffSplitNode);
         BoundaryNodeList.Add(FTvkNode);
         BoundaryNodeList.Add(FTvsNode);
+        BoundaryNodeList.Add(FPrpNode);
 
         BoundaryNodeList.Pack;
-        ShowError := False;
         for BoundaryNodeIndex := 0 to BoundaryNodeList.Count - 1 do
         begin
           ANode := BoundaryNodeList[BoundaryNodeIndex];
@@ -6073,14 +6085,6 @@ begin
     FFhbHead_Node.StateIndex := 2;
   end;
 end;
-
-//procedure TfrmScreenObjectProperties.FarmChanged(Sender: TObject);
-//begin
-//  if (FFmpFarm_Node <> nil) and (FFmpFarm_Node.StateIndex <> 3) then
-//  begin
-//    FFmpFarm_Node.StateIndex := 2;
-//  end;
-//end;
 
 procedure TfrmScreenObjectProperties.FarmPrecipChanged(Sender: TObject);
 begin
@@ -6849,6 +6853,7 @@ begin
   frameCfpFixedHeads.OnChange := CfpFixedHeadsChanged;
   frameRIP.OnChange := RipChanged;
   frameMAW.OnEdited := MawChanged;
+  framePrp.OnEdited := PrpChanged;
   frameCSUB.OnEdited := CSubChanged;
   frameFmp4Efficiency.OnEdited := Fmp4EfficiencyChanged;
   frameFmp4EfficiencyImprovement.OnEdited := Fmp4EfficiencyImprovementChanged;
@@ -7301,6 +7306,15 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmScreenObjectProperties.PrpChanged(Sender: TObject);
+begin
+  if (FPrpNode <> nil) and (FPrpNode.StateIndex <> 3) then
+  begin
+    FPrpNode.StateIndex := 2;
+  end;
+
 end;
 
 procedure TfrmScreenObjectProperties.GetDataForMultipleScreenObjects(
@@ -8266,6 +8280,10 @@ begin
   begin
     AllowChange := True;
   end
+  else if (Node = FPrpNode) then
+  begin
+    AllowChange := True;
+  end
 
 //  end
 //  else if (Node = FMt3dms_Node) then
@@ -8319,6 +8337,32 @@ begin
   begin
     Include(PotentialSources, spcUzf);
   end;
+end;
+
+procedure TfrmScreenObjectProperties.GetPrpBoundary(
+  const ScreenObjectList: TList);
+var
+  State: TCheckBoxState;
+  ScreenObjectIndex: integer;
+  AScreenObject: TScreenObject;
+  Boundary: TPrpBoundary;
+begin
+  if not frmGoPhast.PhastModel.PrpMf6IsSelected then
+  begin
+    Exit;
+  end;
+  State := cbUnchecked;
+  for ScreenObjectIndex := 0 to ScreenObjectList.Count - 1 do
+  begin
+    AScreenObject := ScreenObjectList[ScreenObjectIndex];
+    Boundary := AScreenObject.ModflowPrpBoundary;
+    UpdateBoundaryState(Boundary, ScreenObjectIndex, State);
+  end;
+  if FPrpNode <> nil then
+  begin
+    FPrpNode.StateIndex := Ord(State)+1;
+  end;
+  framePrp.GetData(FNewProperties);
 end;
 
 procedure TfrmScreenObjectProperties.FillChildModelList;
@@ -9660,6 +9704,12 @@ begin
       (FTvsNode.StateIndex = 1) and frmGoPhast.PhastModel.TvsIsSelected);
   end;
 
+  if (FPrpNode <> nil) then
+  begin
+    framePRP.SetData(FNewProperties,
+      (FPrpNode.StateIndex = 2),
+      (FPrpNode.StateIndex = 1) and frmGoPhast.PhastModel.PrpMf6IsSelected);
+  end;
 end;
 
 procedure TfrmScreenObjectProperties.UpdateVertices;
@@ -15417,6 +15467,22 @@ begin
   Params.WndParent := 0;
 end;
 
+procedure TfrmScreenObjectProperties.CreatePrpNode;
+var
+  Node: TJvPageIndexNode;
+begin
+  FPrpNode := nil;
+  if frmGoPhast.PhastModel.PrpMf6IsSelected then
+  begin
+    Node := jvtlModflowBoundaryNavigator.Items.AddChild(nil,
+      SPRPPackage) as TJvPageIndexNode;
+    Node.PageIndex := jvspPRP.PageIndex;
+    framePRP.pnlCaption.Caption := Node.Text;
+    Node.ImageIndex := 1;
+    FPrpNode := Node;
+  end;
+end;
+
 procedure TfrmScreenObjectProperties.CreateLakMf6Node(AScreenObject: TScreenObject);
 var
   Node: TJvPageIndexNode;
@@ -20552,6 +20618,7 @@ begin
   GetSrcBoundary(AScreenObjectList);
   GetCtpBoundary(AScreenObjectList);
   GetEslBoundary(AScreenObjectList);
+  GetPrpBoundary(AScreenObjectList);
 
   GetMf6Obs(AScreenObjectList);
   GetLakeMf6Boundary(AScreenObjectList);
