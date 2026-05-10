@@ -45124,9 +45124,9 @@ begin
     FTvsBoundary.RemoveModelLink(AModel);
   end;
 
-  if FprpBoundary <> nil then
+  if FPrpBoundary <> nil then
   begin
-    FprpBoundary.RemoveModelLink(AModel);
+    FPrpBoundary.RemoveModelLink(AModel);
   end;
 
   {

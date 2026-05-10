@@ -12,7 +12,7 @@ uses SysUtils, Classes, GoPhastTypes, OrderedCollectionUnit, DataSetUnit,
   ModpathParticleUnit, ModflowBoundaryDisplayUnit, ScreenObjectUnit,
   ModflowBoundaryUnit, Mt3dmsChemSpeciesUnit, System.Generics.Collections,
   Mt3dSftUnit, ModflowCSubInterbed, OrderedCollectionInterfaceUnit,
-  Mt3dmsChemSpeciesInterfaceUnit, PrtInterfacesUnit;
+  Mt3dmsChemSpeciesInterfaceUnit, PrtInterfacesUnit, ModflowPrpInterfaceUnit;
 
 const
   KSfrDefaultPicardIterations = 100;
@@ -2998,6 +2998,7 @@ Type
     FPeriodData: TPrpPeriodData;
     FOriginalId: Integer;
     FLocalZ: Boolean;
+    FLinkedBoundaries: TPrpBoundaryInterfaceList;
     procedure SetReleaseTimes(const Value: TRealCollection);
     procedure SetStoredStopTime(const Value: TOptionalRealValue);
     procedure SetStoredStopTravelTime(const Value: TOptionalRealValue);
@@ -3063,6 +3064,8 @@ Type
     property ReleaseTimeFrequency: Double read GetReleaseTimeFrequency write SetReleaseTimeFrequency;
     property ReleaseTimeFrequencyUsed: Boolean read GetReleaseTimeFrequencyUsed write SetReleaseTimeFrequencyUsed;
     property OriginalId: Integer read FOriginalId write SetOriginalId;
+    procedure FreeNotification(Item: IPrpBoundaryInterface);
+    procedure RemoveFreeNotification(Item: IPrpBoundaryInterface);
   published
     // pname
     property PackageName: string read GetPackageName write SetPackageName;
@@ -3141,6 +3144,7 @@ Type
     FCanCreateDataSets: Boolean;
     FRetardationDataArrayDisplayName: string;
     FZoneDataArrayDisplayName: string;
+    FLinkedBoundaries: TPrpBoundaryInterfaceList;
     procedure SetRetardationFactorUsed(const Value: Boolean);
     procedure SetZoneUsed(const Value: Boolean);
     procedure SetTrackTimes(const Value: TRealCollection);
@@ -3171,6 +3175,8 @@ Type
     destructor Destroy; override;
     property Items[Index: Integer]: TPrpPackageItem read GetItem write SetItem;  default;
     property OriginalId: Integer read FOriginalId write SetOriginalId;
+    procedure FreeNotification(Item: IPrpBoundaryInterface);
+    procedure RemoveFreeNotification(Item: IPrpBoundaryInterface);
   published
     property ModelName: string read GetModelName write SetModelName;
     // RETFACTOR
@@ -3209,6 +3215,7 @@ Type
     procedure SetItem(Index: Integer; const Value: TPrtModelItem);
     procedure SetCanCreateDataSets(const Value: Boolean);
   public
+    procedure Assign(Source: TPersistent); override;
     constructor Create(Model: IModelForTOrderedCollection);
     property CanCreateDataSets: Boolean read FCanCreateDataSets
       write SetCanCreateDataSets;
@@ -31706,10 +31713,12 @@ begin
   if Model = nil then
   begin
     InvalidateModelEvent := nil;
+    FLinkedBoundaries := nil;
   end
   else
   begin
     InvalidateModelEvent := Model.Invalidate;
+    FLinkedBoundaries := TPrpBoundaryInterfaceList.Create;
   end;
   inherited Create(TPrpPackageItem, Model);
   FTrackTimes := TRealCollection.Create(InvalidateModelEvent);
@@ -31723,7 +31732,38 @@ destructor TPrtModel.Destroy;
 begin
   FPeriodData.Free;
   FTrackTimes.Free;
+
+  if FLinkedBoundaries <> nil then
+  begin
+    for var Index := 0 to FLinkedBoundaries.Count - 1 do
+    begin
+      if FLinkedBoundaries[Index] <> nil then
+      begin
+        FLinkedBoundaries[Index].RemovePrtModelLink
+      end;
+    end;
+    FLinkedBoundaries.Free;
+  end;
+
   inherited;
+end;
+
+procedure TPrtModel.FreeNotification(Item: IPrpBoundaryInterface);
+var
+  AddIndex: Integer;
+begin
+  if (FLinkedBoundaries <> nil) and (FLinkedBoundaries.IndexOf(Item) < 0) then
+  begin
+    AddIndex := FLinkedBoundaries.IndexOf(nil);
+    if AddIndex < 0 then
+    begin
+      FLinkedBoundaries.Add(Item);
+    end
+    else
+    begin
+      FLinkedBoundaries[AddIndex] := Item;
+    end;
+  end;
 end;
 
 function TPrtModel.GetItem(Index: Integer): TPrpPackageItem;
@@ -31765,6 +31805,21 @@ begin
       and (RunAsSeparateSimulation = PrtModel.RunAsSeparateSimulation)
       and (RetardationDataArrayName = PrtModel.RetardationDataArrayName)
       and (ZoneDataArrayName = PrtModel.ZoneDataArrayName)
+  end;
+end;
+
+procedure TPrtModel.RemoveFreeNotification(Item: IPrpBoundaryInterface);
+var
+  RemoveIndex: Integer;
+begin
+  if FLinkedBoundaries <> nil then
+  begin
+    RemoveIndex := FLinkedBoundaries.IndexOf(Item);
+    While RemoveIndex >= 0 do
+    begin
+      FLinkedBoundaries[RemoveIndex] := nil;
+      RemoveIndex := FLinkedBoundaries.IndexOf(Item);
+    end;
   end;
 end;
 
@@ -32007,12 +32062,14 @@ begin
   begin
     InvalidateModelEvent := nil;
     LocalModel := nil;
+    FLinkedBoundaries := nil;
   end
 
   else
   begin
     InvalidateModelEvent := Model.Invalidate;
     LocalModel := Model as TPhastModel;
+    FLinkedBoundaries := TPrpBoundaryInterfaceList.Create;
   end;
 
   FStoredSolverTolerance := TOptionalRealValue.Create(InvalidateModelEvent);
@@ -32038,7 +32095,37 @@ begin
   FReleaseTimes.Free;
   FPeriodData.Free;
 
+  if FLinkedBoundaries <> nil then
+  begin
+    for var Index := 0 to FLinkedBoundaries.Count - 1 do
+    begin
+      if FLinkedBoundaries[Index] <> nil then
+      begin
+        FLinkedBoundaries[Index].RemovePrpPackageLink
+      end;
+    end;
+    FLinkedBoundaries.Free;
+  end;
+
   inherited;
+end;
+
+procedure TPrpPackage.FreeNotification(Item: IPrpBoundaryInterface);
+var
+  AddIndex: Integer;
+begin
+  if (FLinkedBoundaries <> nil) and (FLinkedBoundaries.IndexOf(Item) < 0) then
+  begin
+    AddIndex := FLinkedBoundaries.IndexOf(nil);
+    if AddIndex < 0 then
+    begin
+      FLinkedBoundaries.Add(Item);
+    end
+    else
+    begin
+      FLinkedBoundaries[AddIndex] := Item;
+    end;
+  end;
 end;
 
 function TPrpPackage.GetSolverTolerance: double;
@@ -32152,6 +32239,21 @@ begin
     Result := S_OK
   Else
     Result := E_NOINTERFACE
+end;
+
+procedure TPrpPackage.RemoveFreeNotification(Item: IPrpBoundaryInterface);
+var
+  RemoveIndex: Integer;
+begin
+  if FLinkedBoundaries <> nil then
+  begin
+    RemoveIndex := FLinkedBoundaries.IndexOf(Item);
+    While RemoveIndex >= 0 do
+    begin
+      FLinkedBoundaries[RemoveIndex] := nil;
+      RemoveIndex := FLinkedBoundaries.IndexOf(Item);
+    end;
+  end;
 end;
 
 procedure TPrpPackage.SetCoordinateCheckMethod(
@@ -32339,6 +32441,11 @@ begin
 end;
 
 { TPrtModels }
+
+procedure TPrtModels.Assign(Source: TPersistent);
+begin
+  inherited;
+end;
 
 constructor TPrtModels.Create(Model: IModelForTOrderedCollection);
 begin

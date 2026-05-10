@@ -331,6 +331,7 @@ begin
   finally
     FGettingData := False;
   end;
+  framePrpPackagesseNumberChange(self);
 end;
 
 procedure TframePrpMultiplePackages.Initialize(PackageTreeView: TTreeView;

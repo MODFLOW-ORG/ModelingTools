@@ -7,10 +7,10 @@ uses ZLib, Classes, SysUtils, RbwParser, GoPhastTypes,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   OrderedCollectionUnit, ModflowCellUnit, RealListUnit,
   Modflow6DynamicTimeSeriesInterfaceUnit, PrtInterfacesUnit,
-  ModpathParticleUnit;
+  ModpathParticleUnit, ModflowPrpInterfaceUnit;
 
 type
-  TPrpBoundary = class(TModflowSteadyBoundary)
+  TPrpBoundary = class(TModflowSteadyBoundary, IPrpBoundaryInterface)
   private
     FPrtModelName: string;
     FPrpPackageName: string;
@@ -22,6 +22,8 @@ type
     function GetPrtModelName: string;
     function GetPrpPackageName: string;
     procedure SetParticleStorage(const Value: TParticleStorage);
+    procedure RemovePrtModelLink;
+    Procedure RemovePrpPackageLink;
   protected
     procedure HandleChangedValue(Observer: TObserver); override;
     function GetUsedObserver: TObserver; override;
@@ -115,6 +117,7 @@ end;
 
 destructor TPrpBoundary.Destroy;
 begin
+  RemovePrtModelLink;
   FParticleStorage.Free;
   inherited;
 end;
@@ -211,7 +214,26 @@ end;
 
 procedure TPrpBoundary.RemoveModelLink(AModel: TBaseModel);
 begin
-  FPrtModel := nil;
+  PrtModelName := '';
+  PrpPackageName := '';
+end;
+
+procedure TPrpBoundary.RemovePrtModelLink;
+begin
+  if FPrtModel <> nil then
+  begin
+    FPrtModel.RemoveFreeNotification(self);
+    FPrtModel := nil;
+  end;
+  if FPrpPackage <> nil then
+  begin
+    FPrpPackage.RemoveFreeNotification(self);
+    FPrpPackage := nil;
+  end;
+end;
+
+procedure TPrpBoundary.RemovePrpPackageLink;
+begin
   FPrpPackage := nil;
 end;
 
@@ -220,6 +242,10 @@ var
   Model: TPhastModel;
   PrtModels: TPrtModels;
 begin
+  if FPrtModel <> nil then
+  begin
+    FPrtModel.RemoveFreeNotification(self);
+  end;
   FPrtModel := nil;
   if ParentModel <> nil then
   begin
@@ -230,6 +256,7 @@ begin
       if AnsiSameText(PrtModels[ModelIndex].PrtModel.ModelName, Value) then
       begin
         FPrtModel := PrtModels[ModelIndex].PrtModel;
+        FPrtModel.FreeNotification(self);
         FPrtModelName := FPrtModel.ModelName;
         PrpPackageName := PrpPackageName
       end;
@@ -259,6 +286,10 @@ var
   PrtModels: TPrtModels;
   APrtModel: TPrtModel;
 begin
+  if FPrpPackage <> nil then
+  begin
+    FPrpPackage.RemoveFreeNotification(self);
+  end;
   FPrpPackage := nil;
   if (ParentModel <> nil) and (FPrtModel <> nil) then
   begin
@@ -274,9 +305,11 @@ begin
           if AnsiSameText(APrtModel[PackageIndex].PrpPackage.PackageName, Value) then
           begin
             FPrpPackage := APrtModel[PackageIndex].PrpPackage;
+            FPrpPackage.FreeNotification(self);
             FPrpPackageName := FPrpPackage.PackageName
           end;
         end;
+        break;
       end;
     end;
   end

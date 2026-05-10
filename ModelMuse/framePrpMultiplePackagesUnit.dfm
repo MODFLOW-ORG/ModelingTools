@@ -21,7 +21,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabOptions
+    ActivePage = tabTrackByStressPeriod
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -69,7 +69,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         object lblTrackEvents: TLabel
           Left = 184
           Top = 24
-          Width = 64
+          Width = 65
           Height = 15
           Caption = 'Track Events'
         end
@@ -106,7 +106,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
             'TRACK_USERTIME'
             'TRACK_DROPPED')
           ParentDoubleBuffered = False
-          ScrollWidth = 164
+          ScrollWidth = 167
           TabOrder = 1
         end
       end
@@ -321,7 +321,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
             'Tracking times can be specified as specific times or by specific' +
             ' period. In this tab, tracking times are specified by time.'
           WordWrap = True
-          ExplicitWidth = 617
+          ExplicitWidth = 618
           ExplicitHeight = 15
         end
       end
@@ -347,7 +347,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
             'Tracking times can be specified as specific times or by specific' +
             ' period. In this tab, tracking times are specified by period. '
           WordWrap = True
-          ExplicitWidth = 630
+          ExplicitWidth = 631
           ExplicitHeight = 15
         end
       end
