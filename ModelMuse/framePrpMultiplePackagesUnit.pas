@@ -43,6 +43,8 @@ type
     procedure framePrpPackagesGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
         const Value: string);
     procedure framePrpPackagesseNumberChange(Sender: TObject);
+    procedure frameReleasePeriodDataGridEndUpdate(Sender: TObject);
+    procedure frameTrackTimesGridEndUpdate(Sender: TObject);
   private
     FOnPrpPackageDeleted: TPrpPackagedDeletedEvent;
     FOnPrpPackageAdded: TNotifyEvent;
@@ -241,6 +243,30 @@ begin
 
     end;
   end;
+end;
+
+procedure TframePrpMultiplePackages.frameReleasePeriodDataGridEndUpdate(Sender:
+    TObject);
+begin
+  inherited;
+  if FInitializing or FGettingData or (ComponentState <> []) then
+  begin
+    Exit;
+  end;
+
+  frameReleasePeriodData.GridEndUpdate(Sender);
+end;
+
+procedure TframePrpMultiplePackages.frameTrackTimesGridEndUpdate(Sender:
+    TObject);
+begin
+  inherited;
+  if FInitializing or FGettingData or (ComponentState <> []) then
+  begin
+    Exit;
+  end;
+
+  frameTrackTimes.GridEndUpdate(Sender);
 end;
 
 procedure TframePrpMultiplePackages.GetData(PrtModel: TPrtModel);

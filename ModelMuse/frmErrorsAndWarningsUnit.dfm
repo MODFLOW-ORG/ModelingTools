@@ -18,8 +18,6 @@ inherited frmErrorsAndWarnings: TfrmErrorsAndWarnings
     Height = 41
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 193
-    ExplicitWidth = 468
     DesignSize = (
       472
       41)
@@ -32,7 +30,6 @@ inherited frmErrorsAndWarnings: TfrmErrorsAndWarnings
       Kind = bkClose
       NumGlyphs = 2
       TabOrder = 4
-      ExplicitLeft = 318
     end
     object btnHelp: TBitBtn
       Left = 227
@@ -44,7 +41,6 @@ inherited frmErrorsAndWarnings: TfrmErrorsAndWarnings
       NumGlyphs = 2
       TabOrder = 3
       OnClick = btnHelpClick
-      ExplicitLeft = 223
     end
     object btnSave: TButton
       Left = 88
@@ -97,6 +93,7 @@ inherited frmErrorsAndWarnings: TfrmErrorsAndWarnings
     Colors.UnfocusedColor = clGray
     Colors.UnfocusedSelectionColor = 13421772
     Colors.UnfocusedSelectionBorderColor = 13421772
+    DefaultNodeHeight = 22
     Header.AutoSizeIndex = -1
     Header.Height = 22
     Header.Options = [hoColumnResize, hoDrag]
