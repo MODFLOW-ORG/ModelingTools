@@ -2361,6 +2361,7 @@
         <DCCReference Include="ModflowPrpInterfaceUnit.pas"/>
         <DCCReference Include="ModflowMipWriterUnit.pas"/>
         <DCCReference Include="ModflowPrtOcWriterUnit.pas"/>
+        <DCCReference Include="ModflowpPrpWriterUnit.pas"/>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

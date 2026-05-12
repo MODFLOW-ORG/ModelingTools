@@ -3511,6 +3511,7 @@ begin
   UpdateLayerStructure(NumberOfLayers);
 
   Mesh3D := Model.DisvGrid;
+  Mesh3D.GridAngle := GridAngle;
   Mesh2D := Mesh3D.TwoDGrid;
   CellCorners := Mesh2D.CellCorners;
   

@@ -148,9 +148,11 @@ begin
   rdgFarms.BeginUpdate;
   try
     GetFarmProperty(FarmProcess4.Farms, Ord(frLocation));
-    rdgFarms.Cells[Ord(fcTransient), Ord(frLocation)] :=
-      StaticTransient[Ord(FarmProcess4.Farms.FarmOption)-1];
-
+    case FarmProcess4.Farms.FarmOption of
+      foNotUsed, foStatic: rdgFarms.Cells[Ord(fcTransient), Ord(frLocation)] := StaticTransient[0];
+      foTransient: rdgFarms.Cells[Ord(fcTransient), Ord(frLocation)] := StaticTransient[1];
+    end;
+ 
     GetFarmProperty(FarmProcess4.EfficiencyOptions, Ord(frEfficiency));
     GetFarmProperty(FarmProcess4.EfficiencyImprovement, Ord(frEfficiencyImprove));
     GetFarmProperty(FarmProcess4.DeficiencyScenario, Ord(frDeficiency));

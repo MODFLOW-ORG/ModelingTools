@@ -3168,11 +3168,11 @@ Type
     function GetModelName: string;
     property CanCreateDataSets: Boolean read FCanCreateDataSets
       write FCanCreateDataSets;
-    function IsSame(AnOrderedCollection: TOrderedCollection): boolean; override;
   public
     procedure Assign(Source: TPersistent); override;
     constructor Create(Model: IModelForTOrderedCollection);
     destructor Destroy; override;
+    function IsSame(AnOrderedCollection: TOrderedCollection): boolean; override;
     property Items[Index: Integer]: TPrpPackageItem read GetItem write SetItem;  default;
     property OriginalId: Integer read FOriginalId write SetOriginalId;
     procedure FreeNotification(Item: IPrpBoundaryInterface);
@@ -7678,6 +7678,7 @@ Type
     procedure GetEslTemperatureUseList(Sender: TObject; NewUseList: TStringList);
     procedure GetMultilplierUseList(Sender: TObject; NewUseList: TStringList);
     procedure GetActiveUseList(Sender: TObject; NewUseList: TStringList);
+  protected
     procedure InitializeDisplay(TimeListIndex: Integer); override;
   public
     procedure AddRemoveRenameGweTemperatureTimeLists;

@@ -968,7 +968,8 @@ uses
   frameScreenObjectPrpUnit in 'frameScreenObjectPrpUnit.pas' {frameScreenObjectPrp: TFrame},
   ModflowPrpInterfaceUnit in 'ModflowPrpInterfaceUnit.pas',
   ModflowMipWriterUnit in 'ModflowMipWriterUnit.pas',
-  ModflowPrtOcWriterUnit in 'ModflowPrtOcWriterUnit.pas';
+  ModflowPrtOcWriterUnit in 'ModflowPrtOcWriterUnit.pas',
+  ModflowpPrpWriterUnit in 'ModflowpPrpWriterUnit.pas';
 
 {$R *.res}
 

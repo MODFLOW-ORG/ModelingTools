@@ -24,17 +24,21 @@ type
     property Model: TBaseModel read FModel;
   end;
 
+  TParticleFace = (plInterior, plTop, plBottom, plFront, plBack, plLeft, plRight);
+
   TParticleLocation = class(TCollectionItem)
   private
     FSphere: TGLSphere;
     FZ: double;
     FX: double;
     FY: double;
+    FParticleFace: TParticleFace;
     procedure SetX(const Value: double);
     procedure SetY(const Value: double);
     procedure SetZ(const Value: double);
     procedure SetSphereLocation;
     procedure InvalidateModel;
+    procedure SetParticleFace(const Value: TParticleFace);
   public
     Destructor Destroy; override;
     procedure CreateSphere(aParentOwner : TGLBaseSceneObject);
@@ -44,6 +48,7 @@ type
     property X: double read FX write SetX;
     property Y: double read FY write SetY;
     property Z: double read FZ write SetZ;
+    property ParticleFace: TParticleFace read FParticleFace write SetParticleFace;
   end;
 
   TParticleDistribution = (pdGrid, pdCylinder, pdSphere, pdIndividual, pdObjectLocation);
@@ -302,6 +307,11 @@ begin
   FSphere.Scale.Z := 0.2;
   FSphere.Material.FrontProperties.Diffuse.Color := clrOrange;
   SetSphereLocation;
+end;
+
+procedure TParticleLocation.SetParticleFace(const Value: TParticleFace);
+begin
+  FParticleFace := Value;
 end;
 
 procedure TParticleLocation.SetSphereLocation;
@@ -662,6 +672,15 @@ begin
       Item.X := X;
       Item.Y := Y;
       Item.Z := Z;
+      if X = 0 then
+      begin
+        Item.ParticleFace := plLeft;
+      end
+      else
+      begin
+        Assert(X=1);
+        Item.ParticleFace := plRight;
+      end;
     end;
   end;
 end;
@@ -694,6 +713,15 @@ begin
       Item.X := X;
       Item.Y := Y;
       Item.Z := Z;
+      if Y = 0 then
+      begin
+        Item.ParticleFace := plFront;
+      end
+      else
+      begin
+        Assert(Y=1);
+        Item.ParticleFace := plBack;
+      end;
     end;
   end;
 end;
@@ -726,6 +754,14 @@ begin
       Item.X := X;
       Item.Y := Y;
       Item.Z := Z;
+      if Z = 0 then
+      begin
+        Item.ParticleFace := plBottom;
+      end
+      else
+      begin
+        Item.ParticleFace := plTop;
+      end;
     end;
   end;
 end;

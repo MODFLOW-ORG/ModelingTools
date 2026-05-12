@@ -4,7 +4,7 @@ interface
 
 uses
  CustomModflowWriterUnit, ModflowPackageSelectionUnit, Vcl.Forms,
-  System.SysUtils;
+  System.SysUtils, System.Classes;
 
 Type
   TPrtOcWriter = class(TCustomFlowPackageWriter)
@@ -13,6 +13,7 @@ Type
     procedure WriteOptions;
     procedure WriteDimensions;
     procedure WriteTrackTimes;
+    procedure WriteStressPeriods;
   protected
     class function Extension: string; override;
   public
@@ -23,7 +24,8 @@ Type
 implementation
 
 uses
-  frmErrorsAndWarningsUnit;
+  frmErrorsAndWarningsUnit, PhastModelUnit, ModflowTimeUnit, frmProgressUnit,
+  GoPhastTypes;
 
 resourcestring
   STRACK_USERTIMENotSelected = 'TRACK_USERTIME not selected';
@@ -55,6 +57,53 @@ begin
   if not PrtModel.IsSelected then
   begin
     Exit;
+  end;
+  frmErrorsAndWarnings.BeginUpdate;
+  try
+    FNameOfFile := ChangeFileExt(AFileName, '') + '.' + PrtModel.ModelName + Extension;
+    FInputFileName := FNameOfFile;
+    WriteToNameFile('OC6', -1, FNameOfFile, foInput, Model, False, 'OC6');
+    OpenFile(FNameOfFile);
+    try
+      frmProgressMM.AddMessage('Writing PRT OC data');
+      frmProgressMM.AddMessage(StrWritingDataSet0);
+      WriteDataSet0;
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
+      begin
+        Exit;
+      end;
+
+      frmProgressMM.AddMessage(StrWritingOptions);
+      WriteOptions;
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
+      begin
+        Exit;
+      end;
+
+      WriteDimensions;
+
+      frmProgressMM.AddMessage('  Writing TRACKTIMES');
+      WriteTrackTimes;
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
+      begin
+        Exit;
+      end;
+
+      frmProgressMM.AddMessage(StrWritingStressPerio);
+      WriteStressPeriods;
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
+      begin
+        Exit;
+      end;
+    finally
+      CloseFile;
+    end;
+  finally
+    frmErrorsAndWarnings.EndUpdate;
   end;
 end;
 
@@ -177,9 +226,151 @@ begin
   end;
 end;
 
-procedure TPrtOcWriter.WriteTrackTimes;
+procedure TPrtOcWriter.WriteStressPeriods;
+var
+  StressPeriods: TModflowStressPeriods;
+  APeriodItem: TPrpPeriodDataItem;
+  StartPeriod: Integer;
+  EndPeriod: Integer;
 begin
+  if PrtModel.PeriodData.Count > 0 then
+  begin
+    StressPeriods := (Model as TPhastModel).ModflowFullStressPeriods;
+    EndPeriod := -1;
+    for var PeriodIndex := 0 to PrtModel.PeriodData.Count - 1 do
+    begin
+      APeriodItem := PrtModel.PeriodData[PeriodIndex];
+      StartPeriod := StressPeriods.FindStressPeriod(APeriodItem.StartTime);
+      if EndPeriod >= 0 then
+      begin
+        if (StartPeriod > EndPeriod+1) then
+        begin
+          WriteBeginPeriod(EndPeriod+1);
+          WriteEndPeriod;
+        end;
+      end;
+      EndPeriod := StressPeriods.FindEndStressPeriod(APeriodItem.EndTime);
+      WriteBeginPeriod(StartPeriod);
 
+      try
+        if APeriodItem.OCMethod in [pomBoth, pomPrint] then
+        begin
+          if APeriodItem.All then
+          begin
+            WriteString('  PRINT BUDGET ALL');
+            NewLine;
+          end;
+
+          if APeriodItem.First then
+          begin
+            WriteString('  PRINT BUDGET FIRST');
+            NewLine;
+          end;
+
+          if APeriodItem.Last then
+          begin
+            WriteString('  PRINT BUDGET LAST');
+            NewLine;
+          end;
+
+          if APeriodItem.Frequency > 0 then
+          begin
+            WriteString('  PRINT BUDGET FREQUENCY ');
+            WriteInteger(APeriodItem.Frequency);
+            NewLine;
+          end;
+
+          if APeriodItem.Steps.Count > 0 then
+          begin
+            WriteString('  PRINT BUDGET STEPS ');
+            for var StepIndex := 0 to APeriodItem.Steps.Count - 1 do
+            begin
+              WriteInteger(APeriodItem.Steps[StepIndex]);
+            end;
+            NewLine;
+          end;
+        end;
+
+        if APeriodItem.OCMethod in [pomBoth, pomSave] then
+        begin
+          if APeriodItem.All then
+          begin
+            WriteString('  SAVE BUDGET ALL');
+            NewLine;
+          end;
+
+          if APeriodItem.First then
+          begin
+            WriteString('  SAVE BUDGET FIRST');
+            NewLine;
+          end;
+
+          if APeriodItem.Last then
+          begin
+            WriteString('  SAVE BUDGET LAST');
+            NewLine;
+          end;
+
+          if APeriodItem.Frequency > 0 then
+          begin
+            WriteString('  SAVE BUDGET FREQUENCY ');
+            WriteInteger(APeriodItem.Frequency);
+            NewLine;
+          end;
+
+          if APeriodItem.Steps.Count > 0 then
+          begin
+            WriteString('  SAVE BUDGET STEPS ');
+            for var StepIndex := 0 to APeriodItem.Steps.Count - 1 do
+            begin
+              WriteInteger(APeriodItem.Steps[StepIndex]);
+            end;
+            NewLine;
+          end;
+        end;
+
+      finally
+        WriteEndPeriod;
+      end;
+
+      if (EndPeriod >= 0) then
+      begin
+        if EndPeriod + 1 < StressPeriods.Count then
+        begin
+          WriteBeginPeriod(EndPeriod+1);
+          WriteEndPeriod;
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TPrtOcWriter.WriteTrackTimes;
+var
+  StartingTime: double;
+  StressPeriods: TModflowStressPeriods;
+  ATime: double;
+begin
+  if PrtModel.TrackTimes.Count > 0 then
+  begin
+    WriteString('  BEGIN TRACKTIMES');
+    NewLine;
+
+    try
+      StressPeriods := (Model as TPhastModel).ModflowFullStressPeriods;
+      StartingTime := StressPeriods.First.StartTime;
+
+      for var TimeIndex := 0 to PrtModel.TrackTimes.Count - 1 do
+      begin
+        ATime := PrtModel.TrackTimes[TimeIndex].Value;
+        WriteFloat(ATime-StartingTime);
+        NewLine;
+      end;
+    finally
+      WriteString('  End TRACKTIMES');
+      NewLine;
+    end;
+  end;
 end;
 
 end.

@@ -15,12 +15,12 @@ type
     procedure WriteRetardationFactor;
     procedure WriteIZone;
   protected
+    function Package: TModflowPackageSelection; override;
     class function Extension: string; override;
   public
     property PrtModel: TPrtModel read FPrtModel write FPrtModel;
     procedure WriteFile(const AFileName: string);
   end;
-
 
 implementation
 
@@ -36,6 +36,12 @@ begin
   result := '.mip';
 end;
 
+function TMipWriter.Package: TModflowPackageSelection;
+begin
+  result := nil;
+  Assert(False);
+end;
+
 procedure TMipWriter.WriteFile(const AFileName: string);
 begin
   Assert(PrtModel <> nil);
@@ -47,7 +53,7 @@ begin
   try
     FNameOfFile := ChangeFileExt(AFileName, '') + '.' + PrtModel.ModelName + Extension;
     FInputFileName := FNameOfFile;
-    WriteToNameFile('MIP', -1, FNameOfFile, foInput, Model, False, 'MIP');
+    WriteToNameFile('MIP6', -1, FNameOfFile, foInput, Model, False, 'MIP6');
     OpenFile(FNameOfFile);
     try
       frmProgressMM.AddMessage('Writing MIP data');

@@ -523,6 +523,8 @@ type
       Layer: Integer);
   end;
 
+  TModflowMeshType = (mtUnknown, mtQuad, mtPolygon);
+
   TModflowDisvGrid = class(TCustomMesh, IDrawMesh, IMesh3D)
   private
     FTwoDGrid: TModflowIrregularGrid2D;
@@ -565,6 +567,7 @@ type
     FEdgesGLIndex: Integer;
     FDrawCellNumbers: Boolean;
     FNumberFont: TFont;
+    FMeshType: TModflowMeshType;
     procedure SetLayers(const Value: TModflowIrregularLayers);
     procedure SetTwoDGrid(const Value: TModflowIrregularGrid2D);
     function GetCell(Layer, Col: Integer): TModflowDisVCell;
@@ -628,6 +631,7 @@ type
     procedure SetDrawCellNumbers(const Value: Boolean);
     procedure SetNumberFont(const Value: TFont);
     procedure OnChangeNumberFont(Sender: TObject);
+    procedure SeTModflowMeshType(const Value: TModflowMeshType);
   protected
     { TODO -cMODFLOW 6 : These needs to be completed }
     function GetActiveNode(Index: integer): INode;
@@ -750,12 +754,15 @@ type
     property DrawCellNumbers: Boolean read FDrawCellNumbers write SetDrawCellNumbers;
     Property NumberFont: TFont read FNumberFont write SetNumberFont;
     procedure GetElementsIntfOnCrossSection(ElementList: TIElement2DList);
+    procedure UpdateMeshType;
   published
     procedure Loaded;
     property TwoDGrid: TModflowIrregularGrid2D read FTwoDGrid write SetTwoDGrid;
     property Layers: TModflowIrregularLayers read FLayers write SetLayers;
     property CrossSection: TMeshCrossSectionLine read GetCrossSection
       write SetCrossSection;
+    property GridAngle: double read FStoredBlockAngle write FStoredBlockAngle;
+    property MeshType: TModflowMeshType read FMeshType write SeTModflowMeshType;
   end;
 
   TNeighborConnection = (ncVertical, ncHorizontal, ncVerticallyStaggered);
@@ -7907,6 +7914,11 @@ begin
   FLayers.Assign(Value);
 end;
 
+procedure TModflowDisvGrid.SeTModflowMeshType(const Value: TModflowMeshType);
+begin
+  FMeshType := Value;
+end;
+
 procedure TModflowDisvGrid.SetSelectedLayer(Value: Integer);
 begin
   if Value >= LayerCount then
@@ -8150,6 +8162,77 @@ begin
     end;
   end;
 
+end;
+
+procedure TModflowDisvGrid.UpdateMeshType;
+const
+  Epsilon  = 1E-7;
+var
+  ElementOutline: TElementOutline;
+  ASegment: TSegment2D;
+  AnAngle: double;
+  Angle1Assigned: Boolean;
+  Angle2Assigned: Boolean;
+  Angle1: double;
+  Angle2: double;
+  Delta: double;
+begin
+  if MeshType = mtUnknown then
+  begin
+    MeshType := mtQuad;
+    Angle1Assigned := False;
+    Angle2Assigned := False;
+    for var CellIndex := 0 to TwoDGrid.ElementCount - 1 do
+    begin
+      ElementOutline := TwoDGrid.GetElementOutline(CellIndex);
+      if CellIndex = 0 then
+      begin
+        for var PointIndex := 0 to ElementOutline.Count - 1 do
+        begin
+          ASegment := ElementOutline.Segments[PointIndex];
+          if ASegment[2].x = ASegment[1].x then
+          begin
+            AnAngle := Pi/2;
+          end
+          else
+          begin
+            AnAngle := ArcTan((ASegment[2].y - ASegment[1].y)/(ASegment[2].x - ASegment[1].x))
+          end;
+          if not Angle1Assigned then
+          begin
+            Angle1 := AnAngle;
+            Angle1Assigned := True;
+          end
+          else
+          begin
+            Delta := Abs(Angle1-AnAngle);
+            if (Abs(Delta) < Epsilon) or ((Abs(Abs(Delta)-Pi)) < Epsilon) then
+            begin
+              Continue;
+            end;
+            if Abs(Delta-Pi/2) < Epsilon then
+            begin
+              if not Angle2Assigned then
+              begin
+                Angle2 := AnAngle;
+                Angle2Assigned := True;
+              end
+              else
+              begin
+                Delta := Abs(Angle2-AnAngle);
+                Assert( (Abs(Delta) < Epsilon) or ((Abs(Abs(Delta)-Pi)) < Epsilon) );
+              end;
+            end
+            else
+            begin
+              MeshType := mtPolygon;
+              Exit;
+            end;
+          end;
+        end;
+      end;
+    end;
+  end;
 end;
 
 { TNeighborItem }
