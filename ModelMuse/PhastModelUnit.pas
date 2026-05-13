@@ -10514,6 +10514,8 @@ const
 //                MODFLOW 6 models.
 //               Bug fix: Fixed display of Data visualization dialog box in some
 //                models.
+//               Bug fix: fixed getting some FMP4 data in the MODFLOW
+//                Packages and Programs dialog box.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

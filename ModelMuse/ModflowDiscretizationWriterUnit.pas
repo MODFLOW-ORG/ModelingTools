@@ -553,7 +553,7 @@ begin
     Model.Grid.ColumnCount,0));
   WriteCorner('Lower right corner:', Model.Grid.TwoDElementCorner(
     Model.Grid.ColumnCount,Model.Grid.RowCount));
-  GridAngle := Model.Grid.GridAngle * 180 / Pi;
+  GridAngle := Model.Grid.GridAngleDegrees;
   WriteCommentLine('Grid angle (in degrees counterclockwise): ' + FortranFloatToStr(GridAngle));
   if Model.ModelSelection = msModflow2015 then
   begin

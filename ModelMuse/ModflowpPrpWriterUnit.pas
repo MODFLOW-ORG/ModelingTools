@@ -40,7 +40,8 @@ implementation
 uses
   ScreenObjectUnit, frmProgressUnit, frmErrorsAndWarningsUnit, GoPhastTypes,
   ModflowPrpUnit, CellLocationUnit, ModpathParticleUnit,
-  ModflowIrregularMeshUnit, ModflowGridUnit, FastGEO;
+  ModflowIrregularMeshUnit, ModflowGridUnit, FastGEO, MeshRenumberingTypes,
+  System.Math;
 
 { TPrpWriter }
 
@@ -73,14 +74,28 @@ var
     APoint2D: TPoint2D;
     LayerTop: double;
     LayerBottom: double;
+    ACellI: IElement2D;
+    Node1: TPoint2D;
+    Node2: TPoint2D;
+    Node3: TPoint2D;
+    DeltaX: double;
+    DeltaY: double;
+    Angle1: double;
+    Angle2: double;
+    DisvCell: TModflowDisVCell;
   begin
+  // This assumes that Particle.x, Particle.y, and Paricle.z vary from 0 to 1.
     result := AParticle;
     if ModflowGrid <> nil then
     begin
+      DeltaX := ModflowGrid.ColumnPositions[AParticle.Column +1] -
+        ModflowGrid.ColumnPositions[AParticle.Column];
+      DeltaY := ModflowGrid.RowPositions[AParticle.Row] -
+        ModflowGrid.RowPositions[AParticle.Row +1];
       APoint2D.X := (ModflowGrid.ColumnPositions[AParticle.Column] +
-        ModflowGrid.ColumnPositions[AParticle.Column +1])/2 + AParticle.X;
+        ModflowGrid.ColumnPositions[AParticle.Column +1])/2 + DeltaX*AParticle.X;
       APoint2D.Y := (ModflowGrid.RowPositions[AParticle.Row] +
-        ModflowGrid.RowPositions[AParticle.Row +1])/2 + AParticle.Y;
+        ModflowGrid.RowPositions[AParticle.Row +1])/2 + DeltaY*AParticle.Y;
       APoint2D := ModflowGrid.RotateFromGridCoordinatesToRealWorldCoordinates(APoint2D);
       result.X := APoint2D.X;
       result.Y := APoint2D.Y;
@@ -90,7 +105,6 @@ var
     end
     else
     begin
-      // Finish this.
       Assert(DisvGrid <> nil);
       if DisvGrid.MeshType = mtUnknown then
       begin
@@ -98,11 +112,37 @@ var
       end;
       if DisvGrid.MeshType = mtQuad then
       begin
-
+        ACellI := DisvGrid.TwoDGrid.Cells[AParticle.Column];
+        APoint2D := ACellI.Center;
+        Node1 := ACellI.Nodes[0].Location;
+        Node2 := ACellI.Nodes[1].Location;
+        Node3 := ACellI.Nodes[2].Location;
+        Angle1 := ArcTan2(Node2.y - Node1.y, Node2.x - Node1.x);
+        Angle2 := ArcTan2(Node3.y - Node2.y, Node3.x - Node2.x);
+        DeltaX := Distance(Node1, Node2) * (AParticle.X-0.5);
+        DeltaY := Distance(Node2, Node3) * (AParticle.Y-0.5);
+        APoint2D := ProjectPoint(APoint2D, Angle1, DeltaX);
+        APoint2D := ProjectPoint(APoint2D, Angle2, DeltaY);
+        result.X := APoint2D.X;
+        result.Y := APoint2D.Y;
+        DisvCell := DisvGrid.Cells[AParticle.Layer, AParticle.Column];
+        LayerTop := DisvCell.Top;
+        LayerBottom := DisvCell.Bottom;
+        result.Z := AParticle.Z * (LayerTop-LayerBottom) + LayerBottom;
       end
       else
       begin
         Assert(DisvGrid.MeshType = mtPolygon);
+        ACellI := DisvGrid.TwoDGrid.Cells[AParticle.Column];
+        APoint2D := ACellI.Center;
+        DeltaX := (ACellI.MaxX - ACellI.MinX) * (AParticle.X-0.5);;
+        DeltaY := (ACellI.MaxY - ACellI.MinY) * (AParticle.Y-0.5);
+        result.X := APoint2D.X + DeltaX;
+        result.Y := APoint2D.Y + DeltaY;
+        DisvCell := DisvGrid.Cells[AParticle.Layer, AParticle.Column];
+        LayerTop := DisvCell.Top;
+        LayerBottom := DisvCell.Bottom;
+        result.Z := AParticle.Z * (LayerTop-LayerBottom) + LayerBottom;
       end;
     end;
   end;
@@ -180,7 +220,7 @@ begin
             PrtParticle.X := AParticle.X;
             PrtParticle.Y := AParticle.Y;
             PrtParticle.Z := AParticle.Z;
-            // Finish this
+            PrtParticle := ProjectParticleLocation(AParticle);
           end;
         end;
 

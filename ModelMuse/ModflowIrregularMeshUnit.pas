@@ -8182,6 +8182,8 @@ begin
     MeshType := mtQuad;
     Angle1Assigned := False;
     Angle2Assigned := False;
+    Angle1 := 0;
+    Angle2 := 0;
     for var CellIndex := 0 to TwoDGrid.ElementCount - 1 do
     begin
       ElementOutline := TwoDGrid.GetElementOutline(CellIndex);
@@ -8232,6 +8234,7 @@ begin
         end;
       end;
     end;
+    GridAngle := Angle1;
   end;
 end;
 
