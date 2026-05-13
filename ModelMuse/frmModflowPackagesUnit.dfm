@@ -26,7 +26,7 @@ inherited frmModflowPackages: TfrmModflowPackages
     Top = 0
     Width = 577
     Height = 513
-    ActivePage = jvspPRT
+    ActivePage = jvspFMP4
     PropagateEnable = False
     Align = alClient
     OnChange = jvplPackagesChange
@@ -13062,6 +13062,7 @@ inherited frmModflowPackages: TfrmModflowPackages
         inherited cpnlgrp1: TCategoryPanelGroup
           Width = 577
           Height = 410
+          VertScrollBar.Position = 0
           ExplicitWidth = 577
           ExplicitHeight = 410
           inherited cpnlWaterBalanceRegions: TCategoryPanel
@@ -13210,8 +13211,10 @@ inherited frmModflowPackages: TfrmModflowPackages
             end
           end
           inherited cpnlOutput: TCategoryPanel
+            Top = 0
             Height = 310
             StyleElements = [seFont, seClient, seBorder]
+            ExplicitTop = 0
             ExplicitWidth = 556
             ExplicitHeight = 310
             inherited clbPrint: TCheckListBox
@@ -13227,6 +13230,7 @@ inherited frmModflowPackages: TfrmModflowPackages
               Width = 554
               StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 238
+              ExplicitWidth = 554
               inherited lblPrintRouting: TLabel
                 Width = 280
                 Height = 18
@@ -15104,11 +15108,14 @@ inherited frmModflowPackages: TfrmModflowPackages
       StateImages = ilCheckImages
       TabOrder = 1
       OnChange = tvPackagesChange
+      OnCheckStateChanged = tvPackagesCheckStateChanged
+      OnCheckStateChanging = tvPackagesCheckStateChanging
       OnCustomDrawItem = tvPackagesCustomDrawItem
       OnExpanded = tvPackagesExpanded
       OnMouseDown = tvPackagesMouseDown
       OnMouseUp = tvPackagesMouseUp
       ItemHeight = 20
+      ExplicitLeft = 5
     end
   end
   object rbwLpfParamCountController: TRbwController

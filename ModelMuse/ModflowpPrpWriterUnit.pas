@@ -220,7 +220,7 @@ begin
             PrtParticle.X := AParticle.X;
             PrtParticle.Y := AParticle.Y;
             PrtParticle.Z := AParticle.Z;
-            PrtParticle := ProjectParticleLocation(AParticle);
+            PrtParticle := ProjectParticleLocation(PrtParticle);
           end;
         end;
 

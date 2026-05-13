@@ -10509,8 +10509,7 @@ const
 //                identical locations, the duplicate points will be ignored.
 //               Enhancement: Added the ability to export objects to shapefiles
 //                when they define MODFLOW 6 observation locations.
-
-//               Bug fix: Fixed display of warning about unconnected grids in
+//    '5.4.0.11' Bug fix: Fixed display of warning about unconnected grids in
 //                MODFLOW 6 models.
 //               Bug fix: Fixed display of Data visualization dialog box in some
 //                models.
@@ -10522,7 +10521,7 @@ const
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.10';
+  IIModelVersion = '5.4.0.11';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

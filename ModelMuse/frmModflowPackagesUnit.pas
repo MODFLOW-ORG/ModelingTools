@@ -414,6 +414,11 @@ type
     procedure frameGweProcessrcSelectionControllerEnabledChange(
       Sender: TObject);
     procedure frameGweProcessrgSimulationChoiceClick(Sender: TObject);
+    procedure tvPackagesCheckStateChanged(Sender: TCustomTreeView; Node: TTreeNode;
+        CheckState: TNodeCheckState);
+    procedure tvPackagesCheckStateChanging(Sender: TCustomTreeView; Node:
+        TTreeNode; NewCheckState, OldCheckState: TNodeCheckState; var AllowChange:
+        Boolean);
   private
     FIsLoaded: boolean;
     CurrentParameterType: TParameterType;
@@ -499,6 +504,7 @@ type
     function ValidMT3D: Boolean;
     function Fmp4Warnings: string;
     function ValidSorptionChoices: Boolean;
+    procedure EnsureStateIndexes;
     property CurrentPackages: TModflowPackages read FCurrentPackages
       write SetCurrentPackages;
     procedure StorePackageDataInFrames(Packages: TModflowPackages);
@@ -1936,7 +1942,6 @@ begin
       framePcg.Selected := True;
     end;
   end;
-
 end;
 
 procedure TfrmModflowPackages.framePkgRCHrcSelectionControllerEnabledChange(
@@ -2233,6 +2238,22 @@ procedure TfrmModflowPackages.FormResize(Sender: TObject);
 begin
   inherited;
   AdjustDroppedWidth(self);
+end;
+
+procedure TfrmModflowPackages.EnsureStateIndexes;
+var
+  ANode: TTreeNode;
+  StateIndex: Integer;
+begin
+// For an unknown reason, some nodes don't show the correct checkbox state.
+  ANode := tvPackages.Items.GetFirstNode;
+  while ANode <> nil do
+  begin
+    StateIndex := ANode.StateIndex;
+    ANode.StateIndex := -3;
+    ANode.StateIndex := StateIndex;
+    ANode := ANode.GetNext
+  end;
 end;
 
 procedure TfrmModflowPackages.FormShow(Sender: TObject);
@@ -2949,6 +2970,8 @@ begin
     begin
       FParticleTransportNode := nil;
     end;
+  {$ELSE}
+    FParticleTransportNode := nil;
   {$ENDIF}
 
     FChemNode := AddChildNode(StrChemSpecies, StrChemSpeciesMT3DA,
@@ -3201,6 +3224,9 @@ begin
     DrnSelectedChange(nil);
     GhbSelectedChange(nil);
     RivSelectedChange(nil);
+    NwtSelectedChange(nil);
+    UpwSelectedChange(nil);
+    Fmp4SelectedChange(nil);
 
     framePkgBuoyancy.GetMt3dmsChemSpecies(
       frmGoPhast.PhastModel.MobileComponents);
@@ -4726,6 +4752,7 @@ procedure TfrmModflowPackages.tvPackagesExpanded(Sender: TObject;
 begin
   inherited;
   SelectNodeOfChildSelectedPackage(Node);
+  EnsureStateIndexes;;
 end;
 
 function TfrmModflowPackages.NodeToFrame(Node: TTreeNode): TFramePackage;
@@ -6041,6 +6068,22 @@ begin
   UpdateFlowParamGrid(Node, frameLpfParameterDefinition,
     FSteadyParameters, rbwLpfParamCountController);
 end;
+
+procedure TfrmModflowPackages.tvPackagesCheckStateChanged(Sender:
+    TCustomTreeView; Node: TTreeNode; CheckState: TNodeCheckState);
+begin
+  inherited;
+  // don't use this without considering EnsureStateIndexes;
+end;
+
+procedure TfrmModflowPackages.tvPackagesCheckStateChanging(Sender:
+    TCustomTreeView; Node: TTreeNode; NewCheckState, OldCheckState:
+    TNodeCheckState; var AllowChange: Boolean);
+begin
+  inherited;
+  // don't use this without considering EnsureStateIndexes;
+end;
+
 
 { TTempPackageItem }
 
