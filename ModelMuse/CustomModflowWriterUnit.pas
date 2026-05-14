@@ -404,6 +404,8 @@ end;
       RelativeFileName: boolean = False; PackageName: String = ''); overload;
     procedure WriteToGwtNameFile(const Ftype: string; FileName: string;
       SpeciesIndex: Integer; PackageName: string = '');
+    procedure WriteToPrtNameFile(const Ftype: string; FileName: string;
+      PrtModel: TPrtModel; PackageName: string = '');
     class procedure WriteToMt3dMsNameFile(const Ftype: string;
       const UnitNumber: integer; FileName: string; FileOption: TFileOption;
       AModel: TCustomModel; RelativeFileName: boolean = False; Option: String = '');
@@ -1120,6 +1122,26 @@ end;
   end;
 
   TMf6GwtNameWriters = TObjectList<TMf6GwtNameWriter>;
+
+  TPrtNameWriter = class(TCustomModflowWriter)
+    FFileName: string;
+    FPrtModel: TPrtModel;
+    FPackageLines: TStringList;
+    procedure PrintFlowsOption;
+    procedure WriteOptions;
+    procedure WritePackages;
+  protected
+    class function Extension: string; override;
+  public
+    Constructor Create(AModel: TCustomModel; PrtModel: TPrtModel; const FileName: string;
+      EvaluationType: TEvaluationType); reintroduce;
+    destructor Destroy; override;
+    procedure AddPackageFile(FileType: string; FileName: string;
+      PackageName: string = '');
+    procedure WriteFile;
+  end;
+
+  TPrtNameWriters = TObjectList<TPrtNameWriter>;
 
   TModelDataList = TList<TModelData>;
 
@@ -4550,6 +4572,28 @@ begin
   begin
     CurrentNameFileWriter.NameFile.Add(Line);
   end;
+end;
+
+procedure TCustomModflowWriter.WriteToPrtNameFile(const Ftype: string;
+  FileName: string; PrtModel: TPrtModel; PackageName: string);
+var
+  Mf6PrtNameWriters: TPrtNameWriters;
+  Mf6PrtNameWriter: TPrtNameWriter;
+  PrtIndex: Integer;
+begin
+  Mf6PrtNameWriters := Model.Mf6PrtNameWriters as TPrtNameWriters;
+  PrtIndex := -1;
+  for var Index := 0 to Model.ModflowPackages.PrtModels.Count - 1 do
+  begin
+    if Model.ModflowPackages.PrtModels[Index].PrtModel = PrtModel then
+    begin
+      PrtIndex := Index;
+      break;
+    end;
+  end;
+  Assert(PrtIndex >= 0);
+  Mf6PrtNameWriter := Mf6PrtNameWriters[PrtIndex];
+  Mf6PrtNameWriter.AddPackageFile(Ftype, FileName, PackageName);
 end;
 
 class procedure TCustomModflowWriter.WriteToNameFile(const Ftype: string;
@@ -11827,6 +11871,122 @@ begin
     frmFormulaErrors.AddFormulaError(GetObjectString(ErrorObject),
       DataSetErrorString, Formula, StrTheFormulaShouldInt);
   end;
+end;
+
+{ TPrtNameWriter }
+
+procedure TPrtNameWriter.AddPackageFile(FileType, FileName,
+  PackageName: string);
+begin
+  if PackageName = '' then
+  begin
+    FPackageLines.Add(Format('  %0:s %1:s', [FileType, ExtractFileName(FileName)]));
+  end
+  else
+  begin
+    FPackageLines.Add(Format('  %0:s %1:s %2:s',
+      [FileType, ExtractFileName(FileName),PackageName]));
+  end;
+  Model.AddModelInputFile(FileName)
+end;
+
+constructor TPrtNameWriter.Create(AModel: TCustomModel; PrtModel: TPrtModel;
+  const FileName: string; EvaluationType: TEvaluationType);
+begin
+  inherited Create(AModel, EvaluationType);
+  FPackageLines := TStringList.Create;
+  FPrtModel := PrtModel;
+  FFileName := FileName;
+
+end;
+
+destructor TPrtNameWriter.Destroy;
+begin
+  FPackageLines.Free;
+  inherited;
+end;
+
+class function TPrtNameWriter.Extension: string;
+begin
+  result := '.nam'
+end;
+
+procedure TPrtNameWriter.PrintFlowsOption;
+var
+  OutputControl: TModflowOutputControl;
+begin
+  OutputControl := Model.ModflowOutputControl;
+  if OutputControl.SaveCellFlows in [csfListing, csfBoth] then
+  begin
+    WriteString('  PRINT_FLOWS');
+    NewLine;
+  end;
+end;
+
+procedure TPrtNameWriter.WriteFile;
+var
+  SimNameWriter: IMf6_SimNameFileWriter;
+  ModelData: TModelData;
+begin
+
+  ModelData.ModelType := mtParticleTransport;
+  ModelData.ModelName := FPrtModel.ModelName;
+  ModelData.SolutionGroup := StrSolutionGroupName;
+  ModelData.MaxIterations := Model.ModflowPackages.SmsPackage.SolutionGroupMaxIteration;
+  ModelData.ImsFile := ChangeFileExt(FFileName, '.ims');
+  Model.AddModelInputFile(ModelData.ImsFile);
+  ModelData.ModelNameFile := FFileName;
+
+  SimNameWriter := Model.SimNameWriter;
+  SimNameWriter.AddModel(ModelData);
+  // write GWT name file.
+
+  FNameOfFile := FFileName;
+  OpenFile(FNameOfFile);
+  try
+    WriteCommentLine(File_Comment('PRT name file for ' + FPrtModel.ModelName));
+    WriteOptions;
+    WritePackages;
+  finally
+    CloseFile;
+  end;
+end;
+
+procedure TPrtNameWriter.WriteOptions;
+var
+  ListFileName: string;
+begin
+  WriteBeginOptions;
+  try
+    ListFileName := ChangeFileExt(FFileName, '.lst');
+    Model.AddModelOutputFile(ListFileName);
+    WriteString('  LIST ');
+    WriteString(ExtractFileName(ListFileName));
+    NewLine;
+
+    PrintListInputOption;
+    PrintFlowsOption;
+    WriteSaveFlowsOption;
+  finally
+    WriteEndOptions;
+  end;
+end;
+
+procedure TPrtNameWriter.WritePackages;
+var
+  PackageIndex: Integer;
+begin
+  WriteString('BEGIN PACKAGES');
+  NewLine;
+
+  for PackageIndex := 0 to FPackageLines.Count - 1 do
+  begin
+    WriteString(FPackageLines[PackageIndex]);
+    NewLine;
+  end;
+
+  WriteString('END PACKAGES');
+  NewLine;
 end;
 
 initialization

@@ -62,7 +62,7 @@ begin
   try
     FNameOfFile := ChangeFileExt(AFileName, '') + '.' + PrtModel.ModelName + Extension;
     FInputFileName := FNameOfFile;
-    WriteToNameFile('OC6', -1, FNameOfFile, foInput, Model, False, 'OC6');
+    WriteToPrtNameFile('OC6', FNameOfFile, PrtModel, 'OC6');
     OpenFile(FNameOfFile);
     try
       frmProgressMM.AddMessage('Writing PRT OC data');

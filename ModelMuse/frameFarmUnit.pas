@@ -3078,7 +3078,7 @@ begin
   AFrame.PestUsedOnCol[Ord(ccStartTime)] := False;
   AFrame.PestUsedOnCol[Ord(ccEndTime)] := False;
 
-  if MaxIndex >= 0 then
+  if (MaxIndex >= 0) and (EfficiencyCollection.Count >= MaxIndex) then
   begin
     FarmEff := EfficiencyCollection[MaxIndex];
     Grid := AFrame.Grid;

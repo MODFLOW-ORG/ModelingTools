@@ -4,7 +4,7 @@ interface
 
 uses
   CustomModflowWriterUnit, ModflowPackageSelectionUnit, Vcl.Forms,
-  System.SysUtils, System.Generics.Collections, PhastModelUnit;
+  System.SysUtils, System.Generics.Collections, PhastModelUnit, System.Classes;
 
 type
   TPrtParticle = record
@@ -14,6 +14,7 @@ type
     X: double;
     Y: double;
     Z: double;
+    ScreenObjectName: string;
   end;
   TPrtParticleList = TList<TPrtParticle>;
 
@@ -23,6 +24,10 @@ type
     FPrpPackage: TPrpPackage;
     FParticles: TPrtParticleList;
     procedure WriteOptions;
+    procedure WriteDimensions;
+    procedure WritePackageData;
+    procedure WriteReleaseTimes;
+    procedure WriteStressPeriods;
    protected
     function Package: TModflowPackageSelection; override;
     class function Extension: string; override;
@@ -41,7 +46,7 @@ uses
   ScreenObjectUnit, frmProgressUnit, frmErrorsAndWarningsUnit, GoPhastTypes,
   ModflowPrpUnit, CellLocationUnit, ModpathParticleUnit,
   ModflowIrregularMeshUnit, ModflowGridUnit, FastGEO, MeshRenumberingTypes,
-  System.Math;
+  System.Math, ModflowTimeUnit;
 
 { TPrpWriter }
 
@@ -69,6 +74,10 @@ var
   DisvGrid: TModflowDisvGrid;
   ModflowGrid: TModflowGrid;
   PrtParticle: TPrtParticle;
+  APoint2D: TPoint2D;
+  LayerTop: double;
+  LayerBottom: double;
+  DisvCell: TModflowDisVCell;
   function ProjectParticleLocation(AParticle: TPrtParticle): TPrtParticle;
   var
     APoint2D: TPoint2D;
@@ -83,6 +92,8 @@ var
     Angle1: double;
     Angle2: double;
     DisvCell: TModflowDisVCell;
+    IntersectSegment: TSegment2D;
+    ACell2D: TModflowIrregularCell2D;
   begin
   // This assumes that Particle.x, Particle.y, and Paricle.z vary from 0 to 1.
     result := AParticle;
@@ -99,9 +110,12 @@ var
       APoint2D := ModflowGrid.RotateFromGridCoordinatesToRealWorldCoordinates(APoint2D);
       result.X := APoint2D.X;
       result.Y := APoint2D.Y;
-      LayerTop := ModflowGrid.LayerElevations[AParticle.Column, AParticle.Row, AParticle.Layer];
-      LayerBottom := ModflowGrid.LayerElevations[AParticle.Column, AParticle.Row, AParticle.Layer+1];
-      result.Z := AParticle.Z * (LayerTop-LayerBottom) + LayerBottom;
+      if not PrpPackage.LocalZ then
+      begin
+        LayerTop := ModflowGrid.LayerElevations[AParticle.Column, AParticle.Row, AParticle.Layer];
+        LayerBottom := ModflowGrid.LayerElevations[AParticle.Column, AParticle.Row, AParticle.Layer+1];
+        result.Z := AParticle.Z * (LayerTop-LayerBottom) + LayerBottom;
+      end;
     end
     else
     begin
@@ -123,12 +137,26 @@ var
         DeltaY := Distance(Node2, Node3) * (AParticle.Y-0.5);
         APoint2D := ProjectPoint(APoint2D, Angle1, DeltaX);
         APoint2D := ProjectPoint(APoint2D, Angle2, DeltaY);
+        ACell2D := DisvGrid.TwoDGrid.Cells[AParticle.Column];
+        if not ACell2D.PointInside(APoint2D) then
+        begin
+          IntersectSegment[1] := ACellI.Center;
+          IntersectSegment[2] := APoint2D;
+          if not ACell2D.IntersectionPoint(IntersectSegment, APoint2D) then
+          begin
+            Assert(False);
+          end;
+        end;
+
         result.X := APoint2D.X;
         result.Y := APoint2D.Y;
-        DisvCell := DisvGrid.Cells[AParticle.Layer, AParticle.Column];
-        LayerTop := DisvCell.Top;
-        LayerBottom := DisvCell.Bottom;
-        result.Z := AParticle.Z * (LayerTop-LayerBottom) + LayerBottom;
+        if not PrpPackage.LocalZ then
+        begin
+          DisvCell := DisvGrid.Cells[AParticle.Layer, AParticle.Column];
+          LayerTop := DisvCell.Top;
+          LayerBottom := DisvCell.Bottom;
+          result.Z := AParticle.Z * (LayerTop-LayerBottom) + LayerBottom;
+        end;
       end
       else
       begin
@@ -139,10 +167,13 @@ var
         DeltaY := (ACellI.MaxY - ACellI.MinY) * (AParticle.Y-0.5);
         result.X := APoint2D.X + DeltaX;
         result.Y := APoint2D.Y + DeltaY;
-        DisvCell := DisvGrid.Cells[AParticle.Layer, AParticle.Column];
-        LayerTop := DisvCell.Top;
-        LayerBottom := DisvCell.Bottom;
-        result.Z := AParticle.Z * (LayerTop-LayerBottom) + LayerBottom;
+        if not PrpPackage.LocalZ then
+        begin
+          DisvCell := DisvGrid.Cells[AParticle.Layer, AParticle.Column];
+          LayerTop := DisvCell.Top;
+          LayerBottom := DisvCell.Bottom;
+          result.Z := AParticle.Z * (LayerTop-LayerBottom) + LayerBottom;
+        end;
       end;
     end;
   end;
@@ -206,11 +237,45 @@ begin
         PrtParticle.Layer := ACell.Layer;
         PrtParticle.Row := ACell.Row;
         PrtParticle.Column := ACell.Column;
+        PrtParticle.ScreenObjectName := ScreenObject.Name;
         Particles := PrpBoundary.ParticleStorage.Particles;
         if Particles = nil then
         begin
           Assert(ScreenObject.Count = ScreenObject.SectionCount);
-          // Finish this.
+
+          APoint2D := ScreenObject.Points[ACell.Section];
+          if ModflowGrid <> nil then
+          begin
+            APoint2D := ModflowGrid.RotateFromRealWorldCoordinatesToGridCoordinates(APoint2D);
+            PrtParticle.X := APoint2D.X;
+            PrtParticle.Y := APoint2D.Y;
+          end;
+
+          PrtParticle.Z := ScreenObject.Higher3DElevations[Model][ACell.Layer, ACell.Row, ACell.Column];
+          if PrpPackage.LocalZ then
+          begin
+            if ModflowGrid <> nil then
+            begin
+              LayerTop := ModflowGrid.LayerElevations[PrtParticle.Column, PrtParticle.Row, PrtParticle.Layer];
+              LayerBottom := ModflowGrid.LayerElevations[PrtParticle.Column, PrtParticle.Row, PrtParticle.Layer+1];
+            end
+            else
+            begin
+              Assert(DisvGrid <> nil);
+              DisvCell := DisvGrid.Cells[PrtParticle.Layer, PrtParticle.Column];
+              LayerTop := DisvCell.Top;
+              LayerBottom := DisvCell.Bottom;
+            end;
+            if LayerTop = LayerBottom then
+            begin
+              PrtParticle.Z := 0.5
+            end
+            else
+            begin
+              PrtParticle.Z := (PrtParticle.Z - LayerBottom)/(LayerTop - LayerBottom);
+            end;
+          end;
+          FParticles.Add(PrtParticle);
         end
         else
         begin
@@ -221,16 +286,14 @@ begin
             PrtParticle.Y := AParticle.Y;
             PrtParticle.Z := AParticle.Z;
             PrtParticle := ProjectParticleLocation(PrtParticle);
+            FParticles.Add(PrtParticle);
           end;
         end;
-
       end;
-
     finally
       CellList.Free;
     end;
   end;
-
 end;
 
 class function TPrpWriter.Extension: string;
@@ -242,6 +305,22 @@ function TPrpWriter.Package: TModflowPackageSelection;
 begin
   result := nil;
   Assert(False);
+end;
+
+procedure TPrpWriter.WriteDimensions;
+begin
+  WriteBeginDimensions;
+  try
+    WriteString('  NRELEASEPTS');
+    WriteInteger(FParticles.Count);
+    NewLine;
+
+    WriteString(  '  NRELEASETIMES');
+    WriteInteger(FPrpPackage.ReleaseTimes.Count);
+    NewLine;
+  finally
+    WriteEndDimensions;
+  end;
 end;
 
 procedure TPrpWriter.WriteFile(const AFileName: string);
@@ -256,13 +335,19 @@ begin
   begin
     Exit;
   end;
-  Evaluate;
-  frmErrorsAndWarnings.BeginUpdate;
+
+ frmErrorsAndWarnings.BeginUpdate;
   try
+    Evaluate;
+    if not frmProgressMM.ShouldContinue then
+    begin
+      Exit;
+    end;
+
     FNameOfFile := ChangeFileExt(AFileName, '') + '.' + PrtModel.ModelName
        + '.' + PrpPackage.PackageName + Extension;
     FInputFileName := FNameOfFile;
-    WriteToNameFile('PRP6', -1, FNameOfFile, foInput, Model, False, PrpPackage.PackageName);
+    WriteToPrtNameFile('PRP6', FNameOfFile, PrtModel, PrpPackage.PackageName);
     OpenFile(FNameOfFile);
     try
       frmProgressMM.AddMessage('Writing PRP data');
@@ -276,6 +361,38 @@ begin
 
       frmProgressMM.AddMessage(StrWritingOptions);
       WriteOptions;
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
+      begin
+        Exit;
+      end;
+
+      frmProgressMM.AddMessage(StrWritingDimensions);
+      WriteDimensions;
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
+      begin
+        Exit;
+      end;
+
+      frmProgressMM.AddMessage('Writing PRP Package Data');
+      WritePackageData;
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
+      begin
+        Exit;
+      end;
+
+      frmProgressMM.AddMessage('Writing Release Times');
+      WriteReleaseTimes;
+      Application.ProcessMessages;
+      if not frmProgressMM.ShouldContinue then
+      begin
+        Exit;
+      end;
+
+      frmProgressMM.AddMessage('Writing PRP Stress Periods');
+      WriteStressPeriods;
       Application.ProcessMessages;
       if not frmProgressMM.ShouldContinue then
       begin
@@ -412,6 +529,126 @@ begin
 
   finally
     WriteEndOptions;
+  end;
+end;
+
+procedure TPrpWriter.WritePackageData;
+var
+  DisvUsed: Boolean;
+  AParticle: TPrtParticle;
+begin
+  DisvUsed := Model.DisvUsed;
+  WriteBeginPackageData;
+  try
+    for var ParticleIndex := 0 to FParticles.Count - 1 do
+    begin
+      AParticle := FParticles[ParticleIndex];
+      WriteInteger(ParticleIndex+1);
+      WriteInteger(AParticle.Layer);
+      if not DisvUsed then
+      begin
+        WriteInteger(AParticle.Row);
+      end;
+      WriteInteger(AParticle.Column);
+      WriteFloat(AParticle.X);
+      WriteFloat(AParticle.Y);
+      WriteFloat(AParticle.Z);
+      WriteString(' ' + AParticle.ScreenObjectName);
+      NewLine;
+    end;
+  finally
+    WriteEndPackageData;
+  end;
+end;
+
+procedure TPrpWriter.WriteReleaseTimes;
+begin
+  WriteString('BEGIN RELEASETIMES');
+  try
+    for var TimeIndex := 0 to FPrpPackage.ReleaseTimes.Count - 1 do
+    begin
+      WriteFloat(FPrpPackage.ReleaseTimes[TimeIndex].Value);
+      NewLine;
+    end;
+  finally
+    WriteString('END RELEASETIMES');
+  end;
+end;
+
+procedure TPrpWriter.WriteStressPeriods;
+var
+  StressPeriods: TModflowStressPeriods;
+  APeriodItem: TPrpPeriodDataItem;
+  StartPeriod: Integer;
+  EndPeriod: Integer;
+begin
+  if FPrpPackage.PeriodData.Count > 0 then
+  begin
+    StressPeriods := (Model as TPhastModel).ModflowFullStressPeriods;
+    EndPeriod := -1;
+    for var PeriodIndex := 0 to PrtModel.PeriodData.Count - 1 do
+    begin
+      APeriodItem := PrtModel.PeriodData[PeriodIndex];
+      StartPeriod := StressPeriods.FindStressPeriod(APeriodItem.StartTime);
+      if EndPeriod >= 0 then
+      begin
+        if (StartPeriod > EndPeriod+1) then
+        begin
+          WriteBeginPeriod(EndPeriod+1);
+          WriteEndPeriod;
+        end;
+      end;
+      EndPeriod := StressPeriods.FindEndStressPeriod(APeriodItem.EndTime);
+      WriteBeginPeriod(StartPeriod);
+
+      try
+        if APeriodItem.All then
+        begin
+          WriteString('  ALL');
+          NewLine;
+        end;
+
+        if APeriodItem.First then
+        begin
+          WriteString('  FIRST');
+          NewLine;
+        end;
+
+        if APeriodItem.Last then
+        begin
+          WriteString('  LAST');
+          NewLine;
+        end;
+
+        if APeriodItem.Frequency > 0 then
+        begin
+          WriteString('  FREQUENCY ');
+          WriteInteger(APeriodItem.Frequency);
+          NewLine;
+        end;
+
+        if APeriodItem.Steps.Count > 0 then
+        begin
+          WriteString('  STEPS ');
+          for var StepIndex := 0 to APeriodItem.Steps.Count - 1 do
+          begin
+            WriteInteger(APeriodItem.Steps[StepIndex]);
+          end;
+          NewLine;
+        end;
+      finally
+        WriteEndPeriod;
+      end;
+
+      if (EndPeriod >= 0) then
+      begin
+        if EndPeriod + 1 < StressPeriods.Count then
+        begin
+          WriteBeginPeriod(EndPeriod+1);
+          WriteEndPeriod;
+        end;
+      end;
+    end
   end;
 end;
 

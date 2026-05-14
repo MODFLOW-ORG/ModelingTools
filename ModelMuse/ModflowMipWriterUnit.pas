@@ -53,7 +53,7 @@ begin
   try
     FNameOfFile := ChangeFileExt(AFileName, '') + '.' + PrtModel.ModelName + Extension;
     FInputFileName := FNameOfFile;
-    WriteToNameFile('MIP6', -1, FNameOfFile, foInput, Model, False, 'MIP6');
+    WriteToPrtNameFile('MIP6', FNameOfFile, PrtModel, 'MIP6');
     OpenFile(FNameOfFile);
     try
       frmProgressMM.AddMessage('Writing MIP data');

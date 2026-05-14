@@ -2218,6 +2218,7 @@ that affects the model output should also have a comment. }
     function GetContourLabelSpacing: Integer; virtual; abstract;
     procedure SetContourLabelSpacing(const Value: Integer);virtual; abstract;
   private
+    FMf6PrtNameWriters: TObject;
 //    FGlobalVariables: TGlobalVariables;
     function GetMt3dMS_StrictUsed: TObjectUsedEvent;
     function GetCrossSection: TCrossSection;
@@ -3200,6 +3201,7 @@ that affects the model output should also have a comment. }
     procedure ClearPestPriorInfoGroupData;
     property AppsMoved: TStringList read GetAppsMoved;
     property Mf6GwtNameWriters: TObject read FMf6GwtNameWriters;
+    property Mf6PrtNameWriters: TObject read FMf6PrtNameWriters;
     procedure InvalidateParamNamesDataSets;
     function DoSutraUnsatRegionUsed(Sender: TObject): boolean;
     property SutraUnsatRegionUsed: TObjectUsedEvent read GetSutraUnsatRegionUsed;
@@ -10515,13 +10517,15 @@ const
 //                models.
 //               Bug fix: fixed getting some FMP4 data in the MODFLOW
 //                Packages and Programs dialog box.
+//    '5.4.0.12' Bug fix: Fixed display of WBS (Farms) dialog box for
+//                MODFLOW OWHM version 1 models.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.11';
+  IIModelVersion = '5.4.0.12';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }
@@ -33122,6 +33126,7 @@ begin
 
   //  @name is implemented as a @link(TMf6GwtNameWriters).
   FMf6GwtNameWriters := TMf6GwtNameWriters.Create;
+  FMf6PrtNameWriters := TPrtNameWriters.Create;
 
 end;
 
@@ -33639,6 +33644,7 @@ end;
 destructor TCustomModel.Destroy;
 begin
   FMf6GwtNameWriters.Free;
+  FMf6PrtNameWriters.Free;
   FPestObsCollection.Free;
   FMt3dObsCollection.Free;
 //  FPestBoundaryDataArrays.Free;
@@ -44297,6 +44303,7 @@ var
   PestObsExtractorInputWriter: TPestObsExtractorInputWriter;
   SpeciesIndex: Integer;
   GwtNameWriters: TMf6GwtNameWriters;
+  PrtNameWriters: TPrtNameWriters;
   GwtIcWriter: TGwtInitialConcWriter;
   DspWriter: TModflowDspWriter;
   AdvWriter: TModflowGwtAdvWriter;
@@ -44336,6 +44343,18 @@ begin
       end;
     end;
   end;
+
+  PrtNameWriters := Mf6PrtNameWriters as TPrtNameWriters;
+  PrtNameWriters.Clear;
+  if PrtUsed then
+  begin
+    for var PrtIndex := 0 to ModflowPackages.PrtModels.Count - 1 do
+    begin
+      PrtNameWriters.Add(TPrtNameWriter.Create(self, ModflowPackages.PrtModels[PrtIndex].PrtModel, FileName, etExport));
+    end;
+  end;
+
+
   ClearInputObservationDataSets;
   PilotPointData.Clear;
 

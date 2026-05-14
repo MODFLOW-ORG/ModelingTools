@@ -404,7 +404,8 @@ type
 
   TActiveCellQueue = TObjectQueue<TActiveCell>;
 
-  TModelType = (mtGroundWaterFlow, mtGroundwaterTransport, mtEnergyTransport);
+  TModelType = (mtGroundWaterFlow, mtGroundwaterTransport, mtEnergyTransport,
+    mtParticleTransport);
 
   TModelData = record
     ModelType: TModelType;
@@ -2375,7 +2376,8 @@ begin
   case ModelType of
     mtGroundWaterFlow: result := '  GWF6 ';
     mtGroundWaterTransport: result := '  GWT6 ';
-    mtEnergyTransport: result := '  GWE6 '
+    mtEnergyTransport: result := '  GWE6 ';
+    mtParticleTransport: result := '  PRT6 ';
     else Assert(False);
   end;
   result := result + '''' + ExtractFileName(ModelNameFile) + ''' ''' + ModelName + '''';

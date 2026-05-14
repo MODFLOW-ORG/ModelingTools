@@ -211,6 +211,7 @@ type
     function PointInside(APoint: TPoint2D): Boolean;
     function ShareANode(ACell: TModflowIrregularCell2D): Boolean;
     function BoundarySegment(OtherCell: TModflowIrregularCell2D; out Segment: TSegment2D): Boolean;
+    function IntersectionPoint(Segment: TSegment2d; Out PointOfIntersection: TPoint2D): Boolean;
   published
     // @name starts at zero.
     property ElementNumber: integer read GetElementNumber
@@ -1703,6 +1704,23 @@ begin
   if result then
   begin
     UpdateSegmentOrientation(Input, IntersectingSegment);
+  end;
+end;
+
+function TModflowIrregularCell2D.IntersectionPoint(Segment: TSegment2d;
+  out PointOfIntersection: TPoint2D): Boolean;
+var
+  ASegment: TSegment2D;
+begin
+  result := False;
+  for var SegmentIndex := 0 to NodeCount - 1 do
+  begin
+    ASegment := Edges[SegmentIndex];
+    result := Intersect(ASegment, Segment);
+    if True then
+    begin
+      PointOfIntersection := FastGeo.IntersectionPoint(ASegment, Segment);
+    end;
   end;
 end;
 
