@@ -94,6 +94,9 @@ var
     DisvCell: TModflowDisVCell;
     IntersectSegment: TSegment2D;
     ACell2D: TModflowIrregularCell2D;
+    AnEdge: TSegment2D;
+    BadAngle: Boolean;
+    VAngle: double;
   begin
   // This assumes that Particle.x, Particle.y, and Paricle.z vary from 0 to 1.
     result := AParticle;
@@ -103,10 +106,8 @@ var
         ModflowGrid.ColumnPositions[AParticle.Column];
       DeltaY := ModflowGrid.RowPositions[AParticle.Row] -
         ModflowGrid.RowPositions[AParticle.Row +1];
-      APoint2D.X := (ModflowGrid.ColumnPositions[AParticle.Column] +
-        ModflowGrid.ColumnPositions[AParticle.Column +1])/2 + DeltaX*AParticle.X;
-      APoint2D.Y := (ModflowGrid.RowPositions[AParticle.Row] +
-        ModflowGrid.RowPositions[AParticle.Row +1])/2 + DeltaY*AParticle.Y;
+      APoint2D.X := ModflowGrid.ColumnPositions[AParticle.Column] + DeltaX*AParticle.X;
+      APoint2D.Y := ModflowGrid.RowPositions[AParticle.Row] - DeltaY*AParticle.Y;
       APoint2D := ModflowGrid.RotateFromGridCoordinatesToRealWorldCoordinates(APoint2D);
       result.X := APoint2D.X;
       result.Y := APoint2D.Y;
@@ -131,20 +132,39 @@ var
         Node1 := ACellI.Nodes[0].Location;
         Node2 := ACellI.Nodes[1].Location;
         Node3 := ACellI.Nodes[2].Location;
-        Angle1 := ArcTan2(Node2.y - Node1.y, Node2.x - Node1.x);
-        Angle2 := ArcTan2(Node3.y - Node2.y, Node3.x - Node2.x);
+        Angle1 := ArcTan2(Node2.y - Node1.y, Node2.x - Node1.x) * 180/Pi;
+        if Angle1 < 0 then
+        begin
+          Angle1 := Angle1  + 360;
+        end;
+        Angle2 := ArcTan2(Node3.y - Node2.y, Node3.x - Node2.x) * 180/Pi;
+        if Angle2 < 0 then
+        begin
+          Angle2 := Angle2  + 360;
+        end;
         DeltaX := Distance(Node1, Node2) * (AParticle.X-0.5);
         DeltaY := Distance(Node2, Node3) * (AParticle.Y-0.5);
         APoint2D := ProjectPoint(APoint2D, Angle1, DeltaX);
         APoint2D := ProjectPoint(APoint2D, Angle2, DeltaY);
         ACell2D := DisvGrid.TwoDGrid.Cells[AParticle.Column];
-        if not ACell2D.PointInside(APoint2D) then
+        if not ACell2D.RobustPointInside(APoint2D) then
         begin
           IntersectSegment[1] := ACellI.Center;
           IntersectSegment[2] := APoint2D;
           if not ACell2D.IntersectionPoint(IntersectSegment, APoint2D) then
           begin
-            Assert(False);
+            BadAngle := True;
+            for var EdgeIndex := 0 to ACell2D.NodeCount - 1 do
+            begin
+              AnEdge := ACell2D.Edges[EdgeIndex];
+              VAngle := VertexAngle(AnEdge[1], APoint2D, AnEdge[1]);
+              if (VAngle > 179) and (VAngle < 181) then
+              begin
+                BadAngle := False;
+                break;
+              end;
+            end;
+            Assert(not BadAngle);
           end;
         end;
 
@@ -165,8 +185,34 @@ var
         APoint2D := ACellI.Center;
         DeltaX := (ACellI.MaxX - ACellI.MinX) * (AParticle.X-0.5);;
         DeltaY := (ACellI.MaxY - ACellI.MinY) * (AParticle.Y-0.5);
-        result.X := APoint2D.X + DeltaX;
-        result.Y := APoint2D.Y + DeltaY;
+
+        APoint2D.X := APoint2D.X + DeltaX;
+        APoint2D.Y := APoint2D.Y + DeltaY;
+
+        ACell2D := DisvGrid.TwoDGrid.Cells[AParticle.Column];
+        if not ACell2D.RobustPointInside(APoint2D) then
+        begin
+          IntersectSegment[1] := ACellI.Center;
+          IntersectSegment[2] := APoint2D;
+          if not ACell2D.IntersectionPoint(IntersectSegment, APoint2D) then
+          begin
+            BadAngle := True;
+            for var EdgeIndex := 0 to ACell2D.NodeCount - 1 do
+            begin
+              AnEdge := ACell2D.Edges[EdgeIndex];
+              VAngle := VertexAngle(AnEdge[1], APoint2D, AnEdge[1]);
+              if (VAngle > 179) and (VAngle < 181) then
+              begin
+                BadAngle := False;
+                break;
+              end;
+            end;
+            Assert(not BadAngle);
+          end;
+        end;
+
+        result.X := APoint2D.X;
+        result.Y := APoint2D.Y;
         if not PrpPackage.LocalZ then
         begin
           DisvCell := DisvGrid.Cells[AParticle.Layer, AParticle.Column];
@@ -352,7 +398,7 @@ begin
     try
       frmProgressMM.AddMessage('Writing PRP data');
       frmProgressMM.AddMessage(StrWritingDataSet0);
-      WriteDataSet0;
+      WriteCommentLine(File_Comment('PRP Package for PRT model'));
       Application.ProcessMessages;
       if not frmProgressMM.ShouldContinue then
       begin
@@ -544,12 +590,12 @@ begin
     begin
       AParticle := FParticles[ParticleIndex];
       WriteInteger(ParticleIndex+1);
-      WriteInteger(AParticle.Layer);
+      WriteInteger(AParticle.Layer+1);
       if not DisvUsed then
       begin
-        WriteInteger(AParticle.Row);
+        WriteInteger(AParticle.Row+1);
       end;
-      WriteInteger(AParticle.Column);
+      WriteInteger(AParticle.Column+1);
       WriteFloat(AParticle.X);
       WriteFloat(AParticle.Y);
       WriteFloat(AParticle.Z);
@@ -564,6 +610,7 @@ end;
 procedure TPrpWriter.WriteReleaseTimes;
 begin
   WriteString('BEGIN RELEASETIMES');
+  NewLine;
   try
     for var TimeIndex := 0 to FPrpPackage.ReleaseTimes.Count - 1 do
     begin
@@ -572,6 +619,7 @@ begin
     end;
   finally
     WriteString('END RELEASETIMES');
+    NewLine;
   end;
 end;
 

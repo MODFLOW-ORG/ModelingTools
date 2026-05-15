@@ -12,7 +12,8 @@ uses SysUtils, Classes, GoPhastTypes, OrderedCollectionUnit, DataSetUnit,
   ModpathParticleUnit, ModflowBoundaryDisplayUnit, ScreenObjectUnit,
   ModflowBoundaryUnit, Mt3dmsChemSpeciesUnit, System.Generics.Collections,
   Mt3dSftUnit, ModflowCSubInterbed, OrderedCollectionInterfaceUnit,
-  Mt3dmsChemSpeciesInterfaceUnit, PrtInterfacesUnit, ModflowPrpInterfaceUnit;
+  Mt3dmsChemSpeciesInterfaceUnit, PrtInterfacesUnit, ModflowPrpInterfaceUnit,
+  System.Character;
 
 const
   KSfrDefaultPicardIterations = 100;
@@ -3031,7 +3032,7 @@ Type
     procedure SetPrtTrackingOutput(const Value: TPrtTrackingOutput);
     procedure SetDryTrackingMethod(const Value: TPrtDryTracking);
     procedure SetCoordinateCheckMethod(const Value: TPrtCoordinateCheckMethod);
-    procedure SetPackageName(const Value: string);
+    procedure SetPackageName(Value: string);
     function GetSolverToleranceUsed: Boolean;
     procedure SetSolverToleranceUsed(const Value: Boolean);
     procedure SetPeriodData(const Value: TPrpPeriodData);
@@ -3155,7 +3156,7 @@ Type
     procedure SetPrtTrackingOptions(const Value: TPrtTrackingOptions);
     procedure SetPrtOutputFiles(const Value: TPrtOutputFiles);
     procedure SetPeriodData(const Value: TPrpPeriodData);
-    procedure SetModelName(const Value: string);
+    procedure SetModelName(Value: string);
     procedure SetOriginalId(const Value: Integer);
     procedure SetRunAsSeparateSimulation(const Value: Boolean);
     procedure SetRetardationDataArrayName(const Value: string);
@@ -31828,11 +31829,21 @@ begin
   inherited Items[Index] := Value;
 end;
 
-procedure TPrtModel.SetModelName(const Value: string);
+procedure TPrtModel.SetModelName(Value: string);
 var
   OldRoot: string;
   NewRoot: string;
+
 begin
+  Value := Copy(Value, 1,16);
+  for var CharIndex := 1 to Length(Value) do
+  begin
+    // Ensure that an ASCII character that is not white space is used.
+    if (Ord(Value[CharIndex]) > 127) or Value[CharIndex].IsWhiteSpace then
+    begin
+      Value[CharIndex] := '_'
+    end;
+  end;
   if FModelName <> Value then
   begin
     if UpperCase(FModelName) = UpperCase(Value) then
@@ -32380,8 +32391,17 @@ begin
   FOriginalId := Value;
 end;
 
-procedure TPrpPackage.SetPackageName(const Value: string);
+procedure TPrpPackage.SetPackageName(Value: string);
 begin
+  Value := Copy(Value, 1,16);
+  for var CharIndex := 1 to Length(Value) do
+  begin
+    // Ensure that an ASCII character that is not white space is used.
+    if (Ord(Value[CharIndex]) > 127) or Value[CharIndex].IsWhiteSpace then
+    begin
+      Value[CharIndex] := '_'
+    end;
+  end;
   if FPackageName <> Value then
   begin
     FPackageName := Value;

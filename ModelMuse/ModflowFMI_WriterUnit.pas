@@ -3,18 +3,32 @@ unit ModflowFMI_WriterUnit;
 interface
 
 uses
-  CustomModflowWriterUnit, System.SysUtils;
+  ModflowOptionsUnit, CustomModflowWriterUnit, System.SysUtils;
 
 type
-  TModflowFmiWriter = class(TCustomModflowWriter)
-  private
+  TCustomFmiWriter = class(TCustomModflowWriter)
+  protected
     FFlowFile: string;
+    procedure WriteGwfBudget;
+    procedure WriteGwfHead;
+    procedure WriteGwfGrid;
+    class function Extension: string; override;
+  end;
+
+  TModflowFmiWriterGwtGwe = class(TCustomFmiWriter)
+  private
     procedure WriteOptions;
     procedure WritePackageData;
-  protected
-    class function Extension: string; override;
   public
     procedure WriteFile(const AFileName: string);
+  end;
+
+  TModflowFmiWriterPrt = class(TCustomFmiWriter)
+  private
+    procedure WritePackageData;
+  public
+    procedure WriteFile(const AFileName: string);
+
   end;
 
 implementation
@@ -24,14 +38,14 @@ uses
   ModflowSfr6WriterUnit, ModflowUzfMf6WriterUnit, ModflowMvrWriterUnit,
   PhastModelUnit;
 
-{ TModflowFmiWriter }
+{ TModflowFmiWriterGwtGwe }
 
-class function TModflowFmiWriter.Extension: string;
+class function TCustomFmiWriter.Extension: string;
 begin
   result := '.fmi';
 end;
 
-procedure TModflowFmiWriter.WriteFile(const AFileName: string);
+procedure TModflowFmiWriterGwtGwe.WriteFile(const AFileName: string);
 var
   NameOfFile: string;
   SpeciesIndex: Integer;
@@ -42,10 +56,9 @@ begin
     Exit;
   end;
 
-//  NameOfFile := FileName(AFileName);
   FFlowFile := FileName(AFileName);
-  FInputFileName := NameOfFile;
-  FNameOfFile := NameOfFile;
+  FInputFileName := FFlowFile;
+  FNameOfFile := FFlowFile;
   for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
   begin
     if not (Model.MobileComponents[SpeciesIndex].UsedForGWT
@@ -71,7 +84,7 @@ begin
 
 end;
 
-procedure TModflowFmiWriter.WriteOptions;
+procedure TModflowFmiWriterGwtGwe.WriteOptions;
 var
   GwtProcess: TGwtProcess;
 begin
@@ -89,30 +102,22 @@ begin
   end;
 end;
 
-procedure TModflowFmiWriter.WritePackageData;
+procedure TModflowFmiWriterGwtGwe.WritePackageData;
 var
-  GWFlowFileName: string;
+  AFileName: string;
 begin
   WriteBeginPackageData;
   try
-    WriteString('  GWFBUDGET');
-    WriteString(' FILEIN ');
-    GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.cbc'));
-    WriteString(GWFlowFileName);
-    NewLine;
-
-    WriteString('  GWFHEAD');
-    WriteString(' FILEIN ');
-    GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.bhd'));
-    WriteString(GWFlowFileName);
-    NewLine;
+    WriteGwfBudget;
+    WriteGwfHead;
+    WriteGwfGrid;
 
     if Model.ModflowPackages.MvrPackage.IsSelected then
     begin
       WriteString('  GWFMOVER');
       WriteString(' FILEIN ');
-      GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrMvrbudget));
-      WriteString(GWFlowFileName);
+      AFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrMvrbudget));
+      WriteString(AFileName);
       NewLine;
     end;
 
@@ -121,8 +126,8 @@ begin
       WriteString('  ');
       WriteString(StrLakeFlowPackageName);
       WriteString(' FILEIN ');
-      GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrLkbud));
-      WriteString(GWFlowFileName);
+      AFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrLkbud));
+      WriteString(AFileName);
       NewLine;
     end;
 
@@ -131,8 +136,8 @@ begin
       WriteString('  ');
       WriteString(StrSfrFlowPackageName);
       WriteString(' FILEIN ');
-      GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrSfrbudget));
-      WriteString(GWFlowFileName);
+      AFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrSfrbudget));
+      WriteString(AFileName);
       NewLine;
     end;
 
@@ -141,8 +146,8 @@ begin
       WriteString('  ');
       WriteString(StrMAW1);
       WriteString(' FILEIN ');
-      GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrMawbud));
-      WriteString(GWFlowFileName);
+      AFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrMawbud));
+      WriteString(AFileName);
       NewLine;
     end;
 
@@ -151,10 +156,98 @@ begin
       WriteString('  ');
       WriteString(KUZF1);
       WriteString(' FILEIN ');
-      GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrUzfbudget));
-      WriteString(GWFlowFileName);
+      AFileName := ExtractFileName(ChangeFileExt(FFlowFile, StrUzfbudget));
+      WriteString(AFileName);
       NewLine;
     end;
+  finally
+    WriteEndPackageData;
+  end;
+end;
+
+procedure TCustomFmiWriter.WriteGwfBudget;
+var
+  GWFlowFileName: string;
+begin
+  WriteString('  GWFBUDGET');
+  WriteString(' FILEIN ');
+  GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.cbc'));
+  WriteString(GWFlowFileName);
+  NewLine;
+end;
+
+procedure TCustomFmiWriter.WriteGwfHead;
+var
+  GWFlowFileName: string;
+begin
+  WriteString('  GWFHEAD');
+  WriteString(' FILEIN ');
+  GWFlowFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.bhd'));
+  WriteString(GWFlowFileName);
+  NewLine;
+end;
+
+procedure TCustomFmiWriter.WriteGwfGrid;
+var
+  GrbFileName: string;
+begin
+  if Model.ModflowOptions.WriteBinaryGridFile then
+  begin
+    WriteString('  GWFGRID');
+    WriteString(' FILEIN ');
+    GrbFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.grb'));
+    WriteString(GrbFileName);
+  end;
+end;
+
+{ TModflowFmiWriterPrt }
+
+procedure TModflowFmiWriterPrt.WriteFile(const AFileName: string);
+var
+  NameOfFile: string;
+  PrtModel: TPrtModel;
+  ModelName: String;
+begin
+  if not Model.SeparatePrtUsed then
+  begin
+    Exit;
+  end;
+
+//  NameOfFile := FileName(AFileName);
+  FFlowFile := FileName(AFileName);
+  FInputFileName := FFlowFile;
+  FNameOfFile := FFlowFile;
+  for var PrtIndex := 0 to Model.ModflowPackages.PrtModels.Count - 1 do
+  begin
+    PrtModel := Model.ModflowPackages.PrtModels[PrtIndex].PrtModel;
+    if PrtModel.IsSelected and PrtModel.RunAsSeparateSimulation then
+    begin
+
+      ModelName := '.' + PrtModel.ModelName + Extension;
+      NameOfFile := ChangeFileExt(AFileName, ModelName);
+      FInputFileName := NameOfFile;
+      FNameOfFile := NameOfFile;
+      WriteToGwtNameFile('FMI6', FNameOfFile, PrtIndex);
+
+      OpenFile(FNameOfFile);
+      try
+        WriteCommentLine(File_Comment('FMI6'));
+        WritePackageData;
+      finally
+        CloseFile;
+      end;
+    end;
+  end;
+
+end;
+
+procedure TModflowFmiWriterPrt.WritePackageData;
+begin
+  WriteBeginPackageData;
+  try
+    WriteGwfBudget;
+    WriteGwfHead;
+    WriteGwfGrid;
   finally
     WriteEndPackageData;
   end;

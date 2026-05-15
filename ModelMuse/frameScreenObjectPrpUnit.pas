@@ -419,7 +419,7 @@ begin
   for ScreenObjectIndex := 0 to ListOfScreenObjects.Count - 1 do
   begin
     ScreenObject := ListOfScreenObjects[ScreenObjectIndex];
-    Particles := ScreenObject.ModpathParticles;
+    Particles := ScreenObject.ModflowPrpBoundary.ParticleStorage;
 
     if not Particles.Used then
     begin
@@ -745,7 +745,7 @@ begin
   for Index := 0 to List.Count - 1 do
   begin
     ScreenObject := List[Index].ScreenObject;
-    Particles := ScreenObject.ModpathParticles;
+    Particles := ScreenObject.ModflowPrpBoundary.ParticleStorage;
     CheckBox := frameModpathParticles.gbParticles.Components[0] as TCheckBox;
     case CheckBox.State of
       cbUnchecked: Particles.Used := False;

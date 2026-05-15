@@ -209,6 +209,7 @@ type
     function SharedWidth(OtherCell: TModflowIrregularCell2D): double;
     function ReferenceLength: Double;
     function PointInside(APoint: TPoint2D): Boolean;
+    function RobustPointInside(APoint: TPoint2D): Boolean;
     function ShareANode(ACell: TModflowIrregularCell2D): Boolean;
     function BoundarySegment(OtherCell: TModflowIrregularCell2D; out Segment: TSegment2D): Boolean;
     function IntersectionPoint(Segment: TSegment2d; Out PointOfIntersection: TPoint2D): Boolean;
@@ -1717,9 +1718,10 @@ begin
   begin
     ASegment := Edges[SegmentIndex];
     result := Intersect(ASegment, Segment);
-    if True then
+    if result then
     begin
       PointOfIntersection := FastGeo.IntersectionPoint(ASegment, Segment);
+      break;
     end;
   end;
 end;
@@ -1861,6 +1863,25 @@ begin
     begin
       Node2 := FElementCorners[InnerNodeIndex];
       result := Max(result, Distance(Node1.Location, Node2.Location));
+    end;
+  end;
+end;
+
+function TModflowIrregularCell2D.RobustPointInside(APoint: TPoint2D): Boolean;
+var
+  AnEdge: TSegment2D;
+begin
+  result := PointInside(APoint);
+  if not result then
+  begin
+    for var SegmentIndex := 0 to NodeCount - 1 do
+    begin
+      AnEdge := Edges[SegmentIndex];
+      result := RobustCollinear(APoint, AnEdge[1], AnEdge[2]);
+      if result then
+      begin
+        Exit;
+      end;
     end;
   end;
 end;

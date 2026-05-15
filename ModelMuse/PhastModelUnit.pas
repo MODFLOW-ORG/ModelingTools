@@ -2241,6 +2241,7 @@ that affects the model output should also have a comment. }
     function GetSeparatedDensitySolidUsed: TObjectUsedEvent;
     function GetSeparatedHeatCapacitySolidUsed: TObjectUsedEvent;
     function GetSeparateGweUsed: Boolean;
+    function GetSeparatePrtUsed: Boolean;
   public
     function ChdIsSelected: Boolean; virtual;
     function TvkIsSelected: Boolean; virtual;
@@ -3197,6 +3198,7 @@ that affects the model output should also have a comment. }
       write SetMf6TimesSeries;
     property SeparateGwtUsed: Boolean read GetSeparateGwtUsed;
     property SeparateGweUsed: Boolean read GetSeparateGweUsed;
+    property SeparatePrtUsed: Boolean read GetSeparatePrtUsed;
     Procedure UpdateGwtConc;
     procedure ClearPestPriorInfoGroupData;
     property AppsMoved: TStringList read GetAppsMoved;
@@ -5430,7 +5432,8 @@ uses Dialogs, OpenGL12x, Math, frmGoPhastUnit, UndoItems,
   ModflowTimeInterfaceUnit, Modflow6TimeSeriesUnit,
   LockedGlobalVariableChangers, ModflowBuoyancyWriterUnit,
   ModflowViscosityWriterUnit, ModflowMvrUnit, ModflowCndWriterUnit,
-  ModflowEstWriterUnit;
+  ModflowEstWriterUnit, ModflowMipWriterUnit, ModflowPrtOcWriterUnit,
+  ModflowpPrpWriterUnit;
 
 
 
@@ -36825,6 +36828,22 @@ begin
   result := GwtUsed and ModflowPackages.GwtProcess.SeparateGwt;
 end;
 
+function TCustomModel.GetSeparatePrtUsed: Boolean;
+var
+  PrtModel: TPrtModel;
+begin
+  result := False;
+  for var PrtIndex := 0 to ModflowPackages.PrtModels.Count - 1 do
+  begin
+    PrtModel := ModflowPackages.PrtModels[PrtIndex].PrtModel;
+    result := PrtModel.IsSelected and PrtModel.RunAsSeparateSimulation;
+    if result then
+    begin
+      Exit;
+    end;
+  end;
+end;
+
 function TCustomModel.GetSfrMf6GweSelected: TObjectUsedEvent;
 begin
   result := DoSfrMf6GweSelected;
@@ -44313,7 +44332,7 @@ var
   CncWriter: TModflowCncWriter;
   SrcWriter: TModflowSrcWriter;
   ExchangeWriter: TModflowGwfGwtExchangeWriter;
-  FmiWriter: TModflowFmiWriter;
+  FmiWriterGwtGwe: TModflowFmiWriterGwtGwe;
   BuoyancyWriter: TBuoyancyWriter;
   ViscosityWriter: TViscosityWriter;
 //  ShouldExport: Boolean;
@@ -44325,6 +44344,11 @@ var
   Species: TMobileChemSpeciesItem;
   IgnoredNames: TStringList;
   FileIndex: Integer;
+  PrtModel: TPrtModel;
+  MipWriter: TMipWriter;
+  PrtOcWriter: TPrtOcWriter;
+  PrpWriter: TPrpWriter;
+  FmiWriterPrt: TModflowFmiWriterPrt;
 begin
   GwtNameWriters := Mf6GwtNameWriters as TMf6GwtNameWriters;
   GwtNameWriters.Clear;
@@ -44350,7 +44374,8 @@ begin
   begin
     for var PrtIndex := 0 to ModflowPackages.PrtModels.Count - 1 do
     begin
-      PrtNameWriters.Add(TPrtNameWriter.Create(self, ModflowPackages.PrtModels[PrtIndex].PrtModel, FileName, etExport));
+      PrtNameWriters.Add(TPrtNameWriter.Create(self,
+        ModflowPackages.PrtModels[PrtIndex].PrtModel, FileName, etExport));
     end;
   end;
 
@@ -45330,13 +45355,19 @@ begin
             frmProgressMM.StepIt;
           end;
 
-          FmiWriter := TModflowFmiWriter.Create(self, etExport);
+          FmiWriterGwtGwe := TModflowFmiWriterGwtGwe.Create(self, etExport);
           try
-            FmiWriter.WriteFile(FileName);
+            FmiWriterGwtGwe.WriteFile(FileName);
           finally
-            FmiWriter.Free;
+            FmiWriterGwtGwe.Free;
           end;
 
+          FmiWriterPrt := TModflowFmiWriterPrt.Create(self, etExport);
+          try
+            FmiWriterPrt.WriteFile(FileName);
+          finally
+            FmiWriterPrt.Free;
+          end;
 
           if Self is TPhastModel then
           begin
@@ -45908,6 +45939,61 @@ begin
         end;
       end;
 
+      if PrtUsed then
+      begin
+        for var PrtIndex := 0 to ModflowPackages.PrtModels.Count - 1 do
+        begin
+          PrtModel := ModflowPackages.PrtModels[PrtIndex].PrtModel;
+          if PrtModel.IsSelected then
+          begin
+
+            MipWriter := TMipWriter.Create(Self, etExport);
+            try
+              MipWriter.PrtModel := PrtModel;
+              MipWriter.WriteFile(FileName);
+            finally
+              MipWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
+
+            PrtOcWriter := TPrtOcWriter.Create(Self, etExport);
+            try
+              PrtOcWriter.PrtModel := PrtModel;
+              PrtOcWriter.WriteFile(FileName);
+            finally
+              PrtOcWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
+
+            for var PrpIndex := 0 to PrtModel.Count - 1 do
+            begin
+              PrpWriter := TPrpWriter.Create(Self, etExport);
+              try
+                PrpWriter.PrtModel := PrtModel;
+                PrpWriter.PrpPackage := PrtModel[PrpIndex].PrpPackage;
+                PrpWriter.WriteFile(FileName);
+              finally
+                PrpWriter.Free;
+              end;
+              Application.ProcessMessages;
+              if not frmProgressMM.ShouldContinue then
+              begin
+                Exit;
+              end;
+
+            end;
+          end;
+        end;
+      end;
+
 
       FinalizePvalAndTemplate(FileName);
       LocalNameWriter.SaveNameFile(FileName);
@@ -45944,6 +46030,14 @@ begin
         end;
       finally
         IgnoredNames.Free;
+      end;
+
+      for var PrtIndex := 0 to ModflowPackages.PrtModels.Count - 1 do
+      begin
+        if ModflowPackages.PrtModels[PrtIndex].PrtModel.IsSelected then
+        begin
+          PrtNameWriters[PrtIndex].WriteFile;
+        end;
       end;
 
     except on E: EInvalidTime do

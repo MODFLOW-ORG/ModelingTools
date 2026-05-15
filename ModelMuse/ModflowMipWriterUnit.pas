@@ -58,7 +58,13 @@ begin
     try
       frmProgressMM.AddMessage('Writing MIP data');
       frmProgressMM.AddMessage(StrWritingDataSet0);
-      WriteDataSet0;
+      WriteCommentLine(File_Comment('MIP Package for PRT model'));
+//      for Index := 0 to APackage.Comments.Count - 1 do
+//      begin
+//        WriteCommentLine(APackage.Comments[Index]);
+//      end;
+
+//      WriteDataSet0;
       Application.ProcessMessages;
       if not frmProgressMM.ShouldContinue then
       begin

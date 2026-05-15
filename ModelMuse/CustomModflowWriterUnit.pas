@@ -10038,7 +10038,10 @@ begin
   Assert(ModelData.ModelNameFile <> '');
   Assert(ModelData.ModelName <> '');
   Assert(ModelData.SolutionGroup <> '');
-  Assert(ModelData.ImsFile <> '');
+  if ModelData.ModelType <> mtParticleTransport then
+  begin
+    Assert(ModelData.ImsFile <> '');
+  end;
   Assert(ModelData.MaxIterations > 0);
   FModelDataList.Add(ModelData);
 end;
@@ -10209,6 +10212,11 @@ begin
       begin
         result := Model.SeparateGweUsed;
       end;
+    mtParticleTransport:
+      begin
+        result := Model.SeparatePrtUsed;
+      end;
+    else Assert(False);
   end;
 end;
 
@@ -10403,7 +10411,8 @@ begin
       NewLine;
     end;
 
-    ShouldWriteLine := GetShouldWriteLine(ModelIndex);
+    ShouldWriteLine := GetShouldWriteLine(ModelIndex)
+      and (ModelData.ModelType <>  mtParticleTransport);
     if ShouldWriteLine then
     begin
       WriteString('  IMS6 ');
@@ -11896,8 +11905,8 @@ begin
   inherited Create(AModel, EvaluationType);
   FPackageLines := TStringList.Create;
   FPrtModel := PrtModel;
-  FFileName := FileName;
-
+  Assert(FPrtModel <> nil);
+  FFileName := ChangeFileExt(FileName, '') + '.' + FPrtModel.ModelName + Extension;
 end;
 
 destructor TPrtNameWriter.Destroy;
@@ -11933,7 +11942,7 @@ begin
   ModelData.ModelName := FPrtModel.ModelName;
   ModelData.SolutionGroup := StrSolutionGroupName;
   ModelData.MaxIterations := Model.ModflowPackages.SmsPackage.SolutionGroupMaxIteration;
-  ModelData.ImsFile := ChangeFileExt(FFileName, '.ims');
+  ModelData.ImsFile := '';
   Model.AddModelInputFile(ModelData.ImsFile);
   ModelData.ModelNameFile := FFileName;
 

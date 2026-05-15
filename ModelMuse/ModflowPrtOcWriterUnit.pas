@@ -15,6 +15,7 @@ Type
     procedure WriteTrackTimes;
     procedure WriteStressPeriods;
   protected
+    function Package: TModflowPackageSelection; override;
     class function Extension: string; override;
   public
     property PrtModel: TPrtModel read FPrtModel write FPrtModel;
@@ -37,6 +38,12 @@ resourcestring
 class function TPrtOcWriter.Extension: string;
 begin
   result := '.oc';
+end;
+
+function TPrtOcWriter.Package: TModflowPackageSelection;
+begin
+  result := nil;
+  Assert(False);
 end;
 
 procedure TPrtOcWriter.WriteDimensions;
@@ -67,7 +74,8 @@ begin
     try
       frmProgressMM.AddMessage('Writing PRT OC data');
       frmProgressMM.AddMessage(StrWritingDataSet0);
-      WriteDataSet0;
+      WriteCommentLine(File_Comment('OC Package for PRT model'));
+
       Application.ProcessMessages;
       if not frmProgressMM.ShouldContinue then
       begin
