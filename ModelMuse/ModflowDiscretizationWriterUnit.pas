@@ -314,6 +314,7 @@ var
   FTYPE: string;
   SpeciesIndex: Integer;
   AGwtFileName: string;
+  PrtModel: TPrtModel;
 begin
   inherited;
   frmErrorsAndWarnings.RemoveErrorGroup(Model, StrInvalidSelectionOf);
@@ -338,6 +339,15 @@ begin
   if Model.ModelSelection = msModflow2015 then
   begin
     WriteToNameFile(FTYPE, -1, FNameOfFile, foInput, Model, False, 'DIS');
+
+    for var PrpIndex := 0 to Model.ModflowPackages.PrtModels.Count - 1 do
+    begin
+      PrtModel := Model.ModflowPackages.PrtModels[PrpIndex].PrtModel;
+      if PrtModel.IsSelected then
+      begin
+        WriteToPrtNameFile('DIS6', FNameOfFile, PrtModel, 'DIS');
+      end;
+    end;
   end
   else
   begin
@@ -1066,6 +1076,7 @@ var
   FTYPE: string;
   SpeciesIndex: Integer;
   AGwtFileName: string;
+  PrtModel: TPrtModel;
 begin
   inherited;
   frmErrorsAndWarnings.RemoveWarningGroup(Model, StrOverlappingLayers);
@@ -1074,6 +1085,16 @@ begin
   FInputFileName := FNameOfFile;
   Assert( Model.ModelSelection = msModflow2015);
   WriteToNameFile(FTYPE, -1, FNameOfFile, foInput, Model, False, 'DISV');
+
+  for var PrpIndex := 0 to Model.ModflowPackages.PrtModels.Count - 1 do
+  begin
+    PrtModel := Model.ModflowPackages.PrtModels[PrpIndex].PrtModel;
+    if PrtModel.IsSelected then
+    begin
+      WriteToPrtNameFile('DISV6', FNameOfFile, PrtModel, 'DISV');
+    end;
+  end;
+
   OpenFile(FNameOfFile);
   try
     frmProgressMM.AddMessage(StrWritingDISVPackage);

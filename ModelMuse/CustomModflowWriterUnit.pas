@@ -10038,10 +10038,7 @@ begin
   Assert(ModelData.ModelNameFile <> '');
   Assert(ModelData.ModelName <> '');
   Assert(ModelData.SolutionGroup <> '');
-  if ModelData.ModelType <> mtParticleTransport then
-  begin
-    Assert(ModelData.ImsFile <> '');
-  end;
+  Assert(ModelData.ImsFile <> '');
   Assert(ModelData.MaxIterations > 0);
   FModelDataList.Add(ModelData);
 end;
@@ -10214,7 +10211,7 @@ begin
       end;
     mtParticleTransport:
       begin
-        result := Model.SeparatePrtUsed;
+        result := not FModelDataList[ModelIndex].RunAsSeparateSimulation;
       end;
     else Assert(False);
   end;
@@ -10411,14 +10408,24 @@ begin
       NewLine;
     end;
 
-    ShouldWriteLine := GetShouldWriteLine(ModelIndex)
-      and (ModelData.ModelType <>  mtParticleTransport);
+    ShouldWriteLine := GetShouldWriteLine(ModelIndex);
     if ShouldWriteLine then
     begin
-      WriteString('  IMS6 ');
-      WriteString('''' +  ExtractFileName(ModelData.ImsFile) + ''' ');
-      WriteString('''' +  ModelData.ModelName + ''' ');
-      NewLine;
+      if (ModelData.ModelType <> mtParticleTransport) then
+      begin
+        WriteString('  IMS6 ');
+        WriteString('''' +  ExtractFileName(ModelData.ImsFile) + ''' ');
+        WriteString('''' +  ModelData.ModelName + ''' ');
+        NewLine;
+      end
+      else
+      begin
+        Assert(ModelData.ModelType = mtParticleTransport);
+        WriteString('  EMS6 ');
+        WriteString('''' +  ExtractFileName(ModelData.ImsFile) + ''' ');
+        WriteString('''' +  ModelData.ModelName + ''' ');
+        NewLine;
+      end;
     end;
 
   end;
@@ -11936,15 +11943,18 @@ procedure TPrtNameWriter.WriteFile;
 var
   SimNameWriter: IMf6_SimNameFileWriter;
   ModelData: TModelData;
+  EmsFileName: string;
 begin
+  EmsFileName := ChangeFileExt(FFileName, '.ems');
 
   ModelData.ModelType := mtParticleTransport;
   ModelData.ModelName := FPrtModel.ModelName;
   ModelData.SolutionGroup := StrSolutionGroupName;
   ModelData.MaxIterations := Model.ModflowPackages.SmsPackage.SolutionGroupMaxIteration;
-  ModelData.ImsFile := '';
+  ModelData.ImsFile := EmsFileName;
   Model.AddModelInputFile(ModelData.ImsFile);
   ModelData.ModelNameFile := FFileName;
+  ModelData.RunAsSeparateSimulation := FPrtModel.RunAsSeparateSimulation;
 
   SimNameWriter := Model.SimNameWriter;
   SimNameWriter.AddModel(ModelData);
@@ -11956,6 +11966,13 @@ begin
     WriteCommentLine(File_Comment('PRT name file for ' + FPrtModel.ModelName));
     WriteOptions;
     WritePackages;
+  finally
+    CloseFile;
+  end;
+
+  OpenFile(EmsFileName);
+  try
+    WriteCommentLine(File_Comment('EMS name file for ' + FPrtModel.ModelName));
   finally
     CloseFile;
   end;

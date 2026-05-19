@@ -414,6 +414,7 @@ type
     SolutionGroup: string;
     ImsFile: string;
     MaxIterations: integer;
+    RunAsSeparateSimulation: Boolean;
     function ModelLine: string;
   end;
 

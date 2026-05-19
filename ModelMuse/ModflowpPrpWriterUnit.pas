@@ -568,8 +568,8 @@ begin
     end;
 
     case PrpPackage.CoordinateCheckMethod of
-      ccmEager: WriteString('  EAGER');
-      ccmNone: WriteString('  NONE');
+      ccmEager: WriteString('  COORDINATE_CHECK_METHOD EAGER');
+      ccmNone: WriteString('  COORDINATE_CHECK_METHOD NONE');
     end;
     NewLine;
 
