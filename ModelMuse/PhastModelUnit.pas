@@ -41043,6 +41043,11 @@ begin
     OutOfStartRangeScreenObjects := TStringList.Create;
     OutOfEndRangeScreenObjects := TStringList.Create;
     try
+      for var PrtIndex := 0 to ModflowPackages.PrtModels.Count - 1 do
+      begin
+        ModflowPackages.PrtModels[PrtIndex].PrtModel.UpdateTimes(TimeList,
+          TestFirstTime, LastTestTime, OutOfStartRange, OutOfEndRange);
+      end;
 
       for ScreenObjectIndex := 0 to ScreenObjectCount - 1 do
       begin

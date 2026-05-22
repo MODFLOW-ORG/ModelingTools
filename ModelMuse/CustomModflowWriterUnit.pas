@@ -1664,6 +1664,9 @@ var
   ChemIndex: Integer;
   ChemExt: string;
   ArrayExtractor_Location: string;
+  PrtModels: TPrtModels;
+  PrtModel: TPrtModel;
+  PrtExt: string;
 begin
 //  Model.ExportInputObsDataSets(FileName);
 
@@ -1868,18 +1871,35 @@ begin
             ListFiles.Add(MfListName);
           end;
         end;
-        if (SimCount = 1) and (Model.GwtUsed or Model.GweUsed) then
+        if (SimCount = 1) and (Model.GwtUsed or Model.GweUsed or Model.PrtUsed) then
         begin
           SimFileName := ExtractFileName(frmGoPhast.PhastModel.SimNameWriter.
             SimFileNames[0]);
           SimFileName := ChangeFileExt(SimFileName, '');
-          for ChemIndex := 0 to Model.MobileComponents.Count - 1 do
+          if (Model.GwtUsed or Model.GweUsed) then
           begin
-            if Model.MobileComponents[ChemIndex].UsedForGWT or Model.MobileComponents[ChemIndex].UsedForGWE then
+            for ChemIndex := 0 to Model.MobileComponents.Count - 1 do
             begin
-              ChemExt := '.' + Model.MobileComponents[ChemIndex].Name + '.lst';
-              ListFileName := ChangeFileExt(SimFileName, ChemExt);
-              ListFiles.Add(ListFileName);
+              if Model.MobileComponents[ChemIndex].UsedForGWT or Model.MobileComponents[ChemIndex].UsedForGWE then
+              begin
+                ChemExt := '.' + Model.MobileComponents[ChemIndex].Name + '.lst';
+                ListFileName := ChangeFileExt(SimFileName, ChemExt);
+                ListFiles.Add(ListFileName);
+              end;
+            end;
+          end;
+          if Model.PrtUsed then
+          begin
+            PrtModels := Model.ModflowPackages.PrtModels;
+            for var PrtIndex := 0 to PrtModels.Count - 1 do
+            begin
+              PrtModel := PrtModels[PrtIndex].PrtModel;
+              if PrtModel.IsSelected then
+              begin
+                PrtExt := '.' + PrtModel.ModelName + '.lst';
+                ListFileName := ChangeFileExt(SimFileName, PrtExt);
+                ListFiles.Add(ListFileName);
+              end;
             end;
           end;
         end;

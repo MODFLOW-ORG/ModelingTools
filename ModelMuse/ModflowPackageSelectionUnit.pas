@@ -13,7 +13,7 @@ uses SysUtils, Classes, GoPhastTypes, OrderedCollectionUnit, DataSetUnit,
   ModflowBoundaryUnit, Mt3dmsChemSpeciesUnit, System.Generics.Collections,
   Mt3dSftUnit, ModflowCSubInterbed, OrderedCollectionInterfaceUnit,
   Mt3dmsChemSpeciesInterfaceUnit, PrtInterfacesUnit, ModflowPrpInterfaceUnit,
-  System.Character;
+  System.Character, RealListUnit;
 
 const
   KSfrDefaultPicardIterations = 100;
@@ -2977,6 +2977,10 @@ Type
   public
     function Add: TPrpPeriodDataItem;
     property Items[Index: Integer]: TPrpPeriodDataItem read GetPeriodItem write SetPeriodItem; default;
+    procedure UpdateTimes(Times: TRealList; StartTestTime, EndTestTime: double;
+      var StartRangeExtended, EndRangeExtended: boolean);
+    function UsesATime(ATime: Double): Boolean;
+    procedure ReplaceATime(OldTime, NewTime: Double);
   end;
 
   // @name represents one PRP package in one PRT model.
@@ -3067,6 +3071,10 @@ Type
     property OriginalId: Integer read FOriginalId write SetOriginalId;
     procedure FreeNotification(Item: IPrpBoundaryInterface);
     procedure RemoveFreeNotification(Item: IPrpBoundaryInterface);
+    procedure UpdateTimes(Times: TRealList; StartTestTime, EndTestTime: double;
+      var StartRangeExtended, EndRangeExtended: boolean);
+    function UsesATime(ATime: Double): Boolean;
+    procedure ReplaceATime(OldTime, NewTime: Double);
   published
     // pname
     property PackageName: string read GetPackageName write SetPackageName;
@@ -3177,6 +3185,10 @@ Type
     property OriginalId: Integer read FOriginalId write SetOriginalId;
     procedure FreeNotification(Item: IPrpBoundaryInterface);
     procedure RemoveFreeNotification(Item: IPrpBoundaryInterface);
+    procedure UpdateTimes(Times: TRealList; StartTestTime, EndTestTime: double;
+      var StartRangeExtended, EndRangeExtended: boolean);
+    function UsesATime(ATime: Double): Boolean;
+    procedure ReplaceATime(OldTime, NewTime: Double);
   published
     property ModelName: string read GetModelName write SetModelName;
     // RETFACTOR
@@ -8059,7 +8071,8 @@ uses Contnrs , PhastModelUnit, ModflowOptionsUnit,
   ModflowGwtSpecifiedConcUnit, ModflowCncWriterUnit, ModflowFmp4WriterUnit, DataSetNamesUnit,
   ModflowTvkUnit, ModflowTvsUnit,
   ModflowTvkWriterUnit, ModflowTvsWriterUnit, ModflowConstantHeadBoundaryUnit, ModflowWellUnit,
-  UpdateDataArrayUnit;
+  UpdateDataArrayUnit,
+  SolidGeom;
 
 resourcestring
   SPrtZone_ = 'PrtZone_';
@@ -31824,6 +31837,19 @@ begin
   end;
 end;
 
+procedure TPrtModel.ReplaceATime(OldTime, NewTime: Double);
+begin
+  if not IsSelected then
+  begin
+    Exit;
+  end;
+  PeriodData.ReplaceATime(OldTime, NewTime);
+  for var PrpIndex := 0 to Count - 1 do
+  begin
+    Items[PrpIndex].PrpPackage.ReplaceATime(OldTime, NewTime);
+  end;
+end;
+
 procedure TPrtModel.SetItem(Index: Integer; const Value: TPrpPackageItem);
 begin
   inherited Items[Index] := Value;
@@ -32030,6 +32056,47 @@ begin
 
     UpdateOrCreateDataArray(UpdataDat);
   end;
+end;
+
+procedure TPrtModel.UpdateTimes(Times: TRealList; StartTestTime,
+  EndTestTime: double; var StartRangeExtended, EndRangeExtended: boolean);
+var
+  PrpPackage: TPrpPackage;
+begin
+  if not IsSelected then
+  begin
+    Exit;
+  end;
+  PeriodData.UpdateTimes(Times, StartTestTime, EndTestTime,
+    StartRangeExtended, EndRangeExtended);
+  for var ItemIndex := 0 to Count - 1 do
+  begin
+    PrpPackage := Items[ItemIndex].PrpPackage;
+    PrpPackage.UpdateTimes(Times, StartTestTime, EndTestTime,
+      StartRangeExtended, EndRangeExtended);
+  end;
+end;
+
+function TPrtModel.UsesATime(ATime: Double): Boolean;
+begin
+  result := False;
+  if not IsSelected then
+  begin
+    Exit;
+  end;
+  result := PeriodData.UsesATime(ATime);
+  if not result then
+  begin
+    for var PrpIndex := 0 to Count - 1 do
+    begin
+      result := Items[PrpIndex].PrpPackage.UsesATime(ATime);
+      if result then
+      begin
+        Exit;
+      end;
+    end;
+  end;
+
 end;
 
 { TPrtPackage }
@@ -32267,6 +32334,15 @@ begin
   end;
 end;
 
+procedure TPrpPackage.ReplaceATime(OldTime, NewTime: Double);
+begin
+  if not IsSelected then
+  begin
+    Exit;
+  end;
+  PeriodData.ReplaceATime(OldTime, NewTime);
+end;
+
 procedure TPrpPackage.SetCoordinateCheckMethod(
   const Value: TPrtCoordinateCheckMethod);
 begin
@@ -32448,6 +32524,32 @@ end;
 procedure TPrpPackage.SetStoredStopTravelTime(const Value: TOptionalRealValue);
 begin
   FStoredStopTravelTime.Assign(Value);
+end;
+
+procedure TPrpPackage.UpdateTimes(Times: TRealList; StartTestTime,
+  EndTestTime: double; var StartRangeExtended, EndRangeExtended: boolean);
+var
+  PeriodItem: TPrpPeriodDataItem;
+  SP_Epsilon: Extended;
+  ClosestIndex: integer;
+  ExistingTime: double;
+begin
+  if not IsSelected then
+  begin
+    Exit;
+  end;
+  PeriodData.UpdateTimes(Times, StartTestTime, EndTestTime,
+    StartRangeExtended, EndRangeExtended);
+end;
+
+function TPrpPackage.UsesATime(ATime: Double): Boolean;
+begin
+  result := False;
+  if not IsSelected then
+  begin
+    Exit;
+  end;
+  result := PeriodData.UsesATime(ATime);
 end;
 
 function TPrpPackage._AddRef: Integer;
@@ -33044,10 +33146,95 @@ begin
   result := inherited Items[Index] as TPrpPeriodDataItem
 end;
 
+procedure TPrpPeriodData.ReplaceATime(OldTime, NewTime: Double);
+const
+  Epsilon = 1e-12;
+var
+  TimeIndex: Integer;
+  AnItem: TPrpPeriodDataItem;
+  MFItem: TCustomModflowBoundaryItem;
+begin
+  for TimeIndex := 0 to Count - 1 do
+  begin
+    AnItem := Items[TimeIndex];
+    if NearlyTheSame(AnItem.StartTime, OldTime, Epsilon) then
+    begin
+      AnItem.StartTime := NewTime
+    end;
+    if NearlyTheSame(AnItem.EndTime, OldTime, Epsilon) then
+    begin
+      AnItem.EndTime := NewTime
+    end;
+  end;
+end;
+
 procedure TPrpPeriodData.SetPeriodItem(Index: Integer;
   const Value: TPrpPeriodDataItem);
 begin
   inherited Items[Index] := Value;
+end;
+
+procedure TPrpPeriodData.UpdateTimes(Times: TRealList; StartTestTime,
+  EndTestTime: double; var StartRangeExtended, EndRangeExtended: boolean);
+var
+  PeriodItem: TPrpPeriodDataItem;
+  SP_Epsilon: Extended;
+  ClosestIndex: integer;
+  ExistingTime: double;
+begin
+  SP_Epsilon := (Model as TCustomModel).SP_Epsilon;
+  for var TimeIndex := 0 to Count - 1 do
+  begin
+    PeriodItem := Items[TimeIndex];
+    ClosestIndex := Times.IndexOfClosest(PeriodItem.StartTime);
+    if ClosestIndex >= 0 then
+    begin
+      ExistingTime := Times[ClosestIndex];
+      if Abs(ExistingTime - PeriodItem.StartTime) > SP_Epsilon then
+      begin
+        Times.AddUnique(PeriodItem.StartTime);
+      end;
+    end;
+    ClosestIndex := Times.IndexOfClosest(PeriodItem.EndTime);
+    if ClosestIndex >= 0 then
+    begin
+      ExistingTime := Times[ClosestIndex];
+      if Abs(ExistingTime - PeriodItem.EndTime) > SP_Epsilon then
+      begin
+        Times.AddUnique(PeriodItem.EndTime);
+      end;
+    end;
+    if (PeriodItem.StartTime < StartTestTime - SP_Epsilon) then
+    begin
+      StartRangeExtended := True;
+    end;
+    if (PeriodItem.EndTime > EndTestTime + SP_Epsilon) then
+    begin
+      EndRangeExtended := True;
+    end;
+  end;
+end;
+
+function TPrpPeriodData.UsesATime(ATime: Double): Boolean;
+var
+  AnItem: TPrpPeriodDataItem;
+begin
+  result := False;
+  for var TimeIndex := 0 to Count - 1 do
+  begin
+    AnItem := Items[TimeIndex];
+    if AnItem.StartTime = ATime then
+    begin
+      result := True;
+      Exit;
+    end;
+    if AnItem.EndTime = ATime then
+    begin
+      result := True;
+      Exit;
+    end;
+  end;
+
 end;
 
 end.

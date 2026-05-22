@@ -106,11 +106,11 @@ var
         ModflowGrid.ColumnPositions[AParticle.Column];
       DeltaY := ModflowGrid.RowPositions[AParticle.Row] -
         ModflowGrid.RowPositions[AParticle.Row +1];
-      APoint2D.X := ModflowGrid.ColumnPositions[AParticle.Column] + DeltaX*AParticle.X;
-      APoint2D.Y := ModflowGrid.RowPositions[AParticle.Row] - DeltaY*AParticle.Y;
-      APoint2D := ModflowGrid.RotateFromGridCoordinatesToRealWorldCoordinates(APoint2D);
-      result.X := APoint2D.X;
-      result.Y := APoint2D.Y;
+      result.X := ModflowGrid.ColumnPositions[AParticle.Column] - ModflowGrid.ColumnPositions[0] + DeltaX*AParticle.X;
+      result.Y := ModflowGrid.RowPositions[AParticle.Row] - ModflowGrid.RowPositions[ModflowGrid.RowCount] - DeltaY*AParticle.Y;
+//      APoint2D := ModflowGrid.RotateFromGridCoordinatesToRealWorldCoordinates(APoint2D);
+//      result.X := APoint2D.X;
+//      result.Y := APoint2D.Y;
       if not PrpPackage.LocalZ then
       begin
         LayerTop := ModflowGrid.LayerElevations[AParticle.Column, AParticle.Row, AParticle.Layer];
@@ -619,6 +619,7 @@ begin
     end;
   finally
     WriteString('END RELEASETIMES');
+    NewLine;
     NewLine;
   end;
 end;

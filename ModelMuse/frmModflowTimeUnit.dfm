@@ -19,7 +19,7 @@ inherited frmModflowTime: TfrmModflowTime
       750
       35)
     object btnCancel: TBitBtn
-      Left = 636
+      Left = 634
       Top = 2
       Width = 83
       Height = 27
@@ -27,9 +27,10 @@ inherited frmModflowTime: TfrmModflowTime
       Kind = bkCancel
       NumGlyphs = 2
       TabOrder = 2
+      ExplicitLeft = 636
     end
     object btnOK: TBitBtn
-      Left = 548
+      Left = 546
       Top = 2
       Width = 82
       Height = 27
@@ -38,9 +39,10 @@ inherited frmModflowTime: TfrmModflowTime
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnOKClick
+      ExplicitLeft = 548
     end
     object btnHelp: TBitBtn
-      Left = 460
+      Left = 458
       Top = 2
       Width = 82
       Height = 27
@@ -49,6 +51,7 @@ inherited frmModflowTime: TfrmModflowTime
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnHelpClick
+      ExplicitLeft = 460
     end
     object btnConvertTimeUnits: TButton
       Left = 12
@@ -83,10 +86,11 @@ inherited frmModflowTime: TfrmModflowTime
       object pnlTop: TPanel
         Left = 0
         Top = 0
-        Width = 742
+        Width = 744
         Height = 81
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 742
         object lblPeriodLength: TLabel
           Left = 183
           Top = 8
@@ -521,7 +525,7 @@ inherited frmModflowTime: TfrmModflowTime
           ItemIndex = 1
         end
         object btnDelete: TButton
-          Left = 544
+          Left = 542
           Top = 6
           Width = 82
           Height = 27
@@ -529,9 +533,10 @@ inherited frmModflowTime: TfrmModflowTime
           Caption = 'Delete'
           TabOrder = 2
           OnClick = btnDeleteClick
+          ExplicitLeft = 544
         end
         object btnInsert: TButton
-          Left = 632
+          Left = 630
           Top = 6
           Width = 83
           Height = 27
@@ -539,6 +544,7 @@ inherited frmModflowTime: TfrmModflowTime
           Caption = 'Insert'
           TabOrder = 3
           OnClick = btnInsertClick
+          ExplicitLeft = 632
         end
       end
     end
@@ -548,7 +554,7 @@ inherited frmModflowTime: TfrmModflowTime
       inline frameGrid: TframeGrid
         Left = 0
         Top = 0
-        Width = 742
+        Width = 744
         Height = 473
         Align = alClient
         TabOrder = 0
@@ -556,7 +562,7 @@ inherited frmModflowTime: TfrmModflowTime
         ExplicitHeight = 473
         inherited Panel: TPanel
           Top = 432
-          Width = 742
+          Width = 744
           StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 432
           ExplicitWidth = 742
@@ -589,7 +595,7 @@ inherited frmModflowTime: TfrmModflowTime
           end
         end
         inherited Grid: TRbwDataGrid4
-          Width = 742
+          Width = 744
           Height = 432
           ColCount = 8
           FixedCols = 1
@@ -1049,7 +1055,7 @@ inherited frmModflowTime: TfrmModflowTime
       object rdgGWT: TRbwDataGrid4
         Left = 0
         Top = 0
-        Width = 742
+        Width = 744
         Height = 473
         Margins.Left = 4
         Margins.Top = 4
@@ -1170,6 +1176,7 @@ inherited frmModflowTime: TfrmModflowTime
             AutoAdjustColWidths = False
           end>
         WordWrapRowCaptions = False
+        ExplicitWidth = 742
       end
     end
   end

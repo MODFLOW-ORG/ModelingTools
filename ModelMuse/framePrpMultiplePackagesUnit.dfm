@@ -300,7 +300,6 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitTop = 1
           ExplicitWidth = 657
           ExplicitHeight = 228
         end
@@ -397,6 +396,8 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Height = 228
           ColCount = 8
           DefaultColWidth = 50
+          OnEnter = frameReleasePeriodDataGridEnter
+          OnExit = frameReleasePeriodDataGridExit
           OnEndUpdate = frameReleasePeriodDataGridEndUpdate
           Columns = <
             item
@@ -595,6 +596,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
+          ExplicitLeft = 4
           ExplicitWidth = 657
           ExplicitHeight = 228
         end

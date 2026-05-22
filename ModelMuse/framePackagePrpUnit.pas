@@ -38,6 +38,8 @@ type
     pnlReleasePeriodData: TPanel;
     lblReleasePeriodData: TLabel;
     cbLocalZ: TCheckBox;
+    procedure frameReleasePeriodDataGridSetEditText(Sender: TObject; ACol, ARow:
+        LongInt; const Value: string);
     procedure frameReleasePeriodDataseNumberChange(Sender: TObject);
     procedure frameReleaseTimesseNumberChange(Sender: TObject);
     procedure FrameResize(Sender: TObject);
@@ -45,6 +47,7 @@ type
     procedure frameStopTimeRdeValueChange(Sender: TObject);
   private
     FMemoWidthDelta: Integer;
+    FGettingData: Boolean;
     procedure InitializeGrids;
     procedure SetMemoWidthDelta(const Value: Integer);
     { Private declarations }
@@ -75,6 +78,16 @@ resourcestring
 type
   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
   pdcFrequency, pdcSteps);
+
+procedure TframePackagePrp.frameReleasePeriodDataGridSetEditText(Sender:
+    TObject; ACol, ARow: LongInt; const Value: string);
+begin
+  if FGettingData then
+  begin
+     Exit
+  end;
+  inherited;
+end;
 
 procedure TframePackagePrp.frameReleasePeriodDataseNumberChange(Sender:
     TObject);
@@ -114,82 +127,87 @@ var
   Steps: TStringList;
 begin
   inherited;
-  InitializeGrids;
-
-  PrpPackage := Package as TPrpPackage;
-
-  frameEXIT_SOLVE_TOLERANCE.RdeValue.RealValue := PrpPackage.SolverTolerance;
-  frameEXIT_SOLVE_TOLERANCE.cbUsed.Checked := PrpPackage.SolverToleranceUsed;
-
-  cbEXTEND_TRACKING.Checked := PrpPackage.ExtendTracking;
-  cbLocalZ.Checked := PrpPackage.LocalZ;
-
-  comboTrackOutput.ItemIndex := Ord(PrpPackage.PrtTrackingOutput);
-
-  frameStopTime.cbUsed.Checked := PrpPackage.StopTimeUsed;
-  frameStopTime.RdeValue.RealValue := PrpPackage.StopTime;
-
-  frameStopTravelTime.cbUsed.Checked := PrpPackage.StopTravelTimeUsed;
-  frameStopTravelTime.RdeValue.RealValue := PrpPackage.StopTravelTime;
-
-  cbSTOP_AT_WEAK_SINK.Checked := PrpPackage.StopAtWeakSinks;
-
-  cbDRAPE.Checked := PrpPackage.Drape;
-
-  rdeISTOPZONE.IntegerValue := PrpPackage.StopZone;
-
-  frameRELEASE_TIME_TOLERANCE.cbUsed.Checked := PrpPackage.ReleaseTimeToleranceUsed;
-  frameRELEASE_TIME_TOLERANCE.RdeValue.RealValue := PrpPackage.ReleaseTimeTolerance;
-
-  frameRELEASE_TIME_FREQUENCY.cbUsed.Checked := PrpPackage.ReleaseTimeToleranceUsed;
-  frameRELEASE_TIME_FREQUENCY.RdeValue.RealValue := PrpPackage.ReleaseTimeTolerance;
-
-  comboDryTrackingMethod.ItemIndex := Ord(PrpPackage.DryTrackingMethod);
-
-  comboCOORDINATE_CHECK_METHOD.ItemIndex := Ord(PrpPackage.CoordinateCheckMethod);
-
-  frameReleaseTimes.Grid.BeginUpdate;
+  FGettingData := True;
   try
-   frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleaseTimes.Grid, 0);
-   frameReleaseTimes.seNumber.Value := PrpPackage.ReleaseTimes.Count;
-   frameReleaseTimesseNumberChange(nil);
-   for var Index := 0 to PrpPackage.ReleaseTimes.Count - 1 do
-   begin
-     frameReleaseTimes.Grid.RealValue[0, Index+1] := PrpPackage.ReleaseTimes[Index].Value;
-   end;
-  finally
-   frameReleaseTimes.Grid.EndUpdate;
-  end;
+    InitializeGrids;
 
-  frameReleasePeriodData.Grid.BeginUpdate;
-  try
-   frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleasePeriodData.Grid, Ord(pdcStartTime));
-   frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithEndTimes(frameReleasePeriodData.Grid, Ord(pdcEndTime));
-   frameReleasePeriodData.seNumber.Value := PrpPackage.PeriodData.Count;
-   frameReleasePeriodDataseNumberChange(nil);
-   for var Index := 0 to PrpPackage.PeriodData.Count - 1 do
-   begin
-     frameReleasePeriodData.Grid.RealValue[Ord(pdcStartTime), Index+1] := PrpPackage.PeriodData[Index].StartTime;
-     frameReleasePeriodData.Grid.RealValue[Ord(pdcEndTime), Index+1] := PrpPackage.PeriodData[Index].EndTime;
-     frameReleasePeriodData.Grid.Checked[Ord(pdcAll), Index+1] := PrpPackage.PeriodData[Index].All;
-     frameReleasePeriodData.Grid.Checked[Ord(pdcFirst), Index+1] := PrpPackage.PeriodData[Index].First;
-     frameReleasePeriodData.Grid.Checked[Ord(pdcLast), Index+1] := PrpPackage.PeriodData[Index].Last;
-     frameReleasePeriodData.Grid.IntegerValue[Ord(pdcFrequency), Index+1] := PrpPackage.PeriodData[Index].Frequency;
-     frameReleasePeriodData.Grid.RealValue[Ord(pdcStartTime), Index+1] := PrpPackage.PeriodData[Index].StartTime;
-     Steps := TStringList.Create;
-     try
-       for var StepIndex := 0 to PrpPackage.PeriodData[Index].Steps.Count - 1 do
-       begin
-         Steps.Add(PrpPackage.PeriodData[Index].Steps[StepIndex].ToString);
-       end;
-       frameReleasePeriodData.Grid.Cells[Ord(pdcSteps), Index+1] := Steps.CommaText;
-     finally
-       Steps.Free;
+    PrpPackage := Package as TPrpPackage;
+
+    frameEXIT_SOLVE_TOLERANCE.RdeValue.RealValue := PrpPackage.SolverTolerance;
+    frameEXIT_SOLVE_TOLERANCE.cbUsed.Checked := PrpPackage.SolverToleranceUsed;
+
+    cbEXTEND_TRACKING.Checked := PrpPackage.ExtendTracking;
+    cbLocalZ.Checked := PrpPackage.LocalZ;
+
+    comboTrackOutput.ItemIndex := Ord(PrpPackage.PrtTrackingOutput);
+
+    frameStopTime.cbUsed.Checked := PrpPackage.StopTimeUsed;
+    frameStopTime.RdeValue.RealValue := PrpPackage.StopTime;
+
+    frameStopTravelTime.cbUsed.Checked := PrpPackage.StopTravelTimeUsed;
+    frameStopTravelTime.RdeValue.RealValue := PrpPackage.StopTravelTime;
+
+    cbSTOP_AT_WEAK_SINK.Checked := PrpPackage.StopAtWeakSinks;
+
+    cbDRAPE.Checked := PrpPackage.Drape;
+
+    rdeISTOPZONE.IntegerValue := PrpPackage.StopZone;
+
+    frameRELEASE_TIME_TOLERANCE.cbUsed.Checked := PrpPackage.ReleaseTimeToleranceUsed;
+    frameRELEASE_TIME_TOLERANCE.RdeValue.RealValue := PrpPackage.ReleaseTimeTolerance;
+
+    frameRELEASE_TIME_FREQUENCY.cbUsed.Checked := PrpPackage.ReleaseTimeToleranceUsed;
+    frameRELEASE_TIME_FREQUENCY.RdeValue.RealValue := PrpPackage.ReleaseTimeTolerance;
+
+    comboDryTrackingMethod.ItemIndex := Ord(PrpPackage.DryTrackingMethod);
+
+    comboCOORDINATE_CHECK_METHOD.ItemIndex := Ord(PrpPackage.CoordinateCheckMethod);
+
+    frameReleaseTimes.Grid.BeginUpdate;
+    try
+     frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleaseTimes.Grid, 0);
+     frameReleaseTimes.seNumber.Value := PrpPackage.ReleaseTimes.Count;
+     frameReleaseTimesseNumberChange(nil);
+     for var Index := 0 to PrpPackage.ReleaseTimes.Count - 1 do
+     begin
+       frameReleaseTimes.Grid.RealValue[0, Index+1] := PrpPackage.ReleaseTimes[Index].Value;
      end;
+    finally
+     frameReleaseTimes.Grid.EndUpdate;
+    end;
 
-   end;
+    frameReleasePeriodData.Grid.BeginUpdate;
+    try
+     frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleasePeriodData.Grid, Ord(pdcStartTime));
+     frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithEndTimes(frameReleasePeriodData.Grid, Ord(pdcEndTime));
+     frameReleasePeriodData.seNumber.Value := PrpPackage.PeriodData.Count;
+     frameReleasePeriodDataseNumberChange(nil);
+     for var Index := 0 to PrpPackage.PeriodData.Count - 1 do
+     begin
+       frameReleasePeriodData.Grid.RealValue[Ord(pdcStartTime), Index+1] := PrpPackage.PeriodData[Index].StartTime;
+       frameReleasePeriodData.Grid.RealValue[Ord(pdcEndTime), Index+1] := PrpPackage.PeriodData[Index].EndTime;
+       frameReleasePeriodData.Grid.Checked[Ord(pdcAll), Index+1] := PrpPackage.PeriodData[Index].All;
+       frameReleasePeriodData.Grid.Checked[Ord(pdcFirst), Index+1] := PrpPackage.PeriodData[Index].First;
+       frameReleasePeriodData.Grid.Checked[Ord(pdcLast), Index+1] := PrpPackage.PeriodData[Index].Last;
+       frameReleasePeriodData.Grid.IntegerValue[Ord(pdcFrequency), Index+1] := PrpPackage.PeriodData[Index].Frequency;
+       frameReleasePeriodData.Grid.RealValue[Ord(pdcStartTime), Index+1] := PrpPackage.PeriodData[Index].StartTime;
+       Steps := TStringList.Create;
+       try
+         for var StepIndex := 0 to PrpPackage.PeriodData[Index].Steps.Count - 1 do
+         begin
+           Steps.Add(PrpPackage.PeriodData[Index].Steps[StepIndex].ToString);
+         end;
+         frameReleasePeriodData.Grid.Cells[Ord(pdcSteps), Index+1] := Steps.CommaText;
+       finally
+         Steps.Free;
+       end;
+
+     end;
+    finally
+     frameReleasePeriodData.Grid.EndUpdate;
+    end;
   finally
-   frameReleasePeriodData.Grid.EndUpdate;
+    FGettingData := False;
   end;
 end;
 
@@ -200,6 +218,7 @@ begin
   frameReleasePeriodData.Grid.BeginUpdate;
   try
     ClearGrid(frameReleasePeriodData.Grid);
+    frameReleasePeriodData.seNumber.AsInteger := 0;
     frameReleasePeriodData.Grid.Cells[Ord(pdcStartTime), 0] := StrStartingTime;
     frameReleasePeriodData.Grid.Cells[Ord(pdcEndTime), 0] := StrEndingTime;
     frameReleasePeriodData.Grid.Cells[Ord(pdcAll), 0] := SAllSteps;

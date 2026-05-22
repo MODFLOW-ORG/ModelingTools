@@ -197,6 +197,7 @@ begin
     WriteString(' FILEIN ');
     GrbFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.grb'));
     WriteString(GrbFileName);
+    NewLine;
   end;
 end;
 
@@ -227,7 +228,7 @@ begin
       NameOfFile := ChangeFileExt(AFileName, ModelName);
       FInputFileName := NameOfFile;
       FNameOfFile := NameOfFile;
-      WriteToGwtNameFile('FMI6', FNameOfFile, PrtIndex);
+      WriteToPrtNameFile('FMI6', FNameOfFile, PrtModel, PrtModel.ModelName);
 
       OpenFile(FNameOfFile);
       try

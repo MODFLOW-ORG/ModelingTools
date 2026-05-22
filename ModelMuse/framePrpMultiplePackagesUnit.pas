@@ -44,6 +44,8 @@ type
         const Value: string);
     procedure framePrpPackagesseNumberChange(Sender: TObject);
     procedure frameReleasePeriodDataGridEndUpdate(Sender: TObject);
+    procedure frameReleasePeriodDataGridEnter(Sender: TObject);
+    procedure frameReleasePeriodDataGridExit(Sender: TObject);
     procedure frameTrackTimesGridEndUpdate(Sender: TObject);
   private
     FOnPrpPackageDeleted: TPrpPackagedDeletedEvent;
@@ -249,12 +251,26 @@ procedure TframePrpMultiplePackages.frameReleasePeriodDataGridEndUpdate(Sender:
     TObject);
 begin
   inherited;
-  if FInitializing or FGettingData or (ComponentState <> []) then
+  if FInitializing or FGettingData or (ControlState <> []) then
   begin
     Exit;
   end;
 
   frameReleasePeriodData.GridEndUpdate(Sender);
+end;
+
+procedure TframePrpMultiplePackages.frameReleasePeriodDataGridEnter(Sender:
+    TObject);
+begin
+  inherited;
+  frameReleasePeriodData.Grid.BeginUpdate;
+end;
+
+procedure TframePrpMultiplePackages.frameReleasePeriodDataGridExit(Sender:
+    TObject);
+begin
+  inherited;
+  frameReleasePeriodData.Grid.EndUpdate;
 end;
 
 procedure TframePrpMultiplePackages.frameTrackTimesGridEndUpdate(Sender:
@@ -439,6 +455,7 @@ var
   PackageFound: Boolean;
   AnObject: TObject;
   StoredPackage: TPrpPackage;
+  AnInteger: Integer;
 begin
   PrtModel.RetardationFactorUsed := cbRetardationFactor.Checked;
   PrtModel.ZoneUsed := cbUseParticleStopZones.Checked;
@@ -524,6 +541,8 @@ begin
       begin
         PeriodData := PrtModel.PeriodData.Add;
       end;
+      PeriodData.StartTime := StartTime;
+      PeriodData.EndTime := EndTime;
 
       if frameReleasePeriodData.Grid.ItemIndex[Ord(ppdcPrintSave), Index+1] >= 0 then
       begin
@@ -533,7 +552,10 @@ begin
       PeriodData.All := frameReleasePeriodData.Grid.Checked[Ord(ppdcAll), Index+1];
       PeriodData.First := frameReleasePeriodData.Grid.Checked[Ord(ppdcFirst), Index+1];
       PeriodData.Last := frameReleasePeriodData.Grid.Checked[Ord(ppdcLast), Index+1];
-      PeriodData.Frequency := frameReleasePeriodData.Grid.IntegerValue[Ord(ppdcFrequency), Index+1];
+      if TryStrToInt(frameReleasePeriodData.Grid.Cells[Ord(ppdcFrequency), Index+1], AnInteger) then
+      begin
+        PeriodData.Frequency := AnInteger;
+      end;
       StepList := TStringList.Create;
       try
         StepList.commaText := frameReleasePeriodData.Grid.Cells[Ord(ppdcSteps), Index+1];

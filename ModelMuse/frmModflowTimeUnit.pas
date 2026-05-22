@@ -1635,6 +1635,8 @@ var
   AScreenObject: TScreenObject;
   TimeIndex: Integer;
   OldCount: integer;
+  PrtModels: TPrtModels;
+  PrtModel: TPrtModel;
 begin
   inherited;
   OldCount := frmGoPhast.PhastModel.ModflowStressPeriods.Count;
@@ -1691,6 +1693,26 @@ begin
         end;
       end;
     end;
+
+    PrtModels := frmGoPhast.PhastModel.ModflowPackages.PrtModels;
+    for var PrtIntex := 0 to PrtModels.Count - 1 do
+    begin
+      PrtModel := PrtModels[PrtIntex].PrtModel;
+      for TimeIndex := FOldTimes.Count - 1 downto 0 do
+      begin
+        if FOldTimes[TimeIndex] < FNewTimes[TimeIndex] then
+        begin
+          PrtModel.ReplaceATime(FOldTimes[TimeIndex], FNewTimes[TimeIndex]);
+        end;
+      end;
+      for TimeIndex := 0 to FOldTimes.Count - 1 do
+      begin
+        if FOldTimes[TimeIndex] > FNewTimes[TimeIndex] then
+        begin
+          PrtModel.ReplaceATime(FOldTimes[TimeIndex], FNewTimes[TimeIndex]);
+        end;
+      end;
+    end;
   end;
 
 
@@ -1700,8 +1722,12 @@ procedure TUndoModflowStressPeriods.Undo;
 var
   ScreenObjectIndex: Integer;
   AScreenObject: TScreenObject;
+  OldCount: Integer;
+  PrtModels: TPrtModels;
+  PrtModel: TPrtModel;
 begin
   inherited;
+  OldCount := frmGoPhast.PhastModel.ModflowStressPeriods.Count;
   frmGoPhast.PhastModel.ModflowPackages.StoPackage.IsSelected := FStoragePackageIsSelected;
   frmGoPhast.PhastModel.ModflowStressPeriods.Assign(FOldStressPeriods);
   frmGoPhast.PhastModel.ModflowOptions.TimeUnit := FOldTimeUnit;
@@ -1712,6 +1738,30 @@ begin
     AScreenObject := FExistingScreenObjects[ScreenObjectIndex];
     AScreenObject.Assign(FOldScreenObjects[ScreenObjectIndex]);
   end;
+
+  if OldCount = frmGoPhast.PhastModel.ModflowStressPeriods.Count then
+  begin
+    PrtModels := frmGoPhast.PhastModel.ModflowPackages.PrtModels;
+    for var PrtIntex := 0 to PrtModels.Count - 1 do
+    begin
+      PrtModel := PrtModels[PrtIntex].PrtModel;
+      for var TimeIndex := FNewTimes.Count - 1 downto 0 do
+      begin
+        if FNewTimes[TimeIndex] < FOldTimes[TimeIndex] then
+        begin
+          PrtModel.ReplaceATime(FNewTimes[TimeIndex], FOldTimes[TimeIndex]);
+        end;
+      end;
+      for var TimeIndex := 0 to FNewTimes.Count - 1 do
+      begin
+        if FNewTimes[TimeIndex] > FOldTimes[TimeIndex] then
+        begin
+          PrtModel.ReplaceATime(FNewTimes[TimeIndex], FOldTimes[TimeIndex]);
+        end;
+      end;
+    end;
+  end;
+
 end;
 
 end.
