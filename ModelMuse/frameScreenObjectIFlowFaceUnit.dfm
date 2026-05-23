@@ -1,0 +1,54 @@
+object frameScreenObjectIFlowFace: TframeScreenObjectIFlowFace
+  Left = 0
+  Top = 0
+  Width = 537
+  Height = 478
+  TabOrder = 0
+  object lblIFlowFace: TLabel
+    Left = 8
+    Top = 16
+    Width = 52
+    Height = 15
+    Caption = 'IFlowFace'
+  end
+  object lblExplanation: TLabel
+    AlignWithMargins = True
+    Left = 154
+    Top = 3
+    Width = 380
+    Height = 472
+    Align = alRight
+    Caption = 
+      'By default, flows associated with stress packages are assumed to' +
+      ' be distributed uniformly over the volume of a cell. The user ca' +
+      'n optionally assign a flow associated with a stress package to a' +
+      'ny face of the cell by setting the value of IFLOWFACE. To accomm' +
+      'odate non-rectangular cells, the IFLOWFACE numbering scheme in t' +
+      'he PRT Model is based on clockwise ordering of the lateral cell ' +
+      'faces. For a DIS-grid cell, IFLOWFACE = 1 corresponds to the '#8220'we' +
+      'stern'#8221' face, i.e., the face parallel to the y axis that has the ' +
+      'lesser x coordinate. For a DISV-grid cell, IFLOWFACE = 1 corresp' +
+      'onds to the face that extends in the clockwise direction from th' +
+      'e first vertex listed for that cell in the CELL2D input block. I' +
+      'FLOWFACE numbering of lateral cell faces proceeds in clockwise d' +
+      'irection. IFLOWFACE = -2 corresponds to the cell bottom, and IFL' +
+      'OWFACE = -1 corresponds to the cell top.'#13#10'The cell faces for DIS' +
+      'V models are displayed in the Grid Value dialog box.'
+    WordWrap = True
+    ExplicitLeft = 320
+    ExplicitHeight = 474
+  end
+  object rdeIFlowFace: TRbwDataEntry
+    Left = 3
+    Top = 48
+    Width = 145
+    Height = 22
+    TabOrder = 0
+    Text = '0'
+    DataType = dtInteger
+    Max = 1.000000000000000000
+    Min = -2.000000000000000000
+    CheckMin = True
+    ChangeDisabledColor = True
+  end
+end

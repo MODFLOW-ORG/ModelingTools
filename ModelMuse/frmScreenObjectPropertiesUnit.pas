@@ -84,7 +84,7 @@ uses System.UITypes, Windows,
   frameScreenObjectCfpRechargeFractionUnit, frameScreenObjectTransientKUnit,
   frameScreenObjectTransientSUnit, frameScreenObjectCtpUnit,
   frameScreenObjectEslUnit, frameScreenObjectPrpUnit, VirtualTrees.BaseTree,
-  VirtualTrees;
+  VirtualTrees, frameScreenObjectIFlowFaceUnit;
 
   { TODO : Consider making this a property sheet like the Object Inspector that
   could stay open at all times.  Boundary conditions and vertices might be
@@ -524,6 +524,8 @@ type
     frameGweESL: TframeScreenObjectEsl;
     jvspPRP: TJvStandardPage;
     framePRP: TframeScreenObjectPrp;
+    jvspIFlowFace: TJvStandardPage;
+    frameScreenObjectIFlowFace1: TframeScreenObjectIFlowFace;
     // @name changes which check image is displayed for the selected item
     // in @link(jvtlModflowBoundaryNavigator).
     procedure jvtlModflowBoundaryNavigatorMouseDown(Sender: TObject;

@@ -169,7 +169,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
       object edHighZ: TRbwEdit
         Left = 201
         Top = 414
-        Width = 264
+        Width = 262
         Height = 27
         Cursor = crIBeam
         Anchors = [akLeft, akTop, akRight]
@@ -182,7 +182,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
       object edLowZ: TRbwEdit
         Left = 201
         Top = 447
-        Width = 264
+        Width = 262
         Height = 27
         Cursor = crIBeam
         Anchors = [akLeft, akTop, akRight]
@@ -193,7 +193,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         OnExit = edLowZExit
       end
       object btnZ: TButton
-        Left = 471
+        Left = 469
         Top = 380
         Width = 90
         Height = 30
@@ -204,7 +204,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         OnClick = btnFormulaClick
       end
       object btnHighZ: TButton
-        Left = 471
+        Left = 469
         Top = 415
         Width = 90
         Height = 30
@@ -215,7 +215,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         OnClick = btnFormulaClick
       end
       object btnLowZ: TButton
-        Left = 471
+        Left = 469
         Top = 448
         Width = 90
         Height = 30
@@ -293,7 +293,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
       object edZ: TRbwEdit
         Left = 201
         Top = 381
-        Width = 264
+        Width = 262
         Height = 27
         Anchors = [akLeft, akTop, akRight]
         Color = clBtnFace
@@ -545,14 +545,14 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         inline framePhastInterpolationData: TframePhastInterpolation
           Left = 3
           Top = 30
-          Width = 630
+          Width = 628
           Height = 143
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
           TabStop = True
           ExplicitLeft = 3
           ExplicitTop = 30
-          ExplicitWidth = 630
+          ExplicitWidth = 628
           ExplicitHeight = 143
           inherited lblDistance1: TLabel
             Top = 68
@@ -600,15 +600,13 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             ExplicitHeight = 19
           end
           inherited cbPhastInterpolation: TJvCheckBox
-            Width = 238
-            Height = 19
+            Width = 241
             OnClick = framePhastInterpolationDatacbPhastInterpolationClick
             HotTrackFont.Charset = ANSI_CHARSET
             HotTrackFont.Height = 19
             HotTrackFont.Name = 'Arial'
             HotTrackFont.Pitch = fpVariable
-            ExplicitWidth = 238
-            ExplicitHeight = 19
+            ExplicitWidth = 241
           end
           inherited rdeDistance1: TRbwDataEntry
             Top = 68
@@ -657,23 +655,23 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           end
           inherited edMixFormula: TRbwEdit
             Top = 104
-            Width = 134
+            Width = 132
             Height = 27
             Anchors = [akLeft, akTop, akRight]
             StyleElements = [seFont, seClient, seBorder]
             OnEnter = framePhastInterpolationDataedMixFormulaEnter
             OnExit = framePhastInterpolationDataedMixFormulaExit
             ExplicitTop = 104
-            ExplicitWidth = 134
+            ExplicitWidth = 132
             ExplicitHeight = 27
           end
           inherited btnEditMixtureFormula: TButton
-            Left = 532
+            Left = 530
             Top = 104
             Height = 30
             Anchors = [akTop, akRight]
             OnClick = framePhastInterpolationDatabtnEditMixtureFormulaClick
-            ExplicitLeft = 532
+            ExplicitLeft = 530
             ExplicitTop = 104
             ExplicitHeight = 30
           end
@@ -773,7 +771,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           object reDataSetFormula: TRichEdit
             Left = 6
             Top = 37
-            Width = 399
+            Width = 397
             Height = 149
             Anchors = [akLeft, akTop, akRight, akBottom]
             Enabled = False
@@ -1947,7 +1945,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             object edWellDescription: TEdit
               Left = 104
               Top = 8
-              Width = 208
+              Width = 206
               Height = 27
               Cursor = crIBeam
               Anchors = [akLeft, akTop, akRight]
@@ -2322,8 +2320,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             inherited cbPhastInterpolation: TJvCheckBox
               Left = 16
               Top = 65
-              Width = 238
-              Height = 19
+              Width = 241
               TabOrder = 3
               Visible = False
               OnClick = framePhastInterpolationBoundariescbPhastInterpolationClick
@@ -2333,8 +2330,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               HotTrackFont.Pitch = fpVariable
               ExplicitLeft = 16
               ExplicitTop = 65
-              ExplicitWidth = 238
-              ExplicitHeight = 19
+              ExplicitWidth = 241
             end
             inherited rdeDistance1: TRbwDataEntry
               Left = 8
@@ -2476,13 +2472,14 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           6400200042006F0075006E00640061007200790020007000610063006B006100
           670065002900}
         Items.Links = {020000000000000000000000}
+        ExplicitHeight = 470
       end
       object jvplModflowBoundaries: TJvPageList
         Left = 195
         Top = 0
         Width = 537
         Height = 478
-        ActivePage = jvspPRP
+        ActivePage = jvspIFlowFace
         PropagateEnable = False
         Align = alClient
         OnChange = jvplModflowBoundariesChange
@@ -2552,17 +2549,17 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 433
+                Left = 431
                 Top = 5
                 TabOrder = 1
-                ExplicitLeft = 433
+                ExplicitLeft = 431
                 ExplicitTop = 5
               end
               inherited btnInsert: TBitBtn
-                Left = 349
+                Left = 347
                 Top = 5
                 TabOrder = 0
-                ExplicitLeft = 349
+                ExplicitLeft = 347
                 ExplicitTop = 5
               end
               inherited comboTimeSeriesInterpolation: TComboBox
@@ -2811,15 +2808,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 437
+                Left = 435
                 Top = 3
-                ExplicitLeft = 437
+                ExplicitLeft = 435
                 ExplicitTop = 3
               end
               inherited btnInsert: TBitBtn
-                Left = 353
+                Left = 351
                 Top = 3
-                ExplicitLeft = 353
+                ExplicitLeft = 351
                 ExplicitTop = 3
               end
               inherited comboTimeSeriesInterpolation: TComboBox
@@ -3087,12 +3084,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 437
-                ExplicitLeft = 437
+                Left = 435
+                ExplicitLeft = 435
               end
               inherited btnInsert: TBitBtn
-                Left = 353
-                ExplicitLeft = 353
+                Left = 351
+                ExplicitLeft = 351
               end
               inherited comboTimeSeriesInterpolation: TComboBox
                 Left = 217
@@ -3331,12 +3328,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 437
-                ExplicitLeft = 437
+                Left = 435
+                ExplicitLeft = 435
               end
               inherited btnInsert: TBitBtn
-                Left = 353
-                ExplicitLeft = 353
+                Left = 351
+                ExplicitLeft = 351
               end
               inherited comboTimeSeriesInterpolation: TComboBox
                 Left = 212
@@ -3615,15 +3612,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
+                Left = 443
                 Top = 3
-                ExplicitLeft = 445
+                ExplicitLeft = 443
                 ExplicitTop = 3
               end
               inherited btnInsert: TBitBtn
-                Left = 361
+                Left = 359
                 Top = 3
-                ExplicitLeft = 361
+                ExplicitLeft = 359
                 ExplicitTop = 3
               end
               inherited comboTimeSeriesInterpolation: TComboBox
@@ -3873,15 +3870,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 254
+                Left = 252
                 Top = 5
-                ExplicitLeft = 254
+                ExplicitLeft = 252
                 ExplicitTop = 5
               end
               inherited btnInsert: TBitBtn
-                Left = 170
+                Left = 168
                 Top = 5
-                ExplicitLeft = 170
+                ExplicitLeft = 168
                 ExplicitTop = 5
               end
               inherited comboTimeSeriesInterpolation: TComboBox
@@ -4119,9 +4116,9 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 'Cell')
             end
             object pcDrtReturnLChoice: TJvPageControl
-              Left = 250
+              Left = 252
               Top = 0
-              Width = 287
+              Width = 285
               Height = 82
               ActivePage = tabDrtNone
               Align = alRight
@@ -4363,15 +4360,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
+                Left = 443
                 Top = 3
-                ExplicitLeft = 445
+                ExplicitLeft = 443
                 ExplicitTop = 3
               end
               inherited btnInsert: TBitBtn
-                Left = 361
+                Left = 359
                 Top = 3
-                ExplicitLeft = 361
+                ExplicitLeft = 359
                 ExplicitTop = 3
               end
               inherited comboTimeSeriesInterpolation: TComboBox
@@ -4606,12 +4603,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
               inherited comboTimeSeriesInterpolation: TComboBox
                 Height = 27
@@ -4814,17 +4811,17 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
+                Left = 443
                 Top = 7
                 TabOrder = 1
-                ExplicitLeft = 445
+                ExplicitLeft = 443
                 ExplicitTop = 7
               end
               inherited btnInsert: TBitBtn
-                Left = 361
+                Left = 359
                 Top = 7
                 TabOrder = 0
-                ExplicitLeft = 361
+                ExplicitLeft = 359
                 ExplicitTop = 7
               end
               inherited comboTimeSeriesInterpolation: TComboBox
@@ -5011,12 +5008,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -5248,12 +5245,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 437
-                ExplicitLeft = 437
+                Left = 435
+                ExplicitLeft = 435
               end
               inherited btnInsert: TBitBtn
-                Left = 349
-                ExplicitLeft = 349
+                Left = 347
+                ExplicitLeft = 347
               end
               inherited rdeInitialStage: TRbwDataEntry
                 Top = 73
@@ -5774,7 +5771,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                         Top = 61
                         StyleElements = [seFont, seClient, seBorder]
                         ExplicitTop = 61
-                        ExplicitWidth = 529
                         inherited lbNumber: TLabel
                           Width = 218
                           Height = 19
@@ -5818,7 +5814,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                         Top = 114
                         StyleElements = [seFont, seClient, seBorder]
                         ExplicitTop = 114
-                        ExplicitWidth = 529
                         inherited lbNumber: TLabel
                           Width = 262
                           Height = 19
@@ -7862,12 +7857,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -8186,12 +8181,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     ExplicitHeight = 27
                   end
                   inherited btnDeleteValue: TButton
-                    Left = 464
-                    ExplicitLeft = 464
+                    Left = 462
+                    ExplicitLeft = 462
                   end
                   inherited btnInsertValue: TButton
-                    Left = 401
-                    ExplicitLeft = 401
+                    Left = 399
+                    ExplicitLeft = 399
                   end
                 end
                 inherited rdgObservations: TRbwDataGrid4
@@ -8273,7 +8268,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 Height = 27
                 EditLabel.Width = 131
                 EditLabel.Height = 19
-                EditLabel.ExplicitLeft = 8
                 EditLabel.ExplicitTop = 0
                 EditLabel.ExplicitWidth = 131
                 EditLabel.ExplicitHeight = 19
@@ -8571,11 +8565,11 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               end
               inherited lblMessage: TLabel
                 Top = 150
-                Height = 133
+                Height = 152
                 Visible = True
                 StyleElements = [seFont, seClient, seBorder]
                 ExplicitTop = 150
-                ExplicitHeight = 133
+                ExplicitHeight = 152
               end
               inherited rgChoice: TRadioGroup
                 OnClick = frameModpathParticlesrgChoiceClick
@@ -9835,12 +9829,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -10008,12 +10002,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     ExplicitHeight = 27
                   end
                   inherited btnDeleteLayer: TButton
-                    Left = 464
-                    ExplicitLeft = 464
+                    Left = 462
+                    ExplicitLeft = 462
                   end
                   inherited btnInsertLayer: TButton
-                    Left = 401
-                    ExplicitLeft = 401
+                    Left = 399
+                    ExplicitLeft = 399
                   end
                 end
                 inherited Panel6: TPanel
@@ -10183,14 +10177,14 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
+                Left = 443
                 Top = 5
-                ExplicitLeft = 445
+                ExplicitLeft = 443
                 ExplicitTop = 5
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
               inherited comboTimeSeriesInterpolation: TComboBox
                 Height = 27
@@ -10358,12 +10352,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -10457,12 +10451,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
               inherited comboFormulaInterp: TComboBox
                 Left = 190
@@ -10578,12 +10572,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
               inherited comboTimeSeriesInterpolation: TComboBox
                 Height = 27
@@ -10816,12 +10810,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -10909,12 +10903,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -11002,12 +10996,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -11091,7 +11085,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 427
                 inherited edDiameter: TLabeledEdit
                   Top = 21
-                  Width = 298
+                  Width = 290
                   Height = 27
                   EditLabel.Width = 166
                   EditLabel.Height = 19
@@ -11100,16 +11094,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
                   ExplicitTop = 21
-                  ExplicitWidth = 298
+                  ExplicitWidth = 290
                   ExplicitHeight = 27
                 end
                 inherited btnDiameter: TButton
-                  Left = 307
+                  Left = 299
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 307
+                  ExplicitLeft = 299
                 end
                 inherited edTortuosity: TLabeledEdit
-                  Width = 298
+                  Width = 290
                   Height = 27
                   EditLabel.Width = 186
                   EditLabel.Height = 19
@@ -11117,16 +11111,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 186
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 298
+                  ExplicitWidth = 290
                   ExplicitHeight = 27
                 end
                 inherited btnTortuosity: TButton
-                  Left = 307
+                  Left = 299
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 307
+                  ExplicitLeft = 299
                 end
                 inherited edRoughnessHeight: TLabeledEdit
-                  Width = 298
+                  Width = 290
                   Height = 27
                   EditLabel.Width = 217
                   EditLabel.Height = 19
@@ -11134,16 +11128,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 217
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 298
+                  ExplicitWidth = 290
                   ExplicitHeight = 27
                 end
                 inherited btnRoughnessHeight: TButton
-                  Left = 307
+                  Left = 299
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 307
+                  ExplicitLeft = 299
                 end
                 inherited edLowerCriticalR: TLabeledEdit
-                  Width = 298
+                  Width = 290
                   Height = 27
                   EditLabel.Width = 500
                   EditLabel.Height = 19
@@ -11151,16 +11145,16 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 500
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 298
+                  ExplicitWidth = 290
                   ExplicitHeight = 27
                 end
                 inherited btnLowerCriticalR: TButton
-                  Left = 307
+                  Left = 299
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 307
+                  ExplicitLeft = 299
                 end
                 inherited edHigherCriticalR: TLabeledEdit
-                  Width = 298
+                  Width = 290
                   Height = 27
                   EditLabel.Width = 504
                   EditLabel.Height = 19
@@ -11168,34 +11162,33 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 504
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 298
+                  ExplicitWidth = 290
                   ExplicitHeight = 27
                 end
                 inherited btnHigherCriticalR: TButton
-                  Left = 307
+                  Left = 299
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 307
+                  ExplicitLeft = 299
                 end
                 inherited edConductancePermeability: TLabeledEdit
-                  Width = 298
+                  Width = 290
                   Height = 27
                   EditLabel.Width = 337
                   EditLabel.Height = 19
-                  EditLabel.ExplicitLeft = 3
                   EditLabel.ExplicitTop = 249
                   EditLabel.ExplicitWidth = 337
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 298
+                  ExplicitWidth = 290
                   ExplicitHeight = 27
                 end
                 inherited btnConductancePermeability: TButton
-                  Left = 307
+                  Left = 299
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 307
+                  ExplicitLeft = 299
                 end
                 inherited edElevation: TLabeledEdit
-                  Width = 298
+                  Width = 290
                   Height = 27
                   EditLabel.Width = 206
                   EditLabel.Height = 19
@@ -11203,32 +11196,31 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   EditLabel.ExplicitWidth = 206
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 298
+                  ExplicitWidth = 290
                   ExplicitHeight = 27
                 end
                 inherited btnElevation: TButton
-                  Left = 307
+                  Left = 299
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 307
+                  ExplicitLeft = 299
                 end
                 inherited edCads: TLabeledEdit
-                  Width = 298
+                  Width = 290
                   Height = 27
                   EditLabel.Width = 410
                   EditLabel.Height = 19
-                  EditLabel.ExplicitLeft = 3
                   EditLabel.ExplicitTop = 350
                   EditLabel.ExplicitWidth = 410
                   EditLabel.ExplicitHeight = 19
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitWidth = 298
+                  ExplicitWidth = 290
                   ExplicitHeight = 27
                 end
                 inherited btnCads: TButton
-                  Left = 307
+                  Left = 299
                   Top = 369
                   Width = 90
-                  ExplicitLeft = 307
+                  ExplicitLeft = 299
                   ExplicitTop = 369
                   ExplicitWidth = 90
                 end
@@ -11325,10 +11317,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   ExplicitWidth = 81
                 end
                 inherited btnFixedHead: TButton
-                  Left = 1
+                  Left = -25
                   Top = 70
                   OnClick = btnFormulaClick
-                  ExplicitLeft = 1
+                  ExplicitLeft = -25
                   ExplicitTop = 70
                 end
                 inherited edFixedHead: TLabeledEdit
@@ -11425,12 +11417,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 325
-                ExplicitLeft = 325
+                Left = 323
+                ExplicitLeft = 323
               end
               inherited btnInsert: TBitBtn
-                Left = 241
-                ExplicitLeft = 241
+                Left = 239
+                ExplicitLeft = 239
               end
             end
             inherited pnlTop: TPanel
@@ -11511,12 +11503,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -11607,12 +11599,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -11711,12 +11703,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
               inherited comboFormulaInterp: TComboBox
                 Height = 27
@@ -11813,12 +11805,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -11909,12 +11901,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -12421,15 +12413,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
+                Left = 443
                 Top = 49
-                ExplicitLeft = 445
+                ExplicitLeft = 443
                 ExplicitTop = 49
               end
               inherited btnInsert: TBitBtn
-                Left = 361
+                Left = 359
                 Top = 49
-                ExplicitLeft = 361
+                ExplicitLeft = 359
                 ExplicitTop = 49
               end
               inherited edSiteLabel: TEdit
@@ -12554,12 +12546,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -12758,12 +12750,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -12851,15 +12843,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
+                Left = 443
                 Top = 5
-                ExplicitLeft = 445
+                ExplicitLeft = 443
                 ExplicitTop = 5
               end
               inherited btnInsert: TBitBtn
-                Left = 361
+                Left = 359
                 Top = 3
-                ExplicitLeft = 361
+                ExplicitLeft = 359
                 ExplicitTop = 3
               end
             end
@@ -12948,12 +12940,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -13041,12 +13033,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -13134,12 +13126,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -14175,7 +14167,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 Height = 27
                 EditLabel.Width = 266
                 EditLabel.Height = 19
-                EditLabel.ExplicitLeft = 6
                 EditLabel.ExplicitTop = -3
                 EditLabel.ExplicitWidth = 266
                 EditLabel.ExplicitHeight = 19
@@ -14230,12 +14221,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 449
-                ExplicitLeft = 449
+                Left = 447
+                ExplicitLeft = 447
               end
               inherited btnInsert: TBitBtn
-                Left = 365
-                ExplicitLeft = 365
+                Left = 363
+                ExplicitLeft = 363
               end
               inherited rgAngleAdjustment: TRadioGroup
                 Width = 561
@@ -14243,12 +14234,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitWidth = 561
               end
               inherited comboHfbParameters: TJvImageComboBox
-                Width = 166
+                Width = 164
                 Height = 29
                 StyleElements = [seFont, seClient, seBorder]
                 Anchors = [akLeft, akTop, akRight]
                 ItemHeight = 23
-                ExplicitWidth = 166
+                ExplicitWidth = 164
                 ExplicitHeight = 29
               end
             end
@@ -14331,12 +14322,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -14567,7 +14558,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                       Height = 27
                       EditLabel.Width = 59
                       EditLabel.Height = 19
-                      EditLabel.ExplicitLeft = 128
                       EditLabel.ExplicitTop = 8
                       EditLabel.ExplicitWidth = 59
                       EditLabel.ExplicitHeight = 19
@@ -14713,7 +14703,6 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     Top = 100
                     StyleElements = [seFont, seClient, seBorder]
                     ExplicitTop = 100
-                    ExplicitWidth = 533
                     inherited lbNumber: TLabel
                       Width = 148
                       Height = 19
@@ -14833,12 +14822,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
           end
@@ -14880,12 +14869,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 449
-                ExplicitLeft = 449
+                Left = 447
+                ExplicitLeft = 447
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -15077,12 +15066,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -15242,12 +15231,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 357
-                ExplicitLeft = 357
+                Left = 355
+                ExplicitLeft = 355
               end
             end
             inherited pnlTop: TPanel
@@ -15347,12 +15336,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     ExplicitHeight = 27
                   end
                   inherited btnDeletePrecip: TBitBtn
-                    Left = 441
-                    ExplicitLeft = 441
+                    Left = 439
+                    ExplicitLeft = 439
                   end
                   inherited btnInsertPrecip: TBitBtn
-                    Left = 357
-                    ExplicitLeft = 357
+                    Left = 355
+                    ExplicitLeft = 355
                   end
                 end
                 inherited pnlPrecip: TPanel
@@ -15926,12 +15915,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
               inherited comboChemSpecies: TComboBox
                 Left = 6
@@ -16034,12 +16023,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
               inherited comboChemSpecies: TComboBox
                 Height = 27
@@ -16128,12 +16117,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16215,15 +16204,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
+                Left = 443
                 Top = 7
-                ExplicitLeft = 445
+                ExplicitLeft = 443
                 ExplicitTop = 7
               end
               inherited btnInsert: TBitBtn
-                Left = 361
+                Left = 359
                 Top = 7
-                ExplicitLeft = 361
+                ExplicitLeft = 359
                 ExplicitTop = 7
               end
             end
@@ -16305,12 +16294,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16391,12 +16380,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16477,12 +16466,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16563,12 +16552,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16649,12 +16638,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16733,12 +16722,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16819,12 +16808,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16905,12 +16894,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -16991,12 +16980,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17077,12 +17066,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17163,12 +17152,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17249,12 +17238,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17335,12 +17324,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17421,12 +17410,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17507,12 +17496,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17593,12 +17582,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17679,12 +17668,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17765,12 +17754,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17851,12 +17840,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -17937,12 +17926,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18023,12 +18012,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18109,12 +18098,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18195,12 +18184,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18281,12 +18270,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18367,12 +18356,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18453,12 +18442,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18539,12 +18528,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18625,12 +18614,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18711,12 +18700,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18797,12 +18786,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18884,12 +18873,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 445
-                ExplicitLeft = 445
+                Left = 443
+                ExplicitLeft = 443
               end
               inherited btnInsert: TBitBtn
-                Left = 361
-                ExplicitLeft = 361
+                Left = 359
+                ExplicitLeft = 359
               end
             end
             inherited pnlTop: TPanel
@@ -18978,12 +18967,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 449
-                ExplicitLeft = 449
+                Left = 447
+                ExplicitLeft = 447
               end
               inherited btnInsert: TBitBtn
-                Left = 365
-                ExplicitLeft = 365
+                Left = 363
+                ExplicitLeft = 363
               end
               inherited comboChemSpecies: TComboBox
                 Height = 27
@@ -19078,12 +19067,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 449
-                ExplicitLeft = 449
+                Left = 447
+                ExplicitLeft = 447
               end
               inherited btnInsert: TBitBtn
-                Left = 365
-                ExplicitLeft = 365
+                Left = 363
+                ExplicitLeft = 363
               end
               inherited comboChemSpecies: TComboBox
                 Height = 27
@@ -19159,11 +19148,11 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             inherited pnlTop: TPanel
               Width = 537
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitWidth = 537
+              ExplicitWidth = 535
               inherited pnlCaption: TPanel
                 Width = 537
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitWidth = 537
+                ExplicitWidth = 535
               end
             end
             inherited rstcPrpPackage: TRbwStringTreeCombo
@@ -19179,7 +19168,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               ExplicitWidth = 537
               inherited gbParticles: TJvGroupBox
                 Width = 537
-                ExplicitWidth = 537
+                ExplicitWidth = 535
                 inherited lblTimeCount: TLabel
                   Width = 43
                   Height = 19
@@ -19187,10 +19176,18 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   ExplicitWidth = 43
                   ExplicitHeight = 19
                 end
+                inherited sbAddTime: TSpeedButton
+                  Left = 403
+                end
+                inherited sbInsertTime: TSpeedButton
+                  Left = 436
+                end
                 inherited lblMessage: TLabel
-                  Height = 133
+                  Width = 76
+                  Height = 152
                   StyleElements = [seFont, seClient, seBorder]
-                  ExplicitHeight = 133
+                  ExplicitWidth = 76
+                  ExplicitHeight = 152
                 end
                 inherited plParticlePlacement: TJvPageList
                   inherited jvspGrid: TJvStandardPage
@@ -19381,6 +19378,46 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
             end
           end
         end
+        object jvspIFlowFace: TJvStandardPage
+          Left = 0
+          Top = 0
+          Width = 537
+          Height = 478
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'jvspIFlowFace'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          inline frameScreenObjectIFlowFace1: TframeScreenObjectIFlowFace
+            Left = 0
+            Top = 0
+            Width = 537
+            Height = 478
+            Align = alClient
+            TabOrder = 0
+            ExplicitLeft = -103
+            ExplicitTop = -2
+            inherited lblIFlowFace: TLabel
+              Width = 75
+              Height = 19
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 75
+              ExplicitHeight = 19
+            end
+            inherited lblExplanation: TLabel
+              Left = 154
+              Height = 472
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 154
+              ExplicitHeight = 472
+            end
+            inherited rdeIFlowFace: TRbwDataEntry
+              StyleElements = [seFont, seClient, seBorder]
+            end
+          end
+        end
       end
     end
     object tabSutraFeatures: TTabSheet
@@ -19445,15 +19482,15 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 473
+                Left = 471
                 OnClick = frameSutraObservationsbtnDeleteClick
-                ExplicitLeft = 473
+                ExplicitLeft = 471
               end
               inherited btnInsert: TBitBtn
-                Left = 385
+                Left = 383
                 Top = 7
                 OnClick = frameSutraObservationsbtnInsertClick
-                ExplicitLeft = 385
+                ExplicitLeft = 383
                 ExplicitTop = 7
               end
             end
@@ -19504,24 +19541,24 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitWidth = 559
               end
               inherited comboSchedule: TComboBox
-                Width = 173
+                Width = 171
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitWidth = 173
+                ExplicitWidth = 171
                 ExplicitHeight = 27
               end
               inherited comboObservationFormat: TComboBox
-                Width = 129
+                Width = 127
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitWidth = 129
+                ExplicitWidth = 127
                 ExplicitHeight = 27
               end
               inherited edName: TEdit
-                Width = 126
+                Width = 124
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitWidth = 126
+                ExplicitWidth = 124
                 ExplicitHeight = 27
               end
             end
@@ -19570,12 +19607,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 474
-                ExplicitLeft = 474
+                Left = 472
+                ExplicitLeft = 472
               end
               inherited btnInsert: TBitBtn
-                Left = 386
-                ExplicitLeft = 386
+                Left = 384
+                ExplicitLeft = 384
               end
               inherited comboFluidSourceInLakesPresent: TComboBox
                 Height = 27
@@ -19735,11 +19772,11 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               end
               inherited comboSchedule: TComboBox
                 Left = 6
-                Width = 173
+                Width = 171
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
                 ExplicitLeft = 6
-                ExplicitWidth = 173
+                ExplicitWidth = 171
                 ExplicitHeight = 27
               end
             end
@@ -19788,12 +19825,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 474
-                ExplicitLeft = 474
+                Left = 472
+                ExplicitLeft = 472
               end
               inherited btnInsert: TBitBtn
-                Left = 386
-                ExplicitLeft = 386
+                Left = 384
+                ExplicitLeft = 384
               end
               inherited comboFluidSourceInLakesPresent: TComboBox
                 Height = 27
@@ -19855,10 +19892,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitWidth = 559
               end
               inherited comboSchedule: TComboBox
-                Width = 175
+                Width = 173
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitWidth = 175
+                ExplicitWidth = 173
                 ExplicitHeight = 27
               end
             end
@@ -19909,12 +19946,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 474
-                ExplicitLeft = 474
+                Left = 472
+                ExplicitLeft = 472
               end
               inherited btnInsert: TBitBtn
-                Left = 386
-                ExplicitLeft = 386
+                Left = 384
+                ExplicitLeft = 384
               end
               inherited comboFluidSourceInLakesPresent: TComboBox
                 Height = 27
@@ -19976,10 +20013,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitWidth = 559
               end
               inherited comboSchedule: TComboBox
-                Width = 175
+                Width = 173
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitWidth = 175
+                ExplicitWidth = 173
                 ExplicitHeight = 27
               end
             end
@@ -20028,14 +20065,14 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 474
+                Left = 472
                 Top = 85
-                ExplicitLeft = 474
+                ExplicitLeft = 472
                 ExplicitTop = 85
               end
               inherited btnInsert: TBitBtn
-                Left = 386
-                ExplicitLeft = 386
+                Left = 384
+                ExplicitLeft = 384
               end
               inherited comboFluidSourceInLakesPresent: TComboBox
                 Height = 27
@@ -20194,10 +20231,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitWidth = 559
               end
               inherited comboSchedule: TComboBox
-                Width = 175
+                Width = 173
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitWidth = 175
+                ExplicitWidth = 173
                 ExplicitHeight = 27
               end
             end
@@ -20350,12 +20387,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 470
-                ExplicitLeft = 470
+                Left = 468
+                ExplicitLeft = 468
               end
               inherited btnInsert: TBitBtn
-                Left = 382
-                ExplicitLeft = 382
+                Left = 380
+                ExplicitLeft = 380
               end
               inherited comboGeneralizedFlowPresent: TComboBox
                 Top = 44
@@ -20424,12 +20461,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               inherited comboSchedule: TComboBox
                 Left = 6
                 Top = 49
-                Width = 160
+                Width = 158
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
                 ExplicitLeft = 6
                 ExplicitTop = 49
-                ExplicitWidth = 160
+                ExplicitWidth = 158
                 ExplicitHeight = 27
               end
             end
@@ -20516,12 +20553,12 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitHeight = 27
               end
               inherited btnDelete: TBitBtn
-                Left = 468
-                ExplicitLeft = 468
+                Left = 466
+                ExplicitLeft = 466
               end
               inherited btnInsert: TBitBtn
-                Left = 384
-                ExplicitLeft = 384
+                Left = 382
+                ExplicitLeft = 382
               end
               inherited comboGeneralizedTransportPresent: TComboBox
                 Height = 27
@@ -20577,10 +20614,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 ExplicitWidth = 559
               end
               inherited comboSchedule: TComboBox
-                Width = 173
+                Width = 171
                 Height = 27
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitWidth = 173
+                ExplicitWidth = 171
                 ExplicitHeight = 27
               end
             end
@@ -21518,7 +21555,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           object memoCaption: TMemo
             Left = 176
             Top = 24
-            Width = 531
+            Width = 529
             Height = 107
             Anchors = [akLeft, akTop, akRight, akBottom]
             Lines.Strings = (
@@ -21722,11 +21759,13 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
     Align = alBottom
     ParentColor = True
     TabOrder = 1
+    ExplicitTop = 508
+    ExplicitWidth = 738
     DesignSize = (
       740
       41)
     object btnOK: TBitBtn
-      Left = 534
+      Left = 532
       Top = 6
       Width = 89
       Height = 33
@@ -21753,9 +21792,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
       NumGlyphs = 2
       TabOrder = 4
       OnClick = btnOKClick
+      ExplicitLeft = 530
     end
     object btnCancel: TBitBtn
-      Left = 629
+      Left = 627
       Top = 6
       Width = 91
       Height = 33
@@ -21764,9 +21804,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
       NumGlyphs = 2
       TabOrder = 5
       OnClick = btnCancelClick
+      ExplicitLeft = 625
     end
     object btnHelp: TBitBtn
-      Left = 449
+      Left = 447
       Top = 6
       Width = 79
       Height = 33
@@ -21775,6 +21816,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
       NumGlyphs = 2
       TabOrder = 3
       OnClick = btnHelpClick
+      ExplicitLeft = 445
     end
     object btnCopyVertices: TButton
       Left = 4
