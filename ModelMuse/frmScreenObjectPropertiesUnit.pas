@@ -525,7 +525,7 @@ type
     jvspPRP: TJvStandardPage;
     framePRP: TframeScreenObjectPrp;
     jvspIFlowFace: TJvStandardPage;
-    frameScreenObjectIFlowFace1: TframeScreenObjectIFlowFace;
+    frameIFlowFace: TframeScreenObjectIFlowFace;
     // @name changes which check image is displayed for the selected item
     // in @link(jvtlModflowBoundaryNavigator).
     procedure jvtlModflowBoundaryNavigatorMouseDown(Sender: TObject;
@@ -892,6 +892,7 @@ type
     procedure frameGweESLcomboChemSpeciesChange(Sender: TObject);
     procedure frameGweESLrdgModflowBoundarySetEditText(Sender: TObject; ACol, ARow:
         LongInt; const Value: string);
+    procedure frameScreenObjectIFlowFace1rdeIFlowFaceChange(Sender: TObject);
   published
     // Clicking @name closes the @classname without changing anything.
     // See @link(btnCancelClick),
@@ -1736,6 +1737,7 @@ type
     FTvkNode: TJvPageIndexNode;
     FTvsNode: TJvPageIndexNode;
     FPrpNode: TJvPageIndexNode;
+    FIFlowFace_Node: TJvPageIndexNode;
     // @name is used to store the column that the user last selected
     // in one of the grids for boundary-condition, time-varying stress.
     // For boundary conditions that allow PHAST-style interpolation,
@@ -2409,6 +2411,7 @@ type
     procedure GetCtpBoundary(const ScreenObjectList: TList);
     procedure GetEslBoundary(const ScreenObjectList: TList);
     procedure GetPrpBoundary(const ScreenObjectList: TList);
+    procedure GetIFlowFace(const ScreenObjectList: TList);
     procedure PrpChanged(Sender: TObject);
     procedure AssignTransientHfbFormulas(const Row, Col: Integer);
     procedure UpdateHfbBoundaryState(Boundary: THfbBoundary;
@@ -2651,6 +2654,7 @@ type
     procedure CreateTvkNode;
     procedure CreateTvsNode;
     procedure CreatePrpNode;
+    procedure CreateIFlowFaceNode;
     procedure InitializeVertexGrid;
     procedure InitializePhastSpecifiedHeadGrid;
     procedure InitializePhastSpecifiedFluxGrid;
@@ -2872,7 +2876,7 @@ uses Math, JvToolEdit, frmGoPhastUnit, AbstractGridUnit,
   ModflowFmp4FractionOfIrrigToSurfaceWaterUnit, ModflowFmp4AddedDemandUnit,
   ModflowFmp4CropHasSalinityDemandUnit, ModflowFmp4AddedDemandRunoffSplitUnit,
   DataArrayManagerUnit, DataSetNamesUnit, frameModflow6DynamicTimeSeriesUnit,
-  ModflowTvkUnit, ModflowTvsUnit, ModflowPrpUnit;
+  ModflowTvkUnit, ModflowTvsUnit, ModflowPrpUnit, ModflowIFlowFaceUnit;
 
 resourcestring
   SPRPPackage = 'PRP Package';
@@ -4546,6 +4550,10 @@ begin
     begin
       // do nothing
     end
+    else if jvtlModflowBoundaryNavigator.Selected = FIFlowFace_Node then
+    begin
+      // do nothing
+    end
 
     else
     begin
@@ -4745,6 +4753,7 @@ begin
   CreateGwtCncNode;
   CreateGwtSrcNode;
   CreatePrpNode;
+  CreateIFlowFaceNode;
   CreateModpathNode;
   CreateMt3d_LktNode;
   CreateMt3d_SftNode;
@@ -5613,6 +5622,7 @@ begin
         BoundaryNodeList.Add(FTvkNode);
         BoundaryNodeList.Add(FTvsNode);
         BoundaryNodeList.Add(FPrpNode);
+        BoundaryNodeList.Add(FIFlowFace_Node);
 
         BoundaryNodeList.Pack;
         for BoundaryNodeIndex := 0 to BoundaryNodeList.Count - 1 do
@@ -8286,6 +8296,11 @@ begin
   begin
     AllowChange := True;
   end
+  else if (Node = FIFlowFace_Node) then
+  begin
+    AllowChange := True;
+  end
+
 
 //  end
 //  else if (Node = FMt3dms_Node) then
@@ -9711,6 +9726,13 @@ begin
     framePRP.SetData(FNewProperties,
       (FPrpNode.StateIndex = 2),
       (FPrpNode.StateIndex = 1) and frmGoPhast.PhastModel.PrpMf6IsSelected);
+  end;
+
+  if (FIFlowFace_Node <> nil) then
+  begin
+    frameIFlowFace.SetData(FNewProperties,
+      (FIFlowFace_Node.StateIndex = 2),
+      (FIFlowFace_Node.StateIndex = 1) and frmGoPhast.PhastModel.PrpMf6IsSelected);
   end;
 end;
 
@@ -12079,6 +12101,32 @@ begin
   begin
     frameIFACE.IFACE := iIndeterminant;
   end;
+end;
+
+procedure TfrmScreenObjectProperties.GetIFlowFace(
+  const ScreenObjectList: TList);
+var
+  State: TCheckBoxState;
+  ScreenObjectIndex: integer;
+  AScreenObject: TScreenObject;
+  IFlowFaceLocation: TIFlowFace;
+begin
+  if not frmGoPhast.PhastModel.PrpMf6IsSelected then
+  begin
+    Exit;
+  end;
+  State := cbUnchecked;
+  for ScreenObjectIndex := 0 to ScreenObjectList.Count - 1 do
+  begin
+    AScreenObject := ScreenObjectList[ScreenObjectIndex];
+    IFlowFaceLocation := AScreenObject.ModflowIFlowFaceLocation;
+    UpdateBoundaryState(IFlowFaceLocation, ScreenObjectIndex, State);
+  end;
+  if FIFlowFace_Node <> nil then
+  begin
+    FIFlowFace_Node.StateIndex := Ord(State)+1;
+  end;
+  frameIFlowFace.GetData(FNewProperties);
 end;
 
 procedure TfrmScreenObjectProperties.AssignConductanceCaptions(
@@ -15442,6 +15490,22 @@ begin
     frameHydmod.pnlCaption.Caption := Node.Text;
     Node.ImageIndex := 1;
     FHydmod_Node := Node;
+  end;
+end;
+
+procedure TfrmScreenObjectProperties.CreateIFlowFaceNode;
+var
+  Node: TJvPageIndexNode;
+begin
+  FIFlowFace_Node := nil;
+  if frmGoPhast.PhastModel.PrpMf6IsSelected then
+  begin
+    Node := jvtlModflowBoundaryNavigator.Items.AddChild(nil,
+      'PRT IFLOWFACE') as TJvPageIndexNode;
+    Node.PageIndex := jvspIFlowFace.PageIndex;
+//    frameMVR.pnlCaption.Caption := Node.Text;
+    Node.ImageIndex := 1;
+    FIFlowFace_Node := Node;
   end;
 end;
 
@@ -20621,6 +20685,7 @@ begin
   GetCtpBoundary(AScreenObjectList);
   GetEslBoundary(AScreenObjectList);
   GetPrpBoundary(AScreenObjectList);
+  GetIFlowFace(AScreenObjectList);
 
   GetMf6Obs(AScreenObjectList);
   GetLakeMf6Boundary(AScreenObjectList);
@@ -33584,6 +33649,16 @@ begin
   inherited;
   frameGweESL.rdgModflowBoundarySetEditText(Sender, ACol, ARow, Value);
   UpdateNodeState(FGweEsl_Node);
+end;
+
+procedure TfrmScreenObjectProperties.frameScreenObjectIFlowFace1rdeIFlowFaceChange(
+    Sender: TObject);
+begin
+  inherited;
+  if (FIFlowFace_Node <> nil) and (FIFlowFace_Node.StateIndex <> 3) and IsLoaded then
+  begin
+    FIFlowFace_Node.StateIndex := 2;
+  end;
 end;
 
 procedure

@@ -7,20 +7,20 @@ uses ZLib, Classes, SysUtils, RbwParser, GoPhastTypes,
   FormulaManagerUnit, FormulaManagerInterfaceUnit;
 
 type
-  TIFlowFace = class(TPersistent)
+  TIFlowFace = class(TFormulaProperty)
   private
-    FModel: TBaseModel;
-    FScreenObject: TObject;
     FUsed: boolean;
     FIFlowFace: Integer;
     procedure SetIFlowFace(const Value: Integer);
     procedure SetUsed(const Value: boolean);
   public
+    procedure CreateObserver(ObserverNameRoot: string; var Observer: TObserver;
+      Displayer: TObserver); virtual;
     Procedure Assign(Source: TPersistent); override;
-    Constructor Create(Model: TBaseModel; ScreenObject: TObject);
+    function Used: boolean; override;
   published
     property IFlowFace: Integer read FIFlowFace write SetIFlowFace;
-    property Used: boolean read FUsed write SetUsed;
+    property IsUsed: boolean read FUsed write SetUsed;
 
   end;
 
@@ -36,7 +36,7 @@ begin
   begin
     IFlowFaceSource := TIFlowFace(Source);
     IFlowFace := IFlowFaceSource.IFlowFace;
-    Used := IFlowFaceSource.Used;
+    IsUsed := IFlowFaceSource.IsUsed;
   end
   else
   begin
@@ -44,11 +44,10 @@ begin
   end;
 end;
 
-constructor TIFlowFace.Create(Model: TBaseModel; ScreenObject: TObject);
+procedure TIFlowFace.CreateObserver(ObserverNameRoot: string;
+  var Observer: TObserver; Displayer: TObserver);
 begin
-  FModel := Model;
-  FScreenObject := ScreenObject;
-  inherited Create;
+  Assert(False);
 end;
 
 procedure TIFlowFace.SetIFlowFace(const Value: Integer);
@@ -59,6 +58,11 @@ end;
 procedure TIFlowFace.SetUsed(const Value: boolean);
 begin
   FUsed := Value;
+end;
+
+function TIFlowFace.Used: boolean;
+begin
+  result := IsUsed;
 end;
 
 end.

@@ -6312,6 +6312,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     Height = 29
                     StyleElements = [seFont, seClient, seBorder]
                     ItemHeight = 23
+                    ItemIndex = -1
                     ExplicitHeight = 29
                   end
                 end
@@ -9311,6 +9312,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                 end
                 inherited comboLossType: TJvImageComboBox
                   StyleElements = [seFont, seClient, seBorder]
+                  ItemIndex = -1
                 end
                 inherited edPartialPenetration: TJvComboEdit
                   Left = 227
@@ -12041,6 +12043,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                     Height = 29
                     StyleElements = [seFont, seClient, seBorder]
                     ItemHeight = 23
+                    ItemIndex = -1
                     ExplicitHeight = 29
                   end
                   inherited cbbObservationTypes: TJvCheckedComboBox
@@ -13623,6 +13626,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   Height = 29
                   StyleElements = [seFont, seClient, seBorder]
                   ItemHeight = 23
+                  ItemIndex = -1
                   ExplicitHeight = 29
                 end
                 inherited edThermalConductivity: TJvComboEdit
@@ -19390,7 +19394,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
           Caption = 'jvspIFlowFace'
           ExplicitWidth = 0
           ExplicitHeight = 0
-          inline frameScreenObjectIFlowFace1: TframeScreenObjectIFlowFace
+          inline frameIFlowFace: TframeScreenObjectIFlowFace
             Left = 0
             Top = 0
             Width = 537
@@ -19407,14 +19411,13 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
               ExplicitHeight = 19
             end
             inherited lblExplanation: TLabel
-              Left = 154
-              Height = 472
               StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 154
               ExplicitHeight = 472
             end
             inherited rdeIFlowFace: TRbwDataEntry
               StyleElements = [seFont, seClient, seBorder]
+              OnChange = frameScreenObjectIFlowFace1rdeIFlowFaceChange
             end
           end
         end

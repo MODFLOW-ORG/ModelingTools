@@ -40023,7 +40023,7 @@ procedure TScreenObject.CreateIFlowFaceLocation;
 begin
   if (ModflowBoundaries.FIFlowFaceLocation = nil) then
   begin
-    ModflowBoundaries.FIFlowFaceLocation := TIFlowFace.Create(FModel, self);
+    ModflowBoundaries.FIFlowFaceLocation := TIFlowFace.Create(FModel as TCustomModel, self);
   end;
 end;
 
