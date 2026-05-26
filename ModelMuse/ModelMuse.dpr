@@ -971,7 +971,8 @@ uses
   ModflowPrtOcWriterUnit in 'ModflowPrtOcWriterUnit.pas',
   ModflowpPrpWriterUnit in 'ModflowpPrpWriterUnit.pas',
   ModflowIFlowFaceUnit in 'ModflowIFlowFaceUnit.pas',
-  frameScreenObjectIFlowFaceUnit in 'frameScreenObjectIFlowFaceUnit.pas' {frameScreenObjectIFlowFace: TFrame};
+  frameScreenObjectIFlowFaceUnit in 'frameScreenObjectIFlowFaceUnit.pas' {frameScreenObjectIFlowFace: TFrame},
+  PrtTrackReaderUnit in 'PrtTrackReaderUnit.pas';
 
 {$R *.res}
 

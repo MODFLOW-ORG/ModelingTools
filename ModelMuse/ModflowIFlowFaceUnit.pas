@@ -15,7 +15,7 @@ type
     procedure SetUsed(const Value: boolean);
   public
     procedure CreateObserver(ObserverNameRoot: string; var Observer: TObserver;
-      Displayer: TObserver); virtual;
+      Displayer: TObserver); override;
     Procedure Assign(Source: TPersistent); override;
     function Used: boolean; override;
   published

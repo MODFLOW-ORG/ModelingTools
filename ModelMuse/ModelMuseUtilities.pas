@@ -137,6 +137,8 @@ function RoundSigDigits(ANumber: Extended; SignificantDigits: Integer): Extended
 
 function RemoveQuotes(const Value: string): string;
 
+function ValidName(AName: string): string;
+
 var
   StartTimeCmdLines: TStringList;
   ShowElapsedTimeCmdLines: TStringList;
@@ -1266,6 +1268,23 @@ begin
       end;
     end;
   end;
+end;
+
+function ValidName(AName: string): string;
+var
+  AChar: Char;
+begin
+  result := AName;
+  for var CharIndex := 1 to Length(result) do
+  begin
+    AChar := result[CharIndex];
+    // Ensure that an ASCII character that is not white space is used.
+    if (Ord(AChar) > 127) or (Ord(AChar) in [0..32, 34, 39, 44, 127])  or AChar.IsWhiteSpace then
+    begin
+      result[CharIndex] := '_'
+    end;
+  end;
+
 end;
 
 

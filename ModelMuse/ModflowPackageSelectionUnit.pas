@@ -8072,7 +8072,7 @@ uses Contnrs , PhastModelUnit, ModflowOptionsUnit,
   ModflowTvkUnit, ModflowTvsUnit,
   ModflowTvkWriterUnit, ModflowTvsWriterUnit, ModflowConstantHeadBoundaryUnit, ModflowWellUnit,
   UpdateDataArrayUnit,
-  SolidGeom;
+  SolidGeom, ModelMuseUtilities;
 
 resourcestring
   SPrtZone_ = 'PrtZone_';
@@ -31859,17 +31859,9 @@ procedure TPrtModel.SetModelName(Value: string);
 var
   OldRoot: string;
   NewRoot: string;
-
 begin
   Value := Copy(Value, 1,16);
-  for var CharIndex := 1 to Length(Value) do
-  begin
-    // Ensure that an ASCII character that is not white space is used.
-    if (Ord(Value[CharIndex]) > 127) or Value[CharIndex].IsWhiteSpace then
-    begin
-      Value[CharIndex] := '_'
-    end;
-  end;
+  Value := ValidName(Value);
   if FModelName <> Value then
   begin
     if UpperCase(FModelName) = UpperCase(Value) then
@@ -32470,14 +32462,7 @@ end;
 procedure TPrpPackage.SetPackageName(Value: string);
 begin
   Value := Copy(Value, 1,16);
-  for var CharIndex := 1 to Length(Value) do
-  begin
-    // Ensure that an ASCII character that is not white space is used.
-    if (Ord(Value[CharIndex]) > 127) or Value[CharIndex].IsWhiteSpace then
-    begin
-      Value[CharIndex] := '_'
-    end;
-  end;
+  Value := ValidName(Value);
   if FPackageName <> Value then
   begin
     FPackageName := Value;
