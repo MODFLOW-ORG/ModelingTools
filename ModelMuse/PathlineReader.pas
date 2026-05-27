@@ -15,6 +15,20 @@ type
   TAnsiCharArray = array of AnsiChar;
   TPathlineVersion = (pv5, pv6_0, pv7_2, pvUnknown);
 
+  TByteSetLimits = class(TPersistent)
+  private
+    FLimits: TIntegerCollection;
+    FUseLimit: boolean;
+    procedure SetLimits(const Value: TIntegerCollection);
+    procedure SetUseLimit(const Value: boolean);
+  public
+    Constructor Create(InvalidateModelEvent: TNotifyEvent);
+    destructor Destroy; override;
+  published
+    property UseLimit: boolean read FUseLimit write SetUseLimit;
+    property Limits: TIntegerCollection read FLimits write SetLimits;
+  end;
+
   TShowIntegerLimit = class(TPersistent)
   private
     FEndLimit: integer;
@@ -87,25 +101,32 @@ type
 
   TColorLimitChoice = (clcNone, clcTime, clcLogTime, clcXPrime, clcYPrime, clcZ, clcGroup);
 
-  TPathlineColorLimits = class(TPersistent)
+  TCustomColorLimits = class(TPersistent)
+  private
+    FMinColorLimit: Double;
+    FMaxColorLimit: Double;
+    FUseLimit: boolean;
+    procedure SetMinColorLimit(const Value: Double);
+    procedure SetMaxColorLimit(const Value: Double);
+    procedure SetUseLimit(const Value: boolean);
+  public
+    procedure Assign(Source: TPersistent); override;
+  published
+    property MinColorLimit: Double read FMinColorLimit write SetMinColorLimit;
+    property MaxColorLimit: Double read FMaxColorLimit write SetMaxColorLimit;
+    property UseLimit: boolean read FUseLimit write SetUseLimit;
+  end;
+
+  TPathlineColorLimits = class(TCustomColorLimits)
   private
     FColoringChoice: TColorLimitChoice;
-    FMaxColorLimit: double;
-    FMinColorLimit: double;
-    FUseLimit: boolean;
     procedure SetColoringChoice(const Value: TColorLimitChoice);
-    procedure SetMinColorLimit(const Value: double);
-    procedure SetMaxColorLimit(const Value: double);
-    procedure SetUseLimit(const Value: boolean);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create;
   published
     property ColoringChoice: TColorLimitChoice read FColoringChoice
       write SetColoringChoice default clcTime;
-    property MinColorLimit: double read FMinColorLimit write SetMinColorLimit;
-    property MaxColorLimit: double read FMaxColorLimit write SetMaxColorLimit;
-    property UseLimit: boolean read FUseLimit write SetUseLimit;
   end;
 
   TPathLine = class;
@@ -713,25 +734,16 @@ type
     elcStartXPrime, elcStartYPrime, elcStartZ, elcStartZone,
     elcEndXPrime, elcEndYPrime, elcEndZ, elcEndZone, elcParticleGroup);
 
-  TEndPointColorLimits = class(TPersistent)
+  TEndPointColorLimits = class(TCustomColorLimits)
   private
     FColoringChoice: TEndpointColorLimitChoice;
-    FMinColorLimit: double;
-    FUseLimit: boolean;
-    FMaxColorLimit: double;
     procedure SetColoringChoice(const Value: TEndpointColorLimitChoice);
-    procedure SetMaxColorLimit(const Value: double);
-    procedure SetMinColorLimit(const Value: double);
-    procedure SetUseLimit(const Value: boolean);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create;
   published
     property ColoringChoice: TEndpointColorLimitChoice read FColoringChoice
       write SetColoringChoice default elcTrackingTime;
-    property MinColorLimit: double read FMinColorLimit write SetMinColorLimit;
-    property MaxColorLimit: double read FMaxColorLimit write SetMaxColorLimit;
-    property UseLimit: boolean read FUseLimit write SetUseLimit;
   end;
 
   TEndPointSettings = class(TCustomModpathSettings)
@@ -967,8 +979,8 @@ type
     property SequenceNumber: integer read FSequenceNumber write FSequenceNumber;
     property CellNumber: integer read FCellNumber write FCellNumber;
   end;
-  
-  
+
+
   TCustomTimeSeriesPoints = class(TCollection)
   private
     function GetPoint(Index: integer): TTimeSeriesPoint;
@@ -1094,25 +1106,16 @@ type
     tscStartXPrime, tscStartYPrime, tscStartZ,
     tscEndXPrime, tscEndYPrime, tscEndZ, tscGroup);
 
-  TTimeSeriesColorLimits = class(TPersistent)
+  TTimeSeriesColorLimits = class(TCustomColorLimits)
   private
     FColoringChoice: TTimeSeriesColorLimitChoice;
-    FMinColorLimit: double;
-    FUseLimit: boolean;
-    FMaxColorLimit: double;
     procedure SetColoringChoice(const Value: TTimeSeriesColorLimitChoice);
-    procedure SetMaxColorLimit(const Value: double);
-    procedure SetMinColorLimit(const Value: double);
-    procedure SetUseLimit(const Value: boolean);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create;
   published
     property ColoringChoice: TTimeSeriesColorLimitChoice read FColoringChoice
       write SetColoringChoice default tscParticleNumber;
-    property MinColorLimit: double read FMinColorLimit write SetMinColorLimit;
-    property MaxColorLimit: double read FMaxColorLimit write SetMaxColorLimit;
-    property UseLimit: boolean read FUseLimit write SetUseLimit;
   end;
 
   TTimeSeriesSettings = class(TCustomModpathSettings)
@@ -1217,6 +1220,145 @@ type
   end;
 
   TimeSeriesObjectList = TObjectList<TTimeSeriesReader>;
+
+{
+0: particle was released
+1: particle is being actively tracked
+2: particle terminated at a boundary face
+3: particle terminated in a weak sink cell
+4: unused
+5: particle terminated in a cell with no exit face
+6: particle terminated in a stop zone
+7: particle terminated in an inactive cell
+8: particle terminated immediately upon attempted release into an inactive cell
+9: particle terminated in a subcell with no exit face
+10: particle terminated at stop time or end of simulation
+}
+
+  TStatus = (sReleased, sTracked, sTerminatedBoundary, sTerminatedWeakSink,
+    sUnused, sTerminatedNoExit, sTerminatedStopZone, sTerminatedInactiveCell,
+    sTerminatedReleasedInactive, sTerminatedSubCell, STerminatedStopTime);
+
+  TStatuses = set of TStatus;
+
+  TStatusLimit = class(TPersistent)
+  private
+    FUsedStatus: TStatuses;
+    FUseLimit: boolean;
+    procedure SetUsedStatus(const Value: TStatuses);
+    procedure SetUseLimit(const Value: boolean);
+  public
+    procedure Assign(Source: TPersistent); override;
+  published
+    property UseLimit: boolean read FUseLimit write SetUseLimit;
+    Property UsedStatus:  TStatuses read FUsedStatus write SetUsedStatus;
+  end;
+
+  {
+The IREASON field indicates the reason the particle track record was saved:
+0: particle was released
+1: particle exited a grid feature
+2: time step ended
+3: particle terminated
+4: particle entered a weak sink cell
+5: user-specified tracking time
+6: particle dropped to water table
+  }
+
+  TReason = (rReleased, rExitGridFeature, rTimeStepEnded, rParticleTerminated,
+    rEnterWeakSink, rTrackTime, rDroppedToWaterTable);
+
+  TReasons = set of TReason;
+
+  TReasonLimit = class(TPersistent)
+  private
+    FUseLimit: boolean;
+    FUsedReasons: TReasons;
+    procedure SetUsedReasons(const Value: TReasons);
+    procedure SetUseLimit(const Value: boolean);
+  public
+    procedure Assign(Source: TPersistent); override;
+  published
+    property UseLimit: boolean read FUseLimit write SetUseLimit;
+    Property UsedReasons:  TReasons read FUsedReasons write SetUsedReasons;
+  end;
+
+  TSelectedTimeLimit = class(TPersistent)
+  private
+    FUseLimit: boolean;
+    FUsedTimes: TRealCollection;
+    procedure SetUsedTimes(const Value: TRealCollection);
+    procedure SetUseLimit(const Value: boolean);
+  public
+    constructor Create(InvalidateModelEvent: TNotifyEvent);
+    destructor Destroy; override;
+    procedure Assign(Source: TPersistent); override;
+  published
+    property UseLimit: boolean read FUseLimit write SetUseLimit;
+    property UsedTimes: TRealCollection read FUsedTimes write SetUsedTimes;
+  end;
+
+  TPrtTrackDisplayLimits = class(TPersistent)
+  private
+    FLimitToCurrentIn2D: boolean;
+    FLayerLimits: TShowIntegerLimit;
+    FRowLimits: TShowIntegerLimit;
+    FColumnLimits: TShowIntegerLimit;
+    FShowChoice: TShowChoice;
+    FTimeLimits: TShowFloatLimit;
+    FModelLimits: TByteSetLimits;
+    FPrpLimits: TByteSetLimits;
+    FReleasePointLimits: TShowIntegerLimit;
+    FZoneLimits: TByteSetLimits;
+    FSelectedTimeLimit: TSelectedTimeLimit;
+    FReasonLimit: TReasonLimit;
+    FStatusLimit: TStatusLimit;
+    procedure SetLimitToCurrentIn2D(const Value: boolean);
+    procedure SetColumnLimits(const Value: TShowIntegerLimit);
+    procedure SetLayerLimits(const Value: TShowIntegerLimit);
+    procedure SetRowLimits(const Value: TShowIntegerLimit);
+    procedure SetShowChoice(const Value: TShowChoice);
+    procedure SetTimeLimits(const Value: TShowFloatLimit);
+    procedure SetModelLimits(const Value: TByteSetLimits);
+    procedure SetPrpLimits(const Value: TByteSetLimits);
+    procedure SetReleasePointLimits(const Value: TShowIntegerLimit);
+    procedure SetReasonLimit(const Value: TReasonLimit);
+    procedure SetSelectedTimeLimit(const Value: TSelectedTimeLimit);
+    procedure SetStatusLimit(const Value: TStatusLimit);
+    procedure SetZoneLimits(const Value: TByteSetLimits);
+  public
+    procedure Assign(Source: TPersistent); override;
+    Constructor Create(InvalidateModelEvent: TNotifyEvent);
+    Destructor Destroy; override;
+  published
+    property ShowChoice: TShowChoice read FShowChoice write SetShowChoice;
+    property LimitToCurrentIn2D: boolean read FLimitToCurrentIn2D
+      write SetLimitToCurrentIn2D default True;
+    property ColumnLimits: TShowIntegerLimit read FColumnLimits
+      write SetColumnLimits;
+    property RowLimits: TShowIntegerLimit read FRowLimits write SetRowLimits;
+    property LayerLimits: TShowIntegerLimit read FLayerLimits
+      write SetLayerLimits;
+    property TimeLimits: TShowFloatLimit read FTimeLimits write SetTimeLimits;
+    property ModelLimits: TByteSetLimits read FModelLimits
+      write SetModelLimits;
+    property PrpLimits: TByteSetLimits read FPrpLimits
+      write SetPrpLimits;
+     property ReleasePointLimits: TShowIntegerLimit read FReleasePointLimits
+       write SetReleasePointLimits;
+     property ZoneLimits: TByteSetLimits read FZoneLimits write SetZoneLimits;
+     property StatusLimit: TStatusLimit read FStatusLimit write SetStatusLimit;
+     property ReasonLimit: TReasonLimit read FReasonLimit write SetReasonLimit;
+     property SelectedTimeLimit: TSelectedTimeLimit read FSelectedTimeLimit write SetSelectedTimeLimit;
+  end;
+
+
+  TPrtTrackDisplayer = class(TPersistent)
+  private
+    FFileName: string;
+  published
+    Property FileName: string read FFileName;
+  end;
 
   function GetPathlineVersion(const FileName: string): TPathlineVersion;
 
@@ -1474,7 +1616,7 @@ begin
     SetLength(CharArray, Length(MP7));
     AFile.Read(CharArray[0], Length(MP7) * SizeOf(AnsiChar));
     AString := AnsiString(AnsiCharArrayToStr(CharArray));
-	
+
     if AString = MP7 then
     begin
       result := pv7_2;
@@ -2778,14 +2920,8 @@ begin
   begin
     SourceLimits := TPathlineColorLimits(Source);
     ColoringChoice := SourceLimits.ColoringChoice;
-    MinColorLimit := SourceLimits.MinColorLimit;
-    MaxColorLimit := SourceLimits.MaxColorLimit;
-    UseLimit := SourceLimits.UseLimit;
-  end
-  else
-  begin
-    inherited;
   end;
+  inherited;
 end;
 
 constructor TPathlineColorLimits.Create;
@@ -2799,22 +2935,6 @@ procedure TPathlineColorLimits.SetColoringChoice(
 begin
   FColoringChoice := Value;
 end;
-
-procedure TPathlineColorLimits.SetMinColorLimit(const Value: double);
-begin
-  FMinColorLimit := Value;
-end;
-
-procedure TPathlineColorLimits.SetMaxColorLimit(const Value: double);
-begin
-  FMaxColorLimit := Value;
-end;
-
-procedure TPathlineColorLimits.SetUseLimit(const Value: boolean);
-begin
-  FUseLimit := Value;
-end;
-
 { TEndPoints }
 
 constructor TEndPoints.Create;
@@ -3693,12 +3813,12 @@ begin
     MinValue := 0;
     MaxValue := 1;
     case ColorLimits.ColoringChoice of
-      elcNone: 
+      elcNone:
         begin
           MinValue := 0;
           MaxValue := 1;
         end;
-      elcReleaseTime:  
+      elcReleaseTime:
         begin
           MinValue := MinReleaseTime;
           MaxValue := MaxReleaseTime;
@@ -3792,7 +3912,7 @@ begin
         begin
           MinValue := MinStartZone;
           MaxValue := MaxStartZone;
-        end; 
+        end;
       elcEndZone:
         begin
           MinValue := MinEndZone;
@@ -3815,7 +3935,7 @@ var
 begin
   AValue := 0;
   case ColorLimits.ColoringChoice of
-    elcNone: 
+    elcNone:
       begin
         result := clBlack;
         Exit;
@@ -5254,14 +5374,8 @@ begin
   begin
     SourceLimits := TEndPointColorLimits(Source);
     ColoringChoice := SourceLimits.ColoringChoice;
-    MinColorLimit := SourceLimits.MinColorLimit;
-    MaxColorLimit := SourceLimits.MaxColorLimit;
-    UseLimit := SourceLimits.UseLimit;
-  end
-  else
-  begin
-    inherited;
   end;
+  inherited;
 end;
 
 constructor TEndPointColorLimits.Create;
@@ -5274,21 +5388,6 @@ procedure TEndPointColorLimits.SetColoringChoice(
   const Value: TEndpointColorLimitChoice);
 begin
   FColoringChoice := Value;
-end;
-
-procedure TEndPointColorLimits.SetMaxColorLimit(const Value: double);
-begin
-  FMaxColorLimit := Value;
-end;
-
-procedure TEndPointColorLimits.SetMinColorLimit(const Value: double);
-begin
-  FMinColorLimit := Value;
-end;
-
-procedure TEndPointColorLimits.SetUseLimit(const Value: boolean);
-begin
-  FUseLimit := Value;
 end;
 
 { TTimeSeriesReader }
@@ -7331,14 +7430,8 @@ begin
   begin
     SourceLimits := TTimeSeriesColorLimits(Source);
     ColoringChoice := SourceLimits.ColoringChoice;
-    MinColorLimit := SourceLimits.MinColorLimit;
-    MaxColorLimit := SourceLimits.MaxColorLimit;
-    UseLimit := SourceLimits.UseLimit;
-  end
-  else
-  begin
-    inherited;
   end;
+  inherited;
 end;
 
 constructor TTimeSeriesColorLimits.Create;
@@ -7351,21 +7444,6 @@ procedure TTimeSeriesColorLimits.SetColoringChoice(
   const Value: TTimeSeriesColorLimitChoice);
 begin
   FColoringChoice := Value;
-end;
-
-procedure TTimeSeriesColorLimits.SetMaxColorLimit(const Value: double);
-begin
-  FMaxColorLimit := Value;
-end;
-
-procedure TTimeSeriesColorLimits.SetMinColorLimit(const Value: double);
-begin
-  FMinColorLimit := Value;
-end;
-
-procedure TTimeSeriesColorLimits.SetUseLimit(const Value: boolean);
-begin
-  FUseLimit := Value;
 end;
 
 procedure TPathLineSettings.SetDisplayLimits(const Value: TPathLineDisplayLimits);
@@ -8263,7 +8341,7 @@ var
     Point2D.X := XPrime + XOrigin;
     Point2D.Y := YPrime + YOrigin;
     Point2D := RotateToRealWorldCoordinates(Point2D);
-	
+
 
     APoint.CellNumber := CellNumber;
     APoint.FX := Point2D.X;
@@ -9005,7 +9083,7 @@ end;
 { TPathLinePointV7 }
 
 procedure TPathLinePointV7.Assign(Source: TPersistent);
-var  
+var
   SourcePoint: TPathLinePointV7;
 begin
   if Source is TPathLinePointV7 then
@@ -9132,6 +9210,266 @@ end;
 function TTimeSeriesCollectionV7.GetSeries(Index: integer): TTimeSeriesV7;
 begin
   result := Items[Index] as TTimeSeriesV7;
+end;
+
+{ TByteSetLimits }
+
+constructor TByteSetLimits.Create(InvalidateModelEvent: TNotifyEvent);
+begin
+  inherited Create;
+  FLimits := TIntegerCollection.Create(InvalidateModelEvent);
+end;
+
+destructor TByteSetLimits.Destroy;
+begin
+  FLimits.Free;
+  inherited;
+end;
+
+procedure TByteSetLimits.SetLimits(const Value: TIntegerCollection);
+begin
+  FLimits.Assign(Value);
+end;
+
+procedure TByteSetLimits.SetUseLimit(const Value: boolean);
+begin
+  FUseLimit := Value;
+end;
+
+{ TStatusLimit }
+
+procedure TStatusLimit.Assign(Source: TPersistent);
+var
+  StatusSource: TStatusLimit;
+begin
+  if Source is TStatusLimit then
+  begin
+    StatusSource := TStatusLimit(Source);
+    UseLimit   := StatusSource.UseLimit;
+    UsedStatus := StatusSource.UsedStatus;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+procedure TStatusLimit.SetUsedStatus(const Value: TStatuses);
+begin
+  FUsedStatus := Value;
+end;
+
+procedure TStatusLimit.SetUseLimit(const Value: boolean);
+begin
+  FUseLimit := Value;
+end;
+
+{ TReasonLimit }
+
+procedure TReasonLimit.Assign(Source: TPersistent);
+var
+  ReasonSource: TReasonLimit;
+begin
+  if Source is TReasonLimit then
+  begin
+    ReasonSource := TReasonLimit(Source);
+    UseLimit   := ReasonSource.UseLimit;
+    UsedReasons := ReasonSource.UsedReasons;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+procedure TReasonLimit.SetUsedReasons(const Value: TReasons);
+begin
+  FUsedReasons := Value;
+end;
+
+procedure TReasonLimit.SetUseLimit(const Value: boolean);
+begin
+  FUseLimit := Value;
+end;
+
+{ TSelectedTimeLimit }
+
+procedure TSelectedTimeLimit.Assign(Source: TPersistent);
+var
+  SelectedTimeSource: TSelectedTimeLimit;
+begin
+  if Source is TSelectedTimeLimit then
+  begin
+    SelectedTimeSource := TSelectedTimeLimit(Source);
+    UseLimit   := SelectedTimeSource.UseLimit;
+    UsedTimes := SelectedTimeSource.UsedTimes;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+constructor TSelectedTimeLimit.Create(InvalidateModelEvent: TNotifyEvent);
+begin
+  inherited Create;
+  FUsedTimes := TRealCollection.Create(InvalidateModelEvent);
+end;
+
+destructor TSelectedTimeLimit.Destroy;
+begin
+  FUsedTimes.Free;
+  inherited;
+end;
+
+procedure TSelectedTimeLimit.SetUsedTimes(const Value: TRealCollection);
+begin
+  FUsedTimes.Assign(Value);
+end;
+
+procedure TSelectedTimeLimit.SetUseLimit(const Value: boolean);
+begin
+  FUseLimit := Value;
+end;
+
+{ TPrtTrackDisplayLimits }
+
+procedure TPrtTrackDisplayLimits.Assign(Source: TPersistent);
+var
+  TrackDisplaySource: TPrtTrackDisplayLimits;
+begin
+  if Source is TPrtTrackDisplayLimits then
+  begin
+    TrackDisplaySource := TPrtTrackDisplayLimits(Source);
+    ShowChoice   := TrackDisplaySource.ShowChoice;
+    LimitToCurrentIn2D   := TrackDisplaySource.LimitToCurrentIn2D;
+    ColumnLimits   := TrackDisplaySource.ColumnLimits;
+    RowLimits   := TrackDisplaySource.RowLimits;
+    LayerLimits   := TrackDisplaySource.LayerLimits;
+    TimeLimits   := TrackDisplaySource.TimeLimits;
+    ModelLimits   := TrackDisplaySource.ModelLimits;
+    PrpLimits   := TrackDisplaySource.PrpLimits;
+    ReleasePointLimits   := TrackDisplaySource.ReleasePointLimits;
+    ZoneLimits   := TrackDisplaySource.ZoneLimits;
+    StatusLimit   := TrackDisplaySource.StatusLimit;
+    ReasonLimit   := TrackDisplaySource.ReasonLimit;
+    SelectedTimeLimit   := TrackDisplaySource.SelectedTimeLimit;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+constructor TPrtTrackDisplayLimits.Create(InvalidateModelEvent: TNotifyEvent);
+begin
+
+end;
+
+destructor TPrtTrackDisplayLimits.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TPrtTrackDisplayLimits.SetColumnLimits(
+  const Value: TShowIntegerLimit);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetLayerLimits(const Value: TShowIntegerLimit);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetLimitToCurrentIn2D(const Value: boolean);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetModelLimits(const Value: TByteSetLimits);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetPrpLimits(const Value: TByteSetLimits);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetReasonLimit(const Value: TReasonLimit);
+begin
+  FReasonLimit := Value;
+end;
+
+procedure TPrtTrackDisplayLimits.SetReleasePointLimits(
+  const Value: TShowIntegerLimit);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetRowLimits(const Value: TShowIntegerLimit);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetSelectedTimeLimit(
+  const Value: TSelectedTimeLimit);
+begin
+  FSelectedTimeLimit := Value;
+end;
+
+procedure TPrtTrackDisplayLimits.SetShowChoice(const Value: TShowChoice);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetStatusLimit(const Value: TStatusLimit);
+begin
+  FStatusLimit := Value;
+end;
+
+procedure TPrtTrackDisplayLimits.SetTimeLimits(const Value: TShowFloatLimit);
+begin
+
+end;
+
+procedure TPrtTrackDisplayLimits.SetZoneLimits(const Value: TByteSetLimits);
+begin
+  FZoneLimits := Value;
+end;
+
+procedure TCustomColorLimits.SetMinColorLimit(const Value: Double);
+begin
+  FMinColorLimit := Value;
+end;
+
+procedure TCustomColorLimits.Assign(Source: TPersistent);
+var
+  SourceLimits: TCustomColorLimits;
+begin
+  if Source is TCustomColorLimits then
+  begin
+    SourceLimits := TCustomColorLimits(Source);
+    MinColorLimit := SourceLimits.MinColorLimit;
+    MaxColorLimit := SourceLimits.MaxColorLimit;
+    UseLimit := SourceLimits.UseLimit;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+procedure TCustomColorLimits.SetMaxColorLimit(const Value: Double);
+begin
+  FMaxColorLimit := Value;
+end;
+
+procedure TCustomColorLimits.SetUseLimit(const Value: boolean);
+begin
+  FUseLimit := Value;
 end;
 
 end.

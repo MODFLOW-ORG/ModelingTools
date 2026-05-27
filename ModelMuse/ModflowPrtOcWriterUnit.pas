@@ -127,7 +127,7 @@ var
     WriteString('''');
   end;
 begin
-  BaseNameOfFile := ChangeFileExt(FNameOfFile, '') + '.' + PrtModel.ModelName;
+  BaseNameOfFile := ChangeFileExt(FNameOfFile, '');
   WriteBeginOptions;
   try
     if pofBinaryBudget in PrtModel.PrtOutputFiles then
@@ -156,6 +156,7 @@ begin
     begin
       TrackFileOut := BaseNameOfFile + '.trk';
       Model.AddModelOutputFile(TrackFileOut);
+      Model.AddModelOutputFile(TrackFileOut + '.hdr');
       WriteString('  TRACK FILEOUT ');
       WriteSingleQuoteMF6;
       WriteString(ExtractFileName(TrackFileOut));

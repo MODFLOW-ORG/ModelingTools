@@ -8,16 +8,16 @@ uses
 
 type
   TPrtTrackPointRecord = record
-    KPER: Integer;
-    KSTP: Integer;
-    IMDL: Integer;
-    IPRP: Integer;
-    IRPT: Integer;
-    ILAY: Integer;
-    ICELL: Integer;
-    IZONE: Integer;
-    ISTATUS: Integer;
-    IREASON: Integer;
+    KPER: longint;
+    KSTP: longint;
+    IMDL: longint;
+    IPRP: longint;
+    IRPT: longint;
+    ILAY: longint;
+    ICELL: longint;
+    IZONE: longint;
+    ISTATUS: longint;
+    IREASON: longint;
     TRELEASE: double;
     T: double;
     X: double;
@@ -344,8 +344,23 @@ var
   ABinaryFile: TFileStream;
   PrtTrackPointRecord: TPrtTrackPointRecord;
   ATrackPoint: TPrtTrackPoint;
+  HeaderFileName: string;
+  HeaderFile: TStringList;
 begin
   Assert(TFile.Exists(FileName));
+  HeaderFileName := FileName +'.hdr';
+  Assert(TFile.Exists(HeaderFileName));
+  HeaderFile := TStringList.Create;
+  try
+    HeaderFile.LoadFromFile(HeaderFileName);
+    Assert(HeaderFile.Count = 2);
+    Assert(HeaderFile[0] = 'kper,kstp,imdl,iprp,irpt,ilay,icell,izone,istatus,ireason,trelease,t,x,y,z,name');
+    Assert(HeaderFile[1] = '<i4,<i4,<i4,<i4,<i4,<i4,<i4,<i4,<i4,<i4,<f8,<f8,<f8,<f8,<f8,|S40');
+  finally
+    HeaderFile.Free;
+  end;
+
+
   ABinaryFile := TFile.OpenRead(FileName);
   try
     While ABinaryFile.Read(PrtTrackPointRecord, SizeOf(TPrtTrackPointRecord)) > 0 do
@@ -369,6 +384,8 @@ begin
   Splitter := TStringList.Create;
   ACsvFile := TFile.OpenText(FileName);
   try
+    // Skip header line.
+    AString := ACsvFile.ReadLine;
     AString := ACsvFile.ReadLine;
     repeat
       begin

@@ -2075,6 +2075,7 @@ that affects the model output should also have a comment. }
     FPathLine: TPathLineReader;
     FTimeSeries: TTimeSeriesReader;
     FEndPoints: TEndPointReader;
+    FPrtTracks: TPrtTrackDisplayer;
     F_SP_Epsilon: double;
     FSutraPestScripts: TStringList;
   strict private
@@ -2242,6 +2243,9 @@ that affects the model output should also have a comment. }
     function GetSeparatedHeatCapacitySolidUsed: TObjectUsedEvent;
     function GetSeparateGweUsed: Boolean;
     function GetSeparatePrtUsed: Boolean;
+    function GetPrtTracks: TPrtTrackDisplayer;
+    procedure SetPrtTracks(const Value: TPrtTrackDisplayer);
+    function StorePrtTracks: Boolean;
   public
     function ChdIsSelected: Boolean; virtual;
     function TvkIsSelected: Boolean; virtual;
@@ -3370,6 +3374,8 @@ that affects the model output should also have a comment. }
     // @name is retained for backwards compatibility. See @link(PathLines).
     property PathLine: TPathLineReader read GetPathLine write SetPathLine
       stored False;
+    property PrtTracks: TPrtTrackDisplayer read GetPrtTracks write SetPrtTracks
+      stored StorePrtTracks;
     // @name stores MODPATH times series data.
     // @name is used only in MODFLOW models.
     property TimeSeries: TTimeSeriesReader read GetTimeSeries
@@ -13382,6 +13388,15 @@ procedure TCustomModel.SetPilotPointData(
   const Value: TStoredPilotParamDataCollection);
 begin
   FPilotPointData.Assign(Value);
+end;
+
+procedure TCustomModel.SetPrtTracks(const Value: TPrtTrackDisplayer);
+begin
+  if FPrtTracks = nil then
+  begin
+    FPrtTracks := TPrtTrackDisplayer.Create;
+  end;
+  FPrtTracks.Assign(Value);
 end;
 
 function TPhastModel.GetHufParameters: THufModflowParameters;
@@ -33751,6 +33766,7 @@ begin
   FPathLine.Free;
   FTimeSeries.Free;
   FEndPoints.Free;
+  FPrtTracks.Free;
   FreeAndNil(FCrossSection);
   FModpathOutputFiles.Free;
   FModpathInputFiles.Free;
@@ -35383,6 +35399,7 @@ begin
   FreeAndNil(FPathline);
   FreeAndNil(FTimeSeries);
   FreeAndNil(FEndPoints);
+  FreeAndNil(FPrtTracks);
   FreeAndNil(FHeadObsResults);
   if ParamGroups <> nil then
   begin
@@ -50477,6 +50494,11 @@ begin
   result := (FPathLine <> nil) and (FPathLine.FileName <> '');
 end;
 
+function TCustomModel.StorePrtTracks: Boolean;
+begin
+  result := (FPrtTracks <> nil) and (FPrtTracks.FileName <> '');
+end;
+
 function TCustomModel.StoreTimeSeries: boolean;
 begin
   result := (FTimeSeries <> nil) and (FTimeSeries.FileName <> '');
@@ -51069,6 +51091,16 @@ end;
 function TCustomModel.GetPrecipPotConsumptionUsed: TObjectUsedEvent;
 begin
   result := DoPrecipPotConsumptionUsed
+end;
+
+function TCustomModel.GetPrtTracks: TPrtTrackDisplayer;
+begin
+//  if (FPrtTracks = nil) then
+  begin
+    FPrtTracks := TPrtTrackDisplayer.Create;
+  end;
+  result := FPrtTracks;
+
 end;
 
 function TCustomModel.GetPrtUsed: Boolean;

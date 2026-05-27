@@ -608,13 +608,19 @@ begin
 end;
 
 procedure TPrpWriter.WriteReleaseTimes;
+var
+  StressPeriods: TModflowStressPeriods;
+  StartTime: Double;
 begin
+  StressPeriods := (Model as TPhastModel).ModflowFullStressPeriods;
+  StartTime := StressPeriods.First.StartTime;
+
   WriteString('BEGIN RELEASETIMES');
   NewLine;
   try
     for var TimeIndex := 0 to FPrpPackage.ReleaseTimes.Count - 1 do
     begin
-      WriteFloat(FPrpPackage.ReleaseTimes[TimeIndex].Value);
+      WriteFloat(FPrpPackage.ReleaseTimes[TimeIndex].Value - StartTime);
       NewLine;
     end;
   finally

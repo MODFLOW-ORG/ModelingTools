@@ -195,7 +195,14 @@ begin
   begin
     WriteString('  GWFGRID');
     WriteString(' FILEIN ');
-    GrbFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.grb'));
+    if Model.DisvUsed then
+    begin
+      GrbFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.disv.grb'));
+    end
+    else
+    begin
+      GrbFileName := ExtractFileName(ChangeFileExt(FFlowFile, '.dis.grb'));
+    end;
     WriteString(GrbFileName);
     NewLine;
   end;
