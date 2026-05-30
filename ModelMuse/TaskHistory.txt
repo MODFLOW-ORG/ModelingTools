@@ -35894,5 +35894,14 @@ object TTaskHistory
         'Refactoring'
         'PRT'
         'Graphics')
+    end
+    item
+      Date = 46170.000000000000000000
+    end
+    item
+      Date = 46171.000000000000000000
+      Categories.Strings = (
+        'Dialog boxes'
+        'PRT')
     end>
 end

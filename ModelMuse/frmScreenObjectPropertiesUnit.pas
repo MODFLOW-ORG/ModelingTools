@@ -83,7 +83,10 @@ uses System.UITypes, Windows,
   frameDynamicScreenObjectsContainerUnit, Modflow6DynamicTimeSeriesUnit,
   frameScreenObjectCfpRechargeFractionUnit, frameScreenObjectTransientKUnit,
   frameScreenObjectTransientSUnit, frameScreenObjectCtpUnit,
-  frameScreenObjectEslUnit, frameScreenObjectPrpUnit, VirtualTrees.BaseTree,
+  frameScreenObjectEslUnit, frameScreenObjectPrpUnit,
+{$IFNDEF CommunityEdition}
+  VirtualTrees.BaseTree,
+{$ENDIF}
   VirtualTrees, frameScreenObjectIFlowFaceUnit;
 
   { TODO : Consider making this a property sheet like the Object Inspector that

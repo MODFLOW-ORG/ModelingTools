@@ -3036,7 +3036,7 @@ Type
     procedure SetPrtTrackingOutput(const Value: TPrtTrackingOutput);
     procedure SetDryTrackingMethod(const Value: TPrtDryTracking);
     procedure SetCoordinateCheckMethod(const Value: TPrtCoordinateCheckMethod);
-    procedure SetPackageName(Value: string);
+    procedure SetPackageName(const Value: string);
     function GetSolverToleranceUsed: Boolean;
     procedure SetSolverToleranceUsed(const Value: Boolean);
     procedure SetPeriodData(const Value: TPrpPeriodData);
@@ -32459,13 +32459,15 @@ begin
   FOriginalId := Value;
 end;
 
-procedure TPrpPackage.SetPackageName(Value: string);
+procedure TPrpPackage.SetPackageName(const Value: string);
+var
+  LocalValue: string;
 begin
-  Value := Copy(Value, 1,16);
-  Value := ValidName(Value);
-  if FPackageName <> Value then
+  LocalValue := Copy(Value, 1,16);
+  LocalValue := ValidName(LocalValue);
+  if FPackageName <> LocalValue then
   begin
-    FPackageName := Value;
+    FPackageName := LocalValue;
     InvalidateModel;
   end;
 end;

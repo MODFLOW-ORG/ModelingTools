@@ -21,7 +21,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabTrackByStressPeriod
+    ActivePage = tabPrpPackages
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -228,6 +228,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
+          ExplicitTop = 1
           ExplicitWidth = 657
           ExplicitHeight = 285
         end
@@ -596,7 +597,6 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitLeft = 4
           ExplicitWidth = 657
           ExplicitHeight = 228
         end

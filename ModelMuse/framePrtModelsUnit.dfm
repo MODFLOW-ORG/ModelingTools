@@ -20,10 +20,10 @@ object framePrtModels: TframePrtModels
       ExplicitTop = 439
       ExplicitWidth = 640
       inherited lbNumber: TLabel
-        Width = 122
+        Width = 123
         Caption = 'Number of PRT models'
         StyleElements = [seFont, seClient, seBorder]
-        ExplicitWidth = 122
+        ExplicitWidth = 123
       end
       inherited sbAdd: TSpeedButton
         Left = 336

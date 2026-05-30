@@ -241,8 +241,11 @@ begin
       framePrpPackages.Grid.Cells[Ord(pcName), Index+1] := Format('PRP%d', [Index+1]);
       framePrpPackages.Grid.Checked[Ord(pcUsed), Index+1] := True;
 
-//        TPrpColumns = (pcName, pcUsed);
-
+      if Assigned(framePrpPackages.Grid.OnSetEditText) then
+      begin
+        framePrpPackages.Grid.OnSetEditText(nil, Ord(pcName), Index+1,
+          framePrpPackages.Grid.Cells[Ord(pcName), Index+1]);
+      end;
     end;
   end;
 end;

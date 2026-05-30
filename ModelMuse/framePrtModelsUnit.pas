@@ -107,6 +107,15 @@ begin
   FLinkDictionary.Add(Link.Frame, Link);
   Result.Initialize(FPackageTreeView, ChildNode, FPageList, FLinkDictionary);
 
+  if not FGettingData then
+  begin
+    Result.framePrpPackages.seNumber.AsInteger := 1;
+    if Assigned(Result.framePrpPackages.seNumber.OnChange) then
+    begin
+      Result.framePrpPackages.seNumber.OnChange(nil);
+    end;
+  end;
+
 end;
 
 destructor TframePrtModels.Destroy;
@@ -196,8 +205,11 @@ begin
         framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1] := Format('PRT%d', [Index+1]);
         framePrtModelsGrid.Grid.Checked[Ord(pmcUsed), Index+1] := True;
 
-        framePrtModelsGridGridSetEditText(framePrtModelsGrid.Grid, Ord(pmcName),
-          Index+1, framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1]);
+        if Assigned(framePrtModelsGrid.Grid.OnSetEditText) then
+        begin
+          framePrtModelsGrid.Grid.OnSetEditText(framePrtModelsGrid.Grid, Ord(pmcName),
+            Index+1, framePrtModelsGrid.Grid.Cells[Ord(pmcName), Index+1])
+        end;
       end;
     end;
   end;

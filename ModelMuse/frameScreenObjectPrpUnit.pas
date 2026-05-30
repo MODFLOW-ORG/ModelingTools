@@ -8,7 +8,11 @@ uses
   ArgusDataEntry, Vcl.ExtCtrls, SsButtonEd, RbwStringTreeCombo, VirtualTrees,
   UndoItemsScreenObjects, System.Generics.Collections, frameModpathParticlesUnit,
   Vcl.Mask, JvExMask, JvSpin, JvExStdCtrls, JvGroupBox, Vcl.Grids,
-  RbwDataGrid4, VirtualTrees.BaseTree;
+  RbwDataGrid4
+{$IFNDEF CommunityEdition}
+  , VirtualTrees.BaseTree
+{$ENDIF}
+  ;
 
 type
   TPrpPackageRecord = record
@@ -33,6 +37,8 @@ type
     procedure frameModpathParticlesseSpecificParticleCountChange(Sender: TObject);
     procedure frameModpathParticlesseXChange(Sender: TObject);
     procedure rstcPrpPackageChange(Sender: TObject);
+    procedure rstcPrpPackageTreeFreeNode(Sender: TBaseVirtualTree; Node:
+        PVirtualNode);
     procedure rstcPrpPackageTreeGetNodeDataSize(Sender: TBaseVirtualTree; var
         NodeDataSize: Integer);
     procedure rstcPrpPackageTreeGetText(Sender: TBaseVirtualTree; Node:
@@ -75,10 +81,17 @@ const
   KNone = 'none';
 
 procedure TframeScreenObjectPrp.DoPrpChanged;
+var  
+  CheckBox: TCheckBox; 
 begin
   if Assigned(OnEdited) and not FGettingData then
   begin
     OnEdited(self);
+    CheckBox := frameModpathParticles.gbParticles.Components[0] as TCheckBox;
+    if CheckBox.State <> cbGrayed then
+    begin
+      frameModpathParticles.gbParticles.Checked := True;
+    end;
   end;
 end;
 
@@ -619,6 +632,17 @@ procedure TframeScreenObjectPrp.rstcPrpPackageChange(Sender: TObject);
 begin
   inherited;
   DoPrpChanged;
+end;
+
+procedure TframeScreenObjectPrp.rstcPrpPackageTreeFreeNode(Sender:
+    TBaseVirtualTree; Node: PVirtualNode);
+var
+  Data: PPrpPackageRecord;
+begin
+  Data := Sender.GetNodeData(Node);
+  Data.ModelName := '';
+  Data.PackageName := '';
+  inherited;
 end;
 
 procedure TframeScreenObjectPrp.rstcPrpPackageTreeGetNodeDataSize(Sender:
