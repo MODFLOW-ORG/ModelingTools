@@ -13394,7 +13394,7 @@ procedure TCustomModel.SetPrtTracks(const Value: TPrtTrackDisplayer);
 begin
   if FPrtTracks = nil then
   begin
-    FPrtTracks := TPrtTrackDisplayer.Create;
+    FPrtTracks := TPrtTrackDisplayer.Create(DoInvalidate);
   end;
   FPrtTracks.Assign(Value);
 end;
@@ -51095,9 +51095,9 @@ end;
 
 function TCustomModel.GetPrtTracks: TPrtTrackDisplayer;
 begin
-//  if (FPrtTracks = nil) then
+  if (FPrtTracks = nil) then
   begin
-    FPrtTracks := TPrtTrackDisplayer.Create;
+    FPrtTracks := TPrtTrackDisplayer.Create(DoInvalidate);
   end;
   result := FPrtTracks;
 

@@ -40,6 +40,8 @@ type
     procedure framePrpPackagesGridBeforeDrawCell(Sender: TObject; ACol, ARow:
         LongInt);
     procedure framePrpPackagesGridEndUpdate(Sender: TObject);
+    procedure framePrpPackagesGridSelectCell(Sender: TObject; ACol, ARow: LongInt;
+        var CanSelect: Boolean);
     procedure framePrpPackagesGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
         const Value: string);
     procedure framePrpPackagesseNumberChange(Sender: TObject);
@@ -144,6 +146,7 @@ begin
   result.Parent := NewPage;
   result.Align := alClient;
   Result.lblPackage.Caption := SParticleReleasePointPRPPackage;
+  Result.InitializeGrids;
 
   ChildNode := FPackageTreeView.Items.AddChild(FNode, SParticleReleasePointPRPPackage);
 
@@ -170,6 +173,11 @@ var
   AName: string;
 begin
   inherited;
+  if framePrpPackages.seNumber.AsInteger <= 0 then
+  begin
+    framePrpPackages.Grid.Canvas.Brush.Color := clBtnFace;
+    Exit;
+  end;
   if (ACol = Ord(pcName)) and (ARow >= 1) then
   begin
     AName := framePrpPackages.Grid.Cells[ACol, ARow];
@@ -194,6 +202,13 @@ begin
   end;
 
   framePrpPackages.GridEndUpdate(Sender);
+end;
+
+procedure TframePrpMultiplePackages.framePrpPackagesGridSelectCell(Sender:
+    TObject; ACol, ARow: LongInt; var CanSelect: Boolean);
+begin
+  inherited;
+  CanSelect := framePrpPackages.seNumber.AsInteger >= 1;
 end;
 
 procedure TframePrpMultiplePackages.framePrpPackagesGridSetEditText(Sender:

@@ -50,6 +50,7 @@ object framePrtModels: TframePrtModels
       Width = 640
       Height = 439
       ColCount = 2
+      OnSelectCell = framePrtModelsGridGridSelectCell
       OnSetEditText = framePrtModelsGridGridSetEditText
       OnBeforeDrawCell = framePrtModelsGridGridBeforeDrawCell
       OnEndUpdate = framePrtModelsGridGridEndUpdate

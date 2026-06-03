@@ -9,10 +9,9 @@ object framePrtDisplay: TframePrtDisplay
     Top = 0
     Width = 465
     Height = 486
-    ActivePage = tabBasic
+    ActivePage = tabOptions
     Align = alClient
     TabOrder = 0
-    ExplicitTop = -6
     object tabBasic: TTabSheet
       Caption = 'Basic'
       DesignSize = (

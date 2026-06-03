@@ -83,10 +83,13 @@ resourcestring
 
 constructor TUndoImportPrtTrack.Create(Model: TCustomModel;
   var NewPathLine: TPrtTrackDisplayer; ImportedNewFile: boolean);
+var
+  InvalidateModelEvent: TNotifyEvent;
 begin
   FModel := Model;
+  InvalidateModelEvent := nil;
   FImportedNewFile := ImportedNewFile;
-  FExistingPathLines:= TPrtTrackDisplayer.Create;
+  FExistingPathLines:= TPrtTrackDisplayer.Create(InvalidateModelEvent);
   FExistingPathLines.Assign(frmGoPhast.PhastModel.PrtTracks);
   // Take ownership of NewPathLine.
   FNewPathLines := NewPathLine;

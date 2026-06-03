@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes, GoPhastTypes, System.AnsiStrings, System.IOUtils,
-  System.SysUtils;
+  System.SysUtils, System.Generics.Collections;
 
 type
   TPrtTrackPointRecord = record
@@ -100,16 +100,53 @@ type
     property NAME: string read FNAME write SetName;
   end;
 
+  // @name is a collection of @link(TPrtTrackPoint)s.
+  // See PathlineReader.pas for @link(TPrtTrackDisplayer).
   TPrtTrack = class(TCollection)
   private
     function GetTrackPoint(Index: Integer): TPrtTrackPoint;
     procedure SetTrackPoint(Index: Integer; const Value: TPrtTrackPoint);
+    function Get_IPRP: Integer;
+    function Get_IRPT: Integer;
   public
     Constructor Create;
+    function First: TPrtTrackPoint;
     function Add: TPrtTrackPoint;
     property Items[Index: Integer]: TPrtTrackPoint read GetTrackPoint write SetTrackPoint; default;
+    property IPRP: Integer read Get_IPRP;
+    property IRPT: Integer read Get_IRPT;
+  end;
+
+  TPrtTrackList = TList<TPrtTrack>;
+  TPrtTrackLists = TObjectList<TPrtTrackList>;
+
+  TPrtTrackItem = class(TCollectionItem)
+  private
+    FTrack: TPrtTrack;
+    procedure SetTrack(const Value: TPrtTrack);
+  public
+    constructor Create(Collection: TCollection); override;
+    destructor Destroy; override;
+    procedure Assign(Source: TPersistent); override;
+  published
+    property Track: TPrtTrack read FTrack write SetTrack;
+  end;
+
+  TPrtTracks = class(TCollection)
+  private
+    FTracks: TPrtTrackLists;
+    function GetTrack(IPRP, IRPT: Integer): TPrtTrack;
+    function GetIprpCount: Integer;
+    function GetIrptCount(IPRP: Integer): Integer;
+  public
+    Constructor Create;
+    destructor Destroy; override;
+    procedure Assign(Source: TPersistent); override;
     procedure ReadFromCsv(const FileName: string);
     procedure ReadFromBinary(const FileName: string);
+    property Tracks[IPRP, IRPT: Integer]: TPrtTrack read GetTrack;
+    property IprpCount: Integer read GetIprpCount;
+    property IrptCount[IPRP: Integer]: Integer read GetIrptCount;
   end;
 
 implementation
@@ -334,18 +371,169 @@ begin
   inherited Create(TPrtTrackPoint);
 end;
 
+function TPrtTrack.First: TPrtTrackPoint;
+begin
+  Assert(Count > 0);
+  Result := Items[0];
+end;
+
 function TPrtTrack.GetTrackPoint(Index: Integer): TPrtTrackPoint;
 begin
   result := inherited Items[Index] as TPrtTrackPoint;
 end;
 
-procedure TPrtTrack.ReadFromBinary(const FileName: string);
+function TPrtTrack.Get_IPRP: Integer;
+begin
+  if Count > 0 then
+  begin
+    result := First.IPRP;
+  end
+  else
+  begin
+    result := -1
+  end;
+end;
+
+function TPrtTrack.Get_IRPT: Integer;
+begin
+  if Count > 0 then
+  begin
+    result := First.IRPT;
+  end
+  else
+  begin
+    result := -1
+  end;
+end;
+
+
+procedure TPrtTrack.SetTrackPoint(Index: Integer; const Value: TPrtTrackPoint);
+begin
+  inherited Items[Index] := Value;
+end;
+
+{ TPrtTrackItem }
+
+procedure TPrtTrackItem.Assign(Source: TPersistent);
+begin
+  if Source is TPrtTrackItem then
+  begin
+    Track := TPrtTrackItem(Source).Track;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+constructor TPrtTrackItem.Create(Collection: TCollection);
+begin
+  inherited;
+  FTrack := TPrtTrack.Create;
+end;
+
+destructor TPrtTrackItem.Destroy;
+begin
+  FTrack.Free;
+  inherited;
+end;
+
+procedure TPrtTrackItem.SetTrack(const Value: TPrtTrack);
+begin
+  FTrack.Assign(Value);
+end;
+
+{ TPrtTracks }
+
+procedure TPrtTracks.Assign(Source: TPersistent);
+var
+  ATrackItem: TPrtTrackItem;
+  Track: TPrtTrack;
+  TrackList: TPrtTrackList;
+begin
+  inherited;
+  for var Index := 0 to Count - 1 do
+  begin
+    ATrackItem := Items[Index] as TPrtTrackItem;
+    Track := ATrackItem.Track;
+    if Track.IPRP = 0 then
+    begin
+      Continue;
+    end;
+    While IprpCount <= Track.IPRP do
+    begin
+      FTracks.Add(TPrtTrackList.Create);
+    end;
+    TrackList := FTracks[Track.IPRP];
+    while TrackList.Count <= Track.IPRP do
+    begin
+      TrackList.Add(nil);
+    end;
+    Assert(TrackList[Track.IRPT] = nil);
+    TrackList[Track.IRPT] := Track;
+  end;
+end;
+
+constructor TPrtTracks.Create;
+begin
+  inherited Create(TPrtTrackItem);
+  FTracks := TPrtTrackLists.Create;
+end;
+
+destructor TPrtTracks.Destroy;
+begin
+  FTracks.Free;
+  inherited;
+end;
+
+function TPrtTracks.GetIprpCount: Integer;
+begin
+  Result := FTracks.Count;
+end;
+
+
+function TPrtTracks.GetIrptCount(IPRP: Integer): Integer;
+begin
+  if IPRP < IprpCount then
+  begin
+    Result := FTracks[IPRP].Count
+  end
+  else
+  begin
+    result := 0;
+  end;
+end;
+
+function TPrtTracks.GetTrack(IPRP, IRPT: Integer): TPrtTrack;
+var
+  TrackItem: TPrtTrackItem;
+  TrackList: TPrtTrackList;
+begin
+  While IPRP >= FTracks.Count do
+  begin
+    FTracks.Add(TPrtTrackList.Create);
+  end;
+  TrackList := FTracks[IPRP];
+  While IRPT >= TrackList.Count do
+  begin
+    TrackList.Add(nil);
+  end;
+  if TrackList[IRPT] = nil then
+  begin
+    TrackItem := Add as TPrtTrackItem;
+    TrackList[IRPT] := TrackItem.Track;
+  end;
+  result := TrackList[IRPT];
+end;
+
+procedure TPrtTracks.ReadFromBinary(const FileName: string);
 var
   ABinaryFile: TFileStream;
   PrtTrackPointRecord: TPrtTrackPointRecord;
   ATrackPoint: TPrtTrackPoint;
   HeaderFileName: string;
   HeaderFile: TStringList;
+  Track: TPrtTrack;
 begin
   Assert(TFile.Exists(FileName));
   HeaderFileName := FileName +'.hdr';
@@ -365,7 +553,8 @@ begin
   try
     While ABinaryFile.Read(PrtTrackPointRecord, SizeOf(TPrtTrackPointRecord)) > 0 do
     begin
-      ATrackPoint := Add;
+      Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT];
+      ATrackPoint := Track.Add;
       ATrackPoint.AssignRecord(PrtTrackPointRecord);
     end;
   finally
@@ -373,12 +562,14 @@ begin
   end;
 end;
 
-procedure TPrtTrack.ReadFromCsv(const FileName: string);
+procedure TPrtTracks.ReadFromCsv(const FileName: string);
 var
   ACsvFile: TStreamReader;
   Splitter: TStringList;
   AString: string;
   ATrackPoint: TPrtTrackPoint;
+  PrtTrackPointRecord: TPrtTrackPointRecord;
+  Track: TPrtTrack;
 begin
   Assert(TFile.Exists(FileName));
   Splitter := TStringList.Create;
@@ -391,26 +582,33 @@ begin
       begin
         Splitter.CommaText := AString;
         Assert(Splitter.Count >= 15);
-        ATrackPoint := Add;
 
-        ATrackPoint.KPER := StrToInt(Splitter[0]);
-        ATrackPoint.KSTP := StrToInt(Splitter[1]);
-        ATrackPoint.IMDL := StrToInt(Splitter[2]);
-        ATrackPoint.IPRP := StrToInt(Splitter[3]);
-        ATrackPoint.IRPT := StrToInt(Splitter[4]);
-        ATrackPoint.ILAY := StrToInt(Splitter[5]);
-        ATrackPoint.ICELL := StrToInt(Splitter[6]);
-        ATrackPoint.IZONE := StrToInt(Splitter[7]);
-        ATrackPoint.ISTATUS := StrToInt(Splitter[8]);
-        ATrackPoint.IREASON := StrToInt(Splitter[9]);
-        ATrackPoint.TRELEASE := FortranStrToFloat(Splitter[10]);
-        ATrackPoint.T := FortranStrToFloat(Splitter[11]);
-        ATrackPoint.X := FortranStrToFloat(Splitter[12]);
-        ATrackPoint.Y := FortranStrToFloat(Splitter[13]);
-        ATrackPoint.Z := FortranStrToFloat(Splitter[14]);
+        PrtTrackPointRecord.KPER := StrToInt(Splitter[0]);
+        PrtTrackPointRecord.KSTP := StrToInt(Splitter[1]);
+        PrtTrackPointRecord.IMDL := StrToInt(Splitter[2]);
+        PrtTrackPointRecord.IPRP := StrToInt(Splitter[3]);
+        PrtTrackPointRecord.IRPT := StrToInt(Splitter[4]);
+        PrtTrackPointRecord.ILAY := StrToInt(Splitter[5]);
+        PrtTrackPointRecord.ICELL := StrToInt(Splitter[6]);
+        PrtTrackPointRecord.IZONE := StrToInt(Splitter[7]);
+        PrtTrackPointRecord.ISTATUS := StrToInt(Splitter[8]);
+        PrtTrackPointRecord.IREASON := StrToInt(Splitter[9]);
+        PrtTrackPointRecord.TRELEASE := FortranStrToFloat(Splitter[10]);
+        PrtTrackPointRecord.T := FortranStrToFloat(Splitter[11]);
+        PrtTrackPointRecord.X := FortranStrToFloat(Splitter[12]);
+        PrtTrackPointRecord.Y := FortranStrToFloat(Splitter[13]);
+        PrtTrackPointRecord.Z := FortranStrToFloat(Splitter[14]);
+
+        Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT];
+        ATrackPoint := Track.Add;
+        ATrackPoint.AssignRecord(PrtTrackPointRecord);
         if Splitter.Count > 15 then
         begin
-          ATrackPoint.NAME := Splitter[15]
+          ATrackPoint.NAME := Splitter[15];
+        end
+        else
+        begin
+          ATrackPoint.NAME := '';
         end;
 
         AString := ACsvFile.ReadLine;
@@ -421,11 +619,6 @@ begin
     Splitter.Free;
   end;
 
-end;
-
-procedure TPrtTrack.SetTrackPoint(Index: Integer; const Value: TPrtTrackPoint);
-begin
-  inherited Items[Index] := Value;
 end;
 
 end.

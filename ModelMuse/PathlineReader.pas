@@ -3,7 +3,8 @@ unit PathlineReader;
 interface
 
 uses System.UITypes, Windows, Classes, SysUtils, GoPhastTypes, ColorSchemes, Graphics, GR32,
-  OpenGL, RealListUnit, QuadtreeClass, Generics.Collections, XBase1, FastGEO;
+  OpenGL, RealListUnit, QuadtreeClass, Generics.Collections, XBase1, FastGEO,
+  PrtTrackReaderUnit;
 
 type
   IDisplayer = interface
@@ -1298,8 +1299,28 @@ The IREASON field indicates the reason the particle track record was saved:
     property UsedTimes: TRealCollection read FUsedTimes write SetUsedTimes;
   end;
 
+  TPrtColorLimitChoice = (pcNone, pcParticleNumber,
+    pcXPrime, pcYPrime, pcZ,
+    pcStartXPrime, pcStartYPrime, pcStartZ,
+    pcEndXPrime, pcEndYPrime, pcEndZ, pcPrp, pcReleaseTime, pcTime, pcStatus,
+    pcReason, pcName);
+
+  TPrtColorLimits = class(TCustomColorLimits)
+  private
+    FColoringChoice: TPrtColorLimitChoice;
+    procedure SetColoringChoice(const Value: TPrtColorLimitChoice);
+  public
+    procedure Assign(Source: TPersistent); override;
+    Constructor Create;
+  published
+    property ColoringChoice: TPrtColorLimitChoice read FColoringChoice
+      write SetColoringChoice default pcParticleNumber;
+  end;
+
+
   TPrtTrackDisplayLimits = class(TPersistent)
   private
+    FInvalidateModelEvent: TNotifyEvent;
     FLimitToCurrentIn2D: boolean;
     FLayerLimits: TShowIntegerLimit;
     FRowLimits: TShowIntegerLimit;
@@ -1310,9 +1331,10 @@ The IREASON field indicates the reason the particle track record was saved:
     FPrpLimits: TByteSetLimits;
     FReleasePointLimits: TShowIntegerLimit;
     FZoneLimits: TByteSetLimits;
-    FSelectedTimeLimit: TSelectedTimeLimit;
-    FReasonLimit: TReasonLimit;
+    FSelectedTimeLimits: TSelectedTimeLimit;
+    FReasonLimits: TReasonLimit;
     FStatusLimit: TStatusLimit;
+    FColorLimits: TPrtColorLimits;
     procedure SetLimitToCurrentIn2D(const Value: boolean);
     procedure SetColumnLimits(const Value: TShowIntegerLimit);
     procedure SetLayerLimits(const Value: TShowIntegerLimit);
@@ -1322,10 +1344,11 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure SetModelLimits(const Value: TByteSetLimits);
     procedure SetPrpLimits(const Value: TByteSetLimits);
     procedure SetReleasePointLimits(const Value: TShowIntegerLimit);
-    procedure SetReasonLimit(const Value: TReasonLimit);
-    procedure SetSelectedTimeLimit(const Value: TSelectedTimeLimit);
+    procedure SetReasonLimits(const Value: TReasonLimit);
+    procedure SetSelectedTimeLimits(const Value: TSelectedTimeLimit);
     procedure SetStatusLimit(const Value: TStatusLimit);
     procedure SetZoneLimits(const Value: TByteSetLimits);
+    procedure SetColorLimits(const Value: TPrtColorLimits);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create(InvalidateModelEvent: TNotifyEvent);
@@ -1348,16 +1371,29 @@ The IREASON field indicates the reason the particle track record was saved:
        write SetReleasePointLimits;
      property ZoneLimits: TByteSetLimits read FZoneLimits write SetZoneLimits;
      property StatusLimit: TStatusLimit read FStatusLimit write SetStatusLimit;
-     property ReasonLimit: TReasonLimit read FReasonLimit write SetReasonLimit;
-     property SelectedTimeLimit: TSelectedTimeLimit read FSelectedTimeLimit write SetSelectedTimeLimit;
+     property ReasonLimits: TReasonLimit read FReasonLimits write SetReasonLimits;
+     property SelectedTimeLimits: TSelectedTimeLimit read FSelectedTimeLimits write SetSelectedTimeLimits;
+     property ColorLimits: TPrtColorLimits read FColorLimits write SetColorLimits;
   end;
 
 
   TPrtTrackDisplayer = class(TPersistent)
   private
     FFileName: string;
+    FPrtTrackDisplayLimits: TPrtTrackDisplayLimits;
+    FTracks: TPrtTracks;
+    procedure SetPrtTrackDisplayLimits(const Value: TPrtTrackDisplayLimits);
+    procedure SetTracks(const Value: TPrtTracks);
+    procedure SetFileName(const Value: string);
+  public
+    procedure Assign(Source: TPersistent); override;
+    Constructor Create(InvalidateModelEvent: TNotifyEvent);
+    Destructor Destroy; override;
   published
-    Property FileName: string read FFileName;
+    Property FileName: string read FFileName write SetFileName;
+    property PrtTrackDisplayLimits: TPrtTrackDisplayLimits
+      read FPrtTrackDisplayLimits write SetPrtTrackDisplayLimits;
+    property Tracks: TPrtTracks read FTracks write SetTracks;
   end;
 
   function GetPathlineVersion(const FileName: string): TPathlineVersion;
@@ -9352,8 +9388,8 @@ begin
     ReleasePointLimits   := TrackDisplaySource.ReleasePointLimits;
     ZoneLimits   := TrackDisplaySource.ZoneLimits;
     StatusLimit   := TrackDisplaySource.StatusLimit;
-    ReasonLimit   := TrackDisplaySource.ReasonLimit;
-    SelectedTimeLimit   := TrackDisplaySource.SelectedTimeLimit;
+    ReasonLimits   := TrackDisplaySource.ReasonLimits;
+    SelectedTimeLimits   := TrackDisplaySource.SelectedTimeLimits;
   end
   else
   begin
@@ -9363,81 +9399,114 @@ end;
 
 constructor TPrtTrackDisplayLimits.Create(InvalidateModelEvent: TNotifyEvent);
 begin
+  inherited Create;
+  FInvalidateModelEvent := InvalidateModelEvent;
+
+  FLayerLimits := TShowIntegerLimit.Create;
+  FRowLimits := TShowIntegerLimit.Create;
+  FColumnLimits := TShowIntegerLimit.Create;
+  FShowChoice := scAll;
+  FTimeLimits := TShowFloatLimit.Create;
+  FModelLimits := TByteSetLimits.Create(InvalidateModelEvent);
+  FPrpLimits := TByteSetLimits.Create(InvalidateModelEvent);
+  FReleasePointLimits := TShowIntegerLimit.Create;
+  FZoneLimits := TByteSetLimits.Create(InvalidateModelEvent);
+  FSelectedTimeLimits := TSelectedTimeLimit.Create(InvalidateModelEvent);
+  FReasonLimits := TReasonLimit.Create;
+  FStatusLimit := TStatusLimit.Create;
+  FColorLimits := TPrtColorLimits.Create;
 
 end;
 
 destructor TPrtTrackDisplayLimits.Destroy;
 begin
+  FLayerLimits.Free;
+  FRowLimits.Free;
+  FColumnLimits.Free;
+  FTimeLimits.Free;
+  FModelLimits.Free;
+  FPrpLimits.Free;
+  FReleasePointLimits.Free;
+  FZoneLimits.Free;
+  FSelectedTimeLimits.Free;
+  FReasonLimits.Free;
+  FStatusLimit.Free;
+  FColorLimits.Free;
 
   inherited;
+end;
+
+procedure TPrtTrackDisplayLimits.SetColorLimits(const Value: TPrtColorLimits);
+begin
+  FColorLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetColumnLimits(
   const Value: TShowIntegerLimit);
 begin
-
+  FColumnLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetLayerLimits(const Value: TShowIntegerLimit);
 begin
-
+  FLayerLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetLimitToCurrentIn2D(const Value: boolean);
 begin
-
+  FLimitToCurrentIn2D := Value;
 end;
 
 procedure TPrtTrackDisplayLimits.SetModelLimits(const Value: TByteSetLimits);
 begin
-
+  FModelLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetPrpLimits(const Value: TByteSetLimits);
 begin
-
+  FPrpLimits.Assign(Value);
 end;
 
-procedure TPrtTrackDisplayLimits.SetReasonLimit(const Value: TReasonLimit);
+procedure TPrtTrackDisplayLimits.SetReasonLimits(const Value: TReasonLimit);
 begin
-  FReasonLimit := Value;
+  FReasonLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetReleasePointLimits(
   const Value: TShowIntegerLimit);
 begin
-
+  FReleasePointLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetRowLimits(const Value: TShowIntegerLimit);
 begin
-
+  FRowLimits.Assign(Value);
 end;
 
-procedure TPrtTrackDisplayLimits.SetSelectedTimeLimit(
+procedure TPrtTrackDisplayLimits.SetSelectedTimeLimits(
   const Value: TSelectedTimeLimit);
 begin
-  FSelectedTimeLimit := Value;
+  FSelectedTimeLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetShowChoice(const Value: TShowChoice);
 begin
-
+  FShowChoice := Value
 end;
 
 procedure TPrtTrackDisplayLimits.SetStatusLimit(const Value: TStatusLimit);
 begin
-  FStatusLimit := Value;
+  FStatusLimit.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetTimeLimits(const Value: TShowFloatLimit);
 begin
-
+  FTimeLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetZoneLimits(const Value: TByteSetLimits);
 begin
-  FZoneLimits := Value;
+  FZoneLimits.Assign(Value);
 end;
 
 procedure TCustomColorLimits.SetMinColorLimit(const Value: Double);
@@ -9470,6 +9539,91 @@ end;
 procedure TCustomColorLimits.SetUseLimit(const Value: boolean);
 begin
   FUseLimit := Value;
+end;
+
+{ TPrtColorLimits }
+
+procedure TPrtColorLimits.Assign(Source: TPersistent);
+begin
+  if Source is TPrtColorLimits then
+  begin
+    ColoringChoice := TPrtColorLimits(Source).ColoringChoice;
+  end;
+  inherited;
+end;
+constructor TPrtColorLimits.Create;
+begin
+  inherited;
+  ColoringChoice := pcParticleNumber;
+end;
+
+procedure TPrtColorLimits.SetColoringChoice(const Value: TPrtColorLimitChoice);
+begin
+  FColoringChoice := Value;
+end;
+
+{ TPrtTrackDisplayer }
+
+procedure TPrtTrackDisplayer.Assign(Source: TPersistent);
+var
+  Displayer: TPrtTrackDisplayer;
+begin
+  if Source is TPrtTrackDisplayer then
+  begin
+    Displayer := TPrtTrackDisplayer(Source);
+    PrtTrackDisplayLimits := Displayer.PrtTrackDisplayLimits;
+    Tracks := Displayer.Tracks;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+constructor TPrtTrackDisplayer.Create(InvalidateModelEvent: TNotifyEvent);
+begin
+  inherited Create;
+  FPrtTrackDisplayLimits := TPrtTrackDisplayLimits.Create(InvalidateModelEvent);
+  FTracks := TPrtTracks.Create;
+end;
+
+destructor TPrtTrackDisplayer.Destroy;
+begin
+  FTracks.Free;
+  FPrtTrackDisplayLimits.Free;
+  inherited;
+end;
+
+procedure TPrtTrackDisplayer.SetFileName(const Value: string);
+var
+  Extension: string;
+begin
+  Extension := ExtractFileExt(Value);
+  if SameText(Extension, '.csv') then
+  begin
+    Tracks.ReadFromCsv(Value);
+    FFileName := Value;
+  end
+  else if SameText(Extension, '.trk') then
+  begin
+    Tracks.ReadFromBinary(Value);
+    FFileName := Value;
+  end
+  else
+  begin
+    Assert(False);
+  end;
+end;
+
+procedure TPrtTrackDisplayer.SetPrtTrackDisplayLimits(
+  const Value: TPrtTrackDisplayLimits);
+begin
+  FPrtTrackDisplayLimits := Value;
+end;
+
+procedure TPrtTrackDisplayer.SetTracks(const Value: TPrtTracks);
+begin
+  FTracks.Assign(Value);
 end;
 
 end.

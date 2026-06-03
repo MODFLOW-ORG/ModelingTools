@@ -48,10 +48,10 @@ type
   private
     FMemoWidthDelta: Integer;
     FGettingData: Boolean;
-    procedure InitializeGrids;
     procedure SetMemoWidthDelta(const Value: Integer);
     { Private declarations }
   public
+    procedure InitializeGrids;
     procedure GetData(Package: TModflowPackageSelection); override;
     procedure SetData(Package: TModflowPackageSelection); override;
     property MemoWidthDelta: Integer read FMemoWidthDelta write SetMemoWidthDelta;
@@ -165,15 +165,26 @@ begin
 
     frameReleaseTimes.Grid.BeginUpdate;
     try
-     frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleaseTimes.Grid, 0);
-     frameReleaseTimes.seNumber.Value := PrpPackage.ReleaseTimes.Count;
-     frameReleaseTimesseNumberChange(nil);
-     for var Index := 0 to PrpPackage.ReleaseTimes.Count - 1 do
-     begin
-       frameReleaseTimes.Grid.RealValue[0, Index+1] := PrpPackage.ReleaseTimes[Index].Value;
-     end;
+      frmGoPhast.PhastModel.ModflowStressPeriods.FillPickListWithStartTimes(frameReleaseTimes.Grid, 0);
+      frameReleaseTimes.seNumber.Value := PrpPackage.ReleaseTimes.Count;
+      if PrpPackage.ReleaseTimes.Count = 0 then
+      begin
+        frameReleaseTimes.Grid.Cells[0, 1] := '';
+      end
+      else
+      begin
+        frameReleaseTimesseNumberChange(nil);
+      end;
+      for var Index := 0 to PrpPackage.ReleaseTimes.Count - 1 do
+      begin
+        frameReleaseTimes.Grid.RealValue[0, Index+1] := PrpPackage.ReleaseTimes[Index].Value;
+      end;
     finally
-     frameReleaseTimes.Grid.EndUpdate;
+      frameReleaseTimes.Grid.EndUpdate;
+      if PrpPackage.ReleaseTimes.Count = 0 then
+      begin
+        frameReleaseTimes.seNumber.Value := 0;
+      end;
     end;
 
     frameReleasePeriodData.Grid.BeginUpdate;
@@ -234,6 +245,8 @@ begin
   try
     ClearGrid(frameReleaseTimes.Grid);
     frameReleaseTimes.Grid.Cells[0,0] := SReleaseTimes;
+    frameReleaseTimes.seNumber.AsInteger := 1;
+    frameReleaseTimes.Grid.Cells[0,1] := FloatToStr(frmGoPhast.PhastModel.ModflowStressPeriods.First.StartTime);
   finally
     frameReleaseTimes.Grid.EndUpdate;
   end;

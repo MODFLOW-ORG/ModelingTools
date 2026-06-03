@@ -14,6 +14,8 @@ type
     procedure framePrtModelsGridGridBeforeDrawCell(Sender: TObject; ACol, ARow:
         LongInt);
     procedure framePrtModelsGridGridEndUpdate(Sender: TObject);
+    procedure framePrtModelsGridGridSelectCell(Sender: TObject; ACol, ARow:
+        LongInt; var CanSelect: Boolean);
     procedure framePrtModelsGridGridSetEditText(Sender: TObject; ACol, ARow:
         LongInt; const Value: string);
     procedure framePrtModelsGridseNumberChange(Sender: TObject);
@@ -136,6 +138,11 @@ procedure TframePrtModels.framePrtModelsGridGridBeforeDrawCell(Sender: TObject;
 var
   AName: string;
 begin
+  if framePrtModelsGrid.seNumber.AsInteger <= 0 then
+  begin
+    framePrtModelsGrid.Grid.Canvas.Brush.Color := clBtnFace;
+    Exit;
+  end;
   if (ACol = Ord(pmcName)) and (ARow >= 1) then
   begin
     AName := framePrtModelsGrid.Grid.Cells[ACol, ARow];
@@ -158,6 +165,12 @@ begin
   end;
 
   framePrtModelsGrid.GridEndUpdate(Sender);
+end;
+
+procedure TframePrtModels.framePrtModelsGridGridSelectCell(Sender: TObject;
+    ACol, ARow: LongInt; var CanSelect: Boolean);
+begin
+  CanSelect := framePrtModelsGrid.seNumber.AsInteger >= 1;
 end;
 
 procedure TframePrtModels.framePrtModelsGridGridSetEditText(Sender: TObject;

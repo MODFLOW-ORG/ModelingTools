@@ -22,7 +22,7 @@ inherited framePackagePrp: TframePackagePrp
     Top = 144
     Width = 577
     Height = 394
-    ActivePage = tabReleasePeriodData
+    ActivePage = tabReleaseTimes
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -328,11 +328,11 @@ inherited framePackagePrp: TframePackagePrp
           Height = 57
           Align = alClient
           Caption = 
-            'Release times can be specified as specific times or by specific ' +
-            'period. If no release times are specified, particles will be rel' +
-            'eased at the beginning of the first stress period.'
+            'Release times can be specified as specific times, by specific pe' +
+            'riod, or both. If no release times are specified, particles will' +
+            ' be released at the beginning of the first stress period.'
           WordWrap = True
-          ExplicitWidth = 534
+          ExplicitWidth = 515
           ExplicitHeight = 30
         end
       end
@@ -648,11 +648,11 @@ inherited framePackagePrp: TframePackagePrp
           Height = 57
           Align = alClient
           Caption = 
-            'Release times can be specified as specific times or by specific ' +
-            'period. If no release times are specified, particles will be rel' +
-            'eased at the beginning of the first stress period.'
+            'Release times can be specified as specific times, by specific pe' +
+            'riod, or both. If no release times are specified, particles will' +
+            ' be released at the beginning of the first stress period.'
           WordWrap = True
-          ExplicitWidth = 534
+          ExplicitWidth = 515
           ExplicitHeight = 30
         end
       end

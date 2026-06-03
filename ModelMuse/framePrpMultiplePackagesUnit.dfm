@@ -21,7 +21,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabPrpPackages
+    ActivePage = tabTrackByStressPeriod
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -176,6 +176,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Width = 657
           Height = 285
           ColCount = 2
+          OnSelectCell = framePrpPackagesGridSelectCell
           OnSetEditText = framePrpPackagesGridSetEditText
           OnBeforeDrawCell = framePrpPackagesGridBeforeDrawCell
           OnEndUpdate = framePrpPackagesGridEndUpdate
@@ -228,7 +229,6 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
-          ExplicitTop = 1
           ExplicitWidth = 657
           ExplicitHeight = 285
         end
@@ -320,11 +320,12 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Height = 49
           Align = alClient
           Caption = 
-            'Tracking times can be specified as specific times or by specific' +
-            ' period. In this tab, tracking times are specified by time.'
+            'Tracking times can be specified as specific times, by specific p' +
+            'eriod, or both. In this tab, tracking times are specified by tim' +
+            'e.'
           WordWrap = True
-          ExplicitWidth = 618
-          ExplicitHeight = 15
+          ExplicitWidth = 625
+          ExplicitHeight = 30
         end
       end
     end
@@ -346,11 +347,12 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Height = 49
           Align = alClient
           Caption = 
-            'Tracking times can be specified as specific times or by specific' +
-            ' period. In this tab, tracking times are specified by period. '
+            'Tracking times can be specified as specific times, by specific p' +
+            'eriod, or both. In this tab, tracking times are specified by per' +
+            'iod. '
           WordWrap = True
-          ExplicitWidth = 631
-          ExplicitHeight = 15
+          ExplicitWidth = 625
+          ExplicitHeight = 30
         end
       end
       inline frameReleasePeriodData: TframeGrid
