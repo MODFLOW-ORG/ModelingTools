@@ -26,29 +26,28 @@ object framePrtDisplay: TframePrtDisplay
       end
       object lblColorScheme: TLabel
         Left = 8
-        Top = 108
+        Top = 175
         Width = 73
         Height = 15
         Caption = 'Color scheme'
       end
       object pbColorScheme: TPaintBox
         Left = 8
-        Top = 167
+        Top = 234
         Width = 438
         Height = 33
         Anchors = [akLeft, akTop, akRight]
-        ExplicitWidth = 440
       end
       object lblColorAdjustment: TLabel
         Left = 8
-        Top = 211
+        Top = 278
         Width = 92
         Height = 15
         Caption = 'Color adjustment'
       end
       object lblCycles: TLabel
-        Left = 345
-        Top = 211
+        Left = 305
+        Top = 311
         Width = 34
         Height = 15
         Anchors = [akTop, akRight]
@@ -75,32 +74,24 @@ object framePrtDisplay: TframePrtDisplay
         TabOrder = 0
         Text = ''
       end
-      object cbShowPathlines: TCheckBox
-        Left = 8
-        Top = 62
-        Width = 193
-        Height = 17
-        Caption = 'Show pathlines'
-        TabOrder = 1
-      end
       object cbLimitToCurrentIn2D: TCheckBox
         Left = 8
-        Top = 85
+        Top = 152
         Width = 377
         Height = 17
         Caption = 'Limit to current column, row and layer in 2D views'
-        TabOrder = 2
+        TabOrder = 1
       end
       object comboColorScheme: TComboBox
         Left = 8
-        Top = 128
+        Top = 195
         Width = 335
         Height = 23
         Style = csDropDownList
         Anchors = [akLeft, akTop, akRight]
         DropDownCount = 12
         ItemIndex = 0
-        TabOrder = 3
+        TabOrder = 2
         Text = 'Rainbow'
         Items.Strings = (
           'Rainbow'
@@ -118,17 +109,17 @@ object framePrtDisplay: TframePrtDisplay
       end
       object jsColorExponent: TJvxSlider
         Left = 3
-        Top = 227
+        Top = 294
         Width = 150
         Height = 40
         Increment = 2
         MaxValue = 200
-        TabOrder = 4
+        TabOrder = 3
         Value = 40
       end
       object seColorExponent: TJvSpinEdit
         Left = 159
-        Top = 241
+        Top = 308
         Width = 65
         Height = 23
         ButtonKind = bkClassic
@@ -136,11 +127,11 @@ object framePrtDisplay: TframePrtDisplay
         MaxValue = 2.000000000000000000
         ValueType = vtFloat
         Value = 0.400000000000000000
-        TabOrder = 5
+        TabOrder = 4
       end
       object seCycles: TJvSpinEdit
         Left = 345
-        Top = 241
+        Top = 308
         Width = 101
         Height = 23
         ButtonKind = bkClassic
@@ -148,18 +139,31 @@ object framePrtDisplay: TframePrtDisplay
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
         Anchors = [akTop, akRight]
-        TabOrder = 6
+        TabOrder = 5
       end
       object btnColorSchemes: TButton
         Left = 349
-        Top = 108
+        Top = 175
         Width = 97
         Height = 41
         Anchors = [akRight, akBottom]
         Cancel = True
         Caption = 'Edit custom color schemes'
-        TabOrder = 7
+        TabOrder = 6
         WordWrap = True
+      end
+      object chklstPlotTypes: TCheckListBox
+        Left = 8
+        Top = 58
+        Width = 169
+        Height = 87
+        ItemHeight = 17
+        Items.Strings = (
+          'Start Points'
+          'End Points'
+          'Track Line'
+          'Specified Track Times')
+        TabOrder = 7
       end
     end
     object tabOptions: TTabSheet

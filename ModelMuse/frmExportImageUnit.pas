@@ -1337,6 +1337,7 @@ begin
             end;
           end;
         end;
+        LocalModel.PrtTracks.Draw(Orientation, FModelImage);
       end;
 
       if LocalModel.ModelSelection in (SutraSelection + [msModflow2015]) then
@@ -1531,6 +1532,7 @@ begin
                 end;
               end;
             end;
+            LocalModel.PrtTracks.Draw(Orientation, ModelMetaFileCanvas);
           end;
 
           if LocalModel.ModelSelection in SutraSelection then

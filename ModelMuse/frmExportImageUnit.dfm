@@ -5,6 +5,7 @@ inherited frmExportImage: TfrmExportImage
   ClientHeight = 548
   ClientWidth = 727
   ShowHint = True
+  StyleElements = [seFont, seClient, seBorder]
   OnClose = FormClose
   ExplicitWidth = 743
   ExplicitHeight = 587
@@ -35,7 +36,7 @@ inherited frmExportImage: TfrmExportImage
       Left = 0
       Top = 0
       Width = 249
-      Height = 444
+      Height = 443
       VertScrollBar.Tracking = True
       Align = alClient
       HeaderFont.Charset = DEFAULT_CHARSET

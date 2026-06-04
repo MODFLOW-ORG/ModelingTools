@@ -138,13 +138,16 @@ type
     function GetTrack(IPRP, IRPT: Integer): TPrtTrack;
     function GetIprpCount: Integer;
     function GetIrptCount(IPRP: Integer): Integer;
+    function GetHasData: Boolean;
+  public
+    property HasData: Boolean read GetHasData;
   public
     Constructor Create;
     destructor Destroy; override;
     procedure Assign(Source: TPersistent); override;
     procedure ReadFromCsv(const FileName: string);
     procedure ReadFromBinary(const FileName: string);
-    property Tracks[IPRP, IRPT: Integer]: TPrtTrack read GetTrack;
+    property Tracks[IPRP, IRPT: Integer]: TPrtTrack read GetTrack; default;
     property IprpCount: Integer read GetIprpCount;
     property IrptCount[IPRP: Integer]: Integer read GetIrptCount;
   end;
@@ -484,6 +487,11 @@ destructor TPrtTracks.Destroy;
 begin
   FTracks.Free;
   inherited;
+end;
+
+function TPrtTracks.GetHasData: Boolean;
+begin
+  result := IprpCount > 0;
 end;
 
 function TPrtTracks.GetIprpCount: Integer;

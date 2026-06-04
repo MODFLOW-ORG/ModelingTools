@@ -1303,7 +1303,7 @@ The IREASON field indicates the reason the particle track record was saved:
     pcXPrime, pcYPrime, pcZ,
     pcStartXPrime, pcStartYPrime, pcStartZ,
     pcEndXPrime, pcEndYPrime, pcEndZ, pcPrp, pcReleaseTime, pcTime, pcStatus,
-    pcReason, pcName);
+    pcReason, pcZone);
 
   TPrtColorLimits = class(TCustomColorLimits)
   private
@@ -1316,6 +1316,9 @@ The IREASON field indicates the reason the particle track record was saved:
     property ColoringChoice: TPrtColorLimitChoice read FColoringChoice
       write SetColoringChoice default pcParticleNumber;
   end;
+
+  TPrtPlotType = (pptStart, pptEnd, pptLine, pptPoints);
+  TPrtPlotTypes = set of TPrtPlotType;
 
 
   TPrtTrackDisplayLimits = class(TPersistent)
@@ -1335,6 +1338,8 @@ The IREASON field indicates the reason the particle track record was saved:
     FReasonLimits: TReasonLimit;
     FStatusLimit: TStatusLimit;
     FColorLimits: TPrtColorLimits;
+    FPlotTypes: TPrtPlotTypes;
+    FEndPointSize: Integer;
     procedure SetLimitToCurrentIn2D(const Value: boolean);
     procedure SetColumnLimits(const Value: TShowIntegerLimit);
     procedure SetLayerLimits(const Value: TShowIntegerLimit);
@@ -1349,6 +1354,8 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure SetStatusLimit(const Value: TStatusLimit);
     procedure SetZoneLimits(const Value: TByteSetLimits);
     procedure SetColorLimits(const Value: TPrtColorLimits);
+    procedure SetPlotTypes(const Value: TPrtPlotTypes);
+    procedure SetEndPointSize(const Value: Integer);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create(InvalidateModelEvent: TNotifyEvent);
@@ -1367,30 +1374,46 @@ The IREASON field indicates the reason the particle track record was saved:
       write SetModelLimits;
     property PrpLimits: TByteSetLimits read FPrpLimits
       write SetPrpLimits;
-     property ReleasePointLimits: TShowIntegerLimit read FReleasePointLimits
-       write SetReleasePointLimits;
-     property ZoneLimits: TByteSetLimits read FZoneLimits write SetZoneLimits;
-     property StatusLimit: TStatusLimit read FStatusLimit write SetStatusLimit;
-     property ReasonLimits: TReasonLimit read FReasonLimits write SetReasonLimits;
-     property SelectedTimeLimits: TSelectedTimeLimit read FSelectedTimeLimits write SetSelectedTimeLimits;
-     property ColorLimits: TPrtColorLimits read FColorLimits write SetColorLimits;
+    property ReleasePointLimits: TShowIntegerLimit read FReleasePointLimits
+      write SetReleasePointLimits;
+    property ZoneLimits: TByteSetLimits read FZoneLimits write SetZoneLimits;
+    property StatusLimit: TStatusLimit read FStatusLimit write SetStatusLimit;
+    property ReasonLimits: TReasonLimit read FReasonLimits write SetReasonLimits;
+    property SelectedTimeLimits: TSelectedTimeLimit read FSelectedTimeLimits write SetSelectedTimeLimits;
+    property ColorLimits: TPrtColorLimits read FColorLimits write SetColorLimits;
+    property PlotTypes: TPrtPlotTypes read FPlotTypes write SetPlotTypes;
+    property EndPointSize: Integer read FEndPointSize write SetEndPointSize;
   end;
-
 
   TPrtTrackDisplayer = class(TPersistent)
   private
     FFileName: string;
     FPrtTrackDisplayLimits: TPrtTrackDisplayLimits;
     FTracks: TPrtTracks;
+    FFrontQuadTree: TRbwQuadTree;
+    FSideQuadTree: TRbwQuadTree;
+    FTopQuadTree: TRbwQuadTree;
+    FModel: TBaseModel;
+    FSelectedLayer: Integer;
+    FSelectedRow: Integer;
+    FSelectedColumn: Integer;
     procedure SetPrtTrackDisplayLimits(const Value: TPrtTrackDisplayLimits);
     procedure SetTracks(const Value: TPrtTracks);
-    procedure SetFileName(const Value: string);
+    function GetHasData: Boolean;
+    procedure GetMinMaxValues(var MaxValue: Double; var MinValue: Double);
+    property TopQuadTree: TRbwQuadTree read FTopQuadTree;
+    property FrontQuadTree: TRbwQuadTree read FFrontQuadTree;
+    property SideQuadTree: TRbwQuadTree read FSideQuadTree;
   public
     procedure Assign(Source: TPersistent); override;
-    Constructor Create(InvalidateModelEvent: TNotifyEvent);
+    Constructor Create(Model: TBaseModel);
     Destructor Destroy; override;
+    procedure ReadFile(const Value: string);
+    property HasData: Boolean read GetHasData;
+    procedure Draw(Orientation: TDataSetOrientation; const BitMap: TPersistent);
+    procedure Draw3D;
   published
-    Property FileName: string read FFileName write SetFileName;
+    Property FileName: string read FFileName;
     property PrtTrackDisplayLimits: TPrtTrackDisplayLimits
       read FPrtTrackDisplayLimits write SetPrtTrackDisplayLimits;
     property Tracks: TPrtTracks read FTracks write SetTracks;
@@ -9390,6 +9413,8 @@ begin
     StatusLimit   := TrackDisplaySource.StatusLimit;
     ReasonLimits   := TrackDisplaySource.ReasonLimits;
     SelectedTimeLimits   := TrackDisplaySource.SelectedTimeLimits;
+    PlotTypes   := TrackDisplaySource.PlotTypes;
+    EndPointSize   := TrackDisplaySource.EndPointSize;
   end
   else
   begin
@@ -9415,7 +9440,6 @@ begin
   FReasonLimits := TReasonLimit.Create;
   FStatusLimit := TStatusLimit.Create;
   FColorLimits := TPrtColorLimits.Create;
-
 end;
 
 destructor TPrtTrackDisplayLimits.Destroy;
@@ -9447,6 +9471,11 @@ begin
   FColumnLimits.Assign(Value);
 end;
 
+procedure TPrtTrackDisplayLimits.SetEndPointSize(const Value: Integer);
+begin
+  FEndPointSize := Value;
+end;
+
 procedure TPrtTrackDisplayLimits.SetLayerLimits(const Value: TShowIntegerLimit);
 begin
   FLayerLimits.Assign(Value);
@@ -9460,6 +9489,11 @@ end;
 procedure TPrtTrackDisplayLimits.SetModelLimits(const Value: TByteSetLimits);
 begin
   FModelLimits.Assign(Value);
+end;
+
+procedure TPrtTrackDisplayLimits.SetPlotTypes(const Value: TPrtPlotTypes);
+begin
+  FPlotTypes := Value;
 end;
 
 procedure TPrtTrackDisplayLimits.SetPrpLimits(const Value: TByteSetLimits);
@@ -9580,21 +9614,647 @@ begin
   end;
 end;
 
-constructor TPrtTrackDisplayer.Create(InvalidateModelEvent: TNotifyEvent);
+constructor TPrtTrackDisplayer.Create(Model: TBaseModel);
+var
+  InvalidateModelEvent: TNotifyEvent;
 begin
   inherited Create;
+  FModel := Model;
+  if Model <> nil then
+  begin
+    InvalidateModelEvent := Model.DoInvalidate;
+  end
+  else
+  begin
+    InvalidateModelEvent := nil;
+  end;
   FPrtTrackDisplayLimits := TPrtTrackDisplayLimits.Create(InvalidateModelEvent);
   FTracks := TPrtTracks.Create;
+
+  FTopQuadTree := TRbwQuadTree.Create(nil);
+  FFrontQuadTree := TRbwQuadTree.Create(nil);
+  FSideQuadTree := TRbwQuadTree.Create(nil);
 end;
 
 destructor TPrtTrackDisplayer.Destroy;
 begin
+  FSideQuadTree.Free;
+  FFrontQuadTree.Free;
+  FTopQuadTree.Free;
   FTracks.Free;
   FPrtTrackDisplayLimits.Free;
   inherited;
 end;
 
-procedure TPrtTrackDisplayer.SetFileName(const Value: string);
+procedure TPrtTrackDisplayer.Draw(Orientation: TDataSetOrientation;
+  const BitMap: TPersistent);
+const
+  MaxCoord = MaxInt-1;
+  MinCoord = -MaxCoord;
+var
+  EndPointIndex: Integer;
+  EndPoint: TEndPoint;
+  ColRowOrLayer: integer;
+  ZoomBox: TQRbwZoomBox2;
+  ADisplayPoint: TPoint;
+  MaxValue, MinValue: double;
+//  Grid: TModflowGrid;
+  AColor: TColor;
+  AColor32: TColor32;
+  ARect: TRect;
+  QuadTree: TRbwQuadTree;
+  ShouldInitializeTree: Boolean;
+  Limits: TGridLimit;
+  LocalPoints: TCustomEndPoints;
+  PixelPlus: Integer;
+  PixelMinus: Integer;
+  DisplayQuadTree: TRbwQuadTree;
+  DisplayPointList: TList<TPoint>;
+  DisplayColorList: TList<TColor32>;
+  UsePoint: Boolean;
+  X: double;
+  Y: double;
+  Data: Pointer;
+  LocalModel: TCustomModel;
+  DisvUsed: Boolean;
+  CrossSectionSegment: TSegment2D;
+  OriginOffset: Double;
+  DisplayXPrime: Double;
+//  ColorLimits: TPrtColorLimits;
+begin
+  if PrtTrackDisplayLimits.PlotTypes = [] then
+  begin
+    Exit;
+  end;
+  LocalModel := FModel as TCustomModel;
+
+  if (LocalModel.LayerCount <= 0) or (LocalModel.RowCount <= 0)
+    or (LocalModel.ColumnCount <= 0) then
+  begin
+    Exit;
+  end;
+
+  if not DisplayDisvPlot(LocalModel, Orientation) then
+  begin
+    Exit;
+  end;
+
+  DisvUsed := LocalModel.DisvUsed;
+  if DisvUsed then
+  begin
+    CrossSectionSegment := LocalModel.DisvGrid.CrossSection.Segment;
+    OriginOffset := GetOriginOffset(CrossSectionSegment);
+  end
+  else
+  begin
+    OriginOffset := 0;
+    CrossSectionSegment := EquateSegment(0,0,0,0);
+  end;
+
+  PixelPlus := PrtTrackDisplayLimits.EndPointSize div 2;
+  PixelMinus := PrtTrackDisplayLimits.EndPointSize - PixelPlus;
+  ColRowOrLayer := -1;
+  ZoomBox := nil;
+  QuadTree := nil;
+  case Orientation of
+    dsoTop:
+      begin
+        ZoomBox := frmGoPhast.frameTopView.ZoomBox;
+        ColRowOrLayer := LocalModel.SelectedLayer+1;
+        QuadTree := TopQuadTree;
+      end;
+    dsoFront:
+      begin
+        ZoomBox := frmGoPhast.frameFrontView.ZoomBox;
+        ColRowOrLayer := LocalModel.SelectedRow+1;
+        QuadTree := FrontQuadTree;
+      end;
+    dsoSide:
+      begin
+        ZoomBox := frmGoPhast.frameSideView.ZoomBox;
+        ColRowOrLayer := LocalModel.SelectedColumn+1;
+        QuadTree := SideQuadTree;
+      end;
+    dso3D: Assert(False);
+    else Assert(False);
+  end;
+  GetMinMaxValues(MaxValue, MinValue);
+//  ColorLimits := PrtTrackDisplayLimits.ColorLimits;
+
+//  if ColorLimits.ColoringChoice = elcLogTrackingTime then
+//  begin
+//    MaxValue := Log10(MaxValue);
+//    MinValue := Log10(MinValue);
+//  end;
+//
+  ShouldInitializeTree := QuadTree.Count = 0;
+  if not ShouldInitializeTree then
+  begin
+    case Orientation of
+      dsoTop:
+        begin
+          ShouldInitializeTree := FSelectedLayer <> LocalModel.SelectedLayer;
+        end;
+      dsoFront:
+        begin
+          ShouldInitializeTree := FSelectedRow <> LocalModel.SelectedRow;
+        end;
+      dsoSide:
+        begin
+          ShouldInitializeTree := FSelectedColumn <> LocalModel.SelectedColumn;
+        end;
+    end;
+  end;
+  if ShouldInitializeTree then
+  begin
+    QuadTree.Clear;
+    Limits := LocalModel.DiscretizationLimits(OrientationToViewDirection(Orientation));
+    case Orientation of
+      dsoTop:
+        begin
+          FSelectedLayer := LocalModel.SelectedLayer;
+          QuadTree.XMax := Limits.MaxX;
+          QuadTree.XMin := Limits.MinX;
+          QuadTree.YMax := Limits.MaxY;
+          QuadTree.YMin := Limits.MinY;
+        end;
+      dsoFront:
+        begin
+          FSelectedRow := LocalModel.SelectedRow;
+          QuadTree.XMax := Limits.MaxX;
+          QuadTree.XMin := Limits.MinX;
+          QuadTree.YMax := Limits.MaxZ;
+          QuadTree.YMin := Limits.MinZ;
+        end;
+      dsoSide:
+        begin
+          FSelectedColumn := LocalModel.SelectedColumn;
+          QuadTree.XMax := Limits.MaxY;
+          QuadTree.XMin := Limits.MinY;
+          QuadTree.YMax := Limits.MaxZ;
+          QuadTree.YMin := Limits.MinZ;
+        end
+      else Assert(False);
+    end;
+  end;
+//
+//  if Points.Count > 0 then
+//  begin
+//    LocalPoints := Points;
+//  end
+//  else if PointsV6.Count > 0 then
+//  begin
+//    LocalPoints := PointsV6;
+//  end
+//  else
+//  begin
+//    LocalPoints := PointsV7;
+//  end;
+//
+//  DisplayQuadTree := TRbwQuadTree.Create(nil);
+//  DisplayPointList := TList<TPoint>.Create;
+//  DisplayColorList := TList<TColor32>.Create;
+//  try
+//    DisplayQuadTree.XMax := ZoomBox.Width;
+//    DisplayQuadTree.YMax := ZoomBox.Height;
+//    for EndPointIndex := LocalPoints.Count - 1 downto 0 do
+//    begin
+//      EndPoint := LocalPoints[EndPointIndex] as TEndPoint;
+//      if EndPoint.ShouldShow(DisplayLimits, Orientation, ColRowOrLayer,
+//        CrossSectionSegment, DisvUsed, DisplayLimits.WhereToPlot) then
+//      begin
+//        case DisplayLimits.WhereToPlot of
+//          wtpStart:
+//            begin
+//              case Orientation of
+//                dsoTop:
+//                  begin
+//                    ADisplayPoint.X := ZoomBox.XCoord(EndPoint.StartX);
+//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.StartY);
+//                    if ShouldInitializeTree then
+//                    begin
+//                      QuadTree.AddPoint(EndPoint.StartX, EndPoint.StartY, EndPoint);
+//                    end;
+//                  end;
+//                dsoFront:
+//                  begin
+//                    if DisvUsed then
+//                    begin
+//                      DisvFrontProjectedXPrime(CrossSectionSegment,
+//                        EquatePoint(EndPoint.StartX, EndPoint.StartY), DisplayXPrime);
+//                      DisplayXPrime := DisplayXPrime - OriginOffset;
+//                    end
+//                    else
+//                    begin
+//                      DisplayXPrime := EndPoint.StartXPrime;
+//                    end;
+//                    ADisplayPoint.X := ZoomBox.XCoord(DisplayXPrime);
+//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.StartZ);
+//                    if ShouldInitializeTree then
+//                    begin
+//                      QuadTree.AddPoint(DisplayXPrime, EndPoint.StartZ, EndPoint);
+//                    end;
+//                  end;
+//                dsoSide:
+//                  begin
+//                    ADisplayPoint.X := ZoomBox.XCoord(EndPoint.StartZ);
+//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.StartYPrime);
+//                    if ShouldInitializeTree then
+//                    begin
+//                      QuadTree.AddPoint(EndPoint.StartZ, EndPoint.StartYPrime, EndPoint);
+//                    end;
+//                  end;
+//                else Assert(False);
+//              end;
+//            end;
+//          wtpEnd:
+//            begin
+//              case Orientation of
+//                dsoTop:
+//                  begin
+//                    ADisplayPoint.X := ZoomBox.XCoord(EndPoint.EndX);
+//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.EndY);
+//                    if ShouldInitializeTree then
+//                    begin
+//                      QuadTree.AddPoint(EndPoint.EndX, EndPoint.EndY, EndPoint);
+//                    end;
+//                  end;
+//                dsoFront:
+//                  begin
+//                    if DisvUsed then
+//                    begin
+//                      DisvFrontProjectedXPrime(CrossSectionSegment,
+//                        EquatePoint(EndPoint.EndX, EndPoint.EndY), DisplayXPrime);
+//                      DisplayXPrime := DisplayXPrime - OriginOffset;
+//                    end
+//                    else
+//                    begin
+//                      DisplayXPrime := EndPoint.EndXPrime;
+//                    end;
+//                    ADisplayPoint.X := ZoomBox.XCoord(DisplayXPrime);
+//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.EndZ);
+//                    if ShouldInitializeTree then
+//                    begin
+//                      QuadTree.AddPoint(DisplayXPrime, EndPoint.EndZ, EndPoint);
+//                    end;
+//                  end;
+//                dsoSide:
+//                  begin
+//                    ADisplayPoint.X := ZoomBox.XCoord(EndPoint.EndZ);
+//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.EndYPrime);
+//                    if ShouldInitializeTree then
+//                    begin
+//                      QuadTree.AddPoint(EndPoint.EndZ, EndPoint.EndYPrime, EndPoint);
+//                    end;
+//                  end;
+//                else Assert(False);
+//              end;
+//            end;
+//        end;
+//        if (ADisplayPoint.X <= MaxCoord)
+//          and (ADisplayPoint.X >= MinCoord)
+//          and (ADisplayPoint.Y <= MaxCoord)
+//          and (ADisplayPoint.Y >= MinCoord) then
+//        begin
+//          if DisplayQuadTree.Count > 0 then
+//          begin
+//            X := ADisplayPoint.X;
+//            Y := ADisplayPoint.Y;
+//            DisplayQuadTree.FirstNearestPoint(X, Y, Data);
+//            UsePoint := (X <> ADisplayPoint.X)
+//              or (Y <> ADisplayPoint.Y);
+//          end
+//          else
+//          begin
+//            UsePoint := True;
+//          end;
+//
+//          if UsePoint then
+//          begin
+//            AColor := GetPointColor(MaxValue, MinValue, EndPoint);
+//            AColor32 := Color32(AColor);
+//            DisplayQuadTree.AddPoint(ADisplayPoint.X, ADisplayPoint.Y, EndPoint);
+//            DisplayPointList.Add(ADisplayPoint);
+//            DisplayColorList.Add(AColor32);
+//          end;
+//        end;
+//      end;
+//    end;
+//    Assert(DisplayPointList.Count = DisplayColorList.Count);
+//    for EndPointIndex := DisplayPointList.Count - 1 downto 0 do
+//    begin
+//      ADisplayPoint := DisplayPointList[EndPointIndex];
+//      AColor32 := DisplayColorList[EndPointIndex];
+//      try
+//        ARect.Top := ADisplayPoint.Y -PixelMinus;
+//        ARect.Bottom := ADisplayPoint.Y +PixelPlus;
+//        ARect.Left := ADisplayPoint.X -PixelMinus;
+//        ARect.Right := ADisplayPoint.X +PixelPlus;
+//      except on EIntOverflow do
+//        begin
+//          Continue;
+//        end;
+//      end;
+//      DrawBigRectangle32(BitMap, AColor32, AColor32, 0, ARect);
+//    end;
+//  finally
+//    DisplayColorList.Free;
+//    DisplayPointList.Free;
+//    DisplayQuadTree.Free;
+//  end;
+end;
+
+procedure TPrtTrackDisplayer.Draw3D;
+begin
+
+end;
+
+function TPrtTrackDisplayer.GetHasData: Boolean;
+begin
+  result := Tracks.HasData;
+end;
+
+procedure TPrtTrackDisplayer.GetMinMaxValues(var MaxValue, MinValue: Double);
+var
+  Grid: TModflowGrid;
+  LocalModel: TCustomModel;
+  MeshLimits: TGridLimit;
+  ColorLimits: TPrtColorLimits;
+  ACount: Integer;
+  MinMaxFound: Boolean;
+  ATrack: TPrtTrack;
+  TrkPoint: TPrtTrackPoint;
+begin
+  LocalModel := FModel as TCustomModel;
+  Grid := LocalModel.ModflowGrid;
+  ColorLimits := PrtTrackDisplayLimits.ColorLimits;
+  if ColorLimits.UseLimit then
+  begin
+    MinValue := ColorLimits.MinColorLimit;
+    MaxValue := ColorLimits.MaxColorLimit;
+  end
+  else
+  begin
+  {
+  TPrtColorLimitChoice = (pcNone, pcParticleNumber,
+    pcXPrime, pcYPrime, pcZ,
+    pcStartXPrime, pcStartYPrime, pcStartZ,
+    pcEndXPrime, pcEndYPrime, pcEndZ, pcPrp, pcReleaseTime, pcTime, pcStatus,
+    pcReason, pcPrp);
+
+  }
+    MinValue := 0;
+    MaxValue := 1;
+    case ColorLimits.ColoringChoice of
+      pcNone:
+        begin
+          MinValue := 0;
+          MaxValue := 1;
+        end;
+      pcParticleNumber:
+        begin
+          MinValue := 1;
+          MaxValue := 1;
+          for var Index := 0 to Tracks.IprpCount - 1 do
+          begin
+            ACount := Tracks.IrptCount[Index];
+            if ACount > MaxValue then
+            begin
+              MaxValue := ACount;
+            end;
+          end;
+        end;
+      pcXPrime:
+        begin
+          MinValue := Grid.ColumnPosition[0];
+          MaxValue := Grid.ColumnPosition[Grid.ColumnCount];
+        end;
+      pcYPrime:
+        begin
+          MaxValue := Grid.RowPosition[0];
+          MinValue := Grid.RowPosition[Grid.RowCount];
+        end;
+      pcZ:
+        begin
+          if LocalModel.DisvUsed then
+          begin
+            MeshLimits := LocalModel.DisvGrid.MeshLimits(vdFront, 0);
+            MinValue := MeshLimits.MinZ;
+            MaxValue := MeshLimits.MaxZ;
+          end
+          else
+          begin
+            MinValue := Grid.LowestElevation;
+            MaxValue := Grid.HighestElevation;
+          end;
+        end;
+      pcReleaseTime:
+        begin
+          MinMaxFound := False;
+          for var Index := 0 to Tracks.IprpCount - 1 do
+          begin
+            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            begin
+              ATrack := Tracks[Index, Index2];
+              for var PointIndex := 0 to ATrack.Count - 1 do
+              begin
+                TrkPoint := ATrack[PointIndex];
+                if TrkPoint.IREASON = 0 then
+                begin
+                  if MinMaxFound then
+                  begin
+                    if TrkPoint.TRELEASE < MinValue then
+                    begin
+                      MinValue := TrkPoint.TRELEASE;
+                    end
+                    else
+                    if TrkPoint.TRELEASE > MaxValue then
+                    begin
+                      MaxValue := TrkPoint.TRELEASE;
+                    end;
+                  end
+                  else
+                  begin
+                    MinValue := TrkPoint.TRELEASE;
+                    MaxValue := MinValue;
+                    MinMaxFound := True;
+                  end;
+                end;
+              end;
+            end;
+          end;
+        end;
+      pcTime:
+        begin
+          MinMaxFound := False;
+          for var Index := 0 to Tracks.IprpCount - 1 do
+          begin
+            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            begin
+              ATrack := Tracks[Index, Index2];
+              for var PointIndex := 0 to ATrack.Count - 1 do
+              begin
+                TrkPoint := ATrack[PointIndex];
+                if MinMaxFound then
+                begin
+                  if TrkPoint.T < MinValue then
+                  begin
+                    MinValue := TrkPoint.T;
+                  end
+                  else
+                  if TrkPoint.T > MaxValue then
+                  begin
+                    MaxValue := TrkPoint.T;
+                  end;
+                end
+                else
+                begin
+                  MinValue := TrkPoint.T;
+                  MaxValue := MinValue;
+                  MinMaxFound := True;
+                end;
+              end;
+            end;
+          end;
+        end;
+      pcStatus:
+        begin
+          MinMaxFound := False;
+          for var Index := 0 to Tracks.IprpCount - 1 do
+          begin
+            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            begin
+              ATrack := Tracks[Index, Index2];
+              for var PointIndex := 0 to ATrack.Count - 1 do
+              begin
+                TrkPoint := ATrack[PointIndex];
+                if MinMaxFound then
+                begin
+                  if TrkPoint.iStatus < MinValue then
+                  begin
+                    MinValue := TrkPoint.iStatus;
+                  end
+                  else
+                  if TrkPoint.iStatus > MaxValue then
+                  begin
+                    MaxValue := TrkPoint.iStatus;
+                  end;
+                end
+                else
+                begin
+                  MinValue := TrkPoint.iStatus;
+                  MaxValue := MinValue;
+                  MinMaxFound := True;
+                end;
+              end;
+            end;
+          end;
+        end;
+      pcReason:
+        begin
+          MinMaxFound := False;
+          for var Index := 0 to Tracks.IprpCount - 1 do
+          begin
+            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            begin
+              ATrack := Tracks[Index, Index2];
+              for var PointIndex := 0 to ATrack.Count - 1 do
+              begin
+                TrkPoint := ATrack[PointIndex];
+                if MinMaxFound then
+                begin
+                  if TrkPoint.IREASON < MinValue then
+                  begin
+                    MinValue := TrkPoint.IREASON;
+                  end
+                  else
+                  if TrkPoint.IREASON > MaxValue then
+                  begin
+                    MaxValue := TrkPoint.IREASON;
+                  end;
+                end
+                else
+                begin
+                  MinValue := TrkPoint.IREASON;
+                  MaxValue := MinValue;
+                  MinMaxFound := True;
+                end;
+              end;
+            end;
+          end;
+        end;
+      pcPrp:
+        begin
+          MinMaxFound := False;
+          for var Index := 0 to Tracks.IprpCount - 1 do
+          begin
+            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            begin
+              ATrack := Tracks[Index, Index2];
+              for var PointIndex := 0 to ATrack.Count - 1 do
+              begin
+                TrkPoint := ATrack[PointIndex];
+                if MinMaxFound then
+                begin
+                  if TrkPoint.IPRP < MinValue then
+                  begin
+                    MinValue := TrkPoint.IPRP;
+                  end
+                  else
+                  if TrkPoint.IPRP > MaxValue then
+                  begin
+                    MaxValue := TrkPoint.IPRP;
+                  end;
+                end
+                else
+                begin
+                  MinValue := TrkPoint.IPRP;
+                  MaxValue := MinValue;
+                  MinMaxFound := True;
+                end;
+              end;
+            end;
+          end;
+        end;
+      pcZone:
+        begin
+          MinMaxFound := False;
+          for var Index := 0 to Tracks.IprpCount - 1 do
+          begin
+            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            begin
+              ATrack := Tracks[Index, Index2];
+              for var PointIndex := 0 to ATrack.Count - 1 do
+              begin
+                TrkPoint := ATrack[PointIndex];
+                if MinMaxFound then
+                begin
+                  if TrkPoint.IZONE < MinValue then
+                  begin
+                    MinValue := TrkPoint.IZONE;
+                  end
+                  else
+                  if TrkPoint.IZONE > MaxValue then
+                  begin
+                    MaxValue := TrkPoint.IZONE;
+                  end;
+                end
+                else
+                begin
+                  MinValue := TrkPoint.IZONE;
+                  MaxValue := MinValue;
+                  MinMaxFound := True;
+                end;
+              end;
+            end;
+          end;
+        end
+      else Assert(False);
+    end;
+  end;
+end;
+
+procedure TPrtTrackDisplayer.ReadFile(const Value: string);
 var
   Extension: string;
 begin

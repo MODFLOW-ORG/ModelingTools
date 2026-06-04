@@ -360,6 +360,7 @@ type
     procedure DrawPathLines;
     procedure DrawEndPoints;
     procedure DrawTimeSeries;
+    procedure DrawPrtTracks;
     procedure UpdateStatusBarTopElementNode(const APoint: TPoint2D);
     procedure GetMeshColLayer(APoint: TPoint2D; out NodeCol, NodeLayer,
       ElCol, ElLayer: integer);
@@ -1430,10 +1431,8 @@ procedure TframeView.DrawGridAndScreenObjects;
 var
   BitmapIndex: integer;
   Item: TCompressedBitmapItem;
-//  Mesh: TSutraMesh3D;
   Grid: TCustomModelGrid;
   Mesh: IDrawMesh;
-//  PestProperties: TPestProperties;
 begin
   FPaintingNeeded := True;
   if not frmGoPhast.CanDraw then
@@ -1523,16 +1522,11 @@ begin
           begin
             UpdateFrmDisplayData(True);
           end;
-//          if frmDisplayData = nil then
-//          begin
-//            Application.CreateForm(TfrmDisplayData, frmDisplayData);
-//          end;
         end;
       end
       else
       begin
-        if (frmGoPhast.PhastModel.ThreeDDataSet <> nil)
-          {or (frmGoPhast.Grid.ThreeDContourDataSet <> nil)} then
+        if (frmGoPhast.PhastModel.ThreeDDataSet <> nil) then
         begin
           if frmDisplayData = nil then
           begin
@@ -1541,7 +1535,6 @@ begin
           UpdateFrmDisplayData(True);
         end;
       end;
-
 
       if (Mesh <> nil) then
       begin
@@ -1580,6 +1573,7 @@ begin
         and (not frmGoPhast.PhastModel.PathLines.HasData)
         and (not frmGoPhast.PhastModel.Endpoints.HasData)
         and (not frmGoPhast.PhastModel.TimeSeries.HasData)
+        and (not frmGoPhast.PhastModel.PrtTracks.HasData)
         and (frmGoPhast.PhastModel.CrossSection.DataArrays.Count = 0)
         and not (frmGoPhast.ModelSelection in SutraSelection)
         then
@@ -1608,6 +1602,7 @@ begin
         DrawPathLines;
         DrawTimeSeries;
         DrawEndPoints;
+        DrawPrtTracks;
         DrawCrossSection;
       end;
 
@@ -2306,6 +2301,24 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TframeView.DrawPrtTracks;
+var
+  Orientation: TDataSetOrientation;
+begin
+  Orientation := dsoTop;
+  case ViewDirection of
+    vdTop: Orientation := dsoTop;
+    vdFront: Orientation := dsoFront;
+    vdSide: Orientation := dsoSide;
+    else Assert(False);
+  end;
+  if (frmGoPhast.PhastModel.PrtTracks.HasData) then
+  begin
+    frmGoPhast.PhastModel.PrtTracks.Draw(Orientation, FBitmap32);
+  end;
+
 end;
 
 procedure TframeView.DrawEndPoints;

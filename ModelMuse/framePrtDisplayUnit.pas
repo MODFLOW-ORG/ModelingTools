@@ -7,7 +7,7 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, RbwDataGrid4,
   Vcl.StdCtrls, Vcl.ExtCtrls, JvSpin, JvExControls, JvxSlider, Vcl.Mask,
   JvExMask, JvToolEdit, Vcl.ComCtrls, UndoItems,
-  PhastModelUnit, PathlineReader;
+  PhastModelUnit, PathlineReader, Vcl.CheckLst;
 
 type
   TUndoImportPrtTrack = class(TCustomUndo)
@@ -38,7 +38,6 @@ type
     lblCycles: TLabel;
     lblMaxTime: TLabel;
     fedPrtTracklineFile: TJvFilenameEdit;
-    cbShowPathlines: TCheckBox;
     cbLimitToCurrentIn2D: TCheckBox;
     comboColorScheme: TComboBox;
     jsColorExponent: TJvxSlider;
@@ -49,6 +48,7 @@ type
     rgShow2D: TRadioGroup;
     rgColorBy: TRadioGroup;
     rdgLimits: TRbwDataGrid4;
+    chklstPlotTypes: TCheckListBox;
   private
     { Private declarations }
   public
@@ -73,8 +73,8 @@ resourcestring
   StrThePathlineFileOn = 'The PRT Track file on disk has a different date tha' +
   'n the file that was imported into ModelMuse.  Do you want to import the n' +
   'ew file?';
-  StrImportPathline = 'import Prt Track';
-  StrConfigurePathline = 'configure Prt Track';
+  StrImportPrtTrack = 'import Prt Track';
+  StrConfigurePrtTrack = 'configure Prt Track';
   StrThereWasAnErrorR = 'There was an error reading the Prt Track file. It ma' +
   'y have been locked or there might have been some other error. The error m' +
   'essage was "%s".';
@@ -83,13 +83,10 @@ resourcestring
 
 constructor TUndoImportPrtTrack.Create(Model: TCustomModel;
   var NewPathLine: TPrtTrackDisplayer; ImportedNewFile: boolean);
-var
-  InvalidateModelEvent: TNotifyEvent;
 begin
   FModel := Model;
-  InvalidateModelEvent := nil;
   FImportedNewFile := ImportedNewFile;
-  FExistingPathLines:= TPrtTrackDisplayer.Create(InvalidateModelEvent);
+  FExistingPathLines:= TPrtTrackDisplayer.Create(nil);
   FExistingPathLines.Assign(frmGoPhast.PhastModel.PrtTracks);
   // Take ownership of NewPathLine.
   FNewPathLines := NewPathLine;
@@ -101,11 +98,11 @@ function TUndoImportPrtTrack.Description: string;
 begin
   if FImportedNewFile then
   begin
-    result := StrImportPathline;
+    result := StrImportPrtTrack;
   end
   else
   begin
-    result := StrConfigurePathline;
+    result := StrConfigurePrtTrack;
   end;
 
 end;
