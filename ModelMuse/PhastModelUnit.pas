@@ -10528,13 +10528,20 @@ const
 //                Packages and Programs dialog box.
 //    '5.4.0.12' Bug fix: Fixed display of WBS (Farms) dialog box for
 //                MODFLOW OWHM version 1 models.
+//    '5.4.0.13' Bug fix: Fixed a bug in the export of objects to Shapefile that
+//                could cause assert violations, access violations, or the
+//                failure to export some fields.
+
+//               Bug Fix: Fixed import of CND package in GWE.
+//               Enhancement: Added support for UTVD in ADV packages for GWT
+//                and GWE.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.12';
+  IIModelVersion = '5.4.0.13';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

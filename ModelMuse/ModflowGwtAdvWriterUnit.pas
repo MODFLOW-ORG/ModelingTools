@@ -103,6 +103,10 @@ begin
       begin
         WriteString('tvd');
       end;
+    gsUTVD:
+      begin
+        WriteString('utvd');
+      end;
     else
       Assert(False);
   end;

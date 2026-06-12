@@ -45,7 +45,8 @@ inherited frameGwtAdvPackage: TframeGwtAdvPackage
     Items.Strings = (
       'Upstream'
       'Central (rarely used)'
-      'Total Variation Diminishing (TVD)')
+      'Total Variation Diminishing (TVD)'
+      'UTVD')
     TabOrder = 1
   end
   object rdeAdePercel: TRbwDataEntry [5]

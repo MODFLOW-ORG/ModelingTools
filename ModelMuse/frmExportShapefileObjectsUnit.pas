@@ -1582,7 +1582,7 @@ end;
 
 procedure TfrmExportShapefileObjects.InitializeDataBase;
 const
-  MaximumFieldNameLength = 10;
+  MaximumFieldNameLength = 9;
 var
   FieldNames: TStringList;
   DataArrayIndex: Integer;
@@ -2018,11 +2018,20 @@ begin
 //        else if BoundaryName.BoundaryType = btSfr_MF6 then
 //        begin
 //        end
+        else if BoundaryName.BoundaryType = btObsMf6 then
+        begin
+//          FieldName := Copy(FieldName, 1, MaxLength);
+//          FFieldDefinitions[StartIndex].DataArray := nil;
+//          FFieldDefinitions[StartIndex].FieldType := 'C';
+//          FFieldDefinitions[StartIndex].FieldName := AnsiString(FieldName);
+//          FieldNames.Add(string(FFieldDefinitions[StartIndex].FieldName));
+//          Inc(StartIndex);
+        end
         else
         begin
           if rgExportMethod.ItemIndex = 0 then
           begin
-            FieldName := Copy(FieldName, 1, MaxLength);
+            FieldName := Copy(FieldName, 1, MaximumFieldNameLength);
           end;
           for TimeIndex := 1 to FTimeCount do
           begin

@@ -9,7 +9,7 @@ uses
   System.Generics.Defaults, Mf6.ObsFileReaderUnit, ModflowLakMf6Unit,
   Mf6.MvrFileReaderUnit, GoPhastTypes, ModflowPackageSelectionUnit, FastGEO,
   Vcl.Forms, Mf6.NameFileReaderUnit, Mf6.SpcFileReaderUnit,
-  Mf6.TDisFileReaderUnit;
+  Mf6.TDisFileReaderUnit, System.StrUtils;
 
 resourcestring
   SWarningTheStartDateOfTheModelHas = 'Warning: The start date of the model has been added as a comment to the model description';
@@ -592,6 +592,10 @@ begin
   begin
     AdvectionPackage.Scheme := gsTVD
   end
+  else if AnsiSameText(Scheme, 'UTVD') then
+  begin
+    AdvectionPackage.Scheme := gsUTVD
+  end
   else
   begin
     Assert(False);
@@ -1007,6 +1011,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_CHD_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -1629,6 +1634,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_CNC_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -1967,7 +1973,10 @@ begin
   if GridData.ALH = nil then
   begin
     Alh := Model.DataArrayManager.GetDataSetByName(DataSetName);
-    Alh.Formula := '0';
+    if Alh <> nil then
+    begin
+      Alh.Formula := '0';
+    end;
   end
   else
   begin
@@ -1978,7 +1987,10 @@ begin
   if GridData.ALV = nil then
   begin
     Alv := Model.DataArrayManager.GetDataSetByName(DataSetName);
-    Alv.Formula := AlhDataSetName;
+    if Alv <> nil then
+    begin
+      Alv.Formula := AlhDataSetName;
+    end;
   end
   else
   begin
@@ -1990,7 +2002,10 @@ begin
   if GridData.ATH1 = nil then
   begin
     ATH1 := Model.DataArrayManager.GetDataSetByName(DataSetName);
-    ATH1.Formula := '0';
+    if ATH1 <> nil then
+    begin
+      ATH1.Formula := '0';
+    end;
   end
   else
   begin
@@ -2002,7 +2017,10 @@ begin
   if GridData.ATH2 = nil then
   begin
     ATH2 := Model.DataArrayManager.GetDataSetByName(DataSetName);
-    ATH2.Formula := Ath1DataSetName;
+    if ATH2 <> nil then
+    begin
+      ATH2.Formula := Ath1DataSetName;
+    end;
   end
   else
   begin
@@ -2014,14 +2032,17 @@ begin
   if GridData.ATV = nil then
   begin
     ATV := Model.DataArrayManager.GetDataSetByName(DataSetName);
-    ATV.Formula := Ath2DataSetName;
+    if ATV <> nil then
+    begin
+      ATV.Formula := Ath2DataSetName;
+    end;
   end
   else
   begin
     Assign3DRealDataSet(DataSetName, GridData.ATV);
   end;
 
-  DataSetName := rsThermalCondFluid + '_' + NameFile.SpeciesName;
+  DataSetName := rsThermalCondFluid + '_GWE' {+ NameFile.SpeciesName};
   if GridData.KTW = nil then
   begin
 //    KTW := Model.DataArrayManager.GetDataSetByName(DataSetName);
@@ -2031,7 +2052,7 @@ begin
     Assign3DRealDataSet(DataSetName, GridData.KTW);
   end;
 
-  DataSetName := rsThermalCondSolid + '_' + NameFile.SpeciesName;
+  DataSetName := rsThermalCondSolid + '_GWE' {+ NameFile.SpeciesName};
   if GridData.KTS = nil then
   begin
 //    KTS := Model.DataArrayManager.GetDataSetByName(DataSetName);
@@ -2145,6 +2166,7 @@ var
         NewName := ValidName('ImportedCSUB_Obs'  + IntToStr(ObjectCount));
       end;
     end;
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -3057,6 +3079,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_CTP_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -3822,6 +3845,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_Drn_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -4587,6 +4611,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_ESL_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -5262,6 +5287,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_Evt_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -6781,6 +6807,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_Ghb_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -7669,11 +7696,15 @@ var
   Row: Integer;
   TDis: TTDis;
   function CreateScreenObject(LayerIndex: Integer): TScreenObject;
+  var
+    NewName: string;
   begin
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    result.Name := Format('Imported_HFB_Layer_%d_Period_%d', [LayerIndex + 1, HfbPeriod.Period]);
+    NewName := Format('Imported_HFB_Layer_%d_Period_%d', [LayerIndex + 1, HfbPeriod.Period]);
+    NewName := ReplaceStr(NewName, '-', '_');
+    result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
     Model.AddScreenObject(result);
@@ -9726,11 +9757,14 @@ var
       CellIndex: Integer;
       ACellId: TMfCellId;
       UndoCreateScreenObject: TCustomUndo;
+      NewName: string;
     begin
       ALake.DataSetsScreenObject := TScreenObject.CreateWithViewDirection(
         Model, vdTop, UndoCreateScreenObject, False);
       FNewScreenObjects.Add(ALake.DataSetsScreenObject);
-      ALake.DataSetsScreenObject.Name := Format('ImportedDataLake%d', [ALake.FLakPackageItem.lakeno]);
+      NewName := Format('ImportedDataLake%d', [ALake.FLakPackageItem.lakeno]);
+      NewName := ReplaceStr(NewName, '-', '_');
+      ALake.DataSetsScreenObject.Name := NewName;
       ALake.DataSetsScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
       Model.AddScreenObject(ALake.DataSetsScreenObject);
@@ -14303,6 +14337,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_Rch_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -15181,6 +15216,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_Riv_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -16928,6 +16964,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     NewName := ValidName(Format('Imported_%s_Sfr_%d',
       [Package.PackageName, FirstReachNo]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now) + sLineBreak;
     Comment := Comment + 'The following are the original reach numbers:';
@@ -19592,6 +19629,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_SRC_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -20723,11 +20761,14 @@ var
   function CreateScreenObject(RootName: String): TScreenObject;
   var
     NewItem: TTvkItem;
+    NewName: string;
   begin
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    result.Name := 'ImportedTVK_' + RootName + '_Period_' + IntToStr(APeriod.Period);
+    NewName := 'ImportedTVK_' + RootName + '_Period_' + IntToStr(APeriod.Period);
+    NewName := ReplaceStr(NewName, '-', '_');
+    result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
     Model.AddScreenObject(result);
@@ -21000,6 +21041,7 @@ var
   ImportedTimeSeriesName: string;
   ElementCenter: TDualLocation;
   TDis: TTDis;
+  NewName: string;
   function CreateScreenObject(RootName: String): TScreenObject;
   var
     NewItem: TTvsItem;
@@ -21007,7 +21049,9 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    result.Name := 'ImportedTVS_' + RootName + '_Period_' + IntToStr(APeriod.Period);
+    NewName := 'ImportedTVS_' + RootName + '_Period_' + IntToStr(APeriod.Period);
+    NewName := ReplaceStr(NewName, '-', '_');
+    result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
     Model.AddScreenObject(result);
@@ -23753,6 +23797,7 @@ var
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
     NewName := ValidName(Format('Imported_%s_Wel_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 

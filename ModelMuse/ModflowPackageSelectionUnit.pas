@@ -7567,7 +7567,7 @@ Type
   // @name is used for the CND (Conduction and Dispersion) package in MODFLOW 6 GWE models.
   TGweConductionAndDispersionPackage = class(TCustomDispersionPackage);
 
-  TGwtScheme = (gsUpstream, gsCentral, gsTVD);
+  TGwtScheme = (gsUpstream, gsCentral, gsTVD, gsUTVD);
 
   // @name is used for the ADV packages in both GWT and GWE models in MODFLOW 6
   TGwtAdvectionPackage = class(TModflowPackageSelection)
