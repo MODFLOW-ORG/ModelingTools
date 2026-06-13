@@ -462,8 +462,7 @@ var
     WriteString('''');
   end;
 begin
-  BaseNameOfFile := ChangeFileExt(FNameOfFile, '') + '.' + PrtModel.ModelName
-    + '.' + PrpPackage.PackageName;
+  BaseNameOfFile := ChangeFileExt(FNameOfFile, '');
   WriteBeginOptions;
   try
     WriteString('  BOUNDNAMES');
@@ -494,6 +493,7 @@ begin
     begin
       TrackFileOut := BaseNameOfFile + '.trk';
       Model.AddModelOutputFile(TrackFileOut);
+      Model.AddModelOutputFile(TrackFileOut + '.hdr');
       WriteString('  TRACK FILEOUT ');
       WriteSingleQuoteMF6;
       WriteString(ExtractFileName(TrackFileOut));

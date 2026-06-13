@@ -696,6 +696,7 @@ type
     procedure Sort;
     function First: TRealItem;
     function Last: TRealItem;
+    function IndexOf(Value: Double; Epsilon: double = 0): Integer;
   end;
 
   TPointArray = array of TPoint;
@@ -2092,6 +2093,23 @@ end;
 function TRealCollection.GetValue(Index: Integer): Double;
 begin
   Result := Items[Index].Value;
+end;
+
+function TRealCollection.IndexOf(Value, Epsilon: double): Integer;
+var
+  AValue: Double;
+begin
+  result := -1;
+  for var Index := 0 to Count - 1 do
+  begin
+    AValue := Values[Index];
+    if (AValue - Epsilon <= Value)
+      and (AValue + Epsilon >= Value) then
+    begin
+      result := Index;
+      Exit;
+    end;
+  end;
 end;
 
 function TRealCollection.IsSame(RealCollection: TRealCollection): Boolean;

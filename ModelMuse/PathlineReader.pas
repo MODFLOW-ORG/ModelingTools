@@ -1330,7 +1330,6 @@ The IREASON field indicates the reason the particle track record was saved:
     FColumnLimits: TShowIntegerLimit;
     FShowChoice: TShowChoice;
     FTimeLimits: TShowFloatLimit;
-    FModelLimits: TByteSetLimits;
     FPrpLimits: TByteSetLimits;
     FReleasePointLimits: TShowIntegerLimit;
     FZoneLimits: TByteSetLimits;
@@ -1340,13 +1339,13 @@ The IREASON field indicates the reason the particle track record was saved:
     FColorLimits: TPrtColorLimits;
     FPlotTypes: TPrtPlotTypes;
     FEndPointSize: Integer;
+    FReleaseTimeLimits: TShowFloatLimit;
     procedure SetLimitToCurrentIn2D(const Value: boolean);
     procedure SetColumnLimits(const Value: TShowIntegerLimit);
     procedure SetLayerLimits(const Value: TShowIntegerLimit);
     procedure SetRowLimits(const Value: TShowIntegerLimit);
     procedure SetShowChoice(const Value: TShowChoice);
     procedure SetTimeLimits(const Value: TShowFloatLimit);
-    procedure SetModelLimits(const Value: TByteSetLimits);
     procedure SetPrpLimits(const Value: TByteSetLimits);
     procedure SetReleasePointLimits(const Value: TShowIntegerLimit);
     procedure SetReasonLimits(const Value: TReasonLimit);
@@ -1356,6 +1355,7 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure SetColorLimits(const Value: TPrtColorLimits);
     procedure SetPlotTypes(const Value: TPrtPlotTypes);
     procedure SetEndPointSize(const Value: Integer);
+    procedure SetReleaseTimeLimits(const Value: TShowFloatLimit);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create(InvalidateModelEvent: TNotifyEvent);
@@ -1370,8 +1370,7 @@ The IREASON field indicates the reason the particle track record was saved:
     property LayerLimits: TShowIntegerLimit read FLayerLimits
       write SetLayerLimits;
     property TimeLimits: TShowFloatLimit read FTimeLimits write SetTimeLimits;
-    property ModelLimits: TByteSetLimits read FModelLimits
-      write SetModelLimits;
+    property ReleaseTimeLimits: TShowFloatLimit read FReleaseTimeLimits write SetReleaseTimeLimits;
     property PrpLimits: TByteSetLimits read FPrpLimits
       write SetPrpLimits;
     property ReleasePointLimits: TShowIntegerLimit read FReleasePointLimits
@@ -9406,7 +9405,7 @@ begin
     RowLimits   := TrackDisplaySource.RowLimits;
     LayerLimits   := TrackDisplaySource.LayerLimits;
     TimeLimits   := TrackDisplaySource.TimeLimits;
-    ModelLimits   := TrackDisplaySource.ModelLimits;
+    ReleaseTimeLimits   := TrackDisplaySource.ReleaseTimeLimits;
     PrpLimits   := TrackDisplaySource.PrpLimits;
     ReleasePointLimits   := TrackDisplaySource.ReleasePointLimits;
     ZoneLimits   := TrackDisplaySource.ZoneLimits;
@@ -9432,7 +9431,7 @@ begin
   FColumnLimits := TShowIntegerLimit.Create;
   FShowChoice := scAll;
   FTimeLimits := TShowFloatLimit.Create;
-  FModelLimits := TByteSetLimits.Create(InvalidateModelEvent);
+  FReleaseTimeLimits := TShowFloatLimit.Create;
   FPrpLimits := TByteSetLimits.Create(InvalidateModelEvent);
   FReleasePointLimits := TShowIntegerLimit.Create;
   FZoneLimits := TByteSetLimits.Create(InvalidateModelEvent);
@@ -9448,7 +9447,7 @@ begin
   FRowLimits.Free;
   FColumnLimits.Free;
   FTimeLimits.Free;
-  FModelLimits.Free;
+  FReleaseTimeLimits.Free;
   FPrpLimits.Free;
   FReleasePointLimits.Free;
   FZoneLimits.Free;
@@ -9486,11 +9485,6 @@ begin
   FLimitToCurrentIn2D := Value;
 end;
 
-procedure TPrtTrackDisplayLimits.SetModelLimits(const Value: TByteSetLimits);
-begin
-  FModelLimits.Assign(Value);
-end;
-
 procedure TPrtTrackDisplayLimits.SetPlotTypes(const Value: TPrtPlotTypes);
 begin
   FPlotTypes := Value;
@@ -9510,6 +9504,12 @@ procedure TPrtTrackDisplayLimits.SetReleasePointLimits(
   const Value: TShowIntegerLimit);
 begin
   FReleasePointLimits.Assign(Value);
+end;
+
+procedure TPrtTrackDisplayLimits.SetReleaseTimeLimits(
+  const Value: TShowFloatLimit);
+begin
+  FReleaseTimeLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetRowLimits(const Value: TShowIntegerLimit);
@@ -9680,6 +9680,187 @@ var
   CrossSectionSegment: TSegment2D;
   OriginOffset: Double;
   DisplayXPrime: Double;
+  LocalTracks: TPrtTracks;
+  ATrack: TPrtTrack;
+  APoint: TPrtTrackPoint;
+  PriorPoint: TPrtTrackPoint;
+  function ShowPrtPoint(APoint: TPrtTrackPoint): Boolean;
+  var
+    Model: TCustomModel;
+    Row: integer;
+    Column: integer;
+  begin
+    result := True;
+    Model := FModel as TCustomModel;
+    if PrtTrackDisplayLimits.ColumnLimits.UseLimit or PrtTrackDisplayLimits.RowLimits.UseLimit then
+    begin
+      if Model.DisvUsed then
+      begin
+        result := (APoint.ICELL >= PrtTrackDisplayLimits.ColumnLimits.StartLimit)
+          and (APoint.ICELL <= PrtTrackDisplayLimits.ColumnLimits.EndLimit);
+        if not result then
+        begin
+          Exit;
+        end;
+      end
+      else
+      begin
+        if PrtTrackDisplayLimits.ColumnLimits.UseLimit then
+        begin
+          Column := (APoint.ICELL-1) mod Model.RowCount + 1;
+          result := (Column >= PrtTrackDisplayLimits.ColumnLimits.StartLimit)
+            and (Column <= PrtTrackDisplayLimits.ColumnLimits.EndLimit);
+          if not result then
+          begin
+            Exit;
+          end;
+        end;
+        if PrtTrackDisplayLimits.RowLimits.UseLimit then
+        begin
+          Row := (APoint.ICELL-1) div Model.RowCount + 1;
+          result := (Row >= PrtTrackDisplayLimits.RowLimits.StartLimit)
+            and (Row <= PrtTrackDisplayLimits.RowLimits.EndLimit);
+          if not result then
+          begin
+            Exit;
+          end;
+        end;
+      end;
+    end;
+    if PrtTrackDisplayLimits.LayerLimits.UseLimit then
+    begin
+      result := (APoint.ILAY >= PrtTrackDisplayLimits.LayerLimits.StartLimit)
+        and (APoint.ILAY <= PrtTrackDisplayLimits.LayerLimits.EndLimit);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    if PrtTrackDisplayLimits.TimeLimits.UseLimit then
+    begin
+      result := (APoint.T >= PrtTrackDisplayLimits.TimeLimits.StartLimit)
+        and (APoint.T <= PrtTrackDisplayLimits.TimeLimits.EndLimit);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    if PrtTrackDisplayLimits.ReleaseTimeLimits.UseLimit then
+    begin
+      result := (APoint.TRELEASE >= PrtTrackDisplayLimits.ReleaseTimeLimits.StartLimit)
+        and (APoint.TRELEASE <= PrtTrackDisplayLimits.ReleaseTimeLimits.EndLimit);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    if PrtTrackDisplayLimits.PrpLimits.UseLimit then
+    begin
+      result := (PrtTrackDisplayLimits.PrpLimits.Limits.IndexOf(APoint.IPRP) >= 0);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    if PrtTrackDisplayLimits.ReleasePointLimits.UseLimit then
+    begin
+      result := (APoint.IRPT >= PrtTrackDisplayLimits.ReleasePointLimits.StartLimit)
+        and (APoint.IRPT <= PrtTrackDisplayLimits.ReleasePointLimits.EndLimit);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    if PrtTrackDisplayLimits.ZoneLimits.UseLimit then
+    begin
+      result := (PrtTrackDisplayLimits.ZoneLimits.Limits.IndexOf(APoint.IZONE) >= 0);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    if PrtTrackDisplayLimits.StatusLimit.UseLimit then
+    begin
+      result := TStatus(APoint.ISTATUS) in (PrtTrackDisplayLimits.StatusLimit.UsedStatus);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    if PrtTrackDisplayLimits.ReasonLimits.UseLimit then
+    begin
+      result := TReason(APoint.IREASON) in (PrtTrackDisplayLimits.ReasonLimits.UsedReasons);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    // APoint.IREASON = 5 means user specified tracking time
+    if PrtTrackDisplayLimits.SelectedTimeLimits.UseLimit
+      and (APoint.IREASON = 5) then
+    begin
+      result := (PrtTrackDisplayLimits.SelectedTimeLimits.UsedTimes.IndexOf(APoint.T) >= 0);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+
+    {
+    property ColorLimits: TPrtColorLimits read FColorLimits write SetColorLimits;
+  }
+  end;
+  procedure DrawLine(APoint: TPrtTrackPoint);
+  var
+    APoint2D: TPoint2D;
+  begin
+    case Orientation of
+      dsoTop:
+        begin
+          ADisplayPoint.X := ZoomBox.XCoord(APoint.X);
+          ADisplayPoint.Y := ZoomBox.YCoord(APoint.Y);
+          if ShouldInitializeTree then
+          begin
+            QuadTree.AddPoint(APoint.X, APoint.Y, APoint);
+          end;
+        end;
+      dsoFront:
+        begin
+          if LocalModel.DisvUsed then
+          begin
+            DisvFrontProjectedXPrime(CrossSectionSegment,
+              EquatePoint(APoint.X, APoint.Y), DisplayXPrime);
+            DisplayXPrime := DisplayXPrime - OriginOffset;
+          end
+          else
+          begin
+            APoint2D.X := APoint.X;
+            APoint2D.Y := APoint.Y;
+            APoint2D := LocalModel.ModflowGrid.RotateFromRealWorldCoordinatesToGridCoordinates(APoint2D);
+            DisplayXPrime :=APoint2D.X;
+          end;
+          ADisplayPoint.X := ZoomBox.XCoord(DisplayXPrime);
+          ADisplayPoint.Y := ZoomBox.YCoord(APoint.Z);
+          if ShouldInitializeTree then
+          begin
+            QuadTree.AddPoint(DisplayXPrime, APoint.Z, APoint);
+          end;
+        end;
+      dsoSide:
+        begin
+          ADisplayPoint.X := ZoomBox.XCoord(APoint.Z);
+          APoint2D.X := APoint.X;
+          APoint2D.Y := APoint.Y;
+          APoint2D := LocalModel.ModflowGrid.RotateFromRealWorldCoordinatesToGridCoordinates(APoint2D);
+          ADisplayPoint.Y := ZoomBox.YCoord(APoint2D.Y);
+          if ShouldInitializeTree then
+          begin
+            QuadTree.AddPoint(APoint.Z, APoint2D.Y, APoint);
+          end;
+        end;
+      else Assert(False);
+    end;
+  end;
 //  ColorLimits: TPrtColorLimits;
 begin
   if PrtTrackDisplayLimits.PlotTypes = [] then
@@ -9797,26 +9978,53 @@ begin
       else Assert(False);
     end;
   end;
-//
-//  if Points.Count > 0 then
-//  begin
-//    LocalPoints := Points;
-//  end
-//  else if PointsV6.Count > 0 then
-//  begin
-//    LocalPoints := PointsV6;
-//  end
-//  else
-//  begin
-//    LocalPoints := PointsV7;
-//  end;
-//
-//  DisplayQuadTree := TRbwQuadTree.Create(nil);
-//  DisplayPointList := TList<TPoint>.Create;
-//  DisplayColorList := TList<TColor32>.Create;
-//  try
-//    DisplayQuadTree.XMax := ZoomBox.Width;
-//    DisplayQuadTree.YMax := ZoomBox.Height;
+
+  LocalTracks := Tracks;
+
+
+  DisplayQuadTree := TRbwQuadTree.Create(nil);
+  DisplayPointList := TList<TPoint>.Create;
+  DisplayColorList := TList<TColor32>.Create;
+  try
+    DisplayQuadTree.XMax := ZoomBox.Width;
+    DisplayQuadTree.YMax := ZoomBox.Height;
+
+    if pptLine in PrtTrackDisplayLimits.PlotTypes then
+    begin
+      for var PrpIndex := 0 to LocalTracks.IprpCount - 1 do
+      begin
+        for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
+        begin
+          ATrack := LocalTracks[PrpIndex, ParticleIndex];
+          PriorPoint := nil;
+          for var PointIndex := 0 to ATrack.Count - 1 do
+          begin
+            APoint := ATrack[PointIndex];
+            if ShowPrtPoint(APoint) then
+            begin
+              if (PriorPoint <> nil) and (PriorPoint.T <> APoint.T) then
+              begin
+                DrawLine(APoint)
+                // plot pathline segm);ent.
+              end;
+              PriorPoint := APoint
+            end
+            else
+            begin
+              if PriorPoint <> nil then
+              begin
+                if PriorPoint.T <> APoint.T then
+                begin
+                  PriorPoint := nil;
+                end;
+              end;
+            end;
+          end;
+        end;
+      end;
+    end;
+
+
 //    for EndPointIndex := LocalPoints.Count - 1 downto 0 do
 //    begin
 //      EndPoint := LocalPoints[EndPointIndex] as TEndPoint;
@@ -9957,11 +10165,11 @@ begin
 //      end;
 //      DrawBigRectangle32(BitMap, AColor32, AColor32, 0, ARect);
 //    end;
-//  finally
-//    DisplayColorList.Free;
-//    DisplayPointList.Free;
-//    DisplayQuadTree.Free;
-//  end;
+  finally
+    DisplayColorList.Free;
+    DisplayPointList.Free;
+    DisplayQuadTree.Free;
+  end;
 end;
 
 procedure TPrtTrackDisplayer.Draw3D;
