@@ -21,7 +21,7 @@ inherited frmDisplayData: TfrmDisplayData
     Top = 0
     Width = 572
     Height = 521
-    ActivePage = jvspMt3dObs
+    ActivePage = jvspPrtTracks
     PropagateEnable = False
     Align = alClient
     OnChange = pglstMainChange
@@ -2709,11 +2709,11 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabValues: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
             ExplicitHeight = 422
             inherited rdgMt3dObs: TRbwDataGrid4
               Width = 564
               Height = 357
+              ExplicitWidth = 564
               ExplicitHeight = 357
             end
             inherited pnlValueControls: TPanel
@@ -2721,6 +2721,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 564
               StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 357
+              ExplicitWidth = 564
             end
           end
           inherited tabLegend: TTabSheet
@@ -2777,6 +2778,94 @@ inherited frmDisplayData: TfrmDisplayData
             Height = 26
             StyleElements = [seFont, seClient, seBorder]
             ExplicitHeight = 26
+          end
+        end
+      end
+    end
+    object jvspPrtTracks: TJvStandardPage
+      Left = 0
+      Top = 0
+      Width = 572
+      Height = 521
+      Caption = 'jvspPrtTracks'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      inline framePrtDisplay: TframePrtDisplay
+        Left = 0
+        Top = 0
+        Width = 572
+        Height = 521
+        Align = alClient
+        TabOrder = 0
+        ExplicitLeft = 107
+        ExplicitTop = 35
+        inherited pcMain: TPageControl
+          Width = 572
+          Height = 521
+          inherited tabBasic: TTabSheet
+            ExplicitTop = 29
+            ExplicitHeight = 453
+            inherited lblPrtTracklineFile: TLabel
+              Width = 97
+              Height = 18
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 97
+              ExplicitHeight = 18
+            end
+            inherited lblColorScheme: TLabel
+              Width = 97
+              Height = 18
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 97
+              ExplicitHeight = 18
+            end
+            inherited lblColorAdjustment: TLabel
+              Width = 117
+              Height = 18
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 117
+              ExplicitHeight = 18
+            end
+            inherited lblCycles: TLabel
+              Width = 47
+              Height = 18
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 47
+              ExplicitHeight = 18
+            end
+            inherited lblMaxTime: TLabel
+              Width = 78
+              Height = 18
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 78
+              ExplicitHeight = 18
+            end
+            inherited fedPrtTracklineFile: TJvFilenameEdit
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited comboColorScheme: TComboBox
+              Height = 26
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitHeight = 26
+            end
+            inherited seColorExponent: TJvSpinEdit
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited seCycles: TJvSpinEdit
+              StyleElements = [seFont, seClient, seBorder]
+            end
+            inherited chklstPlotTypes: TCheckListBox
+              ItemHeight = 18
+              StyleElements = [seFont, seClient, seBorder]
+            end
+          end
+          inherited tabOptions: TTabSheet
+            ExplicitTop = 29
+            ExplicitWidth = 564
+            ExplicitHeight = 488
+            inherited rdgLimits: TRbwDataGrid4
+              Height = 367
+            end
           end
         end
       end

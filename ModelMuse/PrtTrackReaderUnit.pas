@@ -20,8 +20,8 @@ type
     IREASON: longint;
     TRELEASE: double;
     T: double;
-    X: double;
-    Y: double;
+    XPrime: double;
+    YPrime: double;
     Z: double;
     NAME: array[0..39] of AnsiChar;
   end;
@@ -44,6 +44,8 @@ type
     FStoredY: TRealStorage;
     FKPER: Integer;
     FNAME: string;
+    FStoredXPrime: TRealStorage;
+    FStoredYPrime: TRealStorage;
     procedure SetICELL(const Value: Integer);
     procedure SetILAY(const Value: Integer);
     procedure SetIMDL(const Value: Integer);
@@ -70,6 +72,14 @@ type
     procedure SetZ(const Value: double);
     function GetTRELEASE: double;
     procedure SetTRELEASE(const Value: double);
+    function GetXPrime: Double;
+    function GetYPrime: Double;
+    procedure SetStoredXPrime(const Value: TRealStorage);
+    procedure SetStoredYPrime(const Value: TRealStorage);
+    procedure SetXPrime(const Value: Double);
+    procedure SetYPrime(const Value: Double);
+    function GetEndPoint: TPrtTrackPoint;
+    function GetStartPoint: TPrtTrackPoint;
   public
     Constructor Create(Collection: TCollection); override;
     Destructor Destroy; override;
@@ -80,6 +90,10 @@ type
     property X: double read GetX write SetX;
     property Y: double read GetY write SetY;
     property Z: double read GetZ write SetZ;
+    property XPrime: Double read GetXPrime write SetXPrime;
+    property YPrime: Double read GetYPrime write SetYPrime;
+    property StartPoint: TPrtTrackPoint read GetStartPoint;
+    property EndPoint: TPrtTrackPoint read GetEndPoint;
   published
     property KPER: Integer read FKPER write SetKPER;
     property KSTP: Integer read FKSTP write SetKSTP;
@@ -98,6 +112,8 @@ type
     property StoredZ: TRealStorage read FStoredZ write SetStoredZ;
     // maximum 40 characters as of MODFLOW 6.7.0
     property NAME: string read FNAME write SetName;
+    property StoredXPrime: TRealStorage read FStoredXPrime write SetStoredXPrime;
+    property StoredYPrime: TRealStorage read FStoredYPrime write SetStoredYPrime;
   end;
 
   // @name is a collection of @link(TPrtTrackPoint)s.
@@ -111,6 +127,7 @@ type
   public
     Constructor Create;
     function First: TPrtTrackPoint;
+    function Last: TPrtTrackPoint;
     function Add: TPrtTrackPoint;
     property Items[Index: Integer]: TPrtTrackPoint read GetTrackPoint write SetTrackPoint; default;
     property IPRP: Integer read Get_IPRP;
@@ -155,7 +172,20 @@ type
 implementation
 
 uses
-  ModelMuseUtilities;
+  ModelMuseUtilities, ModflowGridUnit, PhastModelInterfaceUnit, PhastModelUnit,
+  FastGEO;
+
+procedure ConvertCoordinates(Grid: TModflowGrid; var XPrime, YPrime: double;
+  var Point2D: TPoint2D);
+begin
+  // need to convert X and Y to real world coordinates.
+  XPrime := XPrime + Grid.ColumnPosition[0];
+  YPrime := YPrime + Grid.RowPosition[Grid.RowCount];
+  Point2D.X := XPrime;
+  Point2D.Y := YPrime;
+  Point2D := Grid.RotateFromGridCoordinatesToRealWorldCoordinates(Point2D);
+end;
+
 
 { TPrtTrackPoint }
 
@@ -182,6 +212,8 @@ begin
     Y := TrackPoint.Y;
     Z := TrackPoint.Z;
     NAME := TrackPoint.NAME;
+    XPrime := TrackPoint.XPrime;
+    YPrime := TrackPoint.YPrime;
   end
   else
   begin
@@ -203,8 +235,8 @@ begin
   IREASON := ATrkPoint.IREASON;
   TRELEASE := ATrkPoint.TRELEASE;
   T := ATrkPoint.T;
-  X := ATrkPoint.X;
-  Y := ATrkPoint.Y;
+  XPrime := ATrkPoint.XPrime;
+  YPrime := ATrkPoint.YPrime;
   Z := ATrkPoint.Z;
   NAME := string(ATrkPoint.NAME);
 end;
@@ -220,6 +252,8 @@ begin
   FStoredX := TRealStorage.Create(OnChangeEvent);
   FStoredY := TRealStorage.Create(OnChangeEvent);
   FStoredZ := TRealStorage.Create(OnChangeEvent);
+  FStoredXPrime := TRealStorage.Create(OnChangeEvent);
+  FStoredYPrime := TRealStorage.Create(OnChangeEvent);
 end;
 
 destructor TPrtTrackPoint.Destroy;
@@ -229,7 +263,19 @@ begin
   FStoredX.Free;
   FStoredY.Free;
   FStoredZ.Free;
+  FStoredXPrime.Free;
+  FStoredYPrime.Free;
   inherited;
+end;
+
+function TPrtTrackPoint.GetEndPoint: TPrtTrackPoint;
+begin
+  result := (Collection as TPrtTrack).Last;
+end;
+
+function TPrtTrackPoint.GetStartPoint: TPrtTrackPoint;
+begin
+  result := (Collection as TPrtTrack).First;
 end;
 
 function TPrtTrackPoint.GetT: double;
@@ -247,9 +293,19 @@ begin
   result := StoredX.Value;
 end;
 
+function TPrtTrackPoint.GetXPrime: Double;
+begin
+  result := StoredXPrime.Value;
+end;
+
 function TPrtTrackPoint.GetY: double;
 begin
   result := StoredY.Value;
+end;
+
+function TPrtTrackPoint.GetYPrime: Double;
+begin
+  result := StoredYPrime.Value;
 end;
 
 function TPrtTrackPoint.GetZ: double;
@@ -327,9 +383,19 @@ begin
   FStoredX.Assign(Value);
 end;
 
+procedure TPrtTrackPoint.SetStoredXPrime(const Value: TRealStorage);
+begin
+  FStoredXPrime.Assign(Value)
+end;
+
 procedure TPrtTrackPoint.SetStoredY(const Value: TRealStorage);
 begin
   FStoredY.Assign(Value);
+end;
+
+procedure TPrtTrackPoint.SetStoredYPrime(const Value: TRealStorage);
+begin
+  FStoredYPrime.Assign(Value)
 end;
 
 procedure TPrtTrackPoint.SetStoredZ(const Value: TRealStorage);
@@ -352,9 +418,19 @@ begin
   StoredX.Value := Value;
 end;
 
+procedure TPrtTrackPoint.SetXPrime(const Value: Double);
+begin
+  StoredXPrime.Value := Value;
+end;
+
 procedure TPrtTrackPoint.SetY(const Value: double);
 begin
   StoredY.Value := Value;
+end;
+
+procedure TPrtTrackPoint.SetYPrime(const Value: Double);
+begin
+  StoredYPrime.Value := Value;
 end;
 
 procedure TPrtTrackPoint.SetZ(const Value: double);
@@ -409,6 +485,12 @@ begin
   end;
 end;
 
+
+function TPrtTrack.Last: TPrtTrackPoint;
+begin
+  Assert(Count > 0);
+  Result := Items[Count-1];
+end;
 
 procedure TPrtTrack.SetTrackPoint(Index: Integer; const Value: TPrtTrackPoint);
 begin
@@ -542,7 +624,22 @@ var
   HeaderFileName: string;
   HeaderFile: TStringList;
   Track: TPrtTrack;
+  Grid: TModflowGrid;
+  Model: TPhastModel;
+  XPrime: double;
+  YPrime: Double;
+  Point2D: TPoint2D;
 begin
+  Model := IGlobalModel as TPhastModel;
+  if Model.DisvUsed then
+  begin
+    Grid := Model.ModflowGrid;
+  end
+  else
+  begin
+    Grid := nil;
+  end;
+
   Assert(TFile.Exists(FileName));
   HeaderFileName := FileName +'.hdr';
   Assert(TFile.Exists(HeaderFileName));
@@ -556,7 +653,6 @@ begin
     HeaderFile.Free;
   end;
 
-
   ABinaryFile := TFile.OpenRead(FileName);
   try
     While ABinaryFile.Read(PrtTrackPointRecord, SizeOf(TPrtTrackPointRecord)) > 0 do
@@ -564,6 +660,22 @@ begin
       Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT];
       ATrackPoint := Track.Add;
       ATrackPoint.AssignRecord(PrtTrackPointRecord);
+      if Grid = nil then
+      begin
+        ATrackPoint.X := ATrackPoint.XPrime;
+        ATrackPoint.Y := ATrackPoint.YPrime;
+      end
+      else
+      begin
+        XPrime := ATrackPoint.XPrime;
+        YPrime := ATrackPoint.YPrime;
+        ConvertCoordinates(Grid, XPrime, YPrime, Point2D);
+        ATrackPoint.XPrime := XPrime;
+        ATrackPoint.YPrime := YPrime;
+        ATrackPoint.X := Point2D.X;
+        ATrackPoint.Y := Point2D.Y;
+      end;
+
     end;
   finally
     ABinaryFile.Free;
@@ -578,7 +690,22 @@ var
   ATrackPoint: TPrtTrackPoint;
   PrtTrackPointRecord: TPrtTrackPointRecord;
   Track: TPrtTrack;
+  Grid: TModflowGrid;
+  Model: TPhastModel;
+  XPrime: double;
+  YPrime: Double;
+  Point2D: TPoint2D;
 begin
+  Model := IGlobalModel as TPhastModel;
+  if Model.DisvUsed then
+  begin
+    Grid := Model.ModflowGrid;
+  end
+  else
+  begin
+    Grid := nil;
+  end;
+
   Assert(TFile.Exists(FileName));
   Splitter := TStringList.Create;
   ACsvFile := TFile.OpenText(FileName);
@@ -603,13 +730,28 @@ begin
         PrtTrackPointRecord.IREASON := StrToInt(Splitter[9]);
         PrtTrackPointRecord.TRELEASE := FortranStrToFloat(Splitter[10]);
         PrtTrackPointRecord.T := FortranStrToFloat(Splitter[11]);
-        PrtTrackPointRecord.X := FortranStrToFloat(Splitter[12]);
-        PrtTrackPointRecord.Y := FortranStrToFloat(Splitter[13]);
+        PrtTrackPointRecord.XPrime := FortranStrToFloat(Splitter[12]);
+        PrtTrackPointRecord.YPrime := FortranStrToFloat(Splitter[13]);
         PrtTrackPointRecord.Z := FortranStrToFloat(Splitter[14]);
 
         Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT];
         ATrackPoint := Track.Add;
         ATrackPoint.AssignRecord(PrtTrackPointRecord);
+        if Grid = nil then
+        begin
+          ATrackPoint.X := ATrackPoint.XPrime;
+          ATrackPoint.Y := ATrackPoint.YPrime;
+        end
+        else
+        begin
+          XPrime := ATrackPoint.XPrime;
+          YPrime := ATrackPoint.YPrime;
+          ConvertCoordinates(Grid, XPrime, YPrime, Point2D);
+          ATrackPoint.XPrime := XPrime;
+          ATrackPoint.YPrime := YPrime;
+          ATrackPoint.X := Point2D.X;
+          ATrackPoint.Y := Point2D.Y;
+        end;
         if Splitter.Count > 15 then
         begin
           ATrackPoint.NAME := Splitter[15];

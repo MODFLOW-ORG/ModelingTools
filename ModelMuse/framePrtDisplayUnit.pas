@@ -52,6 +52,9 @@ type
   private
     { Private declarations }
   public
+    procedure GetData;
+    procedure SetData;
+    procedure UpdateColorSchemes;
     { Public declarations }
   end;
 
@@ -142,6 +145,23 @@ begin
   FModel.PrtTracks := FExistingPathLines;
   EnableMenuItems;
   ForceRedraw;
+end;
+
+{ TframePrtDisplay }
+
+procedure TframePrtDisplay.GetData;
+begin
+
+end;
+
+procedure TframePrtDisplay.SetData;
+begin
+
+end;
+
+procedure TframePrtDisplay.UpdateColorSchemes;
+begin
+  UpdateColorScheme(comboColorScheme, pbColorScheme);
 end;
 
 end.

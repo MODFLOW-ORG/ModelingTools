@@ -46,7 +46,7 @@ inherited frameGwtAdvPackage: TframeGwtAdvPackage
       'Upstream'
       'Central (rarely used)'
       'Total Variation Diminishing (TVD)'
-      'UTVD')
+      'Unstructured Total Variation Diminishing (UTVD)')
     TabOrder = 1
   end
   object rdeAdePercel: TRbwDataEntry [5]

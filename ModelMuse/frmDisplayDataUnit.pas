@@ -11,7 +11,7 @@ uses
   frameCustomColorUnit, frameColorGridUnit, frameContourDataUnit,
   frameVectorsUnit, frameDrawCrossSectionUnit, frameSwrReachConnectionsUnit,
   frameSwrObsDisplayUnit,
-  framePestObservationResultsUnit, frameMt3dObsResultsUnit;
+  framePestObservationResultsUnit, frameMt3dObsResultsUnit, framePrtDisplayUnit;
 
 type
   TPostPages = (ppColorGrid, ppContourData, ppPathline, ppEndPoints,
@@ -55,6 +55,8 @@ type
     framePestObs: TframePestObservationResults;
     jvspMt3dObs: TJvStandardPage;
     frameMt3dObsResults: TframeMt3dObsResults;
+    jvspPrtTracks: TJvStandardPage;
+    framePrtDisplay: TframePrtDisplay;
     procedure btnApplyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject); override;
     procedure pglstMainChange(Sender: TObject);
@@ -120,6 +122,7 @@ resourcestring
   StrSWRObservations = 'SWR Observations';
   StrPESTObservationRes = 'PEST Observation Results';
   StrMT3DObservationRes = 'MT3D Observation Results';
+  StrPRTTracks = 'PRT Tracks';
 
 {$R *.dfm}
 
@@ -179,6 +182,12 @@ begin
   Node.PageIndex := jvspModpathEndpoints.PageIndex;
   Node := tvpglstMain.Items.Add(nil, StrMODPATHTimeSeries) as TJvPageIndexNode;
   Node.PageIndex := jvspModpathTimeSeries.PageIndex;
+
+{$IFDEF PRT}
+  Node := tvpglstMain.Items.Add(nil, StrPRTTracks) as TJvPageIndexNode;
+  Node.PageIndex := jvspPrtTracks.PageIndex;
+{$ENDIF}
+
   Node := tvpglstMain.Items.Add(nil, StrHeadObservationRes) as TJvPageIndexNode;
   Node.PageIndex := jvspHeadObsResults.PageIndex;
 

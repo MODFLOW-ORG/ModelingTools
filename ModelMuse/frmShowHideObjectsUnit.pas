@@ -20,7 +20,7 @@ uses
 {$IFNDEF CommunityEdition}
   ,
   VirtualTrees.BaseAncestorVCL, VirtualTrees.BaseTree, VirtualTrees.AncestorVCL,
-  VirtualTrees.Types
+  VirtualTrees.Types, System.UITypes
 {$ENDIF}
   ;
 

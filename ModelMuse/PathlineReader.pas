@@ -1302,8 +1302,8 @@ The IREASON field indicates the reason the particle track record was saved:
   TPrtColorLimitChoice = (pcNone, pcParticleNumber,
     pcXPrime, pcYPrime, pcZ,
     pcStartXPrime, pcStartYPrime, pcStartZ,
-    pcEndXPrime, pcEndYPrime, pcEndZ, pcPrp, pcReleaseTime, pcTime, pcStatus,
-    pcReason, pcZone);
+    pcEndXPrime, pcEndYPrime, pcEndZ, pcPrp, pcReleaseTime, pcTime, pcLogTime,
+    pcStatus, pcReason, pcZone);
 
   TPrtColorLimits = class(TCustomColorLimits)
   private
@@ -1321,7 +1321,7 @@ The IREASON field indicates the reason the particle track record was saved:
   TPrtPlotTypes = set of TPrtPlotType;
 
 
-  TPrtTrackDisplayLimits = class(TPersistent)
+  TPrtTrackDisplayLimits = class(TCustomModpathSettings)
   private
     FInvalidateModelEvent: TNotifyEvent;
     FLimitToCurrentIn2D: boolean;
@@ -1403,6 +1403,8 @@ The IREASON field indicates the reason the particle track record was saved:
     property TopQuadTree: TRbwQuadTree read FTopQuadTree;
     property FrontQuadTree: TRbwQuadTree read FFrontQuadTree;
     property SideQuadTree: TRbwQuadTree read FSideQuadTree;
+    function GetPointColor(MaxValue, MinValue: double;
+      Point: TPrtTrackPoint): TColor;
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create(Model: TBaseModel);
@@ -9684,6 +9686,8 @@ var
   ATrack: TPrtTrack;
   APoint: TPrtTrackPoint;
   PriorPoint: TPrtTrackPoint;
+  Points: array [0..1] of TPoint;
+  ShowPriorPoint: Boolean;
   function ShowPrtPoint(APoint: TPrtTrackPoint): Boolean;
   var
     Model: TCustomModel;
@@ -9860,6 +9864,35 @@ var
         end;
       else Assert(False);
     end;
+    if ATrack.Count = 1 then
+    begin
+      if (ADisplayPoint.X <= MaxCoord)
+        and (ADisplayPoint.X >= MinCoord)
+        and (ADisplayPoint.Y <= MaxCoord)
+        and (ADisplayPoint.Y >= MinCoord) then
+      begin
+        AColor := GetPointColor(MaxValue, MinValue, APoint);
+        AColor32 := Color32(AColor);
+        ARect.Top := ADisplayPoint.Y -2;
+        ARect.Bottom := ADisplayPoint.Y +2;
+        ARect.Left := ADisplayPoint.X -2;
+        ARect.Right := ADisplayPoint.X +2;
+        DrawBigRectangle32(BitMap, AColor32, AColor32, 1, ARect);
+      end;
+    end
+    else
+    begin
+      Points[1] := ADisplayPoint;
+      if ShowPriorPoint then
+      begin
+        AColor := GetPointColor(MaxValue, MinValue, APoint);
+        AColor32 := Color32(AColor);
+        DrawBigPolyline32(BitMap, AColor32, 1, Points, True);
+      end;
+      Points[0] := ADisplayPoint;
+      ShowPriorPoint := True;
+    end;
+
   end;
 //  ColorLimits: TPrtColorLimits;
 begin
@@ -9997,6 +10030,7 @@ begin
         begin
           ATrack := LocalTracks[PrpIndex, ParticleIndex];
           PriorPoint := nil;
+          ShowPriorPoint := False;
           for var PointIndex := 0 to ATrack.Count - 1 do
           begin
             APoint := ATrack[PointIndex];
@@ -10007,10 +10041,12 @@ begin
                 DrawLine(APoint)
                 // plot pathline segm);ent.
               end;
-              PriorPoint := APoint
+              PriorPoint := APoint;
+              ShowPriorPoint := True;
             end
             else
             begin
+              ShowPriorPoint := False;
               if PriorPoint <> nil then
               begin
                 if PriorPoint.T <> APoint.T then
@@ -10458,6 +10494,139 @@ begin
           end;
         end
       else Assert(False);
+    end;
+  end;
+end;
+
+function TPrtTrackDisplayer.GetPointColor(MaxValue, MinValue: double;
+  Point: TPrtTrackPoint): TColor;
+var
+  AValue: Double;
+begin
+  AValue := 0;
+  {
+    TPrtColorLimitChoice = (pcNone, pcParticleNumber,
+    pcXPrime, pcYPrime, pcZ,
+    pcStartXPrime, pcStartYPrime, pcStartZ,
+    pcEndXPrime, pcEndYPrime, pcEndZ, pcPrp, pcReleaseTime, pcTime, pcStatus,
+    pcReason, pcZone);
+}
+  case PrtTrackDisplayLimits.ColorLimits.ColoringChoice of
+    pcNone:
+      begin
+        result := clBlack;
+        Exit;
+      end;
+    pcParticleNumber:
+      begin
+        AValue := Point.IRPT;
+      end;
+    pcXPrime:
+      begin
+        AValue := Point.XPrime;
+      end;
+    pcYPrime:
+      begin
+        AValue := Point.YPrime;
+      end;
+    pcZ:
+      begin
+        AValue := Point.Z;
+      end;
+    pcStartXPrime:
+      begin
+        AValue := Point.StartPoint.XPrime;
+      end;
+    pcStartYPrime:
+      begin
+        AValue := Point.StartPoint.YPrime;
+      end;
+    pcStartZ:
+      begin
+        AValue := Point.StartPoint.Z;
+      end;
+    pcEndXPrime:
+      begin
+        AValue := Point.EndPoint.XPrime;
+      end;
+    pcEndYPrime:
+      begin
+        AValue := Point.EndPoint.YPrime;
+      end;
+    pcEndZ:
+      begin
+        AValue := Point.EndPoint.Z;
+      end;
+    pcPrp:
+      begin
+        AValue := Point.IPRP;
+      end;
+    pcReleaseTime:
+      begin
+        AValue := Point.TRELEASE;
+      end;
+    pcTime:
+      begin
+        AValue := Point.T;
+      end;
+    pcLogTime:
+      begin
+       if Point.T > 0 then
+        begin
+          AValue := Log10(Point.T);
+        end
+        else
+        begin
+          result := clBlack;
+          Exit;
+        end;
+      end;
+    pcStatus:
+      begin
+        AValue := Point.ISTATUS;
+      end;
+    pcReason:
+      begin
+        AValue := Point.IREASON;
+      end;
+    pcZone:
+      begin
+        AValue := Point.IZONE;
+      end;
+
+    {
+    clcLogTime:
+      begin
+        if Point.T > 0 then
+        begin
+          AValue := Log10(Point.T);
+        end
+        else
+        begin
+          result := clBlack;
+          Exit;
+        end;
+      end;
+      }
+    else Assert(False);
+  end;
+  if AValue > MaxValue then
+  begin
+    result := clBlack;
+  end
+  else if AValue < MinValue then
+  begin
+    result := clBlack;
+  end
+  else
+  begin
+    if MaxValue = MinValue then
+    begin
+      result := PrtTrackDisplayLimits.ColorParameters.FracToColor(0.5)
+    end
+    else
+    begin
+      result := PrtTrackDisplayLimits.ColorParameters.FracToColor(1-((AValue-MinValue)/(MaxValue-MinValue)))
     end;
   end;
 end;
