@@ -5439,7 +5439,7 @@ uses Dialogs, OpenGL12x, Math, frmGoPhastUnit, UndoItems,
   LockedGlobalVariableChangers, ModflowBuoyancyWriterUnit,
   ModflowViscosityWriterUnit, ModflowMvrUnit, ModflowCndWriterUnit,
   ModflowEstWriterUnit, ModflowMipWriterUnit, ModflowPrtOcWriterUnit,
-  ModflowpPrpWriterUnit;
+  ModflowpPrpWriterUnit, ModflowGwfPrtExchangeWriterUnit;
 
 
 
@@ -44361,6 +44361,7 @@ var
   CncWriter: TModflowCncWriter;
   SrcWriter: TModflowSrcWriter;
   ExchangeWriter: TModflowGwfGwtExchangeWriter;
+  PrtExchangeWriter: TModflowGwfPrtExchangeWriter;
   FmiWriterGwtGwe: TModflowFmiWriterGwtGwe;
   BuoyancyWriter: TBuoyancyWriter;
   ViscosityWriter: TViscosityWriter;
@@ -45975,6 +45976,18 @@ begin
           PrtModel := ModflowPackages.PrtModels[PrtIndex].PrtModel;
           if PrtModel.IsSelected then
           begin
+
+            PrtExchangeWriter := TModflowGwfPrtExchangeWriter.Create(Self, etExport);
+            try
+              PrtExchangeWriter.WriteFile(FileName, PrtIndex);
+            finally
+              PrtExchangeWriter.Free;
+            end;
+            Application.ProcessMessages;
+            if not frmProgressMM.ShouldContinue then
+            begin
+              Exit;
+            end;
 
             MipWriter := TMipWriter.Create(Self, etExport);
             try

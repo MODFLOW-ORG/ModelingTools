@@ -2374,6 +2374,7 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="PrtTrackReaderUnit.pas"/>
+        <DCCReference Include="ModflowGwfPrtExchangeWriterUnit.pas"/>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

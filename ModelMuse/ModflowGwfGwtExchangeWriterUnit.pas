@@ -41,13 +41,11 @@ end;
 procedure TModflowGwfGwtExchangeWriter.WriteFile(
   const AFileName: string; SpeciesIndex: Integer);
 var
-//  Abbreviation: string;
   SpeciesName: string;
   GwtFile: string;
   Exchange: string;
   Species: TMobileChemSpeciesItem;
 begin
-//  Abbreviation := 'GWF6-GWT6';
   Species := Model.MobileComponents[SpeciesIndex];
   SpeciesName := Species.Name;
   if Species.UsedForGwt then

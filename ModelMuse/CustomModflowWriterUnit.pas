@@ -10128,8 +10128,10 @@ var
 begin
   WriteString('BEGIN EXCHANGES');
   NewLine;
-  if FWritingFlowModel and ((Model.GwtUsed and not Model.SeparateGwtUsed)
-    or (Model.GweUsed and not Model.SeparateGweUsed)) then
+  if FWritingFlowModel
+    and ((Model.GwtUsed and not Model.SeparateGwtUsed)
+    or   (Model.GweUsed and not Model.SeparateGweUsed)
+    or   (Model.PrtUsed and not Model.SeparatePrtUsed)) then
   begin
     for index := 0 to FExchanges.Count - 1 do
     begin

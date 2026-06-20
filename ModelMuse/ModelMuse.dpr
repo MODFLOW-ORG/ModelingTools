@@ -973,7 +973,8 @@ uses
   ModflowIFlowFaceUnit in 'ModflowIFlowFaceUnit.pas',
   frameScreenObjectIFlowFaceUnit in 'frameScreenObjectIFlowFaceUnit.pas' {frameScreenObjectIFlowFace: TFrame},
   framePrtDisplayUnit in 'framePrtDisplayUnit.pas' {framePrtDisplay: TFrame},
-  PrtTrackReaderUnit in 'PrtTrackReaderUnit.pas';
+  PrtTrackReaderUnit in 'PrtTrackReaderUnit.pas',
+  ModflowGwfPrtExchangeWriterUnit in 'ModflowGwfPrtExchangeWriterUnit.pas';
 
 {$R *.res}
 
