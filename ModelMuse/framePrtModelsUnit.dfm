@@ -54,6 +54,7 @@ object framePrtModels: TframePrtModels
       OnSetEditText = framePrtModelsGridGridSetEditText
       OnBeforeDrawCell = framePrtModelsGridGridBeforeDrawCell
       OnEndUpdate = framePrtModelsGridGridEndUpdate
+      OnStateChange = framePrtModelsGridGridStateChange
       Columns = <
         item
           AutoAdjustRowHeights = False

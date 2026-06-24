@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, frameGridUnit,
-  framePrpMultiplePackagesUnit, JvPageList, FramePackageNodeLinkUnit,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls,
+  frameGridUnit, framePrpMultiplePackagesUnit, JvPageList, FramePackageNodeLinkUnit,
   ModflowPackageSelectionUnit, System.AnsiStrings;
 
 type
@@ -18,6 +18,8 @@ type
         LongInt; var CanSelect: Boolean);
     procedure framePrtModelsGridGridSetEditText(Sender: TObject; ACol, ARow:
         LongInt; const Value: string);
+    procedure framePrtModelsGridGridStateChange(Sender: TObject; ACol, ARow:
+        LongInt; const Value: TCheckBoxState);
     procedure framePrtModelsGridseNumberChange(Sender: TObject);
   private
     FPackageTreeView: TTreeView;
@@ -29,6 +31,7 @@ type
     function CreateNewPrtFrame: TframePrpMultiplePackages;
     Procedure Initialize;
     procedure ClearFrames;
+    procedure SelectedChange(Sender: TObject);
     { Private declarations }
   public
     procedure Finalize;
@@ -192,6 +195,18 @@ begin
   end;
 end;
 
+procedure TframePrtModels.framePrtModelsGridGridStateChange(Sender: TObject;
+    ACol, ARow: LongInt; const Value: TCheckBoxState);
+var
+  PrpModelFrame: TframePrpMultiplePackages;
+begin
+  PrpModelFrame := framePrtModelsGrid.Grid.Objects[Ord(pmcUsed), ARow] as TframePrpMultiplePackages;
+  if PrpModelFrame <> nil then
+  begin
+    PrpModelFrame.Selected := framePrtModelsGrid.Grid.Checked[ACol, ARow];
+  end;
+end;
+
 procedure TframePrtModels.framePrtModelsGridseNumberChange(Sender: TObject);
 var
   NewFrame: TframePrpMultiplePackages;
@@ -264,6 +279,7 @@ begin
     finally
       framePrtModelsGrid.Grid.EndUpdate;
     end;
+    SelectedChange(nil);
   finally
     FGettingData := False;
   end;
@@ -283,6 +299,15 @@ begin
   end;
 
   framePrtModelsGrid.seNumber.AsInteger := 0;
+end;
+
+procedure TframePrtModels.SelectedChange(Sender: TObject);
+begin
+  for var RowIndex := 1 to framePrtModelsGrid.seNumber.AsInteger do
+  begin
+    framePrtModelsGridGridStateChange(Sender, Ord(pmcUsed), RowIndex,
+      framePrtModelsGrid.Grid.State[Ord(pmcUsed), RowIndex]);
+  end;
 end;
 
 procedure TframePrtModels.SetData(PrtModels: TPrtModels);

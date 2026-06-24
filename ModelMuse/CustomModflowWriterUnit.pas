@@ -1156,6 +1156,7 @@ end;
     FSeparateGwe: Boolean;
     FSimFileNames: TStringList;
     FWritingFlowModel: Boolean;
+    FWritingPrt: Boolean;
     procedure WriteOptions;
     procedure WriteTiming;
     procedure WriteModels;
@@ -1186,6 +1187,7 @@ end;
       read GetGwtTDisFileNames write SetGwtTDisFileNames;
     property SimFileNameCount: Integer read GetSimFileNameCount;
     property SimFileNames[Index: Integer]: string read GetSimFileName;
+    procedure WriteSeparatePrtFile(FileName: string; PrtModel: TPrtModel);
   end;
 
 procedure MoveAppToDirectory(Model: TBaseModel; const AppFullPath, Directory: string);
@@ -10156,11 +10158,14 @@ var
 //  Index: Integer;
   SpeciesIndex: Integer;
   SpeciesName: string;
+  PrtModels: TPrtModels;
+  PrtModel: TPrtModel;
 begin
   if Model.ModelSelection <> msModflow2015 then
   begin
     Exit;
   end;
+  FWritingPrt := False;
   FileRoot := ChangeFileExt(ExtractFileName(FileName), '.');
   BackupFileName := IncludeTrailingPathDelimiter(ExtractFileDir(FileName))
     + FileRoot + 'mfsim.nam';
@@ -10200,6 +10205,21 @@ begin
     end;
   end;
 
+  if Model.PrtUsed and Model.SeparatePrtUsed then
+  begin
+    PrtModels := Model.ModflowPackages.PrtModels;
+    for var ModelIndex := 0 to PrtModels.Count - 1 do
+    begin
+      PrtModel := PrtModels[ModelIndex].PrtModel;
+      if PrtModel.IsSelected and PrtModel.RunAsSeparateSimulation then
+      begin
+        BackupFileName := IncludeTrailingPathDelimiter(ExtractFileDir(FileName))
+          + FileRoot + PrtModel.ModelName + '.mfsim.nam';
+        WriteFileInternal(FileName, BackupFileName);
+      end;
+    end;
+  end;
+
 end;
 
 function TMf6_SimNameFileWriter.GetShouldWriteLine(ModelIndex: Integer): Boolean;
@@ -10233,7 +10253,14 @@ begin
       end;
     mtParticleTransport:
       begin
-        result := not FModelDataList[ModelIndex].RunAsSeparateSimulation;
+        if FWritingFlowModel then
+        begin
+          result := not FModelDataList[ModelIndex].RunAsSeparateSimulation;
+        end
+        else
+        begin
+          result := FModelDataList[ModelIndex].RunAsSeparateSimulation;
+        end;
       end;
     else Assert(False);
   end;
@@ -10281,6 +10308,7 @@ begin
     begin
       Exit;
     end;
+
     WriteSolutionGroups;
   finally
     CloseFile;
@@ -10317,7 +10345,7 @@ end;
 
 procedure TMf6_SimNameFileWriter.WriteOptions;
 var
-  SmsPkg: TSmsPackageSelection;
+  ImsPkg: TSmsPackageSelection;
   HasOptions: Boolean;
   OC: TModflowOutputControl;
   procedure WriteBegin;
@@ -10329,31 +10357,32 @@ var
     end;
   end;
 begin
-  SmsPkg := Model.ModflowPackages.SmsPackage;
+  // ImsPkg is the solver package
+  ImsPkg := Model.ModflowPackages.SmsPackage;
   HasOptions := False;
-  if SmsPkg.ContinueModel then
+  if ImsPkg.ContinueModel then
   begin
     WriteBegin;
     WriteString('  CONTINUE');
     NewLine;
   end;
 
-  if SmsPkg.MaxErrors > -1 then
+  if ImsPkg.MaxErrors > -1 then
   begin
     WriteBegin;
     WriteString('  MAXERRORS');
-    WriteInteger(SmsPkg.MaxErrors);
+    WriteInteger(ImsPkg.MaxErrors);
     NewLine;
   end;
 
-  if SmsPkg.CheckInput = ciDontCheck then
+  if ImsPkg.CheckInput = ciDontCheck then
   begin
     WriteBegin;
     WriteString('  NOCHECK');
     NewLine;
   end;
 
-  case SmsPkg.MemoryPrint of
+  case ImsPkg.MemoryPrint of
     mpNone:
       begin
         // do nothing
@@ -10386,6 +10415,12 @@ begin
   begin
     WriteEndOptions;
   end;
+end;
+
+procedure TMf6_SimNameFileWriter.WriteSeparatePrtFile(FileName: string;
+  PrtModel: TPrtModel);
+begin
+  FWritingPrt := True;
 end;
 
 procedure TMf6_SimNameFileWriter.WriteSolutionGroups;

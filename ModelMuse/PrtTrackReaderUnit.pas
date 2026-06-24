@@ -132,6 +132,7 @@ type
     property Items[Index: Integer]: TPrtTrackPoint read GetTrackPoint write SetTrackPoint; default;
     property IPRP: Integer read Get_IPRP;
     property IRPT: Integer read Get_IRPT;
+    function TestGetMaxTime(var Maxtime: double): boolean;
   end;
 
   TPrtTrackList = TList<TPrtTrack>;
@@ -167,6 +168,7 @@ type
     property Tracks[IPRP, IRPT: Integer]: TPrtTrack read GetTrack; default;
     property IprpCount: Integer read GetIprpCount;
     property IrptCount[IPRP: Integer]: Integer read GetIrptCount;
+    function TestGetMaxTime(var Maxtime: double): boolean;
   end;
 
 implementation
@@ -497,6 +499,15 @@ begin
   inherited Items[Index] := Value;
 end;
 
+function TPrtTrack.TestGetMaxTime(var Maxtime: double): boolean;
+begin
+  result := Count > 0;
+  if result then
+  begin
+    Maxtime := Last.T;
+  end;
+end;
+
 { TPrtTrackItem }
 
 procedure TPrtTrackItem.Assign(Source: TPersistent);
@@ -770,5 +781,36 @@ begin
   end;
 
 end;
+
+function TPrtTracks.TestGetMaxTime(var Maxtime: double): boolean;
+var
+  ATrack: TPrtTrack;
+  AValue: double;
+begin
+  result := False;
+  for var PrpIndex := 0 to IprpCount - 1 do
+  begin
+    for var ParticleIndex := 0 to IrptCount[PrpIndex] - 1 do
+    begin
+      ATrack := Tracks[PrpIndex, ParticleIndex];
+      if ATrack.TestGetMaxTime(AValue) then
+      begin
+        if result then
+        begin
+          if AValue > Maxtime then
+          begin
+            Maxtime := AValue;
+          end;
+        end
+        else
+        begin
+          result := True;
+          Maxtime := AValue;
+        end;
+      end;
+    end;
+  end;
+end;
+
 
 end.

@@ -21,7 +21,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabTrackByStressPeriod
+    ActivePage = tabOptions
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -39,6 +39,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Width = 201
           Height = 17
           Caption = 'Use retardation factor'
+          Enabled = False
           TabOrder = 0
         end
         object cbUseParticleStopZones: TCheckBox
@@ -47,6 +48,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Width = 229
           Height = 17
           Caption = 'Use particle stop zones'
+          Enabled = False
           TabOrder = 1
         end
       end
@@ -79,6 +81,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Width = 167
           Height = 100
           DoubleBuffered = False
+          Enabled = False
           ItemHeight = 17
           Items.Strings = (
             'Binary budget file'
@@ -95,6 +98,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Width = 257
           Height = 172
           DoubleBuffered = False
+          Enabled = False
           ItemHeight = 17
           Items.Strings = (
             'TRACK_RELEASE'
@@ -123,6 +127,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Width = 255
           Height = 17
           Caption = 'Run as a separate simulation'
+          Enabled = False
           TabOrder = 0
         end
       end
@@ -136,6 +141,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         Width = 657
         Height = 326
         Align = alClient
+        Enabled = False
         TabOrder = 0
         ExplicitWidth = 657
         ExplicitHeight = 326
@@ -180,6 +186,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           OnSetEditText = framePrpPackagesGridSetEditText
           OnBeforeDrawCell = framePrpPackagesGridBeforeDrawCell
           OnEndUpdate = framePrpPackagesGridEndUpdate
+          OnStateChange = framePrpPackagesGridStateChange
           Columns = <
             item
               AutoAdjustRowHeights = False
@@ -243,6 +250,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         Width = 657
         Height = 269
         Align = alClient
+        Enabled = False
         TabOrder = 0
         ExplicitTop = 57
         ExplicitWidth = 657
@@ -361,6 +369,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         Width = 657
         Height = 269
         Align = alClient
+        Enabled = False
         TabOrder = 1
         ExplicitTop = 57
         ExplicitWidth = 657
@@ -604,5 +613,38 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         end
       end
     end
+  end
+  inherited rcSelectionController: TRbwController
+    ControlList = <
+      item
+        Control = lblComments
+      end
+      item
+        Control = memoComments
+      end
+      item
+        Control = cbRunAsSeparateSimulation
+      end
+      item
+        Control = cbRetardationFactor
+      end
+      item
+        Control = cbUseParticleStopZones
+      end
+      item
+        Control = chklstOutputFiles
+      end
+      item
+        Control = chklstTrackEvents
+      end
+      item
+        Control = framePrpPackages
+      end
+      item
+        Control = frameTrackTimes
+      end
+      item
+        Control = frameReleasePeriodData
+      end>
   end
 end

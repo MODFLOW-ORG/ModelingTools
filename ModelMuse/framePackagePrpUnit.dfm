@@ -22,7 +22,7 @@ inherited framePackagePrp: TframePackagePrp
     Top = 144
     Width = 577
     Height = 394
-    ActivePage = tabReleaseTimes
+    ActivePage = tabReleasePeriodData
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -61,6 +61,7 @@ inherited framePackagePrp: TframePackagePrp
         Width = 153
         Height = 17
         Caption = 'DRAPE'
+        Enabled = False
         TabOrder = 10
       end
       object cbEXTEND_TRACKING: TCheckBox
@@ -69,6 +70,7 @@ inherited framePackagePrp: TframePackagePrp
         Width = 216
         Height = 17
         Caption = 'EXTEND_TRACKING'
+        Enabled = False
         TabOrder = 2
       end
       object cbSTOP_AT_WEAK_SINK: TCheckBox
@@ -77,6 +79,7 @@ inherited framePackagePrp: TframePackagePrp
         Width = 223
         Height = 17
         Caption = 'STOP_AT_WEAK_SINK'
+        Enabled = False
         TabOrder = 8
       end
       object comboCOORDINATE_CHECK_METHOD: TJvImageComboBox
@@ -86,7 +89,9 @@ inherited framePackagePrp: TframePackagePrp
         Height = 25
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
+        Color = clBtnFace
         DroppedWidth = 145
+        Enabled = False
         ImageHeight = 0
         ImageWidth = 0
         ItemHeight = 19
@@ -111,7 +116,9 @@ inherited framePackagePrp: TframePackagePrp
         Height = 25
         Style = csOwnerDrawVariable
         ButtonStyle = fsLighter
+        Color = clBtnFace
         DroppedWidth = 145
+        Enabled = False
         ImageHeight = 0
         ImageWidth = 0
         ItemHeight = 19
@@ -140,6 +147,7 @@ inherited framePackagePrp: TframePackagePrp
         Width = 257
         Height = 23
         Style = csDropDownList
+        Enabled = False
         ItemIndex = 0
         TabOrder = 4
         Text = 'None'
@@ -154,6 +162,7 @@ inherited framePackagePrp: TframePackagePrp
         Top = 13
         Width = 224
         Height = 56
+        Enabled = False
         TabOrder = 0
         ExplicitLeft = 1
         ExplicitTop = 13
@@ -181,6 +190,7 @@ inherited framePackagePrp: TframePackagePrp
         Top = 142
         Width = 256
         Height = 56
+        Enabled = False
         TabOrder = 6
         ExplicitLeft = 289
         ExplicitTop = 142
@@ -207,6 +217,7 @@ inherited framePackagePrp: TframePackagePrp
         Top = 73
         Width = 272
         Height = 56
+        Enabled = False
         TabOrder = 3
         ExplicitLeft = 289
         ExplicitTop = 73
@@ -258,6 +269,7 @@ inherited framePackagePrp: TframePackagePrp
         Top = 235
         Width = 232
         Height = 56
+        Enabled = False
         TabOrder = 7
         ExplicitLeft = -8
         ExplicitTop = 235
@@ -307,6 +319,7 @@ inherited framePackagePrp: TframePackagePrp
         Width = 191
         Height = 17
         Caption = 'LOCAL_Z'
+        Enabled = False
         TabOrder = 12
       end
     end
@@ -342,6 +355,7 @@ inherited framePackagePrp: TframePackagePrp
         Width = 569
         Height = 299
         Align = alClient
+        Enabled = False
         TabOrder = 1
         ExplicitTop = 65
         ExplicitWidth = 569
@@ -424,6 +438,7 @@ inherited framePackagePrp: TframePackagePrp
         Width = 569
         Height = 299
         Align = alClient
+        Enabled = False
         TabOrder = 1
         ExplicitTop = 65
         ExplicitWidth = 569
@@ -659,6 +674,55 @@ inherited framePackagePrp: TframePackagePrp
     end
   end
   inherited rcSelectionController: TRbwController
+    ControlList = <
+      item
+        Control = lblComments
+      end
+      item
+        Control = memoComments
+      end
+      item
+        Control = rdeISTOPZONE
+      end
+      item
+        Control = frameEXIT_SOLVE_TOLERANCE
+      end
+      item
+        Control = cbLocalZ
+      end
+      item
+        Control = cbEXTEND_TRACKING
+      end
+      item
+        Control = comboTrackOutput
+      end
+      item
+        Control = frameStopTravelTime
+      end
+      item
+        Control = cbSTOP_AT_WEAK_SINK
+      end
+      item
+        Control = cbDRAPE
+      end
+      item
+        Control = frameRELEASE_TIME_TOLERANCE
+      end
+      item
+        Control = frameRELEASE_TIME_FREQUENCY
+      end
+      item
+        Control = comboDryTrackingMethod
+      end
+      item
+        Control = comboCOORDINATE_CHECK_METHOD
+      end
+      item
+        Control = frameReleaseTimes
+      end
+      item
+        Control = frameReleasePeriodData
+      end>
     Left = 256
     Top = 32
   end

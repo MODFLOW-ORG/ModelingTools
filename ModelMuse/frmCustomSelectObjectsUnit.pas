@@ -209,6 +209,10 @@ type
     FTvkList: TList;
     FTvsNode: PVirtualNode;
     FTvsList: TList;
+    FPrpNode: PVirtualNode;
+    FPrpList: TList;
+    FIFlowFaceNode: PVirtualNode;
+    FIFlowFaceList: TList;
 
 
     procedure RecordExpandedNodes;
@@ -1325,6 +1329,16 @@ begin
     begin
       Data.Caption := Packages.TvsPackage.PackageIdentifier;
       Node.CheckType := ctTriStateCheckBox;
+    end
+    else if Node = FPrpNode then
+    begin
+      Data.Caption := 'PRT: PRP Particle Release Point';
+      Node.CheckType := ctTriStateCheckBox;
+    end
+    else if Node = FIFlowFaceNode then
+    begin
+      Data.Caption := 'IFLOWFACE';
+      Node.CheckType := ctTriStateCheckBox;
     end;
 
     If (ParentNode = nil) then
@@ -2430,6 +2444,20 @@ begin
       InitializeData(FTvsNode);
     end;
 
+    if ((AScreenObject.ModflowPrpBoundary <> nil)
+      and AScreenObject.ModflowPrpBoundary.Used)
+      then
+    begin
+      InitializeData(FPrpNode);
+    end;
+
+    if ((AScreenObject.ModflowIFlowFaceLocation <> nil)
+      and AScreenObject.ModflowIFlowFaceLocation.Used)
+      then
+    begin
+      InitializeData(FIFlowFaceNode);
+    end;
+
 
     if PutInOtherObjects then
     begin
@@ -2633,10 +2661,8 @@ begin
     vstCheckDeleteNode(FFmp4CropHasSalinityDemandNode);
     vstCheckDeleteNode(FTvkNode);
     vstCheckDeleteNode(FTvsNode);
-
-
-
-
+    vstCheckDeleteNode(FPrpNode);
+    vstCheckDeleteNode(FIFlowFaceNode);
 
     ParentNodes := TList.Create;
     try
@@ -3126,6 +3152,8 @@ begin
     InitializeMF_BoundaryNode(FFmp4CropHasSalinityDemandNode, PriorNode, FFmp4CropHasSalinityDemandList);
     InitializeMF_BoundaryNode(FTvkNode, PriorNode, FTvkList);
     InitializeMF_BoundaryNode(FTvsNode, PriorNode, FTvsList);
+    InitializeMF_BoundaryNode(FPrpNode, PriorNode, FPrpList);
+    InitializeMF_BoundaryNode(FIFlowFaceNode, PriorNode, FIFlowFaceList);
 
 
 
@@ -3502,6 +3530,8 @@ begin
   FFmp4CropHasSalinityDemandList.Free;
   FTvkList.Free;
   FTvsList.Free;
+  FPrpList.Free;
+  FIFlowFaceList.Free;
   inherited;
 end;
 
@@ -3653,6 +3683,8 @@ begin
   FFmp4CropHasSalinityDemandList := TList.Create;
   FTvkList := TList.Create;
   FTvsList := TList.Create;
+  FPrpList := TList.Create;
+  FIFlowFaceList := TList.Create;
 
   FCanEdit := True;
 
@@ -3818,6 +3850,8 @@ begin
   FFmp4CropHasSalinityDemandNode := nil;
   FTvkNode := nil;
   FTvsNode := nil;
+  FPrpNode := nil;
+  FIFlowFaceNode := nil;
 end;
 
 function TfrmCustomSelectObjects.NodeString(ANode: PVirtualNode): string;
@@ -4101,6 +4135,9 @@ begin
   FFmp4CropHasSalinityDemandList.Sort(ScreenObjectCompare);
   FTvkList.Sort(ScreenObjectCompare);
   FTvsList.Sort(ScreenObjectCompare);
+  FPrpList.Sort(ScreenObjectCompare);
+  FIFlowFaceList.Sort(ScreenObjectCompare);
+
 
   for Index := 0 to FDataSetLists.Count - 1 do
   begin

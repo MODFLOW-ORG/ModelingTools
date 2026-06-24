@@ -1340,6 +1340,7 @@ The IREASON field indicates the reason the particle track record was saved:
     FPlotTypes: TPrtPlotTypes;
     FEndPointSize: Integer;
     FReleaseTimeLimits: TShowFloatLimit;
+    FLineNumberLimits: TShowIntegerLimit;
     procedure SetLimitToCurrentIn2D(const Value: boolean);
     procedure SetColumnLimits(const Value: TShowIntegerLimit);
     procedure SetLayerLimits(const Value: TShowIntegerLimit);
@@ -1356,6 +1357,7 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure SetPlotTypes(const Value: TPrtPlotTypes);
     procedure SetEndPointSize(const Value: Integer);
     procedure SetReleaseTimeLimits(const Value: TShowFloatLimit);
+    procedure SetLineNumberLimits(const Value: TShowIntegerLimit);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create(InvalidateModelEvent: TNotifyEvent);
@@ -1369,6 +1371,7 @@ The IREASON field indicates the reason the particle track record was saved:
     property RowLimits: TShowIntegerLimit read FRowLimits write SetRowLimits;
     property LayerLimits: TShowIntegerLimit read FLayerLimits
       write SetLayerLimits;
+    property LineNumberLimits: TShowIntegerLimit read FLineNumberLimits write SetLineNumberLimits;
     property TimeLimits: TShowFloatLimit read FTimeLimits write SetTimeLimits;
     property ReleaseTimeLimits: TShowFloatLimit read FReleaseTimeLimits write SetReleaseTimeLimits;
     property PrpLimits: TByteSetLimits read FPrpLimits
@@ -9401,21 +9404,22 @@ begin
   if Source is TPrtTrackDisplayLimits then
   begin
     TrackDisplaySource := TPrtTrackDisplayLimits(Source);
-    ShowChoice   := TrackDisplaySource.ShowChoice;
-    LimitToCurrentIn2D   := TrackDisplaySource.LimitToCurrentIn2D;
-    ColumnLimits   := TrackDisplaySource.ColumnLimits;
-    RowLimits   := TrackDisplaySource.RowLimits;
-    LayerLimits   := TrackDisplaySource.LayerLimits;
-    TimeLimits   := TrackDisplaySource.TimeLimits;
-    ReleaseTimeLimits   := TrackDisplaySource.ReleaseTimeLimits;
-    PrpLimits   := TrackDisplaySource.PrpLimits;
-    ReleasePointLimits   := TrackDisplaySource.ReleasePointLimits;
-    ZoneLimits   := TrackDisplaySource.ZoneLimits;
-    StatusLimit   := TrackDisplaySource.StatusLimit;
-    ReasonLimits   := TrackDisplaySource.ReasonLimits;
-    SelectedTimeLimits   := TrackDisplaySource.SelectedTimeLimits;
-    PlotTypes   := TrackDisplaySource.PlotTypes;
-    EndPointSize   := TrackDisplaySource.EndPointSize;
+    ShowChoice := TrackDisplaySource.ShowChoice;
+    LimitToCurrentIn2D := TrackDisplaySource.LimitToCurrentIn2D;
+    ColumnLimits := TrackDisplaySource.ColumnLimits;
+    RowLimits := TrackDisplaySource.RowLimits;
+    LayerLimits := TrackDisplaySource.LayerLimits;
+    LineNumberLimits := TrackDisplaySource.LineNumberLimits;
+    TimeLimits := TrackDisplaySource.TimeLimits;
+    ReleaseTimeLimits := TrackDisplaySource.ReleaseTimeLimits;
+    PrpLimits := TrackDisplaySource.PrpLimits;
+    ReleasePointLimits := TrackDisplaySource.ReleasePointLimits;
+    ZoneLimits := TrackDisplaySource.ZoneLimits;
+    StatusLimit := TrackDisplaySource.StatusLimit;
+    ReasonLimits := TrackDisplaySource.ReasonLimits;
+    SelectedTimeLimits := TrackDisplaySource.SelectedTimeLimits;
+    PlotTypes := TrackDisplaySource.PlotTypes;
+    EndPointSize := TrackDisplaySource.EndPointSize;
   end
   else
   begin
@@ -9431,6 +9435,7 @@ begin
   FLayerLimits := TShowIntegerLimit.Create;
   FRowLimits := TShowIntegerLimit.Create;
   FColumnLimits := TShowIntegerLimit.Create;
+  FLineNumberLimits := TShowIntegerLimit.Create;
   FShowChoice := scAll;
   FTimeLimits := TShowFloatLimit.Create;
   FReleaseTimeLimits := TShowFloatLimit.Create;
@@ -9448,6 +9453,7 @@ begin
   FLayerLimits.Free;
   FRowLimits.Free;
   FColumnLimits.Free;
+  FLineNumberLimits.Free;
   FTimeLimits.Free;
   FReleaseTimeLimits.Free;
   FPrpLimits.Free;
@@ -9485,6 +9491,12 @@ end;
 procedure TPrtTrackDisplayLimits.SetLimitToCurrentIn2D(const Value: boolean);
 begin
   FLimitToCurrentIn2D := Value;
+end;
+
+procedure TPrtTrackDisplayLimits.SetLineNumberLimits(
+  const Value: TShowIntegerLimit);
+begin
+  FLineNumberLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetPlotTypes(const Value: TPrtPlotTypes);
@@ -9735,6 +9747,15 @@ var
     begin
       result := (APoint.ILAY >= PrtTrackDisplayLimits.LayerLimits.StartLimit)
         and (APoint.ILAY <= PrtTrackDisplayLimits.LayerLimits.EndLimit);
+      if not result then
+      begin
+        Exit;
+      end;
+    end;
+    if PrtTrackDisplayLimits.LineNumberLimits.UseLimit then
+    begin
+      result := (APoint.IRPT >= PrtTrackDisplayLimits.LineNumberLimits.StartLimit)
+        and (APoint.IRPT <= PrtTrackDisplayLimits.LineNumberLimits.EndLimit);
       if not result then
       begin
         Exit;

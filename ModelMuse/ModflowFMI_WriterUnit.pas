@@ -216,10 +216,10 @@ var
   PrtModel: TPrtModel;
   ModelName: String;
 begin
-  if not Model.SeparatePrtUsed then
-  begin
-    Exit;
-  end;
+//  if not Model.SeparatePrtUsed then
+//  begin
+//    Exit;
+//  end;
 
 //  NameOfFile := FileName(AFileName);
   FFlowFile := FileName(AFileName);

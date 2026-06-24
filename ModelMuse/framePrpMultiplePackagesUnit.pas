@@ -44,6 +44,8 @@ type
         var CanSelect: Boolean);
     procedure framePrpPackagesGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
         const Value: string);
+    procedure framePrpPackagesGridStateChange(Sender: TObject; ACol, ARow: LongInt;
+        const Value: TCheckBoxState);
     procedure framePrpPackagesseNumberChange(Sender: TObject);
     procedure frameReleasePeriodDataGridEndUpdate(Sender: TObject);
     procedure frameReleasePeriodDataGridEnter(Sender: TObject);
@@ -62,6 +64,7 @@ type
     FGettingData: Boolean;
     function CreateNewPrpFrame: TframePackagePrp;
     procedure SetMemoWidthDelta(const Value: Integer);
+    Procedure SelectedChange(Sender: TObject);
     { Private declarations }
   public
     procedure ClearFrames;
@@ -128,6 +131,7 @@ constructor TframePrpMultiplePackages.Create(AOwner: TComponent);
 begin
   inherited;
   FFrameNodeLinks := TLinkObjectList.Create;
+  OnSelectedChange := SelectedChange;
 end;
 
 function TframePrpMultiplePackages.CreateNewPrpFrame: TframePackagePrp;
@@ -227,6 +231,19 @@ begin
         ALink.Node.Text := Value + ': (Particle Release Point (PRP) Package)';
       end;
     end;
+  end;
+end;
+
+procedure TframePrpMultiplePackages.framePrpPackagesGridStateChange(Sender:
+    TObject; ACol, ARow: LongInt; const Value: TCheckBoxState);
+var
+  PrpFrame: TframePackagePrp;
+begin
+  inherited;
+  PrpFrame := framePrpPackages.Grid.Objects[Ord(pcUsed), ARow] as TframePackagePrp;
+  if PrpFrame <> nil then
+  begin
+    PrpFrame.Selected := Selected and framePrpPackages.Grid.Checked[ACol, ARow];
   end;
 end;
 
@@ -392,6 +409,7 @@ begin
     FGettingData := False;
   end;
   framePrpPackagesseNumberChange(self);
+  SelectedChange(self);
 end;
 
 procedure TframePrpMultiplePackages.Initialize(PackageTreeView: TTreeView;
@@ -452,6 +470,15 @@ end;
 procedure TframePrpMultiplePackages.ResizeFrame(Sender: TObject);
 begin
   MemoComments.Width := Width - FMemoWidthDelta;
+end;
+
+procedure TframePrpMultiplePackages.SelectedChange(Sender: TObject);
+begin
+  for var RowIndex := 1 to framePrpPackages.seNumber.AsInteger do
+  begin
+    framePrpPackagesGridStateChange(framePrpPackages.Grid, Ord(pcUsed), RowIndex,
+      framePrpPackages.Grid.CheckState[Ord(pcUsed), RowIndex]);
+  end;
 end;
 
 procedure TframePrpMultiplePackages.SetData(PrtModel: TPrtModel);

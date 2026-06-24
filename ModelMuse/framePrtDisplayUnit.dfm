@@ -61,11 +61,11 @@ object framePrtDisplay: TframePrtDisplay
         Caption = 'lblMaxTime'
       end
       object fedPrtTracklineFile: TJvFilenameEdit
-        Left = 8
+        Left = 3
         Top = 29
         Width = 438
         Height = 23
-        DefaultExt = '.path'
+        DefaultExt = '.trk'
         Filter = 
           'MODPATH Pathline files (*.path;*.path_bin;*.pathline)|*.path;*.p' +
           'ath_bin;*.pathline|All files (*.*)|*.*'

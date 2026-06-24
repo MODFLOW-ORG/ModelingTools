@@ -1112,9 +1112,9 @@ begin
     begin
       for ColIndex := Grid.FixedCols to Grid.ColCount - 1 do
       begin
+        Grid.Objects[ColIndex,RowIndex] := nil;
         Grid.Cells[ColIndex,RowIndex] := '';
         Grid.Checked[ColIndex,RowIndex] := False;
-        Grid.Objects[ColIndex,RowIndex] := nil;
       end;
     end;
   finally

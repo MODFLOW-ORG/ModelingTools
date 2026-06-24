@@ -1981,6 +1981,7 @@ that affects the model output should also have a comment. }
     procedure Loaded; override;
     procedure InternalExportModflowModel(const FileName: string;
       ExportAllLgr: boolean); virtual;
+
     function GetFootprintProperties: TFootprintProperties; virtual; Abstract;
     procedure SetFootprintProperties(const Value: TFootprintProperties); virtual; Abstract;
     function GetParentModel: TCustomModel; virtual;
