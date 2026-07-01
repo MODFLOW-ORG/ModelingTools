@@ -9,7 +9,7 @@ object framePrtDisplay: TframePrtDisplay
     Top = 0
     Width = 465
     Height = 486
-    ActivePage = tabOptions
+    ActivePage = tabBasic
     Align = alClient
     TabOrder = 0
     object tabBasic: TTabSheet
@@ -337,8 +337,6 @@ object framePrtDisplay: TframePrtDisplay
               AutoAdjustColWidths = True
             end>
           WordWrapRowCaptions = False
-          ExplicitLeft = 6
-          ExplicitTop = 0
         end
         object rdgSetLimits: TRbwDataGrid4
           Left = 1

@@ -8,7 +8,7 @@ uses
   Vcl.StdCtrls, Vcl.ExtCtrls, JvSpin, JvExControls, JvxSlider, Vcl.Mask,
   JvExMask, JvToolEdit, Vcl.ComCtrls, UndoItems,
   PhastModelUnit, PathlineReader, Vcl.CheckLst, PrtTrackReaderUnit,
-  System.IOUtils;
+  System.IOUtils, System.UITypes;
 
 type
   TTrackLimits = (tlNone, tlColors, tlLayer, tlRow, tlColumn, tlTime,
@@ -295,6 +295,7 @@ var
   PrtTracks: TPrtTrackDisplayer;
   LocalTracks: TPrtTracks;
   MaxTime: double;
+  MinTime: double;
   PrtTrackDisplayLimits: TPrtTrackDisplayLimits;
   PlotTypeIndex: TPrtPlotType;
   ALimitRow: TTrackLimits;
@@ -314,7 +315,8 @@ begin
 
   fedPrtTracklineFile.FileName := FLocalTracksDisplayer.Tracks.FileName;
   LocalTracks := FLocalTracksDisplayer.Tracks;
-  if LocalTracks.TestGetMaxTime(MaxTime) then
+
+  if LocalTracks.TestGetMinMaxTime(MinTime, MaxTime) then
   begin
     lblMaxTime.Caption := StrMaximumTime
       + FloatToStrF(MaxTime, ffGeneral, 7, 0);
@@ -507,7 +509,6 @@ begin
   NewSelectedChoices := TStringList.Create;
   Selection := TIntegerCollection.Create(nil);
   try
-    SpecifiedTimes := nil;
     Tracks := FLocalTracksDisplayer.Tracks;
     SelectedChoices.CommaText := rdgSetLimits.Cells[ACol, ARow];
     case Row of
@@ -822,8 +823,153 @@ begin
 end;
 
 procedure TframePrtDisplay.SetData;
+var
+  TrackDisplayer: TPrtTrackDisplayer;
+  ColorParameters: TColorParameters;
+  ExistingTrackDisplayer: TPrtTrackDisplayer;
+  ADate: TDateTime;
+  Undo: TUndoImportPrtTrack;
+  ColorLimits: TPrtColorLimits;
+  ImportedNewFile: Boolean;
+  ARow: Integer;
+  LocalModel: TCustomModel;
+  PlotTypes: TPrtPlotTypes;
+  PrtTrackDisplayLimits: TPrtTrackDisplayLimits;
+  MinTime: double;
+  MaxTime: double;
 begin
+  inherited;
 
+  if (frmGoPhast.PhastModel.ColumnCount <= 0) then
+  begin
+    Beep;
+    MessageDlg('You must define the grid or DISV mesh before attempting to import PRT Tracklilne results.', mtError, [mbOK], 0);
+    Exit;
+  end;
+
+  ImportedNewFile := False;
+
+  LocalModel := frmGoPhast.PhastModel;
+
+  ExistingTrackDisplayer := LocalModel.PrtTracks;
+  TrackDisplayer := TPrtTrackDisplayer.Create(LocalModel);
+  try
+    TrackDisplayer.Assign(ExistingTrackDisplayer);
+
+    TrackDisplayer.FileName := fedPrtTracklineFile.FileName;
+    if TrackDisplayer.FileName = '' then
+    begin
+      TrackDisplayer.Clear;
+    end
+    else
+    begin
+      if FileExists(TrackDisplayer.FileName) then
+      begin
+
+        if(TrackDisplayer.FileName <> ExistingTrackDisplayer.FileName) then
+        begin
+          try
+            TrackDisplayer.ReadFile(TrackDisplayer.FileName);
+          except
+            on E: EInvalidLayer do
+            begin
+              Beep;
+              MessageDlg(E.message, mtError, [mbOK], 0);
+              TrackDisplayer.FileName := '';
+              Exit;
+            end;
+            on E: EInOutError do
+            begin
+              Beep;
+              MessageDlg(Format(StrThereWasAnErrorR, [E.message]), mtError, [mbOK], 0);
+              TrackDisplayer.FileName := '';
+              Exit;
+            end;
+          end;
+          ImportedNewFile := True;
+        end
+        else
+        begin
+          if FileAge(TrackDisplayer.FileName, ADate)
+            and (TrackDisplayer.FileDate <> ADate) then
+          begin
+            if (MessageDlg(StrThePathlineFileOn,
+              mtInformation, [mbYes, mbNo], 0) = mrYes) then
+            begin
+              TrackDisplayer.ReadFile(TrackDisplayer.FileName);
+              ImportedNewFile := True;
+            end;
+          end;
+        end;
+      end;
+
+      PrtTrackDisplayLimits := TrackDisplayer.PrtTrackDisplayLimits;
+      PlotTypes := [];
+      for var PlotTypeIndex := Low(TPrtPlotType) to High(TPrtPlotType) do
+      begin
+        if chklstPlotTypes.Checked[Ord(PlotTypeIndex)] then
+        begin
+          Include(PlotTypes, PlotTypeIndex);
+        end;
+      end;
+      PrtTrackDisplayLimits.PlotTypes := PlotTypes;
+
+//      Limits := TrackDisplayer.DisplayLimits;
+
+      PrtTrackDisplayLimits.LimitToCurrentIn2D := cbLimitToCurrentIn2D.Checked;
+      PrtTrackDisplayLimits.ShowChoice := TShowChoice(rgShow2D.ItemIndex);
+
+      if PrtTrackDisplayLimits.ShowChoice <> scAll then
+      begin
+        SetIntLimit(tlColumn, LocalModel.ColumnCount, PrtTrackDisplayLimits.ColumnLimits);
+        SetIntLimit(tlRow, LocalModel.RowCount, PrtTrackDisplayLimits.RowLimits);
+        SetIntLimit(tlLayer, LocalModel.LayerCount, PrtTrackDisplayLimits.LayerLimits);
+//        SetIntLimit(tlLineNumber, LocalModel.ColumnCount, PrtTrackDisplayLimits.ParticleGroupLimits);
+        SetIntLimit(tlLineNumber, TrackDisplayer.Tracks.MaxLineNumber, PrtTrackDisplayLimits.LineNumberLimits);
+
+        if not TrackDisplayer.Tracks.TestGetMinMaxTime(MinTime, MaxTime) then
+        begin
+          MinTime := 0;
+          MaxTime := 0;
+        end;
+
+        SetFloatLimit(tlTime, MinTime, MaxTime, PrtTrackDisplayLimits.TimeLimits);
+        SetFloatLimit(tlReleaseTime, MinTime, MaxTime, PrtTrackDisplayLimits.ReleaseTimeLimits);
+
+        SetByteSetLimit(tlPrpPackage, PrtTrackDisplayLimits.PrpLimits);
+        SetByteSetLimit(tlZone, PrtTrackDisplayLimits.ZoneLimits);
+        SetStatusLimit(PrtTrackDisplayLimits.StatusLimit, tlStatus);
+        SetReasonLimit(PrtTrackDisplayLimits.ReasonLimits, tlSelectedTimes);
+        SetSelectedTimeLimit(PrtTrackDisplayLimits.SelectedTimeLimits, tlSelectedTimes);
+     end;
+
+      ColorLimits := PrtTrackDisplayLimits.ColorLimits;
+      ColorLimits.ColoringChoice :=
+        TPrtColorLimitChoice(rgColorBy.ItemIndex);
+
+      if ColorLimits.ColoringChoice <> pcNone then
+      begin
+        ARow := Ord(tlColors);
+        ColorLimits.UseLimit := rdgLimits.Checked[0, ARow];
+        if ColorLimits.UseLimit then
+        begin
+          ColorLimits.MinColorLimit := StrToFloatDef(rdgLimits.Cells[1, ARow], 0);
+          ColorLimits.MaxColorLimit := StrToFloatDef(rdgLimits.Cells[2, ARow], 1);
+        end;
+
+      end;
+
+      ColorParameters := PrtTrackDisplayLimits.ColorParameters;
+      ColorParameters.ColorScheme := comboColorScheme.ItemIndex;
+      ColorParameters.ColorCycles := seCycles.AsInteger;
+      ColorParameters.ColorExponent := seColorExponent.Value;
+    end;
+
+    Undo := TUndoImportPrtTrack.Create(LocalModel, TrackDisplayer, ImportedNewFile);
+    frmGoPhast.UndoStack.Submit(Undo);
+  finally
+    TrackDisplayer.Free;
+  end;
 end;
 
 procedure TframePrtDisplay.SetFloatLimit(LimitRow: TTrackLimits; MinLimit,

@@ -132,7 +132,7 @@ type
     property Items[Index: Integer]: TPrtTrackPoint read GetTrackPoint write SetTrackPoint; default;
     property IPRP: Integer read Get_IPRP;
     property IRPT: Integer read Get_IRPT;
-    function TestGetMaxTime(var Maxtime: double): boolean;
+    function TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;
   end;
 
   TPrtTrackList = TList<TPrtTrack>;
@@ -162,6 +162,7 @@ type
     function GetHasData: Boolean;
     function GetZones: TIntegerCollection;
     function GetSpecifiedTimes: TRealCollection;
+    function GetMaxLineNumber: Integer;
 
   public
     property HasData: Boolean read GetHasData;
@@ -175,9 +176,10 @@ type
     property Tracks[IPRP, IRPT: Integer]: TPrtTrack read GetTrack; default;
     property IprpCount: Integer read GetIprpCount;
     property IrptCount[IPRP: Integer]: Integer read GetIrptCount;
-    function TestGetMaxTime(var Maxtime: double): boolean;
+    function TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;
     property Zones: TIntegerCollection read GetZones;
     property SpecifiedTimes: TRealCollection read GetSpecifiedTimes;
+    property MaxLineNumber: Integer read GetMaxLineNumber;
   end;
 
 implementation
@@ -508,11 +510,12 @@ begin
   inherited Items[Index] := Value;
 end;
 
-function TPrtTrack.TestGetMaxTime(var Maxtime: double): boolean;
+function TPrtTrack.TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;
 begin
   result := Count > 0;
   if result then
   begin
+    MinTime := First.T;
     Maxtime := Last.T;
   end;
 end;
@@ -613,6 +616,21 @@ begin
   else
   begin
     result := 0;
+  end;
+end;
+
+function TPrtTracks.GetMaxLineNumber: Integer;
+var
+  TestNumber: Integer;
+begin
+  result := 0;
+  for var PrpIndex := 0 to IprpCount - 1 do
+  begin
+    TestNumber := IrptCount[PrpIndex]-1;
+    if TestNumber > result then
+    begin
+      result := TestNumber;
+    end;
   end;
 end;
 
@@ -864,10 +882,11 @@ begin
   FFileName := FileName;
 end;
 
-function TPrtTracks.TestGetMaxTime(var Maxtime: double): boolean;
+function TPrtTracks.TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;
 var
   ATrack: TPrtTrack;
-  AValue: double;
+  AValue2: double;
+  AValue1: double;
 begin
   result := False;
   for var PrpIndex := 0 to IprpCount - 1 do
@@ -875,19 +894,24 @@ begin
     for var ParticleIndex := 0 to IrptCount[PrpIndex] - 1 do
     begin
       ATrack := Tracks[PrpIndex, ParticleIndex];
-      if ATrack.TestGetMaxTime(AValue) then
+      if ATrack.TestGetMinMaxTime(AValue1, AValue2) then
       begin
         if result then
         begin
-          if AValue > Maxtime then
+          if AValue2 > Maxtime then
           begin
-            Maxtime := AValue;
+            Maxtime := AValue2;
+          end;
+          if AValue1 < Mintime then
+          begin
+            Mintime := AValue1;
           end;
         end
         else
         begin
           result := True;
-          Maxtime := AValue;
+          Maxtime := AValue2;
+          MinTime := AValue1;
         end;
       end;
     end;
