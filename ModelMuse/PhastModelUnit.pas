@@ -50517,7 +50517,7 @@ end;
 
 function TCustomModel.StorePrtTracks: Boolean;
 begin
-  result := (FPrtTracks <> nil) and (FPrtTracks.FileName <> '');
+  result := (FPrtTracks <> nil) and (FPrtTracks.Tracks.FileName <> '');
 end;
 
 function TCustomModel.StoreTimeSeries: boolean;

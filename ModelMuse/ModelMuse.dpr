@@ -974,7 +974,8 @@ uses
   frameScreenObjectIFlowFaceUnit in 'frameScreenObjectIFlowFaceUnit.pas' {frameScreenObjectIFlowFace: TFrame},
   framePrtDisplayUnit in 'framePrtDisplayUnit.pas' {framePrtDisplay: TFrame},
   PrtTrackReaderUnit in 'PrtTrackReaderUnit.pas',
-  ModflowGwfPrtExchangeWriterUnit in 'ModflowGwfPrtExchangeWriterUnit.pas';
+  ModflowGwfPrtExchangeWriterUnit in 'ModflowGwfPrtExchangeWriterUnit.pas',
+  frmPrtChoicesUnit in 'frmPrtChoicesUnit.pas' {frmPrtChoices};
 
 {$R *.res}
 

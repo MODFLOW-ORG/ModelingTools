@@ -21,7 +21,7 @@ inherited frmDisplayData: TfrmDisplayData
     Top = 0
     Width = 572
     Height = 521
-    ActivePage = jvspPrtTracks
+    ActivePage = jvspModpathPathline
     PropagateEnable = False
     Align = alClient
     OnChange = pglstMainChange
@@ -2711,17 +2711,13 @@ inherited frmDisplayData: TfrmDisplayData
             ExplicitTop = 29
             ExplicitHeight = 422
             inherited rdgMt3dObs: TRbwDataGrid4
-              Width = 564
               Height = 357
-              ExplicitWidth = 564
               ExplicitHeight = 357
             end
             inherited pnlValueControls: TPanel
               Top = 357
-              Width = 564
               StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 357
-              ExplicitWidth = 564
             end
           end
           inherited tabLegend: TTabSheet
@@ -2788,8 +2784,6 @@ inherited frmDisplayData: TfrmDisplayData
       Width = 572
       Height = 521
       Caption = 'jvspPrtTracks'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inline framePrtDisplay: TframePrtDisplay
         Left = 0
         Top = 0
@@ -2797,14 +2791,17 @@ inherited frmDisplayData: TfrmDisplayData
         Height = 521
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = 107
-        ExplicitTop = 35
+        ExplicitWidth = 572
+        ExplicitHeight = 521
         inherited pcMain: TPageControl
           Width = 572
           Height = 521
+          ExplicitWidth = 572
+          ExplicitHeight = 521
           inherited tabBasic: TTabSheet
             ExplicitTop = 29
-            ExplicitHeight = 453
+            ExplicitWidth = 564
+            ExplicitHeight = 488
             inherited lblPrtTracklineFile: TLabel
               Width = 97
               Height = 18
@@ -2841,7 +2838,13 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitHeight = 18
             end
             inherited fedPrtTracklineFile: TJvFilenameEdit
+              Left = 2
+              Top = 26
+              Height = 26
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 2
+              ExplicitTop = 26
+              ExplicitHeight = 26
             end
             inherited comboColorScheme: TComboBox
               Height = 26
@@ -2849,10 +2852,14 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitHeight = 26
             end
             inherited seColorExponent: TJvSpinEdit
+              Height = 26
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitHeight = 26
             end
             inherited seCycles: TJvSpinEdit
+              Height = 26
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitHeight = 26
             end
             inherited chklstPlotTypes: TCheckListBox
               ItemHeight = 18
@@ -2861,10 +2868,28 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabOptions: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
-            ExplicitHeight = 488
-            inherited rdgLimits: TRbwDataGrid4
-              Height = 367
+            ExplicitHeight = 453
+            inherited rgColorBy: TRadioGroup
+              Height = 351
+              ExplicitHeight = 351
+            end
+            inherited pnl1: TPanel
+              Height = 351
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitHeight = 351
+              inherited spl1: TSplitter
+                Top = 368
+              end
+              inherited rdgLimits: TRbwDataGrid4
+                Height = 367
+                ExplicitHeight = 367
+              end
+              inherited rdgSetLimits: TRbwDataGrid4
+                Top = 373
+                Height = 192
+                ExplicitTop = 373
+                ExplicitHeight = 192
+              end
             end
           end
         end

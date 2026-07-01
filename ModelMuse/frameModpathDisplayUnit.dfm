@@ -20,7 +20,7 @@ object frameModpathDisplay: TframeModpathDisplay
       object lblModpathFile: TLabel
         Left = 8
         Top = 8
-        Width = 121
+        Width = 122
         Height = 15
         Caption = 'MODPATH pathline file'
       end
@@ -70,10 +70,10 @@ object frameModpathDisplay: TframeModpathDisplay
         Caption = 'Model selection'
       end
       object fedModpathFile: TJvFilenameEdit
-        Left = 8
+        Left = 3
         Top = 29
         Width = 438
-        Height = 21
+        Height = 23
         OnBeforeDialog = fedModpathFileBeforeDialog
         DefaultExt = '.path'
         Filter = 
@@ -141,7 +141,7 @@ object frameModpathDisplay: TframeModpathDisplay
         Left = 159
         Top = 241
         Width = 65
-        Height = 21
+        Height = 23
         ButtonKind = bkClassic
         Increment = 0.010000000000000000
         MaxValue = 2.000000000000000000
@@ -154,7 +154,7 @@ object frameModpathDisplay: TframeModpathDisplay
         Left = 345
         Top = 241
         Width = 101
-        Height = 21
+        Height = 23
         ButtonKind = bkClassic
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
@@ -192,7 +192,7 @@ object frameModpathDisplay: TframeModpathDisplay
         457
         456)
       object rgShow2D: TRadioGroup
-        Left = 3
+        Left = 5
         Top = 3
         Width = 449
         Height = 116

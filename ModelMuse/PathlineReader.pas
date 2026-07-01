@@ -1331,7 +1331,7 @@ The IREASON field indicates the reason the particle track record was saved:
     FShowChoice: TShowChoice;
     FTimeLimits: TShowFloatLimit;
     FPrpLimits: TByteSetLimits;
-    FReleasePointLimits: TShowIntegerLimit;
+//    FReleasePointLimits: TShowIntegerLimit;
     FZoneLimits: TByteSetLimits;
     FSelectedTimeLimits: TSelectedTimeLimit;
     FReasonLimits: TReasonLimit;
@@ -1348,7 +1348,7 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure SetShowChoice(const Value: TShowChoice);
     procedure SetTimeLimits(const Value: TShowFloatLimit);
     procedure SetPrpLimits(const Value: TByteSetLimits);
-    procedure SetReleasePointLimits(const Value: TShowIntegerLimit);
+//    procedure SetReleasePointLimits(const Value: TShowIntegerLimit);
     procedure SetReasonLimits(const Value: TReasonLimit);
     procedure SetSelectedTimeLimits(const Value: TSelectedTimeLimit);
     procedure SetStatusLimit(const Value: TStatusLimit);
@@ -1376,8 +1376,8 @@ The IREASON field indicates the reason the particle track record was saved:
     property ReleaseTimeLimits: TShowFloatLimit read FReleaseTimeLimits write SetReleaseTimeLimits;
     property PrpLimits: TByteSetLimits read FPrpLimits
       write SetPrpLimits;
-    property ReleasePointLimits: TShowIntegerLimit read FReleasePointLimits
-      write SetReleasePointLimits;
+//    property ReleasePointLimits: TShowIntegerLimit read FReleasePointLimits
+//      write SetReleasePointLimits;
     property ZoneLimits: TByteSetLimits read FZoneLimits write SetZoneLimits;
     property StatusLimit: TStatusLimit read FStatusLimit write SetStatusLimit;
     property ReasonLimits: TReasonLimit read FReasonLimits write SetReasonLimits;
@@ -1389,7 +1389,6 @@ The IREASON field indicates the reason the particle track record was saved:
 
   TPrtTrackDisplayer = class(TPersistent)
   private
-    FFileName: string;
     FPrtTrackDisplayLimits: TPrtTrackDisplayLimits;
     FTracks: TPrtTracks;
     FFrontQuadTree: TRbwQuadTree;
@@ -1417,7 +1416,6 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure Draw(Orientation: TDataSetOrientation; const BitMap: TPersistent);
     procedure Draw3D;
   published
-    Property FileName: string read FFileName;
     property PrtTrackDisplayLimits: TPrtTrackDisplayLimits
       read FPrtTrackDisplayLimits write SetPrtTrackDisplayLimits;
     property Tracks: TPrtTracks read FTracks write SetTracks;
@@ -9413,7 +9411,7 @@ begin
     TimeLimits := TrackDisplaySource.TimeLimits;
     ReleaseTimeLimits := TrackDisplaySource.ReleaseTimeLimits;
     PrpLimits := TrackDisplaySource.PrpLimits;
-    ReleasePointLimits := TrackDisplaySource.ReleasePointLimits;
+//    ReleasePointLimits := TrackDisplaySource.ReleasePointLimits;
     ZoneLimits := TrackDisplaySource.ZoneLimits;
     StatusLimit := TrackDisplaySource.StatusLimit;
     ReasonLimits := TrackDisplaySource.ReasonLimits;
@@ -9440,7 +9438,7 @@ begin
   FTimeLimits := TShowFloatLimit.Create;
   FReleaseTimeLimits := TShowFloatLimit.Create;
   FPrpLimits := TByteSetLimits.Create(InvalidateModelEvent);
-  FReleasePointLimits := TShowIntegerLimit.Create;
+//  FReleasePointLimits := TShowIntegerLimit.Create;
   FZoneLimits := TByteSetLimits.Create(InvalidateModelEvent);
   FSelectedTimeLimits := TSelectedTimeLimit.Create(InvalidateModelEvent);
   FReasonLimits := TReasonLimit.Create;
@@ -9457,7 +9455,7 @@ begin
   FTimeLimits.Free;
   FReleaseTimeLimits.Free;
   FPrpLimits.Free;
-  FReleasePointLimits.Free;
+//  FReleasePointLimits.Free;
   FZoneLimits.Free;
   FSelectedTimeLimits.Free;
   FReasonLimits.Free;
@@ -9514,11 +9512,11 @@ begin
   FReasonLimits.Assign(Value);
 end;
 
-procedure TPrtTrackDisplayLimits.SetReleasePointLimits(
-  const Value: TShowIntegerLimit);
-begin
-  FReleasePointLimits.Assign(Value);
-end;
+//procedure TPrtTrackDisplayLimits.SetReleasePointLimits(
+//  const Value: TShowIntegerLimit);
+//begin
+//  FReleasePointLimits.Assign(Value);
+//end;
 
 procedure TPrtTrackDisplayLimits.SetReleaseTimeLimits(
   const Value: TShowFloatLimit);
@@ -9787,15 +9785,15 @@ var
         Exit;
       end;
     end;
-    if PrtTrackDisplayLimits.ReleasePointLimits.UseLimit then
-    begin
-      result := (APoint.IRPT >= PrtTrackDisplayLimits.ReleasePointLimits.StartLimit)
-        and (APoint.IRPT <= PrtTrackDisplayLimits.ReleasePointLimits.EndLimit);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
+//    if PrtTrackDisplayLimits.ReleasePointLimits.UseLimit then
+//    begin
+//      result := (APoint.IRPT >= PrtTrackDisplayLimits.ReleasePointLimits.StartLimit)
+//        and (APoint.IRPT <= PrtTrackDisplayLimits.ReleasePointLimits.EndLimit);
+//      if not result then
+//      begin
+//        Exit;
+//      end;
+//    end;
     if PrtTrackDisplayLimits.ZoneLimits.UseLimit then
     begin
       result := (PrtTrackDisplayLimits.ZoneLimits.Limits.IndexOf(APoint.IZONE) >= 0);
@@ -10660,12 +10658,10 @@ begin
   if SameText(Extension, '.csv') then
   begin
     Tracks.ReadFromCsv(Value);
-    FFileName := Value;
   end
   else if SameText(Extension, '.trk') then
   begin
     Tracks.ReadFromBinary(Value);
-    FFileName := Value;
   end
   else
   begin

@@ -2375,6 +2375,10 @@
         </DCCReference>
         <DCCReference Include="PrtTrackReaderUnit.pas"/>
         <DCCReference Include="ModflowGwfPrtExchangeWriterUnit.pas"/>
+        <DCCReference Include="frmPrtChoicesUnit.pas">
+            <Form>frmPrtChoices</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

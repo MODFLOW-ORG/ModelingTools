@@ -153,13 +153,20 @@ type
   TPrtTracks = class(TCollection)
   private
     FTracks: TPrtTrackLists;
+    FZones: TIntegerCollection;
+    FSpecifiedTimes: TRealCollection;
+    FFileName: string;
     function GetTrack(IPRP, IRPT: Integer): TPrtTrack;
     function GetIprpCount: Integer;
     function GetIrptCount(IPRP: Integer): Integer;
     function GetHasData: Boolean;
+    function GetZones: TIntegerCollection;
+    function GetSpecifiedTimes: TRealCollection;
+
   public
     property HasData: Boolean read GetHasData;
   public
+    property FileName: string read FFileName;
     Constructor Create;
     destructor Destroy; override;
     procedure Assign(Source: TPersistent); override;
@@ -169,13 +176,15 @@ type
     property IprpCount: Integer read GetIprpCount;
     property IrptCount[IPRP: Integer]: Integer read GetIrptCount;
     function TestGetMaxTime(var Maxtime: double): boolean;
+    property Zones: TIntegerCollection read GetZones;
+    property SpecifiedTimes: TRealCollection read GetSpecifiedTimes;
   end;
 
 implementation
 
 uses
   ModelMuseUtilities, ModflowGridUnit, PhastModelInterfaceUnit, PhastModelUnit,
-  FastGEO;
+  FastGEO, IntListUnit, RealListUnit;
 
 procedure ConvertCoordinates(Grid: TModflowGrid; var XPrime, YPrime: double;
   var Point2D: TPoint2D);
@@ -579,6 +588,8 @@ end;
 destructor TPrtTracks.Destroy;
 begin
   FTracks.Free;
+  FZones.Free;
+  FSpecifiedTimes.Free;
   inherited;
 end;
 
@@ -605,6 +616,43 @@ begin
   end;
 end;
 
+function TPrtTracks.GetSpecifiedTimes: TRealCollection;
+var
+  RealList: TRealList;
+  Track: TPrtTrack;
+begin
+  if FSpecifiedTimes = nil then
+  begin
+    RealList := TRealList.Create;
+    try
+      RealList.Sorted := True;
+      for var PrpIndex := 0 to IprpCount - 1 do
+      begin
+        for var LineIndex := 0 to IrptCount[PrpIndex] - 1 do
+        begin
+          Track := Tracks[PrpIndex, LineIndex];
+          for var PointIndex := 0 to Track.Count - 1 do
+          begin
+            // 5: user-specified tracking time
+            if Track[PointIndex].IREASON  = 5 then
+            begin
+              RealList.AddUnique(Track[PointIndex].T);
+            end;
+          end;
+        end;
+      end;
+      FSpecifiedTimes := TRealCollection.Create(nil);
+      for var PointIndex := 0 to RealList.Count - 1 do
+      begin
+        FSpecifiedTimes.Add.Value := RealList[PointIndex];
+      end;
+    finally
+      RealList.Free;
+    end;
+  end;
+  result := FSpecifiedTimes;
+end;
+
 function TPrtTracks.GetTrack(IPRP, IRPT: Integer): TPrtTrack;
 var
   TrackItem: TPrtTrackItem;
@@ -625,6 +673,39 @@ begin
     TrackList[IRPT] := TrackItem.Track;
   end;
   result := TrackList[IRPT];
+end;
+
+function TPrtTracks.GetZones: TIntegerCollection;
+var
+  IntList: TIntegerList;
+  Track: TPrtTrack;
+begin
+  if FZones = nil then
+  begin
+    IntList := TIntegerList.Create;
+    try
+      IntList.Sorted := True;
+      for var PrpIndex := 0 to IprpCount - 1 do
+      begin
+        for var LineIndex := 0 to IrptCount[PrpIndex] - 1 do
+        begin
+          Track := Tracks[PrpIndex, LineIndex];
+          for var PointIndex := 0 to Track.Count - 1 do
+          begin
+            IntList.AddUnique(Track[PointIndex].IZONE);
+          end;
+        end;
+      end;
+      FZones := TIntegerCollection.Create(nil);
+      for var PointIndex := 0 to IntList.Count - 1 do
+      begin
+        FZones.Add.Value := IntList[PointIndex];
+      end;
+    finally
+      IntList.Free;
+    end;
+  end;
+  result := FZones;
 end;
 
 procedure TPrtTracks.ReadFromBinary(const FileName: string);
@@ -691,6 +772,7 @@ begin
   finally
     ABinaryFile.Free;
   end;
+  FFileName := FileName;
 end;
 
 procedure TPrtTracks.ReadFromCsv(const FileName: string);
@@ -779,7 +861,7 @@ begin
     ACsvFile.Free;
     Splitter.Free;
   end;
-
+  FFileName := FileName;
 end;
 
 function TPrtTracks.TestGetMaxTime(var Maxtime: double): boolean;
