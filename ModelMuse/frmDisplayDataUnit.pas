@@ -15,8 +15,8 @@ uses
 
 type
   TPostPages = (ppColorGrid, ppContourData, ppPathline, ppEndPoints,
-    ppTimeSeries, ppHeadObs, ppMt3dObs, ppPestObs, ppSfrStreamLink, ppStrStreamLink,
-    ppSwrReachConnections, ppSwrObsDisplay,
+    ppTimeSeries, ppPrtTracks, ppHeadObs, ppMt3dObs, ppPestObs,
+    ppSfrStreamLink, ppStrStreamLink, ppSwrReachConnections, ppSwrObsDisplay,
     ppVectors, ppCrossSection);
 
   TfrmDisplayData = class(TfrmCustomGoPhast)
@@ -183,10 +183,8 @@ begin
   Node := tvpglstMain.Items.Add(nil, StrMODPATHTimeSeries) as TJvPageIndexNode;
   Node.PageIndex := jvspModpathTimeSeries.PageIndex;
 
-{$IFDEF PRT}
   Node := tvpglstMain.Items.Add(nil, StrPRTTracks) as TJvPageIndexNode;
   Node.PageIndex := jvspPrtTracks.PageIndex;
-{$ENDIF}
 
   Node := tvpglstMain.Items.Add(nil, StrHeadObservationRes) as TJvPageIndexNode;
   Node.PageIndex := jvspHeadObsResults.PageIndex;
@@ -337,6 +335,7 @@ var
   Modflow6Selected: Boolean;
   PestSelected: Boolean;
   Mt3dSelected: Boolean;
+  PrtSelected: Boolean;
 begin
   Handle;
   tvpglstMain.Handle;
@@ -344,6 +343,7 @@ begin
   ModflowSelected := LocalModel.ModelSelection in ModflowSelection;
   Modflow6Selected := LocalModel.ModelSelection = msModflow2015;
   ModpathSelected := ModflowSelected and LocalModel.MODPATHIsSelected;
+  PrtSelected := Modflow6Selected and LocalModel.PrtUsed;
   SfrSelected := ModflowSelected and LocalModel.SfrIsSelected;
   SfrMf6Selected := ModflowSelected and LocalModel.Sfr6IsSelected;
   StrSelected := ModflowSelected and LocalModel.StrIsSelected;
@@ -369,6 +369,14 @@ begin
   tvpglstMain.Items[Ord(ppTimeSeries)].Enabled :=
     ModpathSelected
     or LocalModel.TimeSeries.HasData;
+{$IFDEF PRT}
+  tvpglstMain.Items[Ord(ppPrtTracks)].Enabled :=
+    PrtSelected
+    or LocalModel.PrtTracks.HasData;
+{$ELSE}
+  tvpglstMain.Items[Ord(ppPrtTracks)].Enabled := False;
+{$ENDIF}
+
   tvpglstMain.Items[Ord(ppHeadObs)].Enabled :=
     HeadObsSelected or (LocalModel.HeadObsResults.Count > 0);
   tvpglstMain.Items[Ord(ppPestObs)].Enabled := PestSelected;
@@ -407,6 +415,7 @@ begin
     frameModpathDisplay.GetData;
     frameModpathTimeSeriesDisplay.GetData;
     frameModpathEndpointDisplay1.GetData;
+    framePrtDisplay.GetData;
     frameDrawCrossSection.GetData;
     frameSwrReachConnections.GetData;
 
@@ -509,6 +518,13 @@ begin
     if frmGoPhast.ModelSelection in ModflowSelection then
     begin
       frameModpathTimeSeriesDisplay.SetData;
+    end;
+  end
+  else if pglstMain.ActivePage = jvspPrtTracks then
+  begin
+    if frmGoPhast.ModelSelection in ModflowSelection then
+    begin
+      framePrtDisplay.SetData;
     end;
   end
 

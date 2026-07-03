@@ -21,7 +21,7 @@ inherited frmDisplayData: TfrmDisplayData
     Top = 0
     Width = 572
     Height = 521
-    ActivePage = jvspModpathPathline
+    ActivePage = jvspPrtTracks
     PropagateEnable = False
     Align = alClient
     OnChange = pglstMainChange
@@ -2802,6 +2802,9 @@ inherited frmDisplayData: TfrmDisplayData
             ExplicitTop = 29
             ExplicitWidth = 564
             ExplicitHeight = 488
+            DesignSize = (
+              564
+              488)
             inherited lblPrtTracklineFile: TLabel
               Width = 97
               Height = 18
@@ -2868,25 +2871,34 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabOptions: TTabSheet
             ExplicitTop = 29
-            ExplicitHeight = 453
+            ExplicitWidth = 564
+            ExplicitHeight = 488
+            inherited rgShow2D: TRadioGroup
+              Width = 564
+            end
             inherited rgColorBy: TRadioGroup
-              Height = 351
+              Height = 386
               ExplicitHeight = 351
             end
             inherited pnl1: TPanel
-              Height = 351
+              Width = 427
+              Height = 386
               StyleElements = [seFont, seClient, seBorder]
               ExplicitHeight = 351
               inherited spl1: TSplitter
                 Top = 368
+                Width = 425
+                ExplicitTop = 368
               end
               inherited rdgLimits: TRbwDataGrid4
+                Width = 425
                 Height = 367
                 ExplicitHeight = 367
               end
               inherited rdgSetLimits: TRbwDataGrid4
                 Top = 373
-                Height = 192
+                Width = 425
+                Height = 12
                 ExplicitTop = 373
                 ExplicitHeight = 192
               end

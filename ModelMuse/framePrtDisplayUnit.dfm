@@ -1,21 +1,22 @@
 object framePrtDisplay: TframePrtDisplay
   Left = 0
   Top = 0
-  Width = 465
+  Width = 502
   Height = 486
   TabOrder = 0
   object pcMain: TPageControl
     Left = 0
     Top = 0
-    Width = 465
+    Width = 502
     Height = 486
     ActivePage = tabBasic
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 465
     object tabBasic: TTabSheet
       Caption = 'Basic'
       DesignSize = (
-        457
+        494
         456)
       object lblPrtTracklineFile: TLabel
         Left = 8
@@ -34,10 +35,11 @@ object framePrtDisplay: TframePrtDisplay
       object pbColorScheme: TPaintBox
         Left = 8
         Top = 234
-        Width = 438
+        Width = 475
         Height = 33
         Anchors = [akLeft, akTop, akRight]
         OnPaint = pbColorSchemePaint
+        ExplicitWidth = 438
       end
       object lblColorAdjustment: TLabel
         Left = 8
@@ -47,12 +49,13 @@ object framePrtDisplay: TframePrtDisplay
         Caption = 'Color adjustment'
       end
       object lblCycles: TLabel
-        Left = 305
+        Left = 342
         Top = 311
         Width = 34
         Height = 15
         Anchors = [akTop, akRight]
         Caption = 'Cycles'
+        ExplicitLeft = 305
       end
       object lblMaxTime: TLabel
         Left = 192
@@ -64,18 +67,19 @@ object framePrtDisplay: TframePrtDisplay
       object fedPrtTracklineFile: TJvFilenameEdit
         Left = 3
         Top = 29
-        Width = 438
+        Width = 475
         Height = 23
         OnBeforeDialog = fedPrtTracklineFileBeforeDialog
         DefaultExt = '.trk'
         Filter = 
-          'MODPATH Pathline files (*.path;*.path_bin;*.pathline)|*.path;*.p' +
-          'ath_bin;*.pathline|All files (*.*)|*.*'
+          'PRT Track files (*.trk;*.trk.csv)|*.trk;*.trk.csv|All files (*.*' +
+          ')|*.*'
         DialogOptions = [ofHideReadOnly, ofFileMustExist]
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 0
         Text = ''
         OnChange = fedPrtTracklineFileChange
+        ExplicitWidth = 438
       end
       object cbLimitToCurrentIn2D: TCheckBox
         Left = 8
@@ -88,7 +92,7 @@ object framePrtDisplay: TframePrtDisplay
       object comboColorScheme: TComboBox
         Left = 8
         Top = 196
-        Width = 335
+        Width = 337
         Height = 23
         Style = csDropDownList
         Anchors = [akLeft, akTop, akRight]
@@ -136,7 +140,7 @@ object framePrtDisplay: TframePrtDisplay
         OnChange = seColorExponentChange
       end
       object seCycles: TJvSpinEdit
-        Left = 345
+        Left = 382
         Top = 308
         Width = 101
         Height = 23
@@ -146,11 +150,13 @@ object framePrtDisplay: TframePrtDisplay
         Value = 1.000000000000000000
         Anchors = [akTop, akRight]
         TabOrder = 5
+        OnChange = seCyclesChange
+        ExplicitLeft = 345
       end
       object btnColorSchemes: TButton
-        Left = 349
-        Top = 175
-        Width = 97
+        Left = 351
+        Top = 180
+        Width = 132
         Height = 41
         Anchors = [akRight, akBottom]
         Cancel = True
@@ -162,7 +168,7 @@ object framePrtDisplay: TframePrtDisplay
       object chklstPlotTypes: TCheckListBox
         Left = 8
         Top = 58
-        Width = 169
+        Width = 201
         Height = 87
         ItemHeight = 17
         Items.Strings = (
@@ -179,7 +185,7 @@ object framePrtDisplay: TframePrtDisplay
       object rgShow2D: TRadioGroup
         Left = 0
         Top = 0
-        Width = 457
+        Width = 494
         Height = 102
         Align = alTop
         Caption = 'What to show'
@@ -191,6 +197,7 @@ object framePrtDisplay: TframePrtDisplay
           'Specify ending columns, rows, layers, and/or times to show')
         TabOrder = 0
         OnClick = rgShow2DClick
+        ExplicitWidth = 457
       end
       object rgColorBy: TRadioGroup
         Left = 0
@@ -225,23 +232,25 @@ object framePrtDisplay: TframePrtDisplay
       object pnl1: TPanel
         Left = 137
         Top = 102
-        Width = 320
+        Width = 357
         Height = 354
         Align = alClient
         Caption = 'pnl1'
         TabOrder = 2
+        ExplicitWidth = 320
         object spl1: TSplitter
           Left = 1
           Top = 153
-          Width = 318
+          Width = 355
           Height = 5
           Cursor = crVSplit
           Align = alTop
+          ExplicitWidth = 318
         end
         object rdgLimits: TRbwDataGrid4
           Left = 1
           Top = 1
-          Width = 318
+          Width = 355
           Height = 152
           Align = alTop
           ColCount = 3
@@ -337,11 +346,12 @@ object framePrtDisplay: TframePrtDisplay
               AutoAdjustColWidths = True
             end>
           WordWrapRowCaptions = False
+          ExplicitWidth = 318
         end
         object rdgSetLimits: TRbwDataGrid4
           Left = 1
           Top = 158
-          Width = 318
+          Width = 355
           Height = 195
           Align = alClient
           ColCount = 2
@@ -411,6 +421,7 @@ object framePrtDisplay: TframePrtDisplay
               AutoAdjustColWidths = True
             end>
           WordWrapRowCaptions = False
+          ExplicitWidth = 318
         end
       end
     end

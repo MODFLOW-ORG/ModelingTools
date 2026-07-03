@@ -560,6 +560,7 @@ var
   TrackList: TPrtTrackList;
 begin
   inherited;
+  FTracks.Clear;
   for var Index := 0 to Count - 1 do
   begin
     ATrackItem := Items[Index] as TPrtTrackItem;
@@ -573,7 +574,7 @@ begin
       FTracks.Add(TPrtTrackList.Create);
     end;
     TrackList := FTracks[Track.IPRP];
-    while TrackList.Count <= Track.IPRP do
+    while TrackList.Count <= Track.IRPT do
     begin
       TrackList.Add(nil);
     end;
@@ -743,11 +744,11 @@ begin
   Model := IGlobalModel as TPhastModel;
   if Model.DisvUsed then
   begin
-    Grid := Model.ModflowGrid;
+    Grid := nil;
   end
   else
   begin
-    Grid := nil;
+    Grid := Model.ModflowGrid;
   end;
 
   Assert(TFile.Exists(FileName));
@@ -810,11 +811,11 @@ begin
   Model := IGlobalModel as TPhastModel;
   if Model.DisvUsed then
   begin
-    Grid := Model.ModflowGrid;
+    Grid := nil;
   end
   else
   begin
-    Grid := nil;
+    Grid := Model.ModflowGrid;
   end;
 
   Assert(TFile.Exists(FileName));

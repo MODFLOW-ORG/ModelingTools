@@ -25,6 +25,7 @@ type
   public
     Constructor Create(InvalidateModelEvent: TNotifyEvent);
     destructor Destroy; override;
+    procedure Assign(Source: TPersistent); override;
   published
     property UseLimit: boolean read FUseLimit write SetUseLimit;
     property Limits: TIntegerCollection read FLimits write SetLimits;
@@ -9282,6 +9283,22 @@ end;
 
 { TByteSetLimits }
 
+procedure TByteSetLimits.Assign(Source: TPersistent);
+var
+  SourceLimits: TByteSetLimits;
+begin
+  if Source is TByteSetLimits then
+  begin
+    SourceLimits := TByteSetLimits(Source);
+    UseLimit := SourceLimits.UseLimit;
+    Limits := SourceLimits.Limits;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
 constructor TByteSetLimits.Create(InvalidateModelEvent: TNotifyEvent);
 begin
   inherited Create;
@@ -9435,6 +9452,7 @@ end;
 constructor TPrtTrackDisplayLimits.Create(InvalidateModelEvent: TNotifyEvent);
 begin
   inherited Create;
+  FPlotTypes := [pptLine];
   FInvalidateModelEvent := InvalidateModelEvent;
 
   FLayerLimits := TShowIntegerLimit.Create;
@@ -9848,8 +9866,6 @@ var
   }
   end;
   procedure DrawLine(APoint: TPrtTrackPoint);
-  var
-    APoint2D: TPoint2D;
   begin
     case Orientation of
       dsoTop:
@@ -9871,10 +9887,7 @@ var
           end
           else
           begin
-            APoint2D.X := APoint.X;
-            APoint2D.Y := APoint.Y;
-            APoint2D := LocalModel.ModflowGrid.RotateFromRealWorldCoordinatesToGridCoordinates(APoint2D);
-            DisplayXPrime :=APoint2D.X;
+             DisplayXPrime := APoint.XPrime;
           end;
           ADisplayPoint.X := ZoomBox.XCoord(DisplayXPrime);
           ADisplayPoint.Y := ZoomBox.YCoord(APoint.Z);
@@ -9886,13 +9899,10 @@ var
       dsoSide:
         begin
           ADisplayPoint.X := ZoomBox.XCoord(APoint.Z);
-          APoint2D.X := APoint.X;
-          APoint2D.Y := APoint.Y;
-          APoint2D := LocalModel.ModflowGrid.RotateFromRealWorldCoordinatesToGridCoordinates(APoint2D);
-          ADisplayPoint.Y := ZoomBox.YCoord(APoint2D.Y);
+          ADisplayPoint.Y := ZoomBox.YCoord(APoint.YPrime);
           if ShouldInitializeTree then
           begin
-            QuadTree.AddPoint(APoint.Z, APoint2D.Y, APoint);
+            QuadTree.AddPoint(APoint.Z, APoint.YPrime, APoint);
           end;
         end;
       else Assert(False);
@@ -9915,15 +9925,22 @@ var
     end
     else
     begin
-      Points[1] := ADisplayPoint;
-      if ShowPriorPoint then
+      if (PriorPoint = nil) or (PriorPoint.T = APoint.T) then
       begin
-        AColor := GetPointColor(MaxValue, MinValue, APoint);
-        AColor32 := Color32(AColor);
-        DrawBigPolyline32(BitMap, AColor32, 1, Points, True);
+        Points[0] := ADisplayPoint;
+      end
+      else
+      begin
+        Points[1] := ADisplayPoint;
+        if ShowPriorPoint then
+        begin
+          AColor := GetPointColor(MaxValue, MinValue, APoint);
+          AColor32 := Color32(AColor);
+          DrawBigPolyline32(BitMap, AColor32, 1, Points, True);
+        end;
+        Points[0] := ADisplayPoint;
+        ShowPriorPoint := True;
       end;
-      Points[0] := ADisplayPoint;
-      ShowPriorPoint := True;
     end;
 
   end;
@@ -10069,11 +10086,7 @@ begin
             APoint := ATrack[PointIndex];
             if ShowPrtPoint(APoint) then
             begin
-              if (PriorPoint <> nil) and (PriorPoint.T <> APoint.T) then
-              begin
-                DrawLine(APoint)
-                // plot pathline segm);ent.
-              end;
+              DrawLine(APoint);
               PriorPoint := APoint;
               ShowPriorPoint := True;
             end
@@ -10696,7 +10709,7 @@ end;
 procedure TPrtTrackDisplayer.SetPrtTrackDisplayLimits(
   const Value: TPrtTrackDisplayLimits);
 begin
-  FPrtTrackDisplayLimits := Value;
+  FPrtTrackDisplayLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayer.SetTracks(const Value: TPrtTracks);

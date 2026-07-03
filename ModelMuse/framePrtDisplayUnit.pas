@@ -103,6 +103,7 @@ type
     procedure rgColorByClick(Sender: TObject);
     procedure rgShow2DClick(Sender: TObject);
     procedure seColorExponentChange(Sender: TObject);
+    procedure seCyclesChange(Sender: TObject);
   private
     { Private declarations }
     FLocalTracksDisplayer: TPrtTrackDisplayer;
@@ -796,6 +797,11 @@ procedure TframePrtDisplay.seColorExponentChange(Sender: TObject);
 begin
   jsColorExponent.Value := Round(seColorExponent.Value * 100);
   pbColorScheme.Invalidate
+end;
+
+procedure TframePrtDisplay.seCyclesChange(Sender: TObject);
+begin
+  pbColorScheme.Invalidate;
 end;
 
 procedure TframePrtDisplay.SetByteSetLimit(LimitRow: TTrackSetLimits;
