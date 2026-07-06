@@ -26,20 +26,19 @@ object framePrtDisplay: TframePrtDisplay
         Caption = 'PRT Track file'
       end
       object lblColorScheme: TLabel
-        Left = 8
+        Left = 3
         Top = 175
         Width = 73
         Height = 15
         Caption = 'Color scheme'
       end
       object pbColorScheme: TPaintBox
-        Left = 8
-        Top = 234
+        Left = 3
+        Top = 239
         Width = 475
         Height = 33
         Anchors = [akLeft, akTop, akRight]
         OnPaint = pbColorSchemePaint
-        ExplicitWidth = 438
       end
       object lblColorAdjustment: TLabel
         Left = 8
@@ -64,6 +63,14 @@ object framePrtDisplay: TframePrtDisplay
         Height = 15
         Caption = 'lblMaxTime'
       end
+      object lblSinglePointSize: TLabel
+        Left = 3
+        Top = 340
+        Width = 125
+        Height = 15
+        Anchors = [akTop, akRight]
+        Caption = 'Single point size (pixels)'
+      end
       object fedPrtTracklineFile: TJvFilenameEdit
         Left = 3
         Top = 29
@@ -79,10 +86,9 @@ object framePrtDisplay: TframePrtDisplay
         TabOrder = 0
         Text = ''
         OnChange = fedPrtTracklineFileChange
-        ExplicitWidth = 438
       end
       object cbLimitToCurrentIn2D: TCheckBox
-        Left = 8
+        Left = 3
         Top = 152
         Width = 377
         Height = 17
@@ -90,7 +96,7 @@ object framePrtDisplay: TframePrtDisplay
         TabOrder = 1
       end
       object comboColorScheme: TComboBox
-        Left = 8
+        Left = 3
         Top = 196
         Width = 337
         Height = 23
@@ -166,7 +172,7 @@ object framePrtDisplay: TframePrtDisplay
         OnClick = btnColorSchemesClick
       end
       object chklstPlotTypes: TCheckListBox
-        Left = 8
+        Left = 3
         Top = 58
         Width = 201
         Height = 87
@@ -177,6 +183,17 @@ object framePrtDisplay: TframePrtDisplay
           'Track Line'
           'Specified Track Times')
         TabOrder = 7
+      end
+      object seSinglePointSize: TJvSpinEdit
+        Left = 3
+        Top = 361
+        Width = 100
+        Height = 26
+        MaxValue = 2147483647.000000000000000000
+        MinValue = 1.000000000000000000
+        Value = 1.000000000000000000
+        Anchors = [akTop, akRight]
+        TabOrder = 8
       end
     end
     object tabOptions: TTabSheet

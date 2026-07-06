@@ -9469,6 +9469,8 @@ begin
   FReasonLimits := TReasonLimit.Create;
   FStatusLimit := TStatusLimit.Create;
   FColorLimits := TPrtColorLimits.Create;
+
+  FEndPointSize := 4;
 end;
 
 destructor TPrtTrackDisplayLimits.Destroy;
@@ -9696,8 +9698,8 @@ const
   MaxCoord = MaxInt-1;
   MinCoord = -MaxCoord;
 var
-  EndPointIndex: Integer;
-  EndPoint: TEndPoint;
+//  EndPointIndex: Integer;
+//  EndPoint: TEndPoint;
   ColRowOrLayer: integer;
   ZoomBox: TQRbwZoomBox2;
   ADisplayPoint: TPoint;
@@ -9709,16 +9711,16 @@ var
   QuadTree: TRbwQuadTree;
   ShouldInitializeTree: Boolean;
   Limits: TGridLimit;
-  LocalPoints: TCustomEndPoints;
+//  LocalPoints: TCustomEndPoints;
   PixelPlus: Integer;
   PixelMinus: Integer;
   DisplayQuadTree: TRbwQuadTree;
   DisplayPointList: TList<TPoint>;
   DisplayColorList: TList<TColor32>;
-  UsePoint: Boolean;
-  X: double;
-  Y: double;
-  Data: Pointer;
+//  UsePoint: Boolean;
+//  X: double;
+//  Y: double;
+//  Data: Pointer;
   LocalModel: TCustomModel;
   DisvUsed: Boolean;
   CrossSectionSegment: TSegment2D;
@@ -9737,6 +9739,31 @@ var
     Column: integer;
   begin
     result := True;
+
+    if PrtTrackDisplayLimits.LimitToCurrentIn2D then
+    begin
+      case Orientation of
+        dsoTop:
+          begin
+            result := ColRowOrLayer = APoint.ILAY;
+          end;
+        dsoFront:
+          begin
+            result := ColRowOrLayer = APoint.Row;
+          end;
+        dsoSide:
+          begin
+            result := ColRowOrLayer = APoint.Column;
+          end;
+        dso3D: Assert(False);
+        else Assert(False);
+      end;
+    end;
+    if not result then
+    begin
+      Exit;
+    end;
+
     Model := FModel as TCustomModel;
     if PrtTrackDisplayLimits.ColumnLimits.UseLimit or PrtTrackDisplayLimits.RowLimits.UseLimit then
     begin
@@ -9817,15 +9844,6 @@ var
         Exit;
       end;
     end;
-//    if PrtTrackDisplayLimits.ReleasePointLimits.UseLimit then
-//    begin
-//      result := (APoint.IRPT >= PrtTrackDisplayLimits.ReleasePointLimits.StartLimit)
-//        and (APoint.IRPT <= PrtTrackDisplayLimits.ReleasePointLimits.EndLimit);
-//      if not result then
-//      begin
-//        Exit;
-//      end;
-//    end;
     if PrtTrackDisplayLimits.ZoneLimits.UseLimit then
     begin
       result := (PrtTrackDisplayLimits.ZoneLimits.Limits.IndexOf(APoint.IZONE) >= 0);
@@ -9860,18 +9878,30 @@ var
         Exit;
       end;
     end;
-
-    {
-    property ColorLimits: TPrtColorLimits read FColorLimits write SetColorLimits;
-  }
   end;
-  procedure DrawLine(APoint: TPrtTrackPoint);
+  procedure DrawPoint(ADisplayPoint: TPoint);
+  begin
+    if (ADisplayPoint.X <= MaxCoord)
+      and (ADisplayPoint.X >= MinCoord)
+      and (ADisplayPoint.Y <= MaxCoord)
+      and (ADisplayPoint.Y >= MinCoord) then
+    begin
+      AColor := GetPointColor(MaxValue, MinValue, APoint);
+      AColor32 := Color32(AColor);
+      ARect.Top := ADisplayPoint.Y -PixelMinus;
+      ARect.Bottom := ADisplayPoint.Y +PixelPlus;
+      ARect.Left := ADisplayPoint.X -PixelMinus;
+      ARect.Right := ADisplayPoint.X +PixelPlus;
+      DrawBigRectangle32(BitMap, AColor32, AColor32, 1, ARect);
+    end;
+  end;
+  function GetDisplayPoint(APoint: TPrtTrackPoint): TPoint;
   begin
     case Orientation of
       dsoTop:
         begin
-          ADisplayPoint.X := ZoomBox.XCoord(APoint.X);
-          ADisplayPoint.Y := ZoomBox.YCoord(APoint.Y);
+          result.X := ZoomBox.XCoord(APoint.X);
+          result.Y := ZoomBox.YCoord(APoint.Y);
           if ShouldInitializeTree then
           begin
             QuadTree.AddPoint(APoint.X, APoint.Y, APoint);
@@ -9889,8 +9919,8 @@ var
           begin
              DisplayXPrime := APoint.XPrime;
           end;
-          ADisplayPoint.X := ZoomBox.XCoord(DisplayXPrime);
-          ADisplayPoint.Y := ZoomBox.YCoord(APoint.Z);
+          result.X := ZoomBox.XCoord(DisplayXPrime);
+          result.Y := ZoomBox.YCoord(APoint.Z);
           if ShouldInitializeTree then
           begin
             QuadTree.AddPoint(DisplayXPrime, APoint.Z, APoint);
@@ -9898,8 +9928,8 @@ var
         end;
       dsoSide:
         begin
-          ADisplayPoint.X := ZoomBox.XCoord(APoint.Z);
-          ADisplayPoint.Y := ZoomBox.YCoord(APoint.YPrime);
+          result.X := ZoomBox.XCoord(APoint.Z);
+          result.Y := ZoomBox.YCoord(APoint.YPrime);
           if ShouldInitializeTree then
           begin
             QuadTree.AddPoint(APoint.Z, APoint.YPrime, APoint);
@@ -9907,21 +9937,14 @@ var
         end;
       else Assert(False);
     end;
+
+  end;
+  procedure DrawLine(APoint: TPrtTrackPoint);
+  begin
+    ADisplayPoint := GetDisplayPoint(APoint);
     if ATrack.Count = 1 then
     begin
-      if (ADisplayPoint.X <= MaxCoord)
-        and (ADisplayPoint.X >= MinCoord)
-        and (ADisplayPoint.Y <= MaxCoord)
-        and (ADisplayPoint.Y >= MinCoord) then
-      begin
-        AColor := GetPointColor(MaxValue, MinValue, APoint);
-        AColor32 := Color32(AColor);
-        ARect.Top := ADisplayPoint.Y -2;
-        ARect.Bottom := ADisplayPoint.Y +2;
-        ARect.Left := ADisplayPoint.X -2;
-        ARect.Right := ADisplayPoint.X +2;
-        DrawBigRectangle32(BitMap, AColor32, AColor32, 1, ARect);
-      end;
+      DrawPoint(ADisplayPoint);
     end
     else
     begin
@@ -9942,9 +9965,7 @@ var
         ShowPriorPoint := True;
       end;
     end;
-
   end;
-//  ColorLimits: TPrtColorLimits;
 begin
   if PrtTrackDisplayLimits.PlotTypes = [] then
   begin
@@ -10003,14 +10024,6 @@ begin
     else Assert(False);
   end;
   GetMinMaxValues(MaxValue, MinValue);
-//  ColorLimits := PrtTrackDisplayLimits.ColorLimits;
-
-//  if ColorLimits.ColoringChoice = elcLogTrackingTime then
-//  begin
-//    MaxValue := Log10(MaxValue);
-//    MinValue := Log10(MinValue);
-//  end;
-//
   ShouldInitializeTree := QuadTree.Count = 0;
   if not ShouldInitializeTree then
   begin
@@ -10064,7 +10077,6 @@ begin
 
   LocalTracks := Tracks;
 
-
   DisplayQuadTree := TRbwQuadTree.Create(nil);
   DisplayPointList := TList<TPoint>.Create;
   DisplayColorList := TList<TColor32>.Create;
@@ -10106,147 +10118,67 @@ begin
       end;
     end;
 
+    if pptStart in PrtTrackDisplayLimits.PlotTypes then
+    begin
+      for var PrpIndex := 0 to LocalTracks.IprpCount - 1 do
+      begin
+        for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
+        begin
+          ATrack := LocalTracks[PrpIndex, ParticleIndex];
+          if ATrack.Count > 0 then
+          begin
+            APoint := ATrack.First;
+            if ShowPrtPoint(APoint) then
+            begin
+              ADisplayPoint := GetDisplayPoint(APoint);
+              DrawPoint(ADisplayPoint);
+            end
+          end;
+        end;
+      end;
+    end;
 
-//    for EndPointIndex := LocalPoints.Count - 1 downto 0 do
-//    begin
-//      EndPoint := LocalPoints[EndPointIndex] as TEndPoint;
-//      if EndPoint.ShouldShow(DisplayLimits, Orientation, ColRowOrLayer,
-//        CrossSectionSegment, DisvUsed, DisplayLimits.WhereToPlot) then
-//      begin
-//        case DisplayLimits.WhereToPlot of
-//          wtpStart:
-//            begin
-//              case Orientation of
-//                dsoTop:
-//                  begin
-//                    ADisplayPoint.X := ZoomBox.XCoord(EndPoint.StartX);
-//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.StartY);
-//                    if ShouldInitializeTree then
-//                    begin
-//                      QuadTree.AddPoint(EndPoint.StartX, EndPoint.StartY, EndPoint);
-//                    end;
-//                  end;
-//                dsoFront:
-//                  begin
-//                    if DisvUsed then
-//                    begin
-//                      DisvFrontProjectedXPrime(CrossSectionSegment,
-//                        EquatePoint(EndPoint.StartX, EndPoint.StartY), DisplayXPrime);
-//                      DisplayXPrime := DisplayXPrime - OriginOffset;
-//                    end
-//                    else
-//                    begin
-//                      DisplayXPrime := EndPoint.StartXPrime;
-//                    end;
-//                    ADisplayPoint.X := ZoomBox.XCoord(DisplayXPrime);
-//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.StartZ);
-//                    if ShouldInitializeTree then
-//                    begin
-//                      QuadTree.AddPoint(DisplayXPrime, EndPoint.StartZ, EndPoint);
-//                    end;
-//                  end;
-//                dsoSide:
-//                  begin
-//                    ADisplayPoint.X := ZoomBox.XCoord(EndPoint.StartZ);
-//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.StartYPrime);
-//                    if ShouldInitializeTree then
-//                    begin
-//                      QuadTree.AddPoint(EndPoint.StartZ, EndPoint.StartYPrime, EndPoint);
-//                    end;
-//                  end;
-//                else Assert(False);
-//              end;
-//            end;
-//          wtpEnd:
-//            begin
-//              case Orientation of
-//                dsoTop:
-//                  begin
-//                    ADisplayPoint.X := ZoomBox.XCoord(EndPoint.EndX);
-//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.EndY);
-//                    if ShouldInitializeTree then
-//                    begin
-//                      QuadTree.AddPoint(EndPoint.EndX, EndPoint.EndY, EndPoint);
-//                    end;
-//                  end;
-//                dsoFront:
-//                  begin
-//                    if DisvUsed then
-//                    begin
-//                      DisvFrontProjectedXPrime(CrossSectionSegment,
-//                        EquatePoint(EndPoint.EndX, EndPoint.EndY), DisplayXPrime);
-//                      DisplayXPrime := DisplayXPrime - OriginOffset;
-//                    end
-//                    else
-//                    begin
-//                      DisplayXPrime := EndPoint.EndXPrime;
-//                    end;
-//                    ADisplayPoint.X := ZoomBox.XCoord(DisplayXPrime);
-//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.EndZ);
-//                    if ShouldInitializeTree then
-//                    begin
-//                      QuadTree.AddPoint(DisplayXPrime, EndPoint.EndZ, EndPoint);
-//                    end;
-//                  end;
-//                dsoSide:
-//                  begin
-//                    ADisplayPoint.X := ZoomBox.XCoord(EndPoint.EndZ);
-//                    ADisplayPoint.Y := ZoomBox.YCoord(EndPoint.EndYPrime);
-//                    if ShouldInitializeTree then
-//                    begin
-//                      QuadTree.AddPoint(EndPoint.EndZ, EndPoint.EndYPrime, EndPoint);
-//                    end;
-//                  end;
-//                else Assert(False);
-//              end;
-//            end;
-//        end;
-//        if (ADisplayPoint.X <= MaxCoord)
-//          and (ADisplayPoint.X >= MinCoord)
-//          and (ADisplayPoint.Y <= MaxCoord)
-//          and (ADisplayPoint.Y >= MinCoord) then
-//        begin
-//          if DisplayQuadTree.Count > 0 then
-//          begin
-//            X := ADisplayPoint.X;
-//            Y := ADisplayPoint.Y;
-//            DisplayQuadTree.FirstNearestPoint(X, Y, Data);
-//            UsePoint := (X <> ADisplayPoint.X)
-//              or (Y <> ADisplayPoint.Y);
-//          end
-//          else
-//          begin
-//            UsePoint := True;
-//          end;
-//
-//          if UsePoint then
-//          begin
-//            AColor := GetPointColor(MaxValue, MinValue, EndPoint);
-//            AColor32 := Color32(AColor);
-//            DisplayQuadTree.AddPoint(ADisplayPoint.X, ADisplayPoint.Y, EndPoint);
-//            DisplayPointList.Add(ADisplayPoint);
-//            DisplayColorList.Add(AColor32);
-//          end;
-//        end;
-//      end;
-//    end;
-//    Assert(DisplayPointList.Count = DisplayColorList.Count);
-//    for EndPointIndex := DisplayPointList.Count - 1 downto 0 do
-//    begin
-//      ADisplayPoint := DisplayPointList[EndPointIndex];
-//      AColor32 := DisplayColorList[EndPointIndex];
-//      try
-//        ARect.Top := ADisplayPoint.Y -PixelMinus;
-//        ARect.Bottom := ADisplayPoint.Y +PixelPlus;
-//        ARect.Left := ADisplayPoint.X -PixelMinus;
-//        ARect.Right := ADisplayPoint.X +PixelPlus;
-//      except on EIntOverflow do
-//        begin
-//          Continue;
-//        end;
-//      end;
-//      DrawBigRectangle32(BitMap, AColor32, AColor32, 0, ARect);
-//    end;
+    if pptEnd in PrtTrackDisplayLimits.PlotTypes then
+    begin
+      for var PrpIndex := 0 to LocalTracks.IprpCount - 1 do
+      begin
+        for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
+        begin
+          ATrack := LocalTracks[PrpIndex, ParticleIndex];
+          if ATrack.Count > 0 then
+          begin
+            APoint := ATrack.Last;
+            if ShowPrtPoint(APoint) then
+            begin
+              ADisplayPoint := GetDisplayPoint(APoint);
+              DrawPoint(ADisplayPoint);
+            end
+          end;
+        end;
+      end;
+    end;
+
+    if pptPoints in PrtTrackDisplayLimits.PlotTypes then
+    begin
+      for var PrpIndex := 0 to LocalTracks.IprpCount - 1 do
+      begin
+        for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
+        begin
+          ATrack := LocalTracks[PrpIndex, ParticleIndex];
+          for var PointIndex := 0 to ATrack.Count - 1 do
+          begin
+            APoint := ATrack[PointIndex];
+            if (APoint.IReason = 5) and ShowPrtPoint(APoint) then
+            begin
+               ADisplayPoint := GetDisplayPoint(APoint);
+               DrawPoint(ADisplayPoint);
+            end
+
+          end;
+        end;
+      end;
+    end;
+
   finally
     DisplayColorList.Free;
     DisplayPointList.Free;

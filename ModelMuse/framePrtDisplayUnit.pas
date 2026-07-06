@@ -82,6 +82,8 @@ type
     pnl1: TPanel;
     rdgSetLimits: TRbwDataGrid4;
     spl1: TSplitter;
+    lblSinglePointSize: TLabel;
+    seSinglePointSize: TJvSpinEdit;
     procedure btnColorSchemesClick(Sender: TObject);
     procedure comboColorSchemeChange(Sender: TObject);
     procedure fedPrtTracklineFileBeforeDialog(Sender: TObject; var AName: string;
@@ -332,6 +334,8 @@ begin
   begin
     chklstPlotTypes.Checked[Ord(PlotTypeIndex)] := PlotTypeIndex in PrtTrackDisplayLimits.PlotTypes;
   end;
+
+  seSinglePointSize.AsInteger := PrtTrackDisplayLimits.EndPointSize;
 
   rgShow2D.ItemIndex := Ord(PrtTrackDisplayLimits.ShowChoice);
 
@@ -910,6 +914,7 @@ begin
       end;
 
       PrtTrackDisplayLimits := TrackDisplayer.PrtTrackDisplayLimits;
+      PrtTrackDisplayLimits.EndPointSize := seSinglePointSize.AsInteger;
       PlotTypes := [];
       for var PlotTypeIndex := Low(TPrtPlotType) to High(TPrtPlotType) do
       begin

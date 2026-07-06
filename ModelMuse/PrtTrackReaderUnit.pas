@@ -80,6 +80,8 @@ type
     procedure SetYPrime(const Value: Double);
     function GetEndPoint: TPrtTrackPoint;
     function GetStartPoint: TPrtTrackPoint;
+    function GetColumn: Integer;
+    function GetRow: Integer;
   public
     Constructor Create(Collection: TCollection); override;
     Destructor Destroy; override;
@@ -94,6 +96,8 @@ type
     property YPrime: Double read GetYPrime write SetYPrime;
     property StartPoint: TPrtTrackPoint read GetStartPoint;
     property EndPoint: TPrtTrackPoint read GetEndPoint;
+    property Column: Integer read GetColumn;
+    property Row: Integer read GetRow;
   published
     property KPER: Integer read FKPER write SetKPER;
     property KSTP: Integer read FKSTP write SetKSTP;
@@ -281,9 +285,43 @@ begin
   inherited;
 end;
 
+function TPrtTrackPoint.GetColumn: Integer;
+var
+  Model: TPhastModel;
+  Grid: TModflowGrid;
+begin
+  Model := IGlobalModel as TPhastModel;
+  if Model.DisvUsed then
+  begin
+    result := ICELL;
+  end
+  else
+  begin
+    Grid := Model.ModflowGrid;
+    result := ((ICELL -1) mod Grid.RowCount) + 1;
+  end;
+end;
+
 function TPrtTrackPoint.GetEndPoint: TPrtTrackPoint;
 begin
   result := (Collection as TPrtTrack).Last;
+end;
+
+function TPrtTrackPoint.GetRow: Integer;
+var
+  Model: TPhastModel;
+  Grid: TModflowGrid;
+begin
+  Model := IGlobalModel as TPhastModel;
+  if Model.DisvUsed then
+  begin
+    result := 0;
+  end
+  else
+  begin
+    Grid := Model.ModflowGrid;
+    result := ((ICELL -1) div Grid.RowCount) + 1;
+  end;
 end;
 
 function TPrtTrackPoint.GetStartPoint: TPrtTrackPoint;
@@ -565,7 +603,7 @@ begin
   begin
     ATrackItem := Items[Index] as TPrtTrackItem;
     Track := ATrackItem.Track;
-    if Track.IPRP = 0 then
+    if Track.IPRP <= 0 then
     begin
       Continue;
     end;
@@ -574,6 +612,7 @@ begin
       FTracks.Add(TPrtTrackList.Create);
     end;
     TrackList := FTracks[Track.IPRP];
+    Assert(TrackList <> nil);
     while TrackList.Count <= Track.IRPT do
     begin
       TrackList.Add(nil);
