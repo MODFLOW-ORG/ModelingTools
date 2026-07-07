@@ -879,7 +879,7 @@ begin
         if(TrackDisplayer.FileName <> ExistingTrackDisplayer.FileName) then
         begin
           try
-            TrackDisplayer.ReadFile(TrackDisplayer.FileName);
+            TrackDisplayer.ReadFile;
           except
             on E: EInvalidLayer do
             begin
@@ -906,7 +906,7 @@ begin
             if (MessageDlg(StrThePathlineFileOn,
               mtInformation, [mbYes, mbNo], 0) = mrYes) then
             begin
-              TrackDisplayer.ReadFile(TrackDisplayer.FileName);
+              TrackDisplayer.ReadFile;
               ImportedNewFile := True;
             end;
           end;

@@ -1416,7 +1416,7 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure Assign(Source: TPersistent); override;
     Constructor Create(Model: TBaseModel);
     Destructor Destroy; override;
-    procedure ReadFile(const Value: string);
+    procedure ReadFile;
     property HasData: Boolean read GetHasData;
     procedure Draw(Orientation: TDataSetOrientation; const BitMap: TPersistent);
     procedure Draw3D;
@@ -10609,23 +10609,26 @@ begin
   end;
 end;
 
-procedure TPrtTrackDisplayer.ReadFile(const Value: string);
+procedure TPrtTrackDisplayer.ReadFile;
 var
   Extension: string;
+  ADate: TDateTime;
 begin
-  Extension := ExtractFileExt(Value);
+  Extension := ExtractFileExt(FFileName);
   if SameText(Extension, '.csv') then
   begin
-    Tracks.ReadFromCsv(Value);
+    Tracks.ReadFromCsv(FFileName);
   end
   else if SameText(Extension, '.trk') then
   begin
-    Tracks.ReadFromBinary(Value);
+    Tracks.ReadFromBinary(FFileName);
   end
   else
   begin
     Assert(False);
   end;
+  Assert(FileAge(FFileName, ADate));
+  FileDate := ADate;
 end;
 
 procedure TPrtTrackDisplayer.SetFileDate(const Value: TDateTime);
