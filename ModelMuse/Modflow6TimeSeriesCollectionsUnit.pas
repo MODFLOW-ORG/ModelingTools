@@ -18,7 +18,7 @@ type
     FCachedResult: Boolean;
   public
     constructor Create;
-    procedure Clear;
+    procedure Clear; override;
     function TryGetValue(const Key: K; var Value: V): Boolean;
   end;
 
