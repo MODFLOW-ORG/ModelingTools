@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_filters.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_Filters.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_filtersHPP
-#define Gr32_filtersHPP
+#ifndef GR32_FiltersHPP
+#define GR32_FiltersHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Gr32.hpp>
-#include <Gr32_blend.hpp>
-#include <Gr32_system.hpp>
-#include <Gr32_bindings.hpp>
+#include <System.SysUtils.hpp>
+#include <GR32.hpp>
+#include <GR32_Blend.hpp>
+#include <GR32_System.hpp>
+#include <GR32_Bindings.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -57,4 +57,4 @@ using namespace Gr32_filters;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_filtersHPP
+#endif	// GR32_FiltersHPP

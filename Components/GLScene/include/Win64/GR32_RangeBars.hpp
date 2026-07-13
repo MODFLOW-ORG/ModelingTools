@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_rangebars.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_RangeBars.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_rangebarsHPP
-#define Gr32_rangebarsHPP
+#ifndef GR32_RangeBarsHPP
+#define GR32_RangeBarsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,7 +15,7 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <Winapi.Messages.hpp>
 #include <System.Types.hpp>
@@ -23,11 +23,11 @@
 #include <Vcl.Controls.hpp>
 #include <Vcl.Forms.hpp>
 #include <Vcl.Dialogs.hpp>
-#include <Vcl.Extctrls.hpp>
-#include <System.Sysutils.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
-#include <Gr32.hpp>
-#include <System.Uitypes.hpp>
+#include <GR32.hpp>
+#include <System.UITypes.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -405,4 +405,4 @@ using namespace Gr32_rangebars;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_rangebarsHPP
+#endif	// GR32_RangeBarsHPP

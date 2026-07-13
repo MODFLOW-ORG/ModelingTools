@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_vectormaps.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_VectorMaps.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_vectormapsHPP
-#define Gr32_vectormapsHPP
+#ifndef GR32_VectorMapsHPP
+#define GR32_VectorMapsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,10 +15,10 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <Gr32.hpp>
+#include <GR32.hpp>
 #include <System.Types.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -116,4 +116,4 @@ using namespace Gr32_vectormaps;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_vectormapsHPP
+#endif	// GR32_VectorMapsHPP

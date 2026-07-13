@@ -12,7 +12,6 @@ object framePrtDisplay: TframePrtDisplay
     ActivePage = tabBasic
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 465
     object tabBasic: TTabSheet
       Caption = 'Basic'
       DesignSize = (
@@ -157,7 +156,6 @@ object framePrtDisplay: TframePrtDisplay
         Anchors = [akTop, akRight]
         TabOrder = 5
         OnChange = seCyclesChange
-        ExplicitLeft = 345
       end
       object btnColorSchemes: TButton
         Left = 351
@@ -188,7 +186,7 @@ object framePrtDisplay: TframePrtDisplay
         Left = 3
         Top = 361
         Width = 100
-        Height = 26
+        Height = 23
         MaxValue = 2147483647.000000000000000000
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
@@ -214,12 +212,11 @@ object framePrtDisplay: TframePrtDisplay
           'Specify ending columns, rows, layers, and/or times to show')
         TabOrder = 0
         OnClick = rgShow2DClick
-        ExplicitWidth = 457
       end
       object rgColorBy: TRadioGroup
         Left = 0
         Top = 102
-        Width = 137
+        Width = 177
         Height = 354
         Align = alLeft
         Caption = 'Color by'
@@ -247,198 +244,223 @@ object framePrtDisplay: TframePrtDisplay
         OnClick = rgColorByClick
       end
       object pnl1: TPanel
-        Left = 137
+        Left = 177
         Top = 102
-        Width = 357
+        Width = 317
         Height = 354
         Align = alClient
         Caption = 'pnl1'
         TabOrder = 2
-        ExplicitWidth = 320
+        ExplicitLeft = 137
+        ExplicitWidth = 357
         object spl1: TSplitter
           Left = 1
-          Top = 153
-          Width = 355
+          Top = 1
+          Width = 315
           Height = 5
           Cursor = crVSplit
           Align = alTop
+          ExplicitTop = 153
           ExplicitWidth = 318
         end
-        object rdgLimits: TRbwDataGrid4
+        object spl2: TSplitter
           Left = 1
-          Top = 1
-          Width = 355
-          Height = 152
-          Align = alTop
-          ColCount = 3
-          FixedCols = 0
-          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
-          TabOrder = 0
-          OnSelectCell = rdgLimitsSelectCell
-          OnSetEditText = rdgLimitsSetEditText
-          ExtendedAutoDistributeText = False
-          AutoMultiEdit = True
-          AutoDistributeText = False
-          AutoIncreaseColCount = False
-          AutoIncreaseRowCount = False
-          SelectedRowOrColumnColor = clAqua
-          UnselectableColor = clBtnFace
-          OnStateChange = rdgLimitsStateChange
-          ColorRangeSelection = False
-          Columns = <
-            item
-              AutoAdjustRowHeights = True
-              AutoAdjustCaptionRowHeights = False
-              ButtonCaption = '...'
-              ButtonFont.Charset = DEFAULT_CHARSET
-              ButtonFont.Color = clWindowText
-              ButtonFont.Height = -11
-              ButtonFont.Name = 'Tahoma'
-              ButtonFont.Style = []
-              ButtonUsed = False
-              ButtonWidth = 20
-              CheckMax = False
-              CheckMin = False
-              ComboUsed = False
-              Format = rcf4Boolean
-              LimitToList = False
-              MaxLength = 0
-              ParentButtonFont = False
-              WordWrapCaptions = True
-              WordWrapCells = False
-              CaseSensitivePicklist = False
-              CheckStyle = csCheck
-              AutoAdjustColWidths = True
-            end
-            item
-              AutoAdjustRowHeights = True
-              AutoAdjustCaptionRowHeights = False
-              ButtonCaption = '...'
-              ButtonFont.Charset = DEFAULT_CHARSET
-              ButtonFont.Color = clWindowText
-              ButtonFont.Height = -11
-              ButtonFont.Name = 'Tahoma'
-              ButtonFont.Style = []
-              ButtonUsed = False
-              ButtonWidth = 20
-              CheckMax = False
-              CheckMin = False
-              ComboUsed = False
-              Format = rcf4Integer
-              LimitToList = False
-              Max = 1.000000000000000000
-              MaxLength = 0
-              Min = 1.000000000000000000
-              ParentButtonFont = False
-              WordWrapCaptions = True
-              WordWrapCells = False
-              CaseSensitivePicklist = False
-              CheckStyle = csCheck
-              AutoAdjustColWidths = True
-            end
-            item
-              AutoAdjustRowHeights = True
-              AutoAdjustCaptionRowHeights = False
-              ButtonCaption = '...'
-              ButtonFont.Charset = DEFAULT_CHARSET
-              ButtonFont.Color = clWindowText
-              ButtonFont.Height = -11
-              ButtonFont.Name = 'Tahoma'
-              ButtonFont.Style = []
-              ButtonUsed = False
-              ButtonWidth = 20
-              CheckMax = False
-              CheckMin = False
-              ComboUsed = False
-              Format = rcf4Integer
-              LimitToList = False
-              Max = 1.000000000000000000
-              MaxLength = 0
-              Min = 1.000000000000000000
-              ParentButtonFont = False
-              WordWrapCaptions = True
-              WordWrapCells = False
-              CaseSensitivePicklist = False
-              CheckStyle = csCheck
-              AutoAdjustColWidths = True
-            end>
-          WordWrapRowCaptions = False
-          ExplicitWidth = 318
+          Top = 6
+          Width = 5
+          Height = 347
         end
-        object rdgSetLimits: TRbwDataGrid4
-          Left = 1
-          Top = 158
-          Width = 355
-          Height = 195
+        object pnl2: TPanel
+          Left = 6
+          Top = 6
+          Width = 310
+          Height = 347
           Align = alClient
-          ColCount = 2
-          FixedCols = 0
-          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
-          TabOrder = 1
-          OnSelectCell = rdgSetLimitsSelectCell
-          ExtendedAutoDistributeText = False
-          AutoMultiEdit = True
-          AutoDistributeText = False
-          AutoIncreaseColCount = False
-          AutoIncreaseRowCount = False
-          SelectedRowOrColumnColor = clAqua
-          UnselectableColor = clBtnFace
-          OnButtonClick = rdgSetLimitsButtonClick
-          OnStateChange = rdgSetLimitsStateChange
-          ColorRangeSelection = False
-          Columns = <
-            item
-              AutoAdjustRowHeights = True
-              AutoAdjustCaptionRowHeights = False
-              ButtonCaption = '...'
-              ButtonFont.Charset = DEFAULT_CHARSET
-              ButtonFont.Color = clWindowText
-              ButtonFont.Height = -11
-              ButtonFont.Name = 'Tahoma'
-              ButtonFont.Style = []
-              ButtonUsed = False
-              ButtonWidth = 20
-              CheckMax = False
-              CheckMin = False
-              ComboUsed = False
-              Format = rcf4Boolean
-              LimitToList = False
-              MaxLength = 0
-              ParentButtonFont = False
-              WordWrapCaptions = True
-              WordWrapCells = False
-              CaseSensitivePicklist = False
-              CheckStyle = csCheck
-              AutoAdjustColWidths = True
-            end
-            item
-              AutoAdjustRowHeights = True
-              AutoAdjustCaptionRowHeights = False
-              ButtonCaption = '...'
-              ButtonFont.Charset = DEFAULT_CHARSET
-              ButtonFont.Color = clWindowText
-              ButtonFont.Height = -11
-              ButtonFont.Name = 'Tahoma'
-              ButtonFont.Style = []
-              ButtonUsed = True
-              ButtonWidth = 20
-              CheckMax = False
-              CheckMin = False
-              ComboUsed = False
-              Format = rcf4String
-              LimitToList = False
-              Max = 1.000000000000000000
-              MaxLength = 0
-              Min = 1.000000000000000000
-              ParentButtonFont = False
-              WordWrapCaptions = True
-              WordWrapCells = False
-              CaseSensitivePicklist = False
-              CheckStyle = csCheck
-              AutoAdjustColWidths = True
-            end>
-          WordWrapRowCaptions = False
-          ExplicitWidth = 318
+          Caption = 'pnl2'
+          TabOrder = 0
+          ExplicitLeft = 40
+          ExplicitWidth = 185
+          ExplicitHeight = 323
+          object rdgLimits: TRbwDataGrid4
+            Left = 1
+            Top = 1
+            Width = 308
+            Height = 152
+            Align = alTop
+            ColCount = 3
+            FixedCols = 0
+            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+            TabOrder = 0
+            OnSelectCell = rdgLimitsSelectCell
+            OnSetEditText = rdgLimitsSetEditText
+            ExtendedAutoDistributeText = False
+            AutoMultiEdit = True
+            AutoDistributeText = False
+            AutoIncreaseColCount = False
+            AutoIncreaseRowCount = False
+            SelectedRowOrColumnColor = clAqua
+            UnselectableColor = clBtnFace
+            OnStateChange = rdgLimitsStateChange
+            ColorRangeSelection = False
+            Columns = <
+              item
+                AutoAdjustRowHeights = True
+                AutoAdjustCaptionRowHeights = False
+                ButtonCaption = '...'
+                ButtonFont.Charset = DEFAULT_CHARSET
+                ButtonFont.Color = clWindowText
+                ButtonFont.Height = -11
+                ButtonFont.Name = 'Tahoma'
+                ButtonFont.Style = []
+                ButtonUsed = False
+                ButtonWidth = 20
+                CheckMax = False
+                CheckMin = False
+                ComboUsed = False
+                Format = rcf4Boolean
+                LimitToList = False
+                MaxLength = 0
+                ParentButtonFont = False
+                WordWrapCaptions = True
+                WordWrapCells = False
+                CaseSensitivePicklist = False
+                CheckStyle = csCheck
+                AutoAdjustColWidths = True
+              end
+              item
+                AutoAdjustRowHeights = True
+                AutoAdjustCaptionRowHeights = False
+                ButtonCaption = '...'
+                ButtonFont.Charset = DEFAULT_CHARSET
+                ButtonFont.Color = clWindowText
+                ButtonFont.Height = -11
+                ButtonFont.Name = 'Tahoma'
+                ButtonFont.Style = []
+                ButtonUsed = False
+                ButtonWidth = 20
+                CheckMax = False
+                CheckMin = False
+                ComboUsed = False
+                Format = rcf4Integer
+                LimitToList = False
+                Max = 1.000000000000000000
+                MaxLength = 0
+                Min = 1.000000000000000000
+                ParentButtonFont = False
+                WordWrapCaptions = True
+                WordWrapCells = False
+                CaseSensitivePicklist = False
+                CheckStyle = csCheck
+                AutoAdjustColWidths = True
+              end
+              item
+                AutoAdjustRowHeights = True
+                AutoAdjustCaptionRowHeights = False
+                ButtonCaption = '...'
+                ButtonFont.Charset = DEFAULT_CHARSET
+                ButtonFont.Color = clWindowText
+                ButtonFont.Height = -11
+                ButtonFont.Name = 'Tahoma'
+                ButtonFont.Style = []
+                ButtonUsed = False
+                ButtonWidth = 20
+                CheckMax = False
+                CheckMin = False
+                ComboUsed = False
+                Format = rcf4Integer
+                LimitToList = False
+                Max = 1.000000000000000000
+                MaxLength = 0
+                Min = 1.000000000000000000
+                ParentButtonFont = False
+                WordWrapCaptions = True
+                WordWrapCells = False
+                CaseSensitivePicklist = False
+                CheckStyle = csCheck
+                AutoAdjustColWidths = True
+              end>
+            WordWrapRowCaptions = False
+            ExplicitLeft = -72
+            ExplicitTop = 0
+            ExplicitWidth = 257
+          end
+          object rdgSetLimits: TRbwDataGrid4
+            Left = 1
+            Top = 153
+            Width = 308
+            Height = 193
+            Align = alClient
+            ColCount = 2
+            FixedCols = 0
+            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+            TabOrder = 1
+            OnSelectCell = rdgSetLimitsSelectCell
+            ExtendedAutoDistributeText = False
+            AutoMultiEdit = True
+            AutoDistributeText = False
+            AutoIncreaseColCount = False
+            AutoIncreaseRowCount = False
+            SelectedRowOrColumnColor = clAqua
+            UnselectableColor = clBtnFace
+            OnButtonClick = rdgSetLimitsButtonClick
+            OnStateChange = rdgSetLimitsStateChange
+            ColorRangeSelection = False
+            Columns = <
+              item
+                AutoAdjustRowHeights = True
+                AutoAdjustCaptionRowHeights = False
+                ButtonCaption = '...'
+                ButtonFont.Charset = DEFAULT_CHARSET
+                ButtonFont.Color = clWindowText
+                ButtonFont.Height = -11
+                ButtonFont.Name = 'Tahoma'
+                ButtonFont.Style = []
+                ButtonUsed = False
+                ButtonWidth = 20
+                CheckMax = False
+                CheckMin = False
+                ComboUsed = False
+                Format = rcf4Boolean
+                LimitToList = False
+                MaxLength = 0
+                ParentButtonFont = False
+                WordWrapCaptions = True
+                WordWrapCells = False
+                CaseSensitivePicklist = False
+                CheckStyle = csCheck
+                AutoAdjustColWidths = True
+              end
+              item
+                AutoAdjustRowHeights = True
+                AutoAdjustCaptionRowHeights = False
+                ButtonCaption = '...'
+                ButtonFont.Charset = DEFAULT_CHARSET
+                ButtonFont.Color = clWindowText
+                ButtonFont.Height = -11
+                ButtonFont.Name = 'Tahoma'
+                ButtonFont.Style = []
+                ButtonUsed = True
+                ButtonWidth = 20
+                CheckMax = False
+                CheckMin = False
+                ComboUsed = False
+                Format = rcf4String
+                LimitToList = False
+                Max = 1.000000000000000000
+                MaxLength = 0
+                Min = 1.000000000000000000
+                ParentButtonFont = False
+                WordWrapCaptions = True
+                WordWrapCells = False
+                CaseSensitivePicklist = False
+                CheckStyle = csCheck
+                AutoAdjustColWidths = True
+              end>
+            WordWrapRowCaptions = False
+            ExplicitLeft = -67
+            ExplicitTop = 128
+            ExplicitWidth = 252
+            ExplicitHeight = 195
+          end
         end
       end
     end

@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_backends_vcl.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_Backends_VCL.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_backends_vclHPP
-#define Gr32_backends_vclHPP
+#ifndef GR32_Backends_VCLHPP
+#define GR32_Backends_VCLHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,16 +15,16 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
 #include <Winapi.Windows.hpp>
 #include <Vcl.Graphics.hpp>
-#include <Gr32.hpp>
-#include <Gr32_backends.hpp>
-#include <Gr32_containers.hpp>
-#include <Gr32_image.hpp>
-#include <Gr32_backends_generic.hpp>
+#include <GR32.hpp>
+#include <GR32_Backends.hpp>
+#include <GR32_Containers.hpp>
+#include <GR32_Image.hpp>
+#include <GR32_Backends_Generic.hpp>
 #include <System.Types.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -264,4 +264,4 @@ using namespace Gr32_backends_vcl;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_backends_vclHPP
+#endif	// GR32_Backends_VCLHPP

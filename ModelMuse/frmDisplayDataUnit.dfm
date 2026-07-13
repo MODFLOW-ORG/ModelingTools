@@ -1143,7 +1143,8 @@ inherited frmDisplayData: TfrmDisplayData
               Left = 7
               Width = 374
               Height = 26
-              Tree.DefaultNodeHeight = 20
+              Tree.DefaultNodeHeight = 22
+              Tree.Header.Height = 18
               ExplicitLeft = 7
               ExplicitWidth = 390
               ExplicitHeight = 26
@@ -1506,7 +1507,8 @@ inherited frmDisplayData: TfrmDisplayData
             inherited virttreecomboDataSets: TRbwStringTreeCombo
               Width = 279
               Height = 26
-              Tree.DefaultNodeHeight = 20
+              Tree.DefaultNodeHeight = 22
+              Tree.Header.Height = 18
               Anchors = [akLeft, akTop, akRight]
               OnChange = frameContourDatavirttreecomboDataSetsChange
               ExplicitWidth = 279
@@ -2043,6 +2045,8 @@ inherited frmDisplayData: TfrmDisplayData
         inherited vstAvailableDataSets: TVirtualStringTree
           Width = 264
           Height = 515
+          DefaultNodeHeight = 22
+          Header.Height = 18
           ExplicitWidth = 264
           ExplicitHeight = 515
         end
@@ -2840,6 +2844,13 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitWidth = 78
               ExplicitHeight = 18
             end
+            inherited lblSinglePointSize: TLabel
+              Width = 168
+              Height = 18
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 168
+              ExplicitHeight = 18
+            end
             inherited fedPrtTracklineFile: TJvFilenameEdit
               Left = 2
               Top = 26
@@ -2868,6 +2879,11 @@ inherited frmDisplayData: TfrmDisplayData
               ItemHeight = 18
               StyleElements = [seFont, seClient, seBorder]
             end
+            inherited seSinglePointSize: TJvSpinEdit
+              Height = 26
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitHeight = 26
+            end
           end
           inherited tabOptions: TTabSheet
             ExplicitTop = 29
@@ -2881,26 +2897,44 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitHeight = 351
             end
             inherited pnl1: TPanel
-              Width = 427
+              Width = 387
               Height = 386
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 177
+              ExplicitWidth = 317
               ExplicitHeight = 351
               inherited spl1: TSplitter
-                Top = 368
-                Width = 425
+                Width = 385
                 ExplicitTop = 368
+                ExplicitWidth = 425
               end
-              inherited rdgLimits: TRbwDataGrid4
-                Width = 425
-                Height = 367
-                ExplicitHeight = 367
+              inherited spl2: TSplitter
+                Height = 379
               end
-              inherited rdgSetLimits: TRbwDataGrid4
-                Top = 373
-                Width = 425
-                Height = 12
-                ExplicitTop = 373
-                ExplicitHeight = 192
+              inherited pnl2: TPanel
+                Width = 380
+                Height = 379
+                StyleElements = [seFont, seClient, seBorder]
+                ExplicitLeft = 6
+                ExplicitWidth = 310
+                ExplicitHeight = 344
+                inherited rdgLimits: TRbwDataGrid4
+                  Width = 378
+                  Height = 367
+                  ExplicitLeft = 1
+                  ExplicitTop = 1
+                  ExplicitWidth = 308
+                  ExplicitHeight = 367
+                end
+                inherited rdgSetLimits: TRbwDataGrid4
+                  Top = 368
+                  Width = 378
+                  Height = 10
+                  ExplicitLeft = 1
+                  ExplicitTop = 368
+                  ExplicitWidth = 308
+                  ExplicitHeight = 12
+                end
               end
             end
           end

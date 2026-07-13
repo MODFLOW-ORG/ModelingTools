@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_layers.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_Layers.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_layersHPP
-#define Gr32_layersHPP
+#ifndef GR32_LayersHPP
+#define GR32_LayersHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,16 +15,16 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.Graphics.hpp>
 #include <Vcl.Forms.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Math.hpp>
-#include <Gr32.hpp>
-#include <System.Uitypes.hpp>
+#include <GR32.hpp>
+#include <System.UITypes.hpp>
 #include <System.Types.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -364,4 +364,4 @@ using namespace Gr32_layers;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_layersHPP
+#endif	// GR32_LayersHPP

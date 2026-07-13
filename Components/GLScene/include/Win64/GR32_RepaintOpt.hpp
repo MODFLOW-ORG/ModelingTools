@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_repaintopt.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_RepaintOpt.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_repaintoptHPP
-#define Gr32_repaintoptHPP
+#ifndef GR32_RepaintOptHPP
+#define GR32_RepaintOptHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Gr32.hpp>
-#include <Gr32_lowlevel.hpp>
-#include <Gr32_containers.hpp>
-#include <Gr32_layers.hpp>
+#include <System.SysUtils.hpp>
+#include <GR32.hpp>
+#include <GR32_LowLevel.hpp>
+#include <GR32_Containers.hpp>
+#include <GR32_Layers.hpp>
 #include <System.Types.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -82,4 +82,4 @@ using namespace Gr32_repaintopt;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_repaintoptHPP
+#endif	// GR32_RepaintOptHPP

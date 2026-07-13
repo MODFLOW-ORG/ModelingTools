@@ -51,6 +51,7 @@ type
     procedure frameReleasePeriodDataGridEnter(Sender: TObject);
     procedure frameReleasePeriodDataGridExit(Sender: TObject);
     procedure frameTrackTimesGridEndUpdate(Sender: TObject);
+    procedure frameTrackTimesGridExit(Sender: TObject);
   private
     FOnPrpPackageDeleted: TPrpPackagedDeletedEvent;
     FOnPrpPackageAdded: TNotifyEvent;
@@ -318,6 +319,15 @@ begin
   end;
 
   frameTrackTimes.GridEndUpdate(Sender);
+end;
+
+procedure TframePrpMultiplePackages.frameTrackTimesGridExit(Sender: TObject);
+begin
+  inherited;
+  if (frameTrackTimes.Grid.RowCount > 2) or (frameTrackTimes.Grid.Cells[0,1] <> '') then
+  begin
+    frameTrackTimes.seNumber.AsInteger := frameTrackTimes.Grid.RowCount -1;
+  end;
 end;
 
 procedure TframePrpMultiplePackages.GetData(PrtModel: TPrtModel);

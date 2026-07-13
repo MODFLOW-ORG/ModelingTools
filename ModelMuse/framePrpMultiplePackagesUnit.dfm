@@ -21,7 +21,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabOptions
+    ActivePage = tabTrackTimes
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -283,6 +283,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
         inherited Grid: TRbwDataGrid4
           Width = 657
           Height = 228
+          OnExit = frameTrackTimesGridExit
           OnEndUpdate = frameTrackTimesGridEndUpdate
           Columns = <
             item

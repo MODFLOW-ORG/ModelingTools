@@ -1,8 +1,8 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'GR32_LowLevel.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_LowLevel.pas' rev: 37.00 (Windows)
 
 #ifndef GR32_LowLevelHPP
 #define GR32_LowLevelHPP

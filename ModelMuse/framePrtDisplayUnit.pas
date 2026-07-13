@@ -84,6 +84,8 @@ type
     spl1: TSplitter;
     lblSinglePointSize: TLabel;
     seSinglePointSize: TJvSpinEdit;
+    spl2: TSplitter;
+    pnl2: TPanel;
     procedure btnColorSchemesClick(Sender: TObject);
     procedure comboColorSchemeChange(Sender: TObject);
     procedure fedPrtTracklineFileBeforeDialog(Sender: TObject; var AName: string;

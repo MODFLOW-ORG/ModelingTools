@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_transforms.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_Transforms.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_transformsHPP
-#define Gr32_transformsHPP
+#ifndef GR32_TransformsHPP
+#define GR32_TransformsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
-#include <Gr32.hpp>
-#include <Gr32_blend.hpp>
-#include <Gr32_vectormaps.hpp>
-#include <Gr32_rasterizers.hpp>
+#include <GR32.hpp>
+#include <GR32_Blend.hpp>
+#include <GR32_VectorMaps.hpp>
+#include <GR32_Rasterizers.hpp>
 #include <System.Types.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -503,4 +503,4 @@ using namespace Gr32_transforms;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_transformsHPP
+#endif	// GR32_TransformsHPP

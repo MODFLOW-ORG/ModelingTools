@@ -22,7 +22,7 @@ inherited framePackagePrp: TframePackagePrp
     Top = 144
     Width = 577
     Height = 394
-    ActivePage = tabReleasePeriodData
+    ActivePage = tabOptions
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -101,12 +101,12 @@ inherited framePackagePrp: TframePackagePrp
           item
             Brush.Style = bsClear
             Indent = 0
-            Text = 'EAGER'
+            Text = 'NONE'
           end
           item
             Brush.Style = bsClear
             Indent = 0
-            Text = 'NONE'
+            Text = 'EAGER'
           end>
       end
       object comboDryTrackingMethod: TJvImageComboBox

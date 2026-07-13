@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_backends.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_Backends.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_backendsHPP
-#define Gr32_backendsHPP
+#ifndef GR32_BackendsHPP
+#define GR32_BackendsHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,16 +15,16 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <Winapi.Messages.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.Graphics.hpp>
 #include <System.Classes.hpp>
-#include <System.Sysutils.hpp>
-#include <Gr32.hpp>
-#include <Gr32_containers.hpp>
-#include <Gr32_image.hpp>
+#include <System.SysUtils.hpp>
+#include <GR32.hpp>
+#include <GR32_Containers.hpp>
+#include <GR32_Image.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -122,4 +122,4 @@ using namespace Gr32_backends;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_backendsHPP
+#endif	// GR32_BackendsHPP

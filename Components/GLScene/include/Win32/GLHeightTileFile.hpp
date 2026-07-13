@@ -1,8 +1,8 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'GLHeightTileFile.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLHeightTileFile.pas' rev: 37.00 (Windows)
 
 #ifndef GLHeightTileFileHPP
 #define GLHeightTileFileHPP

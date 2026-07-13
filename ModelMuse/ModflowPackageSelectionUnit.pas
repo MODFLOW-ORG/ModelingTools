@@ -2924,7 +2924,7 @@ Type
   TPrtTrackingOutput = (ptoNone, ptoBinary, ptoCSV, ptoAll);
 
   TPrtDryTracking = (pdtDrop, pdtStop, pdtStay);
-  TPrtCoordinateCheckMethod = (ccmEager, ccmNone);
+  TPrtCoordinateCheckMethod = (ccmNone, ccmEager);
   // Output Control method.
   TPrtOCMethod = (pomBoth, pomPrint, pomSave);
 
@@ -32274,7 +32274,7 @@ begin
   ReleaseTimeToleranceUsed := False;
   ReleaseTimeFrequency := 0.0;
   ReleaseTimeFrequencyUsed := False;
-  CoordinateCheckMethod := ccmEager;
+  CoordinateCheckMethod := ccmNone;
   ReleaseTimes.clear;
   PeriodData.Clear;
 

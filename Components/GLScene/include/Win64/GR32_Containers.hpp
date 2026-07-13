@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_containers.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_Containers.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_containersHPP
-#define Gr32_containersHPP
+#ifndef GR32_ContainersHPP
+#define GR32_ContainersHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,14 +15,14 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
-#include <System.Rtlconsts.hpp>
-#include <Gr32.hpp>
-#include <System.Sysutils.hpp>
-#include <Gr32_lowlevel.hpp>
+#include <System.RTLConsts.hpp>
+#include <GR32.hpp>
+#include <System.SysUtils.hpp>
+#include <GR32_LowLevel.hpp>
 #include <System.Classes.hpp>
-#include <System.Typinfo.hpp>
+#include <System.TypInfo.hpp>
 #include <System.Types.hpp>
 
 //-- user supplied -----------------------------------------------------------
@@ -263,4 +263,4 @@ using namespace Gr32_containers;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_containersHPP
+#endif	// GR32_ContainersHPP

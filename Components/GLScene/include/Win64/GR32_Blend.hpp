@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_blend.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_Blend.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_blendHPP
-#define Gr32_blendHPP
+#ifndef GR32_BlendHPP
+#define GR32_BlendHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,11 +15,11 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
-#include <Gr32.hpp>
-#include <Gr32_system.hpp>
-#include <Gr32_bindings.hpp>
-#include <System.Sysutils.hpp>
+#include <SysInit.hpp>
+#include <GR32.hpp>
+#include <GR32_System.hpp>
+#include <GR32_Bindings.hpp>
+#include <System.SysUtils.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -102,4 +102,4 @@ using namespace Gr32_blend;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_blendHPP
+#endif	// GR32_BlendHPP

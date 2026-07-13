@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_microtiles.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_MicroTiles.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_microtilesHPP
-#define Gr32_microtilesHPP
+#ifndef GR32_MicroTilesHPP
+#define GR32_MicroTilesHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,17 +15,17 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
 #include <System.Types.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
-#include <Gr32.hpp>
-#include <Gr32_system.hpp>
-#include <Gr32_containers.hpp>
-#include <Gr32_layers.hpp>
-#include <Gr32_repaintopt.hpp>
-#include <Gr32_bindings.hpp>
+#include <GR32.hpp>
+#include <GR32_System.hpp>
+#include <GR32_Containers.hpp>
+#include <GR32_Layers.hpp>
+#include <GR32_RepaintOpt.hpp>
+#include <GR32_Bindings.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -175,4 +175,4 @@ using namespace Gr32_microtiles;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_microtilesHPP
+#endif	// GR32_MicroTilesHPP

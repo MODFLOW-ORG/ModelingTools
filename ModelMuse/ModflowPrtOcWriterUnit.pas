@@ -362,7 +362,7 @@ var
 begin
   if PrtModel.TrackTimes.Count > 0 then
   begin
-    WriteString('  BEGIN TRACKTIMES');
+    WriteString('BEGIN TRACKTIMES');
     NewLine;
 
     try
@@ -376,7 +376,7 @@ begin
         NewLine;
       end;
     finally
-      WriteString('  End TRACKTIMES');
+      WriteString('End TRACKTIMES');
       NewLine;
     end;
   end;

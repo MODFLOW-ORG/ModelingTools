@@ -1,8 +1,8 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2025 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'GLSMemo.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GLSMemo.pas' rev: 37.00 (Windows)
 
 #ifndef GLSMemoHPP
 #define GLSMemoHPP
@@ -301,6 +301,7 @@ public:
 	/* TStringList.Create */ inline __fastcall TGLSMemoStrings(System::WideChar QuoteChar, System::WideChar Delimiter)/* overload */ : System::Classes::TStringList(QuoteChar, Delimiter) { }
 	/* TStringList.Create */ inline __fastcall TGLSMemoStrings(System::WideChar QuoteChar, System::WideChar Delimiter, System::Classes::TStringsOptions Options)/* overload */ : System::Classes::TStringList(QuoteChar, Delimiter, Options) { }
 	/* TStringList.Create */ inline __fastcall TGLSMemoStrings(System::Classes::TDuplicates Duplicates, bool Sorted, bool CaseSensitive)/* overload */ : System::Classes::TStringList(Duplicates, Sorted, CaseSensitive) { }
+	/* TStringList.Create */ inline __fastcall TGLSMemoStrings(System::Classes::TStringsOptions Options, System::Classes::TDuplicates Duplicates)/* overload */ : System::Classes::TStringList(Options, Duplicates) { }
 	
 	/* Hoisted overloads: */
 	
@@ -817,6 +818,7 @@ public:
 	/* TStringList.Create */ inline __fastcall TGLSMemoStringList(System::WideChar QuoteChar, System::WideChar Delimiter)/* overload */ : System::Classes::TStringList(QuoteChar, Delimiter) { }
 	/* TStringList.Create */ inline __fastcall TGLSMemoStringList(System::WideChar QuoteChar, System::WideChar Delimiter, System::Classes::TStringsOptions Options)/* overload */ : System::Classes::TStringList(QuoteChar, Delimiter, Options) { }
 	/* TStringList.Create */ inline __fastcall TGLSMemoStringList(System::Classes::TDuplicates Duplicates, bool Sorted, bool CaseSensitive)/* overload */ : System::Classes::TStringList(Duplicates, Sorted, CaseSensitive) { }
+	/* TStringList.Create */ inline __fastcall TGLSMemoStringList(System::Classes::TStringsOptions Options, System::Classes::TDuplicates Duplicates)/* overload */ : System::Classes::TStringList(Options, Duplicates) { }
 	/* TStringList.Destroy */ inline __fastcall virtual ~TGLSMemoStringList() { }
 	
 };

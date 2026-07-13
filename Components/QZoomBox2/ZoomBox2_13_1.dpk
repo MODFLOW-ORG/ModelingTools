@@ -31,7 +31,8 @@ package ZoomBox2_13_1;
 
 requires
   rtl,
-  vcl;
+  vcl,
+  GR32_DSGN_RS13_1;
 
 contains
   ZoomBox2 in 'ZoomBox2.pas';

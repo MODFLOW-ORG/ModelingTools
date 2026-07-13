@@ -1,11 +1,11 @@
 ﻿// CodeGear C++Builder
-// Copyright (c) 1995, 2024 by Embarcadero Technologies, Inc.
+// Copyright (c) 1995, 2026 by Embarcadero Technologies, Inc.
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'Gr32_system.pas' rev: 36.00 (Windows)
+// (DO NOT EDIT: machine generated header) 'GR32_System.pas' rev: 37.00 (Windows)
 
-#ifndef Gr32_systemHPP
-#define Gr32_systemHPP
+#ifndef GR32_SystemHPP
+#define GR32_SystemHPP
 
 #pragma delphiheader begin
 #pragma option push
@@ -15,9 +15,9 @@
 #endif
 #pragma pack(push,8)
 #include <System.hpp>
-#include <Sysinit.hpp>
+#include <SysInit.hpp>
 #include <Winapi.Windows.hpp>
-#include <System.Sysutils.hpp>
+#include <System.SysUtils.hpp>
 
 //-- user supplied -----------------------------------------------------------
 
@@ -69,4 +69,4 @@ using namespace Gr32_system;
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------
-#endif	// Gr32_systemHPP
+#endif	// GR32_SystemHPP
