@@ -7,8 +7,9 @@
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Library</AppType>
         <FrameworkType>None</FrameworkType>
-        <ProjectVersion>19.5</ProjectVersion>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <ProjectVersion>20.4</ProjectVersion>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <ProjectName Condition="'$(ProjectName)'==''">dmath</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>

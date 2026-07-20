@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ProjectGuid>{77753165-152F-429B-9447-7538BCD7D8AA}</ProjectGuid>
         <MainSource>GenerateSTable.dpr</MainSource>
-        <ProjectVersion>19.5</ProjectVersion>
+        <ProjectVersion>20.4</ProjectVersion>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
         <AppType>Application</AppType>
@@ -10,6 +10,7 @@
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
+        <ProjectName Condition="'$(ProjectName)'==''">GenerateSTable</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
