@@ -1304,7 +1304,7 @@ The IREASON field indicates the reason the particle track record was saved:
     pcXPrime, pcYPrime, pcZ,
     pcStartXPrime, pcStartYPrime, pcStartZ,
     pcEndXPrime, pcEndYPrime, pcEndZ, pcPrp, pcReleaseTime, pcTime, pcLogTime,
-    pcStatus, pcReason, pcZone);
+    pcStatus, pcReason, pcZone, pcLineZone);
 
   TPrtColorLimits = class(TCustomColorLimits)
   private
@@ -1342,6 +1342,7 @@ The IREASON field indicates the reason the particle track record was saved:
     FEndPointSize: Integer;
     FReleaseTimeLimits: TShowFloatLimit;
     FLineNumberLimits: TShowIntegerLimit;
+    FThroughZoneLimits: TByteSetLimits;
     procedure SetLimitToCurrentIn2D(const Value: boolean);
     procedure SetColumnLimits(const Value: TShowIntegerLimit);
     procedure SetLayerLimits(const Value: TShowIntegerLimit);
@@ -1359,6 +1360,7 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure SetEndPointSize(const Value: Integer);
     procedure SetReleaseTimeLimits(const Value: TShowFloatLimit);
     procedure SetLineNumberLimits(const Value: TShowIntegerLimit);
+    procedure SetThroughZoneLimits(const Value: TByteSetLimits);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create(InvalidateModelEvent: TNotifyEvent);
@@ -1386,6 +1388,7 @@ The IREASON field indicates the reason the particle track record was saved:
     property ColorLimits: TPrtColorLimits read FColorLimits write SetColorLimits;
     property PlotTypes: TPrtPlotTypes read FPlotTypes write SetPlotTypes;
     property EndPointSize: Integer read FEndPointSize write SetEndPointSize;
+    property ThroughZoneLimits: TByteSetLimits read FThroughZoneLimits write SetThroughZoneLimits;
   end;
 
   TPrtTrackDisplayer = class(TPersistent)
@@ -4733,20 +4736,13 @@ var
   StartRow: integer;
   StartLayer: integer;
   StartZoneCode: integer;
-//  IPCODE: integer;
-//  EndXPrime: double;
-//  EndYPrime: double;
-//  EndZ: double;
   EndLocalZ: double;
   EndGlobalX: double;
   EndGlobalY: double;
   EndGlobalZ: double;
   TrackingTime: double;
-//  StartXPrime: double;
-//  StartYPrime: double;
   StartLocalZ: double;
   ReleaseTime: double;
-//  StartTimeStep: integer;
   StartGlobalX: Double;
   StartGlobalY: Double;
   StartGlobalZ: Double;
@@ -9440,8 +9436,10 @@ begin
     StatusLimit := TrackDisplaySource.StatusLimit;
     ReasonLimits := TrackDisplaySource.ReasonLimits;
     SelectedTimeLimits := TrackDisplaySource.SelectedTimeLimits;
+    ColorLimits := TrackDisplaySource.ColorLimits;
     PlotTypes := TrackDisplaySource.PlotTypes;
     EndPointSize := TrackDisplaySource.EndPointSize;
+    ThroughZoneLimits := TrackDisplaySource.ThroughZoneLimits;
   end
   else
   begin
@@ -9469,6 +9467,7 @@ begin
   FReasonLimits := TReasonLimit.Create;
   FStatusLimit := TStatusLimit.Create;
   FColorLimits := TPrtColorLimits.Create;
+  FThroughZoneLimits := TByteSetLimits.Create(InvalidateModelEvent);
 
   FEndPointSize := 4;
 end;
@@ -9488,6 +9487,7 @@ begin
   FReasonLimits.Free;
   FStatusLimit.Free;
   FColorLimits.Free;
+  FThroughZoneLimits.Free;
 
   inherited;
 end;
@@ -9570,6 +9570,12 @@ end;
 procedure TPrtTrackDisplayLimits.SetStatusLimit(const Value: TStatusLimit);
 begin
   FStatusLimit.Assign(Value);
+end;
+
+procedure TPrtTrackDisplayLimits.SetThroughZoneLimits(
+  const Value: TByteSetLimits);
+begin
+  FThroughZoneLimits.Assign(Value);
 end;
 
 procedure TPrtTrackDisplayLimits.SetTimeLimits(const Value: TShowFloatLimit);
@@ -9698,29 +9704,21 @@ const
   MaxCoord = MaxInt-1;
   MinCoord = -MaxCoord;
 var
-//  EndPointIndex: Integer;
-//  EndPoint: TEndPoint;
   ColRowOrLayer: integer;
   ZoomBox: TQRbwZoomBox2;
   ADisplayPoint: TPoint;
   MaxValue, MinValue: double;
-//  Grid: TModflowGrid;
   AColor: TColor;
   AColor32: TColor32;
   ARect: TRect;
   QuadTree: TRbwQuadTree;
   ShouldInitializeTree: Boolean;
   Limits: TGridLimit;
-//  LocalPoints: TCustomEndPoints;
   PixelPlus: Integer;
   PixelMinus: Integer;
   DisplayQuadTree: TRbwQuadTree;
   DisplayPointList: TList<TPoint>;
   DisplayColorList: TList<TColor32>;
-//  UsePoint: Boolean;
-//  X: double;
-//  Y: double;
-//  Data: Pointer;
   LocalModel: TCustomModel;
   DisvUsed: Boolean;
   CrossSectionSegment: TSegment2D;
@@ -9732,6 +9730,7 @@ var
   PriorPoint: TPrtTrackPoint;
   Points: array [0..1] of TPoint;
   ShowPriorPoint: Boolean;
+  UsedZone: Integer;
   function ShowPrtPoint(APoint: TPrtTrackPoint): Boolean;
   var
     Model: TCustomModel;
@@ -9739,6 +9738,11 @@ var
     Column: integer;
   begin
     result := True;
+
+    if PrtTrackDisplayLimits.ShowChoice <> scAll then
+    begin
+      Exit;
+    end;
 
     if PrtTrackDisplayLimits.LimitToCurrentIn2D then
     begin
@@ -9966,6 +9970,24 @@ var
       end;
     end;
   end;
+  function CanDisplayTrack(ATrack: TPrtTrack): Boolean;
+  begin
+    result := True;
+    if PrtTrackDisplayLimits.ThroughZoneLimits.UseLimit
+      and (PrtTrackDisplayLimits.ShowChoice <> scAll) then
+    begin
+      result := False;
+      for var LimitIndex := 0 to PrtTrackDisplayLimits.ThroughZoneLimits.Limits.Count - 1 do
+      begin
+        UsedZone := PrtTrackDisplayLimits.ThroughZoneLimits.Limits[LimitIndex].Value;
+        result := ATrack.HasZone(UsedZone);
+        if result then
+        begin
+          break;
+        end;
+      end;
+    end;
+  end;
 begin
   if PrtTrackDisplayLimits.PlotTypes = [] then
   begin
@@ -10091,6 +10113,12 @@ begin
         for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
         begin
           ATrack := LocalTracks[PrpIndex, ParticleIndex];
+
+          if not CanDisplayTrack(ATrack) then
+          begin
+            Continue;
+          end;
+
           PriorPoint := nil;
           ShowPriorPoint := False;
           for var PointIndex := 0 to ATrack.Count - 1 do
@@ -10125,6 +10153,10 @@ begin
         for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
         begin
           ATrack := LocalTracks[PrpIndex, ParticleIndex];
+          if not CanDisplayTrack(ATrack) then
+          begin
+            Continue;
+          end;
           if ATrack.Count > 0 then
           begin
             APoint := ATrack.First;
@@ -10145,6 +10177,10 @@ begin
         for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
         begin
           ATrack := LocalTracks[PrpIndex, ParticleIndex];
+          if not CanDisplayTrack(ATrack) then
+          begin
+            Continue;
+          end;
           if ATrack.Count > 0 then
           begin
             APoint := ATrack.Last;
@@ -10165,6 +10201,10 @@ begin
         for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
         begin
           ATrack := LocalTracks[PrpIndex, ParticleIndex];
+          if not CanDisplayTrack(ATrack) then
+          begin
+            Continue;
+          end;
           for var PointIndex := 0 to ATrack.Count - 1 do
           begin
             APoint := ATrack[PointIndex];

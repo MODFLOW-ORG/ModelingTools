@@ -2804,11 +2804,10 @@ inherited frmDisplayData: TfrmDisplayData
           ExplicitHeight = 521
           inherited tabBasic: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
-            ExplicitHeight = 488
+            ExplicitHeight = 453
             DesignSize = (
-              564
-              488)
+              494
+              453)
             inherited lblPrtTracklineFile: TLabel
               Width = 97
               Height = 18
@@ -2891,49 +2890,37 @@ inherited frmDisplayData: TfrmDisplayData
             ExplicitHeight = 488
             inherited rgShow2D: TRadioGroup
               Width = 564
+              ExplicitWidth = 564
             end
             inherited rgColorBy: TRadioGroup
               Height = 386
-              ExplicitHeight = 351
+              ExplicitHeight = 386
             end
             inherited pnl1: TPanel
               Width = 387
               Height = 386
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 177
-              ExplicitWidth = 317
-              ExplicitHeight = 351
-              inherited spl1: TSplitter
-                Width = 385
-                ExplicitTop = 368
-                ExplicitWidth = 425
-              end
+              ExplicitHeight = 386
               inherited spl2: TSplitter
-                Height = 379
+                Height = 384
+                ExplicitHeight = 379
               end
               inherited pnl2: TPanel
                 Width = 380
-                Height = 379
+                Height = 384
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitLeft = 6
-                ExplicitWidth = 310
-                ExplicitHeight = 344
+                ExplicitHeight = 379
+                inherited spl1: TSplitter
+                  Width = 378
+                end
                 inherited rdgLimits: TRbwDataGrid4
                   Width = 378
-                  Height = 367
-                  ExplicitLeft = 1
-                  ExplicitTop = 1
-                  ExplicitWidth = 308
-                  ExplicitHeight = 367
                 end
                 inherited rdgSetLimits: TRbwDataGrid4
-                  Top = 368
                   Width = 378
-                  Height = 10
-                  ExplicitLeft = 1
+                  Height = 225
                   ExplicitTop = 368
-                  ExplicitWidth = 308
-                  ExplicitHeight = 12
+                  ExplicitHeight = 10
                 end
               end
             end

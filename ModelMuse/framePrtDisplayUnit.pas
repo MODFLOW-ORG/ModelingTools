@@ -15,7 +15,7 @@ type
     tlReleaseTime, tlLineNumber);
 
   TTrackSetLimits = (tlsNone, tlPrpPackage, tlReason, tlZone, tlStatus,
-    tlSelectedTimes);
+    tlSelectedTimes, tlPassesThroughZone);
 
 resourcestring
   Colorlimits = 'Color limits';
@@ -31,13 +31,14 @@ resourcestring
   Zone = 'Zone';
   Status = 'Status';
   SelectedTimes = 'Selected Times';
+  PassesThroughZone = 'Passes Through Zone';
 
 const
   TableCaptions: array[Low(TTrackLimits)..High(TTrackLimits)] of string =
     ('', Colorlimits, Layer, Row, Column, Times, ReleaseTimes, LineNumber);
 
   TableSetCaptions: array[Low(TTrackSetLimits)..High(TTrackSetLimits)] of string =
-    ('', PrpPackage, Reason, Zone, Status, SelectedTimes);
+    ('', PrpPackage, Reason, Zone, Status, SelectedTimes, PassesThroughZone);
 
 type
   TUndoImportPrtTrack = class(TCustomUndo)
@@ -353,6 +354,7 @@ begin
   ReadByteSetLimit(PrtTrackDisplayLimits.ZoneLimits, tlZone);
   ReadStatusLimit(PrtTrackDisplayLimits.StatusLimit, tlStatus);
   ReadSelectedTimeLimit(PrtTrackDisplayLimits.SelectedTimeLimits, tlSelectedTimes);
+  ReadByteSetLimit(PrtTrackDisplayLimits.ThroughZoneLimits, tlPassesThroughZone);
 
   rgColorBy.ItemIndex := Ord(PrtTrackDisplayLimits.ColorLimits.ColoringChoice);
 
@@ -384,13 +386,13 @@ end;
 
 procedure TframePrtDisplay.Loaded;
 var
-  Index: TTrackLimits;
+  RowIndex: TTrackLimits;
 begin
   inherited;
   rdgLimits.BeginUpdate;
   try
     rdgLimits.RowCount := Succ(Ord(High(TTrackLimits)));
-    for Index := Low(TTrackLimits) to High(TTrackLimits) do
+    for var Index := Low(TTrackLimits) to High(TTrackLimits) do
     begin
       rdgLimits.Cells[0,Ord(Index)] := TableCaptions[Index];
     end;
@@ -398,27 +400,37 @@ begin
     rdgLimits.Cells[1,0] := StrLowerLimit;
     rdgLimits.Cells[2,0] := StrUpperLimit;
 
-    Index := tlColors;
-    rdgLimits.UseSpecialFormat[1,Ord(Index)] := True;
-    rdgLimits.UseSpecialFormat[2,Ord(Index)] := True;
-    rdgLimits.SpecialFormat[1,Ord(Index)] := rcf4Real;
-    rdgLimits.SpecialFormat[2,Ord(Index)] := rcf4Real;
+    RowIndex := tlColors;
+    rdgLimits.UseSpecialFormat[1,Ord(RowIndex)] := True;
+    rdgLimits.UseSpecialFormat[2,Ord(RowIndex)] := True;
+    rdgLimits.SpecialFormat[1,Ord(RowIndex)] := rcf4Real;
+    rdgLimits.SpecialFormat[2,Ord(RowIndex)] := rcf4Real;
 
-    Index := tlTime;
-    rdgLimits.UseSpecialFormat[1,Ord(Index)] := True;
-    rdgLimits.UseSpecialFormat[2,Ord(Index)] := True;
-    rdgLimits.SpecialFormat[1,Ord(Index)] := rcf4Real;
-    rdgLimits.SpecialFormat[2,Ord(Index)] := rcf4Real;
+    RowIndex := tlTime;
+    rdgLimits.UseSpecialFormat[1,Ord(RowIndex)] := True;
+    rdgLimits.UseSpecialFormat[2,Ord(RowIndex)] := True;
+    rdgLimits.SpecialFormat[1,Ord(RowIndex)] := rcf4Real;
+    rdgLimits.SpecialFormat[2,Ord(RowIndex)] := rcf4Real;
 
-    Index := tlReleaseTime;
-    rdgLimits.UseSpecialFormat[1,Ord(Index)] := True;
-    rdgLimits.UseSpecialFormat[2,Ord(Index)] := True;
-    rdgLimits.SpecialFormat[1,Ord(Index)] := rcf4Real;
-    rdgLimits.SpecialFormat[2,Ord(Index)] := rcf4Real;
+    RowIndex := tlReleaseTime;
+    rdgLimits.UseSpecialFormat[1,Ord(RowIndex)] := True;
+    rdgLimits.UseSpecialFormat[2,Ord(RowIndex)] := True;
+    rdgLimits.SpecialFormat[1,Ord(RowIndex)] := rcf4Real;
+    rdgLimits.SpecialFormat[2,Ord(RowIndex)] := rcf4Real;
   finally
     rdgLimits.EndUpdate;
   end;
 
+  rdgSetLimits.BeginUpdate;
+  try
+    rdgSetLimits.RowCount := Succ(Ord(High(TTrackSetLimits)));
+    for var Index := Low(TTrackSetLimits) to High(TTrackSetLimits) do
+    begin
+      rdgSetLimits.Cells[0,Ord(Index)] := TableSetCaptions[Index];
+    end;
+    rdgSetLimits.EndUpdate;
+  finally
+  end;
   pcMain.ActivePageIndex := 0;
 end;
 
@@ -548,12 +560,28 @@ begin
          end;
       tlZone:
         begin
-          Choices.Assign(Tracks.Zones);
+          for var ZoneIndex := 0 to Tracks.Zones.Count - 1 do
+          begin
+            Choices.Add(Tracks.Zones[ZoneIndex].Value.ToString)
+          end;
           for var Index := 0 to SelectedChoices.Count - 1 do
           begin
             SelectedIndex := SelectedChoices[Index].ToInteger;
             Selection.Add.Value := SelectedIndex;
           end;
+        end;
+      tlPassesThroughZone:
+        begin
+          for var ZoneIndex := 0 to Tracks.Zones.Count - 1 do
+          begin
+            Choices.Add(Tracks.Zones[ZoneIndex].Value.ToString)
+          end;
+          for var Index := 0 to SelectedChoices.Count - 1 do
+          begin
+            SelectedIndex := SelectedChoices[Index].ToInteger;
+            Selection.Add.Value := SelectedIndex;
+          end;
+
         end;
       tlStatus:
         begin
@@ -579,7 +607,7 @@ begin
           SpecifiedTimes := Tracks.SpecifiedTimes;
           for var TimeIndex := 0 to SpecifiedTimes.Count - 1 do
           begin
-            Choices.Add(SpecifiedTimes[TimeIndex].ToString);
+            Choices.Add(SpecifiedTimes[TimeIndex].Value.ToString);
           end;
           for var Index := 0 to SelectedChoices.Count - 1 do
           begin
@@ -611,7 +639,7 @@ begin
               NewSelectedChoices.Add(Selection[SelectIndex].Value.ToString);
             end;
           end;
-        tlZone:
+        tlZone, tlPassesThroughZone:
           begin
             for var SelectIndex := 0 to Selection.Count - 1 do
             begin
@@ -650,23 +678,27 @@ end;
 procedure TframePrtDisplay.rdgSetLimitsSelectCell(Sender: TObject; ACol, ARow:
     LongInt; var CanSelect: Boolean);
 begin
-  case ACol of
-    0:
-      begin
-        // do nothing.
-      end;
-    1:
-      begin
-        CanSelect := rdgLimits.Checked[0,ARow];
-      end;
-    else Assert(False);
+  CanSelect := rgShow2D.ItemIndex <> 0;
+  if CanSelect then
+  begin
+    case ACol of
+      0:
+        begin
+          // do nothing.
+        end;
+      1:
+        begin
+          CanSelect := rdgSetLimits.Checked[0,ARow];
+        end;
+      else Assert(False);
+    end;
   end;
 end;
 
 procedure TframePrtDisplay.rdgSetLimitsStateChange(Sender: TObject; ACol, ARow:
     LongInt; const Value: TCheckBoxState);
 begin
-  rdgLimits.Invalidate;
+  rdgSetLimits.Invalidate;
 end;
 
 procedure TframePrtDisplay.ReadByteSetLimit(ByteLimits: TByteSetLimits;
@@ -676,7 +708,7 @@ var
   AStringList: TStringList;
 begin
   ARow := Ord(ALimitRow);
-  rdgLimits.Checked[0, ARow] := ByteLimits.UseLimit;
+  rdgSetLimits.Checked[0, ARow] := ByteLimits.UseLimit;
   if ByteLimits.UseLimit then
   begin
     AStringList := TStringList.Create;
@@ -727,7 +759,7 @@ var
   AStringList: TStringList;
 begin
   ARow := Ord(LimitRow);
-  rdgLimits.Checked[0, ARow] := ReasonLimit.UseLimit;
+  rdgSetLimits.Checked[0, ARow] := ReasonLimit.UseLimit;
   if ReasonLimit.UseLimit then
   begin
     AStringList := TStringList.Create;
@@ -750,7 +782,7 @@ var
   AStringList: TStringList;
 begin
   ARow := Ord(LimitRow);
-  rdgLimits.Checked[0, ARow] := SelectedTimeLimits.UseLimit;
+  rdgSetLimits.Checked[0, ARow] := SelectedTimeLimits.UseLimit;
   if SelectedTimeLimits.UseLimit then
   begin
     AStringList := TStringList.Create;
@@ -773,7 +805,7 @@ var
   AStringList: TStringList;
 begin
   ARow := Ord(LimitRow);
-  rdgLimits.Checked[0, ARow] := StatusLimit.UseLimit;
+  rdgSetLimits.Checked[0, ARow] := StatusLimit.UseLimit;
   if StatusLimit.UseLimit then
   begin
     AStringList := TStringList.Create;
@@ -797,6 +829,7 @@ end;
 procedure TframePrtDisplay.rgShow2DClick(Sender: TObject);
 begin
   rdgLimits.Invalidate;
+  rdgSetLimits.Invalidate;
 end;
 
 procedure TframePrtDisplay.seColorExponentChange(Sender: TObject);
@@ -817,7 +850,7 @@ var
   AStringList: TStringList;
 begin
   ARow := Ord(LimitRow);
-  ByteLimit.UseLimit := rdgLimits.Checked[0, ARow];
+  ByteLimit.UseLimit := rdgSetLimits.Checked[0, ARow];
   if ByteLimit.UseLimit then
   begin
     AStringList := TStringList.Create;
@@ -954,6 +987,7 @@ begin
         SetStatusLimit(PrtTrackDisplayLimits.StatusLimit, tlStatus);
         SetReasonLimit(PrtTrackDisplayLimits.ReasonLimits, tlSelectedTimes);
         SetSelectedTimeLimit(PrtTrackDisplayLimits.SelectedTimeLimits, tlSelectedTimes);
+        SetByteSetLimit(tlPassesThroughZone, PrtTrackDisplayLimits.ThroughZoneLimits);
      end;
 
       ColorLimits := PrtTrackDisplayLimits.ColorLimits;
@@ -1022,7 +1056,7 @@ var
   AReason: TReason;
 begin
   ARow := Ord(LimitRow);
-  ReasonLimit.UseLimit := rdgLimits.Checked[0, ARow];
+  ReasonLimit.UseLimit := rdgSetLimits.Checked[0, ARow];
   if ReasonLimit.UseLimit then
   begin
     AStringList := TStringList.Create;
@@ -1048,7 +1082,7 @@ var
   AStringList: TStringList;
 begin
   ARow := Ord(LimitRow);
-  SelectedTimeLimits.UseLimit := rdgLimits.Checked[0, ARow];
+  SelectedTimeLimits.UseLimit := rdgSetLimits.Checked[0, ARow];
   if SelectedTimeLimits.UseLimit then
   begin
     AStringList := TStringList.Create;
@@ -1074,7 +1108,7 @@ var
   Status: TStatus;
 begin
   ARow := Ord(LimitRow);
-  StatusLimit.UseLimit := rdgLimits.Checked[0, ARow];
+  StatusLimit.UseLimit := rdgSetLimits.Checked[0, ARow];
   if StatusLimit.UseLimit then
   begin
     AStringList := TStringList.Create;

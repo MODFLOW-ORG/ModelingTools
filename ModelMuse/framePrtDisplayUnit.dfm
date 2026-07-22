@@ -9,7 +9,7 @@ object framePrtDisplay: TframePrtDisplay
     Top = 0
     Width = 502
     Height = 486
-    ActivePage = tabBasic
+    ActivePage = tabOptions
     Align = alClient
     TabOrder = 0
     object tabBasic: TTabSheet
@@ -207,9 +207,9 @@ object framePrtDisplay: TframePrtDisplay
         ItemIndex = 0
         Items.Strings = (
           'Show all'
-          'Specify columns, rows, layers, and/or times to show'
-          'Specify starting columns, rows, layers, and/or times to show'
-          'Specify ending columns, rows, layers, and/or times to show')
+          'Specify criteria to show points'
+          'Specify criteria at starting points to show points'
+          'Specify criteria at ending points to show points')
         TabOrder = 0
         OnClick = rgShow2DClick
       end
@@ -239,7 +239,8 @@ object framePrtDisplay: TframePrtDisplay
           'log(Time)'
           'Status'
           'Reason'
-          'Zone')
+          'Zone'
+          'Line through Zone')
         TabOrder = 1
         OnClick = rgColorByClick
       end
@@ -251,40 +252,39 @@ object framePrtDisplay: TframePrtDisplay
         Align = alClient
         Caption = 'pnl1'
         TabOrder = 2
-        ExplicitLeft = 137
-        ExplicitWidth = 357
-        object spl1: TSplitter
-          Left = 1
-          Top = 1
-          Width = 315
-          Height = 5
-          Cursor = crVSplit
-          Align = alTop
-          ExplicitTop = 153
-          ExplicitWidth = 318
-        end
         object spl2: TSplitter
           Left = 1
-          Top = 6
+          Top = 1
           Width = 5
-          Height = 347
+          Height = 352
+          ExplicitTop = 6
+          ExplicitHeight = 347
         end
         object pnl2: TPanel
           Left = 6
-          Top = 6
+          Top = 1
           Width = 310
-          Height = 347
+          Height = 352
           Align = alClient
           Caption = 'pnl2'
           TabOrder = 0
-          ExplicitLeft = 40
-          ExplicitWidth = 185
-          ExplicitHeight = 323
+          ExplicitTop = 6
+          ExplicitHeight = 347
+          object spl1: TSplitter
+            Left = 1
+            Top = 193
+            Width = 308
+            Height = 5
+            Cursor = crVSplit
+            Align = alTop
+            ExplicitTop = 10
+            ExplicitWidth = 315
+          end
           object rdgLimits: TRbwDataGrid4
             Left = 1
             Top = 1
             Width = 308
-            Height = 152
+            Height = 192
             Align = alTop
             ColCount = 3
             FixedCols = 0
@@ -379,15 +379,12 @@ object framePrtDisplay: TframePrtDisplay
                 AutoAdjustColWidths = True
               end>
             WordWrapRowCaptions = False
-            ExplicitLeft = -72
-            ExplicitTop = 0
-            ExplicitWidth = 257
           end
           object rdgSetLimits: TRbwDataGrid4
             Left = 1
-            Top = 153
+            Top = 198
             Width = 308
-            Height = 193
+            Height = 153
             Align = alClient
             ColCount = 2
             FixedCols = 0
@@ -432,14 +429,14 @@ object framePrtDisplay: TframePrtDisplay
               item
                 AutoAdjustRowHeights = True
                 AutoAdjustCaptionRowHeights = False
-                ButtonCaption = '...'
+                ButtonCaption = 'Edit'
                 ButtonFont.Charset = DEFAULT_CHARSET
                 ButtonFont.Color = clWindowText
                 ButtonFont.Height = -11
                 ButtonFont.Name = 'Tahoma'
                 ButtonFont.Style = []
                 ButtonUsed = True
-                ButtonWidth = 20
+                ButtonWidth = 40
                 CheckMax = False
                 CheckMin = False
                 ComboUsed = False
@@ -456,10 +453,8 @@ object framePrtDisplay: TframePrtDisplay
                 AutoAdjustColWidths = True
               end>
             WordWrapRowCaptions = False
-            ExplicitLeft = -67
-            ExplicitTop = 128
-            ExplicitWidth = 252
-            ExplicitHeight = 195
+            ExplicitTop = 153
+            ExplicitHeight = 193
           end
         end
       end

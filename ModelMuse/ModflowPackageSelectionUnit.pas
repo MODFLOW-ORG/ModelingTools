@@ -31994,7 +31994,7 @@ begin
     end;
     UpdateDataArray(LocalModel.PrtZoneUsed,
       FZoneDataArrayName, Value,
-      FZoneDataArrayDisplayName, '1', 'PRT MIP Package: IZONE',
+      FZoneDataArrayDisplayName, '0', 'PRT MIP Package: IZONE',
       DataSetUsed, StrPrtClassification);
   end;
 

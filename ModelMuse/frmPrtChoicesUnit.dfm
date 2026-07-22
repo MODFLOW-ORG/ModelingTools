@@ -12,7 +12,6 @@ inherited frmPrtChoices: TfrmPrtChoices
     Align = alBottom
     ParentColor = True
     TabOrder = 0
-    ExplicitWidth = 573
     DesignSize = (
       414
       49)
@@ -25,7 +24,6 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkCancel
       NumGlyphs = 2
       TabOrder = 2
-      ExplicitLeft = 480
     end
     object btnOK: TBitBtn
       Left = 232
@@ -36,7 +34,6 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkOK
       NumGlyphs = 2
       TabOrder = 1
-      ExplicitLeft = 391
     end
     object btnHelp: TBitBtn
       Left = 143
@@ -47,7 +44,6 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkHelp
       NumGlyphs = 2
       TabOrder = 0
-      ExplicitLeft = 302
     end
   end
   object rdgChoices: TRbwDataGrid4
@@ -58,8 +54,7 @@ inherited frmPrtChoices: TfrmPrtChoices
     Align = alClient
     ColCount = 1
     FixedCols = 0
-    FixedRows = 0
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
     TabOrder = 1
     ExtendedAutoDistributeText = False
     AutoMultiEdit = False
@@ -95,10 +90,6 @@ inherited frmPrtChoices: TfrmPrtChoices
         AutoAdjustColWidths = False
       end>
     WordWrapRowCaptions = False
-    ExplicitLeft = 176
-    ExplicitTop = 40
-    ExplicitWidth = 320
-    ExplicitHeight = 120
     ColWidths = (
       406)
   end

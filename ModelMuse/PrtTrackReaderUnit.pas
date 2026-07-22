@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes, GoPhastTypes, System.AnsiStrings, System.IOUtils,
-  System.SysUtils, System.Generics.Collections;
+  System.SysUtils, System.Generics.Collections, IntListUnit;
 
 type
   TPrtTrackPointRecord = record
@@ -124,12 +124,15 @@ type
   // See PathlineReader.pas for @link(TPrtTrackDisplayer).
   TPrtTrack = class(TCollection)
   private
+    FZones: TIntegerList;
     function GetTrackPoint(Index: Integer): TPrtTrackPoint;
     procedure SetTrackPoint(Index: Integer; const Value: TPrtTrackPoint);
     function Get_IPRP: Integer;
     function Get_IRPT: Integer;
   public
     Constructor Create;
+    destructor Destroy; override;
+    procedure Assign(Source: TPersistent); override;
     function First: TPrtTrackPoint;
     function Last: TPrtTrackPoint;
     function Add: TPrtTrackPoint;
@@ -137,6 +140,7 @@ type
     property IPRP: Integer read Get_IPRP;
     property IRPT: Integer read Get_IRPT;
     function TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;
+    function HasZone(AZone: Integer): Boolean;
   end;
 
   TPrtTrackList = TList<TPrtTrack>;
@@ -190,7 +194,7 @@ implementation
 
 uses
   ModelMuseUtilities, ModflowGridUnit, PhastModelInterfaceUnit, PhastModelUnit,
-  FastGEO, IntListUnit, RealListUnit;
+  FastGEO, RealListUnit;
 
 procedure ConvertCoordinates(Grid: TModflowGrid; var XPrime, YPrime: double;
   var Point2D: TPoint2D);
@@ -496,9 +500,30 @@ begin
   result := inherited Add as TPrtTrackPoint;
 end;
 
+procedure TPrtTrack.Assign(Source: TPersistent);
+var
+  ATrackPoint: TPrtTrackPoint;
+begin
+  inherited;
+  FZones.Clear;
+  for var Index := 0 to Count - 1 do
+  begin
+     ATrackPoint := Items[Index];
+     FZones.AddUnique(ATrackPoint.IZONE);
+  end;
+end;
+
 constructor TPrtTrack.Create;
 begin
   inherited Create(TPrtTrackPoint);
+  FZones := TIntegerList.Create;
+  FZones.Sorted := True;
+end;
+
+destructor TPrtTrack.Destroy;
+begin
+  FZones.Free;
+  inherited;
 end;
 
 function TPrtTrack.First: TPrtTrackPoint;
@@ -536,6 +561,11 @@ begin
   end;
 end;
 
+
+function TPrtTrack.HasZone(AZone: Integer): Boolean;
+begin
+  result := FZones.IndexOf(AZone) >= 0;
+end;
 
 function TPrtTrack.Last: TPrtTrackPoint;
 begin
@@ -825,6 +855,7 @@ begin
         ATrackPoint.X := Point2D.X;
         ATrackPoint.Y := Point2D.Y;
       end;
+      Track.FZones.AddUnique(PrtTrackPointRecord.IZONE);
 
     end;
   finally
@@ -911,6 +942,7 @@ begin
         begin
           ATrackPoint.NAME := '';
         end;
+        Track.FZones.AddUnique(PrtTrackPointRecord.IZONE);
 
         AString := ACsvFile.ReadLine;
       end;
