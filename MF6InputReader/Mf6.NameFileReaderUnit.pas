@@ -23,12 +23,12 @@ type
       Unhandled: TStreamWriter); virtual;
   protected
     procedure Initialize; override;
-  public
-    property PRINT_INPUT: Boolean read FPRINT_INPUT;
-    property PRINT_FLOWS: Boolean read FPRINT_FLOWS;
     property NETCDF_MESH2D: Boolean read FNETCDF_MESH2D;
     property NETCDF_STRUCTURED: Boolean read FNETCDF_STRUCTURED;
     property netcdf_filename: string read Fnetcdf_filename;
+  public
+    property PRINT_INPUT: Boolean read FPRINT_INPUT;
+    property PRINT_FLOWS: Boolean read FPRINT_FLOWS;
   end;
 
   TFlowNameFileOptions = class(TCustomNameFileOptions)
@@ -44,9 +44,20 @@ type
   public
     property NEWTON: Boolean read FNEWTON;
     property UNDER_RELAXATION: Boolean read FUNDER_RELAXATION;
+    property NETCDF_MESH2D;
+    property NETCDF_STRUCTURED;
+    property netcdf_filename;
   end;
 
   TTransportNameFileOptions = class(TCustomNameFileOptions)
+  public
+    property NETCDF_MESH2D;
+    property NETCDF_STRUCTURED;
+    property netcdf_filename;
+  end;
+
+  TPrtNameFileOptions = class(TCustomNameFileOptions)
+
   end;
 
   TCustomPackages = class(TCustomMf6Persistent)
@@ -74,6 +85,10 @@ type
   end;
 
   TEnergyTransportPackages =class(TCustomPackages)
+    procedure Initialize; override;
+  end;
+
+  TPrtPackages  =class(TCustomPackages)
     procedure Initialize; override;
   end;
 
@@ -115,7 +130,7 @@ type
   TFlowNameFile = TNameFile<TFlowNameFileOptions, TFlowPackages>;
   TTransportNameFile = class(TNameFile<TTransportNameFileOptions, TTransportPackages>);
   TEnergyTransportNameFile = class(TNameFile<TTransportNameFileOptions, TEnergyTransportPackages>);
-
+  TPrtNameFile = class(TNameFile<TPrtNameFileOptions, TPrtPackages>);
 
 implementation
 
@@ -1084,6 +1099,19 @@ begin
   FValidPackageTypes.Add('MVE6');
   FValidPackageTypes.Add('OBS6');
   FValidPackageTypes.Add('GWE6-GWE6');
+end;
+
+{ TPrtPackages }
+
+procedure TPrtPackages.Initialize;
+begin
+  inherited;
+  FValidPackageTypes.Add('DIS6');
+  FValidPackageTypes.Add('DISV6');
+  FValidPackageTypes.Add('MIP6');
+  FValidPackageTypes.Add('FMI6');
+  FValidPackageTypes.Add('PRP6');
+  FValidPackageTypes.Add('OC6');
 end;
 
 end.

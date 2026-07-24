@@ -649,6 +649,11 @@ begin
     end;
     Assert(TrackList[Track.IRPT] = nil);
     TrackList[Track.IRPT] := Track;
+
+  end;
+  if Source is TPrtTracks then
+  begin
+    FFileName := TPrtTracks(Source).FileName;
   end;
 end;
 
@@ -951,7 +956,7 @@ begin
     ACsvFile.Free;
     Splitter.Free;
   end;
-  FFileName := FileName;
+  FFileName := FFileName;
 end;
 
 function TPrtTracks.TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;

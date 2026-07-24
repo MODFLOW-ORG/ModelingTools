@@ -975,7 +975,8 @@ uses
   framePrtDisplayUnit in 'framePrtDisplayUnit.pas' {framePrtDisplay: TFrame},
   PrtTrackReaderUnit in 'PrtTrackReaderUnit.pas',
   ModflowGwfPrtExchangeWriterUnit in 'ModflowGwfPrtExchangeWriterUnit.pas',
-  frmPrtChoicesUnit in 'frmPrtChoicesUnit.pas' {frmPrtChoices};
+  frmPrtChoicesUnit in 'frmPrtChoicesUnit.pas' {frmPrtChoices},
+  Mfy.MipFileReaderUnit in '..\MF6InputReader\Mfy.MipFileReaderUnit.pas';
 
 {$R *.res}
 

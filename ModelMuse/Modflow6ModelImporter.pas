@@ -203,6 +203,7 @@ type
     procedure ImportESL(NameFile: TEnergyTransportNameFile; Package: TPackage);
     procedure ImportFMI(NameFile: TTransportNameFile; Package: TPackage); overload;
     procedure ImportFMI(NameFile: TEnergyTransportNameFile; Package: TPackage); overload;
+//    procedure ImportPrtMIP
   public
     Constructor Create;
     destructor Destroy; override;
