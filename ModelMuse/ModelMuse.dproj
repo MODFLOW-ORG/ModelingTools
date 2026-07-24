@@ -2380,6 +2380,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\MF6InputReader\Mfy.MipFileReaderUnit.pas"/>
+        <DCCReference Include="..\MF6InputReader\Mf6.PrpFileReaderUnit.pas"/>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

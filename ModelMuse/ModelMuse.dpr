@@ -976,7 +976,8 @@ uses
   PrtTrackReaderUnit in 'PrtTrackReaderUnit.pas',
   ModflowGwfPrtExchangeWriterUnit in 'ModflowGwfPrtExchangeWriterUnit.pas',
   frmPrtChoicesUnit in 'frmPrtChoicesUnit.pas' {frmPrtChoices},
-  Mfy.MipFileReaderUnit in '..\MF6InputReader\Mfy.MipFileReaderUnit.pas';
+  Mfy.MipFileReaderUnit in '..\MF6InputReader\Mfy.MipFileReaderUnit.pas',
+  Mf6.PrpFileReaderUnit in '..\MF6InputReader\Mf6.PrpFileReaderUnit.pas';
 
 {$R *.res}
 
