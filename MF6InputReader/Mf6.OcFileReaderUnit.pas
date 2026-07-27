@@ -4,24 +4,36 @@ interface
 
 uses
   System.Classes, System.IOUtils, System.SysUtils, Mf6.CustomMf6PersistentUnit,
-  System.Generics.Collections;
+  System.Generics.Collections, RealListUnit;
 
 type
   TOcOptions = class(TCustomMf6Persistent)
   private
     FBudgetFile: string;
     FBudgetCsvFile: string;
+    FTrackFile: string;
+    FTrackCsvFile: string;
     FHeadFile: string;
     FHeadPrintFormat: TPrintFormat;
     FConcentrationFile: string;
     FConcentrationPrintFormat: TPrintFormat;
     FFullBudgetFileName: string;
     FFullHeadFileName: string;
+    FTRACK_RELEASE: Boolean;
+    FTRACK_USERTIME: Boolean;
+    FTRACK_TIMESTEP: Boolean;
+    FTRACK_WEAKSINK: Boolean;
+    FTRACK_SUBFEATURE_EXIT: Boolean;
+    FTRACK_DROPPED: Boolean;
+    FTRACK_EXIT: Boolean;
+    FTRACK_TERMINATE: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
     function GeConcentrationFile: Boolean;
     function GetBudgetCsvFile: Boolean;
     function GetBudgetFile: Boolean;
     function GetHeadFile: Boolean;
+    function GetTrackCsvFile: Boolean;
+    function GetTrackFile: Boolean;
   protected
     procedure Initialize; override;
   public
@@ -29,15 +41,49 @@ type
     // to identify the corresponding model in the flow model interface file (*.fmi).
     property BudgetFile: Boolean read GetBudgetFile;
     property BudgetCsvFile: Boolean read GetBudgetCsvFile;
+    property TrackFile: Boolean read GetTrackFile;
+    property TrackCsvFile: Boolean read GetTrackCsvFile;
     // The name of the head file in this file can be used
     // to identify the corresponding model in the flow model interface file (*.fmi).
     property HeadFile: Boolean read GetHeadFile;
     property HeadPrintFormat: TPrintFormat read FHeadPrintFormat;
     property ConcentrationFile: Boolean read GeConcentrationFile;
-    property ConcentrationPrintFormat: TPrintFormat read FConcentrationPrintFormat;
+    property ConcecntrationPrintFormat: TPrintFormat read FConcentrationPrintFormat;
     property FullBudgetFileName: string read FFullBudgetFileName;
     property FullHeadFileName: string read FFullHeadFileName;
+    property TRACK_RELEASE: Boolean read FTRACK_RELEASE;
+    property TRACK_EXIT: Boolean read FTRACK_EXIT;
+    property TRACK_SUBFEATURE_EXIT: Boolean read FTRACK_SUBFEATURE_EXIT;
+    property TRACK_TIMESTEP: Boolean read FTRACK_TIMESTEP;
+    property TRACK_TERMINATE: Boolean read FTRACK_TERMINATE;
+    property TRACK_WEAKSINK: Boolean read FTRACK_WEAKSINK;
+    property TRACK_USERTIME: Boolean read FTRACK_USERTIME;
+    property TRACK_DROPPED: Boolean read FTRACK_DROPPED;
   end;
+
+  TOcDimensions = class(TCustomMf6Persistent)
+  private
+    NTRACKTIMES: Integer;
+    procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+  protected
+    procedure Initialize; override;
+  end;
+
+  TOcTrackTimes = class(TCustomMf6Persistent)
+  private
+    FTimes: TRealList;
+    function GetCount: Integer;
+    function GetItem(Index: Integer): double;
+  protected
+    procedure Initialize; override;
+    procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+  public
+    constructor Create(PackageType: string); override;
+    destructor Destroy; override;
+    property Count: Integer read GetCount;
+    property Items[Index: Integer]: double read GetItem; default;
+  end;
+
 
   TPrintSaveOption = (psoAll, psoFirst, psoLast, psoFrequency, psoStep, psoUndefined);
 
@@ -65,6 +111,13 @@ type
     constructor Create(PackageType: string); override;
     destructor Destroy; override;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+    Property Period: Integer read IPer;
+    property PrintBudget: TPrintSaveList read FPrintBudget;
+    property SaveBudget: TPrintSaveList read FSaveBudget;
+    property PrintHead: TPrintSaveList read FPrintHead;
+    property SaveHead: TPrintSaveList read FSaveHead;
+    property PrintConcentration: TPrintSaveList read FPrintConcentration;
+    property SaveConcentration: TPrintSaveList read FSaveConcentration;
   end;
 
   TOcPeriodList = TObjectList<TOcPeriod>;
@@ -73,18 +126,29 @@ type
   private
     FOptions: TOcOptions;
     FPeriods: TOcPeriodList;
+    FOcDimensions: TOcDimensions;
+    FTrackTimes: TOcTrackTimes;
     function GetFullBudgetFileName: string;
+    function GetPeriod(Index: Integer): TOcPeriod;
+    function GetPeriodCount: Integer;
   public
     constructor Create(PackageType: string); override;
     destructor Destroy; override;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter; const NPER: Integer); override;
+    property OcDimensions: TOcDimensions read FOcDimensions;
     property Options: TOcOptions read FOptions;
+    property TrackTimes: TOcTrackTimes Read FTrackTimes;
     property FullBudgetFileName: string read GetFullBudgetFileName;
+    property PeriodCount: Integer read GetPeriodCount;
+    property Periods[Index: Integer]: TOcPeriod read GetPeriod;
   end;
 
 
 
 implementation
+
+uses
+  ModelMuseUtilities;
 
 resourcestring
   StrUnrecognizedOCPERI = 'Unrecognized OC PERIOD data in the following line' +
@@ -110,6 +174,16 @@ end;
 function TOcOptions.GetHeadFile: Boolean;
 begin
   result := FHeadFile <> ''
+end;
+
+function TOcOptions.GetTrackCsvFile: Boolean;
+begin
+  Result := FTrackCsvFile <> '';
+end;
+
+function TOcOptions.GetTrackFile: Boolean;
+begin
+  result := FTrackFile <> '';
 end;
 
 procedure TOcOptions.Initialize;
@@ -177,6 +251,33 @@ begin
           Unhandled.WriteLine(ErrorLine);
         end;
       end
+      else if FSplitter[0] = 'TRACK' then
+      begin
+        if FSplitter[1] = 'FILEOUT' then
+        begin
+          FSplitter.DelimitedText := CaseSensitiveLine;
+          FTrackFile := FSplitter[2];
+//          FFullBudgetFileName := ExpandFileName(FBudgetFile);
+        end
+        else
+        begin
+          Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
+          Unhandled.WriteLine(ErrorLine);
+        end;
+      end
+      else if FSplitter[0] = 'TRACKCSV' then
+      begin
+        if FSplitter[1] = 'FILEOUT' then
+        begin
+          FSplitter.DelimitedText := CaseSensitiveLine;
+          FTrackCsvFile := FSplitter[2];
+        end
+        else
+        begin
+          Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
+          Unhandled.WriteLine(ErrorLine);
+        end;
+      end
       else if FSplitter[0] = 'HEAD' then
       begin
         if FSplitter[1] = 'FILEOUT' then
@@ -211,6 +312,38 @@ begin
           Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
           Unhandled.WriteLine(ErrorLine);
         end;
+      end
+      else if FSplitter[0] = 'TRACK_RELEASE' then
+      begin
+        FTRACK_RELEASE := True;
+      end
+      else if FSplitter[0] = 'TRACK_EXIT' then
+      begin
+        FTRACK_EXIT := True;
+      end
+      else if FSplitter[0] = 'TRACK_SUBFEATURE_EXIT' then
+      begin
+        FTRACK_SUBFEATURE_EXIT := True;
+      end
+      else if FSplitter[0] = 'TRACK_TIMESTEP' then
+      begin
+        FTRACK_TIMESTEP := True;
+      end
+      else if FSplitter[0] = 'TRACK_TERMINATE' then
+      begin
+        FTRACK_TERMINATE := True;
+      end
+      else if FSplitter[0] = 'TRACK_WEAKSINK' then
+      begin
+        FTRACK_WEAKSINK := True;
+      end
+      else if FSplitter[0] = 'TRACK_USERTIME' then
+      begin
+        FTRACK_USERTIME := True;
+      end
+      else if FSplitter[0] = 'TRACK_DROPPED' then
+      begin
+        FTRACK_DROPPED := True;
       end
       else
       begin
@@ -421,6 +554,8 @@ end;
 constructor TOc.Create(PackageType: string);
 begin
   FOptions := TOcOptions.Create(PackageType);
+  FOcDimensions := TOcDimensions.Create(PackageType);
+  FTrackTimes := TOcTrackTimes.Create(PackageType);
   FPeriods := TOcPeriodList.Create;
   inherited;
 
@@ -429,6 +564,8 @@ end;
 destructor TOc.Destroy;
 begin
   FOptions.Free;
+  FOcDimensions.Free;
+  FTrackTimes.Free;
   FPeriods.Free;
   inherited;
 end;
@@ -436,6 +573,16 @@ end;
 function TOc.GetFullBudgetFileName: string;
 begin
   result := FOptions.FullBudgetFileName;
+end;
+
+function TOc.GetPeriod(Index: Integer): TOcPeriod;
+begin
+  result := FPeriods[Index];
+end;
+
+function TOc.GetPeriodCount: Integer;
+begin
+  result := FPeriods.Count;
 end;
 
 procedure TOc.Read(Stream: TStreamReader; Unhandled: TStreamWriter; const NPER: Integer);
@@ -470,6 +617,14 @@ begin
         begin
           FOptions.Read(Stream, Unhandled);
         end
+        else if FSplitter[1] = 'DIMENSIONS' then
+        begin
+          FOcDimensions.Read(Stream, Unhandled);
+        end
+        else if FSplitter[1] = 'TRACKTIMES' then
+        begin
+          FTrackTimes.Read(Stream, Unhandled);
+        end
         else if FSplitter[1] = 'PERIOD' then
         begin
           if (FSplitter.Count >= 3)
@@ -503,6 +658,119 @@ begin
       Unhandled.WriteLine(ErrorLine);
     end;
   end
+end;
+
+{ TOcDimensions }
+
+procedure TOcDimensions.Initialize;
+begin
+  inherited;
+  NTRACKTIMES := 0;
+end;
+
+procedure TOcDimensions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+var
+  ALine: string;
+  ErrorLine: string;
+begin
+  Initialize;
+  while not Stream.EndOfStream do
+  begin
+    ALine := Stream.ReadLine;
+    RestoreStream(Stream);
+    ErrorLine := ALine;
+    ALine := StripFollowingComments(ALine);
+    if ALine = '' then
+    begin
+      Continue;
+    end;
+    if ReadEndOfSection(ALine, ErrorLine, 'DIMENSIONS', Unhandled) then
+    begin
+      Exit
+    end;
+
+    if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'DIMENSIONS') then
+    begin
+      // do nothing
+    end
+    else if (FSplitter[0] = 'NTRACKTIMES') and (FSplitter.Count >= 2)
+      and TryStrToInt(FSplitter[1], NTRACKTIMES) then
+    begin
+    end
+    else
+    begin
+      Unhandled.WriteLine(Format(StrUnrecognizedOpti, [FPackageType]));
+      Unhandled.WriteLine(ErrorLine);
+    end;
+  end
+
+end;
+
+{ TOcTrackTimes }
+
+constructor TOcTrackTimes.Create(PackageType: string);
+begin
+  inherited;
+  FTimes := TRealList.Create;
+end;
+
+destructor TOcTrackTimes.Destroy;
+begin
+  FTimes.Free;
+  inherited;
+end;
+
+function TOcTrackTimes.GetCount: Integer;
+begin
+  result := FTimes.Count;
+end;
+
+function TOcTrackTimes.GetItem(Index: Integer): double;
+begin
+  result := FTimes[Index];
+end;
+
+procedure TOcTrackTimes.Initialize;
+begin
+  inherited;
+  FTimes.Clear;
+end;
+
+procedure TOcTrackTimes.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+var
+  ALine: string;
+  ErrorLine: string;
+  AValue: Extended;
+  CaseSensitiveLine: string;
+begin
+  Initialize;
+  while not Stream.EndOfStream do
+  begin
+    ALine := Stream.ReadLine;
+    RestoreStream(Stream);
+    ErrorLine := ALine;
+    ALine := StripFollowingComments(ALine);
+    if ALine = '' then
+    begin
+      Continue;
+    end;
+
+    if ReadEndOfSection(ALine, ErrorLine, 'RELEASETIMES', Unhandled) then
+    begin
+      Exit;
+    end;
+
+    CaseSensitiveLine := ALine;
+    if TryFortranStrToFloat(ALine, AValue) then
+    begin
+      FTimes.Add(AValue)
+    end
+    else
+    begin
+      Unhandled.WriteLine(Format('Unrecognize release time in the %s package', [FPackageType]));
+      Unhandled.WriteLine(ErrorLine);
+    end;
+  end;
 end;
 
 end.

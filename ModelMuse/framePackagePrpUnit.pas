@@ -258,7 +258,7 @@ var
   AnInt: Integer;
   StepCount: Integer;
   Steps: TStringList;
-  PrpSteps: TGenericIntegerList;
+  PrpSteps: TIntegerCollection;
   PeriodCount: Integer;
   StartTime: Double;
   EndTime: Double;
@@ -329,11 +329,11 @@ begin
           begin
             if StepCount < PrpSteps.Count then
             begin
-               PrpSteps[StepCount] := AnInt;
+               PrpSteps[StepCount].Value := AnInt;
             end
             else
             begin
-              PrpSteps.Add(AnInt);
+              PrpSteps.Add.Value := AnInt;
             end;
             Inc(StepCount);
           end;

@@ -112,6 +112,8 @@ type
     FSpeciesIndex: Integer;
     FTransportModel: TModel;
     FEnergyTransportModel: TModel;
+    FPrtModel: TModel;
+    FPrtIndex: Integer;
     FTDis: TTDis;
     procedure ImportFlowModelTiming;
     procedure ImportTransportModelTiming;
@@ -120,6 +122,7 @@ type
     function ImportFlowModel: Boolean;
     procedure ImportTransportModel(ATransportModel: TModel; SpeciesIndex: Integer);
     procedure ImportEnergyTransportModel(ATransportModel: TModel; SpeciesIndex: Integer);
+    procedure ImportPrtModel(APrtMode: TModel; PrtIndex: Integer);
     procedure ImportDis(Package: TPackage);
     procedure ImportDisV(Package: TPackage);
     procedure UpdateLayerStructure(NumberOfLayers: Integer);
@@ -203,7 +206,10 @@ type
     procedure ImportESL(NameFile: TEnergyTransportNameFile; Package: TPackage);
     procedure ImportFMI(NameFile: TTransportNameFile; Package: TPackage); overload;
     procedure ImportFMI(NameFile: TEnergyTransportNameFile; Package: TPackage); overload;
-//    procedure ImportPrtMIP
+    procedure ImportFMI(NameFile: TPrtNameFile; Package: TPackage); overload;
+    procedure ImportMIP(NameFile: TPrtNameFile; Package: TPackage);
+    procedure ImportPRP(NameFile: TPrtNameFile; Package: TPackage);
+    procedure ImportPrtOC(NameFile: TPrtNameFile; Package: TPackage);
   public
     Constructor Create;
     destructor Destroy; override;
@@ -250,7 +256,7 @@ uses
   QuadTreeClass, MeshRenumberingTypes, Mf6.TimeArraySeriesFileReaderUnit,
   Mf6.CndFileReaderUnit, Mf6.CtpFileReaderUnit, MF6.EstFileReaderUnit,
   Mf6.EslFileReaderUnit, Mf6.MweFileReaderUnit, Mf6.LkeFileReaderUnit,
-  Mf6.SfeFileReaderUnit, Mf6.UzeFileReaderUnit;
+  Mf6.SfeFileReaderUnit, Mf6.UzeFileReaderUnit, Mf6.MipFileReaderUnit;
 
 resourcestring
   SImportingTheGNCPackageCanBeProbl = 'Importing the GNC package can be '
@@ -5725,11 +5731,14 @@ var
   NpfPackage: TPackage;
   EnergyTransportModel: TEnergyTransportNameFile;
   InnerEnergyTransportModel: TEnergyTransportNameFile;
+  PrtModels: TModelList;
+
 begin
   frmGoPhast.PhastModel.ModflowPackages.GncPackage.IsSelected := False;
   result := True;
   TransportModels := TModelList.Create;
   EnergyTransportModels := TModelList.Create;
+  PrtModels := TModelList.Create;
   try
     if FFlowModel <> nil then
     begin
@@ -5766,7 +5775,18 @@ begin
                 EnergyTransportModels.Add(ATransportModel);
               end;
             end;
-          end;
+          end
+          else if (ATransportModel.ModelType = 'PRT6') then
+          begin
+            ATransportModel.Simulation := ASimulation;
+            if FFLowTransportLinks.TryGetValue(UpperCase(ATransportModel.ModelName), FlowModelName) then
+            begin
+              if AnsiSameText(FlowModelName, FFlowModel.ModelName) then
+              begin
+                PrtModels.Add(ATransportModel);
+              end;
+            end;
+          end
         end;
       end;
 
@@ -6196,10 +6216,18 @@ begin
         FEnergyTransportModel := nil;
       end;
 
+      for ModelIndex := 0 to PrtModels.Count - 1 do
+      begin
+        FPrtModel := PrtModels[ModelIndex];
+        ImportPrtModel(FPrtModel, ModelIndex);
+        FPrtModel := nil;
+      end;
+
     end;
   finally
     TransportModels.Free;
     EnergyTransportModels.Free;
+    PrtModels.Free;
   end;
 end;
 
@@ -6330,6 +6358,12 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TModflow6Importer.ImportFMI(NameFile: TPrtNameFile;
+  Package: TPackage);
+begin
+  // nothing to be done.
 end;
 
 procedure TModflow6Importer.ImportFMI(NameFile: TEnergyTransportNameFile;
@@ -12573,6 +12607,44 @@ begin
 
 end;
 
+procedure TModflow6Importer.ImportMIP(NameFile: TPrtNameFile;
+  Package: TPackage);
+var
+  Model: TPhastModel;
+  Mip: TMip;
+  PrtModel: TPrtModel;
+  Options: TMipOptions;
+  GridData: TMipGridData;
+begin
+  if Assigned(OnUpdateStatusBar) then
+  begin
+    OnUpdateStatusBar(self, 'importing MIP package');
+  end;
+  Model := frmGoPhast.PhastModel;
+  Mip := Package.Package as TMip;
+
+  PrtModel := Model.ModflowPackages.PrtModels[FPrtIndex].PrtModel;
+  PrtModel.IsSelected := True;
+  if Package.PackageName <> '' then
+  begin
+    PrtModel.ModelName := Package.PackageName;
+  end;
+  Options := Mip.Options;
+  GridData  := Mip.GridData;
+  PrtModel.RetardationFactorUsed := GridData.RETFACTOR <> nil;
+  PrtModel.ZoneUsed := GridData.IZONE <> nil;
+  Model.DataArrayManager.CreateInitialDataSets;
+  Assign3DRealDataSet(rsPorosity, GridData.POROSITY);
+  if PrtModel.RetardationFactorUsed then
+  begin
+    Assign3DRealDataSet(PrtModel.RetardationDataArrayName, GridData.RETFACTOR);
+  end;
+  if PrtModel.ZoneUsed then
+  begin
+    Assign3DIntegerDataSet(PrtModel.ZoneDataArrayName, GridData.IZONE);
+  end;
+end;
+
 type
   TScreenObjectCrack = class(TScreenObject);
 
@@ -14041,6 +14113,294 @@ begin
   begin
     OutputControl.ConcentrationOC.SaveInExternalFile := True
   end;
+end;
+
+procedure TModflow6Importer.ImportPRP(NameFile: TPrtNameFile;
+  Package: TPackage);
+begin
+
+end;
+
+procedure TModflow6Importer.ImportPrtModel(APrtMode: TModel; PrtIndex: Integer);
+var
+  NameFile: TPrtNameFile;
+  Packages: TPrtPackages;
+  APackage: TPackage;
+  PackageIndex: Integer;
+  Model: TPhastModel;
+  PrtModels: TPrtModels;
+begin
+  Model := frmGoPhast.PhastModel;
+  PrtModels := Model.ModflowPackages.PrtModels;
+  if PrtIndex = PrtModels.Count then
+  begin
+    PrtModels.Add;
+  end;
+
+  FPrtIndex := PrtIndex;
+  NameFile := APrtMode.FName as TPrtNameFile;
+  Packages := NameFile.NfPackages;
+  for PackageIndex := 0 to Packages.Count - 1 do
+  begin
+    APackage := Packages[PackageIndex];
+    if APackage.FileType = 'DIS6' then
+    begin
+      Continue;
+//      ImportDis(APackage);
+//      break
+    end
+    else if APackage.FileType = 'DISV6' then
+    begin
+      Continue;
+//      ImportDisV(APackage);
+//      break;
+    end
+    else if APackage.FileType = 'FMI6' then
+    begin
+      ImportFMI(NameFile, APackage);
+      Continue;
+    end
+
+    else if APackage.FileType = 'MIP6' then
+    begin
+      ImportMIP(NameFile, APackage);
+    end
+    else if APackage.FileType = 'PRP6' then
+    begin
+      ImportPRP(NameFile, APackage);
+    end
+    else if APackage.FileType = 'OC6' then
+    begin
+      ImportPrtOC(NameFile, APackage);
+    end
+    else
+    begin
+      FErrorMessages.Add('Unrecognized file type: ' + APackage.FileType);
+    end;
+  end;
+end;
+
+procedure TModflow6Importer.ImportPrtOC(NameFile: TPrtNameFile;
+  Package: TPackage);
+var
+  Model: TPhastModel;
+  OC: TOC;
+  PrtModel: TPrtModel;
+  Options: TOcOptions;
+  TrackingOptions: TPrtTrackingOptions;
+  OutputFiles: TPrtOutputFiles;
+  TrackTimes: TOcTrackTimes;
+  StressPeriods: TModflowStressPeriods;
+  APeriod: TOcPeriod;
+  PriorPeriod: TOcPeriod;
+  PrtPeriodItem: TPrpPeriodDataItem;
+  PrintSave: TPrintSave;
+begin
+  if Assigned(OnUpdateStatusBar) then
+  begin
+    OnUpdateStatusBar(self, 'importing OC package');
+  end;
+  Model := frmGoPhast.PhastModel;
+  OC := Package.Package as TOC;
+
+  PrtModel := Model.ModflowPackages.PrtModels[FPrtIndex].PrtModel;
+
+  Options := OC.Options;
+  TrackingOptions := [];
+  if Options.TRACK_RELEASE then
+  begin
+    Include(TrackingOptions, ptoRelease);
+  end;
+  if Options.TRACK_EXIT then
+  begin
+    Include(TrackingOptions, ptoExit);
+  end;
+  if Options.TRACK_SUBFEATURE_EXIT then
+  begin
+    Include(TrackingOptions, ptoSubFeatureExit);
+  end;
+  if Options.TRACK_TIMESTEP then
+  begin
+    Include(TrackingOptions, ptoTimeStep);
+  end;
+  if Options.TRACK_TERMINATE then
+  begin
+    Include(TrackingOptions, ptoTerminate);
+  end;
+  if Options.TRACK_WEAKSINK then
+  begin
+    Include(TrackingOptions, ptoWeakSink);
+  end;
+  if Options.TRACK_USERTIME then
+  begin
+    Include(TrackingOptions, ptoUserTime);
+  end;
+  if Options.TRACK_DROPPED then
+  begin
+    Include(TrackingOptions, ptoDropped);
+  end;
+  PrtModel.PrtTrackingOptions := TrackingOptions;
+
+  OutputFiles := [];
+  if Options.BudgetFile then
+  begin
+    Include(OutputFiles, pofBinaryBudget);
+  end;
+  if Options.BudgetCsvFile then
+  begin
+    Include(OutputFiles, pofoCsvBudget);
+  end;
+  if Options.TrackFile then
+  begin
+    Include(OutputFiles, pofBinaryTrack);
+  end;
+  if Options.TrackCsvFile then
+  begin
+    Include(OutputFiles, pofCsvTrack);
+  end;
+  PrtModel.PrtOutputFiles := OutputFiles;
+
+  TrackTimes := OC.TrackTimes;
+
+  PrtModel.TrackTimes.Capacity := TrackTimes.Count;
+  for var TimeIndex := 0 to TrackTimes.Count - 1 do
+  begin
+    PrtModel.TrackTimes.Add.Value := TrackTimes[TimeIndex];
+  end;
+
+  PrtPeriodItem := nil;
+  PriorPeriod := nil;
+  StressPeriods := Model.ModflowStressPeriods;
+  for var TimeIndex := 0 to OC.PeriodCount - 1 do
+  begin
+    APeriod := OC.Periods[TimeIndex];
+    if (PriorPeriod = nil) or (PriorPeriod.Period <> APeriod.Period) then
+    begin
+      if PrtPeriodItem <> nil then
+      begin
+        PrtPeriodItem.EndTime := StressPeriods[APeriod.Period-1].StartTime;
+      end;
+      PrtPeriodItem := PrtModel.PeriodData.Add;
+      PrtPeriodItem.StartTime := StressPeriods[APeriod.Period-1].StartTime;
+      PrtPeriodItem.EndTime := StressPeriods.Last.EndTime;
+      if APeriod.PrintBudget.Count > 0 then
+      begin
+        if APeriod.SaveBudget.Count > 0 then
+        begin
+          PrtPeriodItem.OCMethod := pomBoth;
+        end
+        else
+        begin
+          PrtPeriodItem.OCMethod := pomPrint;
+        end;
+      end
+      else
+      begin
+        if APeriod.SaveBudget.Count > 0 then
+        begin
+          PrtPeriodItem.OCMethod := pomSave;
+        end
+        else
+        begin
+          Continue
+        end;
+      end;
+      for var PrintIndex := 0 to APeriod.PrintBudget.Count - 1 do
+      begin
+        PrintSave:= APeriod.PrintBudget[PrintIndex];
+        case PrintSave.FPS_Option of
+          psoAll:
+            begin
+              PrtPeriodItem.All := True;
+            end;
+          psoFirst:
+            begin
+              PrtPeriodItem.First := True;
+            end;
+          psoLast:
+            begin
+              PrtPeriodItem.Last := True;
+            end;
+          psoFrequency:
+            begin
+              PrtPeriodItem.Frequency := PrintSave.FFrequency;
+            end;
+          psoStep:
+            begin
+              PrtPeriodItem.Steps.Capacity := Length(PrintSave.FSteps);
+              for var StepIndex := 0 to Length(PrintSave.FSteps) - 1 do
+              begin
+                PrtPeriodItem.Steps.Add.Value := PrintSave.FSteps[StepIndex];
+              end;
+            end;
+          psoUndefined:
+            begin
+            end;
+          else
+            begin
+              Assert(False);
+            end;
+        end;
+      end;
+      for var PrintIndex := 0 to APeriod.SaveBudget.Count - 1 do
+      begin
+        PrintSave:= APeriod.SaveBudget[PrintIndex];
+        case PrintSave.FPS_Option of
+          psoAll:
+            begin
+              PrtPeriodItem.All := True;
+            end;
+          psoFirst:
+            begin
+              PrtPeriodItem.First := True;
+            end;
+          psoLast:
+            begin
+              PrtPeriodItem.Last := True;
+            end;
+          psoFrequency:
+            begin
+              PrtPeriodItem.Frequency := PrintSave.FFrequency;
+            end;
+          psoStep:
+            begin
+              PrtPeriodItem.Steps.Capacity := Length(PrintSave.FSteps);
+              for var StepIndex := 0 to Length(PrintSave.FSteps) - 1 do
+              begin
+                PrtPeriodItem.Steps.Add.Value := PrintSave.FSteps[StepIndex];
+              end;
+            end;
+          psoUndefined:
+            begin
+            end;
+          else
+            begin
+              Assert(False);
+            end;
+        end;
+      end;
+      PrtPeriodItem.Steps.Sort;
+      for var StepIndex := PrtPeriodItem.Steps.Count - 1 downto 1 do
+      begin
+        if PrtPeriodItem.Steps[StepIndex] = PrtPeriodItem.Steps[StepIndex-1] then
+        begin
+          PrtPeriodItem.Steps.Delete(StepIndex);
+        end;
+      end;
+    {
+   TPrintSaveOption = (psoAll, psoFirst, psoLast, psoFrequency, psoStep, psoUndefined);
+
+  TPrintSave = record
+    FPS_Option: TPrintSaveOption;
+    FFrequency: Integer;
+    FSteps: TArray<Integer>;
+    procedure Initialize;
+  end;
+   }
+      PriorPeriod := APeriod;
+    end;
+  end;
+
 end;
 
 type
@@ -19729,8 +20089,8 @@ begin
   Options := Src.Options;
 
   AuxMultIndex := Options.IndexOfAUXILIARY(Options.AUXMULTNAME);
-  if AuxMultIndex >= 0 then  
-  begin  
+  if AuxMultIndex >= 0 then
+  begin
     GwtSrcPackage.UseMultiplier := True;
   end;    
 

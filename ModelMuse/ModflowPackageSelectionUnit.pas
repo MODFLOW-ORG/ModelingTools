@@ -2933,7 +2933,7 @@ Type
     FLast: Boolean;
     FStoredStartTime: TRealStorage;
     FFrequency: Integer;
-    FSteps: TGenericIntegerList;
+    FSteps: TIntegerCollection;
     FAll: Boolean;
     FFirst: Boolean;
     FStoredEndTime: TRealStorage;
@@ -2946,7 +2946,7 @@ Type
     procedure SetFrequency(const Value: Integer);
     procedure SetLast(const Value: Boolean);
     procedure SetStartTime(const Value: double);
-    procedure SetSteps(const Value: TGenericIntegerList);
+    procedure SetSteps(const Value: TIntegerCollection);
     procedure SetStoredEndTime(const Value: TRealStorage);
     procedure SetStoredStartTime(const Value: TRealStorage);
     procedure SetOCMethod(const Value: TPrtOCMethod);
@@ -2966,7 +2966,7 @@ Type
     property First: Boolean read FFirst write SetFirst;
     property Last: Boolean read FLast write SetLast;
     property Frequency: Integer read FFrequency write SetFrequency;
-    property Steps: TGenericIntegerList read FSteps write SetSteps;
+    property Steps: TIntegerCollection read FSteps write SetSteps;
   end;
 
   TPrpPeriodData = class(TOrderedCollection)
@@ -33017,7 +33017,7 @@ begin
   InvalidateModelEvent := OnInvalidateModelEvent;
   FStoredStartTime := TRealStorage.Create(InvalidateModelEvent);
   FStoredEndTime := TRealStorage.Create(InvalidateModelEvent);
-  FSteps := TGenericIntegerList.Create;
+  FSteps := TIntegerCollection.Create(InvalidateModelEvent);
 end;
 
 destructor TPrpPeriodDataItem.Destroy;
@@ -33097,7 +33097,7 @@ begin
   StoredStartTime.Value := Value;
 end;
 
-procedure TPrpPeriodDataItem.SetSteps(const Value: TGenericIntegerList);
+procedure TPrpPeriodDataItem.SetSteps(const Value: TIntegerCollection);
 begin
   if not Steps.IsSame(Value) then
   begin

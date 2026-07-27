@@ -687,7 +687,7 @@ begin
           WriteString('  STEPS ');
           for var StepIndex := 0 to APeriodItem.Steps.Count - 1 do
           begin
-            WriteInteger(APeriodItem.Steps[StepIndex]);
+            WriteInteger(APeriodItem.Steps[StepIndex].Value);
           end;
           NewLine;
         end;

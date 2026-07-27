@@ -147,7 +147,8 @@ uses
   Mf6.MwtFileReaderUnit, Mf6.UztFileReaderUnit, Mf6.FmiFileReaderUnit, Mf6.MvtFileReaderUnit,
   Mf6.CndFileReaderUnit, Mf6.EslFileReaderUnit, MF6.EstFileReaderUnit,
   Mf6.CtpFileReaderUnit, Mf6.SfeFileReaderUnit, Mf6.LkeFileReaderUnit,
-  Mf6.MweFileReaderUnit, Mf6.UzeFileReaderUnit;
+  Mf6.MweFileReaderUnit, Mf6.UzeFileReaderUnit, Mf6.MipFileReaderUnit,
+  Mf6.PrpFileReaderUnit;
 
 { TCustomNameFileOptions }
 
@@ -644,6 +645,8 @@ var
   MweReader: TMwe;
   UzeReader: TUze;
   GweGweReader: TGweGwe;
+  MipReader: TMip;
+  PrpReader: TPrp;
 begin
   // First read discretization
   FDimensions.Initialize;
@@ -1057,7 +1060,22 @@ begin
       APackage.Package := GweGweReader;
       APackage.ReadPackage(Unhandled, NPER);
     end
-
+    else if APackage.FileType = 'MIP6' then
+    begin
+      MipReader := TMip.Create(APackage.FileType);
+      MipReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      MipReader.Dimensions := FDimensions;
+      APackage.Package := MipReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
+    else if APackage.FileType = 'PRP6' then
+    begin
+      PrpReader := TPrp.Create(APackage.FileType);
+      PrpReader.OnUpdataStatusBar := OnUpdataStatusBar;
+      PrpReader.Dimensions := FDimensions;
+      APackage.Package := PrpReader;
+      APackage.ReadPackage(Unhandled, NPER);
+    end
 
     else
     begin

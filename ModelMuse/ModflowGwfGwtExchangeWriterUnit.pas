@@ -10,8 +10,8 @@ type
   protected
     function Package: TModflowPackageSelection; override;
     class function Extension: string; override;
-    class function GweExtension: string; override;
   public
+    class function GweExtension: string; override;
     procedure WriteFile(const AFileName: string; SpeciesIndex: Integer);
   end;
 

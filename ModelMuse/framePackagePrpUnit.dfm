@@ -337,16 +337,14 @@ inherited framePackagePrp: TframePackagePrp
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 561
-          Height = 57
+          Width = 515
+          Height = 30
           Align = alClient
           Caption = 
             'Release times can be specified as specific times, by specific pe' +
             'riod, or both. If no release times are specified, particles will' +
             ' be released at the beginning of the first stress period.'
           WordWrap = True
-          ExplicitWidth = 515
-          ExplicitHeight = 30
         end
       end
       inline frameReleaseTimes: TframeGrid
@@ -659,16 +657,14 @@ inherited framePackagePrp: TframePackagePrp
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 561
-          Height = 57
+          Width = 515
+          Height = 30
           Align = alClient
           Caption = 
             'Release times can be specified as specific times, by specific pe' +
             'riod, or both. If no release times are specified, particles will' +
             ' be released at the beginning of the first stress period.'
           WordWrap = True
-          ExplicitWidth = 515
-          ExplicitHeight = 30
         end
       end
     end

@@ -499,7 +499,7 @@ var
   StartTime: Extended;
   EndTime: Extended;
   PeriodIndex: Integer;
-  Steps: TGenericIntegerList;
+  Steps: TIntegerCollection;
   AnInt: Integer;
   StepCount: Integer;
   PrtTrackingOptions: TPrtTrackingOptions;
@@ -623,11 +623,11 @@ begin
           begin
             if StepCount < Steps.Count then
             begin
-               Steps[StepCount] := AnInt;
+               Steps[StepCount].Value := AnInt;
             end
             else
             begin
-              Steps.Add(AnInt);
+              Steps.Add.Value := AnInt;
             end;
             Inc(StepCount);
           end;

@@ -1,4 +1,4 @@
-unit Mfy.MipFileReaderUnit;
+unit Mf6.MipFileReaderUnit;
 
 interface
 
@@ -110,6 +110,8 @@ procedure TMipGridData.Initialize;
 begin
   inherited;
   SetLength(FPOROSITY, FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
+  FRETFACTOR := nil;
+  FIZONE := nil;
 end;
 
 procedure TMipGridData.Read(Stream: TStreamReader; Unhandled: TStreamWriter;

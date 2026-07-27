@@ -1108,6 +1108,7 @@ var
   PackageIndex: Integer;
   APackage: TPackage;
   EnergyTransportNameFile: TEnergyTransportNameFile;
+  PrtNameFile: TPrtNameFile;
 begin
   if ModelType = 'GWF6' then
   begin
@@ -1145,6 +1146,18 @@ begin
       end;
     end;
   end
+  else if ModelType = 'PRT6' then
+  begin
+    PrtNameFile := FName as TPrtNameFile;
+    for PackageIndex := 0 to PrtNameFile.NfPackages.Count - 1 do
+    begin
+      APackage := PrtNameFile.NfPackages[PackageIndex];
+      if APackage.FileType = 'FMI6' then
+      begin
+        result := (APackage.Package as TFmi).FullBudgetFileName;
+      end;
+    end;
+  end
   else
   begin
     Assert(False)
@@ -1176,6 +1189,10 @@ begin
         else if ModelType = 'GWE6' then
         begin
           FName := TEnergyTransportNameFile.Create(ModelType);
+        end
+        else if ModelType = 'PRT6' then
+        begin
+          FName := TPrtNameFile.Create(ModelType);
         end
         else
         begin
