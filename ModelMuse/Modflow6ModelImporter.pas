@@ -208,7 +208,7 @@ type
     procedure ImportFMI(NameFile: TEnergyTransportNameFile; Package: TPackage); overload;
     procedure ImportFMI(NameFile: TPrtNameFile; Package: TPackage); overload;
     procedure ImportMIP(NameFile: TPrtNameFile; Package: TPackage);
-    procedure ImportPRP(NameFile: TPrtNameFile; Package: TPackage);
+    procedure ImportPRP(NameFile: TPrtNameFile; Package: TPackage; PrpIndex: Integer);
     procedure ImportPrtOC(NameFile: TPrtNameFile; Package: TPackage);
   public
     Constructor Create;
@@ -256,7 +256,8 @@ uses
   QuadTreeClass, MeshRenumberingTypes, Mf6.TimeArraySeriesFileReaderUnit,
   Mf6.CndFileReaderUnit, Mf6.CtpFileReaderUnit, MF6.EstFileReaderUnit,
   Mf6.EslFileReaderUnit, Mf6.MweFileReaderUnit, Mf6.LkeFileReaderUnit,
-  Mf6.SfeFileReaderUnit, Mf6.UzeFileReaderUnit, Mf6.MipFileReaderUnit;
+  Mf6.SfeFileReaderUnit, Mf6.UzeFileReaderUnit, Mf6.MipFileReaderUnit,
+  Mf6.PrpFileReaderUnit, ModflowPrpUnit, ModpathParticleUnit;
 
 resourcestring
   SImportingTheGNCPackageCanBeProbl = 'Importing the GNC package can be '
@@ -12613,7 +12614,7 @@ var
   Model: TPhastModel;
   Mip: TMip;
   PrtModel: TPrtModel;
-  Options: TMipOptions;
+//  Options: TMipOptions;
   GridData: TMipGridData;
 begin
   if Assigned(OnUpdateStatusBar) then
@@ -12629,7 +12630,7 @@ begin
   begin
     PrtModel.ModelName := Package.PackageName;
   end;
-  Options := Mip.Options;
+//  Options := Mip.Options;
   GridData  := Mip.GridData;
   PrtModel.RetardationFactorUsed := GridData.RETFACTOR <> nil;
   PrtModel.ZoneUsed := GridData.IZONE <> nil;
@@ -14116,9 +14117,273 @@ begin
 end;
 
 procedure TModflow6Importer.ImportPRP(NameFile: TPrtNameFile;
-  Package: TPackage);
+  Package: TPackage; PrpIndex: Integer);
+var
+  Model: TPhastModel;
+  Prp: TPrp;
+  PrtModel: TPrtModel;
+  PrpPackage: TPrpPackage;
+  Options: TPrpOptions;
+  ReleaseTimes: TPrpReleaseTimes;
+  PeriodData: TPrpPeriodData;
+  PrtPeriodItem: TPrpPeriodDataItem;
+  APeriod: TPrpPeriod;
+  PriorPeriod: TPrpPeriod;
+  StressPeriods: TModflowStressPeriods;
+  PrintSave: TPrpTimeItem;
+  PackageData: TPrpPackageData;
+  PrpScreenObject: TScreenObject;
+  UndoCreateScreenObject: TCustomUndo;
+  NewName: string;
+  PrpBoundary: TPrpBoundary;
+  PrpPackageItem: TPrpPackageItem;
+  ModflowGrid: TModflowGrid;
+  GridAngle: double;
+  APoint: TPoint2D;
+  Elevations: TValueArrayStorage;
+  TopElevation: double;
+  BottomElevation: double;
+  Z: double;
 begin
+  if Assigned(OnUpdateStatusBar) then
+  begin
+    OnUpdateStatusBar(self, 'importing MIP package');
+  end;
+  Model := frmGoPhast.PhastModel;
+  Prp := Package.Package as TPrp;
 
+  PrtModel := Model.ModflowPackages.PrtModels[FPrtIndex].PrtModel;
+  if PrtModel.Count = PrpIndex then
+  begin
+    PrtModel.Add;
+  end;
+  PrpPackage := PrtModel[PrpIndex].PrpPackage;
+  PrpPackage.IsSelected := True;
+  PrpPackage.PackageName := Package.PackageName;
+  Options := Prp.Options;
+  PrpPackage.SolverToleranceUsed := Options.EXIT_SOLVE_TOLERANCE.Used;
+  if PrpPackage.SolverToleranceUsed then
+  begin
+    PrpPackage.SolverTolerance := Options.EXIT_SOLVE_TOLERANCE.Value;
+  end;
+  PrpPackage.LocalZ := Options.LOCAL_Z;
+  PrpPackage.ExtendTracking := Options.EXTEND_TRACKING;
+  if Options.TRACK_FILEOUT then
+  begin
+    if Options.TRACKCSV_FILEOUT then
+    begin
+      PrpPackage.PrtTrackingOutput := ptoAll;
+    end
+    else
+    begin
+      PrpPackage.PrtTrackingOutput := ptoBinary;
+    end;
+  end
+  else
+  begin
+    if Options.TRACKCSV_FILEOUT then
+    begin
+      PrpPackage.PrtTrackingOutput := ptoCSV;
+    end
+    else
+    begin
+      PrpPackage.PrtTrackingOutput := ptoNone;
+    end;
+  end;
+
+  PrpPackage.StopTimeUsed := Options.STOPTIME.Used;
+  if PrpPackage.StopTimeUsed then
+  begin
+    PrpPackage.StopTime := Options.STOPTIME.Value;
+  end;
+
+  PrpPackage.StopTravelTimeUsed := Options.STOPTRAVELTIME.Used;
+  if PrpPackage.StopTravelTimeUsed then
+  begin
+    PrpPackage.StopTravelTime := Options.STOPTRAVELTIME.Value;
+  end;
+
+  PrpPackage.StopAtWeakSinks := Options.STOP_AT_WEAK_SINK;
+
+  if Options.ISTOPZONE.Used then
+  begin
+    PrpPackage.StopZone := Options.ISTOPZONE.Value;
+  end
+  else
+  begin
+    PrpPackage.StopZone := 0;
+  end;
+
+  PrpPackage.Drape := Options.DRAPE;
+
+  if (Options.DRY_TRACKING_METHOD = '')
+    or AnsiSameText(Options.DRY_TRACKING_METHOD, 'DROP') then
+  begin
+    PrpPackage.DryTrackingMethod := pdtDrop;
+  end
+  else if AnsiSameText(Options.DRY_TRACKING_METHOD, 'STOP') then
+  begin
+    PrpPackage.DryTrackingMethod := pdtStop;
+  end
+  else if AnsiSameText(Options.DRY_TRACKING_METHOD, 'STAY') then
+  begin
+    PrpPackage.DryTrackingMethod := pdtStay;
+  end
+  else
+  begin
+    Assert(False, 'Error importing DRY_TRACKING_METHOD in the PRP package.');
+  end;
+
+  PrpPackage.ReleaseTimeToleranceUsed := Options.RELEASE_TIME_TOLERANCE.Used;
+  if PrpPackage.ReleaseTimeToleranceUsed then
+  begin
+    PrpPackage.ReleaseTimeTolerance := Options.RELEASE_TIME_TOLERANCE.Value;
+  end;
+
+  PrpPackage.ReleaseTimeFrequencyUsed := Options.RELEASE_TIME_FREQUENCY.Used;
+  if PrpPackage.ReleaseTimeFrequencyUsed then
+  begin
+    PrpPackage.ReleaseTimeFrequency := Options.RELEASE_TIME_FREQUENCY.Value;
+  end;
+
+  if (Options.COORDINATE_CHECK_METHOD = '')
+    or AnsiSameText(Options.COORDINATE_CHECK_METHOD, 'NONE') then
+  begin
+    PrpPackage.CoordinateCheckMethod := ccmNone;
+  end
+  else if AnsiSameText(Options.COORDINATE_CHECK_METHOD, 'EAGER') then
+  begin
+    PrpPackage.CoordinateCheckMethod := ccmEager;
+  end
+  else
+  begin
+    Assert(False, 'Error importing COORDINATE_CHECK_METHOD in the PRP package.');
+  end;
+
+  ReleaseTimes := Prp.ReleaseTimes;
+  PrpPackage.ReleaseTimes.Capacity := ReleaseTimes.Count;
+  for var TimeIndex := 0 to ReleaseTimes.Count - 1 do
+  begin
+    PrpPackage.ReleaseTimes.Add.Value := ReleaseTimes[TimeIndex];
+  end;
+
+  PeriodData := PrpPackage.PeriodData;
+
+  PrtPeriodItem := nil;
+  PriorPeriod := nil;
+  StressPeriods := Model.ModflowStressPeriods;
+  for var TimeIndex := 0 to Prp.PeriodCount - 1 do
+  begin
+    APeriod := Prp.Periods[TimeIndex];
+    if (PriorPeriod = nil) or (PriorPeriod.Period <> APeriod.Period) then
+    begin
+      if PrtPeriodItem <> nil then
+      begin
+        PrtPeriodItem.EndTime := StressPeriods[APeriod.Period-1].StartTime;
+      end;
+      PrtPeriodItem := PeriodData.Add;
+      PrtPeriodItem.StartTime := StressPeriods[APeriod.Period-1].StartTime;
+      PrtPeriodItem.EndTime := StressPeriods.Last.EndTime;
+      for var PrintIndex := 0 to APeriod.Count - 1 do
+      begin
+        PrintSave:= APeriod[PrintIndex];
+        if AnsiSameText(PrintSave.SettingType, 'ALL') then
+        begin
+          PrtPeriodItem.All := True;
+        end
+        else if AnsiSameText(PrintSave.SettingType, 'FIRST') then
+        begin
+          PrtPeriodItem.First := True;
+        end
+        else if AnsiSameText(PrintSave.SettingType, 'LAST') then
+        begin
+          PrtPeriodItem.Last := True;
+        end
+        else if AnsiSameText(PrintSave.SettingType, 'FREQUENCY') then
+        begin
+          PrtPeriodItem.Frequency := PrintSave.Frequency;
+        end
+        else if AnsiSameText(PrintSave.SettingType, 'STEPS') then
+        begin
+          PrtPeriodItem.Steps.Capacity := PrintSave.StepCount;
+          for var StepIndex := 0 to PrintSave.StepCount - 1 do
+          begin
+            PrtPeriodItem.Steps.Add.Value := PrintSave.Steps[StepIndex]
+          end;
+        end
+        else
+        begin
+          Assert(False, 'Error importing Period data in PRP package');
+        end;
+
+      end;
+      PriorPeriod := APeriod;
+    end;
+  end;
+
+  PackageData := Prp.PackageData;
+  if PackageData.Count > 0 then
+  begin
+    UndoCreateScreenObject := nil;
+    PrpScreenObject := TScreenObject.CreateWithViewDirection(
+      Model, vdTop, UndoCreateScreenObject, False);
+    FNewScreenObjects.Add(PrpScreenObject);
+    NewName := ValidName(Format('Imported_PRP_%s', [Package.PackageName]));
+    NewName := ReplaceStr(NewName, '-', '_');
+    PrpScreenObject.Name := NewName;
+    PrpScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
+
+    Model.AddScreenObject(PrpScreenObject);
+    PrpScreenObject.ElevationCount := ecTwo;
+    PrpScreenObject.SetValuesOfIntersectedCells := True;
+    PrpScreenObject.EvaluatedAt := eaBlocks;
+    PrpScreenObject.Visible := False;
+    PrpScreenObject.ElevationFormula := rsObjectImportedValuesR + '("' + StrImportedElevations + '")';
+
+    PrpScreenObject.CreatePrpBoundary;
+    PrpBoundary := PrpScreenObject.ModflowPrpBoundary;
+    PrpBoundary.ParticleStorage.ParticleDistribution := pdObjectLocation;
+
+    ModflowGrid := nil;
+    if Model.DisvUsed then
+    begin
+      GridAngle := 0;
+    end
+    else
+    begin
+      ModflowGrid := Model.ModflowGrid;
+      GridAngle := ModflowGrid.GridAngle;
+    end;
+
+    Elevations := PrpScreenObject.ImportedSectionElevations;
+    for var PointIndex := 0 to PackageData.Count - 1 do
+    begin
+      PrpPackageItem := PackageData[PointIndex];
+      APoint.X := PrpPackageItem.X;
+      APoint.Y := PrpPackageItem.Y;
+      if GridAngle <> 0 then
+      begin
+        APoint := ModflowGrid.RotateFromGridCoordinatesToRealWorldCoordinates(APoint);
+      end;
+      PrpScreenObject.AddPoint(APoint, True);
+
+      Z := PrpPackageItem.Z;
+      if PrpPackage.LocalZ then
+      begin
+        TopElevation := Model.DiscretiztionElevation[
+          PrpPackageItem.CellId.Column-1,
+          PrpPackageItem.CellId.Row-1,
+          PrpPackageItem.CellId.Layer-1];
+        BottomElevation := Model.DiscretiztionElevation[
+          PrpPackageItem.CellId.Column-1,
+          PrpPackageItem.CellId.Row-1,
+          PrpPackageItem.CellId.Layer];
+        Z := BottomElevation + Z*(TopElevation-BottomElevation);
+      end;
+      Elevations.Add(Z);
+
+    end;
+  end;
 end;
 
 procedure TModflow6Importer.ImportPrtModel(APrtMode: TModel; PrtIndex: Integer);
@@ -14129,6 +14394,7 @@ var
   PackageIndex: Integer;
   Model: TPhastModel;
   PrtModels: TPrtModels;
+  PrpIndex: Integer;
 begin
   Model := frmGoPhast.PhastModel;
   PrtModels := Model.ModflowPackages.PrtModels;
@@ -14137,6 +14403,7 @@ begin
     PrtModels.Add;
   end;
 
+  PrpIndex := 0;
   FPrtIndex := PrtIndex;
   NameFile := APrtMode.FName as TPrtNameFile;
   Packages := NameFile.NfPackages;
@@ -14167,7 +14434,8 @@ begin
     end
     else if APackage.FileType = 'PRP6' then
     begin
-      ImportPRP(NameFile, APackage);
+      ImportPRP(NameFile, APackage, PrpIndex);
+      Inc(PrpIndex);
     end
     else if APackage.FileType = 'OC6' then
     begin

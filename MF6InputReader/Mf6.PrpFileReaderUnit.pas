@@ -112,14 +112,14 @@ type
   private
     FSettingType: string;
     FSteps: TIntegerList;
-    FFrequency: Extended;
+    FFrequency: Integer;
     function GetStep(Index: Integer): Integer;
     function GetStepCount: Integer;
   public
     constructor Create;
     destructor Destroy; override;
     property SettingType: string read FSettingType;
-    property Frequency: Extended read FFrequency;
+    property Frequency: Integer read FFrequency;
     property Steps[Index: Integer]: Integer read GetStep; default;
     property StepCount: Integer read GetStepCount;
   end;
@@ -460,7 +460,7 @@ begin
         begin
           if FSplitter.Count > 1 then
           begin
-            if not TryFortranStrToFloat(FSplitter[1], Setting.FFrequency) then
+            if not TryStrToInt(FSplitter[1], Setting.FFrequency) then
             begin
               Unhandled.WriteLine(Format(StrUnrecognizedSPERI, [FPackageType]));
               Unhandled.WriteLine(ErrorLine);
