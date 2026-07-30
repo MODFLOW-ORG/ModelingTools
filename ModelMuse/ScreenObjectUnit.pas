@@ -66,7 +66,7 @@ uses
   FormulaManagerInterfaceUnit, ModflowBoundaryInterfaceUnit,
   GlobalVariablesInterfaceUnit, Modflow6DynamicTimeSeriesUnit, CellLocationUnit,
   Modflow6DynamicTimeSeriesInterfaceUnit, ModflowTvkUnit, ModflowTvsUnit,
-  ModflowPrpUnit, ModflowIFlowFaceUnit;
+  ModflowPrpUnit;
 
 type
   //
@@ -1361,7 +1361,6 @@ view. }
     FTvkBoundary: TTvkBoundary;
     FTvsBoundary: TTvsBoundary;
     FPrpBoundary: TPrpBoundary;
-    FIFlowFaceLocation: TIFlowFace;
   public
     property ModflowChdBoundary: TChdBoundary read FModflowChdBoundary
       write FModflowChdBoundary;
@@ -1554,7 +1553,6 @@ view. }
     property TvsBoundary: TTvsBoundary read FTvsBoundary write FTvsBoundary;
 
     property PrpBoundary: TPrpBoundary read FPrpBoundary write FPrpBoundary;
-    Property IFlowFaceLocation: TIFlowFace read FIFlowFaceLocation write FIFlowFaceLocation;
 
     // When adding a new property, be sure to update
     // TModflowBoundaries.Invalidate,
@@ -2985,9 +2983,6 @@ view. }
     function StoreModflowPrpBoundary: Boolean;
 
     procedure SetSectionLabel(const Value: TSectionLabel);
-    function GetModflowIFlowFaceLocation: TIFlowFace;
-    procedure SetModflowIFlowFaceLocation(const Value: TIFlowFace);
-    function StoreModflowIFlowFaceLocation: Boolean;
 
     property SubPolygonCount: integer read GetSubPolygonCount;
     property SubPolygons[Index: integer]: TSubPolygon read GetSubPolygon;
@@ -3619,7 +3614,6 @@ view. }
     procedure CreateTvkBoundary;
     procedure CreateTvsBoundary;
     procedure CreatePrpBoundary;
-    procedure CreateIFlowFaceLocation;
     { TODO -cRefactor : Consider replacing Model with an interface. }
     //
     function ModflowDataSetUsed(DataArray: TDataArray; AModel: TBaseModel): boolean;
@@ -4501,8 +4495,6 @@ view. }
       read GetModflowPrpBoundary write SetModflowPrpBoundary
       Stored StoreModflowPrpBoundary;
 
-    Property ModflowIFlowFaceLocation: TIFlowFace read GetModflowIFlowFaceLocation
-      write SetModflowIFlowFaceLocation stored StoreModflowIFlowFaceLocation;
     { TODO :
 Consider making SectionStarts private and only exposing SectionStart,
 SectionEnd etc. DefineProperties could be used to store and retrieve
@@ -7206,7 +7198,6 @@ begin
   ModflowTvkBoundary := AScreenObject.ModflowTvkBoundary;
   ModflowTvsBoundary := AScreenObject.ModflowTvsBoundary;
   ModflowPrpBoundary := AScreenObject.ModflowPrpBoundary;
-  ModflowIFlowFaceLocation := AScreenObject.ModflowIFlowFaceLocation;
 
   SutraBoundaries := AScreenObject.SutraBoundaries;
 
@@ -15079,22 +15070,6 @@ begin
   end;
 end;
 
-procedure TScreenObject.SetModflowIFlowFaceLocation(const Value: TIFlowFace);
-begin
-  if (Value = nil) or not Value.Used then
-  begin
-    if ModflowBoundaries.FIFlowFaceLocation <> nil then
-    begin
-      InvalidateModel;
-    end;
-    FreeAndNil(ModflowBoundaries.FIFlowFaceLocation);
-  end
-  else
-  begin
-    CreateIFlowFaceLocation;
-    ModflowBoundaries.FIFlowFaceLocation.Assign(Value);
-  end;
-end;
 
 procedure TScreenObject.SetModflowLak6(const Value: TLakeMf6);
 var
@@ -33420,11 +33395,6 @@ begin
     and (ModflowHydmodData <> nil) and ModflowHydmodData.Used;
 end;
 
-function TScreenObject.StoreModflowIFlowFaceLocation: Boolean;
-begin
-  result := (FModflowBoundaries <> nil)
-    and (ModflowIFlowFaceLocation <> nil) and ModflowIFlowFaceLocation.Used;
-end;
 
 function TScreenObject.StoreModflowLak6: Boolean;
 begin
@@ -34947,22 +34917,6 @@ begin
 
 end;
 
-function TScreenObject.GetModflowIFlowFaceLocation: TIFlowFace;
-begin
-  if (FModel = nil)
-    or ((FModel <> nil) and (csLoading in FModel.ComponentState)) then
-  begin
-    CreateIFlowFaceLocation;
-  end;
-  if FModflowBoundaries = nil then
-  begin
-    result := nil;
-  end
-  else
-  begin
-    result := ModflowBoundaries.IFlowFaceLocation;
-  end;
-end;
 
 function TScreenObject.GetModflowLak6: TLakeMf6;
 begin
@@ -40019,14 +39973,6 @@ begin
   end;
 end;
 
-procedure TScreenObject.CreateIFlowFaceLocation;
-begin
-  if (ModflowBoundaries.FIFlowFaceLocation = nil) then
-  begin
-    ModflowBoundaries.FIFlowFaceLocation := TIFlowFace.Create(FModel as TCustomModel, self);
-  end;
-end;
-
 procedure TScreenObject.CreateLakBoundary;
 begin
   if (ModflowBoundaries.FModflowLakBoundary = nil) then
@@ -43761,7 +43707,6 @@ begin
   FModflowMvr.Free;
   FModflowUzfMf6Boundary.Free;
   FPrpBoundary.Free;
-  FIFlowFaceLocation.Free;
   inherited;
 end;
 
@@ -44213,12 +44158,6 @@ begin
     and not FPrpBoundary.Used then
   begin
     FreeAndNil(FPrpBoundary);
-  end;
-
-  if (FIFlowFaceLocation <> nil)
-    and not FIFlowFaceLocation.Used then
-  begin
-    FreeAndNil(FIFlowFaceLocation);
   end;
 
 end;

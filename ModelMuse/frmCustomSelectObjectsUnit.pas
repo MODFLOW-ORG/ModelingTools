@@ -211,8 +211,6 @@ type
     FTvsList: TList;
     FPrpNode: PVirtualNode;
     FPrpList: TList;
-    FIFlowFaceNode: PVirtualNode;
-    FIFlowFaceList: TList;
 
 
     procedure RecordExpandedNodes;
@@ -1334,11 +1332,6 @@ begin
     begin
       Data.Caption := 'PRT: PRP Particle Release Point';
       Node.CheckType := ctTriStateCheckBox;
-    end
-    else if Node = FIFlowFaceNode then
-    begin
-      Data.Caption := 'IFLOWFACE';
-      Node.CheckType := ctTriStateCheckBox;
     end;
 
     If (ParentNode = nil) then
@@ -2451,14 +2444,6 @@ begin
       InitializeData(FPrpNode);
     end;
 
-    if ((AScreenObject.ModflowIFlowFaceLocation <> nil)
-      and AScreenObject.ModflowIFlowFaceLocation.Used)
-      then
-    begin
-      InitializeData(FIFlowFaceNode);
-    end;
-
-
     if PutInOtherObjects then
     begin
       InitializeData(FvstOtherObjectsNode);
@@ -2662,7 +2647,6 @@ begin
     vstCheckDeleteNode(FTvkNode);
     vstCheckDeleteNode(FTvsNode);
     vstCheckDeleteNode(FPrpNode);
-    vstCheckDeleteNode(FIFlowFaceNode);
 
     ParentNodes := TList.Create;
     try
@@ -3153,7 +3137,6 @@ begin
     InitializeMF_BoundaryNode(FTvkNode, PriorNode, FTvkList);
     InitializeMF_BoundaryNode(FTvsNode, PriorNode, FTvsList);
     InitializeMF_BoundaryNode(FPrpNode, PriorNode, FPrpList);
-    InitializeMF_BoundaryNode(FIFlowFaceNode, PriorNode, FIFlowFaceList);
 
 
 
@@ -3531,7 +3514,6 @@ begin
   FTvkList.Free;
   FTvsList.Free;
   FPrpList.Free;
-  FIFlowFaceList.Free;
   inherited;
 end;
 
@@ -3684,7 +3666,6 @@ begin
   FTvkList := TList.Create;
   FTvsList := TList.Create;
   FPrpList := TList.Create;
-  FIFlowFaceList := TList.Create;
 
   FCanEdit := True;
 
@@ -3851,7 +3832,6 @@ begin
   FTvkNode := nil;
   FTvsNode := nil;
   FPrpNode := nil;
-  FIFlowFaceNode := nil;
 end;
 
 function TfrmCustomSelectObjects.NodeString(ANode: PVirtualNode): string;
@@ -4136,7 +4116,6 @@ begin
   FTvkList.Sort(ScreenObjectCompare);
   FTvsList.Sort(ScreenObjectCompare);
   FPrpList.Sort(ScreenObjectCompare);
-  FIFlowFaceList.Sort(ScreenObjectCompare);
 
 
   for Index := 0 to FDataSetLists.Count - 1 do

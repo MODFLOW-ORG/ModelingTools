@@ -605,6 +605,17 @@ const
 
   kInitialTemperatureGwe = 'Initial_Temperature';
 
+  K_IFlowFaceCHD = 'IFLOWFACE_CHD';
+  K_IFlowFaceWEL = 'IFLOWFACE_WEL';
+  K_IFlowFaceDRN = 'IFLOWFACE_DRN';
+  K_IFlowFaceRIV = 'IFLOWFACE_RIV';
+  K_IFlowFaceGHB = 'IFLOWFACE_GHB';
+  K_IFlowFaceRCH = 'IFLOWFACE_RCH';
+  K_IFlowFaceMAW = 'IFLOWFACE_MAW';
+  K_IFlowFaceSFR = 'IFLOWFACE_SFR';
+  K_IFlowFaceLAK = 'IFLOWFACE_LAK';
+  K_IFlowFaceUZF = 'IFLOWFACE_UZF';
+
 resourcestring
   StrActiveSurfaceEleva = 'Active_Surface_Elevation';
   StrSFTInitialConcentra = KSFTInitialConcentra;
@@ -1420,6 +1431,17 @@ resourcestring
   StrSUTRALake = 'SUTRA_Lake';
   StrUzt = 'UZT';
   StrUze = 'UZE';
+
+  StrIFlowFaceCHD = K_IFlowFaceCHD;
+  StrIFlowFaceWEL = K_IFlowFaceWEL;
+  StrIFlowFaceDRN = K_IFlowFaceDRN;
+  StrIFlowFaceRIV = K_IFlowFaceRIV;
+  StrIFlowFaceGHB = K_IFlowFaceGHB;
+  StrIFlowFaceRCH = K_IFlowFaceRCH;
+  StrIFlowFaceMAW = K_IFlowFaceMAW;
+  StrIFlowFaceSFR = K_IFlowFaceSFR;
+  StrIFlowFaceLAK = K_IFlowFaceLAK;
+  StrIFlowFaceUZF = K_IFlowFaceUZF;
 
 
 

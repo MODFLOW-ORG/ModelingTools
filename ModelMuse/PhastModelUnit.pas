@@ -2219,6 +2219,29 @@ that affects the model output should also have a comment. }
       virtual; abstract;
     function GetContourLabelSpacing: Integer; virtual; abstract;
     procedure SetContourLabelSpacing(const Value: Integer);virtual; abstract;
+
+
+    function DoChdIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoWelIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoDrnIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoRivIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoGhbIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoRchIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoMawIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoSfrIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoLakIFlowFaceUsed(Sender: TObject): boolean; virtual;
+    function DoUzfIFlowFaceUsed(Sender: TObject): boolean; virtual;
+
+    function GetChdIFlowFaceUsed: TObjectUsedEvent;
+    function GetWelIFlowFaceUsed: TObjectUsedEvent;
+    function GetDrnIFlowFaceUsed: TObjectUsedEvent;
+    function GetRivIFlowFaceUsed: TObjectUsedEvent;
+    function GetGhbIFlowFaceUsed: TObjectUsedEvent;
+    function GetRchIFlowFaceUsed: TObjectUsedEvent;
+    function GetMawIFlowFaceUsed: TObjectUsedEvent;
+    function GetSfrIFlowFaceUsed: TObjectUsedEvent;
+    function GetLakIFlowFaceUsed: TObjectUsedEvent;
+    function GetUzfIFlowFaceUsed: TObjectUsedEvent;
   private
     FMf6PrtNameWriters: TObject;
 //    FGlobalVariables: TGlobalVariables;
@@ -2539,6 +2562,16 @@ that affects the model output should also have a comment. }
     function DoUzfSurfKUsed(Sender: TObject): boolean; virtual;
     function GetUzfSurfKUsed: TObjectUsedEvent;
     property UzfSurfKUsed: TObjectUsedEvent read GetUzfSurfKUsed;
+    property ChdIFlowFaceUsed: TObjectUsedEvent read GetChdIFlowFaceUsed;
+    property WelIFlowFaceUsed: TObjectUsedEvent read GetWelIFlowFaceUsed;
+    property DrnIFlowFaceUsed: TObjectUsedEvent read GetDrnIFlowFaceUsed;
+    property RivIFlowFaceUsed: TObjectUsedEvent read GetRivIFlowFaceUsed;
+    property GhbIFlowFaceUsed: TObjectUsedEvent read GetGhbIFlowFaceUsed;
+    property RchIFlowFaceUsed: TObjectUsedEvent read GetRchIFlowFaceUsed;
+    property MawIFlowFaceUsed: TObjectUsedEvent read GetMawIFlowFaceUsed;
+    property SfrIFlowFaceUsed: TObjectUsedEvent read GetSfrIFlowFaceUsed;
+    property LakIFlowFaceUsed: TObjectUsedEvent read GetLakIFlowFaceUsed;
+    property UzfIFlowFaceUsed: TObjectUsedEvent read GetUzfIFlowFaceUsed;
 
     property TransientMultiplierArrays: TList read FTransientMultiplierArrays;
     property TransientZoneArrays: TList read FTransientZoneArrays;
@@ -28012,6 +28045,13 @@ begin
     and ModflowPackages.FarmClimate4.StaticDirectRechargeUsed(nil);
 end;
 
+function TCustomModel.DoDrnIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.DrnPackage.IsSelected;
+end;
+
 procedure TCustomModel.DischargeRoutingUpdate;
 var
   LakeIdArray: TDataArray;
@@ -36452,6 +36492,11 @@ begin
   result := DoCfpPipesSelected;
 end;
 
+function TCustomModel.GetChdIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoChdIFlowFaceUsed;
+end;
+
 function TCustomModel.GetChemistryUsed: TObjectUsedEvent;
 begin
   result := DoChemistryUsed;
@@ -36867,6 +36912,11 @@ begin
       Exit;
     end;
   end;
+end;
+
+function TCustomModel.GetSfrIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoSfrIFlowFaceUsed;
 end;
 
 function TCustomModel.GetSfrMf6GweSelected: TObjectUsedEvent;
@@ -39125,6 +39175,13 @@ begin
   end;
 end;
 
+function TCustomModel.DoChdIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.ChdBoundary.IsSelected;
+end;
+
 function TCustomModel.DoChemistryUsed(Sender: TObject): boolean;
 begin
   result := (ModelSelection = msPhast) and SoluteTransport;
@@ -39311,6 +39368,13 @@ begin
   result := DoChemistryUsed(Sender) and ChemistryOptions.UseGasPhases;
 end;
 
+function TCustomModel.DoGhbIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.GhbBoundary.IsSelected;
+end;
+
 function TCustomModel.DoSoilIDUsed(Sender: TObject): boolean;
 begin
   result := FarmProcessUsed(Sender);
@@ -39328,6 +39392,13 @@ begin
   result := DoChemistryUsed(Sender) and ChemistryOptions.UseSolidSolution;
 end;
 
+function TCustomModel.DoRchIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.RchPackage.IsSelected;
+end;
+
 function TCustomModel.DoReservoirLayerUsed(Sender: TObject): boolean;
 begin
   result := DoReservoirPackageUsed(Sender)
@@ -39340,10 +39411,24 @@ begin
     and ModflowPackages.ResPackage.IsSelected;
 end;
 
+function TCustomModel.DoRivIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.RivPackage.IsSelected;
+end;
+
 function TCustomModel.DoLakePackageUsed(Sender: TObject): boolean;
 begin
   result := DoModflowUsed(Sender) and (ModelSelection <> msModflow2015)
     and ModflowPackages.LakPackage.IsSelected;
+end;
+
+function TCustomModel.DoLakIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.LakMf6Package.IsSelected;
 end;
 
 function TCustomModel.DoLakMf6Selected(Sender: TObject): Boolean;
@@ -39497,6 +39582,13 @@ begin
   begin
     result := 1;
   end;
+end;
+
+function TCustomModel.DoUzfIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.UzfMf6Package.IsSelected;
 end;
 
 function TCustomModel.DoUzfInitialInfiltrationUsed(Sender: TObject): boolean;
@@ -39996,6 +40088,13 @@ end;
 function TCustomModel.StoreWellMassFluxObservations: Boolean;
 begin
   result := FMt3dmsWellMassFluxObservations.Count > 0;
+end;
+
+function TCustomModel.DoWelIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.WelPackage.IsSelected;
 end;
 
 function TCustomModel.DoWetDryUsed(Sender: TObject): boolean;
@@ -41564,6 +41663,13 @@ begin
   result := FMawScreenObjects;
 end;
 
+function TCustomModel.DoMawIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.MawPackage.IsSelected;
+end;
+
 function TCustomModel.DoMawSelected(Sender: TObject): Boolean;
 begin
   result := ModflowPackages.MawPackage.IsSelected;
@@ -41635,6 +41741,11 @@ end;
 function TCustomModel.ModflowHobPackageUsed(Sender: TObject): boolean;
 begin
   result := ModflowPackages.HobPackage.IsSelected;
+end;
+
+function TCustomModel.GetMawIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoMawIFlowFaceUsed;
 end;
 
 function TCustomModel.GetMawSelected: TObjectUsedEvent;
@@ -41901,6 +42012,13 @@ end;
 procedure TCustomModel.SetZoneBudgetOutputFiles(const Value: TStrings);
 begin
   FZoneBudgetOutputFiles.Assign(Value);
+end;
+
+function TCustomModel.DoSfrIFlowFaceUsed(Sender: TObject): boolean;
+begin
+  result := (ModelSelection = msModflow2015)
+    and (ModflowPackages.PrtModels.Count > 0)
+    and ModflowPackages.SfrModflow6Package.IsSelected;
 end;
 
 function TCustomModel.DoSfrMf6GweSelected(Sender: TObject): Boolean;
@@ -42447,6 +42565,11 @@ begin
   end;
 end;
 
+function TCustomModel.GetDrnIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoDrnIFlowFaceUsed;
+end;
+
 function TCustomModel.GetHeadObsResults: THeadObsCollection;
 begin
   CreateHeadObsResults;
@@ -42613,6 +42736,11 @@ end;
 function TCustomModel.GetLakePackageUsed: TObjectUsedEvent;
 begin
   result := DoLakePackageUsed;
+end;
+
+function TCustomModel.GetLakIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoLakIFlowFaceUsed;
 end;
 
 function TCustomModel.GetLakMf6Selected: TObjectUsedEvent;
@@ -50640,6 +50768,11 @@ begin
   Result := DoUseFootprintWells;
 end;
 
+function TCustomModel.GetUzfIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoUzfIFlowFaceUsed;
+end;
+
 function TCustomModel.GetUzfInitialInfiltrationUsed: TObjectUsedEvent;
 begin
   result := DoUzfInitialInfiltrationUsed;
@@ -50701,6 +50834,11 @@ var
 begin
   Viscosity := ModflowPackages.ViscosityPackage;
   Result := Viscosity.IsSelected and Viscosity.ViscositySpecified;
+end;
+
+function TCustomModel.GetWelIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoWelIFlowFaceUsed;
 end;
 
 function TCustomModel.GetWetDryUsed: TObjectUsedEvent;
@@ -50937,6 +51075,11 @@ begin
   result := DoGasPhaseUsed;
 end;
 
+function TCustomModel.GetGhbIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoGhbIFlowFaceUsed;
+end;
+
 function TCustomModel.GetGrid: TCustomModelGrid;
 begin
   if ModelSelection in SutraSelection then
@@ -51143,6 +51286,11 @@ begin
   end;
 end;
 
+function TCustomModel.GetRchIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoRchIFlowFaceUsed;
+end;
+
 function TCustomModel.GetReservoirLayerUsed: TObjectUsedEvent;
 begin
   result := DoReservoirLayerUsed;
@@ -51151,6 +51299,11 @@ end;
 function TCustomModel.GetReservoirPackageUsed: TObjectUsedEvent;
 begin
   result := DoReservoirPackageUsed;
+end;
+
+function TCustomModel.GetRivIFlowFaceUsed: TObjectUsedEvent;
+begin
+  result := DoRivIFlowFaceUsed;
 end;
 
 function TCustomModel.GetRootDepthUsed: TObjectUsedEvent;

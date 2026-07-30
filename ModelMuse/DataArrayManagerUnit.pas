@@ -367,6 +367,26 @@ type
     property CropHasSalinityDemandUsed: TObjectUsedEvent read GetCropHasSalinityDemandUsed;
     function GetLandUseCellsToPrintUsed: TObjectUsedEvent;
     property LandUseCellsToPrintUsed: TObjectUsedEvent read GetLandUseCellsToPrintUsed;
+    function GetChdIFlowFaceUsed: TObjectUsedEvent;
+    function GetWelIFlowFaceUsed: TObjectUsedEvent;
+    function GetDrnIFlowFaceUsed: TObjectUsedEvent;
+    function GetRivIFlowFaceUsed: TObjectUsedEvent;
+    function GetGhbIFlowFaceUsed: TObjectUsedEvent;
+    function GetRchIFlowFaceUsed: TObjectUsedEvent;
+    function GetMawIFlowFaceUsed: TObjectUsedEvent;
+    function GetSfrIFlowFaceUsed: TObjectUsedEvent;
+    function GetLakIFlowFaceUsed: TObjectUsedEvent;
+    function GetUzfIFlowFaceUsed: TObjectUsedEvent;
+    property ChdIFlowFaceUsed: TObjectUsedEvent read GetChdIFlowFaceUsed;
+    property WelIFlowFaceUsed: TObjectUsedEvent read GetWelIFlowFaceUsed;
+    property DrnIFlowFaceUsed: TObjectUsedEvent read GetDrnIFlowFaceUsed;
+    property RivIFlowFaceUsed: TObjectUsedEvent read GetRivIFlowFaceUsed;
+    property GhbIFlowFaceUsed: TObjectUsedEvent read GetGhbIFlowFaceUsed;
+    property RchIFlowFaceUsed: TObjectUsedEvent read GetRchIFlowFaceUsed;
+    property MawIFlowFaceUsed: TObjectUsedEvent read GetMawIFlowFaceUsed;
+    property SfrIFlowFaceUsed: TObjectUsedEvent read GetSfrIFlowFaceUsed;
+    property LakIFlowFaceUsed: TObjectUsedEvent read GetLakIFlowFaceUsed;
+    property UzfIFlowFaceUsed: TObjectUsedEvent read GetUzfIFlowFaceUsed;
     procedure RemoveVariables(const DataSet: TDataArray); overload;
     procedure RemoveVariables(const DataSetName: String;
       Orientation: TDataSetOrientation; EvaluatedAt: TEvaluatedAt); overload;
@@ -1167,7 +1187,11 @@ procedure TDataArrayManager.DefinePackageDataArrays;
     ARecord.Min := 0;
   end;
 const
+{$IFDEF PRT}
+  ArrayCount = 223;
+{$ELSE}
   ArrayCount = 213;
+{$ENDIF}
 var
   Index: integer;
 begin
@@ -4468,6 +4492,151 @@ begin
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
     'MODFLOW-OWHM version 2, LAND_USE: PRINT ROW_COLUMN';
   Inc(Index);
+
+
+{$IFDEF PRT}
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceCHD;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceCHD;
+  FDataArrayCreationRecords[Index].Formula := '0';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.ChdIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceWEL;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceWEL;
+  FDataArrayCreationRecords[Index].Formula := '0';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.WelIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceDRN;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceDRN;
+  FDataArrayCreationRecords[Index].Formula := '-1';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.DrnIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceRIV;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceRIV;
+  FDataArrayCreationRecords[Index].Formula := '-1';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.RivIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceGHB;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceGHB;
+  FDataArrayCreationRecords[Index].Formula := '0';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.GhbIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceRCH;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceRCH;
+  FDataArrayCreationRecords[Index].Formula := '-1';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.RchIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceMAW;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceMAW;
+  FDataArrayCreationRecords[Index].Formula := '0';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.MawIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceSFR;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceSFR;
+  FDataArrayCreationRecords[Index].Formula := '-1';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.SfrIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceLAK;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceLAK;
+  FDataArrayCreationRecords[Index].Formula := '-1';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.LakIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+
+  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+  FDataArrayCreationRecords[Index].Name := K_IFlowFaceUZF;
+  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceUZF;
+  FDataArrayCreationRecords[Index].Formula := '-1';
+  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.UzfIFlowFaceUsed;
+  FDataArrayCreationRecords[Index].Lock := StandardLock;
+  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+    'MODFLOW 6: PRT: IFLOWFACE';
+  Inc(Index);
+{$ENDIF}
+
+
 
   // See ArrayCount above.
   Assert(Length(FDataArrayCreationRecords) = Index);

@@ -970,8 +970,6 @@ uses
   ModflowMipWriterUnit in 'ModflowMipWriterUnit.pas',
   ModflowPrtOcWriterUnit in 'ModflowPrtOcWriterUnit.pas',
   ModflowpPrpWriterUnit in 'ModflowpPrpWriterUnit.pas',
-  ModflowIFlowFaceUnit in 'ModflowIFlowFaceUnit.pas',
-  frameScreenObjectIFlowFaceUnit in 'frameScreenObjectIFlowFaceUnit.pas' {frameScreenObjectIFlowFace: TFrame},
   framePrtDisplayUnit in 'framePrtDisplayUnit.pas' {framePrtDisplay: TFrame},
   PrtTrackReaderUnit in 'PrtTrackReaderUnit.pas',
   ModflowGwfPrtExchangeWriterUnit in 'ModflowGwfPrtExchangeWriterUnit.pas',
