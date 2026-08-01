@@ -7,7 +7,7 @@ uses Classes, RealListUnit, OrderedCollectionUnit, ModflowCellUnit,
   ModflowSfrSegment, ModflowSfrUnsatSegment, ModflowSfrTable, ModflowSfrFlows,
   ModflowSfrEquationUnit, ModflowSfrParamIcalcUnit, PestObsUnit,
   SubscriptionUnit,
-  FormulaManagerUnit, FormulaManagerInterfaceUnit, System.Math;
+  FormulaManagerUnit, FormulaManagerInterfaceUnit, System.Math, DataSetUnit;
 
 type
   TGageLocation = (glNone, glFirst, glLast, glAll);
@@ -350,7 +350,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TSfr_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -619,7 +619,7 @@ begin
 end;
 
 procedure TSfrBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TSfr_Cell;
   BoundaryValues: TSfrRecord;

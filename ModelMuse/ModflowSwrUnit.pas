@@ -6,7 +6,8 @@ uses
   SysUtils, Classes, ModflowBoundaryUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   OrderedCollectionUnit, GoPhastTypes, RbwParser, ModflowCellUnit, ZLib,
-  SubscriptionUnit, Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  SubscriptionUnit, Modflow6DynamicTimeSeriesInterfaceUnit, System.Math,
+  DataSetUnit;
 
 type
   TSwrRecord = record
@@ -145,7 +146,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TSwrValueCell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     function SpecificationMethod: TSwrSpecificationMethod; virtual; abstract;
     // PEST
     procedure HandleChangedValue(Observer: TObserver); //override;
@@ -332,7 +333,7 @@ implementation
 
 uses
   frmGoPhastUnit, PhastModelUnit,
-  frmErrorsAndWarningsUnit, DataSetUnit, AbstractGridUnit, ModflowTimeUnit,
+  frmErrorsAndWarningsUnit, AbstractGridUnit, ModflowTimeUnit,
   ScreenObjectUnit, GIS_Functions, CellLocationUnit;
 
 resourcestring
@@ -1174,7 +1175,7 @@ begin
 end;
 
 procedure TCustomSwrBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TSwrValueCell;
   BoundaryValues: TSwrRecord;

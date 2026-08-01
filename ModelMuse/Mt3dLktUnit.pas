@@ -7,7 +7,7 @@ uses
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   SubscriptionUnit, System.Generics.Collections,
   OrderedCollectionUnit, RbwParser, System.ZLib, ModflowCellUnit,
-  Modflow6DynamicTimeSeriesInterfaceUnit;
+  Modflow6DynamicTimeSeriesInterfaceUnit, DataSetUnit;
 
 type
   TMt3dLktConcItem = class(TCustomMt3dmsConcItem)
@@ -143,7 +143,7 @@ type
   protected
     // @name should not be called
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -175,8 +175,7 @@ type
 implementation
 
 uses
-  frmGoPhastUnit, PhastModelUnit, ScreenObjectUnit, GIS_Functions, DataSetUnit,
-  DataSetNamesUnit, CellLocationUnit;
+  frmGoPhastUnit, PhastModelUnit, ScreenObjectUnit, GIS_Functions, DataSetNamesUnit, CellLocationUnit;
 
 resourcestring
   StrLKTInitialConcentr = 'LKT Initial Concentration';
@@ -213,7 +212,7 @@ end;
 
 procedure TMt3dLktConcBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
   Assert(False);
 end;

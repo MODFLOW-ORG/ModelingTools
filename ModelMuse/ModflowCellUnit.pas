@@ -41,6 +41,8 @@ type
     FScreenObject: IScreenObject;
     FBoundaryIndex: integer;
     FMf6ObsName: string;
+    FIFlowFace: Integer;
+    FIFlowFaceAnnotation: string;
     procedure SetScreenObject(const Value: IScreenObject);
   protected
     function GetColumn: integer; virtual; abstract;
@@ -122,6 +124,9 @@ type
     property BooleanAnnotation[Index: integer; AModel: TBaseModel]: string
       read GetBooleanAnnotation;
     property IFace: TIface read FIFace write FIFace;
+    property IFlowFace: Integer read FIFlowFace write FIFlowFace;
+    property IFlowFaceAnnotation: string read FIFlowFaceAnnotation
+       write FIFlowFaceAnnotation;
     // @name is the @link(TScreenObject) used to assign this
     // @classname.  @name is assigned in @link(TModflowBoundary.AssignCells).
     // @name is only assigned for boundary conditions that have
@@ -577,6 +582,8 @@ end;
 procedure TValueCell.Cache(Comp: TCompressionStream; Strings: TStringList);
 begin
   WriteCompInt(Comp, FBoundaryIndex);
+  WriteCompInt(Comp, FIFlowFace);
+  WriteCompString(Comp, FIFlowFaceAnnotation);
 
   Comp.Write(FIface, SizeOf(FIface));
   if ScreenObject = nil then
@@ -645,6 +652,7 @@ end;
 procedure TValueCell.RecordStrings(Strings: TStringList);
 begin
   Strings.Add(Mf6ObsName);
+  Strings.Add(FIFlowFaceAnnotation);
   if FScreenObject <> nil then
   begin
     Strings.Add(FScreenObject.Name);
@@ -658,7 +666,10 @@ var
   LocalModel: IModelForTValueCell;
 begin
   FBoundaryIndex := ReadCompInt(Decomp);
+  FIFlowFace := ReadCompInt(Decomp);
+  FIFlowFaceAnnotation := ReadCompStringSimple(Decomp);
   Decomp.Read(FIFace, SizeOf(FIFace));
+
   ScreenObjectName := ReadCompStringSimple(Decomp);
   if ScreenObjectName = '' then
   begin

@@ -44,6 +44,7 @@ Type
     function Mf6ObservationsUsed: Boolean; override;
     Class function Mf6ObType: TObGeneral; override;
     procedure WriteAdditionalAuxVariables;
+    class function IFlowFaceDataSetName: string; override;
   public
     procedure WriteFile(const AFileName: string);
     procedure UpdateDisplay(TimeLists: TModflowBoundListOfTimeLists);
@@ -151,6 +152,11 @@ begin
   inherited;
   frmErrorsAndWarnings.AddWarning(Model, StrRechargeHasNotBee,
     Format(StrStressPeriodD, [FTimeIndex+1]));
+end;
+
+class function TModflowRCH_Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceRCH;
 end;
 
 function TModflowRCH_Writer.IsMf6Observation(

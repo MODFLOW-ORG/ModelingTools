@@ -6,7 +6,7 @@ uses
   System.Classes, ModflowBoundaryUnit, GoPhastTypes, OrderedCollectionUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit, SubscriptionUnit, System.Generics.Collections,
   ModflowCellUnit, RealListUnit, Mt3dmsChemUnit, System.SysUtils, GwtStatusUnit,
-  OrderedCollectionInterfaceUnit;
+  OrderedCollectionInterfaceUnit, DataSetUnit;
 
 type
   // related to claktype.
@@ -517,7 +517,7 @@ type
     procedure CreateObservers;
     procedure GetPropertyObserver(Sender: TObject; List: TList); override;
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
 
     procedure HandleChangedValue(Observer: TObserver); //override;
     function GetUsedObserver: TObserver; //override;
@@ -657,8 +657,7 @@ const
 implementation
 
 uses
-  frmGoPhastUnit, ScreenObjectUnit, PhastModelUnit, DataSetUnit,
-  DataSetNamesUnit;
+  frmGoPhastUnit, ScreenObjectUnit, PhastModelUnit, DataSetNamesUnit;
 
 const
   LakeObName: array[TLakOb] of string = ('Stage', 'ExternalInflow', 'SimOutletInflow', 'SumInflow', 'FromMvr', 'Rain',
@@ -2082,7 +2081,7 @@ begin
 end;
 
 procedure TLakeMf6.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
 //  inherited;
   Assert(False);

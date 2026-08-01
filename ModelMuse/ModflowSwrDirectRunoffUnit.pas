@@ -5,7 +5,8 @@ interface
 uses
   ZLib, Classes, ModflowCellUnit, ModflowBoundaryUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
-  OrderedCollectionUnit, GoPhastTypes, SysUtils, SubscriptionUnit, System.Math;
+  OrderedCollectionUnit, GoPhastTypes, SysUtils, SubscriptionUnit, System.Math,
+  DataSetUnit;
 
 type
   TSwrDirectRunoffRecord = record
@@ -146,7 +147,7 @@ type
     procedure InvalidateRunoffData(Sender: TObject);
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -183,8 +184,7 @@ type
 implementation
 
 uses
-  PhastModelUnit, DataSetUnit,
-  ModflowTimeUnit, ScreenObjectUnit, RbwParser, frmGoPhastUnit;
+  PhastModelUnit, ModflowTimeUnit, ScreenObjectUnit, RbwParser, frmGoPhastUnit;
 
 resourcestring
   StrReach = 'Reach (DROMAP2D)';
@@ -849,7 +849,7 @@ end;
 
 procedure TSwrDirectRunoffBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TSwrDirectRunoff_Cell;
   BoundaryValues: TSwrDirectRunoffRecord;

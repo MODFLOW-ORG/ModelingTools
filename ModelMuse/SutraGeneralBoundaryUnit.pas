@@ -6,7 +6,7 @@ uses
   System.Classes, ModflowBoundaryUnit, FormulaManagerUnit, GoPhastTypes,
   OrderedCollectionUnit, RbwParser, SutraBoundaryUnit,
   System.Generics.Collections, SutraOptionsUnit, SubscriptionUnit,
-  FormulaManagerInterfaceUnit, ScreenObjectInterfaceUnit;
+  FormulaManagerInterfaceUnit, ScreenObjectInterfaceUnit, DataSetUnit;
 
 type
   TSutraGeneralFlowItem = class(TCustomBoundaryItem)
@@ -204,7 +204,7 @@ type
     Constructor Create(Model: TBaseModel; ScreenObject: TObject);
     destructor Destroy; override;
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
     procedure GetCellValues(ValueTimeList: TList; ParamList: TStringList;
@@ -788,7 +788,7 @@ end;
 
 procedure TSutraGeneralFlowBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
   inherited;
   // does this need to change?

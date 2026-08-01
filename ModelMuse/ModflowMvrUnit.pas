@@ -7,7 +7,7 @@ uses
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   GoPhastTypes, SubscriptionUnit, RbwParser,
   ModflowCellUnit, System.ZLib, OrderedCollectionInterfaceUnit,
-  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math, DataSetUnit;
 
 type
   TMvrType = (mtFactor, mtExcess, mtThreshold, mtUpTo);
@@ -371,7 +371,7 @@ type
     procedure SetMvrMaps(const Value: TSectionMaps);
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
   public
@@ -700,7 +700,7 @@ begin
 end;
 
 procedure TMvrBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   LocalBoundaryStorage: TMvrSourceStorage;
   LocalModel: TCustomModel;

@@ -407,7 +407,7 @@ type
   TSutraFluidBoundary = class(TSutraBoundary)
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
     procedure PQChangeHandler(Sender: TObject); override;
@@ -445,7 +445,7 @@ type
   TSutraMassEnergySourceSinkBoundary = class(TSutraBoundary)
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
     procedure PQChangeHandler(Sender: TObject); override;
@@ -484,7 +484,7 @@ type
   TSutraSpecifiedPressureBoundary = class(TSutraBoundary)
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
     procedure PQChangeHandler(Sender: TObject); override;
@@ -522,7 +522,7 @@ type
   TSutraSpecifiedConcTempBoundary = class(TSutraBoundary)
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
     procedure PQChangeHandler(Sender: TObject); override;
@@ -1224,7 +1224,7 @@ end;
 
 procedure TSutraFluidBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
   inherited;
   Assert(False);
@@ -1311,7 +1311,7 @@ end;
 
 procedure TSutraMassEnergySourceSinkBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
   inherited;
   Assert(False);
@@ -1373,7 +1373,7 @@ end;
 
 procedure TSutraSpecifiedPressureBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
   inherited;
   Assert(False);
@@ -1459,7 +1459,7 @@ end;
 
 procedure TSutraSpecifiedConcTempBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
   inherited;
   Assert(False);

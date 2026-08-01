@@ -55,6 +55,7 @@ type
     procedure GetITMP(var ITMP: integer; TimeIndex: integer;
       var List: TValueCellList); override;
     function GetActiveCellCount(CellList: TValueCellList): Integer; override;
+    class function IFlowFaceDataSetName: string; override;
   public
     procedure WriteFile(const AFileName: string);
     procedure WriteFluxObservationFile(const AFileName: string;
@@ -69,7 +70,7 @@ implementation
 uses frmErrorsAndWarningsUnit,
   ModflowUnitNumbers, frmProgressUnit,
   ModflowGridUnit, Forms, Mt3dmsChemSpeciesUnit,
-  PestPropertiesUnit;
+  PestPropertiesUnit, DataSetNamesUnit;
 
 resourcestring
   StrErrorInCHDPackage = 'Error in CHD package';
@@ -353,6 +354,7 @@ begin
     WriteValueOrFormula(CHD_Cell, ChdEndHeadPosition);
   end;
   WriteIface(CHD_Cell.IFace);
+  WriteIFlowFace(CHD_Cell.IFlowFace);
 
   if Model.GwtUsed or Model.GweUsed then
   begin
@@ -388,8 +390,14 @@ const
   DS3Instances = ' INSTANCES NUMINST';
   DS4A = ' # Data Set 4a: INSTNAM';
   DataSetIdentifier = 'Data Set 4b:';
-  VariableIdentifiers = 'Shdfact Ehdfact IFACE';
+var
+  VariableIdentifiers: string;
 begin
+  VariableIdentifiers := 'Shdfact Ehdfact IFACE';
+  if Model.ModelSelection = msModflow2015 then
+  begin
+    VariableIdentifiers := VariableIdentifiers + ' IFLOWFACE';
+  end;
   WriteParameterDefinitions(DS3, DS3Instances, DS4A, DataSetIdentifier,
     VariableIdentifiers, StrOneOrMoreSParam, umAssign, nil, nil);
 end;
@@ -409,6 +417,10 @@ begin
   if Model.ModelSelection = msModflow2015 then
   begin
     VarID := VariableIdentifiersMF6;
+    if Model.ModelSelection = msModflow2015 then
+    begin
+      VarID := VarID + ' IFLOWFACE';
+    end;
     if Model.GwtUsed or Model.GweUsed then
     begin
       for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
@@ -761,6 +773,11 @@ begin
   begin
     ITMP := GetActiveCellCount(List);
   end;
+end;
+
+class function TModflowCHD_Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceCHD;
 end;
 
 function TModflowCHD_Writer.IsMf6Observation(

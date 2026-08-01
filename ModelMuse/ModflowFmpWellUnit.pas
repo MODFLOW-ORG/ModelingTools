@@ -7,7 +7,7 @@ uses
   ModflowBoundaryUnit, ModflowCellUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   SubscriptionUnit, RbwParser, GoPhastTypes,
-  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math, DataSetUnit;
 
 type
   TFmpWellRecord = record
@@ -208,7 +208,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TFmpWell_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -1258,7 +1258,7 @@ end;
 
 procedure TFmpWellBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TFmpWell_Cell;
   BoundaryValues: TFmpWellRecord;

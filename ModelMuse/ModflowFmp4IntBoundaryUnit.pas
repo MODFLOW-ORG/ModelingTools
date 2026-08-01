@@ -171,7 +171,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TFmp4Int_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     { TODO -cFMP4 : override BoundaryCollectionClass in each descendent}
@@ -588,7 +588,7 @@ end;
 { TFmp4IntBoundary }
 
 procedure TFmp4IntBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TFmp4Int_Cell;
   BoundaryValues: TFmp4IntRecord;

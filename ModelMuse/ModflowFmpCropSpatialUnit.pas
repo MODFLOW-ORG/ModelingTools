@@ -170,7 +170,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TCropID_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -607,7 +607,7 @@ end;
 //end;
 
 procedure TFmpCropIDBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TCropID_Cell;
   BoundaryValues: TFmpCropIDRecord;

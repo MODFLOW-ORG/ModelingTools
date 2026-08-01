@@ -8,7 +8,8 @@ uses Windows, ZLib, SysUtils, ModflowCellUnit, System.Classes,
   OrderedCollectionUnit, GoPhastTypes,
   SubscriptionUnit, Mt3dmsChemUnit, GwtStatusUnit,
   ModflowTransientListParameterUnit, Modflow6DynamicTimeSeriesInterfaceUnit,
-  ScreenObjectInterfaceUnit, Modflow6TimeSeriesInterfaceUnit, System.Math;
+  ScreenObjectInterfaceUnit, Modflow6TimeSeriesInterfaceUnit, System.Math,
+  DataSetUnit;
 
 type
   TUzfOb = (uoGW_Recharge, uoGW_Discharge, uoDischargeToMvr,
@@ -569,7 +570,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TUzfMf6_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -742,8 +743,7 @@ Procedure FillUztSeriesNames(AList: TStrings);
 implementation
 
 uses
-  frmGoPhastUnit, PhastModelUnit, DataSetUnit,
-  ScreenObjectUnit, ModflowTimeUnit, ModflowMvrUnit, ModflowUzfUnit,
+  frmGoPhastUnit, PhastModelUnit, ScreenObjectUnit, ModflowTimeUnit, ModflowMvrUnit, ModflowUzfUnit,
   ModflowRchUnit, ModflowEvtUnit, DataSetNamesUnit, CustomModflowWriterUnit;
 
 const
@@ -4259,7 +4259,7 @@ begin
 end;
 
 procedure TUzfMf6Boundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TUzfMf6_Cell;
   BoundaryValues: TUzfMf6Record;
@@ -4591,14 +4591,16 @@ procedure TUzfMf6Boundary.GetCellValues(ValueTimeList: TList;
 var
   ValueIndex: Integer;
   BoundaryStorage: TUzfMf6Storage;
+  IFlowFace: TDataArray;
 begin
   EvaluateArrayBoundaries(AModel, Writer);
+  IFlowFace := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
   for ValueIndex := 0 to Values.Count - 1 do
   begin
     if ValueIndex < Values.BoundaryCount[AModel] then
     begin
       BoundaryStorage := Values.Boundaries[ValueIndex, AModel] as TUzfMf6Storage;
-      AssignCells(BoundaryStorage, ValueTimeList, AModel);
+      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFace);
     end;
   end;
 end;

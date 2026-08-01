@@ -7,7 +7,7 @@ uses Windows, ZLib, SysUtils, Classes, Contnrs, ModflowBoundaryUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   SubscriptionUnit, RbwParser, GoPhastTypes,
   ModflowTransientListParameterUnit, Modflow6DynamicTimeSeriesInterfaceUnit,
-  System.Math;
+  System.Math, DataSetUnit;
 
 type
   TGhbRecord = record
@@ -355,7 +355,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TGhb_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -440,7 +440,7 @@ implementation
 
 uses PhastModelUnit, ScreenObjectUnit, ModflowTimeUnit,
   frmGoPhastUnit, GIS_Functions, ModflowMvrUnit,
-  frmErrorsAndWarningsUnit, CellLocationUnit;
+  frmErrorsAndWarningsUnit, CellLocationUnit, CustomModflowWriterUnit;
 
 resourcestring
   StrConductance = 'Conductance';
@@ -1587,6 +1587,7 @@ begin
       (Conductance = GHB_Cell.Conductance)
       and (BoundaryHead = GHB_Cell.BoundaryHead)
       and (IFace = GHB_Cell.IFace)
+      and (IFlowFace = GHB_Cell.IFlowFace)
       and (FValues.Cell = GHB_Cell.FValues.Cell)
       and (FValues.Multiplier = GHB_Cell.FValues.Multiplier)
       and FValues.GwtConcentrations.IsIdentical(GHB_Cell.FValues.GwtConcentrations)
@@ -1683,7 +1684,7 @@ begin
 end;
 
 procedure TGhbBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TGhb_Cell;
   BoundaryValues: TGhbRecord;
@@ -1748,6 +1749,16 @@ begin
         Cell.BoundaryIndex := BoundaryIndex;
         Assert(ScreenObject <> nil);
         Cell.IFace := LocalScreenObject.IFace;
+        if IFlowFace <> nil then
+        begin
+          Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
+          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+        end
+        else
+        begin
+          Cell.IFlowFace := 0;
+          Cell.IFlowFaceAnnotation := '';
+        end;
         Cells.Add(Cell);
         Cell.FStressPeriod := TimeIndex;
         Cell.FValues := BoundaryValues;
@@ -1886,7 +1897,16 @@ var
   ValueCount: Integer;
   Item: TCustomModflowBoundaryItem;
   LocalModel: TCustomModel;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   FCurrentParameter := nil;
   EvaluateListBoundaries(AModel);
   TestIfObservationsPresent(EndOfLastStressPeriod, StartOfFirstStressPeriod,
@@ -1903,7 +1923,7 @@ begin
         if ValueCount < Values.BoundaryCount[AModel] then
         begin
           BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TGhbStorage;
-          AssignCells(BoundaryStorage, ValueTimeList, AModel);
+          AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
           Inc(ValueCount);
         end;
       end;
@@ -1912,7 +1932,7 @@ begin
     if ValueCount < Values.BoundaryCount[AModel] then
     begin
       BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TGhbStorage;
-      AssignCells(BoundaryStorage, ValueTimeList, AModel);
+      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
       Inc(ValueCount);
     end;
     if ObservationsPresent then
@@ -1922,7 +1942,7 @@ begin
         if ValueCount < Values.BoundaryCount[AModel] then
         begin
           BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TGhbStorage;
-          AssignCells(BoundaryStorage, ValueTimeList, AModel);
+          AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
           Inc(ValueCount);
         end;
       end;
@@ -1964,7 +1984,7 @@ begin
           if ValueCount < Param.Param.BoundaryCount[AModel] then
           begin
             BoundaryStorage := Param.Param.Boundaries[ValueCount, AModel] as TGhbStorage;
-            AssignCells(BoundaryStorage, Times, AModel);
+            AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
             Inc(ValueCount);
           end;
         end;
@@ -1973,7 +1993,7 @@ begin
       if ValueCount < Param.Param.BoundaryCount[AModel] then
       begin
         BoundaryStorage := Param.Param.Boundaries[ValueCount, AModel] as TGhbStorage;
-        AssignCells(BoundaryStorage, Times, AModel);
+        AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
         Inc(ValueCount);
       end;
       if ObservationsPresent then
@@ -1983,7 +2003,7 @@ begin
           if ValueCount < Param.Param.BoundaryCount[AModel] then
           begin
             BoundaryStorage := Param.Param.Boundaries[ValueCount, AModel] as TGhbStorage;
-            AssignCells(BoundaryStorage, Times, AModel);
+            AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
             Inc(ValueCount);
           end;
         end;

@@ -4,7 +4,7 @@ interface
 
 uses Classes, ZLib, RbwParser, GoPhastTypes, ModflowBoundaryUnit, SubscriptionUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit, ModflowCellUnit,
-  SysUtils, OrderedCollectionUnit;
+  SysUtils, OrderedCollectionUnit, DataSetUnit;
 
 type
   CfpRecord = record
@@ -99,7 +99,7 @@ type
     property Value3Observer: TObserver read GetValue3Observer;
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
   public
     Procedure Assign(Source: TPersistent); override;
     Constructor Create(Model: TBaseModel; ScreenObject: TObject);
@@ -119,7 +119,7 @@ type
 implementation
 
 uses
-  PhastModelUnit, DataSetUnit, DataSetNamesUnit, frmGoPhastUnit;
+  PhastModelUnit, DataSetNamesUnit, frmGoPhastUnit;
 
 const
   FixedHeadPosition = 0;
@@ -146,7 +146,7 @@ begin
 end;
 
 procedure TCfpFixedBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
   Assert(False);
 end;

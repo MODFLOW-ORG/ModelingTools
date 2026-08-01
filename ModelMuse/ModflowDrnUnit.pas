@@ -6,7 +6,7 @@ uses ZLib, SysUtils, Classes, Contnrs, ModflowBoundaryUnit,
   OrderedCollectionUnit, ModflowCellUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   SubscriptionUnit, RbwParser, GoPhastTypes, ModflowTransientListParameterUnit,
-  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math, DataSetUnit;
 
 type
   TDrnRecord = record
@@ -353,7 +353,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TDrn_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -427,7 +427,8 @@ const
 implementation
 
 uses PhastModelUnit, ScreenObjectUnit, ModflowTimeUnit,
-  frmGoPhastUnit, GIS_Functions, ModflowMvrUnit, CellLocationUnit;
+  frmGoPhastUnit, GIS_Functions, ModflowMvrUnit, CellLocationUnit,
+  CustomModflowWriterUnit;
 
 resourcestring
   StrDDRN = 'Discharge Scaling Length (DDRN)';
@@ -1296,6 +1297,7 @@ begin
       and (DDRN = DRN_Cell.DDRN)
       and (Multiplier = DRN_Cell.Multiplier)
       and (IFace = DRN_Cell.IFace)
+      and (IFlowFace = DRN_Cell.IFlowFace)
       and (Values.Cell = DRN_Cell.Values.Cell);
   end;
 end;
@@ -1388,7 +1390,7 @@ begin
 end;
 
 procedure TDrnBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TDrn_Cell;
   BoundaryValues: TDrnRecord;
@@ -1454,6 +1456,16 @@ begin
         Cell.IFace := LocalScreenObject.IFace;
         Cells.Add(Cell);
         Cell.Values := BoundaryValues;
+        if IFlowFace <> nil then
+        begin
+          Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
+          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+        end
+        else
+        begin
+          Cell.IFlowFace := 0;
+          Cell.IFlowFaceAnnotation := '';
+        end;
         Cell.ScreenObject := ScreenObjectI;
         LocalModel.AdjustCellPosition(Cell);
       end;
@@ -1566,7 +1578,16 @@ var
   ValueCount: Integer;
   Item: TCustomModflowBoundaryItem;
   LocalModel: TCustomModel;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   FCurrentParameter := nil;
   EvaluateListBoundaries(AModel);
   TestIfObservationsPresent(EndOfLastStressPeriod, StartOfFirstStressPeriod,
@@ -1583,7 +1604,7 @@ begin
         if ValueCount < Values.BoundaryCount[AModel] then
         begin
           BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TDrnStorage;
-          AssignCells(BoundaryStorage, ValueTimeList, AModel);
+          AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
           Inc(ValueCount);
         end;
       end;
@@ -1592,7 +1613,7 @@ begin
     if ValueCount < Values.BoundaryCount[AModel] then
     begin
       BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TDrnStorage;
-      AssignCells(BoundaryStorage, ValueTimeList, AModel);
+      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
       Inc(ValueCount);
     end;
     if ObservationsPresent then
@@ -1602,7 +1623,7 @@ begin
         if ValueCount < Values.BoundaryCount[AModel] then
         begin
           BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TDrnStorage;
-          AssignCells(BoundaryStorage, ValueTimeList, AModel);
+          AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
           Inc(ValueCount);
         end;
       end;
@@ -1646,7 +1667,7 @@ begin
           begin
             BoundaryStorage := Param.Param.
               Boundaries[ValueCount, AModel] as TDrnStorage;
-            AssignCells(BoundaryStorage, Times, AModel);
+            AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
             Inc(ValueCount);
           end;
         end;
@@ -1656,7 +1677,7 @@ begin
       begin
         BoundaryStorage := Param.Param
           .Boundaries[ValueCount, AModel] as TDrnStorage;
-        AssignCells(BoundaryStorage, Times, AModel);
+        AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
         Inc(ValueCount);
       end;
       if ObservationsPresent then
@@ -1667,7 +1688,7 @@ begin
           begin
             BoundaryStorage := Param.Param.
               Boundaries[ValueCount, AModel] as TDrnStorage;
-            AssignCells(BoundaryStorage, Times, AModel);
+            AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
             Inc(ValueCount);
           end;
         end;

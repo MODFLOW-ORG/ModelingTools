@@ -8,7 +8,7 @@ uses Windows, ZLib, SysUtils, Classes, ModflowCellUnit,
   OrderedCollectionUnit, GoPhastTypes,
   System.Generics.Collections, SubscriptionUnit, RbwParser, Mt3dmsChemUnit,
   GwtStatusUnit, OrderedCollectionInterfaceUnit,
-  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math, DataSetUnit;
 
 type
   TSfrOb = (soStage, soExtInflow, soInflow, soFromMvr, soRainfall, soRunoff, soSfr,
@@ -762,7 +762,7 @@ type
     function GetCrossSectionUsage: TCrossSectionUsage;
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
     procedure GetPropertyObserver(Sender: TObject; List: TList); override;
     property ReachLengthObserver: TObserver read GetReachLengthObserver;
@@ -957,7 +957,7 @@ uses
   frmGoPhastUnit, ModflowTimeUnit, PhastModelUnit,
   ScreenObjectUnit, GIS_Functions, ModflowSfrUnit, ModflowSfrReachUnit,
   ModflowSfrSegment, ModflowSfrChannelUnit, ModflowSfrParamIcalcUnit,
-  ModflowSfrFlows, ModflowStrUnit, DataSetUnit, ModflowMvrUnit,
+  ModflowSfrFlows, ModflowStrUnit, ModflowMvrUnit,
   DataSetNamesUnit, CellLocationUnit, frmFormulaErrorsUnit;
 
 
@@ -4290,7 +4290,7 @@ begin
 end;
 
 procedure TSfrMf6Boundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TSfrMF6_Cell;
   BoundaryValues: TSfrMF6Record;

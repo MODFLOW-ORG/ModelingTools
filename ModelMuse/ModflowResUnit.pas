@@ -160,7 +160,7 @@ type
     function GetPestStartHeadObserver: TObserver;
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
 
     procedure HandleChangedValue(Observer: TObserver); //override;
@@ -506,7 +506,7 @@ begin
 end;
 
 procedure TResBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TRes_Cell;
   BoundaryValues: TResRecord;

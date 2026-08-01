@@ -8,7 +8,7 @@ uses Windows, ZLib, SysUtils, Classes, Contnrs, OrderedCollectionUnit,
   SubscriptionUnit, RbwParser, GoPhastTypes,
   ModflowTransientListParameterUnit, RealListUnit, System.Generics.Collections,
   Modflow6DynamicTimeSeriesInterfaceUnit, Modflow6TimeSeriesInterfaceUnit,
-  CellLocationUnit, System.Math;
+  CellLocationUnit, System.Math, DataSetUnit;
 
 type
   {
@@ -289,7 +289,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TWell_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -376,7 +376,7 @@ implementation
 
 uses ScreenObjectUnit, ModflowTimeUnit, PhastModelUnit,
   frmGoPhastUnit, GIS_Functions, frmErrorsAndWarningsUnit,
-  ModflowMvrUnit;
+  ModflowMvrUnit, CustomModflowWriterUnit;
 
 resourcestring
   StrPumpingRateMultip = ' pumping rate multiplier';
@@ -1420,7 +1420,7 @@ begin
 end;
 
 procedure TMfWellBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TWell_Cell;
   BoundaryValues: TWellRecord;
@@ -1608,7 +1608,16 @@ var
   Position: integer;
   ParamName: string;
   LocalModel: TCustomModel;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   FCurrentParameter := nil;
 
   EvaluateListBoundaries(AModel);
@@ -1629,7 +1638,7 @@ begin
     if ValueIndex < Values.BoundaryCount[AModel] then
     begin
       BoundaryStorage := Values.Boundaries[ValueIndex, AModel] as TWellStorage;
-      AssignCells(BoundaryStorage, ValueTimeList, AModel);
+      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
     end;
   end;
 
@@ -1661,7 +1670,7 @@ begin
       if ValueIndex < Param.Param.BoundaryCount[AModel] then
       begin
         BoundaryStorage := Param.Param.Boundaries[ValueIndex, AModel] as TWellStorage;
-        AssignCells(BoundaryStorage, Times, AModel);
+        AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
       end;
     end;
   end;

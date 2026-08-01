@@ -51,6 +51,7 @@ type
     function ObsFactors: TFluxObservationGroups; override;
     procedure WriteAdditionalAuxVariables; override;
     procedure Evaluate; override;
+    class function IFlowFaceDataSetName: string; override;
   public
     procedure WriteFile(const AFileName: string);
     procedure WriteFluxObservationFile(const AFileName: string;
@@ -397,6 +398,7 @@ begin
   end;
 
   WriteIface(GHB_Cell.IFace);
+  WriteIFlowFace(GHB_Cell.IFlowFace);
 
   if Model.GwtUsed or Model.GweUsed or Model.BuoyancyDensityUsed or Model.ViscosityPkgViscUsed then
   begin
@@ -478,8 +480,14 @@ const
   DS3Instances = ' INSTANCES NUMINST';
   DS4A = ' # Data Set 4a: INSTNAM';
   DataSetIdentifier = 'Data Set 4b:';
-  VariableIdentifiers = 'Condfact IFACE';
+var
+  VariableIdentifiers: string;
 begin
+  VariableIdentifiers := 'Condfact IFACE';
+  if Model.ModelSelection = msModflow2015 then
+  begin
+    VariableIdentifiers := VariableIdentifiers + ' IFLOWFACE';
+  end;
   WriteParameterDefinitions(DS3, DS3Instances, DS4A, DataSetIdentifier,
     VariableIdentifiers, StrOneOrMoreSParam, umAssign, nil, nil);
 end;
@@ -496,6 +504,10 @@ var
   SpeciesIndex: Integer;
 begin
   VI := VariableIdentifiers;
+  if Model.ModelSelection = msModflow2015 then
+  begin
+    VI := VI + ' IFLOWFACE';
+  end;
   if Model.GwtUsed or Model.GweUsed or Model.BuoyancyDensityUsed or Model.ViscosityPkgViscUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
@@ -731,6 +743,11 @@ begin
       NewLine
     end;
   end;
+end;
+
+class function TModflowGHB_Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceGHB;
 end;
 
 procedure TModflowGHB_Writer.InitializeCells;

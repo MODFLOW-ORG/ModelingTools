@@ -609,7 +609,7 @@ type
     function GetPestReactivationPumpingRateObserver: TObserver;
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
     procedure AddBoundaryTimes(BoundCol: TCustomNonSpatialBoundColl;
@@ -2336,7 +2336,7 @@ begin
 end;
 
 procedure TMnw2Boundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TMnw2_Cell;
   BoundaryValues: TMnw2Record;

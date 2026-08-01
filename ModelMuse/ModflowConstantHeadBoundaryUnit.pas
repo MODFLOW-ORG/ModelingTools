@@ -7,7 +7,7 @@ uses Windows, ZLib, SysUtils, Classes, Contnrs, OrderedCollectionUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   SubscriptionUnit, RbwParser, GoPhastTypes,
   ModflowTransientListParameterUnit, OrderedCollectionInterfaceUnit,
-  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math, DataSetUnit;
 
 type
   // @name stores data for one CHD cell in a time increment defined by
@@ -376,7 +376,7 @@ type
     { TODO -cRefactor : Consider replacing Model with an interface. }
     //
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel);  override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);  override;
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
     class function ModflowParamItemClass: TModflowParamItemClass; override;
     function ParameterType: TParameterType; override;
@@ -451,7 +451,7 @@ implementation
 
 uses PhastModelUnit, ScreenObjectUnit, ModflowTimeUnit,
   frmGoPhastUnit, GIS_Functions,
-  frmErrorsAndWarningsUnit, CellLocationUnit;
+  frmErrorsAndWarningsUnit, CellLocationUnit, CustomModflowWriterUnit;
 
 resourcestring
   FormatString =
@@ -1277,7 +1277,7 @@ begin
 end;
 
 procedure TChdBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TCHD_Cell;
   BoundaryValues: TChdRecord;
@@ -1369,9 +1369,20 @@ begin
         Cell.BoundaryIndex := BoundaryIndex;
         Assert(ScreenObject <> nil);
         Cell.IFace := (ScreenObject as TScreenObject).IFace;
+
         Cells.Add(Cell);
         Cell.StressPeriod := TimeIndex;
         Cell.FValues := BoundaryValues;
+        if IFlowFace <> nil then
+        begin
+          Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
+          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+        end
+        else
+        begin
+          Cell.IFlowFace := 0;
+          Cell.IFlowFaceAnnotation := ''
+        end;
         Cell.FValues.StartingHead :=
           StartHeadFactor * BoundaryValues.StartingHead
           + (1 - StartHeadFactor) * BoundaryValues.EndingHead;
@@ -1535,7 +1546,16 @@ var
   Position: integer;
   ParamName: string;
   LocalModel: TCustomModel;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   LocalModel := AModel as TCustomModel;
   FCurrentParameter := nil;
   EvaluateListBoundaries(AModel);
@@ -1544,7 +1564,7 @@ begin
     if ValueIndex < Values.BoundaryCount[AModel] then
     begin
       BoundaryStorage := Values.Boundaries[ValueIndex, AModel] as TChdStorage;
-      AssignCells(BoundaryStorage, ValueTimeList, AModel);
+      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
     end;
   end;
   for ParamIndex := 0 to Parameters.Count - 1 do
@@ -1575,7 +1595,7 @@ begin
       if ValueIndex < Param.Param.BoundaryCount[AModel] then
       begin
         BoundaryStorage := Param.Param.Boundaries[ValueIndex, AModel] as TChdStorage;
-        AssignCells(BoundaryStorage, Times, AModel);
+        AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
       end;
     end;
   end;
@@ -2389,6 +2409,7 @@ begin
       and (EndingHead = CHD_Cell.EndingHead)
       and (Multiplier = CHD_Cell.Multiplier)
       and (IFace = CHD_Cell.IFace)
+      and (IFlowFace = CHD_Cell.IFlowFace)
       and (Values.Cell = CHD_Cell.Values.Cell)
       and (FValues.Multiplier = CHD_Cell.FValues.Multiplier)
       and FValues.GwtConcentrations.IsIdentical(CHD_Cell.FValues.GwtConcentrations)

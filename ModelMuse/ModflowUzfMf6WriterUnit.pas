@@ -81,6 +81,8 @@ type
     class function ObservationExtension: string;  override;
     class function GwtObservationExtension: string;
     class function GweObservationExtension: string;
+    class function IFlowFaceDataSetName: string; override;
+
 //    class function ObservationOutputExtension: string;  override;
   public
     Constructor Create(Model: TCustomModel; EvaluationType: TEvaluationType); override;
@@ -470,6 +472,11 @@ begin
       DepthFractions.Free;
     end;
   end;
+end;
+
+class function TModflowUzfMf6Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceUZF;
 end;
 
 function TModflowUzfMf6Writer.IsMf6GwtObservation(AScreenObject: TScreenObject;

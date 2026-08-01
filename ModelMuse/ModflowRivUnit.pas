@@ -7,7 +7,7 @@ uses Windows, ZLib, SysUtils, Classes, Contnrs, ModflowBoundaryUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   SubscriptionUnit, RbwParser, GoPhastTypes,
   ModflowTransientListParameterUnit, Modflow6DynamicTimeSeriesInterfaceUnit,
-  System.Math;
+  System.Math, DataSetUnit;
 
 type
   TRivRecord = record
@@ -420,7 +420,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TRiv_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -513,7 +513,7 @@ implementation
 
 uses PhastModelUnit, ScreenObjectUnit, ModflowTimeUnit,
   frmGoPhastUnit, GIS_Functions, ModflowMvrUnit,
-  frmErrorsAndWarningsUnit, CellLocationUnit;
+  frmErrorsAndWarningsUnit, CellLocationUnit, CustomModflowWriterUnit;
 
 resourcestring
   StrRiverMultiplier = 'River Multiplier';
@@ -1823,7 +1823,7 @@ begin
 end;
 
 procedure TRivBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TRiv_Cell;
   BoundaryValues: TRivRecord;

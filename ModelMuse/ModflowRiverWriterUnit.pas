@@ -52,6 +52,7 @@ type
     function ObsFactors: TFluxObservationGroups; override;
     procedure WriteAdditionalAuxVariables; override;
     procedure Evaluate; override;
+    class function IFlowFaceDataSetName: string; override;
   public
     procedure WriteFile(const AFileName: string);
     procedure WriteFluxObservationFile(const AFileName: string;
@@ -721,6 +722,11 @@ begin
       NewLine
     end;
   end;
+end;
+
+class function TModflowRIV_Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceRIV
 end;
 
 procedure TModflowRIV_Writer.InitializeCells;

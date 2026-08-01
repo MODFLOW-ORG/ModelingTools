@@ -8,7 +8,7 @@ uses
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   ModflowSwrReachGeometryUnit, ZLib, RbwParser,
   SysUtils, SubscriptionUnit, ModflowSwrObsUnit, OrderedCollectionInterfaceUnit,
-  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math, DataSetUnit;
 
 type
   TSwrRouteType = (rtLevelPool, rtTiltedPool, rtDiffusiveWave, rtKinematicWave);
@@ -287,7 +287,7 @@ type
     procedure InvalidateVerticalOffsetData(Sender: TObject);
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -355,7 +355,7 @@ implementation
 
 uses
   PhastModelUnit, ScreenObjectUnit, ModflowTimeUnit, frmGoPhastUnit,
-  frmErrorsAndWarningsUnit, DataSetUnit, GIS_Functions, DataSetNamesUnit,
+  frmErrorsAndWarningsUnit, GIS_Functions, DataSetNamesUnit,
   CellLocationUnit;
 
 resourcestring
@@ -1170,7 +1170,7 @@ begin
 end;
 
 procedure TSwrReachBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TSwrTransientCell;
   BoundaryValues: TSwrReachTransientRecord;

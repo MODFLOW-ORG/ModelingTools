@@ -106,6 +106,7 @@ type
     class function ObservationExtension: string;
     class function GwtObservationExtension: string;
     class function GweObservationExtension: string;
+    class function IFlowFaceDataSetName: string; override;
   public
     Constructor Create(Model: TCustomModel; EvaluationType: TEvaluationType); override;
     destructor Destroy; override;
@@ -1250,6 +1251,11 @@ end;
 class function TModflowSFR_MF6_Writer.GwtObservationExtension: string;
 begin
   result := '.ob_sft';
+end;
+
+class function TModflowSFR_MF6_Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceSFR;
 end;
 
 procedure TModflowSFR_MF6_Writer.InternalUpdateDisplay(

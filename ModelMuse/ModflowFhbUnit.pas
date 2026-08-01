@@ -19,7 +19,7 @@ uses
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   OrderedCollectionUnit,
   RbwParser, GoPhastTypes, ModflowCellUnit, SysUtils, SubscriptionUnit,
-  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  Modflow6DynamicTimeSeriesInterfaceUnit, System.Math, DataSetUnit;
 
 type
   TFhbRecord = record
@@ -192,7 +192,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TDrn_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -981,7 +981,7 @@ end;
 
 procedure TFhbHeadBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TFhb_Cell;
   PriorCell: TFhb_Cell;

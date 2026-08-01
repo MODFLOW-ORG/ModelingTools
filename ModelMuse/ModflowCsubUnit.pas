@@ -9,7 +9,7 @@ uses
   OrderedCollectionUnit, RbwParser,
   RealListUnit, System.SysUtils, SubscriptionUnit,
   OrderedCollectionInterfaceUnit, Modflow6DynamicTimeSeriesInterfaceUnit,
-  System.Math;
+  System.Math, DataSetUnit;
 
 type
   TCSubOb = (coCSub, coInelastCSub, coElastCSub, coCoarseCSub, coCSubCell,
@@ -292,7 +292,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TCSubCell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -359,8 +359,7 @@ implementation
 uses
   frmGoPhastUnit, PhastModelUnit, ScreenObjectUnit, GIS_Functions,
   frmErrorsAndWarningsUnit, ModflowTimeUnit,
-  ModflowPackageSelectionUnit, ModflowCSubInterbed, DataSetUnit,
-  DataArrayManagerUnit, DataSetNamesUnit, CellLocationUnit;
+  ModflowPackageSelectionUnit, ModflowCSubInterbed, DataArrayManagerUnit, DataSetNamesUnit, CellLocationUnit;
 
 const
   CSubObName: array[TCSubOb] of string =
@@ -1612,7 +1611,7 @@ begin
 end;
 
 procedure TCSubBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TCSubCell;
   BoundaryValues: TCSubRecord;

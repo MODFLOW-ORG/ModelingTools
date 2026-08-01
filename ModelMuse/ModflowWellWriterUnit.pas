@@ -56,6 +56,7 @@ type
     procedure WriteMoverOption; override;
     Class function Mf6ObType: TObGeneral; override;
     procedure WriteAdditionalAuxVariables; override;
+    class function IFlowFaceDataSetName: string; override;
   public
     Constructor Create(Model: TCustomModel; EvaluationType: TEvaluationType); override;
     Destructor Destroy; override;
@@ -70,7 +71,7 @@ implementation
 
 uses ModflowUnitNumbers, frmProgressUnit, Forms, frmErrorsAndWarningsUnit,
   System.IOUtils,
-  ModflowMvrWriterUnit, ModflowMvrUnit, Mt3dmsChemSpeciesUnit;
+  ModflowMvrWriterUnit, ModflowMvrUnit, Mt3dmsChemSpeciesUnit, DataSetNamesUnit;
 
 resourcestring
   StrWritingWELPackage = 'Writing WEL Package input.';
@@ -275,6 +276,11 @@ begin
   begin
     inherited;
   end;
+end;
+
+class function TModflowWEL_Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceWEL;
 end;
 
 function TModflowWEL_Writer.IsMf6Observation(
@@ -588,6 +594,7 @@ begin
   end;
 
   WriteIface(Well_Cell.IFace);
+  WriteIFlowFace(Well_Cell.IFlowFace);
 
   if Model.GwtUsed or Model.GweUsed then
   begin

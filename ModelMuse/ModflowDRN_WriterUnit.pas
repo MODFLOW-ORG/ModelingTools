@@ -51,6 +51,7 @@ type
     Class function Mf6ObType: TObGeneral; override;
     function ObsFactors: TFluxObservationGroups; override;
     procedure WriteAdditionalAuxVariables; override;
+    class function IFlowFaceDataSetName: string; override;
   public
     procedure WriteFile(const AFileName: string);
     // Write flow observation package input for MF2005 etc. but not MF 6
@@ -387,6 +388,7 @@ begin
   end;
 
   WriteIface(Drn_Cell.IFace);
+  WriteIFlowFace(Drn_Cell.IFlowFace);
 
   if Model.ModelSelection = msModflow2015 then
   begin
@@ -468,8 +470,14 @@ const
   DS3Instances = ' INSTANCES NUMINST';
   DS4A = ' # Data Set 4a: INSTNAM';
   DataSetIdentifier = 'Data Set 4b:';
-  VariableIdentifiers = 'Condfact IFACE';
+var
+  VariableIdentifiers: string;
 begin
+  VariableIdentifiers := 'Condfact IFACE';
+  if Model.ModelSelection = msModflow2015 then
+  begin
+    VariableIdentifiers := VariableIdentifiers + ' IFLOWFACE';
+  end;
   WriteParameterDefinitions(DS3, DS3Instances, DS4A, DataSetIdentifier,
     VariableIdentifiers, StrOneOrMoreSParam, umAssign, nil, nil);
 end;
@@ -481,8 +489,8 @@ const
   DS5 = ' # Data Set 5: ITMP NP';
   DataSetIdentifier = 'Data Set 6:';
   VariableIdentifiers = 'Cond IFACE';
-  Mf6VariableIdentifiers = 'Cond IFACE DDRN boundname';
-  Mf6VariableIdentifiersMul = 'Cond IFACE DDRN multiplier boundname';
+  Mf6VariableIdentifiers = 'Cond IFACE IFLOWFACE DDRN boundname';
+  Mf6VariableIdentifiersMul = 'Cond IFACE IFLOWFACE DDRN multiplier boundname';
 var
   VI: string;
 begin
@@ -723,6 +731,11 @@ begin
       NewLine
     end;
   end;
+end;
+
+class function TModflowDRN_Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceDRN;
 end;
 
 procedure TModflowDRN_Writer.InitializeCells;

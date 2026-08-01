@@ -1031,7 +1031,7 @@ type
     // @link(TValueCell) representing the boundaray condition locations and values
     // for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); virtual; abstract;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); virtual; abstract;
     // @name is used in @link(Create) to create @link(FValues).
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       virtual; abstract;

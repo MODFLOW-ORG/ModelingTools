@@ -6,7 +6,8 @@ uses
   System.Classes, System.ZLib, ModflowCellUnit, ModflowBoundaryUnit,
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   System.Generics.Collections, OrderedCollectionUnit,
-  GoPhastTypes, RbwParser, Modflow6DynamicTimeSeriesInterfaceUnit, System.Math;
+  GoPhastTypes, RbwParser, Modflow6DynamicTimeSeriesInterfaceUnit, System.Math,
+  DataSetUnit;
 
 type
   TRipRecord = record
@@ -185,7 +186,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TRip_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     // See @link(TModflowBoundary.BoundaryCollectionClass
     // TModflowBoundary.BoundaryCollectionClass).
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
@@ -1195,7 +1196,7 @@ begin
 end;
 
 procedure TRipBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TRip_Cell;
   BoundaryValues: TRipRecord;

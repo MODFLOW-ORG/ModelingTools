@@ -4493,7 +4493,6 @@ begin
     'MODFLOW-OWHM version 2, LAND_USE: PRINT ROW_COLUMN';
   Inc(Index);
 
-
 {$IFDEF PRT}
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
   FDataArrayCreationRecords[Index].Orientation := dso3D;
@@ -4506,7 +4505,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4520,7 +4519,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4534,7 +4533,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4548,7 +4547,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4562,7 +4561,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4576,7 +4575,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4590,7 +4589,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4604,7 +4603,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4618,7 +4617,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
@@ -4632,7 +4631,7 @@ begin
   FDataArrayCreationRecords[Index].Lock := StandardLock;
   FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE';
+    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 {$ENDIF}
 

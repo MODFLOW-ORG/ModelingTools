@@ -7,7 +7,7 @@ uses
   GoPhastTypes,
   OrderedCollectionUnit, RbwParser, SutraBoundaryUnit,
   System.Generics.Collections, SutraOptionsUnit, SubscriptionUnit,
-  FormulaManagerInterfaceUnit, ScreenObjectInterfaceUnit;
+  FormulaManagerInterfaceUnit, ScreenObjectInterfaceUnit, DataSetUnit;
 
 type
   TSutraGenTransportItem = class(TCustomBoundaryItem)
@@ -135,7 +135,7 @@ type
     procedure SetPestLowerFlowUMethod(const Value: TPestParamMethod);
   protected
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
     // PEST
@@ -606,7 +606,7 @@ end;
 
 procedure TSutraGeneralTransportBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 begin
   inherited;
   // does this need to change?

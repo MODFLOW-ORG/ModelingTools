@@ -70,6 +70,7 @@ type
       SpeciesIndex: Integer): Boolean;
     function Mf6ObservationsUsed: Boolean; override;
     procedure WriteAdditionalAuxVariables;
+    class function IFlowFaceDataSetName: string; override;
   public
     Constructor Create(Model: TCustomModel; EvaluationType: TEvaluationType); override;
     destructor Destroy; override;
@@ -420,6 +421,11 @@ var
 begin
   MfObs := AScreenObject.Modflow6Obs;
   Result := (MfObs <> nil) and MfObs.Used and (MfObs.MawObs <> []);
+end;
+
+class function TModflowMAW_Writer.IFlowFaceDataSetName: string;
+begin
+  result := K_IFlowFaceMAW;
 end;
 
 function TModflowMAW_Writer.IsMf6GwtObservation(

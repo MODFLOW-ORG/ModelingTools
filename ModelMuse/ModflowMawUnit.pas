@@ -7,7 +7,7 @@ uses
   FormulaManagerUnit, FormulaManagerInterfaceUnit,
   GoPhastTypes, RbwParser, SubscriptionUnit, Mt3dmsChemUnit,
   System.SysUtils, GwtStatusUnit, Modflow6DynamicTimeSeriesInterfaceUnit,
-  System.Math;
+  System.Math, DataSetUnit;
 
 type
   TMawOb = (moHead, moFromMvr, moFlowRate, moFlowRateCells, moPumpRate,
@@ -804,7 +804,7 @@ type
     property ThermalConductivityObserver: TObserver read GetThermalConductivityObserver;
     property ThermalThicknessObserver: TObserver read GetThermalThicknessObserver;
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass;
       override;
     function BoundaryObserverPrefix: string; override;
@@ -990,7 +990,7 @@ implementation
 
 uses
   frmGoPhastUnit, PhastModelUnit, ScreenObjectUnit,
-  GIS_Functions, ModflowTimeUnit, DataSetUnit, ModflowMnw2Unit,
+  GIS_Functions, ModflowTimeUnit, ModflowMnw2Unit,
   ModflowMvrUnit, DataSetNamesUnit, CellLocationUnit;
 
 const MawObName: array[TMawOb] of string = ('Head', 'FromMvr', 'FlowRate',
@@ -2044,7 +2044,7 @@ begin
 end;
 
 procedure TMawBoundary.AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-  ValueTimeList: TList; AModel: TBaseModel);
+  ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TMawCell;
   BoundaryValues: TMawTransientRecord;

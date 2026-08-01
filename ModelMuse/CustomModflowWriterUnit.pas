@@ -380,6 +380,7 @@ end;
       const Comment: string; const MF6_ArrayName: string);
     // @name writes the IFACE parameter in MODFLOW.
     procedure WriteIface(const Value: TIface);
+    procedure WriteIFlowFace(const Value: Integer);
     // @name writes the header for the U2DINT array reader in MODFLOW
     // or the IARRAY array reader in MT3DMS depending on the value of
     // @link(FArrayWritingFormat).
@@ -491,11 +492,13 @@ end;
     procedure WriteBoundNamesOption;
     procedure WriteTimeSeriesFiles(InputFileName: string; GwtSpecies: Integer = -1);
     procedure PrintConcentrationOption(const SpeciesIndex: Integer);
+    class function IFlowFaceDataSetName: string; virtual;
 //    procedure WriteGwtlAuxVariables;
   public
     Constructor Create(AModel: TCustomModel; EvaluationType: TEvaluationType); override;
     destructor Destroy; override;
     property MvrWriter: TObject read FMvrWriter write SetMvrWriter;
+    function IFlowFaceDataArray: TDataArray;
   end;
 
   TCustomSolverWriter = class(TCustomPackageWriter)
@@ -4328,6 +4331,14 @@ var
 begin
   IFACE := Ord(Value) - 2;
   WriteInteger(IFACE);
+end;
+
+procedure TCustomModflowWriter.WriteIFlowFace(const Value: Integer);
+begin
+  if Model.ModelSelection = msModflow2015 then
+  begin
+    WriteInteger(Value);
+  end;
 end;
 
 procedure TCustomFileWriter.WriteInteger(const Value: integer);
@@ -9180,6 +9191,31 @@ begin
   Model.DataArrayManager.AddDataSetToCache(ZoneDataSet);
 end;
 
+function TCustomPackageWriter.IFlowFaceDataArray: TDataArray;
+var
+  DataArrayName: string;
+begin
+  result := nil;
+  if Model.ModelSelection = msModflow2015 then
+  begin
+    DataArrayName := IFlowFaceDataSetName;
+    if DataArrayName <> '' then
+    begin
+      result := Model.DataArrayManager.GetDataSetByName(DataArrayName);
+      if result <> nil then
+      begin
+        result.Initialize;
+      end;
+    end;
+  end;
+
+end;
+
+class function TCustomPackageWriter.IFlowFaceDataSetName: string;
+begin
+  result := '';
+end;
+
 { TCustomSolverWriter }
 
 class function TCustomSolverWriter.SolverFileGeneratedExternally(Model: TCustomModel): boolean;
@@ -10652,6 +10688,11 @@ begin
   { TODO -cMODFLOW 6 : Support additional MODFLOW-6 options }
   // PACKAGENAME not currently supported.
   WriteString('    AUXILIARY IFACE');
+  if IFlowFaceDataSetName <> '' then
+  begin
+    NewLine;
+    WriteString('    AUXILIARY IFLOWFACE');
+  end;
   WriteAdditionalAuxVariables;
   NewLine;
 

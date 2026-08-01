@@ -231,7 +231,7 @@ type
     // each stress period.  Each such TObjectList is filled with
     // @link(TMt3dmsSftConc_Cell)s for that stress period.
     procedure AssignCells(BoundaryStorage: TCustomBoundaryStorage;
-      ValueTimeList: TList; AModel: TBaseModel); override;
+      ValueTimeList: TList; AModel: TBaseModel; IFlowFace: TDataArray = nil); override;
     class function BoundaryCollectionClass: TMF_BoundCollClass; override;
     procedure ClearBoundaries(AModel: TBaseModel); override;
     function BoundaryObserverPrefix: string; override;
@@ -796,7 +796,7 @@ end;
 
 procedure TMt3dSftBoundary.AssignCells(
   BoundaryStorage: TCustomBoundaryStorage; ValueTimeList: TList;
-  AModel: TBaseModel);
+  AModel: TBaseModel; IFlowFace: TDataArray = nil);
 var
   Cell: TMt3dmsSftConc_Cell;
   BoundaryValues: TMt3dmsConcentrationRecord;
