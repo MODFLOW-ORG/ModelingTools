@@ -453,6 +453,7 @@ begin
   WriteValueOrFormula(Riv_Cell, RivBottomPosition);
 
   WriteIface(Riv_Cell.IFace);
+  WriteIFlowFace(Riv_Cell.IFlowFace);
 
   if Model.GwtUsed or Model.GweUsed or Model.BuoyancyDensityUsed or Model.ViscosityPkgViscUsed then
   begin

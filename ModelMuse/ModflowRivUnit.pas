@@ -2035,7 +2035,16 @@ var
   ValueCount: Integer;
   Item: TCustomModflowBoundaryItem;
   LocalModel: TCustomModel;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   FCurrentParameter := nil;
   EvaluateListBoundaries(AModel);
   TestIfObservationsPresent(EndOfLastStressPeriod, StartOfFirstStressPeriod,
@@ -2052,7 +2061,7 @@ begin
         if ValueCount < Values.BoundaryCount[AModel] then
         begin
           BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TRivStorage;
-          AssignCells(BoundaryStorage, ValueTimeList, AModel);
+          AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
           Inc(ValueCount);
         end;
       end;
@@ -2061,7 +2070,7 @@ begin
     if ValueCount < Values.BoundaryCount[AModel] then
     begin
       BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TRivStorage;
-      AssignCells(BoundaryStorage, ValueTimeList, AModel);
+      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
       Inc(ValueCount);
     end;
     if {(ValueIndex = Values.Count - 1) and} ObservationsPresent then
@@ -2071,7 +2080,7 @@ begin
         if ValueCount < Values.BoundaryCount[AModel] then
         begin
           BoundaryStorage := Values.Boundaries[ValueCount, AModel] as TRivStorage;
-          AssignCells(BoundaryStorage, ValueTimeList, AModel);
+          AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
           Inc(ValueCount);
         end;
       end;
@@ -2113,7 +2122,7 @@ begin
           if ValueCount < Param.Param.BoundaryCount[AModel] then
           begin
             BoundaryStorage := Param.Param.Boundaries[ValueCount, AModel] as TRivStorage;
-            AssignCells(BoundaryStorage, Times, AModel);
+            AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
             Inc(ValueCount);
           end;
         end;
@@ -2122,7 +2131,7 @@ begin
       if ValueCount < Param.Param.BoundaryCount[AModel] then
       begin
         BoundaryStorage := Param.Param.Boundaries[ValueCount, AModel] as TRivStorage;
-        AssignCells(BoundaryStorage, Times, AModel);
+        AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
         Inc(ValueCount);
       end;
       if {(ValueIndex = Param.Param.Count - 1) and} ObservationsPresent then
@@ -2132,7 +2141,7 @@ begin
           if ValueCount < Param.Param.BoundaryCount[AModel] then
           begin
             BoundaryStorage := Param.Param.Boundaries[ValueCount, AModel] as TRivStorage;
-            AssignCells(BoundaryStorage, Times, AModel);
+            AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
             Inc(ValueCount);
           end;
         end;
