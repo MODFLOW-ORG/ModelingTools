@@ -1,6 +1,6 @@
-# GHB: General-Head Boundary package file created on 8/20/2019 by ModelMuse version 4.0.0.12.
+# GHB: General-Head Boundary package file created on 8/5/2026 by ModelMuse version 5.4.0.13.
 BEGIN OPTIONS
-    AUXILIARY IFACE
+    AUXILIARY IFACE IFLOWFACE
     BOUNDNAMES
     PRINT_INPUT
     SAVE_FLOWS
@@ -13,6 +13,6 @@ BEGIN DIMENSIONS
 END DIMENSIONS
 
 BEGIN PERIOD      1
-     1     6     4 -1.000000000000E+000   1.000000000000E+000      0 'GHB'  # Data Set 6: Layer Row Column Bhead Cond IFACE boundname
+     1     6     4 -1.000000000000E+000   1.000000000000E+000      0     0 'GHB'  # Data Set 6: Layer Row Column Bhead Cond IFACE IFLOWFACE boundname
 END PERIOD 
 

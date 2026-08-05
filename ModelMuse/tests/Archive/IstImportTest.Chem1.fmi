@@ -1,4 +1,4 @@
-# FMI6 file created on 1/30/2025 by ModelMuse version 5.3.1.6.
+# FMI6 file created on 8/5/2026 by ModelMuse version 5.4.0.13.
 BEGIN OPTIONS
     SAVE_FLOWS
 END OPTIONS
@@ -6,5 +6,6 @@ END OPTIONS
 BEGIN PACKAGEDATA
   GWFBUDGET FILEIN IstImportTest.cbc
   GWFHEAD FILEIN IstImportTest.bhd
+  GWFGRID FILEIN IstImportTest.dis.grb
 END PACKAGEDATA
 

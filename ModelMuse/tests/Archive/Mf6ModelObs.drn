@@ -1,6 +1,6 @@
-# DRN: Drain package file created on 6/10/2024 by ModelMuse version 5.2.0.15.
+# DRN: Drain package file created on 8/5/2026 by ModelMuse version 5.4.0.13.
 BEGIN OPTIONS
-    AUXILIARY IFACE DDRN
+    AUXILIARY IFACE IFLOWFACE DDRN
     BOUNDNAMES
     PRINT_INPUT
     SAVE_FLOWS
@@ -13,10 +13,10 @@ BEGIN DIMENSIONS
 END DIMENSIONS
 
 BEGIN PERIOD      1
-     1     1     7 -1.000000000000E+000   1.000000000000E-008      0  0.000000000000E+000  'Object6'  # Data Set 6: Layer Row Column Elevation Cond IFACE DDRN boundname
+     1     1     7 -1.000000000000E+000   1.000000000000E-008      0     0  0.000000000000E+000  'Object6'  # Data Set 6: Layer Row Column Elevation Cond IFACE IFLOWFACE DDRN boundname
 END PERIOD 
 
 BEGIN PERIOD      2
-     1     1     7 -1.000000000000E+000   1.000000000000E-008      0  0.000000000000E+000  'Object6'  # Data Set 6: Layer Row Column Elevation Cond IFACE DDRN boundname
+     1     1     7 -1.000000000000E+000   1.000000000000E-008      0     0  0.000000000000E+000  'Object6'  # Data Set 6: Layer Row Column Elevation Cond IFACE IFLOWFACE DDRN boundname
 END PERIOD 
 

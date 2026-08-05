@@ -1,6 +1,6 @@
-# WEL: Well package file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+# WEL: Well package file created on 8/5/2026 by ModelMuse version 5.4.0.13.
 BEGIN OPTIONS
-    AUXILIARY IFACE Chem Temperature
+    AUXILIARY IFACE IFLOWFACE Chem Temperature
     BOUNDNAMES
     PRINT_INPUT
     SAVE_FLOWS
@@ -12,6 +12,6 @@ BEGIN DIMENSIONS
 END DIMENSIONS
 
 BEGIN PERIOD      1
-     1     1     4  1.000000000000E+000      0  6.000000000000E+000   0.000000000000E+000  'Object13'  # Data Set 6: Layer Row Column Q IFACE Chem Temperature boundname Intersected by Object13 with formula: 1
+     1     1     4  1.000000000000E+000      0     0  6.000000000000E+000   0.000000000000E+000  'Object13'  # Data Set 6: Layer Row Column Q IFACE IFLOWFACE Chem Temperature boundname Intersected by Object13 with formula: 1
 END PERIOD 
 

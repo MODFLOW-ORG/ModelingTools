@@ -578,6 +578,10 @@ var
   SpeciesIndex: Integer;
 begin
   VI := VariableIdentifiers;
+  if Model.ModelSelection = msModflow2015 then
+  begin
+    VI := VI + ' IFLOWFACE'
+  end;
   if Model.GwtUsed or Model.GweUsed or Model.BuoyancyDensityUsed or Model.ViscosityPkgViscUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
