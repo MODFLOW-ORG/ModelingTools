@@ -2618,7 +2618,11 @@ end;
 
 class function TModflowLAKMf6Writer.IFlowFaceDataSetName: string;
 begin
+{$IFDEF PRT}
   result := K_IFlowFaceLAK;
+{$ELSE}
+  result := '';
+{$ENDIF}
 end;
 
 function TModflowLAKMf6Writer.IsMf6GwtObservation(

@@ -4335,10 +4335,12 @@ end;
 
 procedure TCustomModflowWriter.WriteIFlowFace(const Value: Integer);
 begin
+{$IFDEF PRT}
   if Model.ModelSelection = msModflow2015 then
   begin
     WriteInteger(Value);
   end;
+{$ENDIF}
 end;
 
 procedure TCustomFileWriter.WriteInteger(const Value: integer);
@@ -9196,6 +9198,7 @@ var
   DataArrayName: string;
 begin
   result := nil;
+{$IFDEF PRT}
   if Model.ModelSelection = msModflow2015 then
   begin
     DataArrayName := IFlowFaceDataSetName;
@@ -9208,6 +9211,7 @@ begin
       end;
     end;
   end;
+{$ENDIF}
 
 end;
 
@@ -10688,11 +10692,12 @@ begin
   { TODO -cMODFLOW 6 : Support additional MODFLOW-6 options }
   // PACKAGENAME not currently supported.
   WriteString('    AUXILIARY IFACE');
+{$IFDEF PRT}
   if IFlowFaceDataSetName <> '' then
   begin
-    NewLine;
-    WriteString('    AUXILIARY IFLOWFACE');
+    WriteString(' IFLOWFACE');
   end;
+{$ENDIF}
   WriteAdditionalAuxVariables;
   NewLine;
 
