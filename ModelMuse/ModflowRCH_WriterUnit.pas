@@ -156,7 +156,11 @@ end;
 
 class function TModflowRCH_Writer.IFlowFaceDataSetName: string;
 begin
+{$IFDEF PRT}
   result := K_IFlowFaceRCH;
+{$ELSE}
+  RESULT := '';
+{$ENDIF}
 end;
 
 function TModflowRCH_Writer.IsMf6Observation(

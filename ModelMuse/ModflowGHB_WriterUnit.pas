@@ -484,10 +484,12 @@ var
   VariableIdentifiers: string;
 begin
   VariableIdentifiers := 'Condfact IFACE';
+{$IFDEF PRT}
   if Model.ModelSelection = msModflow2015 then
   begin
     VariableIdentifiers := VariableIdentifiers + ' IFLOWFACE';
   end;
+{$ENDIF}
   WriteParameterDefinitions(DS3, DS3Instances, DS4A, DataSetIdentifier,
     VariableIdentifiers, StrOneOrMoreSParam, umAssign, nil, nil);
 end;
@@ -504,10 +506,12 @@ var
   SpeciesIndex: Integer;
 begin
   VI := VariableIdentifiers;
+{$IFDEF PRT}
   if Model.ModelSelection = msModflow2015 then
   begin
     VI := VI + ' IFLOWFACE';
   end;
+{$ENDIF}
   if Model.GwtUsed or Model.GweUsed or Model.BuoyancyDensityUsed or Model.ViscosityPkgViscUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
@@ -747,7 +751,11 @@ end;
 
 class function TModflowGHB_Writer.IFlowFaceDataSetName: string;
 begin
+{$IFDEF PRT}
   result := K_IFlowFaceGHB;
+{$ELSE}
+  result := '';
+{$ENDIF}
 end;
 
 procedure TModflowGHB_Writer.InitializeCells;

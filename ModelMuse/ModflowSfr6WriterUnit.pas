@@ -1255,7 +1255,11 @@ end;
 
 class function TModflowSFR_MF6_Writer.IFlowFaceDataSetName: string;
 begin
+{$IFDEF PRT}
   result := K_IFlowFaceSFR;
+{$ELSE}
+  result := '';
+{$ENDIF}
 end;
 
 procedure TModflowSFR_MF6_Writer.InternalUpdateDisplay(
