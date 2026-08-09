@@ -1057,7 +1057,6 @@ end;
     FListFileName: string;
     FFullOutputFiles: TStringList;
     FFullInputFiles: TStringList;
-//    FInputOptions: TStringList;
   protected
     // @name clears the name file.
     procedure ClearNameFile;

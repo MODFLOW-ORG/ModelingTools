@@ -1188,7 +1188,7 @@ procedure TDataArrayManager.DefinePackageDataArrays;
   end;
 const
 {$IFDEF PRT}
-  ArrayCount = 223;
+  ArrayCount = 222;
 {$ELSE}
   ArrayCount = 213;
 {$ENDIF}
@@ -4606,19 +4606,19 @@ begin
     'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
-  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
-  FDataArrayCreationRecords[Index].Orientation := dso3D;
-  FDataArrayCreationRecords[Index].DataType := rdtInteger;
-  FDataArrayCreationRecords[Index].Name := K_IFlowFaceLAK;
-  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceLAK;
-  FDataArrayCreationRecords[Index].Formula := '-1';
-  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
-  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.LakIFlowFaceUsed;
-  FDataArrayCreationRecords[Index].Lock := StandardLock;
-  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
-  FDataArrayCreationRecords[Index].AssociatedDataSets :=
-    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
-  Inc(Index);
+//  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
+//  FDataArrayCreationRecords[Index].Orientation := dso3D;
+//  FDataArrayCreationRecords[Index].DataType := rdtInteger;
+//  FDataArrayCreationRecords[Index].Name := K_IFlowFaceLAK;
+//  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceLAK;
+//  FDataArrayCreationRecords[Index].Formula := '-1';
+//  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
+//  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.LakIFlowFaceUsed;
+//  FDataArrayCreationRecords[Index].Lock := StandardLock;
+//  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
+//  FDataArrayCreationRecords[Index].AssociatedDataSets :=
+//    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
+//  Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
   FDataArrayCreationRecords[Index].Orientation := dso3D;

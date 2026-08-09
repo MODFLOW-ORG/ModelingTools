@@ -421,6 +421,10 @@ begin
   if Model.ModelSelection = msModflow2015 then
   begin
     VariableIdentifiers := 'RECHARGE';
+    if Model.ModflowPackages.PrtModels.Count > 0 then
+    begin
+      VariableIdentifiers := VariableIdentifiers + ' IFLOWFACE';
+    end;
     if FRchPackage.UseMultiplier then
     begin
       VariableIdentifiers := VariableIdentifiers + ' multiplier';
@@ -639,6 +643,10 @@ begin
       WriteString(' ' + ASpecies.Name);
     end;
   end;
+  if Model.ModflowPackages.PrtModels.Count > 0 then
+  begin
+    WriteString(' IFLOWFACE');
+  end;
   if FRchPackage.UseMultiplier then
   begin
     WriteString(' multiplier');
@@ -785,6 +793,11 @@ begin
           begin
             WriteValueOrFormula(RchCell, RchStartConcentration + SpeciesIndex);
           end;
+        end;
+
+        if Model.ModflowPackages.PrtModels.Count > 0 then
+        begin
+          WriteInteger(RchCell.IFlowFace);
         end;
 
         if FRchPackage.UseMultiplier then

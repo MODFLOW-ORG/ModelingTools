@@ -1909,6 +1909,7 @@ var
   RootPotentialDyanmicTimeSeries: IDynamicTimeSeries;
   RootActivitylDyanmicTimeSeries: IDynamicTimeSeries;
   MultiplierlDyanmicTimeSeries: IDynamicTimeSeries;
+  AnItem: TUzfMf6Item;
 begin
   CustomWriter := nil;
   LocalSpecifiedConcentrations := TDataArrayList.Create;
@@ -2326,8 +2327,12 @@ begin
                     SpecifiedConcentrations.SpeciesCount := ChemSpeciesCount;
                     InfiltrationConcentrations.SpeciesCount := ChemSpeciesCount;
                     EvapConcentrations.SpeciesCount := ChemSpeciesCount;
+                    SetLength(GwtStatus, ChemSpeciesCount);
+                    AnItem := Items[ItemIndex] as TUzfMf6Item;
                     for SpeciesIndex := 0 to ChemSpeciesCount - 1 do
                     begin
+                      GwtStatus[SpeciesIndex] := AnItem.GwtStatus[SpeciesIndex].GwtBoundaryStatus;
+
                       ADataArray := LocalSpecifiedConcentrations[SpeciesIndex];
                       APestSeriesName := SpecifiedConcentrationPestSeriesNames[SpeciesIndex];
                       APestSeriesMethod := SpecifiedConcentrationPestSeriesMethods[SpeciesIndex];
@@ -4321,6 +4326,16 @@ begin
           Cells.Add(Cell);
           Cell.FStressPeriod := TimeIndex;
           Cell.FValues := BoundaryValues;
+          if IFlowFace <> nil then
+          begin
+            Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
+            Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+          end
+          else
+          begin
+            Cell.IFlowFace := 0;
+            Cell.IFlowFaceAnnotation := ''
+          end;
           Cell.ScreenObject := ScreenObjectI;
           LocalModel.AdjustCellPosition(Cell);
           Inc(BIndex);
@@ -4591,16 +4606,23 @@ procedure TUzfMf6Boundary.GetCellValues(ValueTimeList: TList;
 var
   ValueIndex: Integer;
   BoundaryStorage: TUzfMf6Storage;
-  IFlowFace: TDataArray;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   EvaluateArrayBoundaries(AModel, Writer);
-  IFlowFace := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
   for ValueIndex := 0 to Values.Count - 1 do
   begin
     if ValueIndex < Values.BoundaryCount[AModel] then
     begin
       BoundaryStorage := Values.Boundaries[ValueIndex, AModel] as TUzfMf6Storage;
-      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFace);
+      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
     end;
   end;
 end;

@@ -1,4 +1,4 @@
-# UZF6: Unsaturated-Zone Flow Package for MODFLOW 6 file created on 5/9/2025 by ModelMuse version 5.3.1.16.
+# UZF6: Unsaturated-Zone Flow Package for MODFLOW 6 file created on 8/9/2026 by ModelMuse version 5.4.0.14.
 BEGIN OPTIONS
     PRINT_INPUT
     SAVE_FLOWS
@@ -21,6 +21,7 @@ BEGIN PACKAGEDATA
 END PACKAGEDATA
 
 BEGIN PERIOD      1
-       1  1.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000 
+#     <ifno> <finf>             <pet>                 <extdp>               <extwc>               <ha>                  <hroot>               <rootact>            [<aux(naux)>]
+       1  1.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000      0     0
 END PERIOD 
 

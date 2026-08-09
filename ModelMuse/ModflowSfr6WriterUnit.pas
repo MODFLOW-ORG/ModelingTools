@@ -1973,14 +1973,25 @@ procedure TModflowSFR_MF6_Writer.WriteAdditionalAuxVariables;
 var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
+  ChemAuxVariablesUsed: Boolean;
+  IFlowFaceUsed: Boolean;
 begin
-  if (Model.GwtUsed or Model.GweUsed) and (Model.MobileComponents.Count > 0) then
+  ChemAuxVariablesUsed := (Model.GwtUsed or Model.GweUsed) and (Model.MobileComponents.Count > 0);
+  IFlowFaceUsed := Model.ModflowPackages.PrtModels.Count > 0;
+  if ChemAuxVariablesUsed or IFlowFaceUsed then
   begin
     WriteString('  AUXILIARY');
-    for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+    if ChemAuxVariablesUsed then
     begin
-      ASpecies := Model.MobileComponents[SpeciesIndex];
-      WriteString(' ' + ASpecies.Name);
+      for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+      begin
+        ASpecies := Model.MobileComponents[SpeciesIndex];
+        WriteString(' ' + ASpecies.Name);
+      end;
+    end;
+    if IFlowFaceUsed then
+    begin
+      WriteString(' IFLOWFACE');
     end;
     NewLine;
   end;
@@ -2270,10 +2281,7 @@ begin
     NewLine;
   end;
 
-  if Model.GwtUsed or Model.GweUsed then
-  begin
-    WriteAdditionalAuxVariables
-  end;
+  WriteAdditionalAuxVariables;
 
   PrintListInputOption;
 
@@ -2554,12 +2562,19 @@ begin
 //        WriteFloat(0);
 //      end;
 
+      // Auxilliary variables. Just write zeros. The SFT or SFE packages
+      // will supply the concentration values.
       if Model.GwtUsed or Model.GweUsed then
       begin
         for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
         begin
           WriteFloat(0);
         end;
+      end;
+
+      if Model.ModflowPackages.PrtModels.Count > 0 then
+      begin
+        WriteInteger(ACell.IFLOWFACE);
       end;
 
       boundname := ' ' + Copy(ReachProp.BoundName, 1, MaxBoundNameLength);

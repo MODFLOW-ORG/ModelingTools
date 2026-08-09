@@ -613,7 +613,7 @@ const
   K_IFlowFaceRCH = 'IFLOWFACE_RCH';
   K_IFlowFaceMAW = 'IFLOWFACE_MAW';
   K_IFlowFaceSFR = 'IFLOWFACE_SFR';
-  K_IFlowFaceLAK = 'IFLOWFACE_LAK';
+//  K_IFlowFaceLAK = 'IFLOWFACE_LAK';
   K_IFlowFaceUZF = 'IFLOWFACE_UZF';
 
   K_IFlowFaceExplanation = sLineBreak +
@@ -1461,7 +1461,7 @@ resourcestring
   StrIFlowFaceRCH = K_IFlowFaceRCH;
   StrIFlowFaceMAW = K_IFlowFaceMAW;
   StrIFlowFaceSFR = K_IFlowFaceSFR;
-  StrIFlowFaceLAK = K_IFlowFaceLAK;
+//  StrIFlowFaceLAK = K_IFlowFaceLAK;
   StrIFlowFaceUZF = K_IFlowFaceUZF;
 
 

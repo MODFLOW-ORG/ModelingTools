@@ -1893,6 +1893,16 @@ begin
         Cell.FValues := BoundaryValues;
         Cell.ScreenObject := ScreenObjectI;
         LocalModel.AdjustCellPosition(Cell);
+        if IFlowFace <> nil then
+        begin
+          Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
+          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+        end
+        else
+        begin
+          Cell.IFlowFace := 0;
+          Cell.IFlowFaceAnnotation := '';
+        end;
       end;
       Cells.Cache;
     end;

@@ -958,7 +958,8 @@ uses
   ScreenObjectUnit, GIS_Functions, ModflowSfrUnit, ModflowSfrReachUnit,
   ModflowSfrSegment, ModflowSfrChannelUnit, ModflowSfrParamIcalcUnit,
   ModflowSfrFlows, ModflowStrUnit, ModflowMvrUnit,
-  DataSetNamesUnit, CellLocationUnit, frmFormulaErrorsUnit;
+  DataSetNamesUnit, CellLocationUnit, frmFormulaErrorsUnit,
+  CustomModflowWriterUnit;
 
 
 const
@@ -4359,6 +4360,16 @@ begin
         Cell.StressPeriod := TimeIndex;
         Cell.FValues.Assign(BoundaryValues);
         Cell.FValues.OutsideGridCell := OutsideGridCell;
+        if IFlowFace <> nil then
+        begin
+          Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
+          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+        end
+        else
+        begin
+          Cell.IFlowFace := 0;
+          Cell.IFlowFaceAnnotation := '';
+        end;
 //        SetLength(Cell.FValues.Diversions, Length(Cell.FValues.Diversions));
 //        SetLength(Cell.FValues.DiversionAnnotations, Length(Cell.FValues.DiversionAnnotations));
         Cell.ScreenObject := ScreenObjectI;
@@ -4692,12 +4703,21 @@ procedure TSfrMf6Boundary.GetCellValues(ValueTimeList: TList;
 var
   ValueIndex: Integer;
   BoundaryStorage: TSfrMf6Storage;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   EvaluateListBoundaries(AModel);
   for ValueIndex := 0 to Values.Count - 1 do
   begin
     BoundaryStorage := Values.Boundaries[ValueIndex, AModel] as TSfrMf6Storage;
-    AssignCells(BoundaryStorage, ValueTimeList, AModel);
+    AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
   end;
 end;
 

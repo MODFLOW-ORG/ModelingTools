@@ -1830,6 +1830,16 @@ begin
         Cells.Add(Cell);
         Cell.StressPeriod := TimeIndex;
         Cell.Values := BoundaryValues;
+        if IFlowFace <> nil then
+        begin
+          Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
+          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+        end
+        else
+        begin
+          Cell.IFlowFace := 0;
+          Cell.IFlowFaceAnnotation := ''
+        end;
         Cell.ScreenObject := ScreenObjectI;
 //        LocalModel.AdjustCellPosition(Cell);
       end;
@@ -2006,7 +2016,16 @@ var
   BoundaryList: TList;
   ItemIndex: Integer;
   ArrayIndex: Integer;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   FCurrentParameter := nil;
   EvaluateArrayBoundaries(AModel, Writer);
   Model := ParentModel as TCustomModel;
@@ -2017,7 +2036,7 @@ begin
       if ValueIndex < Values.BoundaryCount[AModel] then
       begin
         BoundaryStorage := Values.Boundaries[ValueIndex, AModel] as TRchStorage;
-        AssignCells(BoundaryStorage, ValueTimeList, AModel);
+        AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
       end;
     end;
   end
@@ -2065,7 +2084,7 @@ begin
         if ValueIndex < Param.Param.BoundaryCount[AModel] then
         begin
           BoundaryStorage := Param.Param.Boundaries[ValueIndex, AModel] as TRchStorage;
-          AssignCells(BoundaryStorage, Times, AModel);
+          AssignCells(BoundaryStorage, Times, AModel, IFlowFaceDataArray);
         end;
       end;
     end;

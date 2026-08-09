@@ -1295,14 +1295,27 @@ procedure TModflowMAW_Writer.WriteAdditionalAuxVariables;
 var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
+  ChemUsed: Boolean;
+  IFlowFaceUsed: Boolean;
 begin
-  if Model.GwtUsed or Model.GweUsed then
+  ChemUsed := (Model.GwtUsed or Model.GweUsed) and (Model.MobileComponents.Count > 0);
+  IFlowFaceUsed := Model.ModflowPackages.PrtModels.Count > 0;
+  if ChemUsed or IFlowFaceUsed then
   begin
-    for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+    WriteString('  AUXILIARY');
+    if ChemUsed then
     begin
-      ASpecies := Model.MobileComponents[SpeciesIndex];
-      WriteString(' ' + ASpecies.Name);
+      for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+      begin
+        ASpecies := Model.MobileComponents[SpeciesIndex];
+        WriteString(' ' + ASpecies.Name);
+      end;
     end;
+    if IFlowFaceUsed then
+    begin
+      WriteString(' IFLOWFACE');
+    end;
+    NewLine;
   end;
 end;
 
@@ -1473,12 +1486,7 @@ var
 begin
   WriteBeginOptions;
 
-  if Model.GwtUsed or Model.GweUsed then
-  begin
-    WriteString('  AUXILIARY');
-    WriteAdditionalAuxVariables;
-    NewLine;
-  end;
+  WriteAdditionalAuxVariables;
 
   WriteBoundNamesOption;
 
@@ -1655,13 +1663,17 @@ begin
         Assert(False);
     end;
     WriteInteger(AWell.CellCount);
-
+    //  AUXILLIARY VARIABLES.
     if Model.GwtUsed or Model.GweUsed then
     begin
       for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
       begin
         WriteFloat(0);
       end;
+    end;
+    if Model.ModflowPackages.PrtModels.Count > 0 then
+    begin
+      WriteInteger(0);
     end;
 
     BoundName := Copy(AWell.BoundName, 1, MaxBoundNameLength);
@@ -1848,11 +1860,10 @@ begin
         begin
           for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
           begin
-            WriteString('  ');
             WriteInteger(ACell.WellNumber);
-            WriteString('  AUXILIARY ');
+            WriteString(' AUXILIARY ');
             ASpecies := Model.MobileComponents[SpeciesIndex];
-            WriteString(' ' + ASpecies.Name);
+            WriteString(ASpecies.Name);
             if SameText(ASpecies.Name, StrDensity) then
             begin
               WriteValueOrFormula(ACell, MawDensityPosition);
@@ -1863,11 +1874,22 @@ begin
             end
             else
             begin
-              WriteFloat(0);
+                // Auxilliary variables. Just write zero for the concentrations
+                // Values will be supplied by the MWT or MWE packages.
+              WriteInteger(0);
             end;
             NewLine;
           end;
         end;
+      end;
+
+      if Model.ModflowPackages.PrtModels.Count > 0 then
+      begin
+        WriteString('  ');
+        WriteInteger(ACell.WellNumber);
+        WriteString('  AUXILIARY IFLOWFACE');
+        WriteInteger(ACell.IFlowFace);
+        NewLine;
       end;
 
       if ACell.MvrUsed and (MvrWriter <> nil)

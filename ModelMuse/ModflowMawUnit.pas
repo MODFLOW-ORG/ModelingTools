@@ -991,7 +991,7 @@ implementation
 uses
   frmGoPhastUnit, PhastModelUnit, ScreenObjectUnit,
   GIS_Functions, ModflowTimeUnit, ModflowMnw2Unit,
-  ModflowMvrUnit, DataSetNamesUnit, CellLocationUnit;
+  ModflowMvrUnit, DataSetNamesUnit, CellLocationUnit, CustomModflowWriterUnit;
 
 const MawObName: array[TMawOb] of string = ('Head', 'FromMvr', 'FlowRate',
   'FlowRateCells', 'PumpRate', 'RateToMvr',
@@ -2100,6 +2100,16 @@ begin
         Cells.Add(Cell);
         Cell.StressPeriod := TimeIndex;
         Cell.Values.Assign(BoundaryValues);
+        if IFlowFace <> nil then
+        begin
+          Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
+          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+        end
+        else
+        begin
+          Cell.IFlowFace := 0;
+          Cell.IFlowFaceAnnotation := ''
+        end;
         Cell.ScreenObject := ScreenObjectI;
 //        LocalModel.AdjustCellPosition(Cell);
       end;
@@ -2366,14 +2376,23 @@ procedure TMawBoundary.GetCellValues(ValueTimeList: TList;
 var
   ValueIndex: Integer;
   BoundaryStorage: TMawTransientStorage;
+  IFlowFaceDataArray: TDataArray;
 begin
+  if Writer <> nil then
+  begin
+    IFlowFaceDataArray := (Writer as TCustomPackageWriter).IFlowFaceDataArray;
+  end
+  else
+  begin
+    IFlowFaceDataArray := nil;
+  end;
   EvaluateListBoundaries(AModel);
   for ValueIndex := 0 to Values.Count - 1 do
   begin
     if ValueIndex < Values.BoundaryCount[AModel] then
     begin
       BoundaryStorage := Values.Boundaries[ValueIndex, AModel] as TMawTransientStorage;
-      AssignCells(BoundaryStorage, ValueTimeList, AModel);
+      AssignCells(BoundaryStorage, ValueTimeList, AModel, IFlowFaceDataArray);
     end;
   end;
 end;

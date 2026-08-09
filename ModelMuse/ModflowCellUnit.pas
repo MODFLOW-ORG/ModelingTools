@@ -583,7 +583,7 @@ procedure TValueCell.Cache(Comp: TCompressionStream; Strings: TStringList);
 begin
   WriteCompInt(Comp, FBoundaryIndex);
   WriteCompInt(Comp, FIFlowFace);
-  WriteCompString(Comp, FIFlowFaceAnnotation);
+  WriteCompInt(Comp, Strings.IndexOf(FIFlowFaceAnnotation));
 
   Comp.Write(FIface, SizeOf(FIface));
   if ScreenObject = nil then
@@ -667,7 +667,7 @@ var
 begin
   FBoundaryIndex := ReadCompInt(Decomp);
   FIFlowFace := ReadCompInt(Decomp);
-  FIFlowFaceAnnotation := ReadCompStringSimple(Decomp);
+  FIFlowFaceAnnotation := Annotations[ReadCompInt(Decomp)];
   Decomp.Read(FIFace, SizeOf(FIFace));
 
   ScreenObjectName := ReadCompStringSimple(Decomp);

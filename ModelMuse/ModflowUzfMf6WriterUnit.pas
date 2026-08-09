@@ -1022,30 +1022,30 @@ procedure TModflowUzfMf6Writer.WriteAdditionalAuxVariables;
 var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
-  AuxUsed: Boolean;
+  ChemUsed: Boolean;
+  PrtUsed: Boolean;
 begin
-  AuxUsed := False;
-  if (Model.GwtUsed or Model.GweUsed) and (Model.MobileComponents.Count > 0) then
+  ChemUsed  := (Model.GwtUsed or Model.GweUsed) and (Model.MobileComponents.Count > 0);
+  PrtUsed := Model.ModflowPackages.PrtModels.Count > 0;
+  if ChemUsed or PrtUsed or FUzfPackage.UseMultiplier then
   begin
-    AuxUsed := True;
     WriteString('  AUXILIARY');
-    for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+    if ChemUsed then
     begin
-      ASpecies := Model.MobileComponents[SpeciesIndex];
-      WriteString(' ' + ASpecies.Name);
+      for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+      begin
+        ASpecies := Model.MobileComponents[SpeciesIndex];
+        WriteString(' ' + ASpecies.Name);
+      end;
     end;
-  end;
-  if FUzfPackage.UseMultiplier then
-  begin
-    if not AuxUsed then
+    if PrtUsed then
     begin
-      WriteString('  AUXILIARY');
+      WriteString(' IFLOWFACE')
     end;
-    WriteString(' multiplier');
-    AuxUsed := True;
-  end;
-  if AuxUsed then
-  begin
+    if FUzfPackage.UseMultiplier then
+    begin
+      WriteString(' multiplier');
+    end;
     NewLine;
   end;
 end;
@@ -1616,6 +1616,8 @@ begin
 
       CellList := Values[StressPeriodIndex];
       WriteBeginPeriod(StressPeriodIndex);
+      WriteString('#     <ifno> <finf>             <pet>                 <extdp>               <extwc>               <ha>                  <hroot>               <rootact>            [<aux(naux)>]');
+      NewLine;
       MvrReceiver.ReceiverKey.StressPeriod := StressPeriodIndex;
 
       // Eliminate duplicate cells at the same location.
@@ -1659,25 +1661,19 @@ begin
                 WriteValueOrFormula(UzfCell, UzfMf6RootPotentialPosition);
                 WriteValueOrFormula(UzfCell, UzfMf6RootActivityPosition);
 
-//                WriteFloat(UzfCell.Infiltration);
-//                WriteFloat(UzfCell.PotentialET);
-//                WriteFloat(UzfCell.ExtinctionDepth);
-//                WriteFloat(UzfCell.ExtinctionWaterContent);
-//                WriteFloat(UzfCell.AirEntryPotential);
-//                WriteFloat(UzfCell.RootPotential);
-//                WriteFloat(UzfCell.RootActivity);
-
+                // Auxilliary variables. Just write zero for the concentrations
+                // Values will be supplied by the UZT or UZE packages.
                 if Model.GwtUsed or Model.GweUsed then
                 begin
                   for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
                   begin
-//                    WriteInteger(ReachNumber);
-//                    WriteString(' AUXILIARY ');
-//                    ASpecies := Model.MobileComponents[SpeciesIndex];
-//                    WriteString(' ' + ASpecies.Name);
-                    WriteFloat(0);
-//                    NewLine;
+                    WriteInteger(0);
                   end;
+                end;
+
+                if Model.ModflowPackages.PrtModels.Count > 0 then
+                begin
+                  WriteInteger(UzfCell.IFlowFace);
                 end;
 
                 if FUzfPackage.UseMultiplier then

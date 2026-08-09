@@ -258,7 +258,7 @@ type
   protected
     function Package: TModflowPackageSelection; override;
     procedure WriteAdditionalAuxVariables;
-    class function IFlowFaceDataSetName: string; override;
+//    class function IFlowFaceDataSetName: string; override;
   public
     Constructor Create(Model: TCustomModel; EvaluationType: TEvaluationType); override;
     destructor Destroy; override;
@@ -450,14 +450,27 @@ procedure TModflowLAKMf6Writer.WriteAdditionalAuxVariables;
 var
   SpeciesIndex: Integer;
   ASpecies: TMobileChemSpeciesItem;
+  ChemUsed: Boolean;
+  PrtUsed: Boolean;
 begin
-  if Model.GwtUsed or Model.GweUsed then
+  ChemUsed := (Model.GwtUsed or Model.GweUsed) and (Model.MobileComponents.Count > 0);
+  PrtUsed := Model.ModflowPackages.PrtModels.Count > 0;
+  if ChemUsed or PrtUsed then
   begin
-    for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+    WriteString('  AUXILIARY');
+    if ChemUsed then
     begin
-      ASpecies := Model.MobileComponents[SpeciesIndex];
-      WriteString(' ' + ASpecies.Name);
+      for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+      begin
+        ASpecies := Model.MobileComponents[SpeciesIndex];
+        WriteString(' ' + ASpecies.Name);
+      end;
     end;
+//    if PrtUsed then
+//    begin
+//      WriteString(' IFLOWFACE')
+//    end;
+    NewLine;
   end;
 end;
 
@@ -2616,14 +2629,14 @@ begin
   end;
 end;
 
-class function TModflowLAKMf6Writer.IFlowFaceDataSetName: string;
-begin
-{$IFDEF PRT}
-  result := K_IFlowFaceLAK;
-{$ELSE}
-  result := '';
-{$ENDIF}
-end;
+//class function TModflowLAKMf6Writer.IFlowFaceDataSetName: string;
+//begin
+//{$IFDEF PRT}
+//  result := K_IFlowFaceLAK;
+//{$ELSE}
+//  result := '';
+//{$ENDIF}
+//end;
 
 function TModflowLAKMf6Writer.IsMf6GwtObservation(
   AScreenObject: TScreenObject; SpeciesIndex: Integer): Boolean;
@@ -2665,13 +2678,9 @@ var
 begin
   WriteBeginOptions;
 
-  if Model.GwtUsed or Model.GweUsed then
-  begin
-    WriteString('  AUXILIARY');
-    WriteAdditionalAuxVariables;
-    NewLine;
-  end;
   // [AUXILIARY <auxiliary(naux)>]
+  WriteAdditionalAuxVariables;
+
   WriteBoundNamesOption;
   PrintListInputOption;
 
@@ -2987,6 +2996,11 @@ begin
         WriteFloat(0);
       end;
     end;
+//    if Model.ModflowPackages.PrtModels.Count > 0 then
+//    begin
+//      // IFLOWFACE
+//      WriteFloat(0);
+//    end;
 
     BoundName := Copy(ALake.FScreenObject.Name, 1, MaxBoundNameLength);
     BoundName := ' ''' + BoundName + ''' ';
@@ -3230,6 +3244,20 @@ begin
               WriteLakeValueOrFormula(ALakeSetting, LakeViscosityPosition);
               NewLine;
             end;
+
+
+//            if Model.GwtUsed or Model.GweUsed then
+//            begin
+//              for var SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
+//              begin
+//                WriteString('  ');
+//                WriteInteger(LakeIndex+1);
+//                WriteString(' AUXILIARY ');
+//                WriteString(Model.MobileComponents[SpeciesIndex].Name);
+//                WriteLakeValueOrFormula(ALakeSetting, LakeViscosityPosition);
+//                NewLine;
+//               end;
+//            end;
           end;
         end;
 
@@ -3242,21 +3270,8 @@ begin
           MvrRegSourceKey.SourceKey.MvrIndex := OutletIndex;
 
           for SettingIndex := 0 to AnOutlet.Count -1 do
-//          if AnOutlet.FStartingTimeIndex < AnOutlet.Count then
           begin
             OutletSetting := AnOutlet[SettingIndex];
-//            while OutletSetting.StartTime < ATime do
-//            begin
-//              Inc(AnOutlet.FStartingTimeIndex);
-//              if AnOutlet.FStartingTimeIndex < AnOutlet.Count then
-//              begin
-//                OutletSetting := AnOutlet[AnOutlet.FStartingTimeIndex];
-//              end
-//              else
-//              begin
-//                break;
-//              end;
-//            end;
             if (OutletSetting.StartTime <= ATime)
               and (ATime < OutletSetting.EndTime) then
             begin
