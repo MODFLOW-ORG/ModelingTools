@@ -1332,7 +1332,6 @@ The IREASON field indicates the reason the particle track record was saved:
     FShowChoice: TShowChoice;
     FTimeLimits: TShowFloatLimit;
     FPrpLimits: TByteSetLimits;
-//    FReleasePointLimits: TShowIntegerLimit;
     FZoneLimits: TByteSetLimits;
     FSelectedTimeLimits: TSelectedTimeLimit;
     FReasonLimits: TReasonLimit;
@@ -1379,8 +1378,6 @@ The IREASON field indicates the reason the particle track record was saved:
     property ReleaseTimeLimits: TShowFloatLimit read FReleaseTimeLimits write SetReleaseTimeLimits;
     property PrpLimits: TByteSetLimits read FPrpLimits
       write SetPrpLimits;
-//    property ReleasePointLimits: TShowIntegerLimit read FReleasePointLimits
-//      write SetReleasePointLimits;
     property ZoneLimits: TByteSetLimits read FZoneLimits write SetZoneLimits;
     property StatusLimit: TStatusLimit read FStatusLimit write SetStatusLimit;
     property ReasonLimits: TReasonLimit read FReasonLimits write SetReasonLimits;
@@ -1402,7 +1399,6 @@ The IREASON field indicates the reason the particle track record was saved:
     FSelectedLayer: Integer;
     FSelectedRow: Integer;
     FSelectedColumn: Integer;
-    FFileName: string;
     FFileDate: TDateTime;
     procedure SetPrtTrackDisplayLimits(const Value: TPrtTrackDisplayLimits);
     procedure SetTracks(const Value: TPrtTracks);
@@ -1410,11 +1406,9 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure GetMinMaxValues(var MaxValue: Double; var MinValue: Double);
     procedure SetFileName(const Value: string);
     procedure SetFileDate(const Value: TDateTime);
-    property TopQuadTree: TRbwQuadTree read FTopQuadTree;
-    property FrontQuadTree: TRbwQuadTree read FFrontQuadTree;
-    property SideQuadTree: TRbwQuadTree read FSideQuadTree;
     function GetPointColor(MaxValue, MinValue: double;
       Point: TPrtTrackPoint): TColor;
+    function GetFileName: string;
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create(Model: TBaseModel);
@@ -1424,8 +1418,12 @@ The IREASON field indicates the reason the particle track record was saved:
     procedure Draw(Orientation: TDataSetOrientation; const BitMap: TPersistent);
     procedure Draw3D;
     procedure Clear;
+    property TopQuadTree: TRbwQuadTree read FTopQuadTree;
+    property FrontQuadTree: TRbwQuadTree read FFrontQuadTree;
+    property SideQuadTree: TRbwQuadTree read FSideQuadTree;
+    procedure Loaded;
   published
-    property FileName: string read FFileName write SetFileName;
+    property FileName: string read GetFileName write SetFileName;
     property FileDate: TDateTime read FFileDate write SetFileDate;
     property PrtTrackDisplayLimits: TPrtTrackDisplayLimits
       read FPrtTrackDisplayLimits write SetPrtTrackDisplayLimits;
@@ -9739,7 +9737,7 @@ var
   begin
     result := True;
 
-    if PrtTrackDisplayLimits.ShowChoice <> scAll then
+    if PrtTrackDisplayLimits.ShowChoice = scAll then
     begin
       Exit;
     end;
@@ -10231,6 +10229,11 @@ begin
 
 end;
 
+function TPrtTrackDisplayer.GetFileName: string;
+begin
+  result := FTracks.Filename;
+end;
+
 function TPrtTrackDisplayer.GetHasData: Boolean;
 begin
   result := Tracks.HasData;
@@ -10649,25 +10652,30 @@ begin
   end;
 end;
 
+procedure TPrtTrackDisplayer.Loaded;
+begin
+  Tracks.Loaded;
+end;
+
 procedure TPrtTrackDisplayer.ReadFile;
 var
   Extension: string;
   ADate: TDateTime;
 begin
-  Extension := ExtractFileExt(FFileName);
+  Extension := ExtractFileExt(FileName);
   if SameText(Extension, '.csv') then
   begin
-    Tracks.ReadFromCsv(FFileName);
+    Tracks.ReadFromCsv(FileName);
   end
   else if SameText(Extension, '.trk') then
   begin
-    Tracks.ReadFromBinary(FFileName);
+    Tracks.ReadFromBinary(FileName);
   end
   else
   begin
     Assert(False);
   end;
-  Assert(FileAge(FFileName, ADate));
+  Assert(FileAge(FileName, ADate));
   FileDate := ADate;
 end;
 
@@ -10678,7 +10686,7 @@ end;
 
 procedure TPrtTrackDisplayer.SetFileName(const Value: string);
 begin
-  FFileName := Value;
+  Tracks.FileName := Value;
 end;
 
 procedure TPrtTrackDisplayer.SetPrtTrackDisplayLimits(

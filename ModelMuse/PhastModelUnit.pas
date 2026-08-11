@@ -40313,6 +40313,7 @@ begin
   end;
   ModflowPackages.Loaded;
   DataArrayManager.Loaded;
+  PrtTracks.Loaded;
   UpdateGwtConc;
 end;
 

@@ -26,6 +26,8 @@ type
     NAME: array[0..39] of AnsiChar;
   end;
 
+  TPrtTrack = class;
+
   TPrtTrackPoint = class(TCollectionItem)
   private
     FICELL: Integer;
@@ -82,6 +84,7 @@ type
     function GetStartPoint: TPrtTrackPoint;
     function GetColumn: Integer;
     function GetRow: Integer;
+    function GetParentTrack: TPrtTrack;
   public
     Constructor Create(Collection: TCollection); override;
     Destructor Destroy; override;
@@ -98,6 +101,9 @@ type
     property EndPoint: TPrtTrackPoint read GetEndPoint;
     property Column: Integer read GetColumn;
     property Row: Integer read GetRow;
+    Property CellNumber: Integer read FICELL;
+    property Layer: Integer read FILAY;
+    property ParentTrack: TPrtTrack read GetParentTrack;
   published
     property KPER: Integer read FKPER write SetKPER;
     property KSTP: Integer read FKSTP write SetKSTP;
@@ -171,11 +177,13 @@ type
     function GetZones: TIntegerCollection;
     function GetSpecifiedTimes: TRealCollection;
     function GetMaxLineNumber: Integer;
-
+    procedure SortTracks;
   public
     property HasData: Boolean read GetHasData;
+    procedure Clear;
+    property FileName: string read FFileName write FFileName;
+    procedure Loaded;
   public
-    property FileName: string read FFileName;
     Constructor Create;
     destructor Destroy; override;
     procedure Assign(Source: TPersistent); override;
@@ -309,6 +317,11 @@ end;
 function TPrtTrackPoint.GetEndPoint: TPrtTrackPoint;
 begin
   result := (Collection as TPrtTrack).Last;
+end;
+
+function TPrtTrackPoint.GetParentTrack: TPrtTrack;
+begin
+  result := Collection as TPrtTrack;
 end;
 
 function TPrtTrackPoint.GetRow: Integer;
@@ -628,33 +641,25 @@ var
   TrackList: TPrtTrackList;
 begin
   inherited;
-  FTracks.Clear;
-  for var Index := 0 to Count - 1 do
-  begin
-    ATrackItem := Items[Index] as TPrtTrackItem;
-    Track := ATrackItem.Track;
-    if Track.IPRP <= 0 then
-    begin
-      Continue;
-    end;
-    While IprpCount <= Track.IPRP do
-    begin
-      FTracks.Add(TPrtTrackList.Create);
-    end;
-    TrackList := FTracks[Track.IPRP];
-    Assert(TrackList <> nil);
-    while TrackList.Count <= Track.IRPT do
-    begin
-      TrackList.Add(nil);
-    end;
-    Assert(TrackList[Track.IRPT] = nil);
-    TrackList[Track.IRPT] := Track;
-
-  end;
+  SortTracks;
   if Source is TPrtTracks then
   begin
     FFileName := TPrtTracks(Source).FileName;
   end;
+end;
+
+procedure TPrtTracks.Clear;
+begin
+  FTracks.Clear;
+  if Assigned(FZones) then
+  begin
+    FZones.Clear;
+  end;
+  if Assigned(FSpecifiedTimes) then
+  begin
+    FSpecifiedTimes.Clear;
+  end;
+  inherited;
 end;
 
 constructor TPrtTracks.Create;
@@ -801,6 +806,11 @@ begin
   result := FZones;
 end;
 
+procedure TPrtTracks.Loaded;
+begin
+  SortTracks;
+end;
+
 procedure TPrtTracks.ReadFromBinary(const FileName: string);
 var
   ABinaryFile: TFileStream;
@@ -815,6 +825,7 @@ var
   YPrime: Double;
   Point2D: TPoint2D;
 begin
+  Clear;
   Model := IGlobalModel as TPhastModel;
   if Model.DisvUsed then
   begin
@@ -883,6 +894,7 @@ var
   YPrime: Double;
   Point2D: TPoint2D;
 begin
+  Clear;
   Model := IGlobalModel as TPhastModel;
   if Model.DisvUsed then
   begin
@@ -956,7 +968,46 @@ begin
     ACsvFile.Free;
     Splitter.Free;
   end;
-  FFileName := FFileName;
+  FFileName := FileName;
+end;
+
+procedure TPrtTracks.SortTracks;
+var
+  ATrackItem: TPrtTrackItem;
+  Track: TPrtTrack;
+  TrackList: TPrtTrackList;
+begin
+  FTracks.Clear;
+  if FZones <> nil then
+  begin
+    FZones.Clear;
+  end;
+  if FSpecifiedTimes <> nil then
+  begin
+    FSpecifiedTimes.Clear;
+  end;
+  for var Index := 0 to Count - 1 do
+  begin
+    ATrackItem := Items[Index] as TPrtTrackItem;
+    Track := ATrackItem.Track;
+    if Track.IPRP <= 0 then
+    begin
+      Continue;
+    end;
+    While IprpCount <= Track.IPRP do
+    begin
+      FTracks.Add(TPrtTrackList.Create);
+    end;
+    TrackList := FTracks[Track.IPRP];
+    Assert(TrackList <> nil);
+    while TrackList.Count <= Track.IRPT do
+    begin
+      TrackList.Add(nil);
+    end;
+    Assert(TrackList[Track.IRPT] = nil);
+    TrackList[Track.IRPT] := Track;
+
+  end;
 end;
 
 function TPrtTracks.TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;

@@ -13,6 +13,11 @@ type
   TPathLineColumn = (plcLabel, plcFirst, plcLast, plcClosest);
   TPathlineRow = (plrLabel, plrNumber, plrX, plrY, plrZ, plrXPrime, plrYPrime, plrLocalZ,
     plrTime, plrColumn, plrRow, plrLayer, plrTimeStep, plrGroup);
+  TPrtTrackColumn = (ptcLabel, ptcFirst, ptcLast, ptcClosest);
+  TPrtTrackRow = (ptrLabel, ptrStressPeriod, ptrTimeStep, ptrModelNumber,
+    ptrPrpPackageNumber, ptrReleasePointNumber, ptrLayer, ptrRow, ptrColumn,
+    ptrZone, ptrStatus, ptrReason, ptrReleaseTime, ptrTrackingTime, ptrX,
+    ptrY, ptrZ, ptrName);
   TEndPointColumn = (epcLabel, epcStart, epcEnd);
   TEndPointRow = (eprLabel, eprNumber, eprZone, eprColumn, eprRow, eprLayer, eprX, eprY,
     eprZ, eprXPrime, eprYPrime, eprLocalZ, eprTimeStep, eprParticleGroup);
@@ -96,6 +101,9 @@ type
     lblFlowFaces: TLabel;
     Panel1: TPanel;
     qzbNodeInformation: TQRbwZoomBox2;
+    splPrtTracks: TSplitter;
+    rrlPrtTracks: TRbwRollupPanel;
+    rdgPrtTracks: TRbwDataGrid4;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject); override;
     procedure edCellValueKeyUp(Sender: TObject; var Key: Word;
@@ -133,6 +141,7 @@ type
     FSelectedVirtNode: PVirtualNode;
     FViewDirection: TViewDirection;
     FPriorLocation: TPoint2D;
+    FPriorPrtLocation: TPoint2D;
     FPriorEndPointLocation: TPoint2D;
     FModel: TBaseModel;
     FBitMap32FlowFace: TBitmap32;
@@ -150,7 +159,9 @@ type
     procedure UpdateSelectedData(Layer, Row, Column: integer);
     procedure GetSelectedDataArray(var OtherDataSet: TDataArray);
     procedure InitializePathlineGrid;
+    procedure IntializePrtTrackGrid;
     procedure DisplayPathlineData(const Location: TPoint2D);
+    procedure DisplayPrtTrackData(const Location: TPoint2D);
     function DiscretizationDefined: Boolean;
     procedure GetWidthForModpathPanels(var AvailableWidth: Integer);
     procedure DisplaySwrData(Layer, Row, Column: integer);
@@ -182,7 +193,8 @@ uses AbstractGridUnit, frmGoPhastUnit,
   SutraMeshUnit, DisplaySettingsUnit,
   System.Generics.Collections, ModflowSwrStructureUnit,
   ModflowIrregularMeshUnit, ModflowGncUnit, DataArrayManagerUnit,
-  DataSetNamesUnit, CellLocationUnit, System.Math, BigCanvasMethods;
+  DataSetNamesUnit, CellLocationUnit, System.Math, BigCanvasMethods,
+  PrtTrackReaderUnit;
 
 resourcestring
   StrSelectedObject = 'Selected object';
@@ -281,6 +293,7 @@ begin
   ArrangeASplitter(splGNC, rrlGNC);
   ArrangeASplitter(splXt3d, rrlXt3d);
   ArrangeASplitter(splFlowFace, rrlFlowFace);
+  ArrangeASplitter(splPrtTracks, rrlPrtTracks);
 
 end;
 
@@ -422,6 +435,7 @@ begin
 
   InitializePathlineGrid;
   InitializeEndpointGrid;
+  IntializePrtTrackGrid;
   InitializeSwrGrids;
   InitializeGncGrid;
 end;
@@ -437,7 +451,7 @@ end;
 procedure TfrmGridValue.FormResize(Sender: TObject);
 begin
   inherited;
-    rdgPathline.Width := rrlPathline.ClientWidth;
+  rdgPathline.Width := rrlPathline.ClientWidth;
 end;
 
 procedure TfrmGridValue.FormShow(Sender: TObject);
@@ -626,7 +640,6 @@ begin
   else
   begin
 
-//    rdgGhostNode.RowCount := Length(GhostNodeArray) + 1;
     RowCount := 1;
     for GhostNodeIndex := 0 to Length(GhostNodeArray) - 1 do
     begin
@@ -826,6 +839,7 @@ begin
   DisplayGnc;
   UpdateXt3d;
   DisplayPrtFlowFace;
+  DisplayPrtTrackData(Location);
   ArrangeSplitters;
 end;
 
@@ -905,11 +919,6 @@ begin
     Exit;
   end;
   LocalModel := frmGoPhast.PhastModel;
-//  if not frmGoPhast.PhastModel.ModflowPackages.NpfPackage.UseXT3D then
-//  begin
-//    rrlXt3d.Visible := False;
-//    Exit;
-//  end;
 
   rrlXt3d.Visible := True;
   if (FLayer >= 0) and (FRow >= 0) and (FColumn >= 0) then
@@ -1146,33 +1155,6 @@ var
         Indices[2] := Column;
 
         GetDirectionVariables(VarIndex, MaxCount, VarLabel);
-//        Grid := frmGoPhast.Grid;
-//
-//        VarIndex := -1;
-//        MaxCount := 0;
-//        VarLabel := '';
-//        case FSelectedScreenObject.ViewDirection of
-//          vdTop:
-//            begin
-//              VarIndex := 0;
-//              MaxCount := Grid.LayerCount;
-//              VarLabel := StrLayer;
-//            end;
-//          vdFront:
-//            begin
-//              VarIndex := 1;
-//              MaxCount := Grid.RowCount;
-//              VarLabel := StrRow;
-//            end;
-//          vdSide:
-//            begin
-//              VarIndex := 2;
-//              MaxCount := Grid.ColumnCount;
-//              VarLabel := StrColumn1;
-//            end;
-//          else
-//            Assert(False);
-//        end;
 
         FoundValue := False;
         for LayRowColIndex := 0 to MaxCount do
@@ -1797,98 +1779,63 @@ begin
     Y := Location.Y;
     PathQuadTree.FirstNearestPoint(X, Y, APointer);
     DisplayPoint := False;
-//    case PathLines.ModpathVersion of
-//      pv5:
-//        begin
-          PathLinePoint := APointer;
-          Assert(PathLinePoint <> nil);
-          case FViewDirection of
-            vdTop:
-              begin
-                if LocalModel.DisvUsed then
-                begin
-                  TwoDMesh := LocalModel.DisvGrid.TwoDGrid;
-                  CellNumber := (PathLinePoint as TPathLinePointV7).CellNumber-1;
-                  CellNumber := CellNumber mod TwoDMesh.ColumnCount;
-                  ACell := TwoDMesh.Cells[CellNumber];
-                  Corner1.x := ACell.MinX;
-                  Corner1.y := ACell.MinY;
-                  Corner2.x := ACell.MaxX;
-                  Corner2.y := ACell.MaxY;
-                  TestDistance := Distance(Corner1,Corner2);
+    PathLinePoint := APointer;
+    Assert(PathLinePoint <> nil);
+    case FViewDirection of
+      vdTop:
+        begin
+          if LocalModel.DisvUsed then
+          begin
+            TwoDMesh := LocalModel.DisvGrid.TwoDGrid;
+            CellNumber := (PathLinePoint as TPathLinePointV7).CellNumber-1;
+            CellNumber := CellNumber mod TwoDMesh.ColumnCount;
+            ACell := TwoDMesh.Cells[CellNumber];
+            Corner1.x := ACell.MinX;
+            Corner1.y := ACell.MinY;
+            Corner2.x := ACell.MaxX;
+            Corner2.y := ACell.MaxY;
+            TestDistance := Distance(Corner1,Corner2);
 
-                  DisplayPoint := (Distance(Corner1, Location) <= TestDistance)
-                    or (Distance(Corner2, Location) <= TestDistance)
-                    or (Distance(EquatePoint(Corner1.x, Corner2.y), Location) <= TestDistance)
-                    or (Distance(EquatePoint(Corner2.x, Corner1.y), Location) <= TestDistance);
-                end
-                else
-                begin
-                  DisplayPoint := (Abs(FColumn+1 - PathLinePoint.Column) <= 1)
-                    and (Abs(FRow+1 - PathLinePoint.Row) <= 1);
-                end;
-              end;
-            vdFront:
-              begin
-                ALayer := LocalModel.
-                  ModflowLayerToDataSetLayer(PathLinePoint.Layer);
-                if LocalModel.DisvUsed then
-                begin
-                  TwoDMesh := LocalModel.DisvGrid.TwoDGrid;
-                  CellNumber := (PathLinePoint as TPathLinePointV7).CellNumber-1;
-                  CellNumber := CellNumber mod TwoDMesh.ColumnCount;
-                  ACell := TwoDMesh.Cells[CellNumber];
-                  DisplayPoint :=
-                    (ACell.MinX <= Location.X) and (ACell.MaxX >= Location.X)
-                    and (Abs(FLayer - ALayer) <= 1);
-                end
-                else
-                begin
-                  DisplayPoint := (Abs(FColumn+1 - PathLinePoint.Column) <= 1)
-                    and (Abs(FLayer - ALayer) <= 1);
-                end;
-              end;
-            vdSide:
-              begin
-                ALayer := LocalModel.
-                  ModflowLayerToDataSetLayer(PathLinePoint.Layer);
-                DisplayPoint := (Abs(FLayer - ALayer) <= 1)
-                  and (Abs(FRow+1 - PathLinePoint.Row) <= 1);
-              end;
-            else Assert(False);
+            DisplayPoint := (Distance(Corner1, Location) <= TestDistance)
+              or (Distance(Corner2, Location) <= TestDistance)
+              or (Distance(EquatePoint(Corner1.x, Corner2.y), Location) <= TestDistance)
+              or (Distance(EquatePoint(Corner2.x, Corner1.y), Location) <= TestDistance);
+          end
+          else
+          begin
+            DisplayPoint := (Abs(FColumn+1 - PathLinePoint.Column) <= 1)
+              and (Abs(FRow+1 - PathLinePoint.Row) <= 1);
           end;
-//        end;
-//      pv6_0:
-//        begin
-//          PathLinePointV6 := APointer;
-//          Assert(PathLinePointV6 <> nil);
-//          case FViewDirection of
-//            vdTop:
-//              begin
-//                DisplayPoint := (Abs(FColumn+1 - PathLinePointV6.Column) <= 1)
-//                  and (Abs(FRow+1 - PathLinePointV6.Row) <= 1);
-//              end;
-//            vdFront:
-//              begin
-//                ALayer := frmGoPhast.PhastModel.
-//                  ModflowLayerToDataSetLayer(PathLinePointV6.Layer);
-//                DisplayPoint := (Abs(FColumn+1 - PathLinePointV6.Column) <= 1)
-//                  and (Abs(FLayer - ALayer) <= 1);
-//              end;
-//            vdSide:
-//              begin
-//                ALayer := frmGoPhast.PhastModel.
-//                  ModflowLayerToDataSetLayer(PathLinePointV6.Layer);
-//                DisplayPoint := (Abs(FLayer - ALayer) <= 1)
-//                  and (Abs(FRow+1 - PathLinePointV6.Row) <= 1);
-//              end;
-//            else Assert(False);
-//          end;
-//        end;
-//      else
-//        Assert(False);
-//    end;
-
+        end;
+      vdFront:
+        begin
+          ALayer := LocalModel.
+            ModflowLayerToDataSetLayer(PathLinePoint.Layer);
+          if LocalModel.DisvUsed then
+          begin
+            TwoDMesh := LocalModel.DisvGrid.TwoDGrid;
+            CellNumber := (PathLinePoint as TPathLinePointV7).CellNumber-1;
+            CellNumber := CellNumber mod TwoDMesh.ColumnCount;
+            ACell := TwoDMesh.Cells[CellNumber];
+            DisplayPoint :=
+              (ACell.MinX <= Location.X) and (ACell.MaxX >= Location.X)
+              and (Abs(FLayer - ALayer) <= 1);
+          end
+          else
+          begin
+            DisplayPoint := (Abs(FColumn+1 - PathLinePoint.Column) <= 1)
+              and (Abs(FLayer - ALayer) <= 1);
+          end;
+        end;
+      vdSide:
+        begin
+          ALayer := LocalModel.
+            ModflowLayerToDataSetLayer(PathLinePoint.Layer);
+          DisplayPoint := (Abs(FLayer - ALayer) <= 1)
+            and (Abs(FRow+1 - PathLinePoint.Row) <= 1);
+        end;
+      else Assert(False);
+    end;
 
     if not DisplayPoint then
     begin
@@ -2099,6 +2046,217 @@ begin
 
 end;
 
+procedure TfrmGridValue.DisplayPrtTrackData(const Location: TPoint2D);
+var
+  LocalModel: TCustomModel;
+  Tracks: TPrtTrackDisplayer;
+  TracksQuadTree: TRbwQuadTree;
+  Y: double;
+  X: double;
+  APointer: Pointer;
+  DisplayPoint: Boolean;
+  PrtTrackPoint: TPrtTrackPoint;
+  TwoDMesh: TModflowIrregularGrid2D;
+  ACell: TModflowIrregularCell2D;
+  CellNumber: Integer;
+  Corner1: TPoint2D;
+  Corner2: TPoint2D;
+  TestDistance: double;
+  ALayer: Integer;
+  ZoomBox: TQRbwZoomBox2;
+  Track: TPrtTrack;
+  FirstPoint: TPrtTrackPoint;
+  LastPoint: TPrtTrackPoint;
+  List: TList;
+  APrtPoint: TPrtTrackPoint;
+begin
+  if (FPriorPrtLocation.x = Location.x)
+    and (FPriorPrtLocation.y = Location.Y)then
+  begin
+    Exit;
+  end;
+  if frmGoPhast.ModelSelection <> msModflow2015 then
+  begin
+    rrlPathline.Visible := False;
+    Exit;
+  end;
+  FPriorPrtLocation := Location;
+  LocalModel := comboModel.Items.Objects[comboModel.ItemIndex] as TCustomModel;
+  Tracks := LocalModel.PrtTracks;
+  TracksQuadTree := nil;
+  if Tracks.PrtTrackDisplayLimits.PlotTypes <> [] then
+  begin
+    case FViewDirection of
+      vdTop:
+        TracksQuadTree := Tracks.TopQuadTree;
+      vdFront:
+        TracksQuadTree := Tracks.FrontQuadTree;
+      vdSide:
+        TracksQuadTree := Tracks.SideQuadTree;
+    else
+      Assert(False);
+    end;
+  end;
+  rrlPrtTracks.Visible := (Tracks.PrtTrackDisplayLimits.PlotTypes <> [])
+    and (TracksQuadTree.Count > 0);
+  if rrlPrtTracks.Visible then
+  begin
+    X := Location.X;
+    Y := Location.Y;
+    TracksQuadTree.FirstNearestPoint(X, Y, APointer);
+    DisplayPoint := False;
+    PrtTrackPoint := APointer;
+    Assert(PrtTrackPoint <> nil);
+    case FViewDirection of
+      vdTop:
+        begin
+          if LocalModel.DisvUsed then
+          begin
+            TwoDMesh := LocalModel.DisvGrid.TwoDGrid;
+            CellNumber := PrtTrackPoint.CellNumber-1;
+            CellNumber := CellNumber mod TwoDMesh.ColumnCount;
+            ACell := TwoDMesh.Cells[CellNumber];
+            Corner1.x := ACell.MinX;
+            Corner1.y := ACell.MinY;
+            Corner2.x := ACell.MaxX;
+            Corner2.y := ACell.MaxY;
+            TestDistance := Distance(Corner1,Corner2);
+
+            DisplayPoint := (Distance(Corner1, Location) <= TestDistance)
+              or (Distance(Corner2, Location) <= TestDistance)
+              or (Distance(EquatePoint(Corner1.x, Corner2.y), Location) <= TestDistance)
+              or (Distance(EquatePoint(Corner2.x, Corner1.y), Location) <= TestDistance);
+          end
+          else
+          begin
+            DisplayPoint := (Abs(FColumn+1 - PrtTrackPoint.Column) <= 1)
+              and (Abs(FRow+1 - PrtTrackPoint.Row) <= 1);
+          end;
+        end;
+      vdFront:
+        begin
+          ALayer := LocalModel.
+            ModflowLayerToDataSetLayer(PrtTrackPoint.Layer);
+          if LocalModel.DisvUsed then
+          begin
+            TwoDMesh := LocalModel.DisvGrid.TwoDGrid;
+            CellNumber := PrtTrackPoint.CellNumber-1;
+            CellNumber := CellNumber mod TwoDMesh.ColumnCount;
+            ACell := TwoDMesh.Cells[CellNumber];
+            DisplayPoint :=
+              (ACell.MinX <= Location.X) and (ACell.MaxX >= Location.X)
+              and (Abs(FLayer - ALayer) <= 1);
+          end
+          else
+          begin
+            DisplayPoint := (Abs(FColumn+1 - PrtTrackPoint.Column) <= 1)
+              and (Abs(FLayer - ALayer) <= 1);
+          end;
+        end;
+      vdSide:
+        begin
+          ALayer := LocalModel.
+            ModflowLayerToDataSetLayer(PrtTrackPoint.Layer);
+          DisplayPoint := (Abs(FLayer - ALayer) <= 1)
+            and (Abs(FRow+1 - PrtTrackPoint.Row) <= 1);
+        end;
+      else
+        Assert(False);
+    end;
+
+    if not DisplayPoint then
+    begin
+      ZoomBox := nil;
+      case FViewDirection of
+        vdTop: ZoomBox := frmGoPhast.frameTopView.ZoomBox;
+        vdFront: ZoomBox := frmGoPhast.frameFrontView.ZoomBox;
+        vdSide: ZoomBox := frmGoPhast.framesideView.ZoomBox;
+        else Assert(False);
+      end;
+      DisplayPoint :=
+        (Abs(ZoomBox.XCoord(X) - ZoomBox.XCoord(Location.X)) <= SelectionWidth)
+        and (Abs(ZoomBox.YCoord(Y) - ZoomBox.YCoord(Location.Y)) <= SelectionWidth);
+    end;
+
+    if DisplayPoint then
+    begin
+      Track := PrtTrackPoint.ParentTrack;
+      FirstPoint :=Track.First;
+      LastPoint :=Track.Last;
+      List := TList.Create;
+      try
+        List.Add(nil);
+        List.Add(FirstPoint);
+        List.Add(LastPoint);
+        List.Add(PrtTrackPoint);
+        rdgPrtTracks.BeginUpdate;
+        try
+          for var ColIndex := Ord(ptcFirst) to Ord(ptcClosest) do
+          begin
+            APrtPoint := List[ColIndex];
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrStressPeriod)] :=
+              IntToStr(APrtPoint.KPER);
+
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrTimeStep)] :=
+              IntToStr(APrtPoint.KSTP);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrModelNumber)] :=
+              IntToStr(APrtPoint.IMDL);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrPrpPackageNumber)] :=
+              IntToStr(APrtPoint.IPRP);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrReleasePointNumber)] :=
+              IntToStr(APrtPoint.IRPT);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrLayer)] :=
+              IntToStr(APrtPoint.Layer);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrRow)] :=
+              IntToStr(APrtPoint.Row);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrColumn)] :=
+              IntToStr(APrtPoint.Column);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrZone)] :=
+              IntToStr(APrtPoint.IZONE);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrStatus)] :=
+              IntToStr(APrtPoint.ISTATUS);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrReason)] :=
+              IntToStr(APrtPoint.IREASON);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrReleaseTime)] :=
+              FloatToStr(APrtPoint.TRELEASE);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrTrackingTime)] :=
+              FloatToStr(APrtPoint.T);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrX)] :=
+              FloatToStr(APrtPoint.X);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrY)] :=
+              FloatToStr(APrtPoint.Y);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrZ)] :=
+              FloatToStr(APrtPoint.Z);
+            rdgPrtTracks.Cells[ColIndex, Ord(ptrName)] :=
+              Trim(APrtPoint.Name);
+          end;
+
+        finally
+          rdgPrtTracks.EndUpdate;
+        end;
+      finally
+        List.Free;
+      end;
+    end
+    else
+    begin
+      rdgPrtTracks.BeginUpdate;
+      try
+        for var ColIndex := 1 to rdgPrtTracks.ColCount - 1 do
+        begin
+          for var RowIndex := 1 to rdgPrtTracks.RowCount - 1 do
+          begin
+            rdgPrtTracks.Cells[ColIndex, RowIndex] := '';
+          end;
+        end;
+      finally
+        rdgPrtTracks.EndUpdate;
+      end;
+    end;
+  end;
+
+end;
+
 procedure TfrmGridValue.DisplaySwrData(Layer, Row, Column: integer);
 var
   Model: TCustomModel;
@@ -2237,22 +2395,27 @@ end;
 
 procedure TfrmGridValue.InitializePathlineGrid;
 begin
-  rdgPathline.Cells[Ord(plcFirst), 0] := StrFirst;
-  rdgPathline.Cells[Ord(plcLast), 0] := StrLast;
-  rdgPathline.Cells[Ord(plcClosest), 0] := StrClosest;
-  rdgPathline.Cells[0, Ord(plrNumber)] := StrNumber;
-  rdgPathline.Cells[0, Ord(plrX)] := StrX;
-  rdgPathline.Cells[0, Ord(plrY)] := StrY;
-  rdgPathline.Cells[0, Ord(plrZ)] := StrZ;
-  rdgPathline.Cells[0, Ord(plrXPrime)] := StrXPrime;
-  rdgPathline.Cells[0, Ord(plrYPrime)] := StrYPrime;
-  rdgPathline.Cells[0, Ord(plrLocalZ)] := StrLocalZ;
-  rdgPathline.Cells[0, Ord(plrTime)] := StrTime;
-  rdgPathline.Cells[0, Ord(plrColumn)] := StrColumn1;
-  rdgPathline.Cells[0, Ord(plrRow)] := StrRow;
-  rdgPathline.Cells[0, Ord(plrLayer)] := StrLayer;
-  rdgPathline.Cells[0, Ord(plrTimeStep)] := StrTimeStep;
-  rdgPathline.Cells[0, Ord(plrGroup)] := StrGroup;
+  rdgPathline.BeginUpdate;
+  try
+    rdgPathline.Cells[Ord(plcFirst), 0] := StrFirst;
+    rdgPathline.Cells[Ord(plcLast), 0] := StrLast;
+    rdgPathline.Cells[Ord(plcClosest), 0] := StrClosest;
+    rdgPathline.Cells[0, Ord(plrNumber)] := StrNumber;
+    rdgPathline.Cells[0, Ord(plrX)] := StrX;
+    rdgPathline.Cells[0, Ord(plrY)] := StrY;
+    rdgPathline.Cells[0, Ord(plrZ)] := StrZ;
+    rdgPathline.Cells[0, Ord(plrXPrime)] := StrXPrime;
+    rdgPathline.Cells[0, Ord(plrYPrime)] := StrYPrime;
+    rdgPathline.Cells[0, Ord(plrLocalZ)] := StrLocalZ;
+    rdgPathline.Cells[0, Ord(plrTime)] := StrTime;
+    rdgPathline.Cells[0, Ord(plrColumn)] := StrColumn1;
+    rdgPathline.Cells[0, Ord(plrRow)] := StrRow;
+    rdgPathline.Cells[0, Ord(plrLayer)] := StrLayer;
+    rdgPathline.Cells[0, Ord(plrTimeStep)] := StrTimeStep;
+    rdgPathline.Cells[0, Ord(plrGroup)] := StrGroup;
+  finally
+    rdgPathline.EndUpdate;
+  end;
 end;
 
 procedure TfrmGridValue.InitializeSwrGrids;
@@ -2277,6 +2440,35 @@ begin
   end;
 end;
 
+procedure TfrmGridValue.IntializePrtTrackGrid;
+begin
+  rdgPrtTracks.BeginUpdate;
+  try
+    rdgPrtTracks.Cells[Ord(ptcFirst), 0] := StrFirst;
+    rdgPrtTracks.Cells[Ord(ptcLast), 0] := StrLast;
+    rdgPrtTracks.Cells[Ord(ptcClosest), 0] := StrClosest;
+    rdgPrtTracks.Cells[0, Ord(ptrStressPeriod)] := 'Stress Period';
+    rdgPrtTracks.Cells[0, Ord(ptrTimeStep)] := StrTimeStep;
+    rdgPrtTracks.Cells[0, Ord(ptrModelNumber)] := 'Model Number';
+    rdgPrtTracks.Cells[0, Ord(ptrPrpPackageNumber)] := 'PRP Package Number';
+    rdgPrtTracks.Cells[0, Ord(ptrReleasePointNumber)] := 'Release Point Number';
+    rdgPrtTracks.Cells[0, Ord(ptrLayer)] := StrLayer;
+    rdgPrtTracks.Cells[0, Ord(ptrRow)] := StrRow;
+    rdgPrtTracks.Cells[0, Ord(ptrColumn)] := StrColumn1;
+    rdgPrtTracks.Cells[0, Ord(ptrZone)] := 'Zone';
+    rdgPrtTracks.Cells[0, Ord(ptrStatus)] := 'Status';
+    rdgPrtTracks.Cells[0, Ord(ptrReason)] := 'Reason';
+    rdgPrtTracks.Cells[0, Ord(ptrReleaseTime)] := 'Release Time';
+    rdgPrtTracks.Cells[0, Ord(ptrTrackingTime)] := 'Tracking Time';
+    rdgPrtTracks.Cells[0, Ord(ptrX)] := StrX;
+    rdgPrtTracks.Cells[0, Ord(ptrY)] := StrY;
+    rdgPrtTracks.Cells[0, Ord(ptrZ)] := StrZ;
+    rdgPrtTracks.Cells[0, Ord(ptrName)] := 'Name';
+  finally
+    rdgPrtTracks.EndUpdate;
+  end;
+end;
+
 procedure TfrmGridValue.jvrltEndPointCollapse(Sender: TObject);
 var
   AvailableWidth: Integer;
@@ -2290,16 +2482,6 @@ begin
       rrlPathline.Width := AvailableWidth-rrlPathline.LabelWidth;
     end;
   end;
-//  if rrlPathline.Collapsed then
-//  begin
-//    jvrltEndPoint.Align := alLeft;
-//  end
-//  else
-//  begin
-//    jvrltEndPoint.Align := alRight;
-//    Application.ProcessMessages;
-//    rrlPathline.Align := alClient;
-//  end;
 end;
 
 procedure TfrmGridValue.jvrltEndPointExpand(Sender: TObject);
@@ -2307,8 +2489,6 @@ var
   AvailableWidth: Integer;
 begin
   inherited;
-//  rrlPathline.Align := alLeft;
-//    Application.ProcessMessages;
   GetWidthForModpathPanels(AvailableWidth);
 
   if AvailableWidth > 0 then

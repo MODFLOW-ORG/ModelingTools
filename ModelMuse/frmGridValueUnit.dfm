@@ -2,19 +2,20 @@ inherited frmGridValue: TfrmGridValue
   HelpType = htKeyword
   HelpKeyword = 'Grid_Value_Dialog_Box'
   Caption = 'Grid or Mesh Value'
-  ClientHeight = 509
-  ClientWidth = 663
+  ClientHeight = 527
+  ClientWidth = 800
   KeyPreview = True
+  StyleElements = [seFont, seClient, seBorder]
   OnClose = FormClose
-  ExplicitWidth = 679
-  ExplicitHeight = 548
+  ExplicitWidth = 816
+  ExplicitHeight = 566
   DesignSize = (
-    663
-    509)
+    800
+    527)
   TextHeight = 18
   object btnHelp: TBitBtn
-    Left = 477
-    Top = 469
+    Left = 614
+    Top = 487
     Width = 89
     Height = 33
     Anchors = [akRight, akBottom]
@@ -22,67 +23,64 @@ inherited frmGridValue: TfrmGridValue
     NumGlyphs = 2
     TabOrder = 1
     OnClick = btnHelpClick
-    ExplicitLeft = 448
   end
   object btnClose: TBitBtn
-    Left = 574
-    Top = 469
+    Left = 711
+    Top = 487
     Width = 89
     Height = 33
     Anchors = [akRight, akBottom]
     Kind = bkClose
     NumGlyphs = 2
     TabOrder = 2
-    ExplicitLeft = 545
   end
   object pnlTabs: TPanel
     Left = 0
     Top = 0
-    Width = 663
-    Height = 463
+    Width = 800
+    Height = 481
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
-    ExplicitWidth = 634
     object splAllDataSets: TSplitter
       Left = 441
       Top = 1
-      Height = 461
+      Height = 479
       ExplicitLeft = 50
       ExplicitHeight = 465
     end
     object splPathline: TSplitter
       Left = 471
       Top = 1
-      Height = 461
+      Height = 479
       ExplicitLeft = 58
       ExplicitHeight = 465
     end
     object splEndPoint: TSplitter
       Left = 501
       Top = 1
-      Height = 461
+      Height = 479
       ExplicitLeft = 88
       ExplicitHeight = 465
     end
     object splSWR: TSplitter
       Left = 531
       Top = 1
-      Height = 461
+      Height = 479
       ExplicitLeft = 118
       ExplicitHeight = 465
     end
     object splGNC: TSplitter
       Left = 561
       Top = 1
-      Height = 461
+      Height = 479
       ExplicitLeft = 148
       ExplicitHeight = 465
     end
     object splXt3d: TSplitter
       Left = 591
       Top = 1
-      Height = 461
+      Height = 479
       ExplicitLeft = 178
       ExplicitHeight = 465
     end
@@ -90,13 +88,22 @@ inherited frmGridValue: TfrmGridValue
       Left = 621
       Top = 1
       Width = 5
-      Height = 461
+      Height = 479
+      ExplicitHeight = 461
+    end
+    object splPrtTracks: TSplitter
+      Left = 653
+      Top = 1
+      Height = 479
+      ExplicitLeft = 680
+      ExplicitTop = 200
+      ExplicitHeight = 100
     end
     object rrlcurrentData: TRbwRollupPanel
       Left = 1
       Top = 1
       Width = 440
-      Height = 461
+      Height = 479
       Align = alLeft
       Caption = 'rrlcurrentData'
       Font.Charset = ANSI_CHARSET
@@ -113,7 +120,7 @@ inherited frmGridValue: TfrmGridValue
       ExpandedWidth = 413
       DesignSize = (
         440
-        461)
+        479)
       object lblModel: TLabel
         Left = 40
         Top = 19
@@ -144,7 +151,7 @@ inherited frmGridValue: TfrmGridValue
       end
       object lblHigher3rdDimensionCoordinate: TStaticText
         Left = 40
-        Top = 408
+        Top = 426
         Width = 231
         Height = 22
         Anchors = [akLeft, akBottom]
@@ -153,7 +160,7 @@ inherited frmGridValue: TfrmGridValue
       end
       object lblLower3rdDimensionCoordinate: TStaticText
         Left = 40
-        Top = 429
+        Top = 447
         Width = 228
         Height = 22
         Anchors = [akLeft, akBottom]
@@ -162,7 +169,7 @@ inherited frmGridValue: TfrmGridValue
       end
       object lblSection: TStaticText
         Left = 40
-        Top = 361
+        Top = 379
         Width = 57
         Height = 22
         Anchors = [akLeft, akBottom]
@@ -171,7 +178,7 @@ inherited frmGridValue: TfrmGridValue
       end
       object lblSelectedObject: TStaticText
         Left = 40
-        Top = 316
+        Top = 334
         Width = 112
         Height = 22
         Anchors = [akLeft, akBottom]
@@ -180,7 +187,7 @@ inherited frmGridValue: TfrmGridValue
       end
       object lblVertex: TStaticText
         Left = 40
-        Top = 340
+        Top = 358
         Width = 104
         Height = 22
         Anchors = [akLeft, akBottom]
@@ -247,7 +254,7 @@ inherited frmGridValue: TfrmGridValue
       end
       object cbShowThirdDValues: TCheckBox
         Left = 40
-        Top = 385
+        Top = 403
         Width = 390
         Height = 17
         Anchors = [akLeft, akBottom]
@@ -267,7 +274,7 @@ inherited frmGridValue: TfrmGridValue
         Left = 40
         Top = 192
         Width = 390
-        Height = 118
+        Height = 136
         Anchors = [akLeft, akTop, akRight, akBottom]
         ReadOnly = True
         ScrollBars = ssVertical
@@ -279,7 +286,7 @@ inherited frmGridValue: TfrmGridValue
       Left = 444
       Top = 1
       Width = 27
-      Height = 461
+      Height = 479
       Align = alLeft
       Caption = 'rrlAllDataSets'
       Font.Charset = ANSI_CHARSET
@@ -296,7 +303,7 @@ inherited frmGridValue: TfrmGridValue
       ExpandedWidth = 399
       DesignSize = (
         27
-        461)
+        479)
       object lblSelectExplanation: TLabel
         Left = 31
         Top = 63
@@ -313,7 +320,7 @@ inherited frmGridValue: TfrmGridValue
       end
       object btnUpdate: TButton
         Left = 31
-        Top = 425
+        Top = 443
         Width = 75
         Height = 25
         Anchors = [akLeft, akBottom]
@@ -334,7 +341,7 @@ inherited frmGridValue: TfrmGridValue
         Left = 32
         Top = 87
         Width = 0
-        Height = 331
+        Height = 349
         Anchors = [akLeft, akTop, akRight, akBottom]
         ReadOnly = True
         ScrollBars = ssVertical
@@ -368,8 +375,9 @@ inherited frmGridValue: TfrmGridValue
         Tree.Colors.UnfocusedColor = clGray
         Tree.Colors.UnfocusedSelectionColor = 13421772
         Tree.Colors.UnfocusedSelectionBorderColor = 13421772
-        Tree.DefaultNodeHeight = 20
+        Tree.DefaultNodeHeight = 22
         Tree.Header.AutoSizeIndex = 0
+        Tree.Header.Height = 18
         Tree.Header.MainColumn = -1
         Tree.TabOrder = 0
         Tree.TreeOptions.SelectionOptions = [toFullRowSelect]
@@ -408,7 +416,7 @@ inherited frmGridValue: TfrmGridValue
       Left = 474
       Top = 1
       Width = 27
-      Height = 461
+      Height = 479
       Align = alLeft
       Caption = 'rrlPathline'
       Font.Charset = ANSI_CHARSET
@@ -427,7 +435,7 @@ inherited frmGridValue: TfrmGridValue
         Left = 28
         Top = 1
         Width = 397
-        Height = 459
+        Height = 477
         Align = alClient
         Caption = 'pnlPathline'
         ShowCaption = False
@@ -436,7 +444,7 @@ inherited frmGridValue: TfrmGridValue
           Left = 1
           Top = 1
           Width = 395
-          Height = 421
+          Height = 439
           Align = alClient
           ColCount = 4
           FixedCols = 1
@@ -552,7 +560,7 @@ inherited frmGridValue: TfrmGridValue
         end
         object pnlPathLength: TPanel
           Left = 1
-          Top = 422
+          Top = 440
           Width = 395
           Height = 36
           Align = alBottom
@@ -578,7 +586,7 @@ inherited frmGridValue: TfrmGridValue
       Left = 504
       Top = 1
       Width = 27
-      Height = 461
+      Height = 479
       Align = alLeft
       Caption = 'rrlEndPoint'
       Font.Charset = ANSI_CHARSET
@@ -597,14 +605,14 @@ inherited frmGridValue: TfrmGridValue
         Left = 28
         Top = 1
         Width = 397
-        Height = 459
+        Height = 477
         Align = alClient
         Caption = 'pnlEndpoint'
         ShowCaption = False
         TabOrder = 1
         object pnlEndPoints: TPanel
           Left = 1
-          Top = 352
+          Top = 370
           Width = 395
           Height = 106
           Align = alBottom
@@ -653,7 +661,7 @@ inherited frmGridValue: TfrmGridValue
           Left = 1
           Top = 1
           Width = 395
-          Height = 351
+          Height = 369
           Align = alClient
           ColCount = 3
           FixedCols = 1
@@ -749,7 +757,7 @@ inherited frmGridValue: TfrmGridValue
       Left = 534
       Top = 1
       Width = 27
-      Height = 461
+      Height = 479
       Align = alLeft
       Caption = 'rrlSWR'
       Font.Charset = ANSI_CHARSET
@@ -768,7 +776,7 @@ inherited frmGridValue: TfrmGridValue
         Left = 28
         Top = 1
         Width = 381
-        Height = 459
+        Height = 477
         Align = alClient
         Caption = 'pnlSWR'
         ShowCaption = False
@@ -914,7 +922,7 @@ inherited frmGridValue: TfrmGridValue
           Left = 1
           Top = 201
           Width = 379
-          Height = 257
+          Height = 275
           Align = alClient
           TabOrder = 1
           object lblSwrStructures: TLabel
@@ -931,7 +939,7 @@ inherited frmGridValue: TfrmGridValue
             Left = 1
             Top = 25
             Width = 377
-            Height = 231
+            Height = 249
             Align = alClient
             ColCount = 3
             FixedCols = 0
@@ -1031,7 +1039,7 @@ inherited frmGridValue: TfrmGridValue
       Left = 564
       Top = 1
       Width = 27
-      Height = 461
+      Height = 479
       Align = alLeft
       Caption = 'GNC'
       Font.Charset = ANSI_CHARSET
@@ -1048,12 +1056,12 @@ inherited frmGridValue: TfrmGridValue
       ExpandedWidth = 412
       DesignSize = (
         27
-        461)
+        479)
       object rdgGhostNode: TRbwDataGrid4
         Left = 40
         Top = 9
         Width = 0
-        Height = 445
+        Height = 463
         Anchors = [akLeft, akTop, akRight, akBottom]
         ColCount = 4
         DoubleBuffered = True
@@ -1173,7 +1181,7 @@ inherited frmGridValue: TfrmGridValue
       Left = 594
       Top = 1
       Width = 27
-      Height = 461
+      Height = 479
       Align = alLeft
       Caption = 'rrlXt3d'
       Font.Charset = ANSI_CHARSET
@@ -1188,7 +1196,6 @@ inherited frmGridValue: TfrmGridValue
       RollupCaption = 'XT3D Data'
       LabelWidth = 27
       ExpandedWidth = 288
-      ExplicitLeft = 593
       object lblAngle1: TLabel
         Left = 40
         Top = 76
@@ -1263,7 +1270,7 @@ inherited frmGridValue: TfrmGridValue
       Left = 626
       Top = 1
       Width = 27
-      Height = 461
+      Height = 479
       Align = alLeft
       Caption = 'rrlFlowFace'
       Font.Charset = ANSI_CHARSET
@@ -1282,12 +1289,10 @@ inherited frmGridValue: TfrmGridValue
         Left = 28
         Top = 1
         Width = 194
-        Height = 459
+        Height = 477
         Align = alClient
         Caption = 'Panel1'
         TabOrder = 1
-        ExplicitLeft = 32
-        ExplicitTop = 3
         object pnlFlowFaces: TPanel
           Left = 1
           Top = 1
@@ -1313,7 +1318,7 @@ inherited frmGridValue: TfrmGridValue
           Left = 1
           Top = 69
           Width = 192
-          Height = 389
+          Height = 407
           Align = alClient
           Caption = 'qzbFlowFace'
           TabOrder = 1
@@ -1322,7 +1327,7 @@ inherited frmGridValue: TfrmGridValue
           Image32.Left = 0
           Image32.Top = 0
           Image32.Width = 192
-          Image32.Height = 389
+          Image32.Height = 407
           Image32.Anchors = [akLeft, akBottom]
           Image32.Bitmap.ResamplerClassName = 'TNearestResampler'
           Image32.BitmapAlign = baTopLeft
@@ -1334,13 +1339,148 @@ inherited frmGridValue: TfrmGridValue
           ImmediateResize = True
           Magnification = 1.000000000000000000
           VerticalDirection = vdUp
-          ExplicitTop = 160
-          ExplicitWidth = 221
-          ExplicitHeight = 300
           DesignSize = (
             192
-            389)
+            407)
         end
+      end
+    end
+    object rrlPrtTracks: TRbwRollupPanel
+      Left = 656
+      Top = 1
+      Width = 27
+      Height = 479
+      Align = alLeft
+      Caption = 'Prt Tracks'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Pitch = fpVariable
+      Font.Style = []
+      ShowCaption = False
+      TabOrder = 8
+      Collapsed = True
+      RollupCaption = 'PRT Tracks'
+      LabelWidth = 27
+      ExpandedWidth = 623
+      object rdgPrtTracks: TRbwDataGrid4
+        Left = 28
+        Top = 1
+        Width = 621
+        Height = 477
+        Align = alClient
+        ColCount = 4
+        FixedCols = 1
+        RowCount = 18
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
+        TabOrder = 1
+        ExtendedAutoDistributeText = False
+        AutoMultiEdit = False
+        AutoDistributeText = False
+        AutoIncreaseColCount = False
+        AutoIncreaseRowCount = False
+        SelectedRowOrColumnColor = clAqua
+        UnselectableColor = clBtnFace
+        ColorRangeSelection = False
+        Columns = <
+          item
+            AutoAdjustRowHeights = False
+            AutoAdjustCaptionRowHeights = False
+            ButtonCaption = '...'
+            ButtonFont.Charset = DEFAULT_CHARSET
+            ButtonFont.Color = clWindowText
+            ButtonFont.Height = -12
+            ButtonFont.Name = 'Segoe UI'
+            ButtonFont.Style = []
+            ButtonUsed = False
+            ButtonWidth = 20
+            CheckMax = False
+            CheckMin = False
+            ComboUsed = False
+            Format = rcf4String
+            LimitToList = False
+            MaxLength = 0
+            ParentButtonFont = False
+            WordWrapCaptions = False
+            WordWrapCells = False
+            CaseSensitivePicklist = False
+            CheckStyle = csCheck
+            AutoAdjustColWidths = True
+          end
+          item
+            AutoAdjustRowHeights = False
+            AutoAdjustCaptionRowHeights = False
+            ButtonCaption = '...'
+            ButtonFont.Charset = DEFAULT_CHARSET
+            ButtonFont.Color = clWindowText
+            ButtonFont.Height = -12
+            ButtonFont.Name = 'Segoe UI'
+            ButtonFont.Style = []
+            ButtonUsed = False
+            ButtonWidth = 20
+            CheckMax = False
+            CheckMin = False
+            ComboUsed = False
+            Format = rcf4String
+            LimitToList = False
+            MaxLength = 0
+            ParentButtonFont = False
+            WordWrapCaptions = False
+            WordWrapCells = False
+            CaseSensitivePicklist = False
+            CheckStyle = csCheck
+            AutoAdjustColWidths = True
+          end
+          item
+            AutoAdjustRowHeights = False
+            AutoAdjustCaptionRowHeights = False
+            ButtonCaption = '...'
+            ButtonFont.Charset = DEFAULT_CHARSET
+            ButtonFont.Color = clWindowText
+            ButtonFont.Height = -12
+            ButtonFont.Name = 'Segoe UI'
+            ButtonFont.Style = []
+            ButtonUsed = False
+            ButtonWidth = 20
+            CheckMax = False
+            CheckMin = False
+            ComboUsed = False
+            Format = rcf4String
+            LimitToList = False
+            MaxLength = 0
+            ParentButtonFont = False
+            WordWrapCaptions = False
+            WordWrapCells = False
+            CaseSensitivePicklist = False
+            CheckStyle = csCheck
+            AutoAdjustColWidths = True
+          end
+          item
+            AutoAdjustRowHeights = False
+            AutoAdjustCaptionRowHeights = False
+            ButtonCaption = '...'
+            ButtonFont.Charset = DEFAULT_CHARSET
+            ButtonFont.Color = clWindowText
+            ButtonFont.Height = -12
+            ButtonFont.Name = 'Segoe UI'
+            ButtonFont.Style = []
+            ButtonUsed = False
+            ButtonWidth = 20
+            CheckMax = False
+            CheckMin = False
+            ComboUsed = False
+            Format = rcf4String
+            LimitToList = False
+            MaxLength = 0
+            ParentButtonFont = False
+            WordWrapCaptions = False
+            WordWrapCells = False
+            CaseSensitivePicklist = False
+            CheckStyle = csCheck
+            AutoAdjustColWidths = True
+          end>
+        WordWrapRowCaptions = False
       end
     end
   end

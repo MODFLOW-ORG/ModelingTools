@@ -641,9 +641,9 @@ begin
   begin
     StressPeriods := (Model as TPhastModel).ModflowFullStressPeriods;
     EndPeriod := -1;
-    for var PeriodIndex := 0 to PrtModel.PeriodData.Count - 1 do
+    for var PeriodIndex := 0 to FPrpPackage.PeriodData.Count - 1 do
     begin
-      APeriodItem := PrtModel.PeriodData[PeriodIndex];
+      APeriodItem := FPrpPackage.PeriodData[PeriodIndex];
       StartPeriod := StressPeriods.FindStressPeriod(APeriodItem.StartTime);
       if EndPeriod >= 0 then
       begin
