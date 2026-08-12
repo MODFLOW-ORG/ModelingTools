@@ -305,7 +305,7 @@ begin
   Model := IGlobalModel as TPhastModel;
   if Model.DisvUsed then
   begin
-    result := ICELL;
+    result := (ICELL -1) mod Model.DisvGrid.TwoDGrid.ElementCount + 1;
   end
   else
   begin

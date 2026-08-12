@@ -710,8 +710,8 @@ end;
 
 constructor TOcTrackTimes.Create(PackageType: string);
 begin
-  inherited;
   FTimes := TRealList.Create;
+  inherited;
 end;
 
 destructor TOcTrackTimes.Destroy;

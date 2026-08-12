@@ -21,7 +21,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabTrackTimes
+    ActivePage = tabPrpPackages
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -325,14 +325,16 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 625
-          Height = 30
+          Width = 649
+          Height = 49
           Align = alClient
           Caption = 
             'Tracking times can be specified as specific times, by specific p' +
             'eriod, or both. In this tab, tracking times are specified by tim' +
             'e.'
           WordWrap = True
+          ExplicitWidth = 625
+          ExplicitHeight = 30
         end
       end
     end
@@ -350,14 +352,16 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 625
-          Height = 30
+          Width = 649
+          Height = 49
           Align = alClient
           Caption = 
             'Tracking times can be specified as specific times, by specific p' +
             'eriod, or both. In this tab, tracking times are specified by per' +
             'iod. '
           WordWrap = True
+          ExplicitWidth = 625
+          ExplicitHeight = 30
         end
       end
       inline frameReleasePeriodData: TframeGrid

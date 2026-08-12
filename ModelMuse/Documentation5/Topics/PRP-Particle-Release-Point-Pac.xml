@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2026-04-30T13:44:36.049-04:00" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2026-08-12T15:47:56.422-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">PRP: Particle Release Point Package Pane(s)</title>
   <body>
     <header>
       <para styleclass="Heading1"><text styleclass="Heading1" translate="true">PRP: Particle Release Point Package Pane(s)</text></para>
     </header>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">The PRT: Particle Tracking Model Pane(s) are on the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="MODFLOW_Packages_Dialog_Box" styleclass="Normal" style="font-weight:bold;" translate="true">MODFLOW Packages and Programs</link><text styleclass="Normal" translate="true"> dialog box under </text><link displaytype="text" defaultstyle="true" type="topiclink" href="PRT-Particle-Tracking-Model" styleclass="Strong" translate="true">PRT: Particle Tracking Model</link><text styleclass="Normal" translate="true">. They are used to specify the properties of individual PRP packages in a PRT model. </text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The locations of the release points are specified on the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="PRP-Particle-Release-Point-PackagePane" styleclass="Strong" translate="true">PRP: Particle Release Point Package Pane</link><text styleclass="Normal" translate="true"> of the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Object_Properties_Dialog_Box" styleclass="Strong" translate="true">Object Properties Dialog Box</link><text styleclass="Strong" translate="true">.</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">The PRP Package offers multiple ways to specify particle release times. Particle release times may either be provided explicitly, relative to the simulation start time, or configured relative to the time discretization of stress periods via period block settings. When multiple ways of specifying release times are used together, the resulting set of release times is the union of the times specified by each method. </text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">Each PRP pane has three tabs.</text></para>
     <para styleclass="Strong"><text styleclass="Strong" translate="true">Options</text><text styleclass="Normal" translate="true">:</text></para>
@@ -26,7 +27,7 @@
     </list>
     <para styleclass="Strong"><text styleclass="Strong" translate="true">Release Times</text><text styleclass="Normal" translate="true">:</text></para>
     <list id="1" type="ul" listtype="bullet" formatstring="&#183;" format-charset="SYMBOL_CHARSET" levelreset="true" legalstyle="false" startfrom="1" styleclass="Strong" style="font-family:Symbol; font-size:12pt; color:#000000;">
-      <li styleclass="Strong"><text styleclass="Normal" translate="true">On the Release Times tab, the user can specify times at which particles are to be released.</text></li>
+      <li styleclass="Strong"><text styleclass="Normal" translate="true">On the Release Times tab, the user can specify times at which particles are to be released. ModelMuse automatically pecifies the beginning of the first stress period as a release time when a PRP packages is first created. If no release times and no release period data are specified, MODFLOW will release particles at the beginning of every stress period.</text></li>
     </list>
     <para styleclass="Strong"><text styleclass="Strong" translate="true">Release Period Data</text><text styleclass="Normal" translate="true">:</text></para>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">The user can specify a variety of ways to determine when the locations of particles are to be released in addition to times specified on the </text><text styleclass="Strong" translate="true">Release Times</text><text styleclass="Normal" translate="true"> tab. The times at which particles will be released will be determined by combining all the methods that are specified. If no PERIOD block is specified for any period, a single particle is released from each release point at the beginning of the simulation.</text></para>

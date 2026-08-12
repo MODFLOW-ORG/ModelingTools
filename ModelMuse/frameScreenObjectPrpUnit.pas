@@ -707,6 +707,8 @@ var
   SelectedNode: PVirtualNode;
   SelectedData: PPrpPackageRecord;
   AScreenObject: TScreenObject;
+  PrtModels: TPrtModels;
+  PrtModel: TPrtModel;
 begin
   SelectedNode := rstcPrpPackage.Tree.GetFirstSelected(True);
   if SelectedNode = nil then
@@ -714,6 +716,19 @@ begin
     Exit;
   end;
   SelectedData := rstcPrpPackage.Tree.GetNodeData(SelectedNode);
+  if (SelectedData.ModelName = KNone) then
+  begin
+    PrtModels := frmGoPhast.PhastModel.ModflowPackages.PrtModels;
+    if PrtModels.Count > 0 then
+    begin
+      PrtModel := PrtModels.Items[0].PrtModel;
+      if PrtModel.Count > 0 then
+      begin
+        SelectedData.ModelName := PrtModel.ModelName;
+        SelectedData.PackageName := PrtModel.Items[0].PrpPackage.PackageName;
+      end;
+    end;
+  end;
   if (SelectedData.ModelName = KNone) or ClearAll then
   begin
     for var Index := 0 to List.Count - 1 do

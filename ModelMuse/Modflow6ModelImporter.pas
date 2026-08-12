@@ -12942,7 +12942,11 @@ begin
               for ModelIndex := 0 to FSimulation.Models.Count - 1 do
               begin
                 AModel := FSimulation.Models[ModelIndex];
-                if (AModel.ModelType = 'GWT6') then
+                if AModel.ModelType = 'GWF6' then
+                begin
+                  // ignore
+                end
+                else if (AModel.ModelType = 'GWT6') then
                 begin
                   FmiPackage := (AModel.FName as TTransportNameFile).FmiPackage;
                   if FmiPackage <> nil then
@@ -12964,8 +12968,8 @@ begin
 
                     end;
                   end;
-                end;
-                if (AModel.ModelType = 'GWE6') then
+                end
+                else if (AModel.ModelType = 'GWE6') then
                 begin
                   FmiPackage := (AModel.FName as TEnergyTransportNameFile).FmiPackage;
                   if FmiPackage <> nil then
@@ -12988,6 +12992,10 @@ begin
                     end;
                   end;
                 end
+                else
+                begin
+                  ErrorMessages.Add(Format('ModelMuse can not import %s models', [AModel.ModelType]));
+                end;
               end;
             finally
               FSimulation := nil;

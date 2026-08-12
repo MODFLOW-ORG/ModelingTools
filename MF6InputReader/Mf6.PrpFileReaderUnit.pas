@@ -516,6 +516,7 @@ begin
   inherited;
   FOptions := TPrpOptions.Create(PackageType);
   FPrpDimensions := TPrpDimensions.Create(PackageType);
+  FPackageData := TPrpPackageData.Create(PackageType);
   FReleaseTimes := TPrpReleaseTimes.Create(PackageType);
   FPeriods := TPrpPeriodList.Create;
 
@@ -525,6 +526,7 @@ destructor TPrp.Destroy;
 begin
   FOptions.Free;
   FPrpDimensions.Free;
+  FPackageData.Free;
   FReleaseTimes.Free;
   FPeriods.Free;
   inherited;
@@ -638,8 +640,8 @@ end;
 
 constructor TPrpPackageData.Create(PackageType: string);
 begin
-  inherited;
   FItems := TPrpPackageItemList.Create;
+  inherited;
 end;
 
 destructor TPrpPackageData.Destroy;
@@ -762,8 +764,8 @@ end;
 
 constructor TPrpReleaseTimes.Create(PackageType: string);
 begin
-  inherited;
   FTimes := TRealList.Create;
+  inherited;
 end;
 
 destructor TPrpReleaseTimes.Destroy;

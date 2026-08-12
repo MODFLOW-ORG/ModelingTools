@@ -143,7 +143,7 @@
       <config-value name="deffont">font-family:'MS Sans Serif'; font-size:8pt; color:#000000;</config-value>
       <config-value name="contents"></config-value>
       <config-value name="topicprefix"></config-value>
-      <config-value name="autohelpstart">4541</config-value>
+      <config-value name="autohelpstart">4542</config-value>
       <config-value name="autohelpincrement">1</config-value>
       <config-value name="autohelpanchor">1</config-value>
       <config-value name="searchpath">.\;.\Used Images\;.\ScreenShots\;.\ModflowGuide\;.\Topics\Invisible\;.\ModflowGuide\Figures\;.\Topics\</config-value>
@@ -646,6 +646,11 @@ document.write('</frameset>');
         </config-group>
       </config-group>
       <config-group name="richard">
+        <config-group name="project">
+          <config-value name="lastexport">0</config-value>
+        </config-group>
+      </config-group>
+      <config-group name="rbwin">
         <config-group name="project">
           <config-value name="lastexport">0</config-value>
         </config-group>
@@ -1648,6 +1653,7 @@ document.write('</frameset>');
       <helpcontext-number href="Properties_TabHUF" value="3516"/>
       <helpcontext-number href="Properties_TabHUF#HGUVANI" value="4301"/>
       <helpcontext-number href="PRP-Particle-Release-Point-Pac" value="4541"/>
+      <helpcontext-number href="PRP-Particle-Release-Point-PackagePane" value="4542"/>
       <helpcontext-number href="PRT-Particle-Tracking-Model" value="4540"/>
       <helpcontext-number href="Pumping-Rate-Interpretation" value="4514"/>
       <helpcontext-number href="Quick_Start_Guide" value="3386"/>

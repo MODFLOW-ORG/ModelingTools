@@ -211,12 +211,12 @@ procedure TframePrtModels.framePrtModelsGridseNumberChange(Sender: TObject);
 var
   NewFrame: TframePrpMultiplePackages;
 begin
+  framePrtModelsGrid.seNumberChange(Sender);
   if (ControlState <> []) then
   begin
     Exit;
   end;
 
-  framePrtModelsGrid.seNumberChange(Sender);
   if not FGettingData then
   begin
     for var Index := 0 to framePrtModelsGrid.seNumber.AsInteger - 1 do

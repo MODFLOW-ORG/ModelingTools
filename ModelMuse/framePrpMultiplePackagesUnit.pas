@@ -253,12 +253,12 @@ procedure TframePrpMultiplePackages.framePrpPackagesseNumberChange(Sender:
 var
   NewFrame: TframePackagePrp;
 begin
+  framePrpPackages.seNumberChange(Sender);
   if FGettingData or (ControlState <> []) then
   begin
     Exit;
   end;
 
-  framePrpPackages.seNumberChange(Sender);
   for var Index := 0 to framePrpPackages.seNumber.AsInteger - 1 do
   begin
     if framePrpPackages.Grid.Objects[Ord(pcUsed), Index+1] = nil then

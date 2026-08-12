@@ -1235,6 +1235,9 @@
           <topicref type="topic" id="447815390025518" build="ALL" modified="2025-04-09T09:13:42.388Z" icon="0" href="SRC_GWT_Mass_Source_Loading_P2">
             <caption translate="true">SRC: GWT Mass Source Loading Package Pane</caption>
           </topicref>
+          <topicref type="topic" id="462468058502842" build="ALL" modified="2026-08-12T14:59:59.082Z" icon="0" href="PRP-Particle-Release-Point-PackagePane">
+            <caption translate="true">PRP: Particle Release Point Package Pane</caption>
+          </topicref>
           <topicref type="topic" id="417545903835045" build="ALL" modified="2014-04-25T10:36:20.280Z" icon="0" href="CFP_Conduit_Flow_Process_Pane">
             <caption translate="true">CFP: Conduit Flow Process Pane</caption>
           </topicref>
