@@ -491,8 +491,8 @@ begin
           end;
         end
         else if not AnsiSameText(Setting.FSettingType, 'All')
-          or not AnsiSameText(Setting.FSettingType, 'FIRST')
-          or not AnsiSameText(Setting.FSettingType, 'LAST') then
+          and not AnsiSameText(Setting.FSettingType, 'FIRST')
+          and not AnsiSameText(Setting.FSettingType, 'LAST') then
         begin
           Unhandled.WriteLine(Format(StrUnrecognizedSPERI, [FPackageType]));
           Unhandled.WriteLine(ErrorLine);

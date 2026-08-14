@@ -789,7 +789,7 @@ begin
       AModel.NameFile := FSplitter[1];
       AModel.ModelName := FSplitter[2];
       if (AModel.ModelType <> 'GWF6') and (AModel.ModelType <> 'GWT6')
-         and (AModel.ModelType <> 'GWE6') then
+         and (AModel.ModelType <> 'GWE6') and (AModel.ModelType <> 'PRT6') then
       begin
         Unhandled.WriteLine('Error reading the model type in the following line.');
         Unhandled.WriteLine(ErrorLine);
@@ -1057,7 +1057,8 @@ begin
         begin
           ASolution.FSolutionModelNames.Add(FSplitter[ModelIndex]);
         end;
-        if ASolution.SolutionType <> 'IMS6' then
+        if (ASolution.SolutionType <> 'IMS6')
+          and (ASolution.SolutionType <> 'EMS6') then
         begin
           Unhandled.WriteLine(Format('Unrecognized solution type option "%s" in the following line',
             [ASolution.SolutionType]));

@@ -559,7 +559,8 @@ begin
         end
         else if AnsiSameText(AModel.ModelType, 'PRT6') then
         begin
-          FErrorMessages.Add('ModelMuse can not import PRT models.');
+          result := nil;
+          Exit;
         end
         else
         begin
@@ -8197,7 +8198,10 @@ begin
             ModelIms := GetIms(ASolution.FSolutionModelNames[ModelIndex]);
             if ModelIms = nil then
             begin
-              FErrorMessages.Add(Format('Model "%s" not found.', [ASolution.FSolutionModelNames[ModelIndex]]));
+              if not AnsiSameText(ASolution.SolutionType, 'EMS6') then
+              begin
+                FErrorMessages.Add(Format('Model "%s" not found.', [ASolution.FSolutionModelNames[ModelIndex]]));
+              end;
             end
             else
             begin
@@ -12677,6 +12681,7 @@ var
   GwfFound: Boolean;
   GweFound: Boolean;
   GwtFound: Boolean;
+  PrtFound: Boolean;
   ALine: string;
   TestName: string;
 begin
@@ -12702,6 +12707,10 @@ begin
     PhastModel.ModelSelection := msModflow2015;
     PhastModel.ModflowPackages.GwtProcess.SeparateGwt := False;
     PhastModel.ModflowPackages.GweProcess.SeparateGwt := False;
+
+
+
+
     if NameFiles.Count > 1 then
     begin
       NameFile := TStringList.Create;
@@ -12715,6 +12724,7 @@ begin
           GwfFound := False;
           GweFound := False;
           GwTFound := False;
+          PrtFound := False;
           for var LineIndex := 0 to NameFile.Count - 1 do
           begin
             ALine := UpperCase(Trim(NameFile[LineIndex]));
@@ -12741,6 +12751,10 @@ begin
               if Splitter[0] = 'GWE6' then
               begin
                 GweFound := True;
+              end;
+              if Splitter[0] = 'PRT6' then
+              begin
+                PrtFound := True;
               end;
               if Pos('END MODELS', ALine) > 0 then
               begin

@@ -978,7 +978,7 @@ begin
           mtype := UpperCase(LineSplitter[0]);
           mfname := LineSplitter[1];
           mname := LineSplitter[2];
-          if (mtype = 'GWF6') or (mtype = 'GWT6') or (mtype = 'GWE6') then
+          if (mtype = 'GWF6') or (mtype = 'GWT6') or (mtype = 'GWE6') or (mtype = 'PRT6') then
           begin
             GetAMf6ListFileName(mfname, ListFiles);
           end;

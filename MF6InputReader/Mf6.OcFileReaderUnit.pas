@@ -222,98 +222,9 @@ begin
     begin
       // do nothing
     end
-    else if FSplitter.Count >= 3 then
+else if FSplitter.Count >= 1 then
     begin
-      if FSplitter[0] = 'BUDGET' then
-      begin
-        if FSplitter[1] = 'FILEOUT' then
-        begin
-          FSplitter.DelimitedText := CaseSensitiveLine;
-          FBudgetFile := FSplitter[2];
-          FFullBudgetFileName := ExpandFileName(FBudgetFile);
-        end
-        else
-        begin
-          Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
-          Unhandled.WriteLine(ErrorLine);
-        end;
-      end
-      else if FSplitter[0] = 'BUDGETCSV' then
-      begin
-        if FSplitter[1] = 'FILEOUT' then
-        begin
-          FSplitter.DelimitedText := CaseSensitiveLine;
-          FBudgetCsvFile := FSplitter[2];
-        end
-        else
-        begin
-          Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
-          Unhandled.WriteLine(ErrorLine);
-        end;
-      end
-      else if FSplitter[0] = 'TRACK' then
-      begin
-        if FSplitter[1] = 'FILEOUT' then
-        begin
-          FSplitter.DelimitedText := CaseSensitiveLine;
-          FTrackFile := FSplitter[2];
-//          FFullBudgetFileName := ExpandFileName(FBudgetFile);
-        end
-        else
-        begin
-          Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
-          Unhandled.WriteLine(ErrorLine);
-        end;
-      end
-      else if FSplitter[0] = 'TRACKCSV' then
-      begin
-        if FSplitter[1] = 'FILEOUT' then
-        begin
-          FSplitter.DelimitedText := CaseSensitiveLine;
-          FTrackCsvFile := FSplitter[2];
-        end
-        else
-        begin
-          Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
-          Unhandled.WriteLine(ErrorLine);
-        end;
-      end
-      else if FSplitter[0] = 'HEAD' then
-      begin
-        if FSplitter[1] = 'FILEOUT' then
-        begin
-          FSplitter.DelimitedText := CaseSensitiveLine;
-          FHeadFile := FSplitter[2];
-          FFullHeadFileName := ExpandFileName(FHeadFile);
-        end
-        else if FSplitter[1] = 'PRINT_FORMAT' then
-        begin
-          ReadPrintFormat(ErrorLine, Unhandled, PackageName, FHeadPrintFormat);
-        end
-        else
-        begin
-          Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
-          Unhandled.WriteLine(ErrorLine);
-        end;
-      end
-      else if (FSplitter[0] = 'CONCENTRATION') or (FSplitter[0] = 'TEMPERATURE') then
-      begin
-        if FSplitter[1] = 'FILEOUT' then
-        begin
-          FSplitter.DelimitedText := CaseSensitiveLine;
-          FConcentrationFile := FSplitter[2];
-        end
-        else if FSplitter[1] = 'PRINT_FORMAT' then
-        begin
-          ReadPrintFormat(ErrorLine, Unhandled, PackageName, FConcentrationPrintFormat);
-        end
-        else
-        begin
-          Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
-          Unhandled.WriteLine(ErrorLine);
-        end;
-      end
-      else if FSplitter[0] = 'TRACK_RELEASE' then
+      if FSplitter[0] = 'TRACK_RELEASE' then
       begin
         FTRACK_RELEASE := True;
       end
@@ -344,6 +255,98 @@ begin
       else if FSplitter[0] = 'TRACK_DROPPED' then
       begin
         FTRACK_DROPPED := True;
+      end
+      else if FSplitter.Count >= 3 then
+      begin
+        if FSplitter[0] = 'BUDGET' then
+        begin
+          if FSplitter[1] = 'FILEOUT' then
+          begin
+            FSplitter.DelimitedText := CaseSensitiveLine;
+            FBudgetFile := FSplitter[2];
+            FFullBudgetFileName := ExpandFileName(FBudgetFile);
+          end
+          else
+          begin
+            Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
+            Unhandled.WriteLine(ErrorLine);
+          end;
+        end
+        else if FSplitter[0] = 'BUDGETCSV' then
+        begin
+          if FSplitter[1] = 'FILEOUT' then
+          begin
+            FSplitter.DelimitedText := CaseSensitiveLine;
+            FBudgetCsvFile := FSplitter[2];
+          end
+          else
+          begin
+            Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
+            Unhandled.WriteLine(ErrorLine);
+          end;
+        end
+        else if FSplitter[0] = 'TRACK' then
+        begin
+          if FSplitter[1] = 'FILEOUT' then
+          begin
+            FSplitter.DelimitedText := CaseSensitiveLine;
+            FTrackFile := FSplitter[2];
+  //          FFullBudgetFileName := ExpandFileName(FBudgetFile);
+          end
+          else
+          begin
+            Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
+            Unhandled.WriteLine(ErrorLine);
+          end;
+        end
+        else if FSplitter[0] = 'TRACKCSV' then
+        begin
+          if FSplitter[1] = 'FILEOUT' then
+          begin
+            FSplitter.DelimitedText := CaseSensitiveLine;
+            FTrackCsvFile := FSplitter[2];
+          end
+          else
+          begin
+            Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
+            Unhandled.WriteLine(ErrorLine);
+          end;
+        end
+        else if FSplitter[0] = 'HEAD' then
+        begin
+          if FSplitter[1] = 'FILEOUT' then
+          begin
+            FSplitter.DelimitedText := CaseSensitiveLine;
+            FHeadFile := FSplitter[2];
+            FFullHeadFileName := ExpandFileName(FHeadFile);
+          end
+          else if FSplitter[1] = 'PRINT_FORMAT' then
+          begin
+            ReadPrintFormat(ErrorLine, Unhandled, PackageName, FHeadPrintFormat);
+          end
+          else
+          begin
+            Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
+            Unhandled.WriteLine(ErrorLine);
+          end;
+        end
+        else if (FSplitter[0] = 'CONCENTRATION') or (FSplitter[0] = 'TEMPERATURE') then
+        begin
+          if FSplitter[1] = 'FILEOUT' then
+          begin
+            FSplitter.DelimitedText := CaseSensitiveLine;
+            FConcentrationFile := FSplitter[2];
+          end
+          else if FSplitter[1] = 'PRINT_FORMAT' then
+          begin
+            ReadPrintFormat(ErrorLine, Unhandled, PackageName, FConcentrationPrintFormat);
+          end
+          else
+          begin
+            Unhandled.WriteLine(Format(StrUnrecognizedOpti, [PackageName]));
+            Unhandled.WriteLine(ErrorLine);
+          end;
+        end
       end
       else
       begin
@@ -755,7 +758,7 @@ begin
       Continue;
     end;
 
-    if ReadEndOfSection(ALine, ErrorLine, 'RELEASETIMES', Unhandled) then
+    if ReadEndOfSection(ALine, ErrorLine, 'TRACKTIMES', Unhandled) then
     begin
       Exit;
     end;
@@ -767,7 +770,7 @@ begin
     end
     else
     begin
-      Unhandled.WriteLine(Format('Unrecognize release time in the %s package', [FPackageType]));
+      Unhandled.WriteLine(Format('Unrecognize track time in the %s package', [FPackageType]));
       Unhandled.WriteLine(ErrorLine);
     end;
   end;
