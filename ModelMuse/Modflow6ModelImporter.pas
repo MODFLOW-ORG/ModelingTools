@@ -12681,7 +12681,7 @@ var
   GwfFound: Boolean;
   GweFound: Boolean;
   GwtFound: Boolean;
-  PrtFound: Boolean;
+//  PrtFound: Boolean;
   ALine: string;
   TestName: string;
 begin
@@ -12708,9 +12708,6 @@ begin
     PhastModel.ModflowPackages.GwtProcess.SeparateGwt := False;
     PhastModel.ModflowPackages.GweProcess.SeparateGwt := False;
 
-
-
-
     if NameFiles.Count > 1 then
     begin
       NameFile := TStringList.Create;
@@ -12724,7 +12721,7 @@ begin
           GwfFound := False;
           GweFound := False;
           GwTFound := False;
-          PrtFound := False;
+//          PrtFound := False;
           for var LineIndex := 0 to NameFile.Count - 1 do
           begin
             ALine := UpperCase(Trim(NameFile[LineIndex]));
@@ -12754,8 +12751,8 @@ begin
               end;
               if Splitter[0] = 'PRT6' then
               begin
-                PrtFound := True;
-              end;
+                PhastModel.ModflowPackages.PrtModels.Add;
+               end;
               if Pos('END MODELS', ALine) > 0 then
               begin
                 if not GwfFound then

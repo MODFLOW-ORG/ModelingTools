@@ -257,6 +257,7 @@ begin
   frmGoPhast.PhastModel.PathLines.Draw3D;
   frmGoPhast.PhastModel.TimeSeries.Draw3D;
   frmGoPhast.PhastModel.EndPoints.Draw3D;
+  frmGoPhast.PhastModel.PrtTracks.Draw3D;
   if frmGoPhast.PhastModel.LgrUsed then
   begin
     for ChildIndex := 0 to frmGoPhast.PhastModel.ChildModels.Count - 1 do
@@ -514,6 +515,7 @@ begin
         frmGoPhast.PhastModel.PathLines.Draw3D;
         frmGoPhast.PhastModel.TimeSeries.Draw3D;
         frmGoPhast.PhastModel.EndPoints.Draw3D;
+        frmGoPhast.PhastModel.PrtTracks.Draw3D;
       end;
 
       DrawVectors(FZScale * FZoomFactor);

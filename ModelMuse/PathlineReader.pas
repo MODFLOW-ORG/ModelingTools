@@ -1390,6 +1390,10 @@ The IREASON field indicates the reason the particle track record was saved:
 
   TPrtTrackDisplayer = class(TPersistent)
   private
+    class var
+      FListInitialized: Boolean;
+      FTrackGLIndex: Cardinal;
+    private
     FPrtTrackDisplayLimits: TPrtTrackDisplayLimits;
     FTracks: TPrtTracks;
     FFrontQuadTree: TRbwQuadTree;
@@ -1400,6 +1404,8 @@ The IREASON field indicates the reason the particle track record was saved:
     FSelectedRow: Integer;
     FSelectedColumn: Integer;
     FFileDate: TDateTime;
+    FDrawingTracks: Boolean;
+    FRecordedTracks: Boolean;
     procedure SetPrtTrackDisplayLimits(const Value: TPrtTrackDisplayLimits);
     procedure SetTracks(const Value: TPrtTracks);
     function GetHasData: Boolean;
@@ -1409,6 +1415,12 @@ The IREASON field indicates the reason the particle track record was saved:
     function GetPointColor(MaxValue, MinValue: double;
       Point: TPrtTrackPoint): TColor;
     function GetFileName: string;
+    procedure RecordTracks;
+    class function GetTrackGLIndex: GLuint; static;
+    function CanDisplayTrack(ATrack: TPrtTrack): Boolean;
+    function ShowPrtPoint(APoint: TPrtTrackPoint): Boolean;
+  protected
+    class property TrackGLIndex: GLuint read GetTrackGLIndex;
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create(Model: TBaseModel);
@@ -1422,6 +1434,7 @@ The IREASON field indicates the reason the particle track record was saved:
     property FrontQuadTree: TRbwQuadTree read FFrontQuadTree;
     property SideQuadTree: TRbwQuadTree read FSideQuadTree;
     procedure Loaded;
+    procedure Invalidate;
   published
     property FileName: string read GetFileName write SetFileName;
     property FileDate: TDateTime read FFileDate write SetFileDate;
@@ -7945,8 +7958,6 @@ end;
 procedure TPathLineReader.DrawLines3D(LocalLines: TCustomPathLines);
 var
   LocalModel: TCustomModel;
-//var
-//  Grid: TModflowGrid;
 begin
   if FDrawingPathLines then
   begin
@@ -9696,6 +9707,28 @@ begin
   inherited;
 end;
 
+function TPrtTrackDisplayer.CanDisplayTrack(ATrack: TPrtTrack): Boolean;
+var
+  UsedZone: Integer;
+begin
+  result := True;
+  if PrtTrackDisplayLimits.ThroughZoneLimits.UseLimit
+    and (PrtTrackDisplayLimits.ShowChoice <> scAll) then
+  begin
+    result := False;
+    for var LimitIndex := 0 to PrtTrackDisplayLimits.ThroughZoneLimits.Limits.Count - 1 do
+    begin
+      UsedZone := PrtTrackDisplayLimits.ThroughZoneLimits.Limits[LimitIndex].Value;
+      result := ATrack.HasZone(UsedZone);
+      if result then
+      begin
+        break;
+      end;
+    end;
+  end;
+end;
+
+
 procedure TPrtTrackDisplayer.Draw(Orientation: TDataSetOrientation;
   const BitMap: TPersistent);
 const
@@ -9728,12 +9761,7 @@ var
   PriorPoint: TPrtTrackPoint;
   Points: array [0..1] of TPoint;
   ShowPriorPoint: Boolean;
-  UsedZone: Integer;
-  function ShowPrtPoint(APoint: TPrtTrackPoint): Boolean;
-  var
-    Model: TCustomModel;
-    Row: integer;
-    Column: integer;
+  function Show2DPrtPoint(APoint: TPrtTrackPoint): Boolean;
   begin
     result := True;
 
@@ -9766,120 +9794,7 @@ var
       Exit;
     end;
 
-    Model := FModel as TCustomModel;
-    if PrtTrackDisplayLimits.ColumnLimits.UseLimit or PrtTrackDisplayLimits.RowLimits.UseLimit then
-    begin
-      if Model.DisvUsed then
-      begin
-        result := (APoint.ICELL >= PrtTrackDisplayLimits.ColumnLimits.StartLimit)
-          and (APoint.ICELL <= PrtTrackDisplayLimits.ColumnLimits.EndLimit);
-        if not result then
-        begin
-          Exit;
-        end;
-      end
-      else
-      begin
-        if PrtTrackDisplayLimits.ColumnLimits.UseLimit then
-        begin
-          Column := (APoint.ICELL-1) mod Model.RowCount + 1;
-          result := (Column >= PrtTrackDisplayLimits.ColumnLimits.StartLimit)
-            and (Column <= PrtTrackDisplayLimits.ColumnLimits.EndLimit);
-          if not result then
-          begin
-            Exit;
-          end;
-        end;
-        if PrtTrackDisplayLimits.RowLimits.UseLimit then
-        begin
-          Row := (APoint.ICELL-1) div Model.RowCount + 1;
-          result := (Row >= PrtTrackDisplayLimits.RowLimits.StartLimit)
-            and (Row <= PrtTrackDisplayLimits.RowLimits.EndLimit);
-          if not result then
-          begin
-            Exit;
-          end;
-        end;
-      end;
-    end;
-    if PrtTrackDisplayLimits.LayerLimits.UseLimit then
-    begin
-      result := (APoint.ILAY >= PrtTrackDisplayLimits.LayerLimits.StartLimit)
-        and (APoint.ILAY <= PrtTrackDisplayLimits.LayerLimits.EndLimit);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
-    if PrtTrackDisplayLimits.LineNumberLimits.UseLimit then
-    begin
-      result := (APoint.IRPT >= PrtTrackDisplayLimits.LineNumberLimits.StartLimit)
-        and (APoint.IRPT <= PrtTrackDisplayLimits.LineNumberLimits.EndLimit);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
-    if PrtTrackDisplayLimits.TimeLimits.UseLimit then
-    begin
-      result := (APoint.T >= PrtTrackDisplayLimits.TimeLimits.StartLimit)
-        and (APoint.T <= PrtTrackDisplayLimits.TimeLimits.EndLimit);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
-    if PrtTrackDisplayLimits.ReleaseTimeLimits.UseLimit then
-    begin
-      result := (APoint.TRELEASE >= PrtTrackDisplayLimits.ReleaseTimeLimits.StartLimit)
-        and (APoint.TRELEASE <= PrtTrackDisplayLimits.ReleaseTimeLimits.EndLimit);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
-    if PrtTrackDisplayLimits.PrpLimits.UseLimit then
-    begin
-      result := (PrtTrackDisplayLimits.PrpLimits.Limits.IndexOf(APoint.IPRP) >= 0);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
-    if PrtTrackDisplayLimits.ZoneLimits.UseLimit then
-    begin
-      result := (PrtTrackDisplayLimits.ZoneLimits.Limits.IndexOf(APoint.IZONE) >= 0);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
-    if PrtTrackDisplayLimits.StatusLimit.UseLimit then
-    begin
-      result := TStatus(APoint.ISTATUS) in (PrtTrackDisplayLimits.StatusLimit.UsedStatus);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
-    if PrtTrackDisplayLimits.ReasonLimits.UseLimit then
-    begin
-      result := TReason(APoint.IREASON) in (PrtTrackDisplayLimits.ReasonLimits.UsedReasons);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
-    // APoint.IREASON = 5 means user specified tracking time
-    if PrtTrackDisplayLimits.SelectedTimeLimits.UseLimit
-      and (APoint.IREASON = 5) then
-    begin
-      result := (PrtTrackDisplayLimits.SelectedTimeLimits.UsedTimes.IndexOf(APoint.T) >= 0);
-      if not result then
-      begin
-        Exit;
-      end;
-    end;
+    result := ShowPrtPoint(APoint);
   end;
   procedure DrawPoint(ADisplayPoint: TPoint);
   begin
@@ -9965,24 +9880,6 @@ var
         end;
         Points[0] := ADisplayPoint;
         ShowPriorPoint := True;
-      end;
-    end;
-  end;
-  function CanDisplayTrack(ATrack: TPrtTrack): Boolean;
-  begin
-    result := True;
-    if PrtTrackDisplayLimits.ThroughZoneLimits.UseLimit
-      and (PrtTrackDisplayLimits.ShowChoice <> scAll) then
-    begin
-      result := False;
-      for var LimitIndex := 0 to PrtTrackDisplayLimits.ThroughZoneLimits.Limits.Count - 1 do
-      begin
-        UsedZone := PrtTrackDisplayLimits.ThroughZoneLimits.Limits[LimitIndex].Value;
-        result := ATrack.HasZone(UsedZone);
-        if result then
-        begin
-          break;
-        end;
       end;
     end;
   end;
@@ -10122,7 +10019,7 @@ begin
           for var PointIndex := 0 to ATrack.Count - 1 do
           begin
             APoint := ATrack[PointIndex];
-            if ShowPrtPoint(APoint) then
+            if Show2DPrtPoint(APoint) then
             begin
               DrawLine(APoint);
               PriorPoint := APoint;
@@ -10158,7 +10055,7 @@ begin
           if ATrack.Count > 0 then
           begin
             APoint := ATrack.First;
-            if ShowPrtPoint(APoint) then
+            if Show2DPrtPoint(APoint) then
             begin
               ADisplayPoint := GetDisplayPoint(APoint);
               DrawPoint(ADisplayPoint);
@@ -10182,7 +10079,7 @@ begin
           if ATrack.Count > 0 then
           begin
             APoint := ATrack.Last;
-            if ShowPrtPoint(APoint) then
+            if Show2DPrtPoint(APoint) then
             begin
               ADisplayPoint := GetDisplayPoint(APoint);
               DrawPoint(ADisplayPoint);
@@ -10206,7 +10103,7 @@ begin
           for var PointIndex := 0 to ATrack.Count - 1 do
           begin
             APoint := ATrack[PointIndex];
-            if (APoint.IReason = 5) and ShowPrtPoint(APoint) then
+            if (APoint.IReason = 5) and Show2DPrtPoint(APoint) then
             begin
                ADisplayPoint := GetDisplayPoint(APoint);
                DrawPoint(ADisplayPoint);
@@ -10225,8 +10122,47 @@ begin
 end;
 
 procedure TPrtTrackDisplayer.Draw3D;
+var
+  LocalModel: TCustomModel;
 begin
+  if FDrawingTracks then
+  begin
+    Exit;
+  end;
+  if Tracks.Count = 0 then
+  begin
+    Exit;
+  end;
+  try
+    FDrawingTracks := True;
 
+
+    if (not FRecordedTracks) then
+    begin
+      RecordTracks;
+      FRecordedTracks := True;
+    end;
+
+    if PrtTrackDisplayLimits.PlotTypes = [] then
+    begin
+      Exit;
+    end;
+    LocalModel := FModel as TCustomModel;
+//    Grid := (FModel as TCustomModel).ModflowGrid;
+//    if Grid = nil then
+//    begin
+//      Exit;
+//    end;
+    if (LocalModel.LayerCount <= 0) or (LocalModel.RowCount <= 0)
+      or (LocalModel.ColumnCount <= 0) then
+    begin
+      Exit;
+    end;
+//    EnableLighting;
+    glCallList(TrackGLIndex);
+  finally
+    FDrawingTracks := False;
+  end;
 end;
 
 function TPrtTrackDisplayer.GetFileName: string;
@@ -10652,6 +10588,21 @@ begin
   end;
 end;
 
+class function TPrtTrackDisplayer.GetTrackGLIndex: GLuint;
+begin
+  if not FListInitialized and frmGoPhast.frame3DView.glWidModelView.Started then
+  begin
+    FListInitialized := True;
+    FTrackGLIndex := glGenLists(1);
+  end;
+  result := FTrackGLIndex;
+end;
+
+procedure TPrtTrackDisplayer.Invalidate;
+begin
+  FRecordedTracks := False;
+end;
+
 procedure TPrtTrackDisplayer.Loaded;
 begin
   Tracks.Loaded;
@@ -10677,6 +10628,316 @@ begin
   end;
   Assert(FileAge(FileName, ADate));
   FileDate := ADate;
+end;
+
+function TPrtTrackDisplayer.ShowPrtPoint(APoint: TPrtTrackPoint): Boolean;
+var
+  Model: TCustomModel;
+  Row: integer;
+  Column: integer;
+begin
+  result := True;
+
+  Model := FModel as TCustomModel;
+  if PrtTrackDisplayLimits.ColumnLimits.UseLimit or PrtTrackDisplayLimits.RowLimits.UseLimit then
+  begin
+    if Model.DisvUsed then
+    begin
+      result := (APoint.ICELL >= PrtTrackDisplayLimits.ColumnLimits.StartLimit)
+        and (APoint.ICELL <= PrtTrackDisplayLimits.ColumnLimits.EndLimit);
+      if not result then
+      begin
+        Exit;
+      end;
+    end
+    else
+    begin
+      if PrtTrackDisplayLimits.ColumnLimits.UseLimit then
+      begin
+        Column := (APoint.ICELL-1) mod Model.RowCount + 1;
+        result := (Column >= PrtTrackDisplayLimits.ColumnLimits.StartLimit)
+          and (Column <= PrtTrackDisplayLimits.ColumnLimits.EndLimit);
+        if not result then
+        begin
+          Exit;
+        end;
+      end;
+      if PrtTrackDisplayLimits.RowLimits.UseLimit then
+      begin
+        Row := (APoint.ICELL-1) div Model.RowCount + 1;
+        result := (Row >= PrtTrackDisplayLimits.RowLimits.StartLimit)
+          and (Row <= PrtTrackDisplayLimits.RowLimits.EndLimit);
+        if not result then
+        begin
+          Exit;
+        end;
+      end;
+    end;
+  end;
+  if PrtTrackDisplayLimits.LayerLimits.UseLimit then
+  begin
+    result := (APoint.ILAY >= PrtTrackDisplayLimits.LayerLimits.StartLimit)
+      and (APoint.ILAY <= PrtTrackDisplayLimits.LayerLimits.EndLimit);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+  if PrtTrackDisplayLimits.LineNumberLimits.UseLimit then
+  begin
+    result := (APoint.IRPT >= PrtTrackDisplayLimits.LineNumberLimits.StartLimit)
+      and (APoint.IRPT <= PrtTrackDisplayLimits.LineNumberLimits.EndLimit);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+  if PrtTrackDisplayLimits.TimeLimits.UseLimit then
+  begin
+    result := (APoint.T >= PrtTrackDisplayLimits.TimeLimits.StartLimit)
+      and (APoint.T <= PrtTrackDisplayLimits.TimeLimits.EndLimit);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+  if PrtTrackDisplayLimits.ReleaseTimeLimits.UseLimit then
+  begin
+    result := (APoint.TRELEASE >= PrtTrackDisplayLimits.ReleaseTimeLimits.StartLimit)
+      and (APoint.TRELEASE <= PrtTrackDisplayLimits.ReleaseTimeLimits.EndLimit);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+  if PrtTrackDisplayLimits.PrpLimits.UseLimit then
+  begin
+    result := (PrtTrackDisplayLimits.PrpLimits.Limits.IndexOf(APoint.IPRP) >= 0);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+  if PrtTrackDisplayLimits.ZoneLimits.UseLimit then
+  begin
+    result := (PrtTrackDisplayLimits.ZoneLimits.Limits.IndexOf(APoint.IZONE) >= 0);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+  if PrtTrackDisplayLimits.StatusLimit.UseLimit then
+  begin
+    result := TStatus(APoint.ISTATUS) in (PrtTrackDisplayLimits.StatusLimit.UsedStatus);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+  if PrtTrackDisplayLimits.ReasonLimits.UseLimit then
+  begin
+    result := TReason(APoint.IREASON) in (PrtTrackDisplayLimits.ReasonLimits.UsedReasons);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+  // APoint.IREASON = 5 means user specified tracking time
+  if PrtTrackDisplayLimits.SelectedTimeLimits.UseLimit
+    and (APoint.IREASON = 5) then
+  begin
+    result := (PrtTrackDisplayLimits.SelectedTimeLimits.UsedTimes.IndexOf(APoint.T) >= 0);
+    if not result then
+    begin
+      Exit;
+    end;
+  end;
+end;
+
+procedure TPrtTrackDisplayer.RecordTracks;
+var
+  ATrack: TPrtTrack;
+  APoint: TPrtTrackPoint;
+  ShowPriorPoint: Boolean;
+  MaxValue, MinValue: double;
+  AColor: TColor;
+  LineVisible: boolean;
+  PriorPoint: TPrtTrackPoint;
+  LocalModel: TCustomModel;
+
+  procedure StartLine;
+  begin
+    if not LineVisible then
+    begin
+      glBegin(GL_LINE_STRIP);
+      LineVisible := True;
+      AColor := GetPointColor(MaxValue, MinValue, PriorPoint);
+      AssignColor(AColor);
+
+      glVertex3f(PriorPoint.XPrime, PriorPoint.YPrime, PriorPoint.Z);
+    end;
+  end;
+  procedure EndLine;
+  begin
+    if LineVisible then
+    begin
+      glEnd;
+      LineVisible := False;
+    end;
+  end;
+begin
+//  Exit;
+  if PrtTrackDisplayLimits.PlotTypes = [] then
+  begin
+    Exit;
+  end;
+  LocalModel := FModel as TCustomModel;
+
+  if (LocalModel.LayerCount <= 0) or (LocalModel.RowCount <= 0)
+    or (LocalModel.ColumnCount <= 0) then
+  begin
+    Exit;
+  end;
+
+//    EnableLighting;
+  glMatrixMode(GL_MODELVIEW);
+
+  glNewList(TrackGLIndex, GL_COMPILE);
+  try
+    glPushMatrix;
+    try
+      glEnable(GL_LINE_SMOOTH);
+      glShadeModel(GL_SMOOTH);
+
+      GetMinMaxValues(MaxValue, MinValue);
+      glLineWidth(1);
+
+      LineVisible := False;
+      if pptLine in PrtTrackDisplayLimits.PlotTypes then
+      begin
+        for var PrtIndex := 0 to Tracks.IprpCount - 1 do
+        begin
+          for var TrackIndex := 0 to Tracks.IrptCount[PrtIndex] - 1 do
+          begin
+            ATrack := Tracks[PrtIndex, TrackIndex];
+            if ATrack.Count > 0 then
+            begin
+              if CanDisplayTrack(ATrack) then
+              begin
+                PriorPoint := nil;
+                ShowPriorPoint := False;
+                for var PrtPointIndex := 0 to ATrack.Count - 1 do
+                begin
+                  APoint := ATrack.Items[PrtPointIndex];
+                  if ShowPrtPoint(APoint) then
+                  begin
+                    if ShowPriorPoint then
+                    begin
+                      StartLine;
+
+                      AColor := GetPointColor(MaxValue, MinValue, APoint);
+                      AssignColor(AColor);
+                      glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                    end;
+                    ShowPriorPoint := True;
+                    PriorPoint := APoint;
+                  end
+                  else
+                  begin
+                    ShowPriorPoint := False;
+                    EndLine;
+                  end;
+                end;
+                EndLine;
+              end;
+            end;
+          end;
+        end;
+      end;
+      if pptStart in PrtTrackDisplayLimits.PlotTypes then
+      begin
+        glBegin(GL_POINTS);
+        for var PrtIndex := 0 to Tracks.IprpCount - 1 do
+        begin
+          for var TrackIndex := 0 to Tracks.IrptCount[PrtIndex] - 1 do
+          begin
+            ATrack := Tracks[PrtIndex, TrackIndex];
+            if ATrack.Count > 0 then
+            begin
+              if CanDisplayTrack(ATrack) then
+              begin
+                APoint := ATrack.First;
+                if ShowPrtPoint(APoint) then
+                begin
+                  AColor := GetPointColor(MaxValue, MinValue, APoint);
+                  AssignColor(AColor);
+                  glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                end;
+              end;
+            end;
+          end;
+        end;
+        glEnd;
+      end;
+      if pptEnd in PrtTrackDisplayLimits.PlotTypes then
+      begin
+        glBegin(GL_POINTS);
+        for var PrtIndex := 0 to Tracks.IprpCount - 1 do
+        begin
+          for var TrackIndex := 0 to Tracks.IrptCount[PrtIndex] - 1 do
+          begin
+            ATrack := Tracks[PrtIndex, TrackIndex];
+            if ATrack.Count > 0 then
+            begin
+              if CanDisplayTrack(ATrack) then
+              begin
+                APoint := ATrack.Last;
+                if ShowPrtPoint(APoint) then
+                begin
+                  AColor := GetPointColor(MaxValue, MinValue, APoint);
+                  AssignColor(AColor);
+                  glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                end;
+              end;
+            end;
+          end;
+        end;
+        glEnd;
+      end;
+      if pptPoints in PrtTrackDisplayLimits.PlotTypes then
+      begin
+        glBegin(GL_POINTS);
+        for var PrtIndex := 0 to Tracks.IprpCount - 1 do
+        begin
+          for var TrackIndex := 0 to Tracks.IrptCount[PrtIndex] - 1 do
+          begin
+            ATrack := Tracks[PrtIndex, TrackIndex];
+            if ATrack.Count > 0 then
+            begin
+              if CanDisplayTrack(ATrack) then
+              begin
+                for var PrtPointIndex := 0 to ATrack.Count - 1 do
+                begin
+                  APoint := ATrack.Items[PrtPointIndex];
+                  if (APoint.IReason = 5) and ShowPrtPoint(APoint) then
+                  begin
+                    AColor := GetPointColor(MaxValue, MinValue, APoint);
+                    AssignColor(AColor);
+                    glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                  end;
+                end;
+              end;
+            end;
+          end;
+        end;
+        glEnd;
+      end;
+    finally
+      glPopMatrix;
+    end;
+  finally
+    glEndList;
+  end;
 end;
 
 procedure TPrtTrackDisplayer.SetFileDate(const Value: TDateTime);

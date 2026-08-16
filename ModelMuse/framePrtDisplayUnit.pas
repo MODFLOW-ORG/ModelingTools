@@ -215,7 +215,7 @@ end;
 
 procedure TUndoImportPrtTrack.ForceRedraw;
 begin
-//  FModel.PrtTracks.Invalidate;
+  FModel.PrtTracks.Invalidate;
   frmGoPhast.frame3DView.glWidModelView.Invalidate;
 
   frmGoPhast.frameTopView.ModelChanged := True;
