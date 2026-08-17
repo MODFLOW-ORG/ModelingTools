@@ -9,7 +9,7 @@ uses
   System.Generics.Defaults, Mf6.ObsFileReaderUnit, ModflowLakMf6Unit,
   Mf6.MvrFileReaderUnit, GoPhastTypes, ModflowPackageSelectionUnit, FastGEO,
   Vcl.Forms, Mf6.NameFileReaderUnit, Mf6.SpcFileReaderUnit,
-  Mf6.TDisFileReaderUnit, System.StrUtils;
+  Mf6.TDisFileReaderUnit, System.StrUtils, SparseDataSets;
 
 resourcestring
   SWarningTheStartDateOfTheModelHas = 'Warning: The start date of the model has been added as a comment to the model description';
@@ -210,6 +210,7 @@ type
     procedure ImportMIP(NameFile: TPrtNameFile; Package: TPackage);
     procedure ImportPRP(NameFile: TPrtNameFile; Package: TPackage; PrpIndex: Integer);
     procedure ImportPrtOC(NameFile: TPrtNameFile; Package: TPackage);
+    procedure ImportIFlowFace(DataArray: TDataArray; Data: T3DSparseIntegerArray);
   public
     Constructor Create;
     destructor Destroy; override;
@@ -252,7 +253,7 @@ uses
   ModflowGwtSpecifiedConcUnit, Mf6.SrcFileReaderUnit, Mf6.FmiFileReaderUnit,
   Mf6.SftFileReaderUnit, GwtStatusUnit, Mf6.LktFileReaderUnit, Mt3dmsChemUnit,
   Mf6.MwtFileReaderUnit, Mf6.UztFileReaderUnit, Mf6.MvtFileReaderUnit,
-  ModelMuseUtilities, GeoRefUnit, SparseDataSets, SparseArrayUnit,
+  ModelMuseUtilities, GeoRefUnit, SparseArrayUnit,
   QuadTreeClass, MeshRenumberingTypes, Mf6.TimeArraySeriesFileReaderUnit,
   Mf6.CndFileReaderUnit, Mf6.CtpFileReaderUnit, MF6.EstFileReaderUnit,
   Mf6.EslFileReaderUnit, Mf6.MweFileReaderUnit, Mf6.LkeFileReaderUnit,
@@ -7862,6 +7863,61 @@ begin
   end;
   IC := Package.Package as TIc;
   Assign3DRealDataSet(rsModflow_Initial_Head, IC.GridData.STRT);
+end;
+
+procedure TModflow6Importer.ImportIFlowFace(DataArray: TDataArray;
+  Data: T3DSparseIntegerArray);
+var
+  IFaceObject: TScreenObject;
+  UndoCreateScreenObject: TCustomUndo;
+  Model: TPhastModel;
+  IFaceIndex: Integer;
+  FormulaIndex: Integer;
+  ImportedValues: TValueArrayItem;
+begin
+  IFaceIndex := 0;
+  IFaceObject := nil;
+  Model := frmGoPhast.PhastModel;
+  for var LayerIndex := Data.MinLayer to Data.MaxLayer do
+  begin
+    for var RowIndex := Data.MinRow to Data.MaxRow do
+    begin
+      for  var ColIndex := Data.MinCol to Data.MaxCol do
+      begin
+        if Data.IsValue[LayerIndex, RowIndex, ColIndex] then
+        begin
+          if IFaceObject = nil then
+          begin
+            IFaceObject := TScreenObject.CreateWithViewDirection(
+              Model, vdTop, UndoCreateScreenObject, False);
+            FNewScreenObjects.Add(IFaceObject);
+            IFaceObject. ElevationCount := ecOne;
+            IFaceObject.ImportedSectionElevations.Count := Model.LayerCount * Model.RowCount * Model.ColumnCount;
+            IFaceObject.ElevationFormula := rsObjectImportedValuesR + '("' + StrImportedElevations + '")';
+
+            IFaceObject.ImportedValues.Add;
+            ImportedValues := IFaceObject.ImportedValues.Items[IFaceObject.ImportedValues.Count-1];
+            ImportedValues.Values.DataType := rdtInteger;
+            ImportedValues.Values.Count := Model.LayerCount * Model.RowCount * Model.ColumnCount;
+            ImportedValues.Name := DataArray.Name;
+
+            FormulaIndex := IFaceObject.AddDataSet(DataArray);
+            IFaceObject.DataSetFormulas[FormulaIndex] :=
+              rsObjectImportedValuesI + '("' + ImportedValues.Name + '")';
+          end;
+          IFaceObject.ImportedSectionElevations.RealValues[IFaceIndex] :=
+            Model.LayerCenterElevation(LayerIndex-1, RowIndex-1, ColIndex-1);
+          ImportedValues.Values.IntValues[IFaceIndex] := Data[LayerIndex, RowIndex,ColIndex];
+          Inc(IFaceIndex);
+        end;
+      end;
+    end;
+  end;
+  if IFaceObject <> nil then
+  begin
+    IFaceObject.ImportedSectionElevations.Count := IFaceIndex;
+    ImportedValues.Values.Count := IFaceIndex;
+  end;
 end;
 
 procedure TModflow6Importer.ImportIMS(FlowModelOptions: TFlowNameFileOptions);
@@ -24254,6 +24310,11 @@ var
   SpcDictionary: TSpcDictionary;
   SpcCell: TSpcTimeItem;
   SpcItem: TSpcTimeItem;
+  IFlowFaceData: T3DSparseIntegerArray;
+  IFlowFaceDataArray: TDataArray;
+  IFlowFaceIndex: Integer;
+  AuxIFLOWFACE: TMf6BoundaryValue;
+  CellId: TMfCellId;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TWelTimeItem; Period: Integer);
   var
     WelItem: TWellItem;
@@ -24549,6 +24610,19 @@ begin
   CellLists := TObjectList<TMvrWelTimeItemList>.Create;
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
+
+  IFlowFaceData := nil;
+  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceWEL);
+  IFlowFaceIndex := Wel.Options.IndexOfAUXILIARY('IFLOWFACE');
+  if IFlowFaceDataArray <> nil then
+  begin
+    IFlowFaceDataArray.Formula := '0';
+    if IFlowFaceIndex >= 0 then
+    begin
+      IFlowFaceData := T3DSparseIntegerArray.Create(GetQuantum(Model.LayerCount),
+        GetQuantum(Model.RowCount), GetQuantum(Model.ColumnCount));
+    end;
+  end;
   try
     TDis := FSimulation.Timing.TDis;
     FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
@@ -24784,6 +24858,14 @@ begin
           begin
             ACell := APeriod[CellIndex];
 
+            if IFlowFaceData <> nil then
+            begin
+              AuxIFLOWFACE := ACell[IFlowFaceIndex];
+              CellId := ACell.CellId;
+              IFlowFaceData.Items[CellId.Layer, CellId.Row, CellId.Column] :=
+                Round(AuxIFLOWFACE.NumericValue);
+            end;
+
             if (ACell.Boundname <> '')
               and BoundNameObsDictionary.ContainsKey(UpperCase(ACell.Boundname)) then
             begin
@@ -25010,6 +25092,11 @@ begin
         TransportSpeciesNames.Free;
       end;
 
+      if IFlowFaceData <> nil then
+      begin
+        ImportIFlowFace(IFlowFaceDataArray, IFlowFaceData);
+      end;
+
     finally
       for CellListIndex := 0 to OtherCellLists.Count - 1 do
       begin
@@ -25017,6 +25104,7 @@ begin
       end;
     end;
   finally
+    IFlowFaceData.Free;
     BoundNameObsDictionary.Free;
     CellIdObsDictionary.Free;
     Map.Free;

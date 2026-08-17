@@ -3266,6 +3266,8 @@ that affects the model output should also have a comment. }
     property SeparatedDecaySolidUsed: TObjectUsedEvent read GetSeparatedDecaySolidUsed;
     property SeparatedHeatCapacitySolidUsed: TObjectUsedEvent read GetSeparatedHeatCapacitySolidUsed;
     property SeparatedDensitySolidUsed: TObjectUsedEvent read GetSeparatedDensitySolidUsed;
+    // returns the elevation of the center of a MODFLOW cell
+    function LayerCenterElevation(Layer, Row, Column: Integer): double;
   published
     property DisvGrid: TModflowDisvGrid read FDisvGrid write SetDisvGrid
       stored StoreDisvGrid;
@@ -20738,6 +20740,19 @@ type
 function TCustomModel.Layavg: TOneDIntegerArray;
 begin
   result := LayerStructure.Layavg;
+end;
+
+function TCustomModel.LayerCenterElevation(Layer, Row, Column: Integer): double;
+begin
+  Assert(ModelSelection in ModflowSelection);
+  if DisvUsed then
+  begin
+    result := (ParentModel as TPhastModel).DisvGrid.LayerCenter(Layer, Column);
+  end
+  else
+  begin
+    result := ModflowGrid.LayerCenter(Column, Row, Layer);
+  end;
 end;
 
 function TCustomModel.LayerCount: integer;
