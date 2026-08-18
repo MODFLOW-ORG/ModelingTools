@@ -10572,6 +10572,9 @@ const
 //                and GWE.
 
 //               Bug fix: Fixed export of UZT and UWE concentrations.
+//               Bug fix: Fixed import of MODFLOW 6 models containing more than
+//                one solute transport or energy transport models. Previously
+//                multiple data sets with identical names could be created.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

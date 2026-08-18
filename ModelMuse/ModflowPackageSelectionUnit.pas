@@ -3227,6 +3227,7 @@ Type
     procedure SetItem(Index: Integer; const Value: TPrtModelItem);
     procedure SetCanCreateDataSets(const Value: Boolean);
   public
+    function Add: TPrtModelItem;
     procedure Assign(Source: TPersistent); override;
     constructor Create(Model: IModelForTOrderedCollection);
     property CanCreateDataSets: Boolean read FCanCreateDataSets
@@ -32550,6 +32551,11 @@ begin
 end;
 
 { TPrtModels }
+
+function TPrtModels.Add: TPrtModelItem;
+begin
+  result := inherited Add as TPrtModelItem;
+end;
 
 procedure TPrtModels.Assign(Source: TPersistent);
 begin

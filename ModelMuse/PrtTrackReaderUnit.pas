@@ -635,10 +635,6 @@ end;
 { TPrtTracks }
 
 procedure TPrtTracks.Assign(Source: TPersistent);
-var
-  ATrackItem: TPrtTrackItem;
-  Track: TPrtTrack;
-  TrackList: TPrtTrackList;
 begin
   inherited;
   SortTracks;

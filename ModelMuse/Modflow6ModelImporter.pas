@@ -5809,43 +5809,37 @@ begin
             Ssm := TransportModel.GetSsmPackage as TSsm;
             if Ssm <> nil then
             begin
-//              APackage := TransportModel.NfPackages[PackageIndex];
-//              if APackage.FileType = 'SSM6' then
+              ChemFound := False;
+              for SourceIndex := 0 to Ssm.Sources.Count - 1 do
               begin
-//                Ssm := APackage.Package as TSsm;
-                ChemFound := False;
-                for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+                AuxName := Ssm.Sources[SourceIndex].auxname;
+                TransportModel.SpeciesName := AuxName;
+                if SoluteNames.IndexOf(AuxName) < 0 then
                 begin
-                  AuxName := Ssm.Sources[SourceIndex].auxname;
-                  TransportModel.SpeciesName := AuxName;
-                  if SoluteNames.IndexOf(AuxName) < 0 then
-                  begin
-                    SoluteNames.Add(AuxName);
-                    ChemSpeciesItem := Model.MobileComponents.Add;
-                    ChemSpeciesItem.Name := AuxName;
-                    ChemFound := True;
-                    break;
-                  end;
-                end;
-                if not ChemFound then
-                begin
-                  AuxName := Format('Chem%d', [ModelIndex+1]);
-                  if SoluteNames.IndexOf(AuxName) >= 0 then
-                  begin
-                    var MIndex := TransportModels.Count + 1;
-                    AuxName := Format('Chem%d', [MIndex]);
-                    while SoluteNames.IndexOf(AuxName) >= 0 do
-                    begin
-                      Inc(MIndex);
-                      AuxName := Format('Chem%d', [MIndex]);
-                    end;
-                  end;
-                  TransportModel.SpeciesName := AuxName;
                   SoluteNames.Add(AuxName);
                   ChemSpeciesItem := Model.MobileComponents.Add;
                   ChemSpeciesItem.Name := AuxName;
+                  ChemFound := True;
+                  break;
                 end;
-//                break;
+              end;
+              if not ChemFound then
+              begin
+                AuxName := Format('Chem%d', [ModelIndex+1]);
+                if SoluteNames.IndexOf(AuxName) >= 0 then
+                begin
+                  var MIndex := TransportModels.Count + 1;
+                  AuxName := Format('Chem%d', [MIndex]);
+                  while SoluteNames.IndexOf(AuxName) >= 0 do
+                  begin
+                    Inc(MIndex);
+                    AuxName := Format('Chem%d', [MIndex]);
+                  end;
+                end;
+                TransportModel.SpeciesName := AuxName;
+                SoluteNames.Add(AuxName);
+                ChemSpeciesItem := Model.MobileComponents.Add;
+                ChemSpeciesItem.Name := AuxName;
               end;
             end;
             if Ssm = nil then
@@ -5862,6 +5856,7 @@ begin
               for SimulationIndex := 0 to FSimulations.Count - 1 do
               begin
                 ASimulation := FSimulations[SimulationIndex];
+                InnerTransportModel := nil;
                 for InnerModelIndex := 0 to ASimulation.Models.Count - 1 do
                 begin
                   ATransportModel := ASimulation.Models[InnerModelIndex];
@@ -5870,38 +5865,27 @@ begin
                     InnerTransportModel := ATransportModel.FName as TTransportNameFile;
                     Ssm := InnerTransportModel.GetSsmPackage as TSsm;
                     if (Ssm <> nil) then
-//                    for PackageIndex := 0 to InnerTransportModel.NfPackages.Count  - 1 do
                     begin
-//                      APackage := InnerTransportModel.NfPackages[PackageIndex];
-//                      if APackage.FileType = 'SSM6' then
+                      for SourceIndex := 0 to Ssm.Sources.Count - 1 do
                       begin
-//                        Ssm := APackage.Package as TSsm;
-                        for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+                        AuxName := Ssm.Sources[SourceIndex].auxname;
+                        InnerTransportModel.SpeciesName := AuxName;
+                        if SoluteNames.IndexOf(AuxName) < 0 then
                         begin
-                          AuxName := Ssm.Sources[SourceIndex].auxname;
-                          TransportModel.SpeciesName := AuxName;
-                          if SoluteNames.IndexOf(AuxName) < 0 then
-                          begin
-                            SoluteNames.Add(AuxName);
-                            ChemSpeciesItem := Model.MobileComponents.Add;
-                            ChemSpeciesItem.Name := AuxName;
-                            break;
-                          end;
+                          SoluteNames.Add(AuxName);
+                          ChemSpeciesItem := Model.MobileComponents.Add;
+                          ChemSpeciesItem.Name := AuxName;
+                          break;
                         end;
                       end;
-//                      if TransportModel.SpeciesName <> '' then
-//                      begin
-//                        break;
-//                      end;
                     end;
-                    if TransportModel.SpeciesName <> '' then
+                    if InnerTransportModel.SpeciesName <> '' then
                     begin
                       break;
                     end;
                   end;
-
                 end;
-                if TransportModel.SpeciesName <> '' then
+                if (InnerTransportModel <> nil) and (InnerTransportModel.SpeciesName <> '') then
                 begin
                   break;
                 end;
@@ -5921,45 +5905,38 @@ begin
             EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
             Ssm := EnergyTransportModel.GetSsmPackage as TSsm;
             if Ssm <> nil then
-//            for PackageIndex := 0 to EnergyTransportModel.NfPackages.Count  - 1 do
             begin
-//              APackage := EnergyTransportModel.NfPackages[PackageIndex];
-//              if APackage.FileType = 'SSM6' then
+              ChemFound := False;
+              for SourceIndex := 0 to Ssm.Sources.Count - 1 do
               begin
-//                Ssm := APackage.Package as TSsm;
-                ChemFound := False;
-                for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+                AuxName := Ssm.Sources[SourceIndex].auxname;
+                EnergyTransportModel.SpeciesName := AuxName;
+                if SoluteNames.IndexOf(AuxName) < 0 then
                 begin
-                  AuxName := Ssm.Sources[SourceIndex].auxname;
-                  EnergyTransportModel.SpeciesName := AuxName;
-                  if SoluteNames.IndexOf(AuxName) < 0 then
-                  begin
-                    SoluteNames.Add(AuxName);
-                    ChemSpeciesItem := Model.MobileComponents.Add;
-                    ChemSpeciesItem.Name := AuxName;
-                    ChemFound := True;
-                    break;
-                  end;
-                end;
-                if not ChemFound then
-                begin
-                  AuxName := Format('Chem%d', [ModelIndex+1]);
-                  if SoluteNames.IndexOf(AuxName) >= 0 then
-                  begin
-                    var MIndex := EnergyTransportModels.Count + 1;
-                    AuxName := Format('Chem%d', [MIndex]);
-                    while SoluteNames.IndexOf(AuxName) >= 0 do
-                    begin
-                      Inc(MIndex);
-                      AuxName := Format('Chem%d', [MIndex]);
-                    end;
-                  end;
-                  EnergyTransportModel.SpeciesName := AuxName;
                   SoluteNames.Add(AuxName);
                   ChemSpeciesItem := Model.MobileComponents.Add;
                   ChemSpeciesItem.Name := AuxName;
+                  ChemFound := True;
+                  break;
                 end;
-//                break;
+              end;
+              if not ChemFound then
+              begin
+                AuxName := Format('Chem%d', [ModelIndex+1]);
+                if SoluteNames.IndexOf(AuxName) >= 0 then
+                begin
+                  var MIndex := EnergyTransportModels.Count + 1;
+                  AuxName := Format('Chem%d', [MIndex]);
+                  while SoluteNames.IndexOf(AuxName) >= 0 do
+                  begin
+                    Inc(MIndex);
+                    AuxName := Format('Chem%d', [MIndex]);
+                  end;
+                end;
+                EnergyTransportModel.SpeciesName := AuxName;
+                SoluteNames.Add(AuxName);
+                ChemSpeciesItem := Model.MobileComponents.Add;
+                ChemSpeciesItem.Name := AuxName;
               end;
             end;
             if Ssm = nil then
@@ -5976,6 +5953,7 @@ begin
               for SimulationIndex := 0 to FSimulations.Count - 1 do
               begin
                 ASimulation := FSimulations[SimulationIndex];
+                InnerEnergyTransportModel := nil;
                 for InnerModelIndex := 0 to ASimulation.Models.Count - 1 do
                 begin
                   ATransportModel := ASimulation.Models[InnerModelIndex];
@@ -5984,38 +5962,28 @@ begin
                     InnerEnergyTransportModel := ATransportModel.FName as TEnergyTransportNameFile;
                     Ssm := InnerEnergyTransportModel.GetSsmPackage as TSsm;
                     if (Ssm <> nil) then
-//                    for PackageIndex := 0 to InnerEnergyTransportModel.NfPackages.Count  - 1 do
                     begin
-//                      APackage := InnerEnergyTransportModel.NfPackages[PackageIndex];
-//                      if APackage.FileType = 'SSM6' then
+                      for SourceIndex := 0 to Ssm.Sources.Count - 1 do
                       begin
-//                        Ssm := APackage.Package as TSsm;
-                        for SourceIndex := 0 to Ssm.Sources.Count - 1 do
+                        AuxName := Ssm.Sources[SourceIndex].auxname;
+                        InnerEnergyTransportModel.SpeciesName := AuxName;
+                        if SoluteNames.IndexOf(AuxName) < 0 then
                         begin
-                          AuxName := Ssm.Sources[SourceIndex].auxname;
-                          EnergyTransportModel.SpeciesName := AuxName;
-                          if SoluteNames.IndexOf(AuxName) < 0 then
-                          begin
-                            SoluteNames.Add(AuxName);
-                            ChemSpeciesItem := Model.MobileComponents.Add;
-                            ChemSpeciesItem.Name := AuxName;
-                            break;
-                          end;
+                          SoluteNames.Add(AuxName);
+                          ChemSpeciesItem := Model.MobileComponents.Add;
+                          ChemSpeciesItem.Name := AuxName;
+                          break;
                         end;
                       end;
-//                      if EnergyTransportModel.SpeciesName <> '' then
-//                      begin
-//                        break;
-//                      end;
                     end;
-                    if EnergyTransportModel.SpeciesName <> '' then
+                    if InnerEnergyTransportModel.SpeciesName <> '' then
                     begin
                       break;
                     end;
                   end;
-
                 end;
-                if EnergyTransportModel.SpeciesName <> '' then
+                if (InnerEnergyTransportModel <> nil)
+                  and (InnerEnergyTransportModel.SpeciesName <> '') then
                 begin
                   break;
                 end;
@@ -7874,7 +7842,10 @@ var
   IFaceIndex: Integer;
   FormulaIndex: Integer;
   ImportedValues: TValueArrayItem;
+  RotatedLocation: TPoint3D;
+  APoint2D: TPoint2D;
 begin
+  ImportedValues := nil;
   IFaceIndex := 0;
   IFaceObject := nil;
   Model := frmGoPhast.PhastModel;
@@ -7886,14 +7857,21 @@ begin
       begin
         if Data.IsValue[LayerIndex, RowIndex, ColIndex] then
         begin
+          RotatedLocation := Model.ElementLocation[LayerIndex-1, RowIndex-1, ColIndex-1].RotatedLocation;
+          APoint2D.x := RotatedLocation.x;
+          APoint2D.y := RotatedLocation.y;
           if IFaceObject = nil then
           begin
             IFaceObject := TScreenObject.CreateWithViewDirection(
               Model, vdTop, UndoCreateScreenObject, False);
             FNewScreenObjects.Add(IFaceObject);
-            IFaceObject. ElevationCount := ecOne;
+            IFaceObject.Name := 'Imported_' + DataArray.Name;
+            Model.AddScreenObject(IFaceObject);
+            IFaceObject.ElevationCount := ecOne;
             IFaceObject.ImportedSectionElevations.Count := Model.LayerCount * Model.RowCount * Model.ColumnCount;
             IFaceObject.ElevationFormula := rsObjectImportedValuesR + '("' + StrImportedElevations + '")';
+            IFaceObject.SetValuesOfIntersectedCells := True;
+            IFaceObject.Visible := False;
 
             IFaceObject.ImportedValues.Add;
             ImportedValues := IFaceObject.ImportedValues.Items[IFaceObject.ImportedValues.Count-1];
@@ -7908,6 +7886,7 @@ begin
           IFaceObject.ImportedSectionElevations.RealValues[IFaceIndex] :=
             Model.LayerCenterElevation(LayerIndex-1, RowIndex-1, ColIndex-1);
           ImportedValues.Values.IntValues[IFaceIndex] := Data[LayerIndex, RowIndex,ColIndex];
+          IFaceObject.AddPoint(APoint2D, True);
           Inc(IFaceIndex);
         end;
       end;
@@ -12740,6 +12719,7 @@ var
 //  PrtFound: Boolean;
   ALine: string;
   TestName: string;
+  APrtModel: TPrtModel;
 begin
   FFlowModel := nil;
   frmErrorsAndWarnings.Clear;
@@ -12807,7 +12787,8 @@ begin
               end;
               if Splitter[0] = 'PRT6' then
               begin
-                PhastModel.ModflowPackages.PrtModels.Add;
+                APrtModel := PhastModel.ModflowPackages.PrtModels.Add.PrtModel;
+                APrtModel.IsSelected := True;
                end;
               if Pos('END MODELS', ALine) > 0 then
               begin
@@ -16686,7 +16667,7 @@ begin
         break;
       end;
     end;
-    DataArrayName := Format('Imported_%s_%d', [DsName, LayerIndex]);
+    DataArrayName := Format('Imported_%s_Layer_%d', [DsName, LayerIndex]);
     Formula := Formula + ',' + DataArrayName;
     DataArray := Model.DataArrayManager.CreateNewDataArray(TDataArray,
       DataArrayName, '0', DataArrayName, [dcType], rdtDouble, eaBlocks, dsoTop, '');
@@ -24577,6 +24558,7 @@ begin
 
   Model := frmGoPhast.PhastModel;
   Model.ModflowPackages.WelPackage.IsSelected := True;
+  Model.DataArrayManager.CreateInitialDataSets;
 
   Wel := Package.Package as TWel;
   Options := Wel.Options;
