@@ -4448,6 +4448,10 @@ var
   Compiler: TRbwParser;
   Observer: TObserver;
 begin
+  if not Assigned(FormulaObject) then
+  begin
+    Exit;
+  end;
   if FormulaObject.Formula <> Value then
   begin
     LocalModel := ParentModel as TPhastModel;

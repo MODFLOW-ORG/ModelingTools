@@ -834,7 +834,12 @@ var
   SpcCell: TSpcTimeItem;
   SpcItem: TSpcTimeItem;
   TDis: TTDis;
-    procedure AddItem(AScreenObject: TScreenObject; ACell: TChdTimeItem; Period: Integer);
+  IFlowFaceData: T3DSparseIntegerArray;
+  IFlowFaceDataArray: TDataArray;
+  IFlowFaceIndex: Integer;
+  AuxIFLOWFACE: TMf6BoundaryValue;
+  CellId: TMfCellId;
+  procedure AddItem(AScreenObject: TScreenObject; ACell: TChdTimeItem; Period: Integer);
   var
     ChdItem: TChdItem;
     ImportedName: string;
@@ -1070,6 +1075,7 @@ begin
   end;
   Model := frmGoPhast.PhastModel;
   Model.ModflowPackages.ChdBoundary.IsSelected := True;
+  Model.DataArrayManager.CreateInitialDataSets;
 
   Chd := Package.Package as TChd;
   Options := Chd.Options;
@@ -1089,6 +1095,18 @@ begin
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
   ChdMvrLinkList := TChdSpcLinkList.Create;
+  IFlowFaceData := nil;
+  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceCHD);
+  IFlowFaceIndex := Chd.Options.IndexOfAUXILIARY('IFLOWFACE');
+  if IFlowFaceDataArray <> nil then
+  begin
+    IFlowFaceDataArray.Formula := '0';
+    if IFlowFaceIndex >= 0 then
+    begin
+      IFlowFaceData := T3DSparseIntegerArray.Create(GetQuantum(Model.LayerCount),
+        GetQuantum(Model.RowCount), GetQuantum(Model.ColumnCount));
+    end;
+  end;
   try
     FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
     for var SpcIndex := 0 to SpcList.Count - 1 do
@@ -1306,6 +1324,14 @@ begin
           begin
             ACell := APeriod[CellIndex];
 
+            if IFlowFaceData <> nil then
+            begin
+              AuxIFLOWFACE := ACell[IFlowFaceIndex];
+              CellId := ACell.CellId;
+              IFlowFaceData.Items[CellId.Layer, CellId.Row, CellId.Column] :=
+                Round(AuxIFLOWFACE.NumericValue);
+            end;
+
             if (ACell.Boundname <> '')
               and BoundNameObsDictionary.ContainsKey(UpperCase(ACell.Boundname)) then
             begin
@@ -1492,6 +1518,11 @@ begin
           end;
         end;
 
+      if IFlowFaceData <> nil then
+      begin
+        ImportIFlowFace(IFlowFaceDataArray, IFlowFaceData);
+      end;
+
       finally
         TransportAuxNames.Free;
         TransportSpeciesNames.Free;
@@ -1504,6 +1535,7 @@ begin
       end;
     end;
   finally
+    IFlowFaceData.Free;
     BoundNameObsDictionary.Free;
     CellIdObsDictionary.Free;
     Map.Free;
@@ -3693,6 +3725,11 @@ var
   Imported_Ddrn: TValueArrayItem;
   Imported_Multiplier: TValueArrayItem;
   TDis: TTDis;
+  IFlowFaceData: T3DSparseIntegerArray;
+  IFlowFaceDataArray: TDataArray;
+  IFlowFaceIndex: Integer;
+  AuxIFLOWFACE: TMf6BoundaryValue;
+  CellId: TMfCellId;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TDrnTimeItem; Period: Integer);
   var
     DrnItem: TDrnItem;
@@ -3919,15 +3956,16 @@ begin
 
   Model := frmGoPhast.PhastModel;
   Model.ModflowPackages.DrnPackage.IsSelected := True;
+  Model.DataArrayManager.CreateInitialDataSets;
 
   Drn := Package.Package as TDrn;
   Options := Drn.Options;
 
   AuxMultIndex := Options.IndexOfAUXILIARY(Options.AUXMULTNAME);
-  if AuxMultIndex >= 0 then  
-  begin  
+  if AuxMultIndex >= 0 then
+  begin
     Model.ModflowPackages.DrnPackage.UseMultiplier := True;
-  end;    
+  end;
 
   if Options.AUXDEPTHNAME <> '' then
   begin
@@ -3950,308 +3988,334 @@ begin
   ObsLists := TObsLists.Create;
   KeyStringDictionary := TDictionary<string, TMvrDrnTimeItemList>.Create;
   CellLists := TObjectList<TMvrDrnTimeItemList>.Create;
+  IFlowFaceData := nil;
+  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceDRN);
+  IFlowFaceIndex := Drn.Options.IndexOfAUXILIARY('IFLOWFACE');
+  if IFlowFaceDataArray <> nil then
+  begin
+    IFlowFaceDataArray.Formula := '0';
+    if IFlowFaceIndex >= 0 then
+    begin
+      IFlowFaceData := T3DSparseIntegerArray.Create(GetQuantum(Model.LayerCount),
+        GetQuantum(Model.RowCount), GetQuantum(Model.ColumnCount));
+    end;
+  end;
   try
     OtherCellLists.OwnsObjects := False;
-  try
-    TDis := FSimulation.Timing.TDis;
-    LastTime := FTDis.LastTime;
-    if Mvr = nil then
-    begin
-      DrnMvrLink.MvrPeriod := nil;
-      for PeriodIndex := 0 to Drn.PeriodCount - 1 do
+    try
+      TDis := FSimulation.Timing.TDis;
+      LastTime := FTDis.LastTime;
+      if Mvr = nil then
       begin
-        DrnMvrLink.DrnPeriod := Drn.Periods[PeriodIndex];
-        DrnlMvrLinkList.Add(DrnMvrLink)
-      end;
-    end
-    else
-    begin
-      // Make sure that all the stress periods defined in either the MVR or the
-      // Drn package are imported.
-      SetLength(DrnlMvrLinkArray, TDis.PeriodData.Count);
-      for PeriodIndex := 0 to Length(DrnlMvrLinkArray) - 1 do
-      begin
-        DrnMvrLink.DrnPeriod := nil;
         DrnMvrLink.MvrPeriod := nil;
-      end;
-
-      for PeriodIndex := 0 to Drn.PeriodCount - 1 do
-      begin
-        DrnlPeriod := Drn.Periods[PeriodIndex];
-        if PeriodIndex < Drn.PeriodCount - 1 then
+        for PeriodIndex := 0 to Drn.PeriodCount - 1 do
         begin
-          NextDrnPeriod := Drn.Periods[PeriodIndex+1];
-          EndPeriod := NextDrnPeriod.Period;
-        end
-        else
-        begin
-          EndPeriod := FTDis.PeriodData.Count;
+          DrnMvrLink.DrnPeriod := Drn.Periods[PeriodIndex];
+          DrnlMvrLinkList.Add(DrnMvrLink)
         end;
-        for Index := DrnlPeriod.Period  to EndPeriod do
-        begin
-          DrnlMvrLinkArray[Index-1].DrnPeriod  := DrnlPeriod;
-        end;
-      end;
-
-      for PeriodIndex := 0 to Mvr.PeriodCount - 1 do
+      end
+      else
       begin
-        MvrPeriod := Mvr.Periods[PeriodIndex];
-        if PeriodIndex < Mvr.PeriodCount - 1 then
+        // Make sure that all the stress periods defined in either the MVR or the
+        // Drn package are imported.
+        SetLength(DrnlMvrLinkArray, TDis.PeriodData.Count);
+        for PeriodIndex := 0 to Length(DrnlMvrLinkArray) - 1 do
         begin
-          NextMvrPeriod := Mvr.Periods[PeriodIndex+1];
-          EndPeriod := NextMvrPeriod.Period;
-        end
-        else
-        begin
-          EndPeriod := FTDis.PeriodData.Count;
-        end;
-        for Index := MvrPeriod.Period  to EndPeriod do
-        begin
-          DrnlMvrLinkArray[Index-1].MvrPeriod  := MvrPeriod;
-        end;
-      end;
-
-      DrnlMvrLinkList.Add(DrnlMvrLinkArray[0]);
-      for Index := 1 to Length(DrnlMvrLinkArray) - 1 do
-      begin
-        if (DrnlMvrLinkArray[Index].DrnPeriod <> DrnlMvrLinkArray[Index-1].DrnPeriod)
-          or (DrnlMvrLinkArray[Index].MvrPeriod <> DrnlMvrLinkArray[Index-1].MvrPeriod) then
-        begin
-          DrnlMvrLinkList.Add(DrnlMvrLinkArray[Index]);
-        end;
-      end;
-    end;
-
-    IFaceIndex := Options.IndexOfAUXILIARY('IFACE');
-    for TimeSeriesIndex := 0 to Drn.TimeSeriesCount - 1 do
-    begin
-      TimeSeriesPackage := Drn.TimeSeries[TimeSeriesIndex];
-      ImportTimeSeries(TimeSeriesPackage, Map);
-    end;
-
-    if Drn.ObservationCount > 0 then
-    begin
-      Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
-    end;
-    for ObsPackageIndex := 0 to Drn.ObservationCount - 1 do
-    begin
-      ObsFiles := Drn.Observations[ObsPackageIndex].Package as TObs;
-      GetObservations(nil, BoundNameObsDictionary,
-        CellIdObsDictionary, ObsLists, ObsFiles);
-    end;
-
-    if Assigned(OnUpdateStatusBar) then
-    begin
-      OnUpdateStatusBar(self, 'importing DRN package');
-    end;
-
-    LastTime := FTDis.LastTime;
-
-    ACellList := nil;
-    ObjectCount := 0;
-    for PeriodIndex := 0 to DrnlMvrLinkList.Count - 1 do
-    begin
-      DrnMvrLink := DrnlMvrLinkList[PeriodIndex];
-      APeriod := DrnlMvrLinkList[PeriodIndex].DrnPeriod;
-      if APeriod = nil then
-      begin
-        Continue;
-      end;
-      StartTime := TDis.StartTime[DrnMvrLink.Period-1];
-      for DrnIndex := 0 to ItemList.Count - 1 do
-      begin
-        AnItem := ItemList[DrnIndex];
-        AnItem.EndTime := StartTime;
-      end;
-      ItemList.Clear;
-      for CellListIndex := 0 to CellLists.Count - 1 do
-      begin
-        CellLists[CellListIndex].Clear;
-      end;
-
-      // Assign all cells in the current period to a cell list.
-      for CellIndex := 0 to APeriod.Count - 1 do
-      begin
-        ACell := APeriod[CellIndex];
-
-        if (ACell.Boundname <> '')
-          and BoundNameObsDictionary.ContainsKey(UpperCase(ACell.Boundname)) then
-        begin
-          KeyString := 'BN:' + UpperCase(ACell.Boundname) + ' ';
-        end
-        else
-        begin
-          KeyString := '';
+          DrnMvrLink.DrnPeriod := nil;
+          DrnMvrLink.MvrPeriod := nil;
         end;
 
-        if IfaceIndex < 0 then
+        for PeriodIndex := 0 to Drn.PeriodCount - 1 do
         begin
-          IFACE := 0;
-        end
-        else
-        begin
-          AuxIFACE := ACell[IfaceIndex];
-          Assert(AuxIFACE.ValueType = vtNumeric);
-          IFACE := Round(AuxIFACE.NumericValue);
-        end;
-        KeyString := KeyString + ACell.Keystring + ' IFACE:' + IntToStr(IFACE);
-
-        MvrUsed := False;
-        if DrnMvrLink.MvrPeriod <> nil then
-        begin
-          if DrnMvrLink.MvrPeriod.HasSource(Package.PackageName, ACell.Id) then
+          DrnlPeriod := Drn.Periods[PeriodIndex];
+          if PeriodIndex < Drn.PeriodCount - 1 then
           begin
-            KeyString := KeyString + ' MVR';
-            MvrUsed := True;
-          end;
-        end;
-
-        if not KeyStringDictionary.TryGetValue(KeyString, ACellList) then
-        begin
-          ACellList := TMvrDrnTimeItemList.Create;
-          CellLists.Add(ACellList);
-          KeyStringDictionary.Add(KeyString, ACellList);
-        end;
-        ACellList.Add(ACell);
-        if MvrUsed then
-        begin
-          if ACellList.FIds.IndexOf(ACell.Id) < 0 then
-          begin
-            ACellList.FIds.Add(ACell.Id);
-          end;
-        end;
-      end;
-
-      // After all the cells in the current period have been read,
-      // create a TScreenObject for each cell list
-      AScreenObject := nil;
-      for ObjectIndex := 0 to CellLists.Count - 1 do
-      begin
-        NewScreenObject := False;
-        ACellList := CellLists[ObjectIndex];
-        if ACellList.Count > 0 then
-        begin
-          FirstCell := ACellList[0];
-          if (FirstCell.Boundname <> '')
-            and BoundNameObsDictionary.ContainsKey(UpperCase(FirstCell.Boundname)) then
-          begin
-            if IfaceIndex < 0 then
-            begin
-              IFACE := 0;
-            end
-            else
-            begin
-              AuxIFACE := FirstCell[IfaceIndex];
-              Assert(AuxIFACE.ValueType = vtNumeric);
-              IFACE := Round(AuxIFACE.NumericValue);
-            end;
-            BoundName := UpperCase(FirstCell.Boundname);
-            if not ConnectionDictionary.TryGetValue(BoundName, AConnectionList) then
-            begin
-              AConnectionList := TDrnConnectionObjectList.Create;
-              ConnectionObjectLists.Add(AConnectionList);
-              ConnectionDictionary.Add(BoundName, AConnectionList)
-            end;
-            ACellList.Sort;
-            AScreenObject := nil;
-            for ConnectionIndex := 0 to AConnectionList.Count - 1 do
-            begin
-              ConnectionItem := AConnectionList[ConnectionIndex];
-              if (IFACE = ConnectionItem.IFACE)
-                and ACellList.SameCells(ConnectionItem.List) then
-              begin
-                AScreenObject := ConnectionItem.ScreenObject;
-                Break;
-              end;
-            end;
-            if AScreenObject = nil then
-            begin
-              AScreenObject := CreateScreenObject(FirstCell, APeriod.Period);
-              ConnectionItem := TDrnConnection.Create;
-              ConnectionItem.ScreenObject := AScreenObject;
-              ConnectionItem.IFACE := IFACE;
-              ConnectionItem.List := ACellList;
-              AConnectionList.Add(ConnectionItem);
-              OtherCellLists.Add(ACellList);
-              NewScreenObject := True;
-            end
-            else
-            begin
-              AddItem(AScreenObject, FirstCell, APeriod.Period);
-            end;
+            NextDrnPeriod := Drn.Periods[PeriodIndex+1];
+            EndPeriod := NextDrnPeriod.Period;
           end
           else
           begin
-            AScreenObject := CreateScreenObject(FirstCell, APeriod.Period);
-            NewScreenObject := True;
+            EndPeriod := FTDis.PeriodData.Count;
+          end;
+          for Index := DrnlPeriod.Period  to EndPeriod do
+          begin
+            DrnlMvrLinkArray[Index-1].DrnPeriod  := DrnlPeriod;
           end;
         end;
 
-        CellIds.Clear;
-        for CellIndex := 0 to ACellList.Count - 1 do
+        for PeriodIndex := 0 to Mvr.PeriodCount - 1 do
         begin
-          ACell := ACellList[CellIndex];
-          if ACell.elev.ValueType = vtNumeric then
+          MvrPeriod := Mvr.Periods[PeriodIndex];
+          if PeriodIndex < Mvr.PeriodCount - 1 then
           begin
-            Imported_Drain_Elevations.Values.Add(ACell.elev.NumericValue);// + AuxDepthAdjustment);
+            NextMvrPeriod := Mvr.Periods[PeriodIndex+1];
+            EndPeriod := NextMvrPeriod.Period;
+          end
+          else
+          begin
+            EndPeriod := FTDis.PeriodData.Count;
           end;
-          if AuxDepthIndex >= 0 then
+          for Index := MvrPeriod.Period  to EndPeriod do
           begin
-            Aux := ACell.Aux[AuxDepthIndex];
-            if Aux.ValueType = vtNumeric then
-            begin
-              Imported_Ddrn.Values.Add(Aux.NumericValue);
-            end;
+            DrnlMvrLinkArray[Index-1].MvrPeriod  := MvrPeriod;
           end;
-          if AuxMultIndex >= 0 then
+        end;
+
+        DrnlMvrLinkList.Add(DrnlMvrLinkArray[0]);
+        for Index := 1 to Length(DrnlMvrLinkArray) - 1 do
+        begin
+          if (DrnlMvrLinkArray[Index].DrnPeriod <> DrnlMvrLinkArray[Index-1].DrnPeriod)
+            or (DrnlMvrLinkArray[Index].MvrPeriod <> DrnlMvrLinkArray[Index-1].MvrPeriod) then
           begin
-            Aux := ACell.Aux[AuxMultIndex];
-            if Aux.ValueType = vtNumeric then
+            DrnlMvrLinkList.Add(DrnlMvrLinkArray[Index]);
+          end;
+        end;
+      end;
+
+      IFaceIndex := Options.IndexOfAUXILIARY('IFACE');
+      for TimeSeriesIndex := 0 to Drn.TimeSeriesCount - 1 do
+      begin
+        TimeSeriesPackage := Drn.TimeSeries[TimeSeriesIndex];
+        ImportTimeSeries(TimeSeriesPackage, Map);
+      end;
+
+      if Drn.ObservationCount > 0 then
+      begin
+        Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
+      end;
+      for ObsPackageIndex := 0 to Drn.ObservationCount - 1 do
+      begin
+        ObsFiles := Drn.Observations[ObsPackageIndex].Package as TObs;
+        GetObservations(nil, BoundNameObsDictionary,
+          CellIdObsDictionary, ObsLists, ObsFiles);
+      end;
+
+      if Assigned(OnUpdateStatusBar) then
+      begin
+        OnUpdateStatusBar(self, 'importing DRN package');
+      end;
+
+      LastTime := FTDis.LastTime;
+
+      ACellList := nil;
+      ObjectCount := 0;
+      for PeriodIndex := 0 to DrnlMvrLinkList.Count - 1 do
+      begin
+        DrnMvrLink := DrnlMvrLinkList[PeriodIndex];
+        APeriod := DrnlMvrLinkList[PeriodIndex].DrnPeriod;
+        if APeriod = nil then
+        begin
+          Continue;
+        end;
+        StartTime := TDis.StartTime[DrnMvrLink.Period-1];
+        for DrnIndex := 0 to ItemList.Count - 1 do
+        begin
+          AnItem := ItemList[DrnIndex];
+          AnItem.EndTime := StartTime;
+        end;
+        ItemList.Clear;
+        for CellListIndex := 0 to CellLists.Count - 1 do
+        begin
+          CellLists[CellListIndex].Clear;
+        end;
+
+        // Assign all cells in the current period to a cell list.
+        for CellIndex := 0 to APeriod.Count - 1 do
+        begin
+          ACell := APeriod[CellIndex];
+
+          if IFlowFaceData <> nil then
+          begin
+            AuxIFLOWFACE := ACell[IFlowFaceIndex];
+            CellId := ACell.CellId;
+            IFlowFaceData.Items[CellId.Layer, CellId.Row, CellId.Column] :=
+              Round(AuxIFLOWFACE.NumericValue);
+          end;
+
+          if (ACell.Boundname <> '')
+            and BoundNameObsDictionary.ContainsKey(UpperCase(ACell.Boundname)) then
+          begin
+            KeyString := 'BN:' + UpperCase(ACell.Boundname) + ' ';
+          end
+          else
+          begin
+            KeyString := '';
+          end;
+
+          if IfaceIndex < 0 then
+          begin
+            IFACE := 0;
+          end
+          else
+          begin
+            AuxIFACE := ACell[IfaceIndex];
+            Assert(AuxIFACE.ValueType = vtNumeric);
+            IFACE := Round(AuxIFACE.NumericValue);
+          end;
+          KeyString := KeyString + ACell.Keystring + ' IFACE:' + IntToStr(IFACE);
+
+          MvrUsed := False;
+          if DrnMvrLink.MvrPeriod <> nil then
+          begin
+            if DrnMvrLink.MvrPeriod.HasSource(Package.PackageName, ACell.Id) then
             begin
-              Imported_Multiplier.Values.Add(Aux.NumericValue);
+              KeyString := KeyString + ' MVR';
+              MvrUsed := True;
             end;
           end;
 
-          if ACell.cond.ValueType = vtNumeric then
+          if not KeyStringDictionary.TryGetValue(KeyString, ACellList) then
           begin
-             Imported_Drain_Conductance.Values.Add(ACell.cond.NumericValue);
+            ACellList := TMvrDrnTimeItemList.Create;
+            CellLists.Add(ACellList);
+            KeyStringDictionary.Add(KeyString, ACellList);
+          end;
+          ACellList.Add(ACell);
+          if MvrUsed then
+          begin
+            if ACellList.FIds.IndexOf(ACell.Id) < 0 then
+            begin
+              ACellList.FIds.Add(ACell.Id);
+            end;
+          end;
+        end;
+
+        // After all the cells in the current period have been read,
+        // create a TScreenObject for each cell list
+        AScreenObject := nil;
+        for ObjectIndex := 0 to CellLists.Count - 1 do
+        begin
+          NewScreenObject := False;
+          ACellList := CellLists[ObjectIndex];
+          if ACellList.Count > 0 then
+          begin
+            FirstCell := ACellList[0];
+            if (FirstCell.Boundname <> '')
+              and BoundNameObsDictionary.ContainsKey(UpperCase(FirstCell.Boundname)) then
+            begin
+              if IfaceIndex < 0 then
+              begin
+                IFACE := 0;
+              end
+              else
+              begin
+                AuxIFACE := FirstCell[IfaceIndex];
+                Assert(AuxIFACE.ValueType = vtNumeric);
+                IFACE := Round(AuxIFACE.NumericValue);
+              end;
+              BoundName := UpperCase(FirstCell.Boundname);
+              if not ConnectionDictionary.TryGetValue(BoundName, AConnectionList) then
+              begin
+                AConnectionList := TDrnConnectionObjectList.Create;
+                ConnectionObjectLists.Add(AConnectionList);
+                ConnectionDictionary.Add(BoundName, AConnectionList)
+              end;
+              ACellList.Sort;
+              AScreenObject := nil;
+              for ConnectionIndex := 0 to AConnectionList.Count - 1 do
+              begin
+                ConnectionItem := AConnectionList[ConnectionIndex];
+                if (IFACE = ConnectionItem.IFACE)
+                  and ACellList.SameCells(ConnectionItem.List) then
+                begin
+                  AScreenObject := ConnectionItem.ScreenObject;
+                  Break;
+                end;
+              end;
+              if AScreenObject = nil then
+              begin
+                AScreenObject := CreateScreenObject(FirstCell, APeriod.Period);
+                ConnectionItem := TDrnConnection.Create;
+                ConnectionItem.ScreenObject := AScreenObject;
+                ConnectionItem.IFACE := IFACE;
+                ConnectionItem.List := ACellList;
+                AConnectionList.Add(ConnectionItem);
+                OtherCellLists.Add(ACellList);
+                NewScreenObject := True;
+              end
+              else
+              begin
+                AddItem(AScreenObject, FirstCell, APeriod.Period);
+              end;
+            end
+            else
+            begin
+              AScreenObject := CreateScreenObject(FirstCell, APeriod.Period);
+              NewScreenObject := True;
+            end;
+          end;
+
+          CellIds.Clear;
+          for CellIndex := 0 to ACellList.Count - 1 do
+          begin
+            ACell := ACellList[CellIndex];
+            if ACell.elev.ValueType = vtNumeric then
+            begin
+              Imported_Drain_Elevations.Values.Add(ACell.elev.NumericValue);// + AuxDepthAdjustment);
+            end;
+            if AuxDepthIndex >= 0 then
+            begin
+              Aux := ACell.Aux[AuxDepthIndex];
+              if Aux.ValueType = vtNumeric then
+              begin
+                Imported_Ddrn.Values.Add(Aux.NumericValue);
+              end;
+            end;
+            if AuxMultIndex >= 0 then
+            begin
+              Aux := ACell.Aux[AuxMultIndex];
+              if Aux.ValueType = vtNumeric then
+              begin
+                Imported_Multiplier.Values.Add(Aux.NumericValue);
+              end;
+            end;
+
+            if ACell.cond.ValueType = vtNumeric then
+            begin
+               Imported_Drain_Conductance.Values.Add(ACell.cond.NumericValue);
+            end;
+
+            if NewScreenObject then
+            begin
+              CellIds.Add(ACell.Cellid);
+            end;
+
+            if CellIdObsDictionary.ContainsKey(ACell.Cellid) then
+            begin
+              CreateObsScreenObject(ACell);
+            end;
           end;
 
           if NewScreenObject then
           begin
-            CellIds.Add(ACell.Cellid);
+            AddPointsToScreenObject(CellIds, AScreenObject, True);
           end;
 
-          if CellIdObsDictionary.ContainsKey(ACell.Cellid) then
+          if ACellList.FIds.Count > 0 then
           begin
-            CreateObsScreenObject(ACell);
+            MvrSource.ScreenObject := AScreenObject;
+            MvrSource.PackageName := Package.PackageName;
+            MvrSource.Period := DrnMvrLink.Period;
+            MvrSource.IDs := ACellList.FIds.ToArray;
+            MvrSource.SourceType := mspcDrn;
+            FMvrSources.Add(MvrSource);
           end;
-        end;
-
-        if NewScreenObject then
-        begin
-          AddPointsToScreenObject(CellIds, AScreenObject, True);
-        end;
-
-        if ACellList.FIds.Count > 0 then
-        begin
-          MvrSource.ScreenObject := AScreenObject;
-          MvrSource.PackageName := Package.PackageName;
-          MvrSource.Period := DrnMvrLink.Period;
-          MvrSource.IDs := ACellList.FIds.ToArray;
-          MvrSource.SourceType := mspcDrn;
-          FMvrSources.Add(MvrSource);
         end;
       end;
-    end;
 
-  finally
-    for CellListIndex := 0 to OtherCellLists.Count - 1 do
-    begin
-      CellLists.Extract(OtherCellLists[CellListIndex])
+      if IFlowFaceData <> nil then
+      begin
+        ImportIFlowFace(IFlowFaceDataArray, IFlowFaceData);
+      end;
+
+    finally
+      for CellListIndex := 0 to OtherCellLists.Count - 1 do
+      begin
+        CellLists.Extract(OtherCellLists[CellListIndex])
+      end;
     end;
-  end;
   finally
+    IFlowFaceData.Free;
     BoundNameObsDictionary.Free;
     CellIdObsDictionary.Free;
     Map.Free;
@@ -6596,6 +6660,11 @@ var
   SpcCell: TSpcTimeItem;
   SpcItem: TSpcTimeItem;
   TDis: TTDis;
+  IFlowFaceData: T3DSparseIntegerArray;
+  IFlowFaceDataArray: TDataArray;
+  IFlowFaceIndex: Integer;
+  AuxIFLOWFACE: TMf6BoundaryValue;
+  CellId: TMfCellId;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TGhbTimeItem; const Period: Integer);
   var
     GhbItem: TGhbItem;
@@ -6879,13 +6948,14 @@ begin
 
   Model := frmGoPhast.PhastModel;
   Model.ModflowPackages.GhbBoundary.IsSelected := True;
+  Model.DataArrayManager.CreateInitialDataSets;
 
   Ghb := Package.Package as TGhb;
   Options := Ghb.Options;
 
   AuxMultIndex := Options.IndexOfAUXILIARY(Options.AUXMULTNAME);
   if AuxMultIndex >= 0 then  
-  begin  
+  begin
     Model.ModflowPackages.GhbBoundary.UseMultiplier := True;
   end;    
 
@@ -6904,6 +6974,18 @@ begin
   OtherCellLists := TObjectList<TMvrGhbTimeItemList>.Create;
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
+  IFlowFaceData := nil;
+  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceGHB);
+  IFlowFaceIndex := Ghb.Options.IndexOfAUXILIARY('IFLOWFACE');
+  if IFlowFaceDataArray <> nil then
+  begin
+    IFlowFaceDataArray.Formula := '0';
+    if IFlowFaceIndex >= 0 then
+    begin
+      IFlowFaceData := T3DSparseIntegerArray.Create(GetQuantum(Model.LayerCount),
+        GetQuantum(Model.RowCount), GetQuantum(Model.ColumnCount));
+    end;
+  end;
   try
     TDis := FSimulation.Timing.TDis;
     OtherCellLists.OwnsObjects := False;
@@ -7135,12 +7217,18 @@ begin
             end;
           end;
 
-
-
           // Assign all cells in the current period to a cell list.
           for CellIndex := 0 to APeriod.Count - 1 do
           begin
             ACell := APeriod[CellIndex];
+
+            if IFlowFaceData <> nil then
+            begin
+              AuxIFLOWFACE := ACell[IFlowFaceIndex];
+              CellId := ACell.CellId;
+              IFlowFaceData.Items[CellId.Layer, CellId.Row, CellId.Column] :=
+                Round(AuxIFLOWFACE.NumericValue);
+            end;
 
             if (ACell.Boundname <> '')
               and BoundNameObsDictionary.ContainsKey(UpperCase(ACell.Boundname)) then
@@ -7356,6 +7444,10 @@ begin
           end;
         end;
 
+        if IFlowFaceData <> nil then
+        begin
+          ImportIFlowFace(IFlowFaceDataArray, IFlowFaceData);
+        end;
       finally
         TransportAuxNames.Free;
         TransportSpeciesNames.Free;
@@ -7368,6 +7460,7 @@ begin
     end;
 
   finally
+    IFlowFaceData.Free;
     BoundNameObsDictionary.Free;
     CellIdObsDictionary.Free;
     Map.Free;
@@ -14827,6 +14920,11 @@ var
   AuxMultIndex: Integer;
   TSName: string;
   TDis: TTDis;
+  IFlowFaceData: T3DSparseIntegerArray;
+  IFlowFaceDataArray: TDataArray;
+  IFlowFaceIndex: Integer;
+  AuxIFLOWFACE: TMf6BoundaryValue;
+  CellId: TMfCellId;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TRchTimeItem; Period: Integer);
   var
     RchItem: TRchItem;
@@ -15072,6 +15170,7 @@ begin
   Model := frmGoPhast.PhastModel;
   Model.ModflowPackages.RchPackage.IsSelected := True;
   Model.ModflowPackages.RchPackage.AssignmentMethod := umAdd;
+  Model.DataArrayManager.CreateInitialDataSets;
 
   Rch := Package.Package as TRch;
   Options := Rch.Options;
@@ -15105,6 +15204,18 @@ begin
   OtherCellLists := TObjectList<TRchTimeItemList>.Create;
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
+  IFlowFaceData := nil;
+  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceRCH);
+  IFlowFaceIndex := Rch.Options.IndexOfAUXILIARY('IFLOWFACE');
+  if IFlowFaceDataArray <> nil then
+  begin
+    IFlowFaceDataArray.Formula := '0';
+    if IFlowFaceIndex >= 0 then
+    begin
+      IFlowFaceData := T3DSparseIntegerArray.Create(GetQuantum(Model.LayerCount),
+        GetQuantum(Model.RowCount), GetQuantum(Model.ColumnCount));
+    end;
+  end;
   try
     TDis := FSimulation.Timing.TDis;
     FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
@@ -15321,6 +15432,14 @@ begin
           begin
             ACell := APeriod[CellIndex];
 
+            if IFlowFaceData <> nil then
+            begin
+              AuxIFLOWFACE := ACell[IFlowFaceIndex];
+              CellId := ACell.CellId;
+              IFlowFaceData.Items[CellId.Layer, CellId.Row, CellId.Column] :=
+                Round(AuxIFLOWFACE.NumericValue);
+            end;
+
             if (ACell.Boundname <> '')
               and BoundNameObsDictionary.ContainsKey(UpperCase(ACell.Boundname)) then
             begin
@@ -15527,6 +15646,11 @@ begin
         TransportSpeciesNames.Free;
       end;
 
+      if IFlowFaceData <> nil then
+      begin
+        ImportIFlowFace(IFlowFaceDataArray, IFlowFaceData);
+      end;
+
     finally
       for CellListIndex := 0 to OtherCellLists.Count - 1 do
       begin
@@ -15534,6 +15658,7 @@ begin
       end;
     end;
   finally
+    IFlowFaceData.Free;
     BoundNameObsDictionary.Free;
     CellIdObsDictionary.Free;
     Map.Free;
@@ -15664,6 +15789,11 @@ var
   SpcDictionary: TSpcDictionary;
   SpcCell: TSpcTimeItem;
   SpcItem: TSpcTimeItem;
+  IFlowFaceData: T3DSparseIntegerArray;
+  IFlowFaceDataArray: TDataArray;
+  IFlowFaceIndex: Integer;
+  AuxIFLOWFACE: TMf6BoundaryValue;
+  CellId: TMfCellId;
   procedure AddItem(AScreenObject: TScreenObject; ACell: TRivTimeItem; Period: Integer);
   var
     RivItem: TRivItem;
@@ -15946,6 +16076,7 @@ var
           Include(General, ogMvr);
         end
         else
+
         begin
           Assert(False);
         end;
@@ -15968,15 +16099,16 @@ begin
 
   Model := frmGoPhast.PhastModel;
   Model.ModflowPackages.RivPackage.IsSelected := True;
+  Model.DataArrayManager.CreateInitialDataSets;
 
   Riv := Package.Package as TRiv;
   Options := Riv.Options;
 
   AuxMultIndex := Options.IndexOfAUXILIARY(Options.AUXMULTNAME);
-  if AuxMultIndex >= 0 then  
-  begin  
+  if AuxMultIndex >= 0 then
+  begin
     Model.ModflowPackages.RivPackage.UseMultiplier := True;
-  end;    
+  end;
 
   SpcList := TSpcList.Create;
   RivMvrLinkList := TRivMvrLinkList.Create;
@@ -15993,6 +16125,18 @@ begin
   OtherCellLists := TObjectList<TMvrRivTimeItemList>.Create;
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
+  IFlowFaceIndex := Riv.Options.IndexOfAUXILIARY('IFLOWFACE');
+  IFlowFaceData := nil;
+  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceRIV);
+  if IFlowFaceDataArray <> nil then
+  begin
+    IFlowFaceDataArray.Formula := '0';
+    if IFlowFaceIndex >= 0 then
+    begin
+      IFlowFaceData := T3DSparseIntegerArray.Create(GetQuantum(Model.LayerCount),
+        GetQuantum(Model.RowCount), GetQuantum(Model.ColumnCount));
+    end;
+  end;
   try
     TDis := FSimulation.Timing.TDis;
     FillSpcList(SpcList, Package, TransportModels, EnergyTransportModels, SpcMaps);
@@ -16229,6 +16373,14 @@ begin
           begin
             ACell := APeriod[CellIndex];
 
+            if IFlowFaceData <> nil then
+            begin
+              AuxIFLOWFACE := ACell[IFlowFaceIndex];
+              CellId := ACell.CellId;
+              IFlowFaceData.Items[CellId.Layer, CellId.Row, CellId.Column] :=
+                Round(AuxIFLOWFACE.NumericValue);
+            end;
+
             if (ACell.Boundname <> '')
               and BoundNameObsDictionary.ContainsKey(UpperCase(ACell.Boundname)) then
             begin
@@ -16454,6 +16606,11 @@ begin
         TransportSpeciesNames.Free;
       end;
 
+      if IFlowFaceData <> nil then
+      begin
+        ImportIFlowFace(IFlowFaceDataArray, IFlowFaceData);
+      end;
+
     finally
       for CellListIndex := 0 to OtherCellLists.Count - 1 do
       begin
@@ -16461,6 +16618,7 @@ begin
       end;
     end;
   finally
+    IFlowFaceData.Free;
     BoundNameObsDictionary.Free;
     CellIdObsDictionary.Free;
     Map.Free;

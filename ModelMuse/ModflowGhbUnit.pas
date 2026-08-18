@@ -1749,6 +1749,9 @@ begin
         Cell.BoundaryIndex := BoundaryIndex;
         Assert(ScreenObject <> nil);
         Cell.IFace := LocalScreenObject.IFace;
+        Cells.Add(Cell);
+        Cell.FStressPeriod := TimeIndex;
+        Cell.FValues := BoundaryValues;
         if IFlowFace <> nil then
         begin
           Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
@@ -1759,9 +1762,6 @@ begin
           Cell.IFlowFace := 0;
           Cell.IFlowFaceAnnotation := '';
         end;
-        Cells.Add(Cell);
-        Cell.FStressPeriod := TimeIndex;
-        Cell.FValues := BoundaryValues;
         Cell.ScreenObject := ScreenObjectI;
         LocalModel.AdjustCellPosition(Cell);
       end;
