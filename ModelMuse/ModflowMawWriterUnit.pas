@@ -1663,7 +1663,7 @@ begin
         Assert(False);
     end;
     WriteInteger(AWell.CellCount);
-    //  AUXILLIARY VARIABLES.
+    //  AUXILIARY VARIABLES.
     if Model.GwtUsed or Model.GweUsed then
     begin
       for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do
@@ -1874,7 +1874,7 @@ begin
             end
             else
             begin
-                // Auxilliary variables. Just write zero for the concentrations
+                // Auxiliary variables. Just write zero for the concentrations
                 // Values will be supplied by the MWT or MWE packages.
               WriteInteger(0);
             end;
@@ -1885,7 +1885,6 @@ begin
 
       if Model.ModflowPackages.PrtModels.Count > 0 then
       begin
-        WriteString('  ');
         WriteInteger(ACell.WellNumber);
         WriteString('  AUXILIARY IFLOWFACE');
         WriteInteger(ACell.IFlowFace);

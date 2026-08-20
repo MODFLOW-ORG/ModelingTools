@@ -7960,7 +7960,14 @@ begin
             FNewScreenObjects.Add(IFaceObject);
             IFaceObject.Name := 'Imported_' + DataArray.Name;
             Model.AddScreenObject(IFaceObject);
-            IFaceObject.ElevationCount := ecOne;
+            if DataArray.Orientation = dsoTop then
+            begin
+              IFaceObject.ElevationCount := ecOne;
+            end
+            else
+            begin
+              IFaceObject.ElevationCount := ecZero;
+            end;
             IFaceObject.ImportedSectionElevations.Count := Model.LayerCount * Model.RowCount * Model.ColumnCount;
             IFaceObject.ElevationFormula := rsObjectImportedValuesR + '("' + StrImportedElevations + '")';
             IFaceObject.SetValuesOfIntersectedCells := True;
@@ -11580,8 +11587,8 @@ var
   IFlowFaceDataArray: TDataArray;
   IFlowFaceIndex: Integer;
   AuxIFLOWFACE: TMf6BoundaryValue;
-//  CellId: TMfCellId;
-  CellIdDictionary: TDictionary<Integer, TMfCellId>;
+  AuxDictionary: TDictionary<Integer, Integer>;
+  IFlowFace: Integer;
 begin
   MvrSource.LakeOutlet := nil;
   ObsNameIndex := 0;
@@ -11621,9 +11628,9 @@ begin
   SpcList := TSpcList.Create;
   SpcMaps := TimeSeriesMaps.Create;
   SpcDictionaries := TSpcDictionaries.Create;
-  CellIdDictionary := TDictionary<Integer, TMfCellId>.Create;
+  AuxDictionary := TDictionary<Integer, Integer>.Create;
   IFlowFaceData := nil;
-  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceSFR);
+  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceMAW);
   IFlowFaceIndex := Maw.Options.IndexOfAUXILIARY('IFLOWFACE');
   if IFlowFaceDataArray <> nil then
   begin
@@ -12057,6 +12064,12 @@ begin
     begin
       PackageItem := Maw.PackageData[WellIndex];
 
+      if (IFlowFaceData <> nil) then
+      begin
+        AuxIFLOWFACE := PackageItem.Aux[IFlowFaceIndex];
+        AuxDictionary.AddOrSetValue(PackageItem.wellno, Round(AuxIFLOWFACE.NumericValue));
+      end;
+
       AScreenObject := TScreenObject.CreateWithViewDirection(
         Model, vdTop, UndoCreateScreenObject, False);
       FNewScreenObjects.Add(AScreenObject);
@@ -12355,6 +12368,13 @@ begin
       for SettingIndex := 0 to APeriod.Count - 1 do
       begin
         ASetting := APeriod[SettingIndex];
+
+        if (IFlowFaceData <> nil) and AnsiSameText(ASetting.Name, 'AUXILIARY')
+          and AnsiSameText(ASetting.AuxName, 'IFLOWFACE') then
+        begin
+          AuxDictionary.AddOrSetValue(ASetting.IdNumber, Round(ASetting.FloatValue));
+        end;
+
         AnItem := WellItems[ASetting.IdNumber];
         if AnsiSameText(ASetting.Name, 'STATUS') then
         begin
@@ -12671,14 +12691,14 @@ begin
       begin
         ConnectionItem := Maw.Connections[ConnectionIndex];
 
-//        if IFlowFaceData <> nil then
-//        begin
-//          AuxIFLOWFACE := SfrReachInfo.PackageData.Aux[IFlowFaceIndex];
-//          CellId := SfrReachInfo.PackageData.CellId;
-//          IFlowFaceData.Items[CellId.Layer, CellId.Row, CellId.Column] :=
-//            Round(AuxIFLOWFACE.NumericValue);
-//          CellIdDictionary.Add(SfrReachInfo.PackageData.rno, SfrReachInfo.PackageData.CellId);
-//        end;
+        if IFlowFaceData <> nil then
+        begin
+          if AuxDictionary.TryGetValue(ConnectionItem.wellno, IFlowFace) then
+          begin
+            CellId := ConnectionItem.CellId;
+            IFlowFaceData.Items[1, CellId.Row, CellId.Column] := IFlowFace;
+          end;
+        end;
 
         if CIndex = 0 then
         begin
@@ -12744,8 +12764,13 @@ begin
         end;
       end;
     end;
+    if IFlowFaceData <> nil then
+    begin
+      ImportIFlowFace(IFlowFaceDataArray, IFlowFaceData);
+    end;
+
   finally
-    CellIdDictionary.Free;
+    AuxDictionary.Free;
     IFlowFaceData.Free;
     Map.Free;
     BoundNameObsDictionary.Free;

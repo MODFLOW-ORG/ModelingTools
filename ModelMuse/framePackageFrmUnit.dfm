@@ -190,7 +190,7 @@ inherited framePkgFarm: TframePkgFarm
       object lblRootingDepth: TLabel
         Left = 16
         Top = 14
-        Width = 114
+        Width = 115
         Height = 15
         Margins.Left = 4
         Margins.Top = 4
@@ -679,7 +679,7 @@ inherited framePkgFarm: TframePkgFarm
       object lblAllotment: TLabel
         Left = 16
         Top = 134
-        Width = 190
+        Width = 191
         Height = 15
         Margins.Left = 4
         Margins.Top = 4

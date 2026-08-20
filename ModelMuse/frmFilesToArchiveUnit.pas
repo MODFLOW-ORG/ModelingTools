@@ -77,7 +77,7 @@ type
 
   TFileLists = class(TObject)
   private
-    FAuxilliaryFiles: TStringList;
+    FAuxiliaryFiles: TStringList;
     FModelInputFiles: TStringList;
     FModelOutputFiles: TStringList;
     FModpathInputFiles: TStringList;
@@ -555,7 +555,7 @@ begin
   try
     AList := TFileLists.Create;
     NewFiles.Add(AList);
-    AddNodeTextToStrings(FAncillaryNode, AList.FAuxilliaryFiles);
+    AddNodeTextToStrings(FAncillaryNode, AList.FAuxiliaryFiles);
     AddNodeTextToStrings(FModelInputFilesNode, AList.FModelInputFiles);
     AddNodeTextToStrings(FBinaryFileNode, AList.FModelInputFiles);
     AddNodeTextToStrings(FModelOutputFiles, AList.FModelOutputFiles);
@@ -690,7 +690,7 @@ end;
 
 constructor TFileLists.Create;
 begin
-  FAuxilliaryFiles := TStringList.Create;
+  FAuxiliaryFiles := TStringList.Create;
   FModelInputFiles := TStringList.Create;
   FModelOutputFiles := TStringList.Create;
   FModpathInputFiles := TStringList.Create;
@@ -705,7 +705,7 @@ end;
 
 destructor TFileLists.Destroy;
 begin
-  FAuxilliaryFiles.Free;
+  FAuxiliaryFiles.Free;
   FModelInputFiles.Free;
   FModelOutputFiles.Free;
   FModpathInputFiles.Free;
@@ -721,7 +721,7 @@ end;
 
 function TFileLists.IsSame(OtherFiles: TFileLists): Boolean;
 begin
-  result := SameContents(FAuxilliaryFiles, OtherFiles.FAuxilliaryFiles)
+  result := SameContents(FAuxiliaryFiles, OtherFiles.FAuxiliaryFiles)
     and SameContents(FModelInputFiles, OtherFiles.FModelInputFiles)
     and SameContents(FModelOutputFiles, OtherFiles.FModelOutputFiles)
     and SameContents(FModpathInputFiles, OtherFiles.FModpathInputFiles)
@@ -763,7 +763,7 @@ begin
   Assert(Files.Count = frmGoPhast.PhastModel.ChildModels.Count+1);
   AList := Files[0];
 
-  frmGoPhast.PhastModel.FilesToArchive := AList.FAuxilliaryFiles;
+  frmGoPhast.PhastModel.FilesToArchive := AList.FAuxiliaryFiles;
   frmGoPhast.PhastModel.ModelInputFiles := AList.FModelInputFiles;
   frmGoPhast.PhastModel.ModelOutputFiles := AList.FModelOutputFiles;
   frmGoPhast.PhastModel.ModpathInputFiles := AList.FModpathInputFiles;
@@ -781,7 +781,7 @@ begin
     AChildModel := frmGoPhast.PhastModel.ChildModels[ChildIndex].ChildModel;
     if AChildModel <> nil then
     begin
-      AChildModel.FilesToArchive := AList.FAuxilliaryFiles;
+      AChildModel.FilesToArchive := AList.FAuxiliaryFiles;
       AChildModel.ModelInputFiles := AList.FModelInputFiles;
       AChildModel.ModelOutputFiles := AList.FModelOutputFiles;
       AChildModel.ModpathInputFiles := AList.FModpathInputFiles;
@@ -811,7 +811,7 @@ begin
   FOriginalFiles := TListOfFileLists.Create;
   AList := TFileLists.Create;
   FOriginalFiles.Add(AList);
-  AList.FAuxilliaryFiles.AddStrings(frmGoPhast.PhastModel.FilesToArchive);
+  AList.FAuxiliaryFiles.AddStrings(frmGoPhast.PhastModel.FilesToArchive);
   AList.FModelInputFiles.AddStrings(frmGoPhast.PhastModel.ModelInputFiles);
   AList.FModelOutputFiles.AddStrings(frmGoPhast.PhastModel.ModelOutputFiles);
   AList.FModpathInputFiles.AddStrings(frmGoPhast.PhastModel.ModpathInputFiles);
@@ -830,7 +830,7 @@ begin
     begin
       AList := TFileLists.Create;
       FOriginalFiles.Add(AList);
-      AList.FAuxilliaryFiles.AddStrings(AChildModel.FilesToArchive);
+      AList.FAuxiliaryFiles.AddStrings(AChildModel.FilesToArchive);
       AList.FModelInputFiles.AddStrings(AChildModel.ModelInputFiles);
       AList.FModelOutputFiles.AddStrings(AChildModel.ModelOutputFiles);
       AList.FModpathInputFiles.AddStrings(AChildModel.ModpathInputFiles);

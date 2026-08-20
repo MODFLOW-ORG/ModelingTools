@@ -934,7 +934,7 @@ begin
     else Assert(False);
   end;
 
-  // FMP does not accept auxilliary variables.
+  // FMP does not accept auxiliary variables.
 //  WriteIface(Well_Cell.IFace);
 
   WriteString(' # ' + DataSetIdentifier
@@ -2312,7 +2312,7 @@ begin
       end;
     end;
   end;
-  // FMP does not accept auxilliary variables.
+  // FMP does not accept auxiliary variables.
 //  WriteString('AUX IFACE');
   NewLine;
 end;

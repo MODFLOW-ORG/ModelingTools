@@ -4579,7 +4579,7 @@ begin
   Inc(Index);
 
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
-  FDataArrayCreationRecords[Index].Orientation := dso3D;
+  FDataArrayCreationRecords[Index].Orientation := dsoTop;
   FDataArrayCreationRecords[Index].DataType := rdtInteger;
   FDataArrayCreationRecords[Index].Name := K_IFlowFaceMAW;
   FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceMAW;

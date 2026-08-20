@@ -3,12 +3,12 @@ inherited frmFilesToArchive: TfrmFilesToArchive
   HelpKeyword = 'Files_to_Archive_Dialog_Box'
   Caption = ' Files To Archive'
   ClientWidth = 631
-  ExplicitWidth = 643
-  ExplicitHeight = 270
+  StyleElements = [seFont, seClient, seBorder]
+  ExplicitWidth = 647
   TextHeight = 18
   object pnlBottom: TPanel
     Left = 0
-    Top = 159
+    Top = 128
     Width = 631
     Height = 73
     Align = alBottom
@@ -95,7 +95,7 @@ inherited frmFilesToArchive: TfrmFilesToArchive
     Left = 0
     Top = 0
     Width = 631
-    Height = 159
+    Height = 128
     Align = alClient
     DragMode = dmAutomatic
     Indent = 19
@@ -108,8 +108,6 @@ inherited frmFilesToArchive: TfrmFilesToArchive
     OnDragDrop = tvArchiveDragDrop
     OnDragOver = tvArchiveDragOver
     OnKeyUp = tvArchiveKeyUp
-    ExplicitWidth = 627
-    ExplicitHeight = 158
   end
   object sdArchive: TSaveDialog
     DefaultExt = '.zip'
