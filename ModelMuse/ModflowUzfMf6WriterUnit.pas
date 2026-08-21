@@ -1661,7 +1661,7 @@ begin
                 WriteValueOrFormula(UzfCell, UzfMf6RootPotentialPosition);
                 WriteValueOrFormula(UzfCell, UzfMf6RootActivityPosition);
 
-                // Auxilliary variables. Just write zero for the concentrations
+                // Auxiliary variables. Just write zero for the concentrations
                 // Values will be supplied by the UZT or UZE packages.
                 if Model.GwtUsed or Model.GweUsed then
                 begin

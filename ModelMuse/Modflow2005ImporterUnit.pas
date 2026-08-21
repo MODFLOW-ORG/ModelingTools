@@ -1029,7 +1029,7 @@ Type
     // @name starts at 1.
     Column: integer;
     Used: Boolean;
-    AuxilliaryVariables: array of double;
+    AuxiliaryVariables: array of double;
     FObservationGroups: TList;
     FObservationCells: TList;
     Constructor Create; override;
@@ -9158,7 +9158,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      ChdBoundary.AuxilliaryVariables[Index] := AuxVar;
+      ChdBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     Inc(CurrentInstance);
   end;
@@ -9193,7 +9193,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      ChdLocation.AuxilliaryVariables[Index] := AuxVar;
+      ChdLocation.AuxiliaryVariables[Index] := AuxVar;
     end;
     ReadLn(FImporter.FFile);
   end;
@@ -9628,7 +9628,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      WelBoundary.AuxilliaryVariables[Index] := AuxVar;
+      WelBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     Inc(CurrentInstance);
   end;
@@ -9660,7 +9660,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      WellBoundary.AuxilliaryVariables[Index] := AuxVar;
+      WellBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     ReadLn(FImporter.FFile);
   end;
@@ -10443,7 +10443,7 @@ begin
     for Index := 0 to ITMP - 1 do
     begin
       SetLength(FStressPeriods[FCurrentStressPeriod].Boundaries[Index].
-        AuxilliaryVariables, FAuxillaryVariables.Count);
+        AuxiliaryVariables, FAuxillaryVariables.Count);
     end;
   end;
   SetLength(FStressPeriods[FCurrentStressPeriod].Parameters, NP);
@@ -10480,7 +10480,7 @@ begin
   FParameters[CurrentParameter].ArrayLength := 1;
   FParameters[CurrentParameter].Instances[0].ArrayLength := 1;
   SetLength(FParameters[CurrentParameter].Instances[0].Locations[0].
-    AuxilliaryVariables, FAuxillaryVariables.Count);
+    AuxiliaryVariables, FAuxillaryVariables.Count);
   CurrentInstance := 0;
 end;
 
@@ -10501,7 +10501,7 @@ begin
     for InnerIndex := 0 to NLST - 1 do
     begin
       SetLength(FParameters[CurrentParameter].Instances[Index].
-        Locations[InnerIndex].AuxilliaryVariables, FAuxillaryVariables.Count);
+        Locations[InnerIndex].AuxiliaryVariables, FAuxillaryVariables.Count);
     end;
   end;
   FBoundaryIndex := -1;
@@ -10526,7 +10526,7 @@ begin
     Instance.ArrayLength := NLST;
     for InnerIndex := 0 to NLST - 1 do
     begin
-      SetLength(Instance.Locations[InnerIndex].AuxilliaryVariables,
+      SetLength(Instance.Locations[InnerIndex].AuxiliaryVariables,
         FAuxillaryVariables.Count);
     end;
   end;
@@ -10859,7 +10859,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      GhbBoundary.AuxilliaryVariables[Index] := AuxVar;
+      GhbBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     Inc(CurrentInstance);
   end;
@@ -10894,7 +10894,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      GhbBoundary.AuxilliaryVariables[Index] := AuxVar;
+      GhbBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     ReadLn(FImporter.FFile);
   end;
@@ -11343,7 +11343,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      DrnBoundary.AuxilliaryVariables[Index] := AuxVar;
+      DrnBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     Inc(CurrentInstance);
   end;
@@ -11378,7 +11378,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      DrnBoundary.AuxilliaryVariables[Index] := AuxVar;
+      DrnBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     ReadLn(FImporter.FFile);
   end;
@@ -11687,7 +11687,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      RivBoundary.AuxilliaryVariables[Index] := AuxVar;
+      RivBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     Inc(CurrentInstance);
   end;
@@ -11725,7 +11725,7 @@ begin
     for Index := 0 to FAuxillaryVariables.Count - 1 do
     begin
       Read(FImporter.FFile, AuxVar);
-      RivBoundary.AuxilliaryVariables[Index] := AuxVar;
+      RivBoundary.AuxiliaryVariables[Index] := AuxVar;
     end;
     ReadLn(FImporter.FFile);
   end;
@@ -17725,7 +17725,7 @@ begin
   for Index := 0 to FAuxillaryVariables.Count - 1 do
   begin
     Read(FImporter.FFile, AuxVar);
-    FCurrentDrtBoundary.AuxilliaryVariables[Index] := AuxVar;
+    FCurrentDrtBoundary.AuxiliaryVariables[Index] := AuxVar;
   end;
   ReadLn(FImporter.FFile);
   FImporter.UpdateProgress;

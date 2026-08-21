@@ -258,7 +258,7 @@ begin
   frameAcreageOptimizationPrintSettings.ColItemIndex := Ord(FarmProcess.AcerageOptimizationPrintLocation) +1;
   frameAcreageOptimizationPrintSettings.RowItemIndex := Ord(FarmProcess.AcerageOptimizationPrintChoice) + 1;
 
-  // Auxilliary and Options
+  // Auxiliary and Options
 
   comboCropIrrigationRequirement.ItemIndex := Ord(FarmProcess.CropIrrigationRequirement);
   comboRecomputeFlows.ItemIndex := Ord(FarmProcess.RecomputeOption);
@@ -454,7 +454,7 @@ begin
   FarmProcess.AcerageOptimizationPrintLocation := TAcerageOptimizationPrintLocation(frameAcreageOptimizationPrintSettings.ColItemIndex-1);
   FarmProcess.AcerageOptimizationPrintChoice := TAcerageOptimizationPrintChoice(frameAcreageOptimizationPrintSettings.RowItemIndex-1);
 
-  // Auxilliary and Options
+  // Auxiliary and Options
 
   FarmProcess.CropIrrigationRequirement := TCropIrrigationRequirement(comboCropIrrigationRequirement.ItemIndex);
   FarmProcess.RecomputeOption := TRecomputeOption(comboRecomputeFlows.ItemIndex);

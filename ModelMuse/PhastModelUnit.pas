@@ -10575,6 +10575,8 @@ const
 //               Bug fix: Fixed import of MODFLOW 6 models containing more than
 //                one solute transport or energy transport models. Previously
 //                multiple data sets with identical names could be created.
+//               Bug fix: Fixed bug in reading Auxiliary variables in the
+//                MAW package when importing MODFLOW 6 models.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

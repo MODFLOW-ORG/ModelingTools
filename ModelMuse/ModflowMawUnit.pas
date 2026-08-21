@@ -2102,8 +2102,8 @@ begin
         Cell.Values.Assign(BoundaryValues);
         if IFlowFace <> nil then
         begin
-          Cell.IFlowFace := IFlowFace.IntegerData[Cell.Layer, Cell.Row, Cell.Column];
-          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[Cell.Layer, Cell.Row, Cell.Column];
+          Cell.IFlowFace := IFlowFace.IntegerData[0, Cell.Row, Cell.Column];
+          Cell.IFlowFaceAnnotation := IFlowFace.Annotation[0, Cell.Row, Cell.Column];
         end
         else
         begin

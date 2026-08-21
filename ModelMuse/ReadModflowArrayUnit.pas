@@ -721,7 +721,7 @@ var
             ReadModflow6Name(PackageName1);
             ReadModflow6Name(ModelName2);
             ReadModflow6Name(PackageName2);
-            // NumVariable is the number of auxilliary variables + 1.
+            // NumVariable is the number of auxiliary variables + 1.
             AFile.Read(NumVariable, SizeOf(NumVariable));
             if (NumVariable < 0) or (NumVariable > 20) then
             begin
@@ -1016,7 +1016,7 @@ var
             ReadModflow6Name(PackageName1);
             ReadModflow6Name(ModelName2);
             ReadModflow6Name(PackageName2);
-            // NumVariable is the number of auxilliary variables + 1.
+            // NumVariable is the number of auxiliary variables + 1.
             AFile.Read(NumVariable, SizeOf(NumVariable));
             if (NumVariable < 0) or (NumVariable > 20) then
             begin
@@ -2125,7 +2125,7 @@ begin
         ReadModflow6Name(PackageName1);
         ReadModflow6Name(ModelName2);
         ReadModflow6Name(PackageName2);
-        // NumVariable is the number of auxilliary variables + 1.
+        // NumVariable is the number of auxiliary variables + 1.
         AFile.Read(NumVariable, SizeOf(NumVariable));
         Assert( (NumVariable >= 0) and (NumVariable <= 20));
         if ReadArray then
@@ -2656,7 +2656,7 @@ begin
         ReadModflow6Name(PackageName1);
         ReadModflow6Name(ModelName2);
         ReadModflow6Name(PackageName2);
-        // NumVariable is the number of auxilliary variables + 1.
+        // NumVariable is the number of auxiliary variables + 1.
         AFile.Read(NumVariable, SizeOf(NumVariable));
         Assert( (NumVariable >= 0) and (NumVariable <= 20));
         if ReadArray then
@@ -2810,7 +2810,7 @@ begin
         ReadModflow6Name(PackageName1);
         ReadModflow6Name(ModelName2);
         ReadModflow6Name(PackageName2);
-        // NumVariable is the number of auxilliary variables + 1.
+        // NumVariable is the number of auxiliary variables + 1.
         AFile.Read(NumVariable, SizeOf(NumVariable));
         Assert( (NumVariable >= 0) and (NumVariable <= 20));
         if ReadArray then

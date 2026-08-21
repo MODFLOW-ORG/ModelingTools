@@ -765,9 +765,7 @@ begin
           end;
         end
         else if (MawItem.Name = 'RATE')
-          or  (MawItem.Name = 'WELL_HEAD')
-          or (MawItem.Name = 'AUXILIARY')
-          then
+          or  (MawItem.Name = 'WELL_HEAD') then
         begin
           if TryFortranStrToFloat(FSplitter[2], MawItem.FloatValue) then
           begin
@@ -776,6 +774,18 @@ begin
           else
           begin
             MawItem.StringValue := FSplitter[2]
+          end;
+        end
+        else if (MawItem.Name = 'AUXILIARY') then
+        begin
+          MawItem.AuxName := FSplitter[2];
+          if TryFortranStrToFloat(FSplitter[3], MawItem.FloatValue) then
+          begin
+
+          end
+          else
+          begin
+            MawItem.StringValue := FSplitter[3]
           end;
         end
         else if MawItem.Name = 'HEAD_LIMIT' then

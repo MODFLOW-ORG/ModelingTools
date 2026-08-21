@@ -2562,7 +2562,7 @@ begin
 //        WriteFloat(0);
 //      end;
 
-      // Auxilliary variables. Just write zeros. The SFT or SFE packages
+      // Auxiliary variables. Just write zeros. The SFT or SFE packages
       // will supply the concentration values.
       if Model.GwtUsed or Model.GweUsed then
       begin
