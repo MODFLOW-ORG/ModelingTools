@@ -22615,6 +22615,11 @@ var
   UzeNumberDictionary: TNumberDictionary;
   UzeBoundNameDictionary: TBoundNameDictionary;
   TDis: TTDis;
+  IFlowFaceData: T3DSparseIntegerArray;
+  IFlowFaceDataArray: TDataArray;
+  IFlowFaceIndex: Integer;
+  AuxIFLOWFACE: TMf6BoundaryValue;
+  CellIdDictionary: TDictionary<Integer, TMfCellId>;
 begin
   MvrSource.LakeOutlet := nil;
   ObsNameIndex := 0;
@@ -22705,6 +22710,19 @@ begin
   UzeMaps := TimeSeriesMaps.Create;
   UzeNumberDictionaries := TNumberDictionaries.Create;
   UzeBoundNameDictionaries := TBoundNameDictionaries.Create;
+  CellIdDictionary := TDictionary<Integer, TMfCellId>.Create;
+  IFlowFaceData := nil;
+  IFlowFaceDataArray := Model.DataArrayManager.GetDataSetByName(K_IFlowFaceUZF);
+  IFlowFaceIndex := UZF.Options.IndexOfAux('IFLOWFACE');
+  if IFlowFaceDataArray <> nil then
+  begin
+    IFlowFaceDataArray.Formula := '0';
+    if IFlowFaceIndex >= 0 then
+    begin
+      IFlowFaceData := T3DSparseIntegerArray.Create(GetQuantum(Model.LayerCount),
+        GetQuantum(Model.RowCount), GetQuantum(Model.ColumnCount));
+    end;
+  end;
   try
     TransportAuxNames.CaseSensitive := False;
 
@@ -23114,6 +23132,13 @@ begin
     for CellIndex := 0 to Uzf.PackageData.Count - 1 do
     begin
       PackageItem := Uzf.PackageData[CellIndex];
+
+      if IFlowFaceData <> nil then
+      begin
+        CellId := PackageItem.CellId;
+        CellIdDictionary.Add(PackageItem.iuzno, CellId);
+      end;
+
       UzfDataItem := TUzfData.Create;
       for var TransportIndex := 0 to SpcList.Count - 1 do
       begin
@@ -23468,6 +23493,17 @@ begin
           ImportedUzfPeriodItem := UzfDataItem.PeriodData[PeriodIndex];
           StartTime := TDis.StartTime[ImportedUzfPeriodItem.Period-1];
           PData := ImportedUzfPeriodItem.PeriodData;
+
+          if (IFlowFaceData <> nil) then
+          begin
+            if CellIdDictionary.TryGetValue(PData.iuzno, CellId) then
+            begin
+              AuxIFLOWFACE := PData.Aux[IFlowFaceIndex];
+              IFlowFaceData.Items[CellId.Layer, CellId.Row, CellId.Column] :=
+                Round(AuxIFLOWFACE.NumericValue);
+            end;
+          end;
+
           if ImportedUzfPeriodItem.Period > 1 then
           begin
             PriorUzfMf6Item  := UzfMf6Item;
@@ -24209,7 +24245,13 @@ begin
         AScreenObject.Modflow6Obs.Genus := Genus;
       end;
     end;
+    if IFlowFaceData <> nil then
+    begin
+      ImportIFlowFace(IFlowFaceDataArray, IFlowFaceData);
+    end;
   finally
+    CellIdDictionary.Free;
+    IFlowFaceData.Free;
     UzfReceivers.Free;
     UzfMvrTypes.Free;
     UzfSources.Free;
