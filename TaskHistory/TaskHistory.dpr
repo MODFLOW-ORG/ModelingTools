@@ -4,7 +4,8 @@ uses
   Forms,
   MainUnit in 'MainUnit.pas' {frmTaskHistory},
   TaskHistoryUnit in 'TaskHistoryUnit.pas',
-  DisclaimerTextUnit in '..\ModelMuse\DisclaimerTextUnit.pas';
+  DisclaimerTextUnit in '..\ModelMuse\DisclaimerTextUnit.pas',
+  AnnualSummaryUnit in 'AnnualSummaryUnit.pas';
 
 {$R *.res}
 

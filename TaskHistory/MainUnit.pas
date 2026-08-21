@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Mask, JvExMask, JvSpin, ComCtrls, Grids, RbwDataGrid4,
   ExtCtrls, Menus, TaskHistoryUnit, Clipbrd, TeeProcs, TeEngine, Chart, Series,
-  Buttons, ImgList, ToolWin, VclTee.TeeGDIPlus, System.ImageList;
+  Buttons, ImgList, ToolWin, VclTee.TeeGDIPlus, System.ImageList,
+  System.DateUtils;
 
 type
   TReportColumns = (rcName, rcFractionalDays, rcTotalDays, rcFirstDate, rcLastDate);
@@ -56,6 +57,10 @@ type
     tabAbout: TTabSheet;
     memoAbout: TMemo;
     tmr1: TTimer;
+    tabDaysPerYear: TTabSheet;
+    rdgDaysWorked: TRbwDataGrid4;
+    Panel3: TPanel;
+    btnDaysPerYear: TButton;
     procedure seCategoryCountChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure seDayCountChange(Sender: TObject);
@@ -86,6 +91,7 @@ type
     procedure cbPartialDayEffort1CumulativeClick(Sender: TObject);
     procedure btnGenerateReportClick(Sender: TObject);
     procedure btnCopyReportClick(Sender: TObject);
+    procedure btnDaysPerYearClick(Sender: TObject);
     procedure tmr1Timer(Sender: TObject);
   private
     FTaskHistory: TTaskHistory;
@@ -113,7 +119,7 @@ var
 implementation
 
 uses
-  Math, DisclaimerTextUnit;
+  Math, DisclaimerTextUnit, AnnualSummaryUnit;
 
 {$R *.dfm}
 
@@ -125,6 +131,53 @@ end;
 procedure TfrmTaskHistory.btnCopyReportClick(Sender: TObject);
 begin
   rdgReport.CopyAllCellsToClipboard;
+end;
+
+procedure TfrmTaskHistory.btnDaysPerYearClick(Sender: TObject);
+var
+  HistoryItem: TDateHistoryItem;
+  Year: Integer;
+  SummaryItem: TAnnualSummaryItem;
+  AnnualSummary: TAnnualSummaryCollection;
+begin
+  if Assigned(FTaskHistory) then
+  begin
+    SummaryItem := nil;
+    AnnualSummary := TAnnualSummaryCollection.Create;
+    try
+      for var ItemIndex := 0 to FTaskHistory.History.Count - 1 do
+      begin
+        HistoryItem := FTaskHistory.History[ItemIndex];
+        if HistoryItem.Categories.Count > 0 then
+        begin
+          Year := YearOf(HistoryItem.Date);
+          if (SummaryItem = nil) or (SummaryItem.Year <> Year) then
+          begin
+            SummaryItem := AnnualSummary.Add;
+            SummaryItem.Year := Year;
+          end;
+          SummaryItem.DaysWorked := SummaryItem.DaysWorked + 1;
+        end;
+      end;
+      rdgDaysWorked.BeginUpdate;
+      try
+        rdgDaysWorked.RowCount := AnnualSummary.Count + 1;
+        rdgDaysWorked.Cells[0,0] := 'Year';
+        rdgDaysWorked.Cells[1,0] := 'Days Worked';
+
+        for var ItemIndex := 0 to AnnualSummary.Count - 1 do
+        begin
+          SummaryItem := AnnualSummary[ItemIndex];
+          rdgDaysWorked.Cells[0, ItemIndex+1] := SummaryItem.Year.ToString;
+          rdgDaysWorked.Cells[1, ItemIndex+1] := SummaryItem.DaysWorked.ToString;
+        end;
+      finally
+        rdgDaysWorked.EndUpdate;
+      end;
+    finally
+      AnnualSummary.Free
+    end;
+  end;
 end;
 
 procedure TfrmTaskHistory.btnGenerateReportClick(Sender: TObject);

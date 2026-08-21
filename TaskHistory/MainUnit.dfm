@@ -20,7 +20,7 @@ object frmTaskHistory: TfrmTaskHistory
     Top = 29
     Width = 643
     Height = 383
-    ActivePage = tabData
+    ActivePage = tabDaysPerYear
     Align = alClient
     TabOrder = 0
     OnChange = PageControl1Change
@@ -397,9 +397,9 @@ object frmTaskHistory: TfrmTaskHistory
         DefaultCanvas = 'TGDIPlusCanvas'
         ColorPaletteIndex = 13
         object serTotalEffort: TBarSeries
-          HoverElement = []
           Marks.Style = smsLabel
           Marks.MultiLine = True
+          Marks.OnTop = True
           Title = 'Effort'
           XValues.Name = 'X'
           XValues.Order = loAscending
@@ -659,6 +659,103 @@ object frmTaskHistory: TfrmTaskHistory
           '')
         ReadOnly = True
         TabOrder = 0
+      end
+    end
+    object tabDaysPerYear: TTabSheet
+      Caption = 'Days Worked Per Year'
+      ImageIndex = 6
+      object rdgDaysWorked: TRbwDataGrid4
+        Left = 0
+        Top = 0
+        Width = 635
+        Height = 308
+        Align = alClient
+        ColCount = 2
+        FixedCols = 1
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
+        TabOrder = 0
+        ExtendedAutoDistributeText = False
+        AutoMultiEdit = False
+        AutoDistributeText = False
+        AutoIncreaseColCount = False
+        AutoIncreaseRowCount = False
+        SelectedRowOrColumnColor = clAqua
+        UnselectableColor = clBtnFace
+        ColorRangeSelection = False
+        Columns = <
+          item
+            AutoAdjustRowHeights = False
+            AutoAdjustCaptionRowHeights = False
+            ButtonCaption = '...'
+            ButtonFont.Charset = DEFAULT_CHARSET
+            ButtonFont.Color = clWindowText
+            ButtonFont.Height = -12
+            ButtonFont.Name = 'Segoe UI'
+            ButtonFont.Style = []
+            ButtonUsed = False
+            ButtonWidth = 20
+            CheckMax = False
+            CheckMin = False
+            ComboUsed = False
+            Format = rcf4String
+            LimitToList = False
+            MaxLength = 0
+            ParentButtonFont = False
+            WordWrapCaptions = False
+            WordWrapCells = False
+            CaseSensitivePicklist = False
+            CheckStyle = csCheck
+            AutoAdjustColWidths = False
+          end
+          item
+            AutoAdjustRowHeights = False
+            AutoAdjustCaptionRowHeights = False
+            ButtonCaption = '...'
+            ButtonFont.Charset = DEFAULT_CHARSET
+            ButtonFont.Color = clWindowText
+            ButtonFont.Height = -12
+            ButtonFont.Name = 'Segoe UI'
+            ButtonFont.Style = []
+            ButtonUsed = False
+            ButtonWidth = 20
+            CheckMax = False
+            CheckMin = False
+            ComboUsed = False
+            Format = rcf4String
+            LimitToList = False
+            MaxLength = 0
+            ParentButtonFont = False
+            WordWrapCaptions = False
+            WordWrapCells = False
+            CaseSensitivePicklist = False
+            CheckStyle = csCheck
+            AutoAdjustColWidths = False
+          end>
+        WordWrapRowCaptions = False
+        ExplicitLeft = 304
+        ExplicitTop = 136
+        ExplicitWidth = 320
+        ExplicitHeight = 120
+      end
+      object Panel3: TPanel
+        Left = 0
+        Top = 308
+        Width = 635
+        Height = 41
+        Align = alBottom
+        TabOrder = 1
+        ExplicitLeft = 480
+        ExplicitTop = 304
+        ExplicitWidth = 185
+        object btnDaysPerYear: TButton
+          Left = 16
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Compute'
+          TabOrder = 0
+          OnClick = btnDaysPerYearClick
+        end
       end
     end
   end

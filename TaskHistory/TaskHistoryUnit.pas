@@ -22,10 +22,14 @@ Type
   end;
 
   TDateHistoryCollection = class(TCollection)
+  private
+    function GetItems(Index: Integer): TDateHistoryItem;
+    procedure SetItems(Index: Integer; const Value: TDateHistoryItem);
   public
     Constructor Create;
     procedure Assign(Source: TPersistent); override;
     procedure Sort;
+    property Items[Index: Integer]: TDateHistoryItem read GetItems write SetItems; default;
   end;
 
   TClassificationItem = class(TCollectionItem)
@@ -132,6 +136,17 @@ end;
 constructor TDateHistoryCollection.Create;
 begin
   inherited Create(TDateHistoryItem);
+end;
+
+function TDateHistoryCollection.GetItems(Index: Integer): TDateHistoryItem;
+begin
+  result := inherited Items[Index] as TDateHistoryItem
+end;
+
+procedure TDateHistoryCollection.SetItems(Index: Integer;
+  const Value: TDateHistoryItem);
+begin
+  inherited Items[Index] := Value
 end;
 
 procedure TDateHistoryCollection.Sort;
