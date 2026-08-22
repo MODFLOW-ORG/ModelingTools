@@ -122,7 +122,7 @@ type
     function ImportFlowModel: Boolean;
     procedure ImportTransportModel(ATransportModel: TModel; SpeciesIndex: Integer);
     procedure ImportEnergyTransportModel(ATransportModel: TModel; SpeciesIndex: Integer);
-    procedure ImportPrtModel(APrtMode: TModel; PrtIndex: Integer);
+    procedure ImportPrtModel(APrtModel: TModel; PrtIndex: Integer);
     procedure ImportDis(Package: TPackage);
     procedure ImportDisV(Package: TPackage);
     procedure UpdateLayerStructure(NumberOfLayers: Integer);
@@ -208,7 +208,7 @@ type
     procedure ImportFMI(NameFile: TEnergyTransportNameFile; Package: TPackage); overload;
     procedure ImportFMI(NameFile: TPrtNameFile; Package: TPackage); overload;
     procedure ImportMIP(NameFile: TPrtNameFile; Package: TPackage);
-    procedure ImportPRP(NameFile: TPrtNameFile; Package: TPackage; PrpIndex: Integer);
+    procedure ImportPRP(NameFile: TPrtNameFile; Package: TPackage; PrpIndex: Integer; ModelName: string);
     procedure ImportPrtOC(NameFile: TPrtNameFile; Package: TPackage);
     procedure ImportIFlowFace(DataArray: TDataArray; Data: T3DSparseIntegerArray);
   public
@@ -5801,6 +5801,7 @@ var
   PrtModels: TModelList;
 
 begin
+  FPrtModel := nil;
   frmGoPhast.PhastModel.ModflowPackages.GncPackage.IsSelected := False;
   result := True;
   TransportModels := TModelList.Create;
@@ -12814,7 +12815,7 @@ begin
 
   PrtModel := Model.ModflowPackages.PrtModels[FPrtIndex].PrtModel;
   PrtModel.IsSelected := True;
-  if Package.PackageName <> '' then
+  if PrtModel.ModelName = '' then
   begin
     PrtModel.ModelName := Package.PackageName;
   end;
@@ -12865,7 +12866,6 @@ var
   GwfFound: Boolean;
   GweFound: Boolean;
   GwtFound: Boolean;
-//  PrtFound: Boolean;
   ALine: string;
   TestName: string;
   APrtModel: TPrtModel;
@@ -12906,7 +12906,6 @@ begin
           GwfFound := False;
           GweFound := False;
           GwTFound := False;
-//          PrtFound := False;
           for var LineIndex := 0 to NameFile.Count - 1 do
           begin
             ALine := UpperCase(Trim(NameFile[LineIndex]));
@@ -13087,11 +13086,26 @@ begin
                 TransportModelName := Exchange.ExchangeModelNameB;
                 FFLowTransportLinks.Add(UpperCase(TransportModelName), FlowModelName);
               end
-              else if AnsiSameText(Exchange.ExchangeType, 'GWF6-GWe6') then
+              else if AnsiSameText(Exchange.ExchangeType, 'GWF6-GWE6') then
               begin
                 FlowModelName := Exchange.ExchangeModelNameA;
                 TransportModelName := Exchange.ExchangeModelNameB;
                 FFLowTransportLinks.Add(UpperCase(TransportModelName), FlowModelName);
+              end
+              else if AnsiSameText(Exchange.ExchangeType, 'GWF6-PRT6') then
+              begin
+                FlowModelName := Exchange.ExchangeModelNameA;
+                TransportModelName := Exchange.ExchangeModelNameB;
+                FFLowTransportLinks.Add(UpperCase(TransportModelName), FlowModelName);
+              end
+              else if AnsiSameText(Exchange.ExchangeType, 'GWT6-GWT6')
+                or AnsiSameText(Exchange.ExchangeType, 'GWE6-GWE6') then
+              begin
+                // do nothing
+              end
+              else if AnsiSameText(Exchange.ExchangeType, 'GWF6-GWF6') then
+              begin
+                // only one flow model is imported so skip this.
               end
               else
               begin
@@ -13169,6 +13183,29 @@ begin
                 else if (AModel.ModelType = 'GWE6') then
                 begin
                   FmiPackage := (AModel.FName as TEnergyTransportNameFile).FmiPackage;
+                  if FmiPackage <> nil then
+                  begin
+                    Budgetfile := (FmiPackage.Package as TFmi).FullBudgetFileName;
+                    if Budgetfile <> '' then
+                    begin
+                      if HeadFileModelNameDictionary.TryGetValue(UpperCase(Budgetfile), FlowModelName) then
+                      begin
+                        if FFLowTransportLinks.TryGetValue(UpperCase(AModel.ModelName), TestName) then
+                        begin
+                          Assert(AnsiSameText(FlowModelName, TestName));
+                        end
+                        else
+                        begin
+                          FFLowTransportLinks.Add(UpperCase(AModel.ModelName), FlowModelName);
+                        end;
+                      end;
+
+                    end;
+                  end;
+                end
+                else if (AModel.ModelType = 'PRT6') then
+                begin
+                  FmiPackage := (AModel.FName as TPrtNameFile).FmiPackage;
                   if FmiPackage <> nil then
                   begin
                     Budgetfile := (FmiPackage.Package as TFmi).FullBudgetFileName;
@@ -14322,7 +14359,7 @@ begin
 end;
 
 procedure TModflow6Importer.ImportPRP(NameFile: TPrtNameFile;
-  Package: TPackage; PrpIndex: Integer);
+  Package: TPackage; PrpIndex: Integer; ModelName: string);
 var
   Model: TPhastModel;
   Prp: TPrp;
@@ -14548,6 +14585,10 @@ begin
     PrpScreenObject.CreatePrpBoundary;
     PrpBoundary := PrpScreenObject.ModflowPrpBoundary;
     PrpBoundary.ParticleStorage.ParticleDistribution := pdObjectLocation;
+    PrpBoundary.PrtModelName := ModelName;
+    PrpBoundary.PrpPackageName := PrpPackage.PackageName;
+    PrpBoundary.IsUsed := True;
+    PrpBoundary.ParticleStorage.Used := True;
 
     ModflowGrid := nil;
     if Model.DisvUsed then
@@ -14591,7 +14632,7 @@ begin
   end;
 end;
 
-procedure TModflow6Importer.ImportPrtModel(APrtMode: TModel; PrtIndex: Integer);
+procedure TModflow6Importer.ImportPrtModel(APrtModel: TModel; PrtIndex: Integer);
 var
   NameFile: TPrtNameFile;
   Packages: TPrtPackages;
@@ -14600,17 +14641,17 @@ var
   Model: TPhastModel;
   PrtModels: TPrtModels;
   PrpIndex: Integer;
+  PrtModel: TPrtModel;
 begin
   Model := frmGoPhast.PhastModel;
   PrtModels := Model.ModflowPackages.PrtModels;
-  if PrtIndex = PrtModels.Count then
-  begin
-    PrtModels.Add;
-  end;
+  Assert(FPrtModel <> nil);
+  PrtModel := PrtModels[PrtIndex].PrtModel;
+  PrtModel.ModelName := FPrtModel.ModelName;
 
   PrpIndex := 0;
   FPrtIndex := PrtIndex;
-  NameFile := APrtMode.FName as TPrtNameFile;
+  NameFile := APrtModel.FName as TPrtNameFile;
   Packages := NameFile.NfPackages;
   for PackageIndex := 0 to Packages.Count - 1 do
   begin
@@ -14639,7 +14680,7 @@ begin
     end
     else if APackage.FileType = 'PRP6' then
     begin
-      ImportPRP(NameFile, APackage, PrpIndex);
+      ImportPRP(NameFile, APackage, PrpIndex, PrtModel.ModelName);
       Inc(PrpIndex);
     end
     else if APackage.FileType = 'OC6' then

@@ -546,9 +546,9 @@ begin
     end;
 
     case PrpPackage.DryTrackingMethod of
-      pdtDrop: WriteString('  DRAPE');
-      pdtStop: WriteString('  STOP');
-      pdtStay: WriteString('  STAY');
+      pdtDrop: WriteString('  DRY_TRACKING_METHOD DROP');
+      pdtStop: WriteString('  DRY_TRACKING_METHOD STOP');
+      pdtStay: WriteString('  DRY_TRACKING_METHOD STAY');
       else Assert(False);
     end;
     NewLine;
@@ -695,14 +695,6 @@ begin
         WriteEndPeriod;
       end;
 
-      if (EndPeriod >= 0) then
-      begin
-        if EndPeriod + 1 < StressPeriods.Count then
-        begin
-          WriteBeginPeriod(EndPeriod+1);
-          WriteEndPeriod;
-        end;
-      end;
     end
   end;
 end;

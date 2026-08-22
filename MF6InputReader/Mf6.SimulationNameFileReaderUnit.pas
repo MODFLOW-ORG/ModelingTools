@@ -407,6 +407,12 @@ begin
           // a file exists but nothing is read from the file.
           // Therefore, nothing is done here.
         end
+        else if ExcPackage.FileType = 'GWF6-PRT6' then
+        begin
+          // As of MODFLOW 6.6.1,
+          // a file exists but nothing is read from the file.
+          // Therefore, nothing is done here.
+        end
         else
         begin
           FOutFile.WriteLine('Unrecognized groundwater exchange type.');
@@ -894,7 +900,7 @@ begin
       ALine := UpperCase(FSplitter[0]);
       if (ALine <> 'GWF6-GWF6') and (ALine <> 'GWF6-GWT6')
         and (ALine <> 'GWT6-GWT6') and (ALine <> 'GWF6-GWE6')
-        and (ALine <> 'GWE6-GWE6')
+        and (ALine <> 'GWE6-GWE6') and (ALine <> 'GWF6-PRT6')
         then
       begin
         Unhandled.WriteLine('Error reading the exchange type in the following line.');
