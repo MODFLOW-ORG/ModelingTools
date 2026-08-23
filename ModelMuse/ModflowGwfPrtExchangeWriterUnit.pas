@@ -42,17 +42,24 @@ begin
   if not PrtModel.IsSelected then
   begin
     Exit;
-  end
-  else if PrtModel.RunAsSeparateSimulation then
-  begin
-    Exit;
   end;
+//  else if PrtModel.RunAsSeparateSimulation then
+//  begin
+//    Exit;
+//  end;
   PrtExcFile := ChangeFileExt(AFileName, '.' + ModelName) + Extension;
   FNameOfFile := PrtExcFile;
-  Model.AddModelInputFile(PrtExcFile);
+  if not PrtModel.RunAsSeparateSimulation then
+  begin
+    Model.AddModelInputFile(PrtExcFile);
+  end;
   FInputFileName := PrtExcFile;
   Exchange := Format('GWF6-PRT6 %0:s MODFLOW %1:s', [ExtractFileName(PrtExcFile), ModelName]);
   Model.SimNameWriter.AddExchange(Exchange);
+  if PrtModel.RunAsSeparateSimulation then
+  begin
+    Exit;
+  end;
   OpenFile(FNameOfFile);
   try
     WriteCommentLine('GWF6-PRT6 file created by ModelMuse');

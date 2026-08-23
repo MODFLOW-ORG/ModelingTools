@@ -12937,6 +12937,7 @@ begin
               begin
                 APrtModel := PhastModel.ModflowPackages.PrtModels.Add.PrtModel;
                 APrtModel.IsSelected := True;
+                APrtModel.RunAsSeparateSimulation := NameFileIndex > 0;
                end;
               if Pos('END MODELS', ALine) > 0 then
               begin
@@ -14389,12 +14390,13 @@ var
 begin
   if Assigned(OnUpdateStatusBar) then
   begin
-    OnUpdateStatusBar(self, 'importing MIP package');
+    OnUpdateStatusBar(self, 'importing PRP package');
   end;
   Model := frmGoPhast.PhastModel;
   Prp := Package.Package as TPrp;
 
-  PrtModel := Model.ModflowPackages.PrtModels[FPrtIndex].PrtModel;
+  PrtModel := Model.ModflowPackages.PrtModels.GetModelByName(ModelName);
+  Assert(PrtModel <> nil);
   if PrtModel.Count = PrpIndex then
   begin
     PrtModel.Add;
@@ -14570,7 +14572,7 @@ begin
     PrpScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(PrpScreenObject);
-    NewName := ValidName(Format('Imported_PRP_%s', [Package.PackageName]));
+    NewName := ValidName(Format('Imported_%s_%s', [ModelName, Package.PackageName]));
     NewName := ReplaceStr(NewName, '-', '_');
     PrpScreenObject.Name := NewName;
     PrpScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);

@@ -10264,6 +10264,7 @@ end;
 function TMf6_SimNameFileWriter.GetShouldWriteLine(ModelIndex: Integer): Boolean;
 var
   ModelType: TModelType;
+  APrtModel: TPrtModel;
 begin
   result := True;
   ModelType := FModelDataList[ModelIndex].ModelType;
@@ -10273,32 +10274,38 @@ begin
         result := FWritingFlowModel;
       end;
     mtGroundwaterTransport:
-      if FWritingFlowModel then
-      begin
-        result := not Model.SeparateGwtUsed;
-      end
-      else
-      begin
-        result := Model.SeparateGwtUsed;
-      end;
-    mtEnergyTransport:
-      if FWritingFlowModel then
-      begin
-        result := not Model.SeparateGweUsed;
-      end
-      else
-      begin
-        result := Model.SeparateGweUsed;
-      end;
-    mtParticleTransport:
       begin
         if FWritingFlowModel then
         begin
-          result := not FModelDataList[ModelIndex].RunAsSeparateSimulation;
+          result := not Model.SeparateGwtUsed;
         end
         else
         begin
-          result := FModelDataList[ModelIndex].RunAsSeparateSimulation;
+          result := Model.SeparateGwtUsed;
+        end;
+      end;
+    mtEnergyTransport:
+      begin
+        if FWritingFlowModel then
+        begin
+          result := not Model.SeparateGweUsed;
+        end
+        else
+        begin
+          result := Model.SeparateGweUsed;
+        end;
+      end;
+    mtParticleTransport:
+      begin
+        APrtModel := Model.ModflowPackages.PrtModels.GetModelByName(FModelDataList[ModelIndex].ModelName);
+        Assert(APrtModel <> nil);
+        if FWritingFlowModel then
+        begin
+          result := not APrtModel.RunAsSeparateSimulation;
+        end
+        else
+        begin
+          result := APrtModel.RunAsSeparateSimulation;
         end;
       end;
     else Assert(False);

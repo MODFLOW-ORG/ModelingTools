@@ -3234,6 +3234,7 @@ Type
       write SetCanCreateDataSets;
   public
     property Items[Index: Integer]: TPrtModelItem read GetItem write SetItem; default;
+    function GetModelByName(ModelName: string): TPrtModel;
   end;
 
   TZoneItem = class(TOrderedItem)
@@ -32570,6 +32571,19 @@ end;
 function TPrtModels.GetItem(Index: Integer): TPrtModelItem;
 begin
   result := inherited Items[Index] as TPrtModelItem;
+end;
+
+function TPrtModels.GetModelByName(ModelName: string): TPrtModel;
+begin
+  result := nil;
+  for var Index := 0 to Count - 1 do
+  begin
+    if AnsiSameText(Items[Index].PrtModel.ModelName, ModelName) then
+    begin
+      result := Items[Index].PrtModel;
+      Exit;
+    end;
+  end;
 end;
 
 procedure TPrtModels.SetCanCreateDataSets(const Value: Boolean);

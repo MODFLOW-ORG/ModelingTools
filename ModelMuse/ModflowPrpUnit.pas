@@ -258,7 +258,8 @@ begin
         FPrtModel := PrtModels[ModelIndex].PrtModel;
         FPrtModel.FreeNotification(self);
         FPrtModelName := FPrtModel.ModelName;
-        PrpPackageName := PrpPackageName
+        PrpPackageName := PrpPackageName;
+        break;
       end;
     end;
   end
@@ -295,10 +296,18 @@ begin
   begin
     Model := ParentModel as TPhastModel;
     PrtModels := Model.ModflowPackages.PrtModels;
-    for var ModelIndex := 0 to PrtModels.Count - 1 do
+//    for var ModelIndex := 0 to PrtModels.Count - 1 do
     begin
-      APrtModel := PrtModels[ModelIndex].PrtModel;
-      if APrtModel = APrtModel then
+      if PrtModelName = '' then
+      begin
+        Exit;
+      end;
+      APrtModel := PrtModels.GetModelByName(PrtModelName);
+      if APrtModel = nil then
+      begin
+        Exit;
+      end;
+//      if APrtModel = APrtModel then
       begin
         for var PackageIndex := 0 to APrtModel.Count - 1 do
         begin
@@ -306,10 +315,11 @@ begin
           begin
             FPrpPackage := APrtModel[PackageIndex].PrpPackage;
             FPrpPackage.FreeNotification(self);
-            FPrpPackageName := FPrpPackage.PackageName
+            FPrpPackageName := FPrpPackage.PackageName;
+            break;
           end;
         end;
-        break;
+//        break;
       end;
     end;
   end
