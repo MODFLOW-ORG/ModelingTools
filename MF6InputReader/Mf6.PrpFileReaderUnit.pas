@@ -733,7 +733,7 @@ begin
             Unhandled.WriteLine(ErrorLine);
             Continue;
           end;
-          if BOUNDNAMES and (FSplitter.Count >= NumberOfItems) then
+          if BOUNDNAMES and (FSplitter.Count > NumberOfItems) then
           begin
             Item.Fboundname := FSplitter[DimensionCount + 4];
           end;

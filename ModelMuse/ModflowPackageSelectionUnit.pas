@@ -2713,7 +2713,6 @@ Type
 
   TSurfaceApplicationPosition = (sapInternal, sapVertical);
 
-
   TModpathSelection = class(TModflowPackageSelection)
   private
     FMaximumSize: integer;
@@ -31864,7 +31863,7 @@ var
 begin
   Value := Copy(Value, 1,16);
   Value := ValidName(Value);
-  if FModelName <> Value then
+//  if FModelName <> Value then
   begin
     if UpperCase(FModelName) = UpperCase(Value) then
     begin

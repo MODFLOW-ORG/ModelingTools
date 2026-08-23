@@ -12821,8 +12821,12 @@ begin
   end;
 //  Options := Mip.Options;
   GridData  := Mip.GridData;
+
+  Model.ModflowPackages.PrtModels.CanCreateDataSets := True;
   PrtModel.RetardationFactorUsed := GridData.RETFACTOR <> nil;
   PrtModel.ZoneUsed := GridData.IZONE <> nil;
+  // Create retardation and zone data sets.
+  PrtModel.ModelName := PrtModel.ModelName;
   Model.DataArrayManager.CreateInitialDataSets;
   Assign3DRealDataSet(rsPorosity, GridData.POROSITY);
   if PrtModel.RetardationFactorUsed then
@@ -14661,14 +14665,10 @@ begin
     if APackage.FileType = 'DIS6' then
     begin
       Continue;
-//      ImportDis(APackage);
-//      break
     end
     else if APackage.FileType = 'DISV6' then
     begin
       Continue;
-//      ImportDisV(APackage);
-//      break;
     end
     else if APackage.FileType = 'FMI6' then
     begin
@@ -16887,6 +16887,7 @@ begin
   DataArray := Model.DataArrayManager.GetDataSetByName(DsName);
   Assert(DataArray <> nil);
   DataArray.Formula := Formula;
+ 
 end;
 
 procedure TModflow6Importer.Assign3DRealDataSet(DsName: string; Data: TDArray3D);
