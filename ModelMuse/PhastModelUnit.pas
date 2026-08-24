@@ -10577,6 +10577,8 @@ const
 //                multiple data sets with identical names could be created.
 //               Bug fix: Fixed bug in reading Auxiliary variables in the
 //                MAW package when importing MODFLOW 6 models.
+//               Bug fix: fixed bug in importing the CND package for GWE models.
+//               BUG FIX: Fixed bugs importing CSUB, LAK, MVR, and UZE packages
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

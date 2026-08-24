@@ -260,6 +260,8 @@ uses
   Mf6.SfeFileReaderUnit, Mf6.UzeFileReaderUnit, Mf6.MipFileReaderUnit,
   Mf6.PrpFileReaderUnit, ModflowPrpUnit, ModpathParticleUnit;
 
+const
+  SImported__Layer_ = 'Imported_%s_Layer_%d';
 resourcestring
   SImportingTheGNCPackageCanBeProbl = 'Importing the GNC package can be '
   + 'problematic. Consider using the original GNC file in the Model|MODFLOW '
@@ -983,7 +985,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_CHD_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_CHD_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -1025,7 +1027,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_CHD_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_CHD_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -1675,7 +1677,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_CNC_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_CNC_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -1729,7 +1731,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_CNC_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_CNC_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -1977,19 +1979,18 @@ var
   ATH2: TDataArray;
   Ath2DataSetName: string;
   AtvDataSetName: string;
-//  KtwDataSetName: string;
-//  KtsDataSetName: string;
   ATV: TDataArray;
-//  KTW: TDataArray;
-//  KTS: TDataArray;
+  LocalSpeciesName: string;
+  function LocalUsedForGWE(const NewName: string): Boolean;
+  begin
+    result := (Model.ModelSelection = msModflow2015)
+      and frmGoPhast.PhastModel.GweUsed
+      and AnsiSameText(NewName, strGweTemperature);
+  end;
 begin
   Model := frmGoPhast.PhastModel;
   CndPackage := Model.ModflowPackages.GweConductionAndDispersionPackage;
   CndPackage.IsSelected := True;
-//  CndPackage.SeparateDataSetsForEachSpecies := dtSeparate;
-//  CndPackage.LongitudinalDispTreatement := dtSeparate;
-//  CndPackage.TransverseDispTreatement := dtSeparate;
-//  CndPackage.UseTransverseDispForVertFlow := True;
 
   Cnd := Package.Package as TCnd;
   Options := Cnd.Options;
@@ -2003,14 +2004,18 @@ begin
   ChemSpecies := Model.MobileComponents[SpeciesIndex];
   ChemSpecies.Name := NameFile.SpeciesName;
 
-//  DataSetName := KDiffusionCoefficien + '_' + NameFile.SpeciesName;
   GridData := Cnd.GridData;
-//  if (GridData.DIFFC <> nil) then
-//  begin
-//    Assign3DRealDataSet(DataSetName, GridData.DIFFC);
-//  end;
-//
-  DataSetName := KLongitudinalDispersH + '_' + NameFile.SpeciesName;
+
+  if LocalUsedForGWE(NameFile.SpeciesName) then
+  begin
+    LocalSpeciesName := KGWE;
+  end
+  else
+  begin
+    LocalSpeciesName := NameFile.SpeciesName;
+  end;
+
+  DataSetName := KLongitudinalDispersH + '_' + LocalSpeciesName;
   AlhDataSetName := DataSetName;
   if GridData.ALH = nil then
   begin
@@ -2025,7 +2030,7 @@ begin
     Assign3DRealDataSet(DataSetName, GridData.ALH);
   end;
 
-  DataSetName := KLongitudinalDispersV + '_' + NameFile.SpeciesName;
+  DataSetName := KLongitudinalDispersV + '_' + LocalSpeciesName;
   if GridData.ALV = nil then
   begin
     Alv := Model.DataArrayManager.GetDataSetByName(DataSetName);
@@ -2039,7 +2044,7 @@ begin
     Assign3DRealDataSet(DataSetName, GridData.ALV);
   end;
 
-  DataSetName := KHorizontalTransvers + '_' + NameFile.SpeciesName;
+  DataSetName := KHorizontalTransvers + '_' + LocalSpeciesName;
   Ath1DataSetName := DataSetName;
   if GridData.ATH1 = nil then
   begin
@@ -2054,7 +2059,7 @@ begin
     Assign3DRealDataSet(DataSetName, GridData.ATH1);
   end;
 
-  DataSetName := KVerticalTransverse + '_' + NameFile.SpeciesName;
+  DataSetName := KVerticalTransverse + '_' + LocalSpeciesName;
   Ath2DataSetName := DataSetName;
   if GridData.ATH2 = nil then
   begin
@@ -2069,7 +2074,7 @@ begin
     Assign3DRealDataSet(DataSetName, GridData.ATH2);
   end;
 
-  DataSetName := rsVertical_Transv_Dispersivity + '_' + NameFile.SpeciesName;
+  DataSetName := rsVertical_Transv_Dispersivity + '_' + LocalSpeciesName;
   AtvDataSetName := DataSetName;
   if GridData.ATV = nil then
   begin
@@ -2084,22 +2089,14 @@ begin
     Assign3DRealDataSet(DataSetName, GridData.ATV);
   end;
 
-  DataSetName := rsThermalCondFluid + '_GWE' {+ NameFile.SpeciesName};
-  if GridData.KTW = nil then
-  begin
-//    KTW := Model.DataArrayManager.GetDataSetByName(DataSetName);
-  end
-  else
+  DataSetName := rsThermalCondFluid + '_'  + KGWE;
+  if GridData.KTW <> nil then
   begin
     Assign3DRealDataSet(DataSetName, GridData.KTW);
   end;
 
-  DataSetName := rsThermalCondSolid + '_GWE' {+ NameFile.SpeciesName};
-  if GridData.KTS = nil then
-  begin
-//    KTS := Model.DataArrayManager.GetDataSetByName(DataSetName);
-  end
-  else
+  DataSetName := rsThermalCondSolid + '_' + KGWE;
+  if GridData.KTS <> nil then
   begin
     Assign3DRealDataSet(DataSetName, GridData.KTS);
   end;
@@ -2194,18 +2191,18 @@ var
     FNewScreenObjects.Add(result);
     if BoundName <> '' then
     begin
-      NewName := ValidName('ImportedCSUB_' + BoundName);
+      NewName := GoPhastTypes.ValidName('ImportedCSUB_' + BoundName);
     end
     else
     begin
       if Period > 0 then
       begin
-        NewName := ValidName('ImportedCSUB_Period_' + IntToStr(Period));
+        NewName := GoPhastTypes.ValidName('ImportedCSUB_Period_' + IntToStr(Period));
       end
       else
       begin
         Inc(ObjectCount);
-        NewName := ValidName('ImportedCSUB_Obs'  + IntToStr(ObjectCount));
+        NewName := GoPhastTypes.ValidName('ImportedCSUB_Obs'  + IntToStr(ObjectCount));
       end;
     end;
     NewName := ReplaceStr(NewName, '-', '_');
@@ -3120,7 +3117,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_CTP_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_CTP_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -3174,7 +3171,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_CTP_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_CTP_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -3848,7 +3845,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_Drn_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Drn_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -3891,7 +3888,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_Drn_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Drn_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -4684,7 +4681,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_ESL_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_ESL_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -4738,7 +4735,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_ESL_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_ESL_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -5318,7 +5315,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_Evt_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Evt_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -5360,7 +5357,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_Evt_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Evt_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -6839,7 +6836,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_Ghb_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Ghb_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -6882,7 +6879,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_Ghb_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Ghb_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -10570,6 +10567,7 @@ var
   GweAdjustment: integer;
   TDis: TTDis;
 begin
+  TDis := FSimulation.Timing.TDis;
   FErrorMessages.Add('Be sure to check all lakes to make sure there are no extra lakes cells. If any are found, delete them.');
   // For each lake, define 3D data sets for Lake K, bottom elevation, and top elevation.
   // Assign lake thickness a value of 1.
@@ -12076,11 +12074,11 @@ begin
       FNewScreenObjects.Add(AScreenObject);
       if PackageItem.Boundname <> '' then
       begin
-        NewName := ValidName(PackageItem.Boundname);
+        NewName := GoPhastTypes.ValidName(PackageItem.Boundname);
       end
       else
       begin
-        NewName := ValidName(Format('Imported_%s_Maw_%d',
+        NewName := GoPhastTypes.ValidName(Format('Imported_%s_Maw_%d',
           [Package.PackageName, WellIndex + 1]));
       end;
       AScreenObject.Name := NewName;
@@ -13322,8 +13320,6 @@ begin
 
               ImportIMS(FFlowModelOptions);
 
-
-
             finally
               FlowModelNames.Free
             end;
@@ -13685,10 +13681,18 @@ begin
           SectionDictionary := TSectionDictionary.Create;
           SectionDictionaries.Add(SectionDictionary);
           SourceSectionDictionary.Add(AScreenObject, SectionDictionary);
-          Assert(AScreenObject.SectionCount = Length(Source.IDs));
-          for SectionIndex := 0 to AScreenObject.SectionCount - 1 do
+          if Source.SourceType in [mspcSfr, mspcLak] then
           begin
-            SectionDictionary.Add(Source.IDs[SectionIndex], SectionIndex)
+            Assert(Length(Source.IDs) = 1);
+            SectionDictionary.Add(Source.IDs[0], 0);
+          end
+          else
+          begin
+            Assert(AScreenObject.SectionCount = Length(Source.IDs));
+            for SectionIndex := 0 to AScreenObject.SectionCount - 1 do
+            begin
+              SectionDictionary.Add(Source.IDs[SectionIndex], SectionIndex)
+            end;
           end;
         end;
 
@@ -13852,10 +13856,21 @@ begin
             begin
               AMvrMap := ModflowMvr.MvrMaps.Add.MvrMap;
               AMvrMap.MapName := MapName;
-              Assert(AScreenObject.SectionCount = Length(Source.IDs));
-              for SectionIndex := 1 to AScreenObject.SectionCount do
+              if Source.SourceType in [mspcSfr, mspcLak] then
               begin
-                AMvrMap.Add.SourceSection := SectionIndex;
+                Assert(Length(Source.IDs) = 1);
+               for SectionIndex := 1 to AScreenObject.SectionCount do
+                begin
+                  AMvrMap.Add.SourceSection := SectionIndex;
+                end;
+               end
+              else
+              begin
+                Assert(AScreenObject.SectionCount = Length(Source.IDs));
+                for SectionIndex := 1 to AScreenObject.SectionCount do
+                begin
+                  AMvrMap.Add.SourceSection := SectionIndex;
+                end;
               end;
               MvrMap := AMvrMap;
             end;
@@ -14576,7 +14591,7 @@ begin
     PrpScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(PrpScreenObject);
-    NewName := ValidName(Format('Imported_%s_%s', [ModelName, Package.PackageName]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_%s', [ModelName, Package.PackageName]));
     NewName := ReplaceStr(NewName, '-', '_');
     PrpScreenObject.Name := NewName;
     PrpScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -15176,7 +15191,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_Rch_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Rch_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -15218,7 +15233,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_Rch_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Rch_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -16086,7 +16101,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_Riv_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Riv_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -16129,7 +16144,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_Riv_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Riv_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -16925,7 +16940,7 @@ begin
         break;
       end;
     end;
-    DataArrayName := Format('Imported_%s_Layer_%d', [DsName, LayerIndex]);
+    DataArrayName := Format(SImported__Layer_, [DsName, LayerIndex]);
     Formula := Formula + ',' + DataArrayName;
     DataArray := Model.DataArrayManager.CreateNewDataArray(TDataArray,
       DataArrayName, '0', DataArrayName, [dcType], rdtDouble, eaBlocks, dsoTop, '');
@@ -16950,7 +16965,7 @@ begin
   Formula := Formula + ')';
   if Model.LayerCount = 1 then
   begin
-    DataArrayName := Format('Imported_%s_%d', [DsName, 1]);
+    DataArrayName := Format(SImported__Layer_, [DsName, 1]);
     Formula := DataArrayName;
   end
   else
@@ -17905,7 +17920,7 @@ var
 
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
-    NewName := ValidName(Format('Imported_%s_Sfr_%d',
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Sfr_%d',
       [Package.PackageName, FirstReachNo]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
@@ -18384,7 +18399,7 @@ var
         Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
         result.CreateMf6Obs;
         IncludeObservations(ObsList);
-        result.Modflow6Obs.Name := ValidName(Boundname);
+        result.Modflow6Obs.Name := GoPhastTypes.ValidName(Boundname);
       end;
     end;
     if NumberObsDictionary.TryGetValue(FirstReach.PackageData.rno, ObsList) then
@@ -18418,7 +18433,7 @@ var
             Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
             result.CreateMf6Obs;
             IncludeSftObservations(ObsList);
-            result.Modflow6Obs.Name := ValidName(Boundname);
+            result.Modflow6Obs.Name := GoPhastTypes.ValidName(Boundname);
           end;
         end;
 
@@ -18458,7 +18473,7 @@ var
             Model.ModflowPackages.Mf6ObservationUtility.IsSelected := True;
             result.CreateMf6Obs;
             IncludeSftObservations(ObsList);
-            result.Modflow6Obs.Name := ValidName(Boundname);
+            result.Modflow6Obs.Name := GoPhastTypes.ValidName(Boundname);
           end;
         end;
 
@@ -20616,7 +20631,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_SRC_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_SRC_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
@@ -20670,7 +20685,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_SRC_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_SRC_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -23276,7 +23291,7 @@ begin
             end;
           end;
 
-          if UztNumberDictionaries[TransportIndex].TryGetValue(PackageItem.iuzno, Obs) then
+          if UzeNumberDictionaries[TransportIndex].TryGetValue(PackageItem.iuzno, Obs) then
           begin
             UzfDataItem.UzeIdObs.Add(Obs);
           end
@@ -23652,6 +23667,10 @@ begin
             for var SettingIndex := Low(TUztSetting) to High(TUztSetting) do
             begin
               UzeItem := UzfDataItem.FEnergyTransportSettings[PeriodIndex,TransportIndex][SettingIndex];
+              if UzeItem.Name = '' then
+              begin
+                Continue;
+              end;
               case SettingIndex of
                 usStatus:
                   begin
@@ -23817,7 +23836,7 @@ begin
             ModflowUzfMf6Boundary.StartingConcentrations[AdjustedIndex].Value :=
               rsObjectImportedValuesR + '("' + SrtItem.Name + '")';
 
-            AModel := TransportModels[TransportIndex];
+            AModel := EnergyTransportModels[TransportIndex];
             EnergyTransportModel := AModel.FName as TEnergyTransportNameFile;
             ModflowUzfMf6Boundary.StartingConcentrations[AdjustedIndex].Name
               := EnergyTransportModel.SpeciesName;
@@ -24788,7 +24807,7 @@ var
     AScreenObject := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(AScreenObject);
-    NewName := ValidName(Format('Imported_%s_Wel_Obs_%d', [Package.PackageName, ObjectCount]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Wel_Obs_%d', [Package.PackageName, ObjectCount]));
     AScreenObject.Name := NewName;
     AScreenObject.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);
 
@@ -24831,7 +24850,7 @@ var
     result := TScreenObject.CreateWithViewDirection(
       Model, vdTop, UndoCreateScreenObject, False);
     FNewScreenObjects.Add(result);
-    NewName := ValidName(Format('Imported_%s_Wel_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
+    NewName := GoPhastTypes.ValidName(Format('Imported_%s_Wel_%d_Period_%d', [Package.PackageName, ObjectCount, Period]));
     NewName := ReplaceStr(NewName, '-', '_');
     result.Name := NewName;
     result.Comment := 'Imported from ' + FModelNameFile +' on ' + DateTimeToStr(Now);

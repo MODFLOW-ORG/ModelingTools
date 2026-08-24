@@ -1762,6 +1762,10 @@ begin
   result := StringReplace(result, '''', '', [rfReplaceAll]);
   result := StringReplace(result, '/', '_', [rfReplaceAll]);
   result := StringReplace(result, '\', '_', [rfReplaceAll]);
+  result := StringReplace(result, '-', '_', [rfReplaceAll]);
+  result := StringReplace(result, '+', '_', [rfReplaceAll]);
+  result := StringReplace(result, '*', '_', [rfReplaceAll]);
+  result := StringReplace(result, '-', '_', [rfReplaceAll]);
   try
     if IsValidIdent(Result, False) then
     begin
