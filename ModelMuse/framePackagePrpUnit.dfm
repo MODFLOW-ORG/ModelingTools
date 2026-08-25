@@ -182,6 +182,7 @@ inherited framePackagePrp: TframePackagePrp
           ExplicitTop = 21
         end
         inherited RdeValue: TRbwDataEntry
+          Text = '0.00001'
           StyleElements = [seFont, seClient, seBorder]
         end
       end
@@ -231,10 +232,13 @@ inherited framePackagePrp: TframePackagePrp
           ExplicitWidth = 147
         end
         inherited cbUsed: TCheckBox
+          Top = 21
           TabOrder = 1
+          ExplicitTop = 21
         end
         inherited RdeValue: TRbwDataEntry
           TabOrder = 0
+          Text = '1e-10'
           StyleElements = [seFont, seClient, seBorder]
           CheckMin = True
         end
@@ -337,14 +341,16 @@ inherited framePackagePrp: TframePackagePrp
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 515
-          Height = 30
+          Width = 561
+          Height = 57
           Align = alClient
           Caption = 
             'Release times can be specified as specific times, by specific pe' +
             'riod, or both. If no release times are specified, particles will' +
             ' be released at the beginning of the first stress period.'
           WordWrap = True
+          ExplicitWidth = 515
+          ExplicitHeight = 30
         end
       end
       inline frameReleaseTimes: TframeGrid
@@ -657,14 +663,16 @@ inherited framePackagePrp: TframePackagePrp
           AlignWithMargins = True
           Left = 4
           Top = 4
-          Width = 515
-          Height = 30
+          Width = 561
+          Height = 57
           Align = alClient
           Caption = 
             'Release times can be specified as specific times, by specific pe' +
             'riod, or both. If no release times are specified, particles will' +
             ' be released at the beginning of the first stress period.'
           WordWrap = True
+          ExplicitWidth = 515
+          ExplicitHeight = 30
         end
       end
     end

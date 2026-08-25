@@ -32276,7 +32276,7 @@ begin
   ReleaseTimeFrequency := 0.0;
   ReleaseTimeFrequencyUsed := False;
   CoordinateCheckMethod := ccmNone;
-  ReleaseTimes.clear;
+  ReleaseTimes.Clear;
   PeriodData.Clear;
 
   PackageIdentifier := StrPRPParticalReleas;
@@ -32286,7 +32286,9 @@ end;
 
 function TPrpPackage.IsSame(AnotherPackage: TPrpPackage): boolean;
 begin
-  result := (PackageName = AnotherPackage.PackageName)
+  result := (IsSelected = AnotherPackage.IsSelected)
+    and Comments.Equals(AnotherPackage.Comments)
+    and (PackageName = AnotherPackage.PackageName)
     and StoredSolverTolerance.IsSame(AnotherPackage.StoredSolverTolerance)
     and (LocalZ = AnotherPackage.LocalZ)
     and (ExtendTracking = AnotherPackage.ExtendTracking)

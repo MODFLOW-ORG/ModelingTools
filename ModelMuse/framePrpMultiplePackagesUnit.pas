@@ -405,7 +405,7 @@ begin
         try
           for var StepIndex := 0 to PeriodData.Steps.Count - 1 do
           begin
-            StepList.Add(PeriodData.Steps[StepIndex].ToString);
+            StepList.Add(PeriodData.Steps[StepIndex].Value.ToString);
           end;
           frameReleasePeriodData.Grid.Cells[Ord(ppdcSteps), Index+1] := StepList.commaText;
         finally
