@@ -206,7 +206,7 @@ begin
        try
          for var StepIndex := 0 to PrpPackage.PeriodData[Index].Steps.Count - 1 do
          begin
-           Steps.Add(PrpPackage.PeriodData[Index].Steps[StepIndex].ToString);
+           Steps.Add(PrpPackage.PeriodData[Index].Steps[StepIndex].Value.ToString);
          end;
          frameReleasePeriodData.Grid.Cells[Ord(pdcSteps), Index+1] := Steps.CommaText;
        finally
