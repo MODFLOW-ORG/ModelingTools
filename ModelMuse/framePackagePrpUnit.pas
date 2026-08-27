@@ -38,6 +38,7 @@ type
     pnlReleasePeriodData: TPanel;
     lblReleasePeriodData: TLabel;
     cbLocalZ: TCheckBox;
+    procedure frameReleasePeriodDataGridEndUpdate(Sender: TObject);
     procedure frameReleasePeriodDataGridSetEditText(Sender: TObject; ACol, ARow:
         LongInt; const Value: string);
     procedure frameReleasePeriodDataseNumberChange(Sender: TObject);
@@ -78,6 +79,15 @@ resourcestring
 type
   TPeriodDataColumns = (pdcStartTime, pdcEndTime, pdcAll, pdcFirst, pdcLast,
   pdcFrequency, pdcSteps);
+
+procedure TframePackagePrp.frameReleasePeriodDataGridEndUpdate(Sender: TObject);
+begin
+  inherited;
+  if not FGettingData then
+  begin
+    frameReleasePeriodData.GridEndUpdate(Sender);
+  end;
+end;
 
 procedure TframePackagePrp.frameReleasePeriodDataGridSetEditText(Sender:
     TObject; ACol, ARow: LongInt; const Value: string);

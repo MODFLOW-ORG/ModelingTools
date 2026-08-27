@@ -583,6 +583,10 @@ begin
   end;
 
   PeriodIndex := 0;
+  if PrtModel.PeriodData.Count > frameReleasePeriodData.seNumber.AsInteger then
+  begin
+    PrtModel.PeriodData.Count := frameReleasePeriodData.seNumber.AsInteger;
+  end;
   for var Index := 0 to frameReleasePeriodData.seNumber.AsInteger  - 1 do
   begin
     if TryStrToFloat(frameReleasePeriodData.Grid.Cells[Ord(ppdcStartTime), Index+1], StartTime)

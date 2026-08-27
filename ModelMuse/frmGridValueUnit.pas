@@ -1744,6 +1744,21 @@ var
   Corner1: TPoint2D;
   Corner2: TPoint2D;
   TestDistance: double;
+  procedure ClearGrid;
+  begin
+    rdgPathline.BeginUpdate;
+    try
+      for var ColIndex := 1 to rdgPathline.ColCount - 1 do
+      begin
+        for var RowIndex := 1 to rdgPathline.RowCount - 1 do
+        begin
+          rdgPathline.Cells[ColIndex, RowIndex] := '';
+        end;
+      end;
+    finally
+      rdgPathline.EndUpdate;
+    end;
+  end;
 begin
   if (FPriorLocation.x = Location.x)
     and (FPriorLocation.y = Location.Y)then
@@ -1772,11 +1787,16 @@ begin
       Assert(False);
     end;
   end;
-  rrlPathline.Visible := PathLines.Visible and (PathQuadTree.Count > 0);
-  if rrlPathline.Visible then
+  if PathQuadTree.Count = 0 then
+  begin
+    ClearGrid;
+  end;
+  rrlPathline.Visible := PathLines.Visible;
+  if rrlPathline.Visible and (PathQuadTree.Count > 0) then
   begin
     X := Location.X;
     Y := Location.Y;
+
     PathQuadTree.FirstNearestPoint(X, Y, APointer);
     DisplayPoint := False;
     PathLinePoint := APointer;
@@ -1912,18 +1932,7 @@ begin
     end
     else
     begin
-      rdgPathline.BeginUpdate;
-      try
-        for ColIndex := 1 to rdgPathline.ColCount - 1 do
-        begin
-          for RowIndex := 1 to rdgPathline.RowCount - 1 do
-          begin
-            rdgPathline.Cells[ColIndex, RowIndex] := '';
-          end;
-        end;
-      finally
-        rdgPathline.EndUpdate;
-      end;
+      ClearGrid;
     end;
   end;
 end;
@@ -2069,6 +2078,21 @@ var
   LastPoint: TPrtTrackPoint;
   List: TList;
   APrtPoint: TPrtTrackPoint;
+  procedure ClearGrid;
+  begin
+    rdgPrtTracks.BeginUpdate;
+    try
+      for var ColIndex := 1 to rdgPrtTracks.ColCount - 1 do
+      begin
+        for var RowIndex := 1 to rdgPrtTracks.RowCount - 1 do
+        begin
+          rdgPrtTracks.Cells[ColIndex, RowIndex] := '';
+        end;
+      end;
+    finally
+      rdgPrtTracks.EndUpdate;
+    end;
+  end;
 begin
   if (FPriorPrtLocation.x = Location.x)
     and (FPriorPrtLocation.y = Location.Y)then
@@ -2097,9 +2121,12 @@ begin
       Assert(False);
     end;
   end;
-  rrlPrtTracks.Visible := (Tracks.PrtTrackDisplayLimits.PlotTypes <> [])
-    and (TracksQuadTree.Count > 0);
-  if rrlPrtTracks.Visible then
+  if TracksQuadTree.Count = 0 then
+  begin
+    ClearGrid;
+  end;
+  rrlPrtTracks.Visible := (Tracks.PrtTrackDisplayLimits.PlotTypes <> []);
+  if rrlPrtTracks.Visible and (TracksQuadTree.Count > 0) then
   begin
     X := Location.X;
     Y := Location.Y;
@@ -2181,77 +2208,70 @@ begin
     if DisplayPoint then
     begin
       Track := PrtTrackPoint.ParentTrack;
-      FirstPoint :=Track.First;
-      LastPoint :=Track.Last;
-      List := TList.Create;
-      try
-        List.Add(nil);
-        List.Add(FirstPoint);
-        List.Add(LastPoint);
-        List.Add(PrtTrackPoint);
-        rdgPrtTracks.BeginUpdate;
+
+      if (Track <> nil) and (Track.Count > 0) then
+      begin
+        FirstPoint :=Track.First;
+        LastPoint :=Track.Last;
+        List := TList.Create;
         try
-          for var ColIndex := Ord(ptcFirst) to Ord(ptcClosest) do
-          begin
-            APrtPoint := List[ColIndex];
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrStressPeriod)] :=
-              IntToStr(APrtPoint.KPER);
+          List.Add(nil);
+          List.Add(FirstPoint);
+          List.Add(LastPoint);
+          List.Add(PrtTrackPoint);
+          rdgPrtTracks.BeginUpdate;
+          try
+            for var ColIndex := Ord(ptcFirst) to Ord(ptcClosest) do
+            begin
+              APrtPoint := List[ColIndex];
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrStressPeriod)] :=
+                IntToStr(APrtPoint.KPER);
 
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrTimeStep)] :=
-              IntToStr(APrtPoint.KSTP);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrModelNumber)] :=
-              IntToStr(APrtPoint.IMDL);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrPrpPackageNumber)] :=
-              IntToStr(APrtPoint.IPRP);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrReleasePointNumber)] :=
-              IntToStr(APrtPoint.IRPT);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrLayer)] :=
-              IntToStr(APrtPoint.Layer);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrRow)] :=
-              IntToStr(APrtPoint.Row);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrColumn)] :=
-              IntToStr(APrtPoint.Column);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrZone)] :=
-              IntToStr(APrtPoint.IZONE);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrStatus)] :=
-              IntToStr(APrtPoint.ISTATUS);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrReason)] :=
-              IntToStr(APrtPoint.IREASON);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrReleaseTime)] :=
-              FloatToStr(APrtPoint.TRELEASE);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrTrackingTime)] :=
-              FloatToStr(APrtPoint.T);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrX)] :=
-              FloatToStr(APrtPoint.X);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrY)] :=
-              FloatToStr(APrtPoint.Y);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrZ)] :=
-              FloatToStr(APrtPoint.Z);
-            rdgPrtTracks.Cells[ColIndex, Ord(ptrName)] :=
-              Trim(APrtPoint.Name);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrTimeStep)] :=
+                IntToStr(APrtPoint.KSTP);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrModelNumber)] :=
+                IntToStr(APrtPoint.IMDL);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrPrpPackageNumber)] :=
+                IntToStr(APrtPoint.IPRP);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrReleasePointNumber)] :=
+                IntToStr(APrtPoint.IRPT);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrLayer)] :=
+                IntToStr(APrtPoint.Layer);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrRow)] :=
+                IntToStr(APrtPoint.Row);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrColumn)] :=
+                IntToStr(APrtPoint.Column);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrZone)] :=
+                IntToStr(APrtPoint.IZONE);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrStatus)] :=
+                IntToStr(APrtPoint.ISTATUS);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrReason)] :=
+                IntToStr(APrtPoint.IREASON);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrReleaseTime)] :=
+                FloatToStr(APrtPoint.TRELEASE);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrTrackingTime)] :=
+                FloatToStr(APrtPoint.T);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrX)] :=
+                FloatToStr(APrtPoint.X);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrY)] :=
+                FloatToStr(APrtPoint.Y);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrZ)] :=
+                FloatToStr(APrtPoint.Z);
+              rdgPrtTracks.Cells[ColIndex, Ord(ptrName)] :=
+                Trim(APrtPoint.Name);
+            end;
+
+          finally
+            rdgPrtTracks.EndUpdate;
           end;
-
         finally
-          rdgPrtTracks.EndUpdate;
+          List.Free;
         end;
-      finally
-        List.Free;
       end;
     end
     else
     begin
-      rdgPrtTracks.BeginUpdate;
-      try
-        for var ColIndex := 1 to rdgPrtTracks.ColCount - 1 do
-        begin
-          for var RowIndex := 1 to rdgPrtTracks.RowCount - 1 do
-          begin
-            rdgPrtTracks.Cells[ColIndex, RowIndex] := '';
-          end;
-        end;
-      finally
-        rdgPrtTracks.EndUpdate;
-      end;
+      ClearGrid;
     end;
   end;
 

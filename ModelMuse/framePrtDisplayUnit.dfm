@@ -9,7 +9,7 @@ object framePrtDisplay: TframePrtDisplay
     Top = 0
     Width = 502
     Height = 486
-    ActivePage = tabOptions
+    ActivePage = tabBasic
     Align = alClient
     TabOrder = 0
     object tabBasic: TTabSheet
@@ -268,8 +268,6 @@ object framePrtDisplay: TframePrtDisplay
           Align = alClient
           Caption = 'pnl2'
           TabOrder = 0
-          ExplicitTop = 6
-          ExplicitHeight = 347
           object spl1: TSplitter
             Left = 1
             Top = 193
@@ -453,8 +451,6 @@ object framePrtDisplay: TframePrtDisplay
                 AutoAdjustColWidths = True
               end>
             WordWrapRowCaptions = False
-            ExplicitTop = 153
-            ExplicitHeight = 193
           end
         end
       end

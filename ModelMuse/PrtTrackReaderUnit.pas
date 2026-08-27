@@ -321,7 +321,11 @@ end;
 
 function TPrtTrackPoint.GetParentTrack: TPrtTrack;
 begin
-  result := Collection as TPrtTrack;
+  result := nil;
+  if Collection <> nil then
+  begin
+    result := Collection as TPrtTrack;
+  end;
 end;
 
 function TPrtTrackPoint.GetRow: Integer;

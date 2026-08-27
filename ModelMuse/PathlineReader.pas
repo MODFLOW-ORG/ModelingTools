@@ -9449,11 +9449,8 @@ begin
     PlotTypes := TrackDisplaySource.PlotTypes;
     EndPointSize := TrackDisplaySource.EndPointSize;
     ThroughZoneLimits := TrackDisplaySource.ThroughZoneLimits;
-  end
-  else
-  begin
-    inherited;
   end;
+  inherited;
 end;
 
 constructor TPrtTrackDisplayLimits.Create(InvalidateModelEvent: TNotifyEvent);
@@ -9673,6 +9670,9 @@ end;
 procedure TPrtTrackDisplayer.Clear;
 begin
   Tracks.Clear;
+  TopQuadTree.Clear;
+  FrontQuadTree.Clear;
+  SideQuadTree.Clear;
 end;
 
 constructor TPrtTrackDisplayer.Create(Model: TBaseModel);
@@ -9743,7 +9743,7 @@ var
   AColor32: TColor32;
   ARect: TRect;
   QuadTree: TRbwQuadTree;
-  ShouldInitializeTree: Boolean;
+//  ShouldInitializeTree: Boolean;
   Limits: TGridLimit;
   PixelPlus: Integer;
   PixelMinus: Integer;
@@ -9765,11 +9765,6 @@ var
   begin
     result := True;
 
-    if PrtTrackDisplayLimits.ShowChoice = scAll then
-    begin
-      Exit;
-    end;
-
     if PrtTrackDisplayLimits.LimitToCurrentIn2D then
     begin
       case Orientation of
@@ -9790,6 +9785,11 @@ var
       end;
     end;
     if not result then
+    begin
+      Exit;
+    end;
+
+      if PrtTrackDisplayLimits.ShowChoice = scAll then
     begin
       Exit;
     end;
@@ -9819,7 +9819,7 @@ var
         begin
           result.X := ZoomBox.XCoord(APoint.X);
           result.Y := ZoomBox.YCoord(APoint.Y);
-          if ShouldInitializeTree then
+//          if ShouldInitializeTree then
           begin
             QuadTree.AddPoint(APoint.X, APoint.Y, APoint);
           end;
@@ -9838,7 +9838,7 @@ var
           end;
           result.X := ZoomBox.XCoord(DisplayXPrime);
           result.Y := ZoomBox.YCoord(APoint.Z);
-          if ShouldInitializeTree then
+//          if ShouldInitializeTree then
           begin
             QuadTree.AddPoint(DisplayXPrime, APoint.Z, APoint);
           end;
@@ -9847,7 +9847,7 @@ var
         begin
           result.X := ZoomBox.XCoord(APoint.Z);
           result.Y := ZoomBox.YCoord(APoint.YPrime);
-          if ShouldInitializeTree then
+//          if ShouldInitializeTree then
           begin
             QuadTree.AddPoint(APoint.Z, APoint.YPrime, APoint);
           end;
@@ -9906,6 +9906,7 @@ begin
   begin
     CrossSectionSegment := LocalModel.DisvGrid.CrossSection.Segment;
     OriginOffset := GetOriginOffset(CrossSectionSegment);
+    OriginOffset := 0;
   end
   else
   begin
@@ -9941,25 +9942,26 @@ begin
     else Assert(False);
   end;
   GetMinMaxValues(MaxValue, MinValue);
-  ShouldInitializeTree := QuadTree.Count = 0;
-  if not ShouldInitializeTree then
-  begin
-    case Orientation of
-      dsoTop:
-        begin
-          ShouldInitializeTree := FSelectedLayer <> LocalModel.SelectedLayer;
-        end;
-      dsoFront:
-        begin
-          ShouldInitializeTree := FSelectedRow <> LocalModel.SelectedRow;
-        end;
-      dsoSide:
-        begin
-          ShouldInitializeTree := FSelectedColumn <> LocalModel.SelectedColumn;
-        end;
-    end;
-  end;
-  if ShouldInitializeTree then
+//  ShouldInitializeTree := QuadTree.Count = 0;
+  QuadTree.Clear;
+//  if not ShouldInitializeTree then
+//  begin
+//    case Orientation of
+//      dsoTop:
+//        begin
+//          ShouldInitializeTree := FSelectedLayer <> LocalModel.SelectedLayer;
+//        end;
+//      dsoFront:
+//        begin
+//          ShouldInitializeTree := FSelectedRow <> LocalModel.SelectedRow;
+//        end;
+//      dsoSide:
+//        begin
+//          ShouldInitializeTree := FSelectedColumn <> LocalModel.SelectedColumn;
+//        end;
+//    end;
+//  end;
+//  if ShouldInitializeTree then
   begin
     QuadTree.Clear;
     Limits := LocalModel.DiscretizationLimits(OrientationToViewDirection(Orientation));
@@ -10616,10 +10618,12 @@ begin
   Extension := ExtractFileExt(FileName);
   if SameText(Extension, '.csv') then
   begin
+    Clear;
     Tracks.ReadFromCsv(FileName);
   end
   else if SameText(Extension, '.trk') then
   begin
+    Clear;
     Tracks.ReadFromBinary(FileName);
   end
   else

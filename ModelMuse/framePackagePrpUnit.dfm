@@ -22,7 +22,7 @@ inherited framePackagePrp: TframePackagePrp
     Top = 144
     Width = 577
     Height = 394
-    ActivePage = tabOptions
+    ActivePage = tabReleasePeriodData
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -479,6 +479,7 @@ inherited framePackagePrp: TframePackagePrp
           ColCount = 7
           DefaultColWidth = 50
           OnSetEditText = frameReleasePeriodDataGridSetEditText
+          OnEndUpdate = frameReleasePeriodDataGridEndUpdate
           Columns = <
             item
               AutoAdjustRowHeights = True
@@ -648,6 +649,7 @@ inherited framePackagePrp: TframePackagePrp
               CheckStyle = csCheck
               AutoAdjustColWidths = True
             end>
+          ExplicitTop = 1
           ExplicitWidth = 569
           ExplicitHeight = 258
         end
