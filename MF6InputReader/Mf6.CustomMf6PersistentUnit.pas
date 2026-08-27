@@ -317,6 +317,9 @@ resourcestring
   StrUnrecognizedSFILE = 'Unrecognized %s FILEINPUT data in the following li' +
   'ne.';
 
+const
+  InactiveValue = 3.00000000E+30;
+
 implementation
 
 uses

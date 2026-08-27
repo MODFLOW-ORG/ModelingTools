@@ -18,6 +18,7 @@ type
     TS6_FileNames: TStringList;
     Obs6_FileNames: TStringList;
     MOVER: Boolean;
+    FREADARRAYGRID: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
     function GetAUXILIARY(Index: Integer): string;
     function GetCount: Integer;
@@ -30,6 +31,7 @@ type
     property AUXILIARY[Index: Integer]: string read GetAUXILIARY;
     property AUXMULTNAME: string read FAUXMULTNAME;
     function IndexOfAUXILIARY(const AName: string): Integer;
+    property READARRAYGRID: Boolean read FREADARRAYGRID;
   end;
 
   TGhbDimensions = class(TCustomMf6Persistent)
@@ -73,8 +75,10 @@ type
   private
     IPer: Integer;
     FCells: TGhbTimeItemList;
+    FAuxArrays: TArray<TDArray3D>;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter;
-      Dimensions: TDimensions; naux: Integer; BOUNDNAMES: Boolean);
+      Dimensions: TDimensions; naux: Integer; BOUNDNAMES: Boolean; Options: TGhbOptions;
+        PriorPeriod: TGhbPeriod);
     function GetCell(Index: Integer): TGhbTimeItem;
     function GetCount: Integer;
   protected
@@ -198,6 +202,10 @@ begin
     if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'OPTIONS') then
     begin
       // do nothing
+    end
+    else if FSplitter[0] = 'READARRAYGRID' then
+    begin
+      FREADARRAYGRID := True;
     end
     else if FSplitter[0] = 'BOUNDNAMES' then
     begin
@@ -400,7 +408,8 @@ begin
 end;
 
 procedure TGhbPeriod.Read(Stream: TStreamReader; Unhandled: TStreamWriter;
-  Dimensions: TDimensions; naux: Integer; BOUNDNAMES: Boolean);
+  Dimensions: TDimensions; naux: Integer; BOUNDNAMES: Boolean; Options: TGhbOptions;
+        PriorPeriod: TGhbPeriod);
 var
   DimensionCount: Integer;
   Cell: TGhbTimeItem;
@@ -411,7 +420,16 @@ var
   StartIndex: Integer;
   AuxIndex: Integer;
   NumberOfColumns: Integer;
+  FDimensions: TDimensions;
+  Layered: Boolean;
+  DoubleThreeDReader: TDouble3DArrayReader;
+  BHEAD:TDArray3D;
+  BHeadValue: Double;
+  COND:TDArray3D;
+  CONDValue: Double;
+  AuxValues: TDArray1D;
 begin
+  FDimensions := Dimensions;
   DimensionCount := Dimensions.DimensionCount;
   NumberOfColumns := DimensionCount + 2 + naux;
   Initialize;
@@ -428,81 +446,216 @@ begin
 
     if ReadEndOfSection(ALine, ErrorLine, 'PERIOD', Unhandled) then
     begin
-      Exit;
-    end;
-
-    Cell := TGhbTimeItem.Create;;
-    try
-      CaseSensitiveLine := ALine;
-      if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'PERIOD') then
+      if Options.READARRAYGRID then
       begin
-        // do nothing
-      end
-      else if FSplitter.Count >= NumberOfColumns then
-      begin
-        if ReadCellID(Cell.Fcellid, 0, DimensionCount) then
+        if not Assigned(BHEAD) then
         begin
-          if TryFortranStrToFloat(FSplitter[DimensionCount], Cell.Fbhead.NumericValue) then
+          Unhandled.WriteLine(Format('Failed to read BHEAD in %s', [FPackageType]));
+          Exit;
+        end;
+        if not Assigned(COND) then
+        begin
+          Unhandled.WriteLine(Format('Failed to read COND in %s', [FPackageType]));
+          Exit;
+        end;
+        for AuxIndex := 0 to naux - 1 do
+        begin
+          if not Assigned(FAuxArrays[AuxIndex]) then
           begin
-            Cell.Fbhead.ValueType := vtNumeric;
-          end
-          else
-          begin
-            Cell.Fbhead.ValueType := vtString;
-            FSplitter.DelimitedText := CaseSensitiveLine;
-            Cell.Fbhead.StringValue := FSplitter[DimensionCount];
-          end;
-
-          if TryFortranStrToFloat(FSplitter[DimensionCount+1], Cell.Fcond.NumericValue) then
-          begin
-            Cell.Fcond.ValueType := vtNumeric;
-          end
-          else
-          begin
-            Cell.Fcond.ValueType := vtString;
-            FSplitter.DelimitedText := CaseSensitiveLine;
-            Cell.Fcond.StringValue := FSplitter[DimensionCount+1];
-          end;
-
-
-          StartIndex := DimensionCount + 2;
-          for AuxIndex := 0 to naux - 1 do
-          begin
-            Aux.Initialize;
-            if TryFortranStrToFloat(FSplitter[StartIndex], Aux.NumericValue) then
+            if PriorPeriod <> nil then
             begin
-              Aux.ValueType := vtNumeric;
+              FAuxArrays[AuxIndex] := PriorPeriod.FAuxArrays[AuxIndex];
+              SetLength(FAuxArrays[AuxIndex], FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
             end
             else
             begin
-              Aux.ValueType := vtString;
-              FSplitter.DelimitedText := CaseSensitiveLine;
-              Aux.StringValue := FSplitter[StartIndex];
+              SetLength(FAuxArrays[AuxIndex], FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
+              for var LayerIndex := 0 to FDimensions.NLay - 1 do
+              begin
+                for var RowIndex := 0 to FDimensions.NRow - 1 do
+                begin
+                  for var ColIndex := 0 to FDimensions.NCol - 1 do
+                  begin
+                    FAuxArrays[AuxIndex, LayerIndex, RowIndex, ColIndex] := 0;
+                  end;
+                end;
+              end;
             end;
-            Inc(StartIndex);
-            Cell.Faux.Add(Aux);
           end;
-          if BOUNDNAMES and (FSplitter.Count >= NumberOfColumns+1) then
+        end;
+        SetLength(AuxValues, naux);
+        for var LayerIndex := 0 to FDimensions.NLay - 1 do
+        begin
+          for var RowIndex := 0 to FDimensions.NRow - 1 do
           begin
-            Cell.Fboundname := FSplitter[StartIndex];
+            for var ColIndex := 0 to FDimensions.NCol - 1 do
+            begin
+              BHeadValue := BHead[LayerIndex, RowIndex, ColIndex];
+              CONDValue := COND[LayerIndex, RowIndex, ColIndex];
+              for AuxIndex := 0 to naux - 1 do
+              begin
+                AuxValues[AuxIndex] := FAuxArrays[AuxIndex, LayerIndex, RowIndex, ColIndex];
+              end;
+
+              if Abs((InactiveValue - BHeadValue)/InactiveValue) < 1e-10 then
+              begin
+                Continue;
+              end;
+              if Abs((InactiveValue - CONDValue)/InactiveValue) < 1e-10 then
+              begin
+                Continue;
+              end;
+
+              Cell := TGhbTimeItem.Create;
+              Cell.Fcellid.Layer := LayerIndex + 1;
+              Cell.Fcellid.Row := RowIndex + 1;
+              Cell.Fcellid.Column := ColIndex + 1;
+              Cell.Fbhead.ValueType := vtNumeric;
+              Cell.Fbhead.NumericValue := BHeadValue;
+              Cell.Fcond.ValueType := vtNumeric;
+              Cell.Fcond.NumericValue := CONDValue;
+
+              for AuxIndex := 0 to naux - 1 do
+              begin
+                Aux.Initialize;
+                Aux.ValueType := vtNumeric;
+                Aux.NumericValue := AuxValues[AuxIndex];
+                Cell.Faux.Add(Aux);
+              end;
+
+              FCells.Add(Cell);
+              Cell.FId := FCells.Count;
+            end;
           end;
-          FCells.Add(Cell);
-          Cell.FId := FCells.Count;
-          Cell:= nil;
+        end;
+      end;
+      Exit;
+    end;
+
+    if Options.READARRAYGRID then
+    begin
+      SetLength(BHead, FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
+      SetLength(COND, FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
+      SetLength(FAuxArrays, naux, FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
+
+      if FSplitter[0] = 'BHEAD' then
+      begin
+        Layered := (FSplitter.Count >= 2) and (FSplitter[1] = 'LAYERED');
+        DoubleThreeDReader := TDouble3DArrayReader.Create(FDimensions, Layered, FPackageType);
+        try
+          DoubleThreeDReader.Read(Stream, Unhandled);
+          BHead := DoubleThreeDReader.FData;
+        finally
+          DoubleThreeDReader.Free;
+        end;
+      end
+      else if FSplitter[0] = 'COND' then
+      begin
+        Layered := (FSplitter.Count >= 2) and (FSplitter[1] = 'LAYERED');
+        DoubleThreeDReader := TDouble3DArrayReader.Create(FDimensions, Layered, FPackageType);
+        try
+          DoubleThreeDReader.Read(Stream, Unhandled);
+          COND := DoubleThreeDReader.FData;
+        finally
+          DoubleThreeDReader.Free;
+        end;
+      end
+      else
+      begin
+        AuxIndex := Options.IndexOfAUXILIARY(FSplitter[0]);
+        if AuxIndex >= 0 then
+        begin
+          Layered := (FSplitter.Count >= 2) and (FSplitter[1] = 'LAYERED');
+          DoubleThreeDReader := TDouble3DArrayReader.Create(FDimensions, Layered, FPackageType);
+          try
+            DoubleThreeDReader.Read(Stream, Unhandled);
+            FAuxArrays[AuxIndex] := DoubleThreeDReader.FData;
+          finally
+            DoubleThreeDReader.Free;
+          end
+        end
+        else
+        begin
+          Unhandled.WriteLine(Format(StrUnrecognizedSPERI, [FPackageType]));
+          Unhandled.WriteLine(ErrorLine);
+         end;
+      end;
+    end
+    else
+    begin
+      Cell := TGhbTimeItem.Create;;
+      try
+        CaseSensitiveLine := ALine;
+        if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'PERIOD') then
+        begin
+          // do nothing
+        end
+        else if FSplitter.Count >= NumberOfColumns then
+        begin
+          if ReadCellID(Cell.Fcellid, 0, DimensionCount) then
+          begin
+            if TryFortranStrToFloat(FSplitter[DimensionCount], Cell.Fbhead.NumericValue) then
+            begin
+              Cell.Fbhead.ValueType := vtNumeric;
+            end
+            else
+            begin
+              Cell.Fbhead.ValueType := vtString;
+              FSplitter.DelimitedText := CaseSensitiveLine;
+              Cell.Fbhead.StringValue := FSplitter[DimensionCount];
+            end;
+
+            if TryFortranStrToFloat(FSplitter[DimensionCount+1], Cell.Fcond.NumericValue) then
+            begin
+              Cell.Fcond.ValueType := vtNumeric;
+            end
+            else
+            begin
+              Cell.Fcond.ValueType := vtString;
+              FSplitter.DelimitedText := CaseSensitiveLine;
+              Cell.Fcond.StringValue := FSplitter[DimensionCount+1];
+            end;
+
+
+            StartIndex := DimensionCount + 2;
+            for AuxIndex := 0 to naux - 1 do
+            begin
+              Aux.Initialize;
+              if TryFortranStrToFloat(FSplitter[StartIndex], Aux.NumericValue) then
+              begin
+                Aux.ValueType := vtNumeric;
+              end
+              else
+              begin
+                Aux.ValueType := vtString;
+                FSplitter.DelimitedText := CaseSensitiveLine;
+                Aux.StringValue := FSplitter[StartIndex];
+              end;
+              Inc(StartIndex);
+              Cell.Faux.Add(Aux);
+            end;
+            if BOUNDNAMES and (FSplitter.Count >= NumberOfColumns+1) then
+            begin
+              Cell.Fboundname := FSplitter[StartIndex];
+            end;
+            FCells.Add(Cell);
+            Cell.FId := FCells.Count;
+            Cell:= nil;
+          end
+          else
+          begin
+            Unhandled.WriteLine(Format(StrUnrecognizedSPERI, [FPackageType]));
+            Unhandled.WriteLine(ErrorLine);
+          end;
         end
         else
         begin
           Unhandled.WriteLine(Format(StrUnrecognizedSPERI, [FPackageType]));
           Unhandled.WriteLine(ErrorLine);
         end;
-      end
-      else
-      begin
-        Unhandled.WriteLine(Format(StrUnrecognizedSPERI, [FPackageType]));
-        Unhandled.WriteLine(ErrorLine);
+      finally
+        Cell.Free;
       end;
-    finally
-      Cell.Free;
     end;
   end;
 
@@ -567,6 +720,7 @@ var
   ErrorLine: string;
   IPER: Integer;
   APeriod: TGhbPeriod;
+  PriorPeriod: TGhbPeriod;
   TsPackage: TPackage;
   PackageIndex: Integer;
   TsReader: TTimeSeries;
@@ -577,6 +731,7 @@ begin
   begin
     OnUpdataStatusBar(self, 'reading GHB package');
   end;
+  PriorPeriod := nil;
   while not Stream.EndOfStream do
   begin
     ALine := Stream.ReadLine;
@@ -611,7 +766,12 @@ begin
           FPeriods.Add(APeriod);
           APeriod.IPer := IPER;
           APeriod.Read(Stream, Unhandled, FDimensions, FOptions.FAUXILIARY.Count,
-            FOptions.BOUNDNAMES);
+            FOptions.BOUNDNAMES, FOptions, PriorPeriod);
+          if PriorPeriod <> nil then
+          begin
+            SetLength(PriorPeriod.FAuxArrays, 0);
+          end;
+          PriorPeriod := APeriod;
         end
         else
         begin
