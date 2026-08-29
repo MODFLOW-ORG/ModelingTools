@@ -2750,14 +2750,15 @@ begin
     NewLine;
   end;
 
-
-
-//  [MOVER]
-//  [SURFDEP <surfdep>]
-
   WriteString('  SURFDEP ');
   WriteFloat(FLakMf6Package.SurfDepDepth);
   NewLine;
+
+  if FLakMf6Package.IMPLICIT then
+  begin
+    WriteString('  IMPLICIT ');
+    NewLine;
+  end;
 
   WriteString('  MAXIMUM_ITERATIONS ');
   WriteInteger(FLakMf6Package.MaxIterations);

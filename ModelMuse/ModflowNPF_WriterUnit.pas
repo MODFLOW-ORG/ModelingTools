@@ -162,6 +162,12 @@ begin
       NewLine;
     end;
 
+    if ModflowOptions.NewtonMF6 and NpfPackage.HighestCellSaturation then
+    begin
+      WriteString('  HIGHEST_CELL_SATURATION');
+      NewLine;
+    end;
+
     if NpfPackage.SaveSpecificDischarge then
     begin
       WriteString('  SAVE_SPECIFIC_DISCHARGE');

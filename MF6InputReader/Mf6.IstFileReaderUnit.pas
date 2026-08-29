@@ -19,6 +19,7 @@ type
     FCIM: Boolean;
     FCIM_PRINT_FORMAT: TPrintFormat;
     FSORBATE: Boolean;
+    FEXPORT_ARRAY_ASCII: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
   protected
     procedure Initialize; override;
@@ -33,6 +34,7 @@ type
     property CIM: Boolean read FCIM;
     property CIM_PRINT_FORMAT: TPrintFormat read FCIM_PRINT_FORMAT;
     property SORBATE: Boolean read FSORBATE;
+    property EXPORT_ARRAY_ASCII: Boolean read FEXPORT_ARRAY_ASCII;
   end;
 
   TIstGridData = class(TCustomMf6Persistent)
@@ -119,6 +121,10 @@ begin
     if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'OPTIONS') then
     begin
       // do nothing
+    end
+    else if FSplitter[0] = 'EXPORT_ARRAY_ASCII' then
+    begin
+      FEXPORT_ARRAY_ASCII := True;
     end
     else if FSplitter[0] = 'SAVE_FLOWS' then
     begin

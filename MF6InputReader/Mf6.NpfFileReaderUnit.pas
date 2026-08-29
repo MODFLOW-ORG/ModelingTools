@@ -34,6 +34,7 @@ type
     TVK6_FileNames: TStringList;
     FEXPORT_ARRAY_NETCDF: Boolean;
     FEXPORT_ARRAY_ASCII: Boolean;
+    FHIGHEST_CELL_SATURATION: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
   protected
     procedure Initialize; override;
@@ -56,6 +57,7 @@ type
     property K33OVERK: Boolean read FK33OVERK;
     property EXPORT_ARRAY_ASCII: Boolean read FEXPORT_ARRAY_ASCII;
     property EXPORT_ARRAY_NETCDF: Boolean read FEXPORT_ARRAY_NETCDF;
+    property HIGHEST_CELL_SATURATION: Boolean read FHIGHEST_CELL_SATURATION;
   end;
 
   TNpfGridData = class(TCustomMf6Persistent)
@@ -151,6 +153,7 @@ begin
   TVK6_FileNames.Clear;
   FEXPORT_ARRAY_ASCII := False;
   FEXPORT_ARRAY_NETCDF := False;
+  FHIGHEST_CELL_SATURATION := False;
 end;
 
 procedure TNpfOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -180,6 +183,11 @@ begin
     if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'OPTIONS') then
     begin
       // do nothing
+    end
+
+    else if FSplitter[0] = 'HIGHEST_CELL_SATURATION' then
+    begin
+      FHIGHEST_CELL_SATURATION := True;
     end
     else if FSplitter[0] = 'SAVE_FLOWS' then
     begin

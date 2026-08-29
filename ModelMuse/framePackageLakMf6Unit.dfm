@@ -1,9 +1,9 @@
 inherited framePackageLakMf6: TframePackageLakMf6
-  Height = 514
-  ExplicitHeight = 514
+  Height = 538
+  ExplicitHeight = 538
   DesignSize = (
     422
-    514)
+    538)
   inherited lblComments: TLabel
     StyleElements = [seFont, seClient, seBorder]
   end
@@ -24,7 +24,7 @@ inherited framePackageLakMf6: TframePackageLakMf6
   object lblMaxIterations: TLabel [3]
     Left = 143
     Top = 419
-    Width = 303
+    Width = 304
     Height = 15
     Margins.Left = 4
     Margins.Top = 4
@@ -35,7 +35,7 @@ inherited framePackageLakMf6: TframePackageLakMf6
   object lblConvergence: TLabel [4]
     Left = 16
     Top = 441
-    Width = 334
+    Width = 335
     Height = 15
     Margins.Left = 4
     Margins.Top = 4
@@ -166,6 +166,15 @@ inherited framePackageLakMf6: TframePackageLakMf6
     CheckMin = True
     ChangeDisabledColor = True
   end
+  object cbImplicit: TCheckBox [14]
+    Left = 16
+    Top = 513
+    Width = 369
+    Height = 17
+    Caption = 'Use implicit formulation (IMPLICIT)'
+    Enabled = False
+    TabOrder = 9
+  end
   inherited rcSelectionController: TRbwController
     ControlList = <
       item
@@ -197,6 +206,9 @@ inherited framePackageLakMf6: TframePackageLakMf6
       end
       item
         Control = rdeConvergence
+      end
+      item
+        Control = cbImplicit
       end>
   end
 end

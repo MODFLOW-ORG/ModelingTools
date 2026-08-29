@@ -27,6 +27,7 @@ type
     TS6_FileNames: TStringList;
     Obs6_FileNames: TStringList;
     MOVER: Boolean;
+    FNON_VERTICAL_WELLS: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
     function GetAUXILIARY(Index: Integer): string;
     function GetCount: Integer;
@@ -48,6 +49,7 @@ type
     property SHUTDOWN_THETA: TRealOption read FSHUTDOWN_THETA;
     property SHUTDOWN_KAPPA: TRealOption read FSHUTDOWN_KAPPA;
     property MAW_FLOW_REDUCE_CSV: Boolean read FMAW_FLOW_REDUCE_CSV;
+    property NON_VERTICAL_WELLS: Boolean read FNON_VERTICAL_WELLS;
   end;
 
   TMawDimensions = class(TCustomMf6Persistent)
@@ -144,6 +146,25 @@ type
     property Items[Index: Integer]: TMawConnectionItem read GetItem; default;
   end;
 
+  TMawAngleDataItem = record
+    ifno: Integer;
+    icon: Integer;
+    angle: Double;
+    conn_length: TRealOption;
+    procedure Initialize;
+  end;
+
+  TMawAngleDataList = TList<TMawAngleDataItem>;
+
+  TMawAngleData = class(TCustomMf6Persistent)
+  private
+    FAngleDataList: TMawAngleDataList;
+    procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+  public
+    constructor Create(PackageType: string); override;
+    destructor Destroy; override;
+  end;
+
   TMawPeriod = class(TCustomMf6Persistent)
   private
     IPER: Integer;
@@ -169,6 +190,7 @@ type
     FMawDimensions: TMawDimensions;
     FConnections: TMawConnectionData;
     FPackageData: TMawPackageData;
+    FAngleData: TMawAngleData;
     FPeriods: TMawPeriodList;
     FTimeSeriesPackages: TPackageList;
     FObservationsPackages: TPackageList;
@@ -185,6 +207,7 @@ type
     property Options: TMawOptions read FOptions;
     property Connections: TMawConnectionData read FConnections;
     property PackageData: TMawPackageData read FPackageData;
+    property AngleData: TMawAngleData read FAngleData;
     property PeriodCount: Integer read GetPeriodCount;
     property Periods[Index: Integer]: TMawPeriod read GetPeriod;
     property TimeSeriesCount: Integer read GetTimeSeriesCount;
@@ -253,6 +276,7 @@ begin
   TS6_FileNames.Clear;
   Obs6_FileNames.Clear;
   MOVER := False;
+  FNON_VERTICAL_WELLS := False;
 end;
 
 procedure TMawOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -285,6 +309,12 @@ begin
     if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'OPTIONS') then
     begin
       // do nothing
+    end
+
+    else if FSplitter[0] = 'NON_VERTICAL_WELLS' then
+    begin
+      FNON_VERTICAL_WELLS := True;
+      Unhandled.WriteLine('ModelMuse can only import vertical wells but the NON_VERTICAL_WELLS was specified.');
     end
     else if FSplitter[0] = 'BOUNDNAMES' then
     begin
@@ -847,6 +877,7 @@ begin
   FMawDimensions := TMawDimensions.Create(PackageType);
   FConnections := TMawConnectionData.Create(PackageType);
   FPackageData := TMawPackageData.Create(PackageType);
+  FAngleData := TMawAngleData.Create(PackageType);
   FPeriods := TMawPeriodList.Create;
   FTimeSeriesPackages := TPackageList.Create;
   FObservationsPackages := TPackageList.Create;
@@ -858,6 +889,7 @@ begin
   FMawDimensions.Free;
   FConnections.Free;
   FPackageData.Free;
+  FAngleData.Free;
   FPeriods.Free;
   FTimeSeriesPackages.Free;
   FObservationsPackages.Free;
@@ -940,6 +972,10 @@ begin
       else if FSplitter[1] ='CONNECTIONDATA' then
       begin
         FConnections.Read(Stream, Unhandled, FDimensions);
+      end
+      else if FSplitter[1] ='ANGLEDATA' then
+      begin
+        FAngleData.Read(Stream, Unhandled);
       end
       else if (FSplitter[1] ='PERIOD') and (FSplitter.Count >= 3) then
       begin
@@ -1027,6 +1063,78 @@ begin
         end;
       end
     ));
+end;
+
+{ TMawAngleData }
+
+procedure TMawAngleDataItem.Initialize;
+begin
+  ifno := 0;
+  icon := 0;
+  angle := 0;
+  conn_length.Initialize;
+end;
+
+{ TMawAngleData }
+
+constructor TMawAngleData.Create(PackageType: string);
+begin
+  inherited;
+  FAngleDataList := TMawAngleDataList.Create;
+end;
+
+destructor TMawAngleData.Destroy;
+begin
+  FAngleDataList.Free;
+  inherited;
+end;
+
+procedure TMawAngleData.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
+var
+  AngleDataItem: TMawAngleDataItem;
+  ALine: string;
+  ErrorLine: string;
+begin
+  while not Stream.EndOfStream do
+  begin
+    ALine := Stream.ReadLine;
+    RestoreStream(Stream);
+    ErrorLine := ALine;
+    ALine := StripFollowingComments(ALine);
+    if ALine = '' then
+    begin
+      Continue;
+    end;
+
+    if ReadEndOfSection(ALine, ErrorLine, 'ANGLEDATA', Unhandled) then
+    begin
+      Exit;
+    end;
+
+    AngleDataItem.Initialize;
+
+    if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'PERIOD') then
+    begin
+      // do nothing
+    end
+    else if FSplitter.Count >= 3 then
+    begin
+      AngleDataItem.ifno := StrToInt(FSplitter[0]);
+      AngleDataItem.icon := StrToInt(FSplitter[1]);
+      AngleDataItem.angle := FortranStrToFloat(FSplitter[2]);
+      AngleDataItem.conn_length.Used := FSplitter.Count >= 4;
+      if AngleDataItem.conn_length.Used then
+      begin
+        AngleDataItem.conn_length.Value := FortranStrToFloat(FSplitter[3]);
+      end;
+      FAngleDataList.Add(AngleDataItem);
+    end
+    else
+    begin
+      Unhandled.WriteLine(Format(StrUnrecognizedSPERI, [FPackageType]));
+      Unhandled.WriteLine(ErrorLine);
+    end;
+  end;
 end;
 
 end.

@@ -427,6 +427,7 @@ resourcestring
   StrDE4DirectSolverP = 'DE4: Direct Solver package';
   StrHOBHeadObservatio = 'HOB: Head Observation package';
   StrHFBHorizontalFlow = 'HFB: Horizontal Flow Barrier package';
+  StrHydraulicFBHorizontalFlow = 'HFB: Hydraulic Flow Barrier package';
   StrMODPATH = 'MODPATH';
   StrCHOBSpecifiedHead = 'CHOB: Specified-Head Flow Observation package';
   StrDROBDrainObservat = 'DROB: Drain Observation package';
@@ -729,6 +730,10 @@ begin
   FHfbPackage.PackageIdentifier := StrHFBHorizontalFlow;
   FHfbPackage.Classification := StrFlowPackages;
   FHfbPackage.SelectionType := stCheckBox;
+  if (Model <> nil) and (Model.ModelSelection = msModflow2015) then
+  begin
+    FHfbPackage.PackageIdentifier := StrHydraulicFBHorizontalFlow;
+  end;
 
   FModPath := TModpathSelection.Create(Model);
   FModPath.PackageIdentifier := StrMODPATH;

@@ -29,6 +29,7 @@ type
     UNIT_CONVERSION: TRealOption;
     FMAXIMUM_DEPTH_CHANGE: TRealOption;
     FSTORAGE: Boolean;
+    FATS_COURANT: TRealOption;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
     function GetAUXILIARY(Index: Integer): string;
     function GetCount: Integer;
@@ -53,6 +54,7 @@ type
     property Count: Integer read GetCount;
     property AUXILIARY[Index: Integer]: string read GetAUXILIARY;
     function IndexOfAUXILIARY(const AName: string): Integer;
+    property ATS_COURANT: TRealOption read FATS_COURANT;
   end;
 
   TSfrDimensions = class(TCustomMf6Persistent)
@@ -345,6 +347,7 @@ begin
   FTIME_CONVERSION.Initialize;
   FMAXIMUM_DEPTH_CHANGE.Initialize;
   UNIT_CONVERSION.Initialize;
+  FATS_COURANT.Initialize;
 end;
 
 procedure TSfrOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -435,6 +438,11 @@ begin
     else if FSplitter[0] = 'MOVER' then
     begin
       MOVER := True;
+    end
+   else if (FSplitter[0] = 'ATS_COURANT') and (FSplitter.Count >= 2)
+      and TryFortranStrToFloat(FSplitter[1], FATS_COURANT.Value) then
+    begin
+      FATS_COURANT.Used := True;
     end
     else if (FSplitter[0] = 'MAXIMUM_PICARD_ITERATIONS') and (FSplitter.Count >= 2)
       and TryStrToInt(FSplitter[1], FMAXIMUM_PICARD_ITERATIONS.Value) then

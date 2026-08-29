@@ -741,6 +741,7 @@ begin
   begin
     OnUpdataStatusBar(self, 'reading DRN package');
   end;
+  PriorPeriod := nil;
   while not Stream.EndOfStream do
   begin
     ALine := Stream.ReadLine;

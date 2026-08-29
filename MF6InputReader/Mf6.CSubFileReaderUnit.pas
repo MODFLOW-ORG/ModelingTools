@@ -35,6 +35,7 @@ type
     FPACKAGE_CONVERGENCE: Boolean;
     TS6_FileNames: TStringList;
     Obs6_FileNames: TStringList;
+    FELASTIC_INELASTIC_SMOOTHING: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
   protected
     procedure Initialize; override;
@@ -65,6 +66,7 @@ type
     property COMPACTION_COARSE: Boolean read FCOMPACTION_COARSE;
     property ZDISPLACEMENT: Boolean read FZDISPLACEMENT;
     property PACKAGE_CONVERGENCE: Boolean read FPACKAGE_CONVERGENCE;
+    property ELASTIC_INELASTIC_SMOOTHING: Boolean read FELASTIC_INELASTIC_SMOOTHING;
   end;
 
   TCSubDimensions = class(TCustomMf6Persistent)
@@ -251,6 +253,7 @@ begin
   FCOMPACTION_COARSE := False;
   FZDISPLACEMENT := False;
   FPACKAGE_CONVERGENCE := False;
+  FELASTIC_INELASTIC_SMOOTHING := False;
 end;
 
 procedure TCSubOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -281,6 +284,10 @@ begin
     if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'OPTIONS') then
     begin
       // do nothing
+    end
+   else if FSplitter[0] = 'ELASTIC_INELASTIC_SMOOTHING' then
+    begin
+      FELASTIC_INELASTIC_SMOOTHING := True;
     end
     else if FSplitter[0] = 'BOUNDNAMES' then
     begin

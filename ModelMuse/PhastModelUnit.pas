@@ -10578,7 +10578,17 @@ const
 //               Bug fix: Fixed bug in reading Auxiliary variables in the
 //                MAW package when importing MODFLOW 6 models.
 //               Bug fix: fixed bug in importing the CND package for GWE models.
-//               BUG FIX: Fixed bugs importing CSUB, LAK, MVR, and UZE packages
+//               BUG FIX: Fixed bugs importing CSUB, LAK, MVR, and UZE packages.
+//               Enhancement: Added Support for CRS option
+//                in the DIS and DISV packages.
+//               Enhancement: Added Support for HIGHEST_CELL_SATURATION option
+//                in the NPF package.
+//               Enhancement: Added Support for IMPLICIT option
+//                in the MODFLOW 6 lak package.
+//               Enhancement: Added Support for ATS_COURANT option
+//                in the MODFLOW 6 SFR package.
+//               Enhancement: Added Support for ELASTIC_INELASTIC_SMOOTHING option
+//                in the CSUB package.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

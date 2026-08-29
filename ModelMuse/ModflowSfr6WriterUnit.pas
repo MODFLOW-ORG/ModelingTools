@@ -2281,6 +2281,13 @@ begin
     NewLine;
   end;
 
+  if SfrMf6Package.ATS_COURANT_Used then
+  begin
+    WriteString('    ATS_COURANT');
+    WriteFloat(SfrMf6Package.ATS_COURANT);
+    NewLine;
+  end;
+
   WriteAdditionalAuxVariables;
 
   PrintListInputOption;

@@ -1,11 +1,11 @@
 inherited framePackageSfrMF6: TframePackageSfrMF6
   Width = 492
-  Height = 457
+  Height = 489
   ExplicitWidth = 492
-  ExplicitHeight = 457
+  ExplicitHeight = 489
   DesignSize = (
     492
-    457)
+    489)
   inherited lblComments: TLabel
     StyleElements = [seFont, seClient, seBorder]
   end
@@ -15,7 +15,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
   object lblMaxIterations: TLabel [2]
     Left = 167
     Top = 325
-    Width = 179
+    Width = 178
     Height = 30
     Margins.Left = 4
     Margins.Top = 4
@@ -39,7 +39,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
   object lblPicard: TLabel [4]
     Left = 167
     Top = 289
-    Width = 155
+    Width = 154
     Height = 45
     Margins.Left = 4
     Margins.Top = 4
@@ -48,12 +48,20 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Caption = 'Maximum number of Picard iterations (maximum_picard_iterations)'
     WordWrap = True
   end
+  object lblATS_COURANT: TLabel [5]
+    Left = 191
+    Top = 456
+    Width = 277
+    Height = 45
+    Caption = 'Target Courant number for ATS package (lATS_COURANT)'
+    WordWrap = True
+  end
   inherited memoComments: TMemo
     Width = 461
     StyleElements = [seFont, seClient, seBorder]
     ExplicitWidth = 461
   end
-  object cbSaveStage: TCheckBox [6]
+  object cbSaveStage: TCheckBox [7]
     Left = 16
     Top = 210
     Width = 313
@@ -66,7 +74,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Enabled = False
     TabOrder = 2
   end
-  object cbSaveBudget: TCheckBox [7]
+  object cbSaveBudget: TCheckBox [8]
     Left = 16
     Top = 236
     Width = 337
@@ -79,7 +87,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Enabled = False
     TabOrder = 3
   end
-  object seMaxIterations: TJvSpinEdit [8]
+  object seMaxIterations: TJvSpinEdit [9]
     Left = 16
     Top = 330
     Width = 145
@@ -94,7 +102,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Enabled = False
     TabOrder = 5
   end
-  object rdeMaxDepthChange: TRbwDataEntry [9]
+  object rdeMaxDepthChange: TRbwDataEntry [10]
     Left = 16
     Top = 373
     Width = 145
@@ -112,7 +120,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     CheckMin = True
     ChangeDisabledColor = True
   end
-  object cbPrintStage: TCheckBox [10]
+  object cbPrintStage: TCheckBox [11]
     Left = 16
     Top = 157
     Width = 249
@@ -125,7 +133,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Enabled = False
     TabOrder = 1
   end
-  object cbPrintFlows: TCheckBox [11]
+  object cbPrintFlows: TCheckBox [12]
     Left = 16
     Top = 187
     Width = 249
@@ -138,7 +146,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Enabled = False
     TabOrder = 6
   end
-  object cbPackageConvergence: TCheckBox [12]
+  object cbPackageConvergence: TCheckBox [13]
     Left = 16
     Top = 407
     Width = 455
@@ -151,7 +159,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Enabled = False
     TabOrder = 7
   end
-  object sePicard: TJvSpinEdit [13]
+  object sePicard: TJvSpinEdit [14]
     Left = 16
     Top = 293
     Width = 145
@@ -166,7 +174,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Enabled = False
     TabOrder = 8
   end
-  object cbSaveBudgetCsv: TCheckBox [14]
+  object cbSaveBudgetCsv: TCheckBox [15]
     Left = 16
     Top = 262
     Width = 461
@@ -179,7 +187,7 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Enabled = False
     TabOrder = 9
   end
-  object cbStorage: TCheckBox [15]
+  object cbStorage: TCheckBox [16]
     Left = 16
     Top = 431
     Width = 356
@@ -191,6 +199,29 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
     Caption = 'Kinematic-wave routing (STORAGE)'
     Enabled = False
     TabOrder = 10
+  end
+  object cbATS_COURANT_Used: TCheckBox [17]
+    Left = 16
+    Top = 456
+    Width = 25
+    Height = 17
+    Enabled = False
+    TabOrder = 11
+    OnClick = rcSelectionControllerEnabledChange
+  end
+  object rdeATS_COURANT: TRbwDataEntry [18]
+    Left = 40
+    Top = 455
+    Width = 145
+    Height = 22
+    Color = clBtnFace
+    Enabled = False
+    TabOrder = 12
+    Text = '1'
+    DataType = dtReal
+    Max = 1.000000000000000000
+    CheckMin = True
+    ChangeDisabledColor = True
   end
   inherited rcSelectionController: TRbwController
     ControlList = <
@@ -229,6 +260,10 @@ inherited framePackageSfrMF6: TframePackageSfrMF6
       end
       item
         Control = cbStorage
+      end
+      item
+        Control = cbATS_COURANT_Used
       end>
+    OnEnabledChange = rcSelectionControllerEnabledChange
   end
 end

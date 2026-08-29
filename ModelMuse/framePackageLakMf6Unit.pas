@@ -21,6 +21,7 @@ type
     lblMaxIterations: TLabel;
     lblConvergence: TLabel;
     rdeConvergence: TRbwDataEntry;
+    cbImplicit: TCheckBox;
   private
     { Private declarations }
   public
@@ -55,6 +56,7 @@ begin
   cbPackageConvergence.Checked := LakMf6.WriteConvergenceData;
   seMaxIterations.AsInteger := LakMf6.MaxIterations;
   rdeConvergence.RealValue := LakMf6.MaxStageChange;
+  cbImplicit.Checked := LakMf6.IMPLICIT;
 end;
 
 procedure TframePackageLakMf6.SetData(Package: TModflowPackageSelection);
@@ -72,6 +74,7 @@ begin
   LakMf6.WriteConvergenceData := cbPackageConvergence.Checked;
   LakMf6.MaxIterations := seMaxIterations.AsInteger;
   LakMf6.MaxStageChange := rdeConvergence.RealValue;
+  LakMf6.IMPLICIT := cbImplicit.Checked;
 end;
 
 end.

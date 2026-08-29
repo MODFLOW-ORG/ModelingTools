@@ -1085,8 +1085,8 @@
           <topicref type="topic" id="397288363438702" build="ALL" modified="2022-01-24T16:33:15.297Z" icon="0" href="GBOB_General_Head_Boundary_ObsObjects">
             <caption translate="true">GBOB: General-Head-Boundary Observation Package Pane</caption>
           </topicref>
-          <topicref type="topic" id="394704736232814" build="ALL" modified="2022-01-24T16:33:15.301Z" icon="0" href="HFB_Horizontal_Flow_Barrier_Pane">
-            <caption translate="true">HFB: Horizontal Flow Barrier Package Pane</caption>
+          <topicref type="topic" id="394704736232814" build="ALL" modified="2026-08-28T11:27:21.133Z" icon="0" href="HFB_Horizontal_Flow_Barrier_Pane">
+            <caption translate="true">HFB: Horizontal  (or Hydraulic) Flow Barrier Package Pane</caption>
           </topicref>
           <topicref type="topic" id="403705308911413" build="ALL" modified="2022-01-24T16:33:15.304Z" icon="0" href="HYD_HYDMOD_Package_Pane">
             <caption translate="true">HYD: HYDMOD Package Pane</caption>
@@ -1582,8 +1582,8 @@
             <topicref type="topic" id="433546976615891" build="ALL" modified="2023-10-02T11:11:12.542Z" icon="0" href="GNC_Ghost_Node_Correction_Pack">
               <caption translate="true">GNC: Ghost-Node Correction Package Pane</caption>
             </topicref>
-            <topicref type="topic" id="394696002782751" build="ALL" modified="2022-01-24T16:36:04.639Z" icon="0" href="HFB_Horizontal_Flow_Barrier_Package">
-              <caption translate="true">HFB: Horizontal Flow Barrier Package Pane</caption>
+            <topicref type="topic" id="394696002782751" build="ALL" modified="2026-08-28T11:25:10.244Z" icon="0" href="HFB_Horizontal_Flow_Barrier_Package">
+              <caption translate="true">HFB: Horizontal (or Hydraulic) Flow Barrier Package Pane</caption>
             </topicref>
             <topicref type="topic" id="393942173053289" build="ALL" modified="2022-01-24T16:36:04.643Z" icon="0" href="UZF_Unsaturated_Zone_Flow_Package">
               <caption translate="true">UZF: Unsaturated Zone Flow Package Pane</caption>

@@ -2666,6 +2666,7 @@ begin
 
     Options := CSub.Options;
 
+    CSubPackage.ElasticInelasticSmoothing := Options.ELASTIC_INELASTIC_SMOOTHING;
     if Options.GAMMAW.Used then
     begin
       CSubPackage.Gamma := Options.GAMMAW.Value;
@@ -3433,6 +3434,7 @@ begin
   MfOptions.LengthUnit := Dis.Options.LENGTH_UNITS;
   MfOptions.WriteBinaryGridFile := not Dis.Options.NOGRB;
 
+  Model.GeoRef.Projection := Dis.Options.Projection;
   XOrigin := Dis.Options.XORIGIN;
   YOrigin := Dis.Options.YORIGIN;
   GridAngle := Dis.Options.ANGROT * Pi / 180;
@@ -3562,6 +3564,7 @@ begin
   Model.Mf6GridType := mgtLayered;
 
   Disv := Package.Package as TDisv;
+  Model.GeoRef.Projection := Disv.Options.Projection;
   MfOptions.LengthUnit := Disv.Options.LENGTH_UNITS;
   MfOptions.WriteBinaryGridFile := not Disv.Options.NOGRB;
 
@@ -7861,6 +7864,12 @@ begin
       begin
         Barrier := HfbPeriod[ItemIndex];
         Layer := Barrier.CellId1.Layer;
+        // For now, skip importing HFB barriers between layers.
+        // When ModelMuse supports between layer barriers, this will need to be changed.
+        if Layer <> Barrier.CellId2.Layer then
+        begin
+          Continue;
+        end;
         Assert(Layer = Barrier.CellId2.Layer);
         AScreenObject := ScreenObjects[Layer-1];
         if AScreenObject = nil then
@@ -10606,6 +10615,7 @@ begin
   begin
     LakPackage.MaxStageChange := Options.MAXIMUM_STAGE_CHANGE.Value;
   end;
+  LakPackage.IMPLICIT := Options.IMPLICIT;
 
   Model.DataArrayManager.CreateInitialDataSets;
 
@@ -14205,6 +14215,7 @@ begin
 
   NpfPackage := Model.ModflowPackages.NpfPackage;
   Options := Npf.Options;
+  NpfPackage.HighestCellSaturation := Options.HIGHEST_CELL_SATURATION;
   if Options.ALTERNATIVE_CELL_AVERAGING <> '' then
   begin
     if Options.ALTERNATIVE_CELL_AVERAGING = 'LOGARITHMIC' then
@@ -18700,6 +18711,11 @@ begin
     SfrPackage.MaxDepthChange := Options.MAXIMUM_DEPTH_CHANGE.Value;
   end;
 
+  SfrPackage.ATS_COURANT_Used := Options.ATS_COURANT.Used;
+  if Options.ATS_COURANT.Used then
+  begin
+    SfrPackage.ATS_COURANT := Options.ATS_COURANT.Value
+  end;
   SfrPackage.SaveStageFile := Options.STAGE;
   SfrPackage.SaveBudgetFile := Options.BUDGET;
   SfrPackage.PrintStage := Options.PRINT_STAGE;

@@ -223,6 +223,8 @@ begin
     Model.AddModelOutputFile(SorbateFileName);
   end;
 
+  WriteExportAsciiArray;
+
   WriteEndOptions;
 end;
 

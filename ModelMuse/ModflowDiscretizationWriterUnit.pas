@@ -9,6 +9,7 @@ type
   protected
     procedure HandleBinaryGridFileOption;
     procedure WriteFile(const AFileName: string);
+    procedure WriteCRS;
   end;
 
   TModflowDiscretizationWriter = class(TCustomDisWriter)
@@ -52,7 +53,7 @@ uses ModflowUnitNumbers, frmProgressUnit, Forms,
   ModflowOptionsUnit, GoPhastTypes, ModflowPackageSelectionUnit,
   frmErrorsAndWarningsUnit, FastGEO, DataSetUnit, ModflowIrregularMeshUnit,
   MeshRenumberingTypes, ModflowTimeUnit, System.Math, System.IOUtils,
-  DataSetNamesUnit;
+  DataSetNamesUnit, GeoRefUnit;
 
 resourcestring
   StrWritingDiscretizati = 'Writing Discretization Package input.';
@@ -644,6 +645,7 @@ begin
       NewLine;
 
       WriteExportAsciiArray;
+      WriteCRS;
 
     finally
       WriteEndOptions;
@@ -1325,6 +1327,7 @@ begin
     HandleBinaryGridFileOption;
 
     WriteExportAsciiArray;
+    WriteCRS;
     // XORIGIN not supported at this time.
     // YORIGIN not supported at this time.
     // ANGROT not supported at this time.
@@ -1385,6 +1388,20 @@ begin
     Model.AddModelOutputFile(FNameOfFile + '.grb');
   end;
 
+end;
+
+procedure TCustomDisWriter.WriteCRS;
+var
+  GeoRef: TGeoRef;
+begin
+  GeoRef := Model.GeoRef;
+  if (GeoRef.Projection <> '') and not AnsiSameText(GeoRef.Projection, 'NA')
+    and not AnsiSameText(GeoRef.Projection, 'N/A') then
+  begin
+    WriteString('  CRS ');
+    WriteString(GeoRef.Projection);
+    NewLine;
+  end;
 end;
 
 procedure TCustomDisWriter.WriteFile(const AFileName: string);

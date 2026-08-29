@@ -34,6 +34,7 @@ type
     comboCompressionMethod: TJvImageComboBox;
     lblCompressionMethod: TLabel;
     cbPackageConvergence: TCheckBox;
+    cbELASTIC_INELASTIC_SMOOTHING: TCheckBox;
     procedure cbHeadBasedClick(Sender: TObject);
     procedure rcSelectionControllerEnabledChange(Sender: TObject);
   private
@@ -97,6 +98,7 @@ begin
   cbSpecifyInitialDelayHead.Checked := CSubPackage.SpecifyInitialDelayHead;
   cbEffectiveStressLag.Checked := CSubPackage.EffectiveStressLag;
   cbPackageConvergence.Checked := CSubPackage.WriteConvergenceData;
+  cbELASTIC_INELASTIC_SMOOTHING.Checked := CSubPackage.ElasticInelasticSmoothing;
 
   for CsubOutputType := coInterbedStrain to coZDisplacement do
   begin
@@ -166,6 +168,7 @@ begin
   CSubPackage.SpecifyInitialDelayHead := cbSpecifyInitialDelayHead.Checked;
   CSubPackage.EffectiveStressLag := cbEffectiveStressLag.Checked;
   CSubPackage.WriteConvergenceData := cbPackageConvergence.Checked;
+  CSubPackage.ElasticInelasticSmoothing := cbELASTIC_INELASTIC_SMOOTHING.Checked;
 
   OutputTypes := [];
   for CsubOutputType := coInterbedStrain to coZDisplacement do

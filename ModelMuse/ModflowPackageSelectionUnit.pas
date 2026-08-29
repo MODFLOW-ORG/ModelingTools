@@ -463,6 +463,7 @@ Type
     FUseVerticalAnisotropy: Boolean;
     FUseHorizontalAnisotropy: Boolean;
     FSaveSaturation: Boolean;
+    FHighestCellSaturation: Boolean;
     procedure SetCellAveraging(const Value: TCellAveraging);
     procedure SetApplyHeadDampening(const Value: boolean);
     procedure SetDewatered(const Value: boolean);
@@ -476,6 +477,7 @@ Type
     procedure SetUseHorizontalAnisotropy(const Value: Boolean);
     procedure SetUseVerticalAnisotropy(const Value: Boolean);
     procedure SetSaveSaturation(const Value: Boolean);
+    procedure SetHighestCellSaturation(const Value: Boolean);
   public
     procedure InitializeVariables; override;
     procedure Assign(Source: TPersistent); override;
@@ -523,6 +525,9 @@ Type
       // K33OVERK
     property UseVerticalAnisotropy: Boolean read FUseVerticalAnisotropy
       write SetUseVerticalAnisotropy;
+    // HIGHEST_CELL_SATURATION
+    property HighestCellSaturation: Boolean read FHighestCellSaturation
+      write SetHighestCellSaturation;
   end;
 
   TStorageChoice = (scSpecificStorage, scStorageCoefficient);
@@ -1713,6 +1718,7 @@ Type
     FSaveBudgetCsv: Boolean;
     FMaxIterations: Integer;
     FStoredMaxStageChange: TRealStorage;
+    FIMPLICIT: Boolean;
     function GetSurfDepDepth: Double;
     procedure SetPrintFlows(const Value: Boolean);
     procedure SetPrintStage(const Value: Boolean);
@@ -1729,6 +1735,7 @@ Type
     function GetMaxStageChange: Double;
     procedure SetMaxStageChange(const Value: Double);
     procedure SetStoredMaxStageChange(const Value: TRealStorage);
+    procedure SetIMPLICIT(const Value: Boolean);
   public
     Constructor Create(Model: TBaseModel); override;
     destructor Destroy; override;
@@ -1775,6 +1782,7 @@ Type
     // [MAXIMUM_STAGE_CHANGE <maximum_stage_change>]
     property StoredMaxStageChange: TRealStorage read FStoredMaxStageChange
       write SetStoredMaxStageChange;
+    property IMPLICIT: Boolean read FIMPLICIT write SetIMPLICIT;
   end;
 
 
@@ -2238,6 +2246,8 @@ Type
     FGwtEvapConcList: TMfBoundDispObjectList;
     FGwtRunoffConcList: TMfBoundDispObjectList;
     FGwtInflowConcList: TMfBoundDispObjectList;
+    FATS_COURANT_Used: Boolean;
+    FStoredATS_COURANT: TRealStorage;
     procedure SetMaxIteration(const Value: Integer);
     procedure SetStoredMaxDepthChange(const Value: TRealStorage);
     procedure SetSaveBudgetFile(const Value: Boolean);
@@ -2280,6 +2290,10 @@ Type
       DataIndex: integer; const DisplayName: string);
     function GetSfr6Boundary(ScreenObject: TScreenObject): TModflowBoundary;
     procedure SetStorage(const Value: Boolean);
+    procedure SetATS_COURANT_Used(const Value: Boolean);
+    procedure SetStoredATS_COURANT(const Value: TRealStorage);
+    function GetATS_COURANT: double;
+    procedure SetATS_COURANT(const Value: double);
   public
     procedure InitializeVariables; override;
     procedure Assign(Source: TPersistent); override;
@@ -2301,6 +2315,7 @@ Type
     property ReachNumber: TModflowBoundaryDisplayTimeList read FReachNumber;
     procedure AddRemoveRenameGwtConcentrationTimeLists;
     procedure InvalidateConcentrations;
+    property ATS_COURANT: double read GetATS_COURANT write SetATS_COURANT;
   published
     // MAXIMUM_ITERATION
     property MaxIteration: Integer read FMaxIteration write SetMaxIteration;
@@ -2339,6 +2354,9 @@ Type
       stored True;
     // [STORAGE]
     property Storage: Boolean read FStorage write SetStorage;
+    // ATS_COURANT
+    property ATS_COURANT_Used: Boolean read FATS_COURANT_Used write SetATS_COURANT_Used;
+    property StoredATS_COURANT: TRealStorage read FStoredATS_COURANT write SetStoredATS_COURANT;
   end;
 
   TSftSolverPrintChoice = (sftNone, sftSummary, sftDetailed);
@@ -3830,6 +3848,7 @@ Type
     FInterbeds: TCSubInterbeds;
     FStressOffset: TModflowBoundaryDisplayTimeList;
     FWriteConvergenceData: Boolean;
+    FElasticInelasticSmoothing: Boolean;
     procedure SetHeadBased(const Value: Boolean);
     procedure SetInterbedThicknessMethod(const Value: TInterbedThicknessMethod);
     procedure SetNumberOfDelayCells(const Value: Integer);
@@ -3851,6 +3870,7 @@ Type
     procedure GetStressOffsetUseList(Sender: TObject;
       NewUseList: TStringList);
     procedure SetWriteConvergenceData(const Value: Boolean);
+    procedure SetElasticInelasticSmoothing(const Value: Boolean);
 //    procedure SetInterbedNames(const Value: TStrings);
   public
     procedure Assign(Source: TPersistent); override;
@@ -3957,6 +3977,8 @@ Type
       write SetWriteConvergenceData Stored True;
     // cdelay
     property Interbeds: TCSubInterbeds read FInterbeds write SetInterbeds;
+    // ELASTIC_INELASTIC_SMOOTHING
+    property ElasticInelasticSmoothing: Boolean read FElasticInelasticSmoothing write SetElasticInelasticSmoothing;
   end;
 
   TSwtPrintItem = class(TCustomPrintItem)
@@ -21381,6 +21403,7 @@ begin
     UseHorizontalAnisotropy := SourceNfp.UseHorizontalAnisotropy;
     UseVerticalAnisotropy := SourceNfp.UseVerticalAnisotropy;
     SaveSaturation := SourceNfp.SaveSaturation;
+    HighestCellSaturation := SourceNfp.HighestCellSaturation;
   end;
   inherited;
 end;
@@ -21407,6 +21430,7 @@ begin
   FUseHorizontalAnisotropy := False;
   FUseVerticalAnisotropy := False;
   FSaveSaturation := True;
+  FHighestCellSaturation := False;
 end;
 
 procedure TNpfPackage.SetApplyHeadDampening(const Value: boolean);
@@ -21426,6 +21450,11 @@ end;
 procedure TNpfPackage.SetDewatered(const Value: boolean);
 begin
   SetBooleanProperty(FDewatered, Value);
+end;
+
+procedure TNpfPackage.SetHighestCellSaturation(const Value: Boolean);
+begin
+  SetBooleanProperty(FHighestCellSaturation, Value);
 end;
 
 procedure TNpfPackage.SetPerched(const Value: Boolean);
@@ -22648,6 +22677,8 @@ begin
     SaveGwtConcentration := SourceSfr.SaveGwtConcentration;
     SaveGwtBudgetCsv := SourceSfr.SaveGwtBudgetCsv;
     Storage := SourceSfr.Storage;
+    ATS_COURANT := SourceSfr.ATS_COURANT;
+    ATS_COURANT_Used := SourceSfr.ATS_COURANT_Used;
   end;
   inherited;
 end;
@@ -22656,6 +22687,7 @@ constructor TSfrModflow6PackageSelection.Create(Model: TBaseModel);
 begin
   inherited;
   FStoredMaxDepthChange := TRealStorage.Create;
+  FStoredATS_COURANT := TRealStorage.Create;
   InitializeVariables;
   FStoredMaxDepthChange.OnChange := OnValueChanged;
 
@@ -22751,7 +22783,13 @@ begin
   FInflow.Free;
 
   FStoredMaxDepthChange.Free;
+  FStoredATS_COURANT.Free;
   inherited;
+end;
+
+function TSfrModflow6PackageSelection.GetATS_COURANT: double;
+begin
+  result := StoredATS_COURANT.Value
 end;
 
 procedure TSfrModflow6PackageSelection.GetEmptyUseList(Sender: TObject;
@@ -23129,6 +23167,8 @@ begin
   FPrintFlows := True;
   FWriteConvergenceData := True;
   FStorage := False;
+  ATS_COURANT := 1;
+  ATS_COURANT_Used := False;
 
   // GWT
   FSaveGwtBudgetCsv := False;
@@ -23166,6 +23206,17 @@ begin
     TimeList := FGwtInflowConcList[Index];
     TimeList.Invalidate;
   end;
+end;
+
+procedure TSfrModflow6PackageSelection.SetATS_COURANT(const Value: double);
+begin
+  StoredATS_COURANT.Value := Value;
+end;
+
+procedure TSfrModflow6PackageSelection.SetATS_COURANT_Used(
+  const Value: Boolean);
+begin
+  SetBooleanProperty( FATS_COURANT_Used, Value);
 end;
 
 procedure TSfrModflow6PackageSelection.SetMaxDepthChange(const Value: double);
@@ -23224,6 +23275,12 @@ end;
 procedure TSfrModflow6PackageSelection.SetStorage(const Value: Boolean);
 begin
   SetBooleanProperty(FStorage, Value);
+end;
+
+procedure TSfrModflow6PackageSelection.SetStoredATS_COURANT(
+  const Value: TRealStorage);
+begin
+  FStoredATS_COURANT.Assign(Value);
 end;
 
 procedure TSfrModflow6PackageSelection.SetStoredMaxDepthChange(
@@ -23882,6 +23939,7 @@ begin
     SaveGwtBudgetCsv := LakeSource.SaveGwtBudgetCsv;
     MaxIterations := LakeSource.MaxIterations;
     MaxStageChange := LakeSource.MaxStageChange;
+    IMPLICIT := LakeSource.IMPLICIT;
   end;
 end;
 
@@ -23928,6 +23986,12 @@ begin
   FSaveGwtBudgetCsv := True;
   FMaxIterations := 100;
   MaxStageChange := 1E-5;
+  FIMPLICIT := False;
+end;
+
+procedure TLakeMf6PackageSelection.SetIMPLICIT(const Value: Boolean);
+begin
+  SetBooleanProperty(FIMPLICIT, Value);
 end;
 
 procedure TLakeMf6PackageSelection.SetMaxIterations(const Value: Integer);
@@ -25252,6 +25316,7 @@ begin
     OutputTypes := CSubSource.OutputTypes;
     Interbeds := CSubSource.Interbeds;
     WriteConvergenceData := CSubSource.WriteConvergenceData;
+    ElasticInelasticSmoothing := CSubSource.ElasticInelasticSmoothing;
 
     if RenameDataSets and (FModel <> nil) then
     begin
@@ -25368,7 +25433,7 @@ begin
   FSpecifyInitialDelayHead := False;
   FOutputTypes := [];
   FWriteConvergenceData := True;
-
+  FElasticInelasticSmoothing := False;
 end;
 
 procedure TCSubPackageSelection.Loaded;
@@ -25389,6 +25454,12 @@ end;
 procedure TCSubPackageSelection.SetEffectiveStressLag(const Value: Boolean);
 begin
   SetBooleanProperty(FEffectiveStressLag, Value);
+end;
+
+procedure TCSubPackageSelection.SetElasticInelasticSmoothing(
+  const Value: Boolean);
+begin
+  SetBooleanProperty(FElasticInelasticSmoothing, Value);
 end;
 
 procedure TCSubPackageSelection.SetGamma(const Value: double);

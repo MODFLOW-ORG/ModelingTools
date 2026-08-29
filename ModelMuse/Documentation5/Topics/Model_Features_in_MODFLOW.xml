@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" lasteditedby="rbwinst" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2026-08-28T11:26:00.681-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">Model Features in MODFLOW</title>
   <body>
     <header>
       <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Model Features in MODFLOW</text></para>
     </header>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">In MODFLOW models, Model Features are used to define some or all of the spatial data in the following packages as well as IFACE and the starting particle distribution in MODPATH. </text></para>
-    <list id="1" type="ul" listtype="bullet" formatstring="·" format-charset="SYMBOL_CHARSET" levelreset="true" legalstyle="false" startfrom="1" styleclass="Bullet List" style="font-family:Symbol; font-size:12pt; color:#000000;">
+    <list id="0" type="ul" listtype="bullet" formatstring="&#183;" format-charset="SYMBOL_CHARSET" levelreset="true" legalstyle="false" startfrom="1" styleclass="Bullet List" style="font-family:Symbol; font-size:12pt; color:#000000;">
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">CHD: Time-Variant Specified-Head package</text></li>
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">CFP: Conduit Flow package</text></li>
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">CHOB: Specified-Head Flow Observation package</text></li>
@@ -20,7 +20,7 @@
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">FMP: Farm process</text></li>
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">GHB: General-Head Boundary package</text></li>
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">GBOB: General-Head-Boundary Observation package</text></li>
-      <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">HFB: Horizontal Flow Barrier package</text></li>
+      <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">HFB: Horizontal Flow Barrier package (renamed Hydraulic Flow Barrier package in MODFLOW 6)</text></li>
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">HOB: Head Observation package</text></li>
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">LAK: Lake package</text></li>
       <li styleclass="Bullet List"><text styleclass="Bullet List" translate="true">MAW: Multi-Aquifer Well package</text></li>

@@ -46,7 +46,7 @@ inherited framePackageNpf: TframePackageNpf
     DefaultRowHeight = 30
     Enabled = False
     FixedCols = 0
-    RowCount = 10
+    RowCount = 11
     FixedRows = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
     TabOrder = 2

@@ -10,7 +10,7 @@ uses
 
 type
   TNprOptions = (noHorizontalAnis, noVerticalAnis, noUseXT3D,
-    noXt3dOnRightHandSide, noThickStrt, noVaryingVerticalConductance, noDewatered,
+    noXt3dOnRightHandSide, noHighestCellSaturation, noThickStrt, noVaryingVerticalConductance, noDewatered,
     noPerched, noSaveSpecificDischarge, noSaveSaturation);
 
   TframePackageNpf = class(TframePackage)
@@ -42,6 +42,7 @@ implementation
 uses frmGoPhastUnit, ModflowOptionsUnit;
 
 resourcestring
+  SHighestCellSaturationHIGHEST_CEL = 'Highest Cell Saturation (HIGHEST_CELL_SATURATION)';
   StrCellsHavingANegat = 'Cells having a negative CellType are confined. How' +
   'ever, their cell thickness for conductance calculations will be based on ' +
   'the initial head minus the cell bottom rather than the cell height (THICKSTRT)';
@@ -112,6 +113,8 @@ begin
   rdgOptions.Checked[0, Ord(noHorizontalAnis)] := NpfPackage.UseHorizontalAnisotropy;
   rdgOptions.Checked[0, Ord(noVerticalAnis)] := NpfPackage.UseVerticalAnisotropy;
   rdgOptions.Checked[0, Ord(noSaveSaturation)] := NpfPackage.SaveSaturation;
+  rdgOptions.Checked[0, Ord(noHighestCellSaturation)] := NpfPackage.HighestCellSaturation;
+
 end;
 
 procedure TframePackageNpf.Loaded;
@@ -134,6 +137,7 @@ begin
     rdgOptions.Cells[0, Ord(noHorizontalAnis)] := StrUseHorizontalAniso;
     rdgOptions.Cells[0, Ord(noVerticalAnis)] := StrUseVerticalAnisotr;
     rdgOptions.Cells[0, Ord(noSaveSaturation)] := StrSaveSaturationSAV;
+    rdgOptions.Cells[0, Ord(noHighestCellSaturation)] := SHighestCellSaturationHIGHEST_CEL;
   finally
     rdgOptions.EndUpdate;
 
@@ -232,6 +236,8 @@ begin
   NpfPackage.UseHorizontalAnisotropy := rdgOptions.Checked[0, Ord(noHorizontalAnis)];
   NpfPackage.UseVerticalAnisotropy := rdgOptions.Checked[0, Ord(noVerticalAnis)];
   NpfPackage.SaveSaturation := rdgOptions.Checked[0, Ord(noSaveSaturation)];
+  NpfPackage.HighestCellSaturation := rdgOptions.Checked[0, Ord(noHighestCellSaturation)];
+
 end;
 
 end.

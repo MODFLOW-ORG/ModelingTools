@@ -23,6 +23,10 @@ type
     lblPicard: TLabel;
     cbSaveBudgetCsv: TCheckBox;
     cbStorage: TCheckBox;
+    cbATS_COURANT_Used: TCheckBox;
+    rdeATS_COURANT: TRbwDataEntry;
+    lblATS_COURANT: TLabel;
+    procedure rcSelectionControllerEnabledChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -56,11 +60,22 @@ begin
   rdeMaxDepthChange.RealValue := SfrMf6.MaxDepthChange;
   cbPackageConvergence.Checked := SfrMf6.WriteConvergenceData;
   cbStorage.Checked := SfrMf6.Storage;
+  cbATS_COURANT_Used.Checked := SfrMf6.ATS_COURANT_Used;
+  rdeATS_COURANT.RealValue := SfrMf6.ATS_COURANT;
+end;
+
+procedure TframePackageSfrMF6.rcSelectionControllerEnabledChange(Sender:
+    TObject);
+begin
+  inherited;
+  rdeATS_COURANT.Enabled := rcSelectionController.Enabled
+    and cbATS_COURANT_Used.Checked;
 end;
 
 procedure TframePackageSfrMF6.SetData(Package: TModflowPackageSelection);
 var
   SfrMf6: TSfrModflow6PackageSelection;
+  AValue: double;
 begin
   inherited;
   SfrMf6 := Package as TSfrModflow6PackageSelection;
@@ -71,9 +86,19 @@ begin
   SfrMf6.SaveGwtBudgetCsv := cbSaveBudgetCsv.Checked;
   SfrMf6.MaxPicardIteration := sePicard.AsInteger;
   SfrMf6.MaxIteration := seMaxIterations.AsInteger;
-  SfrMf6.MaxDepthChange := rdeMaxDepthChange.RealValue;
+  if rdeMaxDepthChange.TryGetRealValue(AValue) then
+  begin
+    SfrMf6.MaxDepthChange := AValue;
+  end;
   SfrMf6.WriteConvergenceData := cbPackageConvergence.Checked;
   SfrMf6.Storage := cbStorage.Checked;
+  SfrMf6.ATS_COURANT_Used := cbATS_COURANT_Used.Checked;
+  if rdeATS_COURANT.TryGetRealValue(AValue) then
+  begin
+    SfrMf6.ATS_COURANT := AValue;
+  end;
+
+
 end;
 
 end.

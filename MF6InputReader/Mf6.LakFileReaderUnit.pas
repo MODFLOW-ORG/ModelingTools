@@ -27,6 +27,7 @@ type
     FMAXIMUM_STAGE_CHANGE: TRealOption;
     LENGTH_CONVERSION: TRealOption;
     TIME_CONVERSION: TRealOption;
+    FIMPLICIT: Boolean;
     procedure Read(Stream: TStreamReader; Unhandled: TStreamWriter);
     function GetAUXILIARY(Index: Integer): string;
     function GetCount: Integer;
@@ -46,6 +47,7 @@ type
     property SURFDEP: TRealOption read FSURFDEP;
     property MAXIMUM_ITERATIONS: TIntegerOption read FMAXIMUM_ITERATIONS;
     property MAXIMUM_STAGE_CHANGE: TRealOption read FMAXIMUM_STAGE_CHANGE;
+    Property IMPLICIT: Boolean read FIMPLICIT;
   end;
 
   TLakDimensions = class(TCustomMf6Persistent)
@@ -330,6 +332,7 @@ begin
   FMAXIMUM_STAGE_CHANGE.Initialize;
   LENGTH_CONVERSION.Initialize;
   TIME_CONVERSION.Initialize;
+  FIMPLICIT := False;
 end;
 
 procedure TLakOptions.Read(Stream: TStreamReader; Unhandled: TStreamWriter);
@@ -362,6 +365,10 @@ begin
     if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'OPTIONS') then
     begin
       // do nothing
+    end
+    else if (FSplitter[0] = 'IMPLICIT') then
+    begin
+      FIMPLICIT := True;
     end
     else if (FSplitter[0] = 'AUXILIARY')
       and (FSplitter.Count >= 2) then

@@ -20,6 +20,7 @@ type
     FEXPORT_ARRAY_NETCDF: Boolean;
     FEXPORT_ARRAY_ASCII: Boolean;
     Fgrb6_filename: string;
+    FProjection: string;
     function GetLengthUnit: Integer;
   protected
     procedure Initialize; override;
@@ -38,6 +39,7 @@ type
     property EXPORT_ARRAY_NETCDF: Boolean read FEXPORT_ARRAY_NETCDF;
     property ncf6_filename: string read Fncf6_filename;
     property grb6_filename: string read Fgrb6_filename;
+    property Projection: string read FProjection;
   end;
 
   TDisOptions = class(TCustomDisOptions);
@@ -138,6 +140,10 @@ begin
       if SwitchToAnotherFile(Stream, ErrorLine, Unhandled, ALine, 'OPTIONS') then
       begin
         // do nothing
+      end
+      else if (FSplitter[0] = 'CRS') and (FSplitter.Count >= 2) then
+      begin
+        FProjection := FSplitter[1];
       end
       else if FSplitter[0] = 'NOGRB' then
       begin

@@ -1,11 +1,11 @@
 inherited framePackageCsub: TframePackageCsub
   Width = 589
-  Height = 514
+  Height = 548
   ExplicitWidth = 589
-  ExplicitHeight = 514
+  ExplicitHeight = 548
   DesignSize = (
     589
-    514)
+    548)
   inherited lblComments: TLabel
     StyleElements = [seFont, seClient, seBorder]
   end
@@ -23,9 +23,9 @@ inherited framePackageCsub: TframePackageCsub
   end
   object pcCsub: TPageControl [3]
     Left = 0
-    Top = 127
+    Top = 129
     Width = 589
-    Height = 387
+    Height = 419
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -44,7 +44,7 @@ inherited framePackageCsub: TframePackageCsub
         Left = 0
         Top = 0
         Width = 581
-        Height = 357
+        Height = 389
         Margins.Left = 4
         Margins.Top = 4
         Margins.Right = 4
@@ -53,12 +53,12 @@ inherited framePackageCsub: TframePackageCsub
         Enabled = False
         TabOrder = 0
         ExplicitWidth = 581
-        ExplicitHeight = 341
+        ExplicitHeight = 374
         inherited Panel: TPanel
-          Top = 316
+          Top = 348
           Width = 581
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 300
+          ExplicitTop = 333
           ExplicitWidth = 581
           inherited lbNumber: TLabel
             Width = 150
@@ -87,7 +87,7 @@ inherited framePackageCsub: TframePackageCsub
         end
         inherited Grid: TRbwDataGrid4
           Width = 581
-          Height = 316
+          Height = 348
           ColCount = 2
           Columns = <
             item
@@ -142,7 +142,7 @@ inherited framePackageCsub: TframePackageCsub
               AutoAdjustColWidths = True
             end>
           ExplicitWidth = 581
-          ExplicitHeight = 316
+          ExplicitHeight = 333
         end
       end
     end
@@ -176,7 +176,7 @@ inherited framePackageCsub: TframePackageCsub
       end
       object lblInterbedThicknessMethod: TLabel
         Left = 106
-        Top = 210
+        Top = 258
         Width = 186
         Height = 30
         Margins.Left = 4
@@ -188,7 +188,7 @@ inherited framePackageCsub: TframePackageCsub
       end
       object lblseNDelayCells: TLabel
         Left = 82
-        Top = 111
+        Top = 159
         Width = 356
         Height = 15
         Margins.Left = 4
@@ -199,7 +199,7 @@ inherited framePackageCsub: TframePackageCsub
       end
       object lblCompressionMethod: TLabel
         Left = 227
-        Top = 146
+        Top = 194
         Width = 255
         Height = 15
         Margins.Left = 4
@@ -246,7 +246,7 @@ inherited framePackageCsub: TframePackageCsub
       end
       object cbHeadBased: TCheckBox
         Left = 3
-        Top = 62
+        Top = 110
         Width = 353
         Height = 18
         Margins.Left = 4
@@ -255,12 +255,12 @@ inherited framePackageCsub: TframePackageCsub
         Margins.Bottom = 4
         Caption = 'Use head-based formulation (HEAD_BASED)'
         Enabled = False
-        TabOrder = 2
+        TabOrder = 3
         OnClick = cbHeadBasedClick
       end
       object cbPreconsolidationHeadUsed: TCheckBox
         Left = 3
-        Top = 85
+        Top = 133
         Width = 567
         Height = 18
         Margins.Left = 4
@@ -269,11 +269,11 @@ inherited framePackageCsub: TframePackageCsub
         Margins.Bottom = 4
         Caption = 'Specify preconsolidation heads (INITIAL_PRECONSOLIDATION_HEAD)'
         Enabled = False
-        TabOrder = 3
+        TabOrder = 4
       end
       object seNDelayCells: TJvSpinEdit
         Left = 3
-        Top = 108
+        Top = 136
         Width = 73
         Height = 23
         Margins.Left = 4
@@ -284,11 +284,11 @@ inherited framePackageCsub: TframePackageCsub
         MinValue = 1.000000000000000000
         Value = 1.000000000000000000
         Enabled = False
-        TabOrder = 4
+        TabOrder = 5
       end
       object cbUpdateMaterialProperties: TCheckBox
         Left = 3
-        Top = 184
+        Top = 232
         Width = 542
         Height = 18
         Margins.Left = 4
@@ -297,11 +297,11 @@ inherited framePackageCsub: TframePackageCsub
         Margins.Bottom = 4
         Caption = 'Update material properties (UPDATE_MATERIAL_PROPERTIES)'
         Enabled = False
-        TabOrder = 5
+        TabOrder = 7
       end
       object comboInterbedThicknessMethod: TJvImageComboBox
         Left = 3
-        Top = 207
+        Top = 255
         Width = 97
         Height = 25
         Margins.Left = 4
@@ -317,7 +317,7 @@ inherited framePackageCsub: TframePackageCsub
         ImageWidth = 0
         ItemHeight = 19
         ItemIndex = 0
-        TabOrder = 6
+        TabOrder = 8
         Items = <
           item
             Brush.Style = bsClear
@@ -332,7 +332,7 @@ inherited framePackageCsub: TframePackageCsub
       end
       object cbEffectiveStressLag: TCheckBox
         Left = 3
-        Top = 301
+        Top = 349
         Width = 558
         Height = 18
         Margins.Left = 4
@@ -343,11 +343,11 @@ inherited framePackageCsub: TframePackageCsub
           'Use effective stress from previous time step (EFFECTIVE_STRESS_L' +
           'AG)'
         Enabled = False
-        TabOrder = 7
+        TabOrder = 11
       end
       object cbSpecifyInitialDelayHead: TCheckBox
         Left = 3
-        Top = 281
+        Top = 329
         Width = 567
         Height = 18
         Margins.Left = 4
@@ -358,11 +358,11 @@ inherited framePackageCsub: TframePackageCsub
           'Specify absolute initial delay bed head (SPECIFIED_INITIAL_DELAY' +
           '_HEAD)'
         Enabled = False
-        TabOrder = 8
+        TabOrder = 10
       end
       object cbSpecifyInitialPreconsolidationStress: TCheckBox
         Left = 3
-        Top = 240
+        Top = 288
         Width = 567
         Height = 36
         Margins.Left = 4
@@ -378,7 +378,7 @@ inherited framePackageCsub: TframePackageCsub
       end
       object comboCompressionMethod: TJvImageComboBox
         Left = 3
-        Top = 143
+        Top = 191
         Width = 218
         Height = 25
         Margins.Left = 4
@@ -394,7 +394,7 @@ inherited framePackageCsub: TframePackageCsub
         ImageWidth = 0
         ItemHeight = 19
         ItemIndex = 0
-        TabOrder = 10
+        TabOrder = 6
         Items = <
           item
             Brush.Style = bsClear
@@ -409,7 +409,7 @@ inherited framePackageCsub: TframePackageCsub
       end
       object cbPackageConvergence: TCheckBox
         Left = 3
-        Top = 324
+        Top = 372
         Width = 455
         Height = 18
         Margins.Left = 4
@@ -417,7 +417,18 @@ inherited framePackageCsub: TframePackageCsub
         Margins.Right = 4
         Margins.Bottom = 4
         Caption = 'Write package convergence (PACKAGE_CONVERGENCE)'
-        TabOrder = 11
+        TabOrder = 12
+      end
+      object cbELASTIC_INELASTIC_SMOOTHING: TCheckBox
+        Left = 0
+        Top = 64
+        Width = 578
+        Height = 39
+        Caption = 
+          'Smooth transition between elastic and inelastic (ELASTIC_INELAST' +
+          'IC_SMOOTHING)'
+        TabOrder = 2
+        WordWrap = True
       end
     end
     object tabOutputTypes: TTabSheet
@@ -431,14 +442,14 @@ inherited framePackageCsub: TframePackageCsub
         Left = 0
         Top = 0
         Width = 581
-        Height = 357
+        Height = 389
         Margins.Left = 4
         Margins.Top = 4
         Margins.Right = 4
         Margins.Bottom = 4
         Align = alClient
         Enabled = False
-        ItemHeight = 21
+        ItemHeight = 17
         Items.Strings = (
           'Interbed strain (comma-separated values)'
           'Coarse strain (comma-separated values)'
@@ -449,7 +460,7 @@ inherited framePackageCsub: TframePackageCsub
           'Elastic coarse-grained compaction (binary)'
           'Z displacement (binary)')
         TabOrder = 0
-        ExplicitHeight = 341
+        ExplicitHeight = 374
       end
     end
   end

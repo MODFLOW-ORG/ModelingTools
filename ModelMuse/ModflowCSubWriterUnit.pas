@@ -692,6 +692,12 @@ begin
   WriteFloat(FCSubPackage.Beta);
   NewLine;
 
+  if FCSubPackage.ElasticInelasticSmoothing then
+  begin
+    WriteString('  ELASTIC_INELASTIC_SMOOTHING');
+    NewLine;
+  end;
+
 //  [HEAD_BASED]
   if FCSubPackage.HeadBased then
   begin
