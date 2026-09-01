@@ -150,14 +150,7 @@ procedure TfrmGenerateGrid.SetData;
 var
   ErrorMessage: string;
   WarningMessage: string;
-//  PriorDisVUsed: Boolean;
-//  PriorLayerType: TMf6GridType;
 begin
-//  PriorDisVUsed := frmGoPhast.DisvUsed;
-//  if PriorDisVUsed then
-//  begin
-//    frmGoPhast.UndoStack.Submit(TUndoChangeGridType.Create(mgtStructured));
-//  end;
   if GenerateGrid(ErrorMessage, WarningMessage, not cbSpecifyGridAngle.Checked,
     DegToRad(strToFloat(rdeGridAngle.Text)),
     cbSmoothGrid.Checked and cbColumns.Checked,
@@ -165,14 +158,6 @@ begin
     cbSmoothGrid.Checked and cbLayers.Checked,
     StrToFloat(rdeCriterion.Text)) then
   begin
-//    if PriorDisVUsed then
-//    begin
-//      frmGoPhast.UndoStack.Submit(TUndoChangeGridType.Create(mgtLayered, True));
-//    end;
-//    if frmGoPhast.DisvUsed then
-//    begin
-//      frmGoPhast.acQuadmeshExecute(nil);
-//    end;
     with frmGoPhast.frame3DView do
     begin
       SetDefaultOrientation;

@@ -7,8 +7,9 @@ inherited frmVerticalExaggeration: TfrmVerticalExaggeration
   Caption = 'Vertical Exaggeration'
   ClientHeight = 88
   ClientWidth = 425
-  ExplicitWidth = 437
-  ExplicitHeight = 126
+  StyleElements = [seFont, seClient, seBorder]
+  ExplicitWidth = 443
+  ExplicitHeight = 135
   PixelsPerInch = 120
   TextHeight = 18
   object lblVerticalExaggeration: TLabel
@@ -43,8 +44,8 @@ inherited frmVerticalExaggeration: TfrmVerticalExaggeration
     TabOrder = 0
   end
   object btnOK: TBitBtn
-    Left = 215
-    Top = 48
+    Left = 216
+    Top = 47
     Width = 97
     Height = 33
     Caption = 'OK'

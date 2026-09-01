@@ -124,7 +124,6 @@ type
     procedure ImportEnergyTransportModel(ATransportModel: TModel; SpeciesIndex: Integer);
     procedure ImportPrtModel(APrtModel: TModel; PrtIndex: Integer);
     procedure ImportDis(Package: TPackage);
-    procedure ImportDisV(Package: TPackage);
     procedure UpdateLayerStructure(NumberOfLayers: Integer);
     procedure CreateAllTopCellsScreenObject;
     function GetAllTopCellsScreenObject: TScreenObject;
@@ -137,7 +136,6 @@ type
       TransportModels: TModelList; EnergyTransportModels: TModelList; Maps: TimeSeriesMaps);
     function CellCoordinates(CellId: TMfCellId): TPoint3d;
     function CellTopAndBottom(CellId: TMfCellId; Out Top, Bottom: double): Boolean;
-    property AllTopCellsScreenObject: TScreenObject read GetAllTopCellsScreenObject;
     procedure AssignRealValuesToCellCenters(DataArray: TDataArray;
       ScreenObject: TScreenObject; ImportedData: TDArray2D);
     procedure AssignIntegerValuesToCellCenters(DataArray: TDataArray;
@@ -214,6 +212,8 @@ type
   public
     Constructor Create;
     destructor Destroy; override;
+    procedure ImportDisV(Package: TPackage; Import3D_Data: Boolean = True);
+    property AllTopCellsScreenObject: TScreenObject read GetAllTopCellsScreenObject;
     procedure ImportModflow6Model(NameFiles, ErrorMessages: TStringList; usgs_model_reference: string);
     property OnUpdateStatusBar: TOnUpdataStatusBar read FOnUpdataStatusBar
       write SetOnUpdataStatusBar;
@@ -3512,7 +3512,7 @@ begin
 
 end;
 
-procedure TModflow6Importer.ImportDisV(Package: TPackage);
+procedure TModflow6Importer.ImportDisV(Package: TPackage; Import3D_Data: Boolean = True);
 var
   Model: TPhastModel;
   MfOptions: TModflowOptions;
@@ -3571,9 +3571,12 @@ begin
   XOrigin := Disv.Options.XORIGIN;
   YOrigin := Disv.Options.YORIGIN;
   GridAngle := Disv.Options.ANGROT * Pi / 180;
-  
+
   NumberOfLayers := Disv.Dimensions.NLay;
-  UpdateLayerStructure(NumberOfLayers);
+  if Import3D_Data then
+  begin
+    UpdateLayerStructure(NumberOfLayers);
+  end;
 
   Mesh3D := Model.DisvGrid;
   Mesh3D.GridAngle := GridAngle;
@@ -3587,7 +3590,7 @@ begin
   begin
     Vertex := Verticies[Index];
     Node := CellCorners.Add;
-    APoint := ConvertLocation(Vertex.xv, Vertex.yv);
+    APoint := ConvertLocation(Vertex.xv + XOrigin, Vertex.yv + YOrigin);
     Node.X := APoint.x;
     Node.Y := APoint.y;
     Node.Number := Vertex.iv -1; 
@@ -3621,13 +3624,16 @@ begin
 
   Mesh3D.Loaded;
 
-  TOP := Disv.GridData.TOP;
-  BOTM := Disv.GridData.BOTM;
-  IDOMAIN := Disv.GridData.IDOMAIN;
-  
-  AssignTOP(TOP);
-  AssignBOTM(BOTM);
-  AssignIDomain(IDOMAIN, NumberOfLayers);
+  if Import3D_Data then
+  begin
+    TOP := Disv.GridData.TOP;
+    BOTM := Disv.GridData.BOTM;
+    IDOMAIN := Disv.GridData.IDOMAIN;
+
+    AssignTOP(TOP);
+    AssignBOTM(BOTM);
+    AssignIDomain(IDOMAIN, NumberOfLayers);
+  end;
   Mesh3D.ElevationsNeedUpdating := True;
   Mesh3D.CheckUpdateElevations;
 end;
@@ -17288,12 +17294,30 @@ begin
   Model := frmGoPhast.PhastModel;
   Model.LayerStructure.BeginUpdate;
   try
-    TopLayer := Model.LayerStructure.Add;
-    TopLayer.AquiferName := kModelTop;
+    if Model.LayerStructure.Count > 1 then
+    begin
+      for LayerIndex := 0 to Model.LayerStructure.Count - 1 do
+      begin
+        LayerGroup := Model.LayerStructure[LayerIndex];
+        LayerGroup.GrowthControls.Clear;
+      end;
+    end;
+    while Model.LayerStructure.Count > NumberOfLayers+1 do
+    begin
+      Model.LayerStructure.Last.Free;
+    end;
+    if Model.LayerStructure.Count = 0 then
+    begin
+      TopLayer := Model.LayerStructure.Add;
+      TopLayer.AquiferName := kModelTop;
+    end;
     for LayerIndex := 1 to NumberOfLayers do
     begin
-      LayerGroup := Model.LayerStructure.Add;
-      LayerGroup.AquiferName := Format('Layer %d', [LayerIndex]);
+      if Model.LayerStructure.Count < LayerIndex then
+      begin
+        LayerGroup := Model.LayerStructure.Add;
+        LayerGroup.AquiferName := Format('Layer %d', [LayerIndex]);
+      end;
     end;
     Model.ModflowGrid.LayerCount := NumberOfLayers;
     Model.DisvGrid.LayerCount := NumberOfLayers;

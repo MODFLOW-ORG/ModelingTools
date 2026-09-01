@@ -1327,8 +1327,6 @@ var
   Fraction: Double;
   AColor: TColor;
   Dummy: TPolygon32;
-//  X: Integer;
-//  Y: Integer;
   APoint: TPoint;
   NumberStr: String;
   ASize: TSize;
@@ -1377,6 +1375,23 @@ begin
       APoint.Y := ZoomBox.YCoord(Location.y);
       if (APoint.Y > 0) and (APoint.Y < ZoomBox.Height) then
       begin
+        // The following commented-out code draws a point at the cell location.
+        {
+        SetLength(Points, 5);
+        Inc(APoint.X);
+        Inc(APoint.y);
+        Points[0] := APoint;
+        Dec(APoint.X,2);
+        Points[1] := APoint;
+        Dec(APoint.Y,2);
+        Points[2] := APoint;
+        Inc(APoint.X,2);
+        Points[3] := APoint;
+        Points[4] := Points[0];
+        DrawBigPolygon32(BitMap, Color32(clBlack), Color32(clBlack),
+          OrdinaryGridLineThickness, Points, Dummy, False, True);
+        }
+
         ExistingFont := TFont.Create;
         try
           NumberStr := IntToStr(DisplayNumber);
@@ -1406,6 +1421,7 @@ begin
         finally
           ExistingFont.Free;
         end;
+
       end;
     end;
   end;
@@ -2602,26 +2618,8 @@ begin
   FThreeDContourDataSet := nil;
   FTopDataSet := nil;
   FThreeDDataSet := nil;
-//  FQuadRefinement := nil;
   FCellStartCounts := nil;
   FStoredOutline := nil;
-
-{    FCellCorners: TModflowNodes;
-    FCells: TModflowIrregularCell2DCollection;
-    FTopContourDataSet: TDataArray;
-    FThreeDContourDataSet: TDataArray;
-    FTopDataSet: TDataArray;
-    FThreeDDataSet: TDataArray;
-    FDrawingChoice: TDrawingChoice;
-    FMesh: TModflowDisvGrid;
-    // @name[RowIndex, ColIndex] indicates the level of quad tree refinement
-    // to apply when assigning a structured grid to a DISV grid.
-    FQuadRefinement: TTwoDIntegerArray;
-    FCellStartCounts: TTwoDIntegerArray;
-    FGhostNodes: TGhostNodes;
-    FLocalGrid: TCustomModelGrid;
-    FStoredOutline: TPolygon2D;
-  }
 end;
 
 constructor TModflowIrregularGrid2D.Create(Model: TBaseModel; ParentMesh: TModflowDisvGrid);
@@ -5287,7 +5285,7 @@ var
 begin
   FNumberFont := TFont.Create;
   FNumberFont.Name := 'Helvetica';
-  FNumberFont.Size := 6;
+  FNumberFont.Size := 8;
   if Model = nil then
   begin
     InvalidateModelEvent := nil;

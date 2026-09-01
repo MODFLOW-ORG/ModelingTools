@@ -68,6 +68,7 @@ type
 //    constructor Create(Collection: TCollection); override;
     destructor Destroy; override;
     function LayerCount: Integer; virtual;
+    procedure Clear;
   published
     {
     When a layer group is split into more than one layer, @name defines
@@ -1685,17 +1686,14 @@ begin
   end;
 end;
 
+procedure TGrowthControls.Clear;
+begin
+  FLayerCollection.Clear;
+end;
+
 constructor TGrowthControls.Create(InvalidateModelEvent: TNotifyEvent);
 begin
   inherited;
-//  if Model = nil then
-//  begin
-//    inherited Create(nil);
-//  end
-//  else
-//  begin
-//    inherited Create(Model.Invalidate);
-//  end;
   FLayerCollection:= TLayerCollection.Create(self);
   FGrowthRate := 1.2;
   InvalidateModel;

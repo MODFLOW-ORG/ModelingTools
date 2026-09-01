@@ -2375,6 +2375,10 @@
         </DCCReference>
         <DCCReference Include="..\MF6InputReader\Mf6.MipFileReaderUnit.pas"/>
         <DCCReference Include="..\MF6InputReader\Mf6.PrpFileReaderUnit.pas"/>
+        <DCCReference Include="frmSelectDisvFileUnit.pas">
+            <Form>frmSelectDisvFile</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

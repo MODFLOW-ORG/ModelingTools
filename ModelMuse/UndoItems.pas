@@ -936,6 +936,27 @@ type
     procedure Undo; override;
   end;
 
+  TUndoImportDisv = class(TCustomUndo)
+  private
+    FOldDisvGrid: TModflowDisvGrid;
+    FNewDisvGrid: TModflowDisvGrid;
+    FAllCellsScreenObject: TObject;
+    FUndoChangeGridType: TCustomUndo;
+    FUndoDefineLayers: TCustomUndo;
+  protected
+    function Description: string; override;
+  public
+    constructor Create;
+    property NewDisvGrid: TModflowDisvGrid read FNewDisvGrid;
+    property AllCellsScreenObject: TObject read FAllCellsScreenObject
+      write FAllCellsScreenObject;
+    property UndoChangeGridType: TCustomUndo read FUndoChangeGridType write FUndoChangeGridType;
+    property UndoDefineLayers: TCustomUndo read FUndoDefineLayers write FUndoDefineLayers;
+    destructor Destroy; override;
+    procedure DoCommand; override;
+    procedure Undo; override;
+  end;
+
   TCustomUndoConvertStream = class(TCustomUndo)
   public
     procedure Undo; override;
@@ -4057,6 +4078,73 @@ begin
   frmGoPhast.PhastModel.PestProperties.BetweenObservationsPilotPoints.Assign(
     BetweenObservationsPilotPoints);
   inherited UpdatePilotPoints(PilotPoints);
+end;
+
+{ TUndoImportDisv }
+
+constructor TUndoImportDisv.Create;
+begin
+  FOldDisvGrid := TModflowDisvGrid.Create(nil);
+end;
+
+function TUndoImportDisv.Description: string;
+begin
+  result := 'import DISV mesh';
+end;
+
+destructor TUndoImportDisv.Destroy;
+begin
+  FOldDisvGrid.Free;
+  FNewDisvGrid.Free;
+  FUndoChangeGridType.Free;
+  FUndoDefineLayers.Free;
+  inherited;
+end;
+
+procedure TUndoImportDisv.DoCommand;
+begin
+  inherited;
+  if FUndoDefineLayers <> nil then
+  begin
+    FUndoDefineLayers.DoCommand;
+  end;
+  if FUndoChangeGridType <> nil then
+  begin
+    FUndoChangeGridType.DoCommand;
+  end;
+  if FNewDisvGrid = nil then
+  begin
+    FNewDisvGrid := TModflowDisvGrid.Create(nil);
+    FNewDisvGrid.Assign(frmGoPhast.PhastModel.DisvGrid)
+  end
+  else
+  begin
+    frmGoPhast.PhastModel.DisvGrid.Assign(FNewDisvGrid);
+    frmGoPhast.RestoreDefault2DView1Click(self);
+  end;
+  if FAllCellsScreenObject <> nil then
+  begin
+    (FAllCellsScreenObject as TScreenObject).Deleted := False;
+  end;
+end;
+
+procedure TUndoImportDisv.Undo;
+begin
+  inherited;
+  if FUndoDefineLayers <> nil then
+  begin
+    FUndoDefineLayers.Undo;
+  end;
+  if FUndoChangeGridType <> nil then
+  begin
+    FUndoChangeGridType.Undo;
+  end;
+  frmGoPhast.PhastModel.DisvGrid.Assign(FOldDisvGrid);
+  if FAllCellsScreenObject <> nil then
+  begin
+    (FAllCellsScreenObject as TScreenObject).Deleted := True;
+  end;
+  frmGoPhast.RestoreDefault2DView1Click(self);
 end;
 
 end.

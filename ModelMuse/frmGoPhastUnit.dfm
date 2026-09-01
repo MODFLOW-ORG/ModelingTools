@@ -1277,6 +1277,9 @@ inherited frmGoPhast: TfrmGoPhast
         object ImportModelFeaturefromPEST2: TMenuItem
           Action = acImportSutraFeaturesFromPest
         end
+        object mniImportDisv: TMenuItem
+          Action = actImportDisv
+        end
       end
       object miLinkedRasters: TMenuItem
         Caption = 'Linked Rasters'
@@ -3794,6 +3797,10 @@ inherited frmGoPhast: TfrmGoPhast
       Category = 'Object'
       Caption = 'Reverse Order of Selected Objects'
       OnExecute = acReverseObjectOrderExecute
+    end
+    object actImportDisv: TAction
+      Caption = 'Import MODFLOW 6 DISV'
+      OnExecute = actImportDisvExecute
     end
   end
   object ilDisabledImageList: TImageList
@@ -9961,5 +9968,12 @@ inherited frmGoPhast: TfrmGoPhast
     Filter = 'CSV files|*.csv'
     Left = 720
     Top = 72
+  end
+  object dlgOpenImportDisv: TOpenDialog
+    OnClose = dlgOpenImportDisvClose
+    OnShow = dlgOpenImportDisvShow
+    Filter = 'DISV files|*.disv|All files|*.*'
+    Left = 564
+    Top = 219
   end
 end

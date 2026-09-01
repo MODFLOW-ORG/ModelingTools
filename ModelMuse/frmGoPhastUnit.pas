@@ -31,7 +31,7 @@ uses System.UITypes,
   System.ImageList,
   System.Actions, ModflowIrregularMeshUnit, JvComponentBase,
   JvBalloonHint, frmRunPestUnit, frmRunParRepUnit, System.Generics.Collections,
-  GlobalVariablesInterfaceUnit;
+  GlobalVariablesInterfaceUnit, frmSelectDisvFileUnit;
 
   { TODO : 
 Consider making CurrentTool a property of TframeView instead of 
@@ -565,6 +565,9 @@ type
     RunMODFLOWOWHMV21: TMenuItem;
     acReverseObjectOrder: TAction;
     ReverseOrderofSelectedObjects1: TMenuItem;
+    actImportDisv: TAction;
+    mniImportDisv: TMenuItem;
+    dlgOpenImportDisv: TOpenDialog;
     procedure tbUndoClick(Sender: TObject);
     procedure acUndoExecute(Sender: TObject);
     procedure tbRedoClick(Sender: TObject);
@@ -775,6 +778,9 @@ type
     procedure acImportSurferGridFilesExecute(Sender: TObject);
     procedure acImportModflow6ModelExecute(Sender: TObject);
     procedure acReverseObjectOrderExecute(Sender: TObject);
+    procedure actImportDisvExecute(Sender: TObject);
+    procedure dlgOpenImportDisvClose(Sender: TObject);
+    procedure dlgOpenImportDisvShow(Sender: TObject);
   private
     FDefaultCreateArchive: TDefaultCreateArchive;
     FCreateArchive: Boolean;
@@ -831,6 +837,9 @@ type
     FExporting: Boolean;
     FRunParRepForm: TfrmRunParRep;
     FRunParRep: Boolean;
+    FfrmSelectDisvFile: TfrmSelectDisvFile;
+    FImportDisvElevations: Boolean;
+
 //    FfrmRunSupCalc: TfrmRunSupCalc;
 //    FRunSupCalc: Boolean;
 //    FWriteErrorRaised: Boolean;
@@ -1897,6 +1906,7 @@ type
     procedure SetSideDiscretizationChanged(const Value: boolean);
     procedure EnableModelMate;
     procedure ArrangeToolBarRow(ToolBars: array of TToolBar; ToolBarTop: Integer);
+    procedure ImportDisv(const FileName: string; const ImportDisvElevations: Boolean);
     procedure SetDataSetsPosition(const Value: TRect);
     procedure SetObjectsPosition(const Value: TRect);
 //    procedure NoClick(Sender: TObject);
@@ -2094,6 +2104,7 @@ type
     procedure WMExitSizeMove(var Message: TMessage); message WM_EXITSIZEMOVE;
     procedure EnablePilotPointItems;
     procedure UpdateMt3dObsResults;
+    // See also @link(TUndoModelSelectionChange)
     procedure UpdateControlsEnabledOrVisible;
     property ContourDataSet: TDataArray read GetContourDataSet;
     function ZoneBudgetWarning: string;
@@ -2192,7 +2203,8 @@ uses
   frmLayersToExportUnit, DataArrayManagerUnit, DataSetNamesUnit,
   PhastModelInterfaceUnit,
   frmImportModflow6Unit,
-  frmImportSurferGridFilesUnit, frmImportWarningsUnit;
+  frmImportSurferGridFilesUnit, frmImportWarningsUnit, Mf6.DisvFileReaderUnit,
+  Mf6.CustomMf6PersistentUnit, Modflow6ModelImporter, LayerStructureUnit;
 
 const
   StrDisplayOption = 'DisplayOption';
@@ -4563,6 +4575,7 @@ begin
   acRunModflowCfp.Enabled := PhastModel.ModelSelection = msModflowCfp;
   acRunFootprint.Enabled := PhastModel.ModelSelection = msFootPrint;
   acRunModflow6.Enabled := PhastModel.ModelSelection = msModflow2015;
+  actImportDisv.Enabled := PhastModel.ModelSelection = msModflow2015;
 
   miLayers.Enabled :=
     PhastModel.ModelSelection in ModflowSelection;
@@ -4627,6 +4640,7 @@ begin
     ControlList.Add(acRunMt3dms);
     ControlList.Add(acRunModflow6);
     ControlList.Add(acRunModflowOWHM_V2);
+    ControlList.Add(actImportDisv);
 
     ShowControls := PhastModel.ModelSelection in ModflowSelection;
     for ControlIndex := 0 to ControlList.Count - 1 do
@@ -5080,7 +5094,7 @@ end;
 procedure TfrmGoPhast.acDefaultCrossSectionExecute(Sender: TObject);
 begin
   inherited;
-  frmGoPhast.UndoStack.Submit(
+  UndoStack.Submit(
     TUndoSpecifyCrossSection.Create(
     PhastModel.DrawMesh.DefaultCrossSectionLocation));
 end;
@@ -5429,22 +5443,6 @@ begin
         UndoHfb.Free;
       end;
     end;
-
-//    if PhastModel.ModflowPackages.ChdBoundary.IsSelected then
-//    begin
-//      UndoChd := TUndoConvertChd.Create;
-//      try
-//        if  UndoChd.ShouldConvert and
-//          (MessageDlg(StrDoYouWantToConveChd, mtConfirmation,
-//          [mbYes, mbNo], 0) = mrYes) then
-//        begin
-//          UndoStack.Submit(UndoChd);
-//          UndoChd := nil;
-//        end;
-//      finally
-//        UndoChd.Free;
-//      end;
-//    end;
 
     UndoConvertObs := TUndoConvertObservationsMf6.Create;
     try
@@ -11654,10 +11652,6 @@ begin
     if (LocalGrid.ColumnCount >= 1) and (LocalGrid.RowCount >= 1)
       and (LocalGrid.LayerCount >= 1) then
     begin
-//      ModelXWidth := Abs(LocalGrid.ColumnPosition[0]
-//        - LocalGrid.ColumnPosition[LocalGrid.ColumnCount]);
-//      ModelYWidth := Abs(LocalGrid.RowPosition[0]
-//        - LocalGrid.RowPosition[LocalGrid.RowCount]);
       ModelHeight := Abs(LocalGrid.HighestElevation - LocalGrid.LowestElevation);
       InitializeView(ModelXWidth, ModelYWidth, ModelHeight);
     end;
@@ -11670,9 +11664,6 @@ begin
       DrawMesh := PhastModel.DrawMesh;
       if Mesh.Mesh2DI.NodeCount > 0 then
       begin
-//        MeshLimits := Mesh.MeshLimits(vdTop, 0);
-//        ModelXWidth := MeshLimits.MaxX - MeshLimits.MinX;
-//        ModelYWidth := MeshLimits.MaxY - MeshLimits.MinY;
         MeshLimits := Mesh.MeshLimits(vdFront, DrawMesh.CrossSection.Angle);
         ModelHeight := MeshLimits.MaxZ - MeshLimits.MinZ;
         if Mesh is TSutraMesh3D then
@@ -15393,6 +15384,15 @@ begin
   end;
 end;
 
+procedure TfrmGoPhast.actImportDisvExecute(Sender: TObject);
+begin
+  inherited;
+  if dlgOpenImportDisv.Execute then
+  begin
+    ImportDisv(dlgOpenImportDisv.FileName, FImportDisvElevations);
+  end;
+end;
+
 procedure TfrmGoPhast.tb3DColorsClick(Sender: TObject);
 begin
   acColoredGrid.Checked := not acColoredGrid.Checked;
@@ -15469,6 +15469,104 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmGoPhast.dlgOpenImportDisvClose(Sender: TObject);
+begin
+  inherited;
+  FImportDisvElevations := FfrmSelectDisvFile.rgImportChoice.ItemIndex = 1;
+  FreeAndNil(FfrmSelectDisvFile);
+end;
+
+procedure TfrmGoPhast.dlgOpenImportDisvShow(Sender: TObject);
+begin
+  inherited;
+  FfrmSelectDisvFile := TfrmSelectDisvFile.createfordialog(dlgOpenImportDisv);
+end;
+
+procedure TfrmGoPhast.ImportDisv(const FileName: string; const ImportDisvElevations: Boolean);
+var
+  DisvFileFileReader: TStreamReader;
+  Errors: TStreamWriter;
+  Disv: TDisv;
+  ErrorLines: TStringList;
+  Mesh2D: TModflowIrregularGrid2D;
+  APackage: TPackage;
+  Importer: TModflow6Importer;
+  Undo: TUndoImportDisv;
+  UndoLayerStructure: TUndoDefineLayers;
+  UndoChangeGridType: TUndoChangeGridType;
+  LayerStructure: TLayerStructure;
+begin
+  DisvFileFileReader := TFile.OpenText(FileName);
+  Errors := TStreamWriter.Create(TMemoryStream.Create);
+  ErrorLines := TStringList.Create;
+  try
+    Errors.OwnStream;
+    APackage := TPackage.Create;
+    Disv := TDisv.Create('DISV6');
+    try
+      APackage.Package := Disv;
+      Disv.Read(DisvFileFileReader, Errors, 1);
+      ErrorLines.LoadFromStream(Errors.BaseStream);
+      if ErrorLines.Count > 0 then
+      begin
+        ErrorLines.Insert(0, '');
+        ErrorLines.Insert(0, 'ModelMuse encountered the following errors when reading the DISV file. Do you want to continue?');
+        if (MessageDlg(ErrorLines.Text, mtWarning, [mbYes, mbNo], 0, mbNo) in [mrNo, mrNone]) then
+        begin
+          Exit
+        end;
+      end;
+
+      UndoChangeGridType := nil;
+      if not PhastModel.DisvUsed then
+      begin
+        UndoChangeGridType := TUndoChangeGridType.Create(mgtLayered, False);
+        frmGoPhast.PhastModel.Mf6GridType := mgtLayered;
+      end;
+      PhastModel.DisvGrid.CanDraw := False;
+      try
+        Mesh2D := PhastModel.DisvGrid.TwoDGrid;
+        Mesh2D.Clear;
+
+        Importer := TModflow6Importer.Create;
+        Undo := TUndoImportDisv.Create;
+        try
+          Undo.UndoChangeGridType := UndoChangeGridType;
+          UndoLayerStructure := nil;
+          if ImportDisvElevations then
+          begin
+            LayerStructure := TLayerStructure.Create(nil);
+            LayerStructure.Assign(PhastModel.LayerStructure);
+            UndoLayerStructure := TUndoDefineLayers.Create(LayerStructure);
+          end;
+          Importer.ImportDisV(APackage, ImportDisvElevations);
+          if ImportDisvElevations then
+          begin
+            UndoLayerStructure.NewLayerStructure := PhastModel.LayerStructure;
+            Undo.AllCellsScreenObject := Importer.AllTopCellsScreenObject;
+            Undo.UndoDefineLayers := UndoLayerStructure;
+          end;
+          frmGoPhast.UndoStack.Submit(Undo);
+        finally
+          Importer.Free;
+        end;
+      finally
+        PhastModel.DisvGrid.CanDraw := True;
+        frmGoPhast.UndoStack.Submit(TUndoVerticalExaggeration.Create(frmGoPhast.DefaultVE));
+        Application.ProcessMessages;
+        acDefaultCrossSectionExecute(nil);
+        RestoreDefault2DView1Click(nil);
+      end;
+    finally
+      APackage.Free;
+    end;
+  finally
+    DisvFileFileReader.Free;
+    Errors.Free;
+    ErrorLines.Free;
+  end;
 end;
 
 procedure TfrmGoPhast.tbDrawElementClick(Sender: TObject);

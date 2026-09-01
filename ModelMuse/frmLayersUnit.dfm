@@ -4,6 +4,7 @@ inherited frmLayers: TfrmLayers
   Caption = 'MODFLOW Layer Groups'
   ClientHeight = 480
   ClientWidth = 579
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 595
   ExplicitHeight = 519
   TextHeight = 18
@@ -230,18 +231,21 @@ inherited frmLayers: TfrmLayers
         inherited lbl1: TLabel
           Width = 148
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 148
           ExplicitHeight = 18
         end
         inherited lbl2: TLabel
           Width = 137
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 137
           ExplicitHeight = 18
         end
         inherited pnlDiscritization: TPanel
           Width = 165
           Height = 405
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitWidth = 165
           ExplicitHeight = 405
           inherited spl1: TSplitter
@@ -263,10 +267,12 @@ inherited frmLayers: TfrmLayers
           end
           inherited pnl1: TPanel
             Width = 165
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 165
             inherited lbl3: TLabel
-              Width = 165
-              Height = 41
+              Width = 142
+              Height = 36
+              StyleElements = [seFont, seClient, seBorder]
               ExplicitWidth = 142
               ExplicitHeight = 36
             end
@@ -274,6 +280,7 @@ inherited frmLayers: TfrmLayers
           inherited pnlPaintboxParent: TPanel
             Left = 80
             Height = 364
+            StyleElements = [seFont, seClient, seBorder]
             ExplicitLeft = 80
             ExplicitHeight = 364
             inherited pbSubLayers: TPaintBox
@@ -294,7 +301,11 @@ inherited frmLayers: TfrmLayers
             end
           end
         end
+        inherited rdeGrowthRate: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
+        end
         inherited rdeVDiscretization: TRbwDataEntry
+          StyleElements = [seFont, seClient, seBorder]
           OnExit = frameDiscretizationrdeVDiscretizationExit
         end
         inherited rgMethod: TRadioGroup
@@ -322,6 +333,7 @@ inherited frmLayers: TfrmLayers
           Top = 380
           Width = 55
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 381
           ExplicitWidth = 55
           ExplicitHeight = 18
@@ -363,6 +375,7 @@ inherited frmLayers: TfrmLayers
         inherited seCount: TJvSpinEdit
           Top = 377
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 377
           ExplicitHeight = 26
         end
@@ -387,6 +400,7 @@ inherited frmLayers: TfrmLayers
           Top = 380
           Width = 55
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 381
           ExplicitWidth = 55
           ExplicitHeight = 18
@@ -428,6 +442,7 @@ inherited frmLayers: TfrmLayers
         inherited seCount: TJvSpinEdit
           Top = 377
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 377
           ExplicitHeight = 26
         end
@@ -452,6 +467,7 @@ inherited frmLayers: TfrmLayers
           Top = 380
           Width = 55
           Height = 18
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 381
           ExplicitWidth = 55
           ExplicitHeight = 18
@@ -493,6 +509,7 @@ inherited frmLayers: TfrmLayers
         inherited seCount: TJvSpinEdit
           Top = 377
           Height = 26
+          StyleElements = [seFont, seClient, seBorder]
           ExplicitTop = 377
           ExplicitHeight = 26
         end

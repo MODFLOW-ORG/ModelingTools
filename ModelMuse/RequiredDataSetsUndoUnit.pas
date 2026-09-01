@@ -61,6 +61,7 @@ type
     procedure Undo; override;
   end;
 
+  // See also @link(TfrmGoPhast.UpdateControlsEnabledOrVisible)
   TUndoModelSelectionChange = class(TCustomCreateRequiredDataSetsUndo)
   private
     FOldModelSelection: TModelSelection;

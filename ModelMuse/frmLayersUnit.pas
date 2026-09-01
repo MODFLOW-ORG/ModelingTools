@@ -149,9 +149,11 @@ type
     FOldLayerStructure: TLayerStructure;
     FNewDataSets: TIDataArrayList;
     FChildDiscretizations: TList;
+    procedure SetNewLayerStructure(const Value: TLayerStructure);
   protected
     function Description: string; override;
   public
+   property NewLayerStructure: TLayerStructure read FNewLayerStructure write SetNewLayerStructure;
     constructor Create(var NewLayerStructure: TLayerStructure);
     Destructor Destroy; override;
     procedure DoCommand; override;
@@ -2083,6 +2085,12 @@ begin
   finally
     frmGoPhast.CanDraw := True;
   end;
+end;
+
+procedure TUndoDefineLayers.SetNewLayerStructure(
+  const Value: TLayerStructure);
+begin
+  FNewLayerStructure.Assign(Value);
 end;
 
 procedure TUndoDefineLayers.Undo;

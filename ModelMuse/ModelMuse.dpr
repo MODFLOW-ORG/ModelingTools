@@ -975,7 +975,8 @@ uses
   ModflowGwfPrtExchangeWriterUnit in 'ModflowGwfPrtExchangeWriterUnit.pas',
   frmPrtChoicesUnit in 'frmPrtChoicesUnit.pas' {frmPrtChoices},
   Mf6.MipFileReaderUnit in '..\MF6InputReader\Mf6.MipFileReaderUnit.pas',
-  Mf6.PrpFileReaderUnit in '..\MF6InputReader\Mf6.PrpFileReaderUnit.pas';
+  Mf6.PrpFileReaderUnit in '..\MF6InputReader\Mf6.PrpFileReaderUnit.pas',
+  frmSelectDisvFileUnit in 'frmSelectDisvFileUnit.pas' {frmSelectDisvFile};
 
 {$R *.res}
 
