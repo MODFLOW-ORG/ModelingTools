@@ -12070,6 +12070,7 @@ begin
   // write GWT name file.
 
   FNameOfFile := FFileName;
+  Model.AddModelInputFile(FFileName);
   OpenFile(FNameOfFile);
   try
     WriteCommentLine(File_Comment('PRT name file for ' + FPrtModel.ModelName));
