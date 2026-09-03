@@ -568,6 +568,8 @@ type
     actImportDisv: TAction;
     mniImportDisv: TMenuItem;
     dlgOpenImportDisv: TOpenDialog;
+    mniVOROGRIDGENinputfiles1: TMenuItem;
+    actVOROGRIDGEN: TAction;
     procedure tbUndoClick(Sender: TObject);
     procedure acUndoExecute(Sender: TObject);
     procedure tbRedoClick(Sender: TObject);
@@ -779,6 +781,7 @@ type
     procedure acImportModflow6ModelExecute(Sender: TObject);
     procedure acReverseObjectOrderExecute(Sender: TObject);
     procedure actImportDisvExecute(Sender: TObject);
+    procedure actVOROGRIDGENExecute(Sender: TObject);
     procedure dlgOpenImportDisvClose(Sender: TObject);
     procedure dlgOpenImportDisvShow(Sender: TObject);
   private
@@ -2204,7 +2207,8 @@ uses
   PhastModelInterfaceUnit,
   frmImportModflow6Unit,
   frmImportSurferGridFilesUnit, frmImportWarningsUnit, Mf6.DisvFileReaderUnit,
-  Mf6.CustomMf6PersistentUnit, Modflow6ModelImporter, LayerStructureUnit;
+  Mf6.CustomMf6PersistentUnit, Modflow6ModelImporter, LayerStructureUnit,
+  frmVOROGRIDGEN_Unit;
 
 const
   StrDisplayOption = 'DisplayOption';
@@ -4576,6 +4580,7 @@ begin
   acRunFootprint.Enabled := PhastModel.ModelSelection = msFootPrint;
   acRunModflow6.Enabled := PhastModel.ModelSelection = msModflow2015;
   actImportDisv.Enabled := PhastModel.ModelSelection = msModflow2015;
+  actVOROGRIDGEN.Enabled := PhastModel.ModelSelection = msModflow2015;
 
   miLayers.Enabled :=
     PhastModel.ModelSelection in ModflowSelection;
@@ -4641,6 +4646,8 @@ begin
     ControlList.Add(acRunModflow6);
     ControlList.Add(acRunModflowOWHM_V2);
     ControlList.Add(actImportDisv);
+    ControlList.Add(actVOROGRIDGEN);
+
 
     ShowControls := PhastModel.ModelSelection in ModflowSelection;
     for ControlIndex := 0 to ControlList.Count - 1 do
@@ -4895,6 +4902,9 @@ begin
   UpdateRunShortCut(acRunFootprint);
   UpdateRunShortCut(acRunModflow6);
   UpdateRunShortCut(acRunModflowOWHM_V2);
+  UpdateRunShortCut(actImportDisv);
+  UpdateRunShortCut(actVOROGRIDGEN);
+
 
   if DisvUsed then
   begin
@@ -15391,6 +15401,12 @@ begin
   begin
     ImportDisv(dlgOpenImportDisv.FileName, FImportDisvElevations);
   end;
+end;
+
+procedure TfrmGoPhast.actVOROGRIDGENExecute(Sender: TObject);
+begin
+  inherited;
+  ShowAForm(TfrmVOROGRIDGEN);
 end;
 
 procedure TfrmGoPhast.tb3DColorsClick(Sender: TObject);

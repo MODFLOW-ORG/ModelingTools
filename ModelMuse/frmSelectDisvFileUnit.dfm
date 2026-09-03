@@ -20,7 +20,7 @@ object frmSelectDisvFile: TfrmSelectDisvFile
     Caption = 'What to import'
     ItemIndex = 0
     Items.Strings = (
-      'Import cell outlines, cell centers and options'
+      'Import cell outlines and cell centers'
       
         'mport cell outlines, cell centers, options, layer elevations and' +
         ' IDOMAIN')

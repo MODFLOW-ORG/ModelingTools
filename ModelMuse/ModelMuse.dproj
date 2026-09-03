@@ -2379,6 +2379,11 @@
             <Form>frmSelectDisvFile</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="frmVOROGRIDGEN_Unit.pas">
+            <Form>frmVOROGRIDGEN</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="RunVoroGridGenUnit.pas"/>
         <None Include="ModelMuse.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

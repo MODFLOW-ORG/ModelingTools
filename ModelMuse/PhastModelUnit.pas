@@ -10587,8 +10587,10 @@ const
 //                in the MODFLOW 6 lak package.
 //               Enhancement: Added Support for ATS_COURANT option
 //                in the MODFLOW 6 SFR package.
-//               Enhancement: Added Support for ELASTIC_INELASTIC_SMOOTHING option
-//                in the CSUB package.
+//               Enhancement: Added Support for ELASTIC_INELASTIC_SMOOTHING
+//                option in the CSUB package.
+//               Enhancement: Added the ability to import DISV files without
+//                importing an entire model.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

@@ -212,7 +212,7 @@ type
   public
     Constructor Create;
     destructor Destroy; override;
-    procedure ImportDisV(Package: TPackage; Import3D_Data: Boolean = True);
+    procedure ImportDisV(Package: TPackage; Import3D_DataAndOptions: Boolean = True);
     property AllTopCellsScreenObject: TScreenObject read GetAllTopCellsScreenObject;
     procedure ImportModflow6Model(NameFiles, ErrorMessages: TStringList; usgs_model_reference: string);
     property OnUpdateStatusBar: TOnUpdataStatusBar read FOnUpdataStatusBar
@@ -3512,7 +3512,7 @@ begin
 
 end;
 
-procedure TModflow6Importer.ImportDisV(Package: TPackage; Import3D_Data: Boolean = True);
+procedure TModflow6Importer.ImportDisV(Package: TPackage; Import3D_DataAndOptions: Boolean = True);
 var
   Model: TPhastModel;
   MfOptions: TModflowOptions;
@@ -3564,16 +3564,19 @@ begin
   Model.Mf6GridType := mgtLayered;
 
   Disv := Package.Package as TDisv;
-  Model.GeoRef.Projection := Disv.Options.Projection;
-  MfOptions.LengthUnit := Disv.Options.LENGTH_UNITS;
-  MfOptions.WriteBinaryGridFile := not Disv.Options.NOGRB;
+  if Import3D_DataAndOptions then
+  begin
+    Model.GeoRef.Projection := Disv.Options.Projection;
+    MfOptions.LengthUnit := Disv.Options.LENGTH_UNITS;
+    MfOptions.WriteBinaryGridFile := not Disv.Options.NOGRB;
+  end;
 
   XOrigin := Disv.Options.XORIGIN;
   YOrigin := Disv.Options.YORIGIN;
   GridAngle := Disv.Options.ANGROT * Pi / 180;
 
   NumberOfLayers := Disv.Dimensions.NLay;
-  if Import3D_Data then
+  if Import3D_DataAndOptions then
   begin
     UpdateLayerStructure(NumberOfLayers);
   end;
@@ -3624,7 +3627,7 @@ begin
 
   Mesh3D.Loaded;
 
-  if Import3D_Data then
+  if Import3D_DataAndOptions then
   begin
     TOP := Disv.GridData.TOP;
     BOTM := Disv.GridData.BOTM;
@@ -17313,7 +17316,7 @@ begin
     end;
     for LayerIndex := 1 to NumberOfLayers do
     begin
-      if Model.LayerStructure.Count < LayerIndex then
+      if Model.LayerStructure.Count <= LayerIndex then
       begin
         LayerGroup := Model.LayerStructure.Add;
         LayerGroup.AquiferName := Format('Layer %d', [LayerIndex]);

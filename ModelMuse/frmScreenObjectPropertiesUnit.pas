@@ -527,6 +527,8 @@ type
     frameGweESL: TframeScreenObjectEsl;
     jvspPRP: TJvStandardPage;
     framePRP: TframeScreenObjectPrp;
+    rdeVoronoi: TRbwDataEntry;
+    lblVoronoi: TLabel;
     // @name changes which check image is displayed for the selected item
     // in @link(jvtlModflowBoundaryNavigator).
     procedure jvtlModflowBoundaryNavigatorMouseDown(Sender: TObject;
@@ -893,6 +895,7 @@ type
     procedure frameGweESLcomboChemSpeciesChange(Sender: TObject);
     procedure frameGweESLrdgModflowBoundarySetEditText(Sender: TObject; ACol, ARow:
         LongInt; const Value: string);
+    procedure rdeVoronoiExit(Sender: TObject);
   published
     // Clicking @name closes the @classname without changing anything.
     // See @link(btnCancelClick),
@@ -4930,6 +4933,8 @@ begin
     jvspFarmRefEvap.HelpKeyword := 'Ref_-Evap-in-Climate-Farm-Proc';
     jvspFarmID.HelpKeyword := 'Water-Balance-Subregion-ID-in-';
   end;
+  rdeVoronoi.RealValue := AScreenObject.StoredCentroidSeparation.Value;
+  rdeVoronoi.Enabled := frmGoPhast.PhastModel.ModelSelection = msModflow2015;
   frameDynamicTimeSeries.SetGridButtonEvent(frameChdParamdgModflowBoundaryButtonClick);
 
   frameLak.tabObservations.Visible := frmGoPhast.PhastModel.PestUsed;
@@ -7438,6 +7443,12 @@ begin
         GetAssignmentMethodForAdditionalObject(AScreenObject);
         GetIFaceForAdditionalObject(AScreenObject);
         GetDuplicatesAllowedForAdditionalObject(AScreenObject);
+
+        if (rdeVoronoi.Text <> '') and
+          (rdeVoronoi.RealValue <> AScreenObject.StoredCentroidSeparation.Value) then
+        begin
+          rdeVoronoi.Text := '';
+        end;
 //        GetPilotPointsForAdditionalObject(AScreenObject);
 
         GetPhastBoundaryConditionsForAdditionalObjects(AScreenObject, TempType);
@@ -33606,6 +33617,23 @@ begin
   inherited;
   frameScreenObjectTvs.rdgModflowBoundarySetEditText(Sender, ACol, ARow, Value);
   UpdateNodeState(FTvsNode);
+end;
+
+procedure TfrmScreenObjectProperties.rdeVoronoiExit(Sender: TObject);
+var
+  Separation: double;
+  Item: TScreenObjectEditItem;
+begin
+  inherited;
+  if rdeVoronoi.Text <> '' then
+  begin
+    Separation := rdeVoronoi.RealValue;
+    for var Index := 0 to FNewProperties.Count - 1 do
+    begin
+      Item := FNewProperties[Index];
+      Item.ScreenObject.StoredCentroidSeparation.Value := Separation;
+    end;
+  end;
 end;
 
 procedure TfrmScreenObjectProperties.SetMultipleScreenObjects(

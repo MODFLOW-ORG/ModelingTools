@@ -976,7 +976,9 @@ uses
   frmPrtChoicesUnit in 'frmPrtChoicesUnit.pas' {frmPrtChoices},
   Mf6.MipFileReaderUnit in '..\MF6InputReader\Mf6.MipFileReaderUnit.pas',
   Mf6.PrpFileReaderUnit in '..\MF6InputReader\Mf6.PrpFileReaderUnit.pas',
-  frmSelectDisvFileUnit in 'frmSelectDisvFileUnit.pas' {frmSelectDisvFile};
+  frmSelectDisvFileUnit in 'frmSelectDisvFileUnit.pas' {frmSelectDisvFile},
+  frmVOROGRIDGEN_Unit in 'frmVOROGRIDGEN_Unit.pas' {frmVOROGRIDGEN},
+  RunVoroGridGenUnit in 'RunVoroGridGenUnit.pas';
 
 {$R *.res}
 

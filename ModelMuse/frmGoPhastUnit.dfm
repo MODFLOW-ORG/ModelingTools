@@ -1324,6 +1324,9 @@ inherited frmGoPhast: TfrmGoPhast
         object miRunSutra: TMenuItem
           Action = acRunSutra
         end
+        object mniVOROGRIDGENinputfiles1: TMenuItem
+          Action = actVOROGRIDGEN
+        end
         object miPEST: TMenuItem
           Caption = 'PEST'
           object PESTControlfile1: TMenuItem
@@ -3801,6 +3804,10 @@ inherited frmGoPhast: TfrmGoPhast
     object actImportDisv: TAction
       Caption = 'Import MODFLOW 6 DISV'
       OnExecute = actImportDisvExecute
+    end
+    object actVOROGRIDGEN: TAction
+      Caption = 'VOROGRIDGEN Input Files'
+      OnExecute = actVOROGRIDGENExecute
     end
   end
   object ilDisabledImageList: TImageList

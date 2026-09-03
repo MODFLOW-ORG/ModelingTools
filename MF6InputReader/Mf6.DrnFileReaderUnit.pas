@@ -442,6 +442,7 @@ var
   CONDValue: Double;
   AuxValues: TDArray1D;
 begin
+  FDimensions := Dimensions;
   DimensionCount := Dimensions.DimensionCount;
   NumberOfColumns := DimensionCount + 2 + naux;
   Initialize;
@@ -550,7 +551,7 @@ begin
       SetLength(COND, FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
       SetLength(FAuxArrays, naux, FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
 
-      if FSplitter[0] = 'BHEAD' then
+      if FSplitter[0] = 'ELEV' then
       begin
         Layered := (FSplitter.Count >= 2) and (FSplitter[1] = 'LAYERED');
         DoubleThreeDReader := TDouble3DArrayReader.Create(FDimensions, Layered, FPackageType);

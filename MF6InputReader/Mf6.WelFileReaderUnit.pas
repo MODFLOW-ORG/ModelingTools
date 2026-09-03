@@ -435,6 +435,7 @@ var
 begin
   DimensionCount := Dimensions.DimensionCount;
   NumberOfItems := DimensionCount + 1 + naux;
+  FDimensions := Dimensions;
   Initialize;
   while not Stream.EndOfStream do
   begin
@@ -528,7 +529,7 @@ begin
       SetLength(Q, FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
       SetLength(FAuxArrays, naux, FDimensions.NLay, FDimensions.NRow, FDimensions.NCol);
 
-      if FSplitter[0] = 'HEAD' then
+      if FSplitter[0] = 'Q' then
       begin
         Layered := (FSplitter.Count >= 2) and (FSplitter[1] = 'LAYERED');
         DoubleThreeDReader := TDouble3DArrayReader.Create(FDimensions, Layered, FPackageType);

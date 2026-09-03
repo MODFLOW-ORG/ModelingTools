@@ -1941,6 +1941,7 @@ view. }
     FSutraScheduleName: string;
     FDynamicTimesSeriesCollections: TDynamicTimesSeriesCollections;
     FSectionLabel: TSectionLabel;
+    FStoredCentroidSeparation: TRealStorage;
     procedure CreateLastSubPolygon;
     procedure DestroyLastSubPolygon;
     function GetSubPolygonCount: integer;
@@ -2983,6 +2984,7 @@ view. }
     function StoreModflowPrpBoundary: Boolean;
 
     procedure SetSectionLabel(const Value: TSectionLabel);
+    procedure SetStoredCentroidSeparation(const Value: TRealStorage);
 
     property SubPolygonCount: integer read GetSubPolygonCount;
     property SubPolygons[Index: integer]: TSubPolygon read GetSubPolygon;
@@ -4571,6 +4573,8 @@ SectionStarts.}
     property DyanmicTimesSeriesCollections: TDynamicTimesSeriesCollections
       read FDynamicTimesSeriesCollections write SetDyanmicTimesSeriesCollection
       stored False;
+    property StoredCentroidSeparation: TRealStorage
+      read FStoredCentroidSeparation write SetStoredCentroidSeparation;
   end;
 
   // @name does not own its @link(TScreenObject)s.
@@ -6972,6 +6976,7 @@ begin
   ImportedValues := AScreenObject.ImportedValues;
   PositionLocked := AScreenObject.PositionLocked;
   StoredSutraAngle := AScreenObject.StoredSutraAngle;
+  StoredCentroidSeparation := AScreenObject.StoredCentroidSeparation;
 //  ModflowSubObservations := AScreenObject.ModflowSubObservations;
 //  LinkedChildModels := AScreenObject.LinkedChildModels;
 
@@ -11866,6 +11871,8 @@ begin
   FStoredMinimumFraction := TRealStorage.Create;
   FStoredMinimumFraction.OnChange := InvalidateSelf;
 
+  FStoredCentroidSeparation := TRealStorage.Create;
+
   FDynamicTimesSeriesCollections := TDynamicTimesSeriesCollections.Create(Model as TCustomModel, self);
 //  FSubObservations := TSubObservations.Create(InvalidateModelEvent, self);
 end;
@@ -15938,15 +15945,6 @@ begin
     FChildModelName := '';
   end;
 end;
-
-//procedure TScreenObject.SetChildModelDiscretization(const Value: integer);
-//begin
-//  if FChildModelDiscretization <> Value then
-//  begin
-//    FChildModelDiscretization := Value;
-//    InvalidateModel;
-//  end;
-//end;
 
 procedure TScreenObject.SetChildModelName(const Value: string);
 var
@@ -20125,14 +20123,13 @@ var
 begin
   FDynamicTimesSeriesCollections.Free;
   FDynamicTimesSeriesCollections := nil;
-//  FSubObservations.Free;
+  FStoredCentroidSeparation.Free;
   FStoredMinimumFraction.Free;
   FreeAndNil(FFootprintWell);
   FSutraBoundaries.Free;
   FStoredSutraAngle.Free;
   FUsedModels.Free;
   ChildModel := nil;
-//  FLinkedChildModels.Free;
   FPointPositionValues.Free;
   FGpcPolygons.Free;
   Selected := False;
@@ -35535,6 +35532,11 @@ begin
   begin
     result := ModflowBoundaries.FMt3dUztUnsatEtConcBoundary;
   end;
+end;
+
+procedure TScreenObject.SetStoredCentroidSeparation(const Value: TRealStorage);
+begin
+  FStoredCentroidSeparation.Assign(Value);
 end;
 
 procedure TScreenObject.SetStoredMinimumFraction(const Value: TRealStorage);
