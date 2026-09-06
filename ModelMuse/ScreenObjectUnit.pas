@@ -148,6 +148,7 @@ type
     function Add: TPointValue;
     property Items[Index: Integer]: TPointValue read GetItems
       write SetItems; default;
+    function GetPointValueByName(const AName: string): TPointValue;
   end;
 
   TPointValuesItem = class(TOrderedItem)
@@ -182,6 +183,7 @@ type
     constructor Create(Model: IModelForTOrderedCollection);
     function IndexOfPosition(APosition: integer): integer;
     function GetItemByPosition(APosition: integer): TPointValuesItem;
+    function GetPointValueItemByPositionAndName(APosition: integer; const AName: string): TPointValue;
     procedure Sort;
     function Add: TPointValuesItem;
     property Items[Index: Integer]: TPointValuesItem read GetItem write SetItem; default;
@@ -3956,6 +3958,7 @@ view. }
     // @name is the area of the object.  The value is stored and only
     // recalculated when it is no longer up-to-date.
     function ScreenObjectArea: real;
+    function ScreenObjectSectionArea(const SectionIndex: Integer): Real;
     // @name is the 2D length of the object.  Its value is stored and
     // is only recalculated when it is no longer up-to-date.
     function ScreenObjectLength: real;
@@ -10650,6 +10653,28 @@ begin
     FRecalculateLength := false;
   end;
   result := FScreenObjectLength;
+end;
+
+function TScreenObject.ScreenObjectSectionArea(
+  const SectionIndex: Integer): Real;
+var
+  Polygon:TPolygon2D;
+  StartIndex: Integer;
+begin
+  if SectionClosed[SectionIndex] then
+  begin
+    SetLength(Polygon, SectionLength[SectionIndex]);
+    StartIndex := SectionStart[SectionIndex];
+    for var Index := 0 to Length(Polygon) -1 do
+    begin
+      Polygon[Index] := Points[StartIndex + Index];
+    end;
+    result := Abs(Area(Polygon));
+  end
+  else
+  begin
+    result := 0;
+  end;
 end;
 
 function TScreenObject.SaveSutraAngle: Boolean;
@@ -47788,6 +47813,22 @@ begin
   result := inherited Items[Index] as TPointValue;
 end;
 
+function TPointValues.GetPointValueByName(const AName: string): TPointValue;
+var
+  AnItem: TPointValue;
+begin
+  result := nil;
+  for var Index := 0 to Count - 1 do
+  begin
+    AnItem := Items[Index];
+    if AnsiSameText(AName, AnItem.Name) then
+    begin
+      result := AnItem;
+      Exit;
+    end;
+  end;
+end;
+
 procedure TPointValues.SetItems(Index: Integer; const Value: TPointValue);
 begin
   inherited Items[Index] := Value;
@@ -47909,6 +47950,18 @@ begin
   end;
 end;
 
+function TPointPositionValues.GetPointValueItemByPositionAndName(APosition: integer; const AName: string): TPointValue;
+var
+  AnItem: TPointValuesItem;
+begin
+  result := nil;
+  AnItem := GetItemByPosition(APosition);
+  if AnItem <> nil then
+  begin
+    result := AnItem.Values.GetPointValueByName(AName);
+  end;
+end;
+
 function TPointPositionValues.IndexOfPosition(APosition: integer): integer;
 var
   Index: Integer;
@@ -47944,16 +47997,6 @@ begin
       result := Item.Index;
     end;
   end;
-  
-{  for Index := 0 to Count - 1 do
-  begin
-    Item := Items[Index] as TPointValuesItem;
-    if Item.Position = APosition then
-    begin
-      result := Index;
-      Exit;
-    end;
-  end;}
 end;
 
 procedure TPointPositionValues.RemoveUnusedItems;

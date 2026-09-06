@@ -37,6 +37,8 @@ type
     btnHelp: TBitBtn;
     btnOK: TBitBtn;
     btnCancel: TBitBtn;
+    fedVorogridGen: TJvFilenameEdit;
+    lblVoroGridGen: TLabel;
     procedure btnOKClick(Sender: TObject);
   private
     procedure SetData;
@@ -49,12 +51,18 @@ type
 implementation
 
 uses
-  RunVoroGridGenUnit;
+  RunVoroGridGenUnit, System.IOUtils;
 
 {$R *.dfm}
 
 procedure TfrmVOROGRIDGEN.btnOKClick(Sender: TObject);
 begin
+  if not TFile.Exists(fedVorogridGen.FileName) then
+  begin
+    Beep;
+    MessageDlg(Format('%s does not exist.', [fedVorogridGen.FileName]), mtWarning, [mbOK], 0);
+    Exit;
+  end;
   SetData;
   inherited;
 end;
@@ -63,6 +71,7 @@ procedure TfrmVOROGRIDGEN.SetData;
 var
   Options: TVorogridGenOptions;
 begin
+  Options.VoroGridGenLocation := fedVorogridGen.FileName;
   Options.BaseFileName := fedOutFileBase.FileName;
   Options.MaxCentroidSeparation := rdeCentroidSeparation.RealValue;
   Options.MaxCells := seMaxCells.AsInteger;

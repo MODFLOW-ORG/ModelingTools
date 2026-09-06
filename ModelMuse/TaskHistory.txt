@@ -394,7 +394,7 @@ object TTaskHistory
     end
     item
       Name = 'DISV'
-      Display = False
+      Display = True
     end
     item
       Name = 'Quadtree Grid Refinement and GNC'
@@ -36342,5 +36342,18 @@ object TTaskHistory
       Date = 46267.000000000000000000
       Categories.Strings = (
         'Import')
+    end
+    item
+      Date = 46268.000000000000000000
+    end
+    item
+      Date = 46269.000000000000000000
+    end
+    item
+      Date = 46270.000000000000000000
+      Categories.Strings = (
+        'Import'
+        'DISV'
+        'core code')
     end>
 end
