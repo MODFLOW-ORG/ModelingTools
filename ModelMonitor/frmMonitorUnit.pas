@@ -62,17 +62,25 @@ type
 
   TProblemType = (ptWarning, ptError);
 
+  TLineSeriesList = TList<TLineSeries>;
+
   TLineSeriesOwner = class(TObject)
   private
     FCumulativeSeries: TLineSeries;
     FPackageName: string;
     FTimeStepSeries: TLineSeries;
+    FAdditionalCumulativeSeries: TLineSeriesList;
+    FAdditionalTimeStepSeries: TLineSeriesList;
   public
+    constructor Create;
+    destructor Destroy; override;
     property PackageName: string read FPackageName write FPackageName;
     property CumulativeSeries: TLineSeries read FCumulativeSeries
       write FCumulativeSeries;
     property TimeStepSeries: TLineSeries read FTimeStepSeries
       write FTimeStepSeries;
+    property AdditionalCumulativeSeries: TLineSeriesList read FAdditionalCumulativeSeries;
+    property AdditionalTimeStepSeries: TLineSeriesList read FAdditionalTimeStepSeries;
   end;
 
   TLineSeriesOwnerDict = class(TObjectDictionary<string,TLineSeriesOwner>)
@@ -112,6 +120,7 @@ type
     FInnerIterations: TList<TInnerIterationData>;
     FPackageBudgets: TLineSeriesOwnerDict;
     FLineSeriesOwner: TLineSeriesOwner;
+    FSWI_Zone: Integer;
     procedure CreateNewTabSheet(out ATabSheet: TjvStandardPage;
       NewCaption: string; out NewNode: TTreeNode);
     procedure CreateLineSeries(AColor: TColor; ATitle: string;
@@ -137,6 +146,7 @@ type
     function GetConnectedNode(APage: TJvStandardPage): TTreeNode;
     function GetPackageBudget(const PackageName: string): TLineSeriesOwner;
     procedure GetRates(Position: Integer; ALine: string; var Cum, Rate: Double);
+    procedure AddAdditionalBudgets(LineSeriesOwner: TLineSeriesOwner);
   public
     property OnStatusChanged: TOnStatusChanged read FOnStatusChanged
       write FOnStatusChanged;
@@ -1466,6 +1476,31 @@ begin
   end;
 end;
 
+procedure TListFileHandler.AddAdditionalBudgets(LineSeriesOwner: TLineSeriesOwner);
+var
+  ColorIndex: Integer;
+  NewTimeList: TLineSeries;
+begin
+  if LineSeriesOwner.FAdditionalCumulativeSeries.Count = 0 then
+  begin
+    LineSeriesOwner.FCumulativeSeries.Title := LineSeriesOwner.FCumulativeSeries.Title + ' Zone 1';
+    LineSeriesOwner.FTimeStepSeries.Title := LineSeriesOwner.FTimeStepSeries.Title + ' Zone 1';
+  end;
+  ColorIndex := (FPackageBudgets.Count + LineSeriesOwner.FAdditionalCumulativeSeries.Count + 1) *2 mod (ColorList.Count);
+  CreateLineSeries(ColorList[ColorIndex],
+    Format('%s Cumulative Zone %d', [LineSeriesOwner.PackageName, FSWI_Zone]), NewTimeList);
+  LineSeriesOwner.FAdditionalCumulativeSeries.Add(NewTimeList);
+
+  Inc(ColorIndex);
+  if ColorIndex >= ColorList.Count then
+  begin
+    ColorIndex := 0;
+  end;
+  CreateLineSeries(ColorList[ColorIndex],
+    Format('%s Time Step Zone %d', [LineSeriesOwner.PackageName, FSWI_Zone]), NewTimeList);
+  LineSeriesOwner.FAdditionalTimeStepSeries.Add(NewTimeList)
+end;
+
 constructor TListFileHandler.Create(AFileName: string;
   APageControl: TJvPageList; ATree: TTreeView; ModelCaption: string;
   CreateSubTree: boolean);
@@ -1543,6 +1578,8 @@ begin
   FBudgetChart.LeftAxis.Maximum := 1;
   FBudgetChart.LeftAxis.Title.Caption := StrPercentDiscrepancy2;
   FBudgetChart.Color := clWhite;
+  FBudgetChart.Legend.Visible := True;
+  FBudgetChart.Legend.LegendStyle := lsSeries;
 
   CreateLineSeries($00FF8000, StrCumulative, FserCumulative);
   CreateLineSeries($0080FFFF, StrTimeStep, FserTimeStep);
@@ -1651,6 +1688,7 @@ begin
   if not FPackageBudgets.TryGetValue(PackageName, result) then
   begin
     result := TLineSeriesOwner.Create;
+    result.PackageName := PackageName;
     ColorIndex := FPackageBudgets.Count *2 mod (ColorList.Count);
     CreateLineSeries(ColorList[ColorIndex],
       Format('%s Cumulative', [PackageName]), result.FCumulativeSeries);
@@ -2033,7 +2071,22 @@ var
   BudgPosition: Integer;
   Package: string;
   PointColor: TColor;
+  ZonePosition: Integer;
+  ZoneLine: string;
+  Value: Integer;
+  CumLineSeries: TLineSeries;
+  RateLineSeries: TLineSeries;
 begin
+  ZonePosition := Pos('ZONE', ALine);
+  if ZonePosition > 0 then
+  begin
+    ZoneLine := copy(ALine, ZonePosition + Length('ZONE'));
+    ZoneLine := Trim(ZoneLine);
+    if TryStrToInt(ZoneLine, Value) then
+    begin
+      FSWI_Zone := Value
+    end;
+  end;
   Position := Max(Pos('UNSATURATED ZONE PACKAGE VOLUMETRIC BUDGET', ALine),
     Pos('VOLUMETRIC SWI', ALine));
   if Position > 0 then
@@ -2066,7 +2119,7 @@ begin
   if BudgPosition > 0 then
   begin
     Package := Trim(Copy(ALine, 1, BudgPosition-1));
-    if Package <> 'VOLUME' then
+    if (Package <> 'VOLUME') and (Package <> 'VOLUMETRIC') then
     begin
       FLineSeriesOwner := GetPackageBudget(Package);
       FVolBudget := False;
@@ -2084,24 +2137,44 @@ begin
       FPercentCumulative.Add(Cum);
       FVolBudget := False;
     end;
-  end;
-
-  if FLineSeriesOwner <> nil then
+  end
+  else if FLineSeriesOwner <> nil then
   begin
     Position := Pos(StrPERCENTDISCREPANCY, ALine);
     if Position > 0 then
     begin
       GetRates(Position, ALine, Cum, Rate);
 
-      PointColor := FLineSeriesOwner.TimeStepSeries.Color;
-      GetColor(scError, Rate, PointColor);
-      FLineSeriesOwner.TimeStepSeries.AddXY(
-        FLineSeriesOwner.TimeStepSeries.Count+1, Rate, '', PointColor);
+      if (FSWI_Zone > 1)and (FLineSeriesOwner.PackageName = 'VOLUMETRIC SWI ZONE') then
+      begin
+        if (FSWI_Zone -1 > FLineSeriesOwner.FAdditionalCumulativeSeries.Count) then
+        begin
+          AddAdditionalBudgets(FLineSeriesOwner);
+        end;
+        RateLineSeries := FLineSeriesOwner.FAdditionalTimeStepSeries[FSWI_Zone-2];
+        PointColor := RateLineSeries.Color;
+        GetColor(scError, Rate, PointColor);
+        RateLineSeries.AddXY(
+          RateLineSeries.Count+1, Rate, '', PointColor);
 
-      PointColor := FLineSeriesOwner.CumulativeSeries.Color;
-      GetColor(scError, Rate, PointColor);
-      FLineSeriesOwner.CumulativeSeries.AddXY(
-        FLineSeriesOwner.CumulativeSeries.Count+1, Cum, '', PointColor);
+        CumLineSeries := FLineSeriesOwner.FAdditionalCumulativeSeries[FSWI_Zone-2];
+        PointColor := CumLineSeries.Color;
+        GetColor(scError, Cum, PointColor);
+        CumLineSeries.AddXY(
+          CumLineSeries.Count+1, Cum, '', PointColor);
+      end
+      else
+      begin
+        PointColor := FLineSeriesOwner.TimeStepSeries.Color;
+        GetColor(scError, Rate, PointColor);
+        FLineSeriesOwner.TimeStepSeries.AddXY(
+          FLineSeriesOwner.TimeStepSeries.Count+1, Rate, '', PointColor);
+
+        PointColor := FLineSeriesOwner.CumulativeSeries.Color;
+        GetColor(scError, Cum, PointColor);
+        FLineSeriesOwner.CumulativeSeries.AddXY(
+          FLineSeriesOwner.CumulativeSeries.Count+1, Cum, '', PointColor);
+      end;
       FLineSeriesOwner := nil;
     end;
   end;
@@ -2116,6 +2189,8 @@ begin
   ASeries.Title := ATitle;
   ASeries.Pointer.Style := psRectangle;
   ASeries.Pointer.Visible := True;
+  ASeries.ShowInLegend := True;
+  ASeries.Active := True;
 end;
 
 procedure TListFileHandler.CreateLineSeries(AColor: TAlphaColor; ATitle: string;
@@ -2145,6 +2220,23 @@ end;
 constructor TLineSeriesOwnerDict.Create;
 begin
   inherited Create([doOwnsValues]);
+end;
+
+{ TLineSeriesOwner }
+
+constructor TLineSeriesOwner.Create;
+begin
+  inherited;
+  FAdditionalCumulativeSeries := TLineSeriesList.Create;
+  FAdditionalTimeStepSeries := TLineSeriesList.Create;
+
+end;
+
+destructor TLineSeriesOwner.Destroy;
+begin
+  FAdditionalCumulativeSeries.Free;
+  FAdditionalTimeStepSeries.Free;
+  inherited;
 end;
 
 Initialization

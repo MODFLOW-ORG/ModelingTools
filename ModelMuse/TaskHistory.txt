@@ -36355,5 +36355,16 @@ object TTaskHistory
         'Import'
         'DISV'
         'core code')
+    end
+    item
+      Date = 46271.000000000000000000
+    end
+    item
+      Date = 46272.000000000000000000
+    end
+    item
+      Date = 46273.000000000000000000
+      Categories.Strings = (
+        'Running MODFLOW ModelMonitor')
     end>
 end
