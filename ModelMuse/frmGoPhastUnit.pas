@@ -15406,6 +15406,7 @@ end;
 procedure TfrmGoPhast.actVOROGRIDGENExecute(Sender: TObject);
 begin
   inherited;
+  PhastModel.VorogridGenOptions.VoroGridGenLocation := PhastModel.ProgramLocations.VoroGridGenLocation;
   ShowAForm(TfrmVOROGRIDGEN);
 end;
 

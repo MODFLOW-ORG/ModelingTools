@@ -36365,6 +36365,7 @@ object TTaskHistory
     item
       Date = 46273.000000000000000000
       Categories.Strings = (
-        'Running MODFLOW ModelMonitor')
+        'Running MODFLOW ModelMonitor'
+        'Import')
     end>
 end

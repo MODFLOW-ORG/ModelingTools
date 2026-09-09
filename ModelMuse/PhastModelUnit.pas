@@ -55,7 +55,7 @@ uses System.UITypes,
   ColorSchemesInterface, DataArrayInterfaceUnit, SubscriptionInterfaceUnit,
   GlobalVariablesInterfaceUnit, AbstractGridInterfaceUnit, CellLocationUnit,
   ModelCellInterfaceUnit, ModflowParameterInterfaceUnit,
-  InputDataObservationsUnit, Mt3dObservationResultsUnit;
+  InputDataObservationsUnit, Mt3dObservationResultsUnit, RunVoroGridGenUnit;
 
 {#BACKUP Documentation5\ModelMuse.hmxp}
 {#BACKUP Documentation5\*.gif}
@@ -228,6 +228,7 @@ type
     FPestDirectory: string;
     FSutra40Location: string;
     FModflowOwhmV2Location: string;
+    FVoroGridGenLocation: string;
     function GetTextEditorLocation: string;
     procedure SetModflowLocation(const Value: string);
     procedure SetModPathLocation(const Value: string);
@@ -254,6 +255,7 @@ type
     procedure SetPestDirectory(const Value: string);
     procedure SetSutra40Location(const Value: string);
     procedure SetModflowOwhmV2Location(const Value: string);
+    procedure SetVoroGridGenLocation(const Value: string);
   public
     procedure Assign(Source: TPersistent); override;
     Constructor Create;
@@ -312,6 +314,7 @@ type
     property PestDirectory: string read FPestDirectory write SetPestDirectory;
     property ModflowOwhmV2Location: string read FModflowOwhmV2Location
       write SetModflowOwhmV2Location;
+    property VoroGridGenLocation: string read FVoroGridGenLocation write SetVoroGridGenLocation;
   end;
 
   {
@@ -3732,6 +3735,7 @@ that affects the model output should also have a comment. }
     FTimesSeries: TTimesSeriesCollections;
     FAppsMoved: TStringList;
     FIrrigationTypes: TIrrigationCollection;
+    FVorogridGenOptions: TVorogridGenOptions;
     //     See @link(OwnsScreenObjects).
     function GetOwnsScreenObjects: boolean;
 //     See @link(ObjectList).
@@ -3955,6 +3959,7 @@ that affects the model output should also have a comment. }
     function GetColorSchemesI: IUserDefinedColorSchemeCollection;
     procedure SetColorSchemesI(const Value: IUserDefinedColorSchemeCollection);
     procedure FixMvr;
+    procedure SetVorogridGenOptions(const Value: TVorogridGenOptions);
     property ColorSchemesI: IUserDefinedColorSchemeCollection
       read GetColorSchemesI write SetColorSchemesI;
   protected
@@ -4847,6 +4852,7 @@ that affects the model output should also have a comment. }
       write SetSvdaPrepProperties;
     property SupCalcProperties: TSupCalcProperties read FSupCalcProperties
       write SetSupCalcProperties;
+    property VorogridGenOptions: TVorogridGenOptions read FVorogridGenOptions write SetVorogridGenOptions;
   end;
 
   TChildDiscretization = class(TOrderedItem)
@@ -5481,6 +5487,7 @@ uses Dialogs, OpenGL12x, Math, frmGoPhastUnit, UndoItems,
 
 
 const
+  SVoroGridGen = 'VoroGridGen';
   StatFlagStrings : array[Low(TStatFlag)..High(TStatFlag)] of string
     = ('VAR', 'SD', 'CV', 'WT', 'SQRWT');
 const
@@ -10591,6 +10598,10 @@ const
 //                option in the CSUB package.
 //               Enhancement: Added the ability to import DISV files without
 //                importing an entire model.
+//               Enhancement: ModelMonitor now plots a separate budget for
+//                each SWI zone.
+//               Enhancement: Added support for generating VOROGRIDGEN input
+//                files to generate DISV files for import into ModelMuse.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
@@ -11600,6 +11611,7 @@ begin
   FSvdaPrepProperties := TSvdaPrepProperties.Create(DoInvalidate);
   FSupCalcProperties := TSupCalcProperties.Create(DoInvalidate);
   FAppsMoved := TStringList.Create;
+  FVorogridGenOptions := TVorogridGenOptions.Create(DoInvalidate);
 end;
 
 procedure TPhastModel.CreateArchive(const FileName: string;
@@ -12065,6 +12077,7 @@ begin
       FClearing := False;
     end;
 
+    FVorogridGenOptions.Free;
     FTimesSeries.Free;
     FSupCalcProperties.Free;
     FSvdaPrepProperties.Free;
@@ -12911,7 +12924,7 @@ begin
     FContourLegend.ValueAssignmentMethod := vamAutomatic;
     FEndPointLegend.ValueAssignmentMethod := vamAutomatic;
 
-
+    FVorogridGenOptions.Initialize;
     FGeoRef.Initialize;
     FSaveBfhBoundaryConditions := True;
 
@@ -14649,6 +14662,12 @@ end;
 procedure TPhastModel.SetVersion(const Value: string);
 begin
   FFileVersion := Value;
+end;
+
+procedure TPhastModel.SetVorogridGenOptions(const Value: TVorogridGenOptions);
+begin
+  FVorogridGenOptions.Assign(Value);
+  ProgramLocations.VoroGridGenLocation := VorogridGenOptions.VoroGridGenLocation;
 end;
 
 procedure TCustomModel.UpdateActive(Sender: TObject);
@@ -32634,6 +32653,16 @@ begin
     end;
   end;
 
+  VoroGridGenLocation := IniFile.ReadString(StrProgramLocations, SVoroGridGen,
+    StrDefaultVorogridGenPath);
+  if (VoroGridGenLocation = '') or not FileExists(VoroGridGenLocation) then
+  begin
+    if FileExists(StrDefaultVorogridGenPath) then
+    begin
+      VoroGridGenLocation := StrDefaultVorogridGenPath;
+    end
+  end;
+
   PestDirectory := IniFile.ReadString(StrProgramLocations, StrPestDir,
     StrPestDefaultDir);
   if (PestDirectory = '') or not DirectoryExists(PestDirectory) then
@@ -32797,6 +32826,11 @@ begin
   FSutra40Location := RemoveQuotes(Value);
 end;
 
+procedure TProgramLocations.SetVoroGridGenLocation(const Value: string);
+begin
+  FVoroGridGenLocation := RemoveQuotes(Value);
+end;
+
 procedure TProgramLocations.SetZoneBudgetLocation(const Value: string);
 begin
   FZoneBudgetLocation := RemoveQuotes(Value);
@@ -32837,6 +32871,7 @@ begin
   IniFile.WriteString(StrProgramLocations, StrModflow6, Modflow6Location);
   IniFile.WriteString(StrProgramLocations, StrPestDir, PestDirectory);
   IniFile.WriteString(StrProgramLocations, strModflowOWHM_V2, ModflowOwhmV2Location);
+  IniFile.WriteString(StrProgramLocations, SVoroGridGen, VoroGridGenLocation);
 end;
 
 { TLookUpList }

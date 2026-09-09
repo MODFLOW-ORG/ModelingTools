@@ -1278,6 +1278,7 @@ resourcestring
   StrZoneBudgetMf6DefaultPath = 'C:\WRDAPP\mf6.6.2_win64\bin\zbud6.exe';
 
   StrDefaultOwhmV2Path = 'C:\WRDAPP\mf-owhm-2.3.0\bin\mf-owhm.exe';
+  StrDefaultVorogridGenPath = 'C:\vorogridgen\vorogridgen.exe';
 
   StrProgramLocations = 'Program Locations';
   StrMODFLOW2005 = 'MODFLOW-2005';

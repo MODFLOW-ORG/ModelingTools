@@ -2,6 +2,8 @@ unit frmProgramLocationsUnit;
 
 interface
 
+// TProgramLocations is defined in PhastModelUnit;
+
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, frmCustomGoPhastUnit, StdCtrls, Buttons, ExtCtrls, Mask, JvExMask,

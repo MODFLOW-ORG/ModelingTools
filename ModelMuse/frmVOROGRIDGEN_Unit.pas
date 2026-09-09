@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, frmCustomGoPhastUnit, Vcl.StdCtrls,
   ArgusDataEntry, Vcl.Mask, JvExMask, JvToolEdit, JvSpin, Vcl.Buttons,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, RunVoroGridGenUnit, JvExStdCtrls, JvHtControls, System.UITypes;
 
 type
   TfrmVOROGRIDGEN = class(TfrmCustomGoPhast)
@@ -39,21 +39,84 @@ type
     btnCancel: TBitBtn;
     fedVorogridGen: TJvFilenameEdit;
     lblVoroGridGen: TLabel;
+    jvhtlblVoroGridGet: TJvHTLabel;
+    procedure FormDestroy(Sender: TObject); override;
+    procedure FormCreate(Sender: TObject); override;
     procedure btnOKClick(Sender: TObject);
   private
+    FVorogridGenOptions: TVorogridGenOptions;
+    procedure GetData;
     procedure SetData;
     { Private declarations }
   public
     { Public declarations }
   end;
 
-
 implementation
 
 uses
-  RunVoroGridGenUnit, System.IOUtils;
+  System.IOUtils, UndoItems, frmGoPhastUnit;
 
 {$R *.dfm}
+
+type
+  TUndoVorogridGenOptions = class(TCustomUndo)
+  private
+    FNewVorogridGenOptions: TVorogridGenOptions;
+    FOldVorogridGenOptions: TVorogridGenOptions;
+  protected
+    // See TCustomUndo.@link(TCustomUndo.Description).
+    function Description: string; override;
+  public
+    constructor Create(var NewVorogridGenOptions: TVorogridGenOptions);
+    destructor Destroy; override;
+    procedure DoCommand; override;
+    procedure Undo; override;
+  end;
+
+procedure TfrmVOROGRIDGEN.FormDestroy(Sender: TObject);
+begin
+  FVorogridGenOptions.Free;
+  inherited;
+end;
+
+procedure TfrmVOROGRIDGEN.GetData;
+begin
+  FVorogridGenOptions.Assign(frmGoPhast.PhastModel.VorogridGenOptions);
+  if FVorogridGenOptions.VoroGridGenLocation = '' then
+  begin
+
+  end
+  else
+  begin
+    fedVorogridGen.FileName := FVorogridGenOptions.VoroGridGenLocation;
+  end;
+
+  fedOutFileBase.FileName := FVorogridGenOptions.BaseFileName;
+  rdeCentroidSeparation.RealValue := FVorogridGenOptions.MaxCentroidSeparation;
+  seMaxCells.AsInteger := FVorogridGenOptions.MaxCells;
+  rdePolyGrowthRate.RealValue := FVorogridGenOptions.PolyGrowthRate;
+  cbNsdim.Checked := FVorogridGenOptions.SearchDimensionsUsed;
+  rdeNsdim.IntegerValue := FVorogridGenOptions.SearchDimensions;
+  cbMaxLloyd.Checked := FVorogridGenOptions.MaxLloydUsed;
+  rdeMaxLloyd.IntegerValue := FVorogridGenOptions.MaxLloyd;
+  cbEpsLloyd.Checked := FVorogridGenOptions.EpsLloydUsed;
+  rdeEpsLloyd.RealValue := FVorogridGenOptions.EpsLloyd;
+  cblLloydFac.Checked := FVorogridGenOptions.LloydFactorUsed;
+  rdeEpsLloyd1.RealValue := FVorogridGenOptions.LloydFactor;
+  cbSafety.Checked := FVorogridGenOptions.SafetyUsed;
+  seSafety.AsInteger := FVorogridGenOptions.Safety;
+end;
+
+procedure TfrmVOROGRIDGEN.FormCreate(Sender: TObject);
+var
+  NullNotify: TNotifyEvent;
+begin
+  inherited;
+  NullNotify := nil;
+  FVorogridGenOptions := TVorogridGenOptions.Create(NullNotify);
+  GetData;
+end;
 
 procedure TfrmVOROGRIDGEN.btnOKClick(Sender: TObject);
 begin
@@ -68,26 +131,65 @@ begin
 end;
 
 procedure TfrmVOROGRIDGEN.SetData;
-var
-  Options: TVorogridGenOptions;
 begin
-  Options.VoroGridGenLocation := fedVorogridGen.FileName;
-  Options.BaseFileName := fedOutFileBase.FileName;
-  Options.MaxCentroidSeparation := rdeCentroidSeparation.RealValue;
-  Options.MaxCells := seMaxCells.AsInteger;
-  Options.PolyGrowthRate := rdePolyGrowthRate.RealValue;
-  Options.SearchDimensionsUsed := cbNsdim.Checked;
-  Options.SearchDimensions := rdeNsdim.IntegerValue;
-  Options.MaxLloydUsed := cbMaxLloyd.Checked;
-  Options.MaxLloyd := rdeMaxLloyd.IntegerValue;
-  Options.EpsLloydUsed := cbEpsLloyd.Checked;
-  Options.EpsLloyd := rdeEpsLloyd.RealValue;
-  Options.LloydFactorUsed := cblLloydFac.Checked;
-  Options.LloydFactor := rdeEpsLloyd1.RealValue;
-  Options.SafetyUsed := cbSafety.Checked;
-  Options.Safety := seSafety.AsInteger;
+  FVorogridGenOptions.VoroGridGenLocation := fedVorogridGen.FileName;
+  FVorogridGenOptions.BaseFileName := fedOutFileBase.FileName;
+  FVorogridGenOptions.MaxCentroidSeparation := rdeCentroidSeparation.RealValue;
+  FVorogridGenOptions.MaxCells := seMaxCells.AsInteger;
+  FVorogridGenOptions.PolyGrowthRate := rdePolyGrowthRate.RealValue;
+  FVorogridGenOptions.SearchDimensionsUsed := cbNsdim.Checked;
+  FVorogridGenOptions.SearchDimensions := rdeNsdim.IntegerValue;
+  FVorogridGenOptions.MaxLloydUsed := cbMaxLloyd.Checked;
+  FVorogridGenOptions.MaxLloyd := rdeMaxLloyd.IntegerValue;
+  FVorogridGenOptions.EpsLloydUsed := cbEpsLloyd.Checked;
+  FVorogridGenOptions.EpsLloyd := rdeEpsLloyd.RealValue;
+  FVorogridGenOptions.LloydFactorUsed := cblLloydFac.Checked;
+  FVorogridGenOptions.LloydFactor := rdeEpsLloyd1.RealValue;
+  FVorogridGenOptions.SafetyUsed := cbSafety.Checked;
+  FVorogridGenOptions.Safety := seSafety.AsInteger;
 
-  RunVorGridGen(Options);
+  RunVorGridGen(FVorogridGenOptions);
+
+  frmGoPhast.UndoStack.Submit(TUndoVorogridGenOptions.Create(FVorogridGenOptions));
+end;
+
+{ TUndoVorogridGenOptions }
+
+constructor TUndoVorogridGenOptions.Create(
+  var NewVorogridGenOptions: TVorogridGenOptions);
+var
+  NilNotify: TNotifyEvent;
+begin
+  FNewVorogridGenOptions := NewVorogridGenOptions;
+  NewVorogridGenOptions := nil;
+  NilNotify := nil;
+  FOldVorogridGenOptions := TVorogridGenOptions.Create(NilNotify);
+  FOldVorogridGenOptions.Assign(frmGoPhast.PhastModel.VorogridGenOptions);
+end;
+
+function TUndoVorogridGenOptions.Description: string;
+begin
+  result := 'Change VOROGRIDGEN Options';
+end;
+
+destructor TUndoVorogridGenOptions.Destroy;
+begin
+  FNewVorogridGenOptions.Free;
+  FOldVorogridGenOptions.Free;
+  inherited;
+end;
+
+procedure TUndoVorogridGenOptions.DoCommand;
+begin
+  inherited;
+  frmGoPhast.PhastModel.VorogridGenOptions.Assign(FNewVorogridGenOptions);
+end;
+
+procedure TUndoVorogridGenOptions.Undo;
+begin
+  frmGoPhast.PhastModel.VorogridGenOptions.Assign(FOldVorogridGenOptions);
+  inherited;
+
 end;
 
 end.

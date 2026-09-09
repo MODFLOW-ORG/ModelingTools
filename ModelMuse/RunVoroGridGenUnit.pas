@@ -3,27 +3,76 @@ unit RunVoroGridGenUnit;
 interface
 
 uses
-  System.SysUtils;
+  System.SysUtils, GoPhastTypes, System.Classes;
 
 
 
 type
-  TVorogridGenOptions = record
-    VoroGridGenLocation: string;
-    BaseFileName: string;
-    MaxCentroidSeparation: double;
-    MaxCells: Integer;
-    PolyGrowthRate: double;
-    SearchDimensionsUsed: Boolean;
-    SearchDimensions: Integer;
-    MaxLloydUsed: Boolean;
-    MaxLloyd: Integer;
-    EpsLloydUsed: Boolean;
-    EpsLloyd: Double;
-    LloydFactorUsed: Boolean;
-    LloydFactor: double;
-    SafetyUsed: Boolean;
-    Safety: Integer;
+  TVorogridGenOptions = class(TGoPhastPersistent)
+  private
+    FSearchDimensionsUsed: Boolean;
+    FSafety: Integer;
+    FVoroGridGenLocation: string;
+    FStoredPolyGrowthRate: TRealStorage;
+    FStoredLloydFactor: TRealStorage;
+    FMaxLloyd: Integer;
+    FSearchDimensions: Integer;
+    FLloydFactorUsed: Boolean;
+    FStoredEpsLloyd: TRealStorage;
+    FBaseFileName: string;
+    FMaxCells: Integer;
+    FSafetyUsed: Boolean;
+    FStoredMaxCentroidSeparation: TRealStorage;
+    FEpsLloydUsed: Boolean;
+    FMaxLloydUsed: Boolean;
+    function GetEpsLloyd: Double;
+    function GetLloydFactor: double;
+    function GetMaxCentroidSeparation: double;
+    function GetPolyGrowthRate: double;
+    procedure SetBaseFileName(const Value: string);
+    procedure SetEpsLloyd(const Value: Double);
+    procedure SetEpsLloydUsed(const Value: Boolean);
+    procedure SetLloydFactor(const Value: double);
+    procedure SetLloydFactorUsed(const Value: Boolean);
+    procedure SetMaxCells(const Value: Integer);
+    procedure SetMaxCentroidSeparation(const Value: double);
+    procedure SetMaxLloyd(const Value: Integer);
+    procedure SetMaxLloydUsed(const Value: Boolean);
+    procedure SetPolyGrowthRate(const Value: double);
+    procedure SetSafety(const Value: Integer);
+    procedure SetSafetyUsed(const Value: Boolean);
+    procedure SetSearchDimensions(const Value: Integer);
+    procedure SetSearchDimensionsUsed(const Value: Boolean);
+    procedure SetStoredEpsLloyd(const Value: TRealStorage);
+    procedure SetStoredLloydFactor(const Value: TRealStorage);
+    procedure SetStoredMaxCentroidSeparation(const Value: TRealStorage);
+    procedure SetStoredPolyGrowthRate(const Value: TRealStorage);
+    procedure SetVoroGridGenLocation(const Value: string);
+  public
+    procedure Assign(Source: TPersistent); override;
+    Constructor Create(InvalidateModelEvent: TNotifyEvent);
+    destructor Destroy; override;
+    procedure Initialize;
+    property VoroGridGenLocation: string read FVoroGridGenLocation write SetVoroGridGenLocation;
+    property MaxCentroidSeparation: double read GetMaxCentroidSeparation write SetMaxCentroidSeparation;
+    property PolyGrowthRate: double read GetPolyGrowthRate write SetPolyGrowthRate;
+    property EpsLloyd: Double read GetEpsLloyd write SetEpsLloyd;
+    property LloydFactor: double read GetLloydFactor write SetLloydFactor;
+  published
+    property BaseFileName: string read FBaseFileName write SetBaseFileName;
+    property MaxCells: Integer read FMaxCells write SetMaxCells;
+    property SearchDimensionsUsed: Boolean read FSearchDimensionsUsed write SetSearchDimensionsUsed;
+    property SearchDimensions: Integer read FSearchDimensions write SetSearchDimensions;
+    property MaxLloydUsed: Boolean read FMaxLloydUsed write SetMaxLloydUsed;
+    property MaxLloyd: Integer read FMaxLloyd write SetMaxLloyd;
+    property EpsLloydUsed: Boolean read FEpsLloydUsed write SetEpsLloydUsed;
+    property LloydFactorUsed: Boolean read FLloydFactorUsed write SetLloydFactorUsed;
+    property SafetyUsed: Boolean read FSafetyUsed write SetSafetyUsed;
+    property Safety: Integer read FSafety write SetSafety;
+    property StoredMaxCentroidSeparation: TRealStorage read FStoredMaxCentroidSeparation write SetStoredMaxCentroidSeparation;
+    property StoredPolyGrowthRate: TRealStorage read FStoredPolyGrowthRate write SetStoredPolyGrowthRate;
+    property StoredEpsLloyd: TRealStorage read FStoredEpsLloyd write SetStoredEpsLloyd;
+    property StoredLloydFactor: TRealStorage read FStoredLloydFactor write SetStoredLloydFactor;
   end;
 
   EVoroGridGenError = class(Exception);
@@ -33,8 +82,8 @@ Procedure RunVorGridGen(const Options: TVorogridGenOptions);
 implementation
 
 uses
-  PhastModelUnit, ScreenObjectUnit, frmGoPhastUnit, System.Classes, FastGEO,
-  GoPhastTypes, ModelMuseUtilities;
+  PhastModelUnit, ScreenObjectUnit, frmGoPhastUnit, FastGEO,
+  ModelMuseUtilities;
 
 Procedure RunVorGridGen(const Options: TVorogridGenOptions);
 var
@@ -353,5 +402,192 @@ begin
   end;
 end;
 
+
+{ TVorogridGenOptions }
+
+procedure TVorogridGenOptions.Assign(Source: TPersistent);
+var
+  SourceOptions: TVorogridGenOptions;
+begin
+  if Source is TVorogridGenOptions then
+  begin
+    SourceOptions := TVorogridGenOptions(Source);
+    VoroGridGenLocation := SourceOptions.VoroGridGenLocation;
+    MaxCentroidSeparation := SourceOptions.MaxCentroidSeparation;
+    PolyGrowthRate := SourceOptions.PolyGrowthRate;
+    EpsLloyd := SourceOptions.EpsLloyd;
+    LloydFactor := SourceOptions.LloydFactor;
+    BaseFileName := SourceOptions.BaseFileName;
+    MaxCells := SourceOptions.MaxCells;
+    SearchDimensionsUsed := SourceOptions.SearchDimensionsUsed;
+    SearchDimensions := SourceOptions.SearchDimensions;
+    MaxLloydUsed := SourceOptions.MaxLloydUsed;
+    MaxLloyd := SourceOptions.MaxLloyd;
+    EpsLloydUsed := SourceOptions.EpsLloydUsed;
+    LloydFactorUsed := SourceOptions.LloydFactorUsed;
+    SafetyUsed := SourceOptions.SafetyUsed;
+    Safety := SourceOptions.Safety;
+    VoroGridGenLocation := SourceOptions.VoroGridGenLocation;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+constructor TVorogridGenOptions.Create(InvalidateModelEvent: TNotifyEvent);
+begin
+  inherited;
+  FStoredMaxCentroidSeparation := TRealStorage.Create(InvalidateModelEvent);
+  FStoredPolyGrowthRate := TRealStorage.Create(InvalidateModelEvent);
+  FStoredEpsLloyd := TRealStorage.Create(InvalidateModelEvent);
+  FStoredLloydFactor := TRealStorage.Create(InvalidateModelEvent);
+  Initialize;
+end;
+
+destructor TVorogridGenOptions.Destroy;
+begin
+  FStoredMaxCentroidSeparation.Free;
+  FStoredPolyGrowthRate.Free;
+  FStoredEpsLloyd.Free;
+  FStoredLloydFactor.Free;
+ inherited;
+end;
+
+function TVorogridGenOptions.GetEpsLloyd: Double;
+begin
+  Result := StoredEpsLloyd.Value;
+end;
+
+function TVorogridGenOptions.GetLloydFactor: double;
+begin
+  Result := StoredLloydFactor.Value;
+end;
+
+function TVorogridGenOptions.GetMaxCentroidSeparation: double;
+begin
+  Result := StoredMaxCentroidSeparation.Value;
+end;
+
+function TVorogridGenOptions.GetPolyGrowthRate: double;
+begin
+  Result := StoredPolyGrowthRate.Value;
+end;
+
+procedure TVorogridGenOptions.Initialize;
+begin
+  VoroGridGenLocation := '';
+  BaseFileName := '';
+  MaxCentroidSeparation := 1000;
+  PolyGrowthRate := 1.1;
+  MaxCells := 10000;
+  SearchDimensionsUsed := false;
+  SearchDimensions := 31;
+  MaxLloydUsed := False;
+  MaxLloyd := 30;
+  EpsLloydUsed := False;
+  EpsLloyd := 1E-10;
+  LloydFactorUsed := False;
+  LloydFactor := 0.2;
+  SafetyUsed := False;
+  Safety := 0;
+end;
+
+procedure TVorogridGenOptions.SetBaseFileName(const Value: string);
+begin
+  SetStringProperty(FBaseFileName, Value);
+end;
+
+procedure TVorogridGenOptions.SetEpsLloyd(const Value: Double);
+begin
+  StoredEpsLloyd.Value := Value;
+end;
+
+procedure TVorogridGenOptions.SetEpsLloydUsed(const Value: Boolean);
+begin
+  SetBooleanProperty(FEpsLloydUsed, Value);
+end;
+
+procedure TVorogridGenOptions.SetLloydFactor(const Value: double);
+begin
+  StoredLloydFactor.Value := Value;
+end;
+
+procedure TVorogridGenOptions.SetLloydFactorUsed(const Value: Boolean);
+begin
+  SetBooleanProperty(FLloydFactorUsed, Value);
+end;
+
+procedure TVorogridGenOptions.SetMaxCells(const Value: Integer);
+begin
+  SetIntegerProperty(FMaxCells, Value);
+end;
+
+procedure TVorogridGenOptions.SetMaxCentroidSeparation(const Value: double);
+begin
+  StoredMaxCentroidSeparation.Value := Value;
+end;
+
+procedure TVorogridGenOptions.SetMaxLloyd(const Value: Integer);
+begin
+  SetIntegerProperty(FMaxLloyd, Value);
+end;
+
+procedure TVorogridGenOptions.SetMaxLloydUsed(const Value: Boolean);
+begin
+  SetBooleanProperty(FMaxLloydUsed, Value);
+end;
+
+procedure TVorogridGenOptions.SetPolyGrowthRate(const Value: double);
+begin
+  StoredPolyGrowthRate.Value := Value;
+end;
+
+procedure TVorogridGenOptions.SetSafety(const Value: Integer);
+begin
+  SetIntegerProperty(FSafety, Value);
+end;
+
+procedure TVorogridGenOptions.SetSafetyUsed(const Value: Boolean);
+begin
+  SetBooleanProperty(FSafetyUsed, Value);
+end;
+
+procedure TVorogridGenOptions.SetSearchDimensions(const Value: Integer);
+begin
+  SetIntegerProperty(FSearchDimensions, Value);
+end;
+
+procedure TVorogridGenOptions.SetSearchDimensionsUsed(const Value: Boolean);
+begin
+  SetBooleanProperty(FSearchDimensionsUsed, Value);
+end;
+
+procedure TVorogridGenOptions.SetStoredEpsLloyd(const Value: TRealStorage);
+begin
+  FStoredEpsLloyd.Assign(Value);
+end;
+
+procedure TVorogridGenOptions.SetStoredLloydFactor(const Value: TRealStorage);
+begin
+  FStoredLloydFactor.Assign(Value);
+end;
+
+procedure TVorogridGenOptions.SetStoredMaxCentroidSeparation(
+  const Value: TRealStorage);
+begin
+  FStoredMaxCentroidSeparation.Assign(Value);
+end;
+
+procedure TVorogridGenOptions.SetStoredPolyGrowthRate(
+  const Value: TRealStorage);
+begin
+  FStoredPolyGrowthRate.Assign(Value);
+end;
+
+procedure TVorogridGenOptions.SetVoroGridGenLocation(const Value: string);
+begin
+  SetStringProperty(FVoroGridGenLocation, Value);
+end;
 
 end.
