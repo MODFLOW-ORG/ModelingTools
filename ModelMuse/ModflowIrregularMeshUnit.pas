@@ -154,7 +154,7 @@ type
     procedure DrawTop(const BitMap: TPersistent;
       const ZoomBox: TQRbwZoomBox2; DrawingChoice: TDrawingChoice;
       DataArray, IDomainDataArray: TDataArray; SelectedLayer: integer; StringValues : TStringList;
-      MinMax: TMinMax; DrawCellEdge, DrawCellNumber: Boolean;
+      MinMax: TMinMax; DrawCellEdge, DrawCellNumber, DrawCellCenters: Boolean;
       NumberFont: TFont);
     function GetEdge(Index: Integer): TSegment2D;
     function Center: TPoint2D;
@@ -292,6 +292,7 @@ type
     FGridLineDrawingChoice: TGridLineDrawingChoice;
     FDrawCellNumbers: Boolean;
     FNumberFont: TFont;
+    FDrawCellCenterPoints: Boolean;
     procedure SetCellCorners(const Value: TModflowNodes);
     procedure SetCells(const Value: TModflowIrregularCell2DCollection);
     procedure DrawTop(const BitMap: TPersistent;
@@ -349,6 +350,7 @@ type
     procedure SetGridLineDrawingChoice(const Value: TGridLineDrawingChoice);
     procedure SetDrawCellNumbers(const Value: Boolean);
     procedure SetNumberFont(const Value: TFont);
+    procedure SetDrawCellCenterPoints(const Value: Boolean);
     // If @name is @true, the grid will be displayed with (1) all it's grid
     // lines in 2D views of the model (2) only
     // the first, last and selected grid lines, or (3) only grid lines
@@ -356,6 +358,7 @@ type
     property GridLineDrawingChoice: TGridLineDrawingChoice
       read FGridLineDrawingChoice write SetGridLineDrawingChoice;
     property DrawCellNumbers: Boolean read FDrawCellNumbers write SetDrawCellNumbers;
+    property DrawCellCenterPoints: Boolean read FDrawCellCenterPoints write SetDrawCellCenterPoints;
     Property NumberFont: TFont read FNumberFont write SetNumberFont;
   protected
     function GetActiveNode(Index: integer): INode;
@@ -570,6 +573,7 @@ type
     FDrawCellNumbers: Boolean;
     FNumberFont: TFont;
     FMeshType: TModflowMeshType;
+    FDrawCellCenterPoints: Boolean;
     procedure SetLayers(const Value: TModflowIrregularLayers);
     procedure SetTwoDGrid(const Value: TModflowIrregularGrid2D);
     function GetCell(Layer, Col: Integer): TModflowDisVCell;
@@ -634,6 +638,7 @@ type
     procedure SetNumberFont(const Value: TFont);
     procedure OnChangeNumberFont(Sender: TObject);
     procedure SeTModflowMeshType(const Value: TModflowMeshType);
+    procedure SetDrawCellCenterPoints(const Value: Boolean);
   protected
     { TODO -cMODFLOW 6 : These needs to be completed }
     function GetActiveNode(Index: integer): INode;
@@ -754,6 +759,7 @@ type
       CellList: TCellLocationList);
     function CellThickness(const CellID: TZeroBasedID): double;
     property DrawCellNumbers: Boolean read FDrawCellNumbers write SetDrawCellNumbers;
+    property DrawCellCenterPoints: Boolean read FDrawCellCenterPoints write SetDrawCellCenterPoints;
     Property NumberFont: TFont read FNumberFont write SetNumberFont;
     procedure GetElementsIntfOnCrossSection(ElementList: TIElement2DList);
     procedure UpdateMeshType;
@@ -1318,7 +1324,7 @@ end;
 procedure TModflowIrregularCell2D.DrawTop(const BitMap: TPersistent;
   const ZoomBox: TQRbwZoomBox2; DrawingChoice: TDrawingChoice;
   DataArray, IDomainDataArray: TDataArray; SelectedLayer: integer; StringValues: TStringList;
-  MinMax: TMinMax; DrawCellEdge, DrawCellNumber: Boolean; NumberFont: TFont);
+  MinMax: TMinMax; DrawCellEdge, DrawCellNumber, DrawCellCenters: Boolean; NumberFont: TFont);
 var
   Points: GoPhastTypes.TPointArray;
   NodeIndex: Integer;
@@ -1367,7 +1373,7 @@ begin
     DrawBigPolyline32(BitMap, clBlack32, OrdinaryGridLineThickness,
       Points, True);
   end;
-  if DrawCellNumber then
+  if DrawCellNumber or DrawCellCenters then
   begin
     APoint.X := ZoomBox.XCoord(Location.x);
     if (APoint.X > 0) and (APoint.X < ZoomBox.Width) then
@@ -1375,51 +1381,54 @@ begin
       APoint.Y := ZoomBox.YCoord(Location.y);
       if (APoint.Y > 0) and (APoint.Y < ZoomBox.Height) then
       begin
-        // The following commented-out code draws a point at the cell location.
-        {
-        SetLength(Points, 5);
-        Inc(APoint.X);
-        Inc(APoint.y);
-        Points[0] := APoint;
-        Dec(APoint.X,2);
-        Points[1] := APoint;
-        Dec(APoint.Y,2);
-        Points[2] := APoint;
-        Inc(APoint.X,2);
-        Points[3] := APoint;
-        Points[4] := Points[0];
-        DrawBigPolygon32(BitMap, Color32(clBlack), Color32(clBlack),
-          OrdinaryGridLineThickness, Points, Dummy, False, True);
-        }
+        if DrawCellCenters then
+        begin
+          SetLength(Points, 5);
+          Inc(APoint.X);
+          Inc(APoint.y);
+          Points[0] := APoint;
+          Dec(APoint.X,2);
+          Points[1] := APoint;
+          Dec(APoint.Y,2);
+          Points[2] := APoint;
+          Inc(APoint.X,2);
+          Points[3] := APoint;
+          Points[4] := Points[0];
+          DrawBigPolygon32(BitMap, Color32(clBlack), Color32(clBlack),
+            OrdinaryGridLineThickness, Points, Dummy, False, True);
+        end;
 
-        ExistingFont := TFont.Create;
-        try
-          NumberStr := IntToStr(DisplayNumber);
-          if BitMap is TBitmap32 then
-          begin
-            ExistingFont.Assign(TBitmap32(BitMap).Font);
-            TBitmap32(BitMap).Font := NumberFont;
-            ASize := TBitmap32(BitMap).TextExtent(NumberStr);
-          end
-          else
-          begin
-            ExistingFont.Assign((BitMap as TCanvas).Font);
-            TCanvas(BitMap).Font := NumberFont;
-            ASize := TCanvas(BitMap).TextExtent(NumberStr);
+        if DrawCellNumber then
+        begin
+          ExistingFont := TFont.Create;
+          try
+            NumberStr := IntToStr(DisplayNumber);
+            if BitMap is TBitmap32 then
+            begin
+              ExistingFont.Assign(TBitmap32(BitMap).Font);
+              TBitmap32(BitMap).Font := NumberFont;
+              ASize := TBitmap32(BitMap).TextExtent(NumberStr);
+            end
+            else
+            begin
+              ExistingFont.Assign((BitMap as TCanvas).Font);
+              TCanvas(BitMap).Font := NumberFont;
+              ASize := TCanvas(BitMap).TextExtent(NumberStr);
+            end;
+            APoint.X := APoint.X - (ASize.Width div 2);
+            APoint.Y := APoint.Y - (ASize.Height div 2);
+            DrawBigText(BitMap, APoint, NumberStr, NumberFont);
+            if BitMap is TBitmap32 then
+            begin
+              TBitmap32(BitMap).Font.Assign(ExistingFont);
+            end
+            else
+            begin
+              TCanvas(BitMap).Font.Assign(ExistingFont);
+            end;
+          finally
+            ExistingFont.Free;
           end;
-          APoint.X := APoint.X - (ASize.Width div 2);
-          APoint.Y := APoint.Y - (ASize.Height div 2);
-          DrawBigText(BitMap, APoint, NumberStr, NumberFont);
-          if BitMap is TBitmap32 then
-          begin
-            TBitmap32(BitMap).Font.Assign(ExistingFont);
-          end
-          else
-          begin
-            TCanvas(BitMap).Font.Assign(ExistingFont);
-          end;
-        finally
-          ExistingFont.Free;
         end;
 
       end;
@@ -2743,6 +2752,7 @@ var
   IDomainDataArray: TDataArray;
   Outline: TPolygon2Darray;
   DrawCellLabel: Boolean;
+  DrawCellCenter: Boolean;
   MinMaxInitialized: Boolean;
   procedure DrawMeshOutline;
   var
@@ -2794,32 +2804,37 @@ begin
     ACell := Cells[CellIndex];
     DrawCellEdge := True;
     DrawCellLabel := False;
+    DrawCellCenter := False;
     case GridLineDrawingChoice of
       gldcAll:
         begin
           DrawCellEdge := True;
           DrawCellLabel := DrawCellNumbers;
+          DrawCellCenter := DrawCellCenterPoints;
         end;
       gldcExterior:
         begin
           DrawCellEdge := False;
           DrawCellLabel := DrawCellNumbers;
+          DrawCellCenter := DrawCellCenterPoints;
         end;
       gldcActive:
         begin
           DrawCellEdge := IDomainDataArray.IntegerData[SelectedLayer, 0, CellIndex] > 0;
           DrawCellLabel := DrawCellNumbers and (IDomainDataArray.IntegerData[SelectedLayer, 0, CellIndex] > 0);
+          DrawCellCenter := DrawCellCenterPoints and (IDomainDataArray.IntegerData[SelectedLayer, 0, CellIndex] > 0);
         end;
       gldcActiveEdge:
         begin
           DrawCellEdge := False;
           DrawCellLabel := DrawCellNumbers and (IDomainDataArray.IntegerData[SelectedLayer, 0, CellIndex] > 0);
+          DrawCellCenter := DrawCellCenterPoints and (IDomainDataArray.IntegerData[SelectedLayer, 0, CellIndex] > 0);
         end;
       else Assert(False)
     end;
     ACell.DrawTop(BitMap, ZoomBox, DrawingChoice,
       ColorDataArray, IDomainDataArray, CellLayer, StringValues, MinMax,
-      DrawCellEdge, DrawCellLabel, NumberFont);
+      DrawCellEdge, DrawCellLabel, DrawCellCenter, NumberFont);
   end;
   case GridLineDrawingChoice of
     gldcAll: ;
@@ -2847,11 +2862,9 @@ end;
 procedure TModflowIrregularGrid2D.DrawTop(const BitMap: TPersistent;
   const ZoomBox: TQRbwZoomBox2);
 var
-//  NodeIndex: Integer;
   ColorDataArray: TDataArray;
   StringValues : TStringList;
   LocalModel: TCustomModel;
-//  ActiveNode: Boolean;
 begin
   UpdateTimeDataSet;
 
@@ -4457,6 +4470,11 @@ procedure TModflowIrregularGrid2D.SetCells(
   const Value: TModflowIrregularCell2DCollection);
 begin
   FCells.Assign(Value);
+end;
+
+procedure TModflowIrregularGrid2D.SetDrawCellCenterPoints(const Value: Boolean);
+begin
+  FDrawCellCenterPoints := Value;
 end;
 
 procedure TModflowIrregularGrid2D.SetDrawCellNumbers(const Value: Boolean);
@@ -7871,6 +7889,12 @@ end;
 procedure TModflowDisvGrid.SetDefaultCrossSectionLocation;
 begin
   CrossSection.Segment := DefaultCrossSectionLocation;
+end;
+
+procedure TModflowDisvGrid.SetDrawCellCenterPoints(const Value: Boolean);
+begin
+  FDrawCellCenterPoints := Value;
+  TwoDGrid.DrawCellCenterPoints := Value;
 end;
 
 procedure TModflowDisvGrid.SetDrawCellNumbers(const Value: Boolean);

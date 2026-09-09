@@ -476,9 +476,17 @@ begin
       end;
       if ErrorFound then
       begin
-        Continue;;
+        Continue;
       end;
 
+      if Cell.ncvert > 0 then
+      begin
+        if Cell.icvert[0] = Cell.icvert[Length(Cell.icvert) -1] then
+        begin
+          Dec(Cell.ncvert);
+          SetLength(Cell.icvert, Cell.ncvert);
+        end;
+      end;
       FCells.Add(Cell);
     end;
   end;

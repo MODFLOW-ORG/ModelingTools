@@ -2000,6 +2000,10 @@ inherited frmGoPhast: TfrmGoPhast
       object Action11: TMenuItem
         Action = acShowCellNumbers
       end
+      object mniShowCellCenterPoints: TMenuItem
+        Action = actShowCellCenterPoints
+        Caption = 'Show Cell Center Points'
+      end
     end
     object miCustomize: TMenuItem
       Caption = '&Customize'
@@ -3802,12 +3806,16 @@ inherited frmGoPhast: TfrmGoPhast
       OnExecute = acReverseObjectOrderExecute
     end
     object actImportDisv: TAction
-      Caption = 'Import MODFLOW 6 DISV'
+      Caption = 'MODFLOW 6 DISV'
       OnExecute = actImportDisvExecute
     end
     object actVOROGRIDGEN: TAction
       Caption = 'VOROGRIDGEN Input Files'
       OnExecute = actVOROGRIDGENExecute
+    end
+    object actShowCellCenterPoints: TAction
+      Caption = 'Action1'
+      OnExecute = mniShowCellCenterPointsClick
     end
   end
   object ilDisabledImageList: TImageList

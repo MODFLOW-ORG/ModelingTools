@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-09T17:06:57.108-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Run VOROGRIDGEN Dialog Box</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Run VOROGRIDGEN Dialog Box</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">VOROGRIDGEN is a free utility that creates MODFLOW 6 DISV files based on user supplied input. Such DISV files can be imported into &#160;ModelMuse. VOROGRIDGEN is available at </text><link displaytype="text" defaultstyle="true" type="weblink" href="&lt;%LINK_CAPTION%&gt;" target="_blank" styleclass="Normal" translate="true">https://hydrosymple.com/en/vorogridgen/</link><text styleclass="Normal" translate="true">. It is one of several such utilities.</text></para>
+    <para styleclass="Normal"><table styleclass="Default" rowcount="7" colcount="1" style="cell-padding:2px; cell-spacing:2px; border-width:1px; border-spacing:2px; cell-border-width:0px; border-color:#000000; border-style:solid;">
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Table Header"><text styleclass="Table Header" translate="true">Useful links regarding creating Voronoi DISV meshes for MODFLOW 6</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Table Cell"><link displaytype="text" defaultstyle="true" type="weblink" href="&lt;%LINK_CAPTION%&gt;" target="_blank" styleclass="Table Cell" translate="true">https://hydrosymple.com/en/vorogridgen/</link></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Table Cell"><link displaytype="text" defaultstyle="true" type="weblink" href="&lt;%LINK_CAPTION%&gt;" target="_blank" styleclass="Table Cell" translate="true">https://github.com/taylorc11/mf6voronoi-studio</link></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Table Cell"><link displaytype="text" defaultstyle="true" type="weblink" href="&lt;%LINK_CAPTION%&gt;" target="_blank" styleclass="Table Cell" translate="true">https://github.com/hatarilabs/mf6Voronoi</link></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Table Cell"><link displaytype="text" defaultstyle="true" type="weblink" href="&lt;%LINK_CAPTION%&gt;" target="_blank" styleclass="Table Cell" translate="true">https://flopy.readthedocs.io/en/3.9.3/Notebooks/dis_voronoi_example.html</link></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Table Cell"><link displaytype="text" defaultstyle="true" type="weblink" href="&lt;%LINK_CAPTION%&gt;" target="_blank" styleclass="Table Cell" translate="true">https://github.com/jdhughes-dev/mf6-training/blob/main/examples/notebooks-students/mf6-mesh-generation-triangle-voronoi.ipynb</link></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Table Cell"><link displaytype="text" defaultstyle="true" type="weblink" href="&lt;%LINK_CAPTION%&gt;" target="_blank" styleclass="Table Cell" translate="true">https://ngwa.onlinelibrary.wiley.com/doi/full/10.1111/gwat.13327</link></para>
+        </td>
+      </tr>
+    </table></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">To run VOROGRIDGEN, you create one or more objects in which the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Properties_Tab" anchor="Voronoi" styleclass="Normal" translate="true">Voronoi cell size</link><text styleclass="Normal" translate="true"> is set to a value greater than zero. Those objects will be used to specify where cell centers are desired. Cell centers will be spaced along the length of the object at approximately the spacing that is specified The largest polygon object will determine the outer edge of the mesh. If holes in the mesh are desired, add additional polygon sections to that object. If you wish to specify variable spacing along the length of an object, use a </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Vertex_Values_Tab" styleclass="Normal" translate="true">vertex value</link><text styleclass="Normal" translate="true"> with the key &quot;Voronoi&quot;. The value you specify will replace the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Properties_Tab" anchor="Voronoi" styleclass="Normal" translate="true">Voronoi cell size</link><text styleclass="Normal" translate="true"> as the desired spacing for that node and subsequent nodes.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Besides the Voronoi cell size, there are a number of other controls on the generation of the DISV mesh. These are explained in depth in the VOROGRIDGEN documentation. They are briefly summarized here.</text></para>
+    <para styleclass="Strong"><text styleclass="Strong" translate="true">VOROGRIDGEN Location</text><text styleclass="Normal" translate="true">: is the location on your computer where the VOROGRIDGEN executable is located.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Base name for VOROGRIDGEN output files (</text><text styleclass="Strong" translate="true">out_file_base</text><text styleclass="Normal" translate="true">): The output files from VOROGRIDGEN will start with this name followed by different extensions.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Maximum centroid separation (</text><text styleclass="Strong" translate="true">max_centroid_separation</text><text styleclass="Normal" translate="true">): This is the maximum separation between cell centers anywhere in the new mesh. It should be greater than or equal to all of the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Properties_Tab" anchor="Voronoi" styleclass="Normal" translate="true">Voronoi cell sizes</link><text styleclass="Normal" translate="true"> specified by any of the objects.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Maximum number of cells in model (</text><text styleclass="Strong" translate="true">maxcells</text><text styleclass="Normal" translate="true">): This is the maximum number of cells allowed in the generated DISV files.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Growth rate of cells (</text><text styleclass="Strong" translate="true">poly_growth_rate</text><text styleclass="Normal" translate="true">): This specifies how much the sizes of neighboring cells can differ. Typically, a smaller cell size is used near features of interest.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Dimension of search grid &#160;(</text><text styleclass="Strong" translate="true">nsdim</text><text styleclass="Normal" translate="true">, odd number ≥ 5, optional): When generating the mesh, VOROGRIDGEN, will have an array of positions of size nsdim x nsdim around existing cell centers. These will be candidate locations for new grid cell centers.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Maximum number of Lloyd iterations (</text><text styleclass="Strong" translate="true">max_lloyd</text><text styleclass="Normal" translate="true">, optional): After an initial DISV grid has been generated, VOROGRIDGEN will adjust the locations of cells to improve the grid quality. Max_lloyd limits the number of times this can occur.This process is called Lloyd iterations.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Termination criterion for Lloyd iterations (</text><text styleclass="Strong" translate="true">eps_lloyd</text><text styleclass="Normal" translate="true">, optional): If the amount of cell center adjustment is small enough, Lloyd iterations will cease. Eps_lloyd determines how small is small enough.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Damping factor for Lloyd iterations (</text><text styleclass="Strong" translate="true">lloyd_fac</text><text styleclass="Normal" translate="true">, optional): The amount that cell centers are moved is damped. Lloyd_fac is the damping factor.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Safety factor for emplacing seeds (</text><text styleclass="Strong" translate="true">safety</text><text styleclass="Normal" translate="true">, optional): &quot;With safety set to 0, VOROGRIDGEN examines points that were emplaced during the previous two point-emplacement cycles. This can be increased to a greater number of cycles by setting safety to a higher value.&quot;</text></para>
+    <para styleclass="Normal"></para>
+  </body>
+</topic>

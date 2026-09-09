@@ -25,6 +25,9 @@ interface
     Converted to compiling with Delphi 10.2.
     Fixed Restart model button.
   1.11.0.0 Added support for MODFLOW 6.
+  1.12.0.0 Added support for GWT in MODFLOW 6.
+  1.13.0.0 Added support for GWE in MODFLOW 6.
+  1.14.0.0 Improved handling of SWI budgets. Added support for PRT models.
 }
 
 uses

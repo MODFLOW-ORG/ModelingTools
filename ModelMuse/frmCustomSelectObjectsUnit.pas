@@ -108,8 +108,6 @@ type
     FvstObsMf6Node: PVirtualNode;
     FvstCalibrationObsMf6Node: PVirtualNode;
 
-//    FObs6List: TList;
-
     FvstHeadObsMf6Node: PVirtualNode;
     FHeadObs6List: TList;
     FCalibrationObs6List: TList;
@@ -212,6 +210,8 @@ type
     FPrpNode: PVirtualNode;
     FPrpList: TList;
 
+    FVoroGridGenNode: PVirtualNode;
+    FVoroGridGenList: TList;
 
     procedure RecordExpandedNodes;
     procedure RestoreExpandedNodes;
@@ -1332,6 +1332,11 @@ begin
     begin
       Data.Caption := 'PRT: PRP Particle Release Point';
       Node.CheckType := ctTriStateCheckBox;
+    end
+    else if Node = FVoroGridGenNode then
+    begin
+      Data.Caption := 'VOROGRIDGEN Control';
+      Node.CheckType := ctTriStateCheckBox;
     end;
 
     If (ParentNode = nil) then
@@ -2444,6 +2449,11 @@ begin
       InitializeData(FPrpNode);
     end;
 
+    if AScreenObject.StoredCentroidSeparation.Value > 0 then
+    begin
+      InitializeData(FVoroGridGenNode);
+    end;
+
     if PutInOtherObjects then
     begin
       InitializeData(FvstOtherObjectsNode);
@@ -2647,6 +2657,8 @@ begin
     vstCheckDeleteNode(FTvkNode);
     vstCheckDeleteNode(FTvsNode);
     vstCheckDeleteNode(FPrpNode);
+    vstCheckDeleteNode(FVoroGridGenNode);
+
 
     ParentNodes := TList.Create;
     try
@@ -2867,6 +2879,13 @@ begin
       vstObjects.ReinitNode(FvstRefinementNode, False);
     end;
     InitializeNodeData(FvstRefinementNode, FRefinementList);
+
+    IF (FVoroGridGenNode = nil) then
+    begin
+      FVoroGridGenNode := vstObjects.InsertNode(FvstRefinementNode, amInsertAfter);
+      vstObjects.ReinitNode(FVoroGridGenNode, False);
+    end;
+    InitializeNodeData(FVoroGridGenNode, FVoroGridGenList);
 
     if FvstDataSetRootNode = nil then
     begin
@@ -3514,6 +3533,7 @@ begin
   FTvkList.Free;
   FTvsList.Free;
   FPrpList.Free;
+  FVoroGridGenList.Free;
   inherited;
 end;
 
@@ -3666,6 +3686,7 @@ begin
   FTvkList := TList.Create;
   FTvsList := TList.Create;
   FPrpList := TList.Create;
+  FVoroGridGenList := TList.Create;
 
   FCanEdit := True;
 
@@ -3832,6 +3853,7 @@ begin
   FTvkNode := nil;
   FTvsNode := nil;
   FPrpNode := nil;
+  FVoroGridGenNode := nil;
 end;
 
 function TfrmCustomSelectObjects.NodeString(ANode: PVirtualNode): string;
@@ -4116,7 +4138,7 @@ begin
   FTvkList.Sort(ScreenObjectCompare);
   FTvsList.Sort(ScreenObjectCompare);
   FPrpList.Sort(ScreenObjectCompare);
-
+  FVoroGridGenList.Sort(ScreenObjectCompare);
 
   for Index := 0 to FDataSetLists.Count - 1 do
   begin

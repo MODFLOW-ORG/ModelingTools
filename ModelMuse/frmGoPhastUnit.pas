@@ -570,6 +570,8 @@ type
     dlgOpenImportDisv: TOpenDialog;
     mniVOROGRIDGENinputfiles1: TMenuItem;
     actVOROGRIDGEN: TAction;
+    mniShowCellCenterPoints: TMenuItem;
+    actShowCellCenterPoints: TAction;
     procedure tbUndoClick(Sender: TObject);
     procedure acUndoExecute(Sender: TObject);
     procedure tbRedoClick(Sender: TObject);
@@ -784,6 +786,7 @@ type
     procedure actVOROGRIDGENExecute(Sender: TObject);
     procedure dlgOpenImportDisvClose(Sender: TObject);
     procedure dlgOpenImportDisvShow(Sender: TObject);
+    procedure mniShowCellCenterPointsClick(Sender: TObject);
   private
     FDefaultCreateArchive: TDefaultCreateArchive;
     FCreateArchive: Boolean;
@@ -4514,6 +4517,7 @@ begin
 
   miDISV.Visible := DisvUsed;
   acShowCellNumbers.Visible := DisvUsed;
+  actShowCellCenterPoints.Visible := DisvUsed;
   tbarEditDisv.Visible := DisvUsed;
   if tbarEditDisv.Visible then
   begin
@@ -6000,14 +6004,14 @@ begin
   if DisvUsed then
   begin
     DisvGrid.DrawCellNumbers := not DisvGrid.DrawCellNumbers;
-	if DisvGrid.DrawCellNumbers then
-	begin
-	  acShowCellNumbers.Caption := 'Hide Cell Numbers';
-	end
-	else
-	begin
-	  acShowCellNumbers.Caption := 'Show Cell Numbers';
-	end;
+    if DisvGrid.DrawCellNumbers then
+    begin
+      acShowCellNumbers.Caption := 'Hide Cell Numbers';
+    end
+    else
+    begin
+      acShowCellNumbers.Caption := 'Show Cell Numbers';
+    end;
     InvalidateImage32AllViews;
   end;
 end;
@@ -16004,6 +16008,24 @@ begin
 
 //  Application.HelpJump(HelpKeyword);
 //  HelpRouter.HelpJump('', HelpKeyword);
+end;
+
+procedure TfrmGoPhast.mniShowCellCenterPointsClick(Sender: TObject);
+begin
+  inherited;
+  if DisvUsed then
+  begin
+    DisvGrid.DrawCellCenterPoints := not DisvGrid.DrawCellCenterPoints;
+    if DisvGrid.DrawCellCenterPoints then
+    begin
+      actShowCellCenterPoints.Caption := 'Hide Cell Center Points';
+    end
+    else
+    begin
+      actShowCellCenterPoints.Caption := 'Show Cell Center Points';
+    end;
+    InvalidateImage32AllViews;
+  end;
 end;
 
 procedure TfrmGoPhast.ScreenOnActiveFormChange(Sender: TObject);

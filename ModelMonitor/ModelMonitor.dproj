@@ -3,7 +3,7 @@
         <ProjectGuid>{F0692F37-5658-4D31-AE39-86AE5A7161EF}</ProjectGuid>
         <MainSource>ModelMonitor.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
@@ -65,8 +65,8 @@
         <Icon_MainIcon>VIEWER1.ICO</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=U.S. Geological Survey;FileDescription=;FileVersion=1.13.0.0;InternalName=;LegalCopyright=Public Domain;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.13.0.0;Comments=;Last Compile=2012-06-07 12:11</VerInfo_Keys>
-        <VerInfo_MinorVer>13</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=U.S. Geological Survey;FileDescription=;FileVersion=1.14.0.0;InternalName=;LegalCopyright=Public Domain;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.13.0.0;Comments=;Last Compile=2012-06-07 12:11</VerInfo_Keys>
+        <VerInfo_MinorVer>14</VerInfo_MinorVer>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;VCLTee;$(DCC_Namespace)</DCC_Namespace>
         <DCC_UnitSearchPath>C:\PROGRA~1\Jedi\jcl\lib\d10\debug;C:\Colab\GWModelTools\ModelMuse\FastCode;C:\Colab\GWModelTools\ModelMuse;D:\Colab\GWModelTools\ModelMuse\FastCode;D:\Colab\GWModelTools\ModelMuse;C:\ModelingTools\ModelMuse;C:\ModelingTools\ModelMuse\FastCode;D:\ModelingTools\ModelMuse;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_ExeOutput>..\ModelMuse\$(Config)\$(Platform)</DCC_ExeOutput>
@@ -141,7 +141,6 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <BT_BuildType>Debug</BT_BuildType>
         <Debugger_CWD>C:\ModelingTools\ModelMuse\PracticeModels</Debugger_CWD>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
@@ -210,8 +209,8 @@
                     <VersionInfoKeys Name="Last Compile">2012-06-07 12:11</VersionInfoKeys>
                 </VersionInfoKeys>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k280.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp280.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k370.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp370.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>

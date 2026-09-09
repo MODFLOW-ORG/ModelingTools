@@ -1,4 +1,6 @@
 inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
+  HelpType = htKeyword
+  HelpKeyword = 'Run-VOROGRIDGEN-Dialog-Box'
   Caption = 'Run VOROGRIDGEN'
   ClientHeight = 377
   ClientWidth = 865
@@ -7,29 +9,29 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
   ExplicitHeight = 416
   TextHeight = 18
   object lblOutFileBase: TLabel
-    Left = 1
-    Top = 87
+    Left = 8
+    Top = 89
     Width = 410
     Height = 18
     Caption = 'Base name for VOROGRIDGEN output files (out_file_base)'
   end
   object lblMaxCentroidSeparation: TLabel
-    Left = 1
-    Top = 143
+    Left = 8
+    Top = 145
     Width = 396
     Height = 18
     Caption = 'Maximum centroid separation (max_centroid_separation)'
   end
   object lblMaxCells: TLabel
-    Left = 1
-    Top = 199
+    Left = 8
+    Top = 201
     Width = 312
     Height = 18
     Caption = 'Maximum number of cells in model (maxcells)'
   end
   object lblPolyGrowthRate: TLabel
-    Left = 1
-    Top = 259
+    Left = 8
+    Top = 261
     Width = 265
     Height = 18
     Caption = 'Growth rate of cells (poly_growth_rate)'
@@ -49,7 +51,7 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Caption = 'Maximum number of Lloyd iterations (max_lloyd, optional)'
   end
   object lblEpsLloyd: TLabel
-    Left = 441
+    Left = 443
     Top = 172
     Width = 414
     Height = 18
@@ -70,8 +72,8 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Caption = 'Safety factor for emplacing seeds (safety, optional)'
   end
   object lblVoroGridGen: TLabel
-    Left = 1
-    Top = 31
+    Left = 8
+    Top = 33
     Width = 176
     Height = 18
     Caption = 'VOROGRIDGEN location'
@@ -87,16 +89,16 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     SuperSubScriptRatio = 0.666666666666666600
   end
   object fedOutFileBase: TJvFilenameEdit
-    Left = 1
-    Top = 111
+    Left = 8
+    Top = 113
     Width = 410
     Height = 26
     TabOrder = 0
     Text = ''
   end
   object rdeCentroidSeparation: TRbwDataEntry
-    Left = 1
-    Top = 167
+    Left = 8
+    Top = 169
     Width = 177
     Height = 22
     TabOrder = 1
@@ -107,8 +109,8 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     ChangeDisabledColor = True
   end
   object seMaxCells: TJvSpinEdit
-    Left = 1
-    Top = 223
+    Left = 8
+    Top = 225
     Width = 177
     Height = 26
     CheckMaxValue = False
@@ -117,8 +119,8 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     TabOrder = 2
   end
   object rdePolyGrowthRate: TRbwDataEntry
-    Left = 1
-    Top = 283
+    Left = 8
+    Top = 285
     Width = 177
     Height = 22
     TabOrder = 3
@@ -245,6 +247,7 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
       Kind = bkHelp
       NumGlyphs = 2
       TabOrder = 0
+      OnClick = btnHelpClick
     end
     object btnOK: TBitBtn
       Left = 683
@@ -269,12 +272,13 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     end
   end
   object fedVorogridGen: TJvFilenameEdit
-    Left = 1
-    Top = 55
+    Left = 8
+    Top = 57
     Width = 410
     Height = 26
     Filter = 'Executables (*.exe)|*.exe'
     TabOrder = 15
     Text = 'fedVorogridGen'
+    OnChange = fedVorogridGenChange
   end
 end

@@ -43,6 +43,7 @@ type
     procedure FormDestroy(Sender: TObject); override;
     procedure FormCreate(Sender: TObject); override;
     procedure btnOKClick(Sender: TObject);
+    procedure fedVorogridGenChange(Sender: TObject);
   private
     FVorogridGenOptions: TVorogridGenOptions;
     procedure GetData;
@@ -144,6 +145,19 @@ begin
   end;
   SetData;
   inherited;
+end;
+
+procedure TfrmVOROGRIDGEN.fedVorogridGenChange(Sender: TObject);
+begin
+  inherited;
+  if TFile.Exists(fedVorogridGen.FileName) then
+  begin
+    fedVorogridGen.Color := clWindow;
+  end
+  else
+  begin
+    fedVorogridGen.Color := clRed;
+  end;
 end;
 
 procedure TfrmVOROGRIDGEN.SetData;
