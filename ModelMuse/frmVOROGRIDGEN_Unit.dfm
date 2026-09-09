@@ -233,8 +233,6 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 14
-    ExplicitTop = 558
-    ExplicitWidth = 764
     DesignSize = (
       865
       42)
@@ -247,7 +245,6 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
       Kind = bkHelp
       NumGlyphs = 2
       TabOrder = 0
-      ExplicitLeft = 493
     end
     object btnOK: TBitBtn
       Left = 683
@@ -259,7 +256,6 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnOKClick
-      ExplicitLeft = 582
     end
     object btnCancel: TBitBtn
       Left = 772
@@ -270,7 +266,6 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
       Kind = bkCancel
       NumGlyphs = 2
       TabOrder = 2
-      ExplicitLeft = 671
     end
   end
   object fedVorogridGen: TJvFilenameEdit

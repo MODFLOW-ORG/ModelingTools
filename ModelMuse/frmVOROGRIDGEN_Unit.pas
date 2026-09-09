@@ -59,6 +59,12 @@ uses
 
 {$R *.dfm}
 
+resourcestring
+  SNewerVersionOfVOROGRIDGEN = 'There is a newer version of VOROGRIDGEN. Do you want to use your existing copy of VOROGRIDGEN anyway?';
+
+var
+  VoroGridGenDate: TDate;
+
 type
   TUndoVorogridGenOptions = class(TCustomUndo)
   private
@@ -119,12 +125,22 @@ begin
 end;
 
 procedure TfrmVOROGRIDGEN.btnOKClick(Sender: TObject);
+var
+  VoroDate: TDate;
 begin
   if not TFile.Exists(fedVorogridGen.FileName) then
   begin
     Beep;
     MessageDlg(Format('%s does not exist.', [fedVorogridGen.FileName]), mtWarning, [mbOK], 0);
     Exit;
+  end;
+  VoroDate := Trunc(TFile.GetLastWriteTime(fedVorogridGen.FileName));
+  if VoroDate < VoroGridGenDate then
+  begin
+    if (MessageDlg(SNewerVersionOfVOROGRIDGEN, mtConfirmation, [mbYes, mbNo], 0, mbNo) <> mrYes) then
+    begin
+      Exit;
+    end;
   end;
   SetData;
   inherited;
@@ -191,5 +207,8 @@ begin
   inherited;
 
 end;
+
+initialization
+  VoroGridGenDate := EncodeDate(2026, 2,8);
 
 end.
