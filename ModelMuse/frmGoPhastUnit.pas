@@ -4870,45 +4870,22 @@ begin
 //    not (PhastModel.ModelSelection  in SutraSelection);
   SetToolbarPositions;
 
-
-//  tbarShowGrid.Left := Width - tbarShowGrid.Width- ToolbarExtraWidth;
-//  if tbarEditGrid.Visible then
-//  begin
-//    tbarEditGrid.Left := MinimumToolbarLeft;
-//    tbarCreateScreenObject.Left := tbarEditGrid.Left + tbarEditGrid.Width
-//      + ToolbarExtraWidth;
-//    tbarView3D.Left := tbarCreateScreenObject.Left
-//      + tbarCreateScreenObject.Width + ToolbarExtraWidth;
-//    tbarView3D.Top := tbarCreateScreenObject.Top;
-//    tbarShowGrid.Left := tbarView3D.Left + tbarView3D.Width;
-//    tbarShowGrid.Top := tbarView3D.Top;
-//
-//  end
-//  else
-//  begin
-//    tlbMesh.Left := MinimumToolbarLeft;
-//    tbarCreateScreenObject.Left := tlbMesh.Left + tlbMesh.Width
-//      + ToolbarExtraWidth;
-//    tlb3dViewMesh.Left := tbarCreateScreenObject.Left
-//      + tbarCreateScreenObject.Width + ToolbarExtraWidth;
-//    tlb3dViewMesh.Top := tbarCreateScreenObject.Top;
-//    tlbMesh.Top := tbarCreateScreenObject.Top;
-//    tbarShowGrid.Left := tlb3dViewMesh.Left + tlb3dViewMesh.Width;
-//  end;
-
-  UpdateRunShortCut(acExportPhastInputFile);
-  UpdateRunShortCut(acRunModflow);
-  UpdateRunShortCut(acRunModflowLgr);
-  UpdateRunShortCut(acRunModflowNWT);
-  UpdateRunShortCut(acRunModflowFMP);
-  UpdateRunShortCut(acRunModflowCFP);
-  UpdateRunShortCut(acRunSUTRA);
-  UpdateRunShortCut(acRunFootprint);
-  UpdateRunShortCut(acRunModflow6);
-  UpdateRunShortCut(acRunModflowOWHM_V2);
-  UpdateRunShortCut(actImportDisv);
-  UpdateRunShortCut(actVOROGRIDGEN);
-
+  // for all the actions that run a model,
+  // set the shortcut to Ctrl-E and have btnRunModel
+  // run that action.
+  case ModelSelection of
+    msUndefined: ;
+    msPhast: UpdateRunShortCut(acExportPhastInputFile);
+    msModflow: UpdateRunShortCut(acRunModflow);
+    msModflowLGR, msModflowLGR2: UpdateRunShortCut(acRunModflowLgr);
+    msModflowNWT: UpdateRunShortCut(acRunModflowNWT);
+    msModflowFmp: UpdateRunShortCut(acRunModflowFMP);
+    msModflowCfp: UpdateRunShortCut(acRunModflowCFP);
+    msSutra22, msSutra30, msSutra40: UpdateRunShortCut(acRunSUTRA);
+    msFootPrint: UpdateRunShortCut(acRunFootprint);
+    msModflow2015: UpdateRunShortCut(acRunModflow6);
+    msModflowOwhm2: UpdateRunShortCut(acRunModflowOWHM_V2);
+  end;
 
   if DisvUsed then
   begin

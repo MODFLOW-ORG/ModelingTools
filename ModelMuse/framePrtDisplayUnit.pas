@@ -87,6 +87,7 @@ type
     seSinglePointSize: TJvSpinEdit;
     spl2: TSplitter;
     pnl2: TPanel;
+    lblWhatToShow: TLabel;
     procedure btnColorSchemesClick(Sender: TObject);
     procedure comboColorSchemeChange(Sender: TObject);
     procedure fedPrtTracklineFileBeforeDialog(Sender: TObject; var AName: string;
@@ -130,6 +131,7 @@ type
     procedure SetStatusLimit(StatusLimit: TStatusLimit; LimitRow: TTrackSetLimits);
     procedure ReadSelectedTimeLimit(SelectedTimeLimits: TSelectedTimeLimit; LimitRow: TTrackSetLimits);
     procedure SetSelectedTimeLimit(SelectedTimeLimits: TSelectedTimeLimit; LimitRow: TTrackSetLimits);
+    procedure Initialize;
   protected
     procedure Loaded; override;
   public
@@ -309,6 +311,7 @@ var
   ColorParameters: TColorParameters;
 begin
   Handle;
+  Initialize;
   if frmGoPhast.PhastModel.ColorSchemes.Count > 0 then
   begin
     UpdateColorSchemes;
@@ -385,12 +388,18 @@ begin
 end;
 
 procedure TframePrtDisplay.Loaded;
+begin
+  inherited;
+  Initialize;
+end;
+
+procedure TframePrtDisplay.Initialize;
 var
   RowIndex: TTrackLimits;
 begin
-  inherited;
   rdgLimits.BeginUpdate;
   try
+    ClearGrid(rdgLimits);
     rdgLimits.RowCount := Succ(Ord(High(TTrackLimits)));
     for var Index := Low(TTrackLimits) to High(TTrackLimits) do
     begin
@@ -423,6 +432,7 @@ begin
 
   rdgSetLimits.BeginUpdate;
   try
+    ClearGrid(rdgSetLimits);
     rdgSetLimits.RowCount := Succ(Ord(High(TTrackSetLimits)));
     for var Index := Low(TTrackSetLimits) to High(TTrackSetLimits) do
     begin
@@ -690,7 +700,10 @@ begin
         begin
           CanSelect := rdgSetLimits.Checked[0,ARow];
         end;
-      else Assert(False);
+      else
+        begin
+          // do nothing, off grid.
+        end;
     end;
   end;
 end;

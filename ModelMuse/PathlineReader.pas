@@ -9906,7 +9906,6 @@ begin
   begin
     CrossSectionSegment := LocalModel.DisvGrid.CrossSection.Segment;
     OriginOffset := GetOriginOffset(CrossSectionSegment);
-    OriginOffset := 0;
   end
   else
   begin

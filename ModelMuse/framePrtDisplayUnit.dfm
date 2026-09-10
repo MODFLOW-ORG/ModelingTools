@@ -9,7 +9,7 @@ object framePrtDisplay: TframePrtDisplay
     Top = 0
     Width = 502
     Height = 486
-    ActivePage = tabBasic
+    ActivePage = tabOptions
     Align = alClient
     TabOrder = 0
     object tabBasic: TTabSheet
@@ -26,34 +26,33 @@ object framePrtDisplay: TframePrtDisplay
       end
       object lblColorScheme: TLabel
         Left = 3
-        Top = 175
+        Top = 195
         Width = 73
         Height = 15
         Caption = 'Color scheme'
       end
       object pbColorScheme: TPaintBox
         Left = 3
-        Top = 239
+        Top = 259
         Width = 475
         Height = 33
         Anchors = [akLeft, akTop, akRight]
         OnPaint = pbColorSchemePaint
       end
       object lblColorAdjustment: TLabel
-        Left = 8
-        Top = 278
+        Left = 3
+        Top = 310
         Width = 92
         Height = 15
         Caption = 'Color adjustment'
       end
       object lblCycles: TLabel
         Left = 342
-        Top = 311
+        Top = 343
         Width = 34
         Height = 15
         Anchors = [akTop, akRight]
         Caption = 'Cycles'
-        ExplicitLeft = 305
       end
       object lblMaxTime: TLabel
         Left = 192
@@ -64,11 +63,18 @@ object framePrtDisplay: TframePrtDisplay
       end
       object lblSinglePointSize: TLabel
         Left = 3
-        Top = 340
+        Top = 372
         Width = 125
         Height = 15
         Anchors = [akTop, akRight]
         Caption = 'Single point size (pixels)'
+      end
+      object lblWhatToShow: TLabel
+        Left = 3
+        Top = 58
+        Width = 73
+        Height = 15
+        Caption = 'What to show'
       end
       object fedPrtTracklineFile: TJvFilenameEdit
         Left = 3
@@ -88,7 +94,7 @@ object framePrtDisplay: TframePrtDisplay
       end
       object cbLimitToCurrentIn2D: TCheckBox
         Left = 3
-        Top = 152
+        Top = 172
         Width = 377
         Height = 17
         Caption = 'Limit to current column, row and layer in 2D views'
@@ -96,7 +102,7 @@ object framePrtDisplay: TframePrtDisplay
       end
       object comboColorScheme: TComboBox
         Left = 3
-        Top = 196
+        Top = 216
         Width = 337
         Height = 23
         Style = csDropDownList
@@ -122,7 +128,7 @@ object framePrtDisplay: TframePrtDisplay
       end
       object jsColorExponent: TJvxSlider
         Left = 3
-        Top = 299
+        Top = 331
         Width = 150
         Height = 40
         Increment = 2
@@ -133,7 +139,7 @@ object framePrtDisplay: TframePrtDisplay
       end
       object seColorExponent: TJvSpinEdit
         Left = 159
-        Top = 308
+        Top = 340
         Width = 65
         Height = 23
         ButtonKind = bkClassic
@@ -146,7 +152,7 @@ object framePrtDisplay: TframePrtDisplay
       end
       object seCycles: TJvSpinEdit
         Left = 382
-        Top = 308
+        Top = 340
         Width = 101
         Height = 23
         ButtonKind = bkClassic
@@ -159,7 +165,7 @@ object framePrtDisplay: TframePrtDisplay
       end
       object btnColorSchemes: TButton
         Left = 351
-        Top = 180
+        Top = 200
         Width = 132
         Height = 41
         Anchors = [akRight, akBottom]
@@ -171,7 +177,7 @@ object framePrtDisplay: TframePrtDisplay
       end
       object chklstPlotTypes: TCheckListBox
         Left = 3
-        Top = 58
+        Top = 79
         Width = 201
         Height = 87
         ItemHeight = 17
@@ -184,7 +190,7 @@ object framePrtDisplay: TframePrtDisplay
       end
       object seSinglePointSize: TJvSpinEdit
         Left = 3
-        Top = 361
+        Top = 393
         Width = 100
         Height = 23
         MaxValue = 2147483647.000000000000000000
@@ -207,9 +213,9 @@ object framePrtDisplay: TframePrtDisplay
         ItemIndex = 0
         Items.Strings = (
           'Show all'
-          'Specify criteria to show points'
-          'Specify criteria at starting points to show points'
-          'Specify criteria at ending points to show points')
+          'Specify criteria to show tracks'
+          'Specify criteria at starting points to show tracks'
+          'Specify criteria at ending points to show tracks')
         TabOrder = 0
         OnClick = rgShow2DClick
       end

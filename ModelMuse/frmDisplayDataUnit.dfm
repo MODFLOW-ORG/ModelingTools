@@ -2804,10 +2804,11 @@ inherited frmDisplayData: TfrmDisplayData
           ExplicitHeight = 521
           inherited tabBasic: TTabSheet
             ExplicitTop = 29
-            ExplicitHeight = 453
+            ExplicitWidth = 564
+            ExplicitHeight = 488
             DesignSize = (
-              494
-              453)
+              564
+              488)
             inherited lblPrtTracklineFile: TLabel
               Width = 97
               Height = 18
@@ -2822,6 +2823,10 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitWidth = 97
               ExplicitHeight = 18
             end
+            inherited pbColorScheme: TPaintBox
+              Width = 545
+              ExplicitWidth = 545
+            end
             inherited lblColorAdjustment: TLabel
               Width = 117
               Height = 18
@@ -2830,9 +2835,11 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitHeight = 18
             end
             inherited lblCycles: TLabel
+              Left = 401
               Width = 47
               Height = 18
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 401
               ExplicitWidth = 47
               ExplicitHeight = 18
             end
@@ -2850,9 +2857,17 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitWidth = 168
               ExplicitHeight = 18
             end
+            inherited lblWhatToShow: TLabel
+              Width = 93
+              Height = 18
+              StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 93
+              ExplicitHeight = 18
+            end
             inherited fedPrtTracklineFile: TJvFilenameEdit
               Left = 2
               Top = 26
+              Width = 545
               Height = 26
               StyleElements = [seFont, seClient, seBorder]
               ExplicitLeft = 2
@@ -2860,8 +2875,10 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitHeight = 26
             end
             inherited comboColorScheme: TComboBox
+              Width = 407
               Height = 26
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 407
               ExplicitHeight = 26
             end
             inherited seColorExponent: TJvSpinEdit
@@ -2870,13 +2887,23 @@ inherited frmDisplayData: TfrmDisplayData
               ExplicitHeight = 26
             end
             inherited seCycles: TJvSpinEdit
+              Left = 454
               Height = 26
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 454
               ExplicitHeight = 26
             end
+            inherited btnColorSchemes: TButton
+              Left = 421
+              ExplicitLeft = 421
+            end
             inherited chklstPlotTypes: TCheckListBox
+              Left = 2
+              Top = 82
               ItemHeight = 18
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitLeft = 2
+              ExplicitTop = 82
             end
             inherited seSinglePointSize: TJvSpinEdit
               Height = 26
@@ -2900,6 +2927,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 387
               Height = 386
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 387
               ExplicitHeight = 386
               inherited spl2: TSplitter
                 Height = 384
@@ -2909,18 +2937,21 @@ inherited frmDisplayData: TfrmDisplayData
                 Width = 380
                 Height = 384
                 StyleElements = [seFont, seClient, seBorder]
-                ExplicitHeight = 379
+                ExplicitWidth = 380
+                ExplicitHeight = 384
                 inherited spl1: TSplitter
                   Width = 378
+                  ExplicitWidth = 378
                 end
                 inherited rdgLimits: TRbwDataGrid4
                   Width = 378
+                  ExplicitWidth = 378
                 end
                 inherited rdgSetLimits: TRbwDataGrid4
                   Width = 378
-                  Height = 225
-                  ExplicitTop = 368
-                  ExplicitHeight = 10
+                  Height = 185
+                  ExplicitWidth = 378
+                  ExplicitHeight = 185
                 end
               end
             end

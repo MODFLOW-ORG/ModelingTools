@@ -1,22 +1,26 @@
 inherited frmPrtChoices: TfrmPrtChoices
   Caption = 'PRT Choices'
-  ClientWidth = 414
+  ClientHeight = 376
+  ClientWidth = 558
   StyleElements = [seFont, seClient, seBorder]
-  ExplicitWidth = 430
+  ExplicitWidth = 574
+  ExplicitHeight = 415
   TextHeight = 18
   object pnlBottom: TPanel
     Left = 0
-    Top = 152
-    Width = 414
+    Top = 327
+    Width = 558
     Height = 49
     Align = alBottom
     ParentColor = True
     TabOrder = 0
+    ExplicitTop = 152
+    ExplicitWidth = 414
     DesignSize = (
-      414
+      558
       49)
     object btnCancel: TBitBtn
-      Left = 321
+      Left = 465
       Top = 2
       Width = 83
       Height = 33
@@ -24,9 +28,10 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkCancel
       NumGlyphs = 2
       TabOrder = 2
+      ExplicitLeft = 321
     end
     object btnOK: TBitBtn
-      Left = 232
+      Left = 376
       Top = 2
       Width = 83
       Height = 33
@@ -34,9 +39,10 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkOK
       NumGlyphs = 2
       TabOrder = 1
+      ExplicitLeft = 232
     end
     object btnHelp: TBitBtn
-      Left = 143
+      Left = 287
       Top = 2
       Width = 83
       Height = 33
@@ -44,17 +50,19 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkHelp
       NumGlyphs = 2
       TabOrder = 0
+      ExplicitLeft = 143
     end
   end
   object rdgChoices: TRbwDataGrid4
     Left = 0
     Top = 0
-    Width = 414
-    Height = 152
+    Width = 558
+    Height = 327
     Align = alClient
     ColCount = 1
     FixedCols = 0
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+    RowCount = 11
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing]
     TabOrder = 1
     ExtendedAutoDistributeText = False
     AutoMultiEdit = False
@@ -90,6 +98,8 @@ inherited frmPrtChoices: TfrmPrtChoices
         AutoAdjustColWidths = False
       end>
     WordWrapRowCaptions = False
+    ExplicitTop = -4
+    ExplicitWidth = 383
     ColWidths = (
       406)
   end

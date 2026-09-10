@@ -53,6 +53,7 @@ var
   ASelection: TGridRect;
 begin
   inherited;
+  rdgChoices.ColWidths[0] := rdgChoices.Width;
 //  ASelection.Left := 0;
 //  ASelection.Right := 0;
 //  ASelection.Top := 0;
@@ -84,15 +85,16 @@ end;
 procedure TfrmPrtChoices.SetChoices(const Value: TStrings);
 begin
   Value.Insert(0, 'Choices');
-  rdgChoices.Cols[0].Assign(Value);
   rdgChoices.RowCount := Value.Count;
+  rdgChoices.Cols[0].Assign(Value);
+  Value.Delete(0);
 end;
 
 procedure TfrmPrtChoices.SetSelection(const Value: TIntegerCollection);
 begin
   for var Index := 0 to Value.Count - 1 do
   begin
-    rdgChoices.Checked[0, Value[Index+1].Value] := True;
+    rdgChoices.Checked[0, Value[Index].Value + 1] := True;
   end;
 end;
 
