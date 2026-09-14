@@ -1464,6 +1464,11 @@ begin
 
     CellText := CellText + ' (' + AScreenObject.Methods;
 
+    if FVoroGridGenNode = Sender.NodeParent[Node] then
+    begin
+      CellText := CellText + ', ' + FloatToStr(AScreenObject.StoredCentroidSeparation.Value);
+    end;
+
     if FvstSizeNode = Sender.NodeParent[Node] then
     begin
       CellText := CellText + ', ' + FloatToStr(AScreenObject.CellSize);

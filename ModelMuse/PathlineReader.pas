@@ -10006,34 +10006,37 @@ begin
     begin
       for var PrpIndex := 0 to LocalTracks.IprpCount - 1 do
       begin
-        for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
+        for var ReleasePtIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
         begin
-          ATrack := LocalTracks[PrpIndex, ParticleIndex];
-
-          if not CanDisplayTrack(ATrack) then
+          for var ReleaseTimeIndex := 0 to LocalTracks.ReleaseCount[PrpIndex,ReleasePtIndex]  - 1 do
           begin
-            Continue;
-          end;
+            ATrack := LocalTracks[PrpIndex, ReleasePtIndex, ReleaseTimeIndex];
 
-          PriorPoint := nil;
-          ShowPriorPoint := False;
-          for var PointIndex := 0 to ATrack.Count - 1 do
-          begin
-            APoint := ATrack[PointIndex];
-            if Show2DPrtPoint(APoint) then
+            if not CanDisplayTrack(ATrack) then
             begin
-              DrawLine(APoint);
-              PriorPoint := APoint;
-              ShowPriorPoint := True;
-            end
-            else
+              Continue;
+            end;
+
+            PriorPoint := nil;
+            ShowPriorPoint := False;
+            for var PointIndex := 0 to ATrack.Count - 1 do
             begin
-              ShowPriorPoint := False;
-              if PriorPoint <> nil then
+              APoint := ATrack[PointIndex];
+              if Show2DPrtPoint(APoint) then
               begin
-                if PriorPoint.T <> APoint.T then
+                DrawLine(APoint);
+                PriorPoint := APoint;
+                ShowPriorPoint := True;
+              end
+              else
+              begin
+                ShowPriorPoint := False;
+                if PriorPoint <> nil then
                 begin
-                  PriorPoint := nil;
+                  if PriorPoint.T <> APoint.T then
+                  begin
+                    PriorPoint := nil;
+                  end;
                 end;
               end;
             end;
@@ -10046,21 +10049,24 @@ begin
     begin
       for var PrpIndex := 0 to LocalTracks.IprpCount - 1 do
       begin
-        for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
+        for var ReleasePointIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
         begin
-          ATrack := LocalTracks[PrpIndex, ParticleIndex];
-          if not CanDisplayTrack(ATrack) then
+          for var ReleaseTimeIndex := 0 to LocalTracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
           begin
-            Continue;
-          end;
-          if ATrack.Count > 0 then
-          begin
-            APoint := ATrack.First;
-            if Show2DPrtPoint(APoint) then
+            ATrack := LocalTracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+            if not CanDisplayTrack(ATrack) then
             begin
-              ADisplayPoint := GetDisplayPoint(APoint);
-              DrawPoint(ADisplayPoint);
-            end
+              Continue;
+            end;
+            if ATrack.Count > 0 then
+            begin
+              APoint := ATrack.First;
+              if Show2DPrtPoint(APoint) then
+              begin
+                ADisplayPoint := GetDisplayPoint(APoint);
+                DrawPoint(ADisplayPoint);
+              end
+            end;
           end;
         end;
       end;
@@ -10070,21 +10076,24 @@ begin
     begin
       for var PrpIndex := 0 to LocalTracks.IprpCount - 1 do
       begin
-        for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
+        for var ReleasePointIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
         begin
-          ATrack := LocalTracks[PrpIndex, ParticleIndex];
-          if not CanDisplayTrack(ATrack) then
+          for var ReleaseTimeIndex := 0 to LocalTracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
           begin
-            Continue;
-          end;
-          if ATrack.Count > 0 then
-          begin
-            APoint := ATrack.Last;
-            if Show2DPrtPoint(APoint) then
+            ATrack := LocalTracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+            if not CanDisplayTrack(ATrack) then
             begin
-              ADisplayPoint := GetDisplayPoint(APoint);
-              DrawPoint(ADisplayPoint);
-            end
+              Continue;
+            end;
+            if ATrack.Count > 0 then
+            begin
+              APoint := ATrack.Last;
+              if Show2DPrtPoint(APoint) then
+              begin
+                ADisplayPoint := GetDisplayPoint(APoint);
+                DrawPoint(ADisplayPoint);
+              end
+            end;
           end;
         end;
       end;
@@ -10094,22 +10103,24 @@ begin
     begin
       for var PrpIndex := 0 to LocalTracks.IprpCount - 1 do
       begin
-        for var ParticleIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
+        for var ReleasePointIndex := 0 to LocalTracks.IrptCount[PrpIndex] - 1 do
         begin
-          ATrack := LocalTracks[PrpIndex, ParticleIndex];
-          if not CanDisplayTrack(ATrack) then
+          for var ReleaseTimeIndex := 0 to LocalTracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
           begin
-            Continue;
-          end;
-          for var PointIndex := 0 to ATrack.Count - 1 do
-          begin
-            APoint := ATrack[PointIndex];
-            if (APoint.IReason = 5) and Show2DPrtPoint(APoint) then
+            ATrack := LocalTracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+            if not CanDisplayTrack(ATrack) then
             begin
-               ADisplayPoint := GetDisplayPoint(APoint);
-               DrawPoint(ADisplayPoint);
-            end
-
+              Continue;
+            end;
+            for var PointIndex := 0 to ATrack.Count - 1 do
+            begin
+              APoint := ATrack[PointIndex];
+              if (APoint.IReason = 5) and Show2DPrtPoint(APoint) then
+              begin
+                 ADisplayPoint := GetDisplayPoint(APoint);
+                 DrawPoint(ADisplayPoint);
+              end
+            end;
           end;
         end;
       end;
@@ -10253,33 +10264,36 @@ begin
       pcReleaseTime:
         begin
           MinMaxFound := False;
-          for var Index := 0 to Tracks.IprpCount - 1 do
+          for var PrpIndex := 0 to Tracks.IprpCount - 1 do
           begin
-            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
             begin
-              ATrack := Tracks[Index, Index2];
-              for var PointIndex := 0 to ATrack.Count - 1 do
+              for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
               begin
-                TrkPoint := ATrack[PointIndex];
-                if TrkPoint.IREASON = 0 then
+                ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+                for var PointIndex := 0 to ATrack.Count - 1 do
                 begin
-                  if MinMaxFound then
+                  TrkPoint := ATrack[PointIndex];
+                  if TrkPoint.IREASON = 0 then
                   begin
-                    if TrkPoint.TRELEASE < MinValue then
+                    if MinMaxFound then
                     begin
-                      MinValue := TrkPoint.TRELEASE;
+                      if TrkPoint.TRELEASE < MinValue then
+                      begin
+                        MinValue := TrkPoint.TRELEASE;
+                      end
+                      else
+                      if TrkPoint.TRELEASE > MaxValue then
+                      begin
+                        MaxValue := TrkPoint.TRELEASE;
+                      end;
                     end
                     else
-                    if TrkPoint.TRELEASE > MaxValue then
                     begin
-                      MaxValue := TrkPoint.TRELEASE;
+                      MinValue := TrkPoint.TRELEASE;
+                      MaxValue := MinValue;
+                      MinMaxFound := True;
                     end;
-                  end
-                  else
-                  begin
-                    MinValue := TrkPoint.TRELEASE;
-                    MaxValue := MinValue;
-                    MinMaxFound := True;
                   end;
                 end;
               end;
@@ -10289,31 +10303,34 @@ begin
       pcTime:
         begin
           MinMaxFound := False;
-          for var Index := 0 to Tracks.IprpCount - 1 do
+          for var PrpIndex := 0 to Tracks.IprpCount - 1 do
           begin
-            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
             begin
-              ATrack := Tracks[Index, Index2];
-              for var PointIndex := 0 to ATrack.Count - 1 do
+              for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
               begin
-                TrkPoint := ATrack[PointIndex];
-                if MinMaxFound then
+                ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+                for var PointIndex := 0 to ATrack.Count - 1 do
                 begin
-                  if TrkPoint.T < MinValue then
+                  TrkPoint := ATrack[PointIndex];
+                  if MinMaxFound then
                   begin
-                    MinValue := TrkPoint.T;
+                    if TrkPoint.T < MinValue then
+                    begin
+                      MinValue := TrkPoint.T;
+                    end
+                    else
+                    if TrkPoint.T > MaxValue then
+                    begin
+                      MaxValue := TrkPoint.T;
+                    end;
                   end
                   else
-                  if TrkPoint.T > MaxValue then
                   begin
-                    MaxValue := TrkPoint.T;
+                    MinValue := TrkPoint.T;
+                    MaxValue := MinValue;
+                    MinMaxFound := True;
                   end;
-                end
-                else
-                begin
-                  MinValue := TrkPoint.T;
-                  MaxValue := MinValue;
-                  MinMaxFound := True;
                 end;
               end;
             end;
@@ -10322,31 +10339,34 @@ begin
       pcStatus:
         begin
           MinMaxFound := False;
-          for var Index := 0 to Tracks.IprpCount - 1 do
+          for var PrpIndex := 0 to Tracks.IprpCount - 1 do
           begin
-            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
             begin
-              ATrack := Tracks[Index, Index2];
-              for var PointIndex := 0 to ATrack.Count - 1 do
+              for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
               begin
-                TrkPoint := ATrack[PointIndex];
-                if MinMaxFound then
+                ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+                for var PointIndex := 0 to ATrack.Count - 1 do
                 begin
-                  if TrkPoint.iStatus < MinValue then
+                  TrkPoint := ATrack[PointIndex];
+                  if MinMaxFound then
                   begin
-                    MinValue := TrkPoint.iStatus;
+                    if TrkPoint.iStatus < MinValue then
+                    begin
+                      MinValue := TrkPoint.iStatus;
+                    end
+                    else
+                    if TrkPoint.iStatus > MaxValue then
+                    begin
+                      MaxValue := TrkPoint.iStatus;
+                    end;
                   end
                   else
-                  if TrkPoint.iStatus > MaxValue then
                   begin
-                    MaxValue := TrkPoint.iStatus;
+                    MinValue := TrkPoint.iStatus;
+                    MaxValue := MinValue;
+                    MinMaxFound := True;
                   end;
-                end
-                else
-                begin
-                  MinValue := TrkPoint.iStatus;
-                  MaxValue := MinValue;
-                  MinMaxFound := True;
                 end;
               end;
             end;
@@ -10355,31 +10375,34 @@ begin
       pcReason:
         begin
           MinMaxFound := False;
-          for var Index := 0 to Tracks.IprpCount - 1 do
+          for var PrpIndex := 0 to Tracks.IprpCount - 1 do
           begin
-            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
             begin
-              ATrack := Tracks[Index, Index2];
-              for var PointIndex := 0 to ATrack.Count - 1 do
+              for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
               begin
-                TrkPoint := ATrack[PointIndex];
-                if MinMaxFound then
+                ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+                for var PointIndex := 0 to ATrack.Count - 1 do
                 begin
-                  if TrkPoint.IREASON < MinValue then
+                  TrkPoint := ATrack[PointIndex];
+                  if MinMaxFound then
                   begin
-                    MinValue := TrkPoint.IREASON;
+                    if TrkPoint.IREASON < MinValue then
+                    begin
+                      MinValue := TrkPoint.IREASON;
+                    end
+                    else
+                    if TrkPoint.IREASON > MaxValue then
+                    begin
+                      MaxValue := TrkPoint.IREASON;
+                    end;
                   end
                   else
-                  if TrkPoint.IREASON > MaxValue then
                   begin
-                    MaxValue := TrkPoint.IREASON;
+                    MinValue := TrkPoint.IREASON;
+                    MaxValue := MinValue;
+                    MinMaxFound := True;
                   end;
-                end
-                else
-                begin
-                  MinValue := TrkPoint.IREASON;
-                  MaxValue := MinValue;
-                  MinMaxFound := True;
                 end;
               end;
             end;
@@ -10388,31 +10411,34 @@ begin
       pcPrp:
         begin
           MinMaxFound := False;
-          for var Index := 0 to Tracks.IprpCount - 1 do
+          for var PrpIndex := 0 to Tracks.IprpCount - 1 do
           begin
-            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
             begin
-              ATrack := Tracks[Index, Index2];
-              for var PointIndex := 0 to ATrack.Count - 1 do
+              for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
               begin
-                TrkPoint := ATrack[PointIndex];
-                if MinMaxFound then
+                ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+                for var PointIndex := 0 to ATrack.Count - 1 do
                 begin
-                  if TrkPoint.IPRP < MinValue then
+                  TrkPoint := ATrack[PointIndex];
+                  if MinMaxFound then
                   begin
-                    MinValue := TrkPoint.IPRP;
+                    if TrkPoint.IPRP < MinValue then
+                    begin
+                      MinValue := TrkPoint.IPRP;
+                    end
+                    else
+                    if TrkPoint.IPRP > MaxValue then
+                    begin
+                      MaxValue := TrkPoint.IPRP;
+                    end;
                   end
                   else
-                  if TrkPoint.IPRP > MaxValue then
                   begin
-                    MaxValue := TrkPoint.IPRP;
+                    MinValue := TrkPoint.IPRP;
+                    MaxValue := MinValue;
+                    MinMaxFound := True;
                   end;
-                end
-                else
-                begin
-                  MinValue := TrkPoint.IPRP;
-                  MaxValue := MinValue;
-                  MinMaxFound := True;
                 end;
               end;
             end;
@@ -10421,31 +10447,34 @@ begin
       pcZone:
         begin
           MinMaxFound := False;
-          for var Index := 0 to Tracks.IprpCount - 1 do
+          for var PrpIndex := 0 to Tracks.IprpCount - 1 do
           begin
-            for var Index2 := 0 to Tracks.IrptCount[Index] - 1 do
+            for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
             begin
-              ATrack := Tracks[Index, Index2];
-              for var PointIndex := 0 to ATrack.Count - 1 do
+              for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
               begin
-                TrkPoint := ATrack[PointIndex];
-                if MinMaxFound then
+                ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+                for var PointIndex := 0 to ATrack.Count - 1 do
                 begin
-                  if TrkPoint.IZONE < MinValue then
+                  TrkPoint := ATrack[PointIndex];
+                  if MinMaxFound then
                   begin
-                    MinValue := TrkPoint.IZONE;
+                    if TrkPoint.IZONE < MinValue then
+                    begin
+                      MinValue := TrkPoint.IZONE;
+                    end
+                    else
+                    if TrkPoint.IZONE > MaxValue then
+                    begin
+                      MaxValue := TrkPoint.IZONE;
+                    end;
                   end
                   else
-                  if TrkPoint.IZONE > MaxValue then
                   begin
-                    MaxValue := TrkPoint.IZONE;
+                    MinValue := TrkPoint.IZONE;
+                    MaxValue := MinValue;
+                    MinMaxFound := True;
                   end;
-                end
-                else
-                begin
-                  MinValue := TrkPoint.IZONE;
-                  MaxValue := MinValue;
-                  MinMaxFound := True;
                 end;
               end;
             end;
@@ -10818,40 +10847,43 @@ begin
       LineVisible := False;
       if pptLine in PrtTrackDisplayLimits.PlotTypes then
       begin
-        for var PrtIndex := 0 to Tracks.IprpCount - 1 do
+        for var PrpIndex := 0 to Tracks.IprpCount - 1 do
         begin
-          for var TrackIndex := 0 to Tracks.IrptCount[PrtIndex] - 1 do
+          for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
           begin
-            ATrack := Tracks[PrtIndex, TrackIndex];
-            if ATrack.Count > 0 then
+            for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
             begin
-              if CanDisplayTrack(ATrack) then
+              ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+              if ATrack.Count > 0 then
               begin
-                PriorPoint := nil;
-                ShowPriorPoint := False;
-                for var PrtPointIndex := 0 to ATrack.Count - 1 do
+                if CanDisplayTrack(ATrack) then
                 begin
-                  APoint := ATrack.Items[PrtPointIndex];
-                  if ShowPrtPoint(APoint) then
+                  PriorPoint := nil;
+                  ShowPriorPoint := False;
+                  for var PrtPointIndex := 0 to ATrack.Count - 1 do
                   begin
-                    if ShowPriorPoint then
+                    APoint := ATrack.Items[PrtPointIndex];
+                    if ShowPrtPoint(APoint) then
                     begin
-                      StartLine;
+                      if ShowPriorPoint then
+                      begin
+                        StartLine;
 
-                      AColor := GetPointColor(MaxValue, MinValue, APoint);
-                      AssignColor(AColor);
-                      glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                        AColor := GetPointColor(MaxValue, MinValue, APoint);
+                        AssignColor(AColor);
+                        glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                      end;
+                      ShowPriorPoint := True;
+                      PriorPoint := APoint;
+                    end
+                    else
+                    begin
+                      ShowPriorPoint := False;
+                      EndLine;
                     end;
-                    ShowPriorPoint := True;
-                    PriorPoint := APoint;
-                  end
-                  else
-                  begin
-                    ShowPriorPoint := False;
-                    EndLine;
                   end;
+                  EndLine;
                 end;
-                EndLine;
               end;
             end;
           end;
@@ -10860,21 +10892,24 @@ begin
       if pptStart in PrtTrackDisplayLimits.PlotTypes then
       begin
         glBegin(GL_POINTS);
-        for var PrtIndex := 0 to Tracks.IprpCount - 1 do
+        for var PrpIndex := 0 to Tracks.IprpCount - 1 do
         begin
-          for var TrackIndex := 0 to Tracks.IrptCount[PrtIndex] - 1 do
+          for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
           begin
-            ATrack := Tracks[PrtIndex, TrackIndex];
-            if ATrack.Count > 0 then
+            for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
             begin
-              if CanDisplayTrack(ATrack) then
+              ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+              if ATrack.Count > 0 then
               begin
-                APoint := ATrack.First;
-                if ShowPrtPoint(APoint) then
+                if CanDisplayTrack(ATrack) then
                 begin
-                  AColor := GetPointColor(MaxValue, MinValue, APoint);
-                  AssignColor(AColor);
-                  glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                  APoint := ATrack.First;
+                  if ShowPrtPoint(APoint) then
+                  begin
+                    AColor := GetPointColor(MaxValue, MinValue, APoint);
+                    AssignColor(AColor);
+                    glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                  end;
                 end;
               end;
             end;
@@ -10885,21 +10920,24 @@ begin
       if pptEnd in PrtTrackDisplayLimits.PlotTypes then
       begin
         glBegin(GL_POINTS);
-        for var PrtIndex := 0 to Tracks.IprpCount - 1 do
+        for var PrpIndex := 0 to Tracks.IprpCount - 1 do
         begin
-          for var TrackIndex := 0 to Tracks.IrptCount[PrtIndex] - 1 do
+          for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
           begin
-            ATrack := Tracks[PrtIndex, TrackIndex];
-            if ATrack.Count > 0 then
+            for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
             begin
-              if CanDisplayTrack(ATrack) then
+              ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+              if ATrack.Count > 0 then
               begin
-                APoint := ATrack.Last;
-                if ShowPrtPoint(APoint) then
+                if CanDisplayTrack(ATrack) then
                 begin
-                  AColor := GetPointColor(MaxValue, MinValue, APoint);
-                  AssignColor(AColor);
-                  glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                  APoint := ATrack.Last;
+                  if ShowPrtPoint(APoint) then
+                  begin
+                    AColor := GetPointColor(MaxValue, MinValue, APoint);
+                    AssignColor(AColor);
+                    glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                  end;
                 end;
               end;
             end;
@@ -10910,23 +10948,26 @@ begin
       if pptPoints in PrtTrackDisplayLimits.PlotTypes then
       begin
         glBegin(GL_POINTS);
-        for var PrtIndex := 0 to Tracks.IprpCount - 1 do
+        for var PrpIndex := 0 to Tracks.IprpCount - 1 do
         begin
-          for var TrackIndex := 0 to Tracks.IrptCount[PrtIndex] - 1 do
+          for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
           begin
-            ATrack := Tracks[PrtIndex, TrackIndex];
-            if ATrack.Count > 0 then
+            for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
             begin
-              if CanDisplayTrack(ATrack) then
+              ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+              if ATrack.Count > 0 then
               begin
-                for var PrtPointIndex := 0 to ATrack.Count - 1 do
+                if CanDisplayTrack(ATrack) then
                 begin
-                  APoint := ATrack.Items[PrtPointIndex];
-                  if (APoint.IReason = 5) and ShowPrtPoint(APoint) then
+                  for var PrtPointIndex := 0 to ATrack.Count - 1 do
                   begin
-                    AColor := GetPointColor(MaxValue, MinValue, APoint);
-                    AssignColor(AColor);
-                    glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                    APoint := ATrack.Items[PrtPointIndex];
+                    if (APoint.IReason = 5) and ShowPrtPoint(APoint) then
+                    begin
+                      AColor := GetPointColor(MaxValue, MinValue, APoint);
+                      AssignColor(AColor);
+                      glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                    end;
                   end;
                 end;
               end;

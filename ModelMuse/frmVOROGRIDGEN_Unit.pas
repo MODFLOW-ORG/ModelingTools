@@ -90,15 +90,7 @@ end;
 procedure TfrmVOROGRIDGEN.GetData;
 begin
   FVorogridGenOptions.Assign(frmGoPhast.PhastModel.VorogridGenOptions);
-  if FVorogridGenOptions.VoroGridGenLocation = '' then
-  begin
-
-  end
-  else
-  begin
-    fedVorogridGen.FileName := FVorogridGenOptions.VoroGridGenLocation;
-  end;
-
+  fedVorogridGen.FileName := FVorogridGenOptions.VoroGridGenLocation;
   fedOutFileBase.FileName := FVorogridGenOptions.BaseFileName;
   rdeCentroidSeparation.RealValue := FVorogridGenOptions.MaxCentroidSeparation;
   seMaxCells.AsInteger := FVorogridGenOptions.MaxCells;
@@ -128,6 +120,7 @@ end;
 procedure TfrmVOROGRIDGEN.btnOKClick(Sender: TObject);
 var
   VoroDate: TDate;
+  BaseDirectory: string;
 begin
   if not TFile.Exists(fedVorogridGen.FileName) then
   begin
@@ -142,6 +135,13 @@ begin
     begin
       Exit;
     end;
+  end;
+  BaseDirectory := ExtractFilePath(fedOutFileBase.FileName);
+  if not TDirectory.Exists(BaseDirectory) then
+  begin
+    Beep;
+    MessageDlg(Format('%s does not exist.', [BaseDirectory]), mtWarning, [mbOK], 0);
+    Exit;
   end;
   SetData;
   inherited;

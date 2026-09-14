@@ -293,9 +293,12 @@ type
     FDrawCellNumbers: Boolean;
     FNumberFont: TFont;
     FDrawCellCenterPoints: Boolean;
+    FDrawCellConnection: Boolean;
     procedure SetCellCorners(const Value: TModflowNodes);
     procedure SetCells(const Value: TModflowIrregularCell2DCollection);
     procedure DrawTop(const BitMap: TPersistent;
+      const ZoomBox: TQRbwZoomBox2);
+    procedure DrawConnections(const BitMap: TPersistent;
       const ZoomBox: TQRbwZoomBox2);
     procedure SetThreeDContourDataSet(const Value: TDataArray);
     procedure SetThreeDDataSet(const Value: TDataArray);
@@ -351,6 +354,7 @@ type
     procedure SetDrawCellNumbers(const Value: Boolean);
     procedure SetNumberFont(const Value: TFont);
     procedure SetDrawCellCenterPoints(const Value: Boolean);
+    procedure SetDrawCellConnection(const Value: Boolean);
     // If @name is @true, the grid will be displayed with (1) all it's grid
     // lines in 2D views of the model (2) only
     // the first, last and selected grid lines, or (3) only grid lines
@@ -359,6 +363,7 @@ type
       read FGridLineDrawingChoice write SetGridLineDrawingChoice;
     property DrawCellNumbers: Boolean read FDrawCellNumbers write SetDrawCellNumbers;
     property DrawCellCenterPoints: Boolean read FDrawCellCenterPoints write SetDrawCellCenterPoints;
+    property DrawCellConnection: Boolean read FDrawCellConnection write SetDrawCellConnection;
     Property NumberFont: TFont read FNumberFont write SetNumberFont;
   protected
     function GetActiveNode(Index: integer): INode;
@@ -574,6 +579,7 @@ type
     FNumberFont: TFont;
     FMeshType: TModflowMeshType;
     FDrawCellCenterPoints: Boolean;
+    FDrawCellConnection: Boolean;
     procedure SetLayers(const Value: TModflowIrregularLayers);
     procedure SetTwoDGrid(const Value: TModflowIrregularGrid2D);
     function GetCell(Layer, Col: Integer): TModflowDisVCell;
@@ -639,6 +645,7 @@ type
     procedure OnChangeNumberFont(Sender: TObject);
     procedure SeTModflowMeshType(const Value: TModflowMeshType);
     procedure SetDrawCellCenterPoints(const Value: Boolean);
+    procedure SetDrawCellConnection(const Value: Boolean);
   protected
     { TODO -cMODFLOW 6 : These needs to be completed }
     function GetActiveNode(Index: integer): INode;
@@ -760,6 +767,7 @@ type
     function CellThickness(const CellID: TZeroBasedID): double;
     property DrawCellNumbers: Boolean read FDrawCellNumbers write SetDrawCellNumbers;
     property DrawCellCenterPoints: Boolean read FDrawCellCenterPoints write SetDrawCellCenterPoints;
+    property DrawCellConnection: Boolean read FDrawCellConnection write SetDrawCellConnection;
     Property NumberFont: TFont read FNumberFont write SetNumberFont;
     procedure GetElementsIntfOnCrossSection(ElementList: TIElement2DList);
     procedure UpdateMeshType;
@@ -2859,6 +2867,42 @@ begin
 
 end;
 
+procedure TModflowIrregularGrid2D.DrawConnections(const BitMap: TPersistent;
+  const ZoomBox: TQRbwZoomBox2);
+var
+  ACell: TModflowIrregularCell2D;
+  CellList: TMFIrregularCell2D_List;
+  AnotherCell: TModflowIrregularCell2D;
+  Points: array of TPoint;
+  APoint: TPoint2D;
+begin
+  SetLength(Points, 2);
+  CellList := TMFIrregularCell2D_List.Create;
+  try
+    for var CellIndex := 0 to Cells.Count - 1 do
+    begin
+      ACell := Cells[CellIndex];
+      APoint := ACell.Center;
+      Points[0].x := ZoomBox.XCoord(APoint.x);
+      Points[0].y := ZoomBox.YCoord(APoint.y);
+      ACell.GetNeighbors(CellList);
+      for var InnerCellIndex := 0 to CellList.Count - 1 do
+      begin
+        AnotherCell := CellList[InnerCellIndex];
+        if ACell.FElementNumber < AnotherCell.FElementNumber then
+        begin
+          APoint := AnotherCell.Center;
+          Points[1].x := ZoomBox.XCoord(APoint.x);
+          Points[1].y := ZoomBox.YCoord(APoint.y);
+          DrawBigPolyline32(BitMap, clBlue32, 1, Points, True, True);
+        end;
+      end;
+    end;
+  finally
+    CellList.Free
+  end;
+end;
+
 procedure TModflowIrregularGrid2D.DrawTop(const BitMap: TPersistent;
   const ZoomBox: TQRbwZoomBox2);
 var
@@ -2886,6 +2930,11 @@ begin
     DrawCells(StringValues, ColorDataArray, ZoomBox, BitMap);
   finally
     StringValues.free;
+  end;
+
+  if DrawCellConnection then
+  begin
+    DrawConnections(BitMap, ZoomBox);
   end;
 
   DrawTopContours(ZoomBox, BitMap);
@@ -4475,6 +4524,11 @@ end;
 procedure TModflowIrregularGrid2D.SetDrawCellCenterPoints(const Value: Boolean);
 begin
   FDrawCellCenterPoints := Value;
+end;
+
+procedure TModflowIrregularGrid2D.SetDrawCellConnection(const Value: Boolean);
+begin
+  FDrawCellConnection := Value;
 end;
 
 procedure TModflowIrregularGrid2D.SetDrawCellNumbers(const Value: Boolean);
@@ -7897,6 +7951,12 @@ begin
   TwoDGrid.DrawCellCenterPoints := Value;
 end;
 
+procedure TModflowDisvGrid.SetDrawCellConnection(const Value: Boolean);
+begin
+  FDrawCellConnection := Value;
+  TwoDGrid.DrawCellConnection := Value;
+end;
+
 procedure TModflowDisvGrid.SetDrawCellNumbers(const Value: Boolean);
 begin
   TwoDGrid.DrawCellNumbers := Value;
@@ -7919,7 +7979,8 @@ end;
 
 procedure TModflowDisvGrid.SetFrontContourDataSet(const Value: TDataArray);
 begin
-
+  // there is no front contour data set for a DISV grid.
+  // front contour data sets are only for PHAST models.
 end;
 
 procedure TModflowDisvGrid.SetFrontDataSet(const Value: TDataArray);

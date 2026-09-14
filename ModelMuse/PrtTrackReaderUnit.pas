@@ -4,7 +4,8 @@ interface
 
 uses
   System.Classes, GoPhastTypes, System.AnsiStrings, System.IOUtils,
-  System.SysUtils, System.Generics.Collections, IntListUnit;
+  System.SysUtils, System.Generics.Collections, IntListUnit, System.Math,
+  System.Generics.Defaults;
 
 type
   TPrtTrackPointRecord = record
@@ -135,6 +136,7 @@ type
     procedure SetTrackPoint(Index: Integer; const Value: TPrtTrackPoint);
     function Get_IPRP: Integer;
     function Get_IRPT: Integer;
+    function GetReleaseTime: double;
   public
     Constructor Create;
     destructor Destroy; override;
@@ -145,12 +147,14 @@ type
     property Items[Index: Integer]: TPrtTrackPoint read GetTrackPoint write SetTrackPoint; default;
     property IPRP: Integer read Get_IPRP;
     property IRPT: Integer read Get_IRPT;
+    property ReleaseTime: double read GetReleaseTime;
     function TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;
     function HasZone(AZone: Integer): Boolean;
   end;
 
   TPrtTrackList = TList<TPrtTrack>;
-  TPrtTrackLists = TObjectList<TPrtTrackList>;
+  TPrtTrackIntermediateList = TObjectList<TPrtTrackList>;
+  TPrtTrackLists = TObjectList<TPrtTrackIntermediateList>;
 
   TPrtTrackItem = class(TCollectionItem)
   private
@@ -170,7 +174,7 @@ type
     FZones: TIntegerCollection;
     FSpecifiedTimes: TRealCollection;
     FFileName: string;
-    function GetTrack(IPRP, IRPT: Integer): TPrtTrack;
+    function NewGetTrack(IPRP, IRPT: Integer; ReleaseTime: double): TPrtTrack;
     function GetIprpCount: Integer;
     function GetIrptCount(IPRP: Integer): Integer;
     function GetHasData: Boolean;
@@ -178,6 +182,8 @@ type
     function GetSpecifiedTimes: TRealCollection;
     function GetMaxLineNumber: Integer;
     procedure SortTracks;
+    function GetIrptReleaseTimeCount(IPRP, IRPT, ReleaseTimeIndex: Integer): Integer;
+    function GetReleaseCount(IPRP, IRPT: Integer): Integer;
   public
     property HasData: Boolean read GetHasData;
     procedure Clear;
@@ -189,9 +195,12 @@ type
     procedure Assign(Source: TPersistent); override;
     procedure ReadFromCsv(const FileName: string);
     procedure ReadFromBinary(const FileName: string);
-    property Tracks[IPRP, IRPT: Integer]: TPrtTrack read GetTrack; default;
+    property Tracks[IPRP, IRPT: Integer; ReleaseTime: double]: TPrtTrack read NewGetTrack; default;
+//    property Tracks[IPRP, IRPT: Integer]: TPrtTrack read NGetTrack; default;
     property IprpCount: Integer read GetIprpCount;
     property IrptCount[IPRP: Integer]: Integer read GetIrptCount;
+    property ReleaseCount[IPRP, IRPT: Integer]: Integer read GetReleaseCount;
+
     function TestGetMinMaxTime(var MinTime, Maxtime: double): boolean;
     property Zones: TIntegerCollection read GetZones;
     property SpecifiedTimes: TRealCollection read GetSpecifiedTimes;
@@ -549,6 +558,18 @@ begin
   Result := Items[0];
 end;
 
+function TPrtTrack.GetReleaseTime: double;
+begin
+  if Count > 0 then
+  begin
+    result := First.TRELEASE;
+  end
+  else
+  begin
+    result := -1
+  end;
+end;
+
 function TPrtTrack.GetTrackPoint(Index: Integer): TPrtTrackPoint;
 begin
   result := inherited Items[Index] as TPrtTrackPoint;
@@ -699,6 +720,19 @@ begin
   end;
 end;
 
+
+function TPrtTracks.GetIrptReleaseTimeCount(IPRP, IRPT, ReleaseTimeIndex: Integer): Integer;
+var
+  PrtTrack: TPrtTrack;
+begin
+  result := -1;
+  PrtTrack := Tracks[IPRP, IRPT, ReleaseTimeIndex];
+  if PrtTrack <> nil then
+  begin
+    result := PrtTrack.Count;
+  end;
+end;
+
 function TPrtTracks.GetMaxLineNumber: Integer;
 var
   TestNumber: Integer;
@@ -710,6 +744,26 @@ begin
     if TestNumber > result then
     begin
       result := TestNumber;
+    end;
+  end;
+end;
+
+function TPrtTracks.GetReleaseCount(IPRP, IRPT: Integer): Integer;
+var
+  IntermediateList: TPrtTrackIntermediateList;
+  TrackList: TPrtTrackList;
+begin
+  result := 0;
+  if IPRP < FTracks.Count then
+  begin
+    IntermediateList := FTracks[IPRP];
+    if (IntermediateList <> nil) and (IRPT < IntermediateList.Count) then
+    begin
+      TrackList := IntermediateList[IRPT];
+      if (TrackList <> nil) then
+      begin
+        result := TrackList.Count;
+      end;
     end;
   end;
 end;
@@ -726,18 +780,21 @@ begin
       RealList.Sorted := True;
       for var PrpIndex := 0 to IprpCount - 1 do
       begin
-        for var LineIndex := 0 to IrptCount[PrpIndex] - 1 do
+        for var ReleasePtIndex := 0 to IrptCount[PrpIndex] - 1 do
         begin
-          Track := Tracks[PrpIndex, LineIndex];
-          for var PointIndex := 0 to Track.Count - 1 do
+          for var ReleaseTimeIndex := 0 to ReleaseCount[PrpIndex,ReleasePtIndex]  - 1 do
           begin
-            // 5: user-specified tracking time
-            if Track[PointIndex].IREASON  = 5 then
+            Track := Tracks[PrpIndex, ReleasePtIndex, ReleaseTimeIndex];
+            for var PointIndex := 0 to Track.Count - 1 do
             begin
-              RealList.AddUnique(Track[PointIndex].T);
+              // 5: user-specified tracking time
+              if Track[PointIndex].IREASON  = 5 then
+              begin
+                RealList.AddUnique(Track[PointIndex].T);
+              end;
             end;
           end;
-        end;
+       end;
       end;
       FSpecifiedTimes := TRealCollection.Create(nil);
       for var PointIndex := 0 to RealList.Count - 1 do
@@ -751,26 +808,43 @@ begin
   result := FSpecifiedTimes;
 end;
 
-function TPrtTracks.GetTrack(IPRP, IRPT: Integer): TPrtTrack;
+function TPrtTracks.NewGetTrack(IPRP, IRPT: Integer; ReleaseTime: double): TPrtTrack;
 var
   TrackItem: TPrtTrackItem;
+  IntermediateTrackList: TPrtTrackIntermediateList;
   TrackList: TPrtTrackList;
+  ATrack: TPrtTrack;
 begin
   While IPRP >= FTracks.Count do
   begin
-    FTracks.Add(TPrtTrackList.Create);
+    FTracks.Add(TPrtTrackIntermediateList.Create);
   end;
-  TrackList := FTracks[IPRP];
-  While IRPT >= TrackList.Count do
+  IntermediateTrackList := FTracks[IPRP];
+  While IRPT >= IntermediateTrackList.Count do
   begin
-    TrackList.Add(nil);
+    IntermediateTrackList.Add(nil);
   end;
-  if TrackList[IRPT] = nil then
+  if IntermediateTrackList[IRPT] = nil then
+  begin
+    IntermediateTrackList[IRPT]:= TPrtTrackList.Create;
+  end;
+  TrackList := IntermediateTrackList[IRPT];
+  result := nil;
+  for var TimeIndex := 0 to TrackList.Count - 1 do
+  begin
+    ATrack := TrackList[TimeIndex];
+    if ATrack.ReleaseTime = ReleaseTime then
+    begin
+      result := ATrack;
+      Break;
+    end;
+  end;
+  if result = nil then
   begin
     TrackItem := Add as TPrtTrackItem;
-    TrackList[IRPT] := TrackItem.Track;
+    TrackList.Add(TrackItem.Track);
+    result := TrackItem.Track;
   end;
-  result := TrackList[IRPT];
 end;
 
 function TPrtTracks.GetZones: TIntegerCollection;
@@ -785,12 +859,15 @@ begin
       IntList.Sorted := True;
       for var PrpIndex := 0 to IprpCount - 1 do
       begin
-        for var LineIndex := 0 to IrptCount[PrpIndex] - 1 do
+        for var ReleasePointIndex := 0 to IrptCount[PrpIndex] - 1 do
         begin
-          Track := Tracks[PrpIndex, LineIndex];
-          for var PointIndex := 0 to Track.Count - 1 do
+          for var ReleaseTimeIndex := 0 to ReleaseCount[PrpIndex, ReleasePointIndex] - 1 do
           begin
-            IntList.AddUnique(Track[PointIndex].IZONE);
+            Track := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+            for var PointIndex := 0 to Track.Count - 1 do
+            begin
+              IntList.AddUnique(Track[PointIndex].IZONE);
+            end;
           end;
         end;
       end;
@@ -853,7 +930,7 @@ begin
   try
     While ABinaryFile.Read(PrtTrackPointRecord, SizeOf(TPrtTrackPointRecord)) > 0 do
     begin
-      Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT];
+      Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT, PrtTrackPointRecord.TRELEASE];
       ATrackPoint := Track.Add;
       ATrackPoint.AssignRecord(PrtTrackPointRecord);
       if Grid = nil then
@@ -872,7 +949,6 @@ begin
         ATrackPoint.Y := Point2D.Y;
       end;
       Track.FZones.AddUnique(PrtTrackPointRecord.IZONE);
-
     end;
   finally
     ABinaryFile.Free;
@@ -933,7 +1009,7 @@ begin
         PrtTrackPointRecord.YPrime := FortranStrToFloat(Splitter[13]);
         PrtTrackPointRecord.Z := FortranStrToFloat(Splitter[14]);
 
-        Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT];
+        Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT, PrtTrackPointRecord.TRELEASE];
         ATrackPoint := Track.Add;
         ATrackPoint.AssignRecord(PrtTrackPointRecord);
         if Grid = nil then
@@ -975,6 +1051,7 @@ procedure TPrtTracks.SortTracks;
 var
   ATrackItem: TPrtTrackItem;
   Track: TPrtTrack;
+  IntermediateList: TPrtTrackIntermediateList;
   TrackList: TPrtTrackList;
 begin
   FTracks.Clear;
@@ -994,19 +1071,34 @@ begin
     begin
       Continue;
     end;
-    While IprpCount <= Track.IPRP do
+    While FTracks.Count <= Track.IPRP do
     begin
-      FTracks.Add(TPrtTrackList.Create);
+      FTracks.Add(TPrtTrackIntermediateList.Create);
     end;
-    TrackList := FTracks[Track.IPRP];
-    Assert(TrackList <> nil);
-    while TrackList.Count <= Track.IRPT do
+    IntermediateList := FTracks[Track.IPRP];
+    Assert(IntermediateList <> nil);
+    while IntermediateList.Count <= Track.IRPT do
     begin
-      TrackList.Add(nil);
+      IntermediateList.Add(TPrtTrackList.Create);
     end;
-    Assert(TrackList[Track.IRPT] = nil);
-    TrackList[Track.IRPT] := Track;
+    TrackList := IntermediateList[Track.IRPT];
+    for var TrackIndex := 0 to TrackList.Count - 1 do
+    begin
+      if TrackList[TrackIndex].ReleaseTime = Track.ReleaseTime then
+      begin
+        Exit;
+      end;
+    end;
+    TrackList.Add(Track);
 
+//    TrackList := FTracks[Track.IPRP];
+//    Assert(TrackList <> nil);
+//    while TrackList.Count <= Track.IRPT do
+//    begin
+//      TrackList.Add(nil);
+//    end;
+//    Assert(TrackList[Track.IRPT] = nil);
+//    TrackList[Track.IRPT] := Track;
   end;
 end;
 
@@ -1019,32 +1111,36 @@ begin
   result := False;
   for var PrpIndex := 0 to IprpCount - 1 do
   begin
-    for var ParticleIndex := 0 to IrptCount[PrpIndex] - 1 do
+    for var ReleasePointIndex := 0 to IrptCount[PrpIndex] - 1 do
     begin
-      ATrack := Tracks[PrpIndex, ParticleIndex];
-      if ATrack.TestGetMinMaxTime(AValue1, AValue2) then
+      for var ReleaseTimeIndex := 0 to ReleaseCount[PrpIndex, ReleasePointIndex] - 1 do
       begin
-        if result then
+        ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+        if ATrack.TestGetMinMaxTime(AValue1, AValue2) then
         begin
-          if AValue2 > Maxtime then
+          if result then
           begin
+            if AValue2 > Maxtime then
+            begin
+              Maxtime := AValue2;
+            end;
+            if AValue1 < Mintime then
+            begin
+              Mintime := AValue1;
+            end;
+          end
+          else
+          begin
+            result := True;
             Maxtime := AValue2;
+            MinTime := AValue1;
           end;
-          if AValue1 < Mintime then
-          begin
-            Mintime := AValue1;
-          end;
-        end
-        else
-        begin
-          result := True;
-          Maxtime := AValue2;
-          MinTime := AValue1;
         end;
       end;
     end;
   end;
 end;
+
 
 
 end.

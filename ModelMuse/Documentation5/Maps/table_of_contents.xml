@@ -996,8 +996,11 @@
         <topicref type="topic" id="401538019140038" build="ALL" modified="2011-10-17T11:22:31.447Z" icon="0" href="MODPATH_Time_Series_Display">
           <caption translate="true">MODPATH Time Series Display Pane</caption>
         </topicref>
-        <topicref type="topic" id="462757794425246" build="ALL" modified="2026-09-10T13:59:03.442Z" icon="0" href="Prt-Tracks-Display-Pane">
-          <caption translate="true">Prt Tracks Display Pane</caption>
+        <topicref type="topic" id="462757794425246" build="ALL" modified="2026-09-11T09:08:40.482Z" icon="0" href="Prt-Tracks-Display-Pane">
+          <caption translate="true">PRT Tracks Display Pane</caption>
+          <topicref type="topic" id="462786044723748" build="ALL" modified="2026-09-13T12:46:45.951Z" icon="0" href="PRT-Choices-Dialog-Box">
+            <caption translate="true">PRT Choices Dialog Box</caption>
+          </topicref>
         </topicref>
         <topicref type="topic" id="407483930310218" build="ALL" modified="2011-10-17T11:22:47.090Z" icon="0" href="Head_Observation_Results">
           <caption translate="true">Head Observation Results Pane</caption>

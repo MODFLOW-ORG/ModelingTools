@@ -114,8 +114,8 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Width = 177
     Height = 26
     CheckMaxValue = False
-    MinValue = 1.000000000000000000
-    Value = 1.000000000000000000
+    MinValue = 1001.000000000000000000
+    Value = 1001.000000000000000000
     TabOrder = 2
   end
   object rdePolyGrowthRate: TRbwDataEntry

@@ -10602,6 +10602,10 @@ const
 //                each SWI zone.
 //               Enhancement: Added support for generating VOROGRIDGEN input
 //                files to generate DISV files for import into ModelMuse.
+//               Enhancement: ModelMuse can now drww a point at the nodal point
+//                of each cell in a DISV grid.
+//               Enhancement: ModelMuse can now drww lines connecting the nodal
+//                points of neighboring cells in a DISV mesh.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

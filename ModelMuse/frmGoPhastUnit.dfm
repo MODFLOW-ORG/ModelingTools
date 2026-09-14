@@ -682,7 +682,7 @@ inherited frmGoPhast: TfrmGoPhast
       end
     end
     object tbarEditGrid: TToolBar
-      Left = 165
+      Left = 422
       Top = 66
       Width = 212
       Height = 28
@@ -784,7 +784,7 @@ inherited frmGoPhast: TfrmGoPhast
       end
     end
     object tbarCreateScreenObject: TToolBar
-      Left = 390
+      Left = 165
       Top = 66
       Width = 244
       Height = 28
@@ -2003,6 +2003,9 @@ inherited frmGoPhast: TfrmGoPhast
       object mniShowCellCenterPoints: TMenuItem
         Action = actShowCellCenterPoints
         Caption = 'Show Cell Center Points'
+      end
+      object mniShowCellConnections: TMenuItem
+        Action = actShowCellConnections
       end
     end
     object miCustomize: TMenuItem
@@ -3816,6 +3819,10 @@ inherited frmGoPhast: TfrmGoPhast
     object actShowCellCenterPoints: TAction
       Caption = 'Action1'
       OnExecute = mniShowCellCenterPointsClick
+    end
+    object actShowCellConnections: TAction
+      Caption = 'Show Cell Connections'
+      OnExecute = mniShowCellConnectionsClick
     end
   end
   object ilDisabledImageList: TImageList

@@ -433,6 +433,8 @@ begin
   rdgSetLimits.BeginUpdate;
   try
     ClearGrid(rdgSetLimits);
+    rdgSetLimits.Cells[0,0] := StrLimitingFactor;
+    rdgSetLimits.Cells[1,0] := 'Choices';
     rdgSetLimits.RowCount := Succ(Ord(High(TTrackSetLimits)));
     for var Index := Low(TTrackSetLimits) to High(TTrackSetLimits) do
     begin

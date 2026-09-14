@@ -83,7 +83,12 @@ implementation
 
 uses
   PhastModelUnit, ScreenObjectUnit, frmGoPhastUnit, FastGEO,
-  ModelMuseUtilities;
+  ModelMuseUtilities, frmErrorsAndWarningsUnit, System.IOUtils;
+
+resourcestring
+  SObjectNameSectionNumber = 'Object Name: %s; Section Number : %d';
+  SObjectVertexNumber = 'Object: %s; Vertex number %d.';
+  SVerticesTooCloselySpacedInTheFol = 'Vertices too closely spaced in the following objects';
 
 Procedure RunVorGridGen(const Options: TVorogridGenOptions);
 var
@@ -110,6 +115,8 @@ var
   BaseName: string;
   FileName: string;
   BatchFile: TStringList;
+  Warnings: Boolean;
+  DisvFileName: string;
   function EncloseQuotes(AName: string): string;
   begin
     if Pos(' ', AName) > 0 then
@@ -121,7 +128,9 @@ var
       result := AName;
     end;
   end;
-  procedure AddLinesToBln;
+  procedure AddLinesToBln(AddID: Boolean = False);
+  var
+    SegmentDistance: double;
   begin
     for var PointIndex := AScreenObject.SectionStart[SecIndex] to AScreenObject.SectionEnd[SecIndex] do
     begin
@@ -132,10 +141,25 @@ var
         Separation := Item.Value;
       end;
       ALine := FloatToStr(APoint.x) + ' ' + FloatToStr(APoint.y) + ' ' + FloatToStr(Separation);
-      BlnFile.Add(ALine)
+      if AddID then
+      begin
+        ALine := ALine + Format(' ' + SObjectNameSectionNumber, [AScreenObject.Name, SecIndex+1]);
+      end;
+      BlnFile.Add(ALine);
+      if PointIndex < AScreenObject.SectionEnd[SecIndex] then
+      begin
+        SegmentDistance := Distance(APoint, AScreenObject.Points[PointIndex + 1]);
+        if SegmentDistance < Separation then
+        begin
+          Warnings := True;
+          frmErrorsAndWarnings.AddWarning(Model, SVerticesTooCloselySpacedInTheFol,
+            Format(SObjectVertexNumber, [AScreenObject.Name, PointIndex+1]), AScreenObject);
+        end;
+      end;
     end;
   end;
 begin
+  Warnings := False;
   OldDecimalSeparator := FormatSettings.DecimalSeparator;
   PolygonObjects := TScreenObjectList.Create;
   LineObjects := TScreenObjectList.Create;
@@ -147,11 +171,12 @@ begin
     BaseName := ChangeFileExt(Options.BaseFileName, '');
     FormatSettings.DecimalSeparator := '.';
     Model := frmGoPhast.PhastModel;
+    frmErrorsAndWarnings.RemoveWarningGroup(Model, SVerticesTooCloselySpacedInTheFol);
     BoundaryObject := nil;
     for var Index := 0 to Model.ScreenObjectCount- 1 do
     begin
       AScreenObject := Model.ScreenObjects[Index];
-      if AScreenObject.StoredCentroidSeparation.Value > 0 then
+      if (AScreenObject.StoredCentroidSeparation.Value > 0) and not AScreenObject.Deleted then
       begin
         if AScreenObject.Closed then
         begin
@@ -206,11 +231,20 @@ begin
         for SecIndex := 0 to AScreenObject.SectionCount - 1 do
         begin
           BlnFile.Clear;
+//          BlnFile.Add(Format(SObjectNameSectionNumber, [AScreenObject.Name, SecIndex+1]));
           if SecIndex = BoundarySectionIndex then
           begin
             BlnFile.Add(AScreenObject.SectionLength[SecIndex].ToString);
             AddLinesToBln;
-            FileName := BaseName + '_outer_boundary.bln';
+            if AScreenObject.SectionCount > 1 then
+            begin
+              FileName := BaseName + '_' + AScreenObject.Name + '_' + 'Section_' + (SecIndex+1).ToString + '_outer_boundary.bln';
+            end
+            else
+            begin
+              FileName := BaseName +  '_' + AScreenObject.Name + '_outer_boundary.bln';
+            end;
+
             BlnFile.SaveToFile(FileName);
             ControlFile.Add('START OUTER_BOUNDARY');
             ControlFile.Add('  bln_file=' + ExtractFileName(FileName));
@@ -222,7 +256,15 @@ begin
             Inc(BoundaryIndex);
             BlnFile.Add(AScreenObject.SectionLength[SecIndex].ToString);
             AddLinesToBln;
-            FileName := BaseName + Format('_inner_boundary_%d.bln', [BoundaryIndex]);
+            if AScreenObject.SectionCount > 1 then
+            begin
+              FileName := BaseName + '_' + AScreenObject.Name + '_' + 'Section_' + (SecIndex+1).ToString + Format('_inner_boundary_%d.bln', [BoundaryIndex]);
+            end
+            else
+            begin
+              FileName := BaseName +  '_' + AScreenObject.Name + Format('_inner_boundary_%d.bln', [BoundaryIndex]);
+            end;
+//            FileName := BaseName + Format('_inner_boundary_%d.bln', [BoundaryIndex]);
             BlnFile.SaveToFile(FileName);
             ControlFile.Add('START INNER_BOUNDARY');
             ControlFile.Add('  bln_file=' + ExtractFileName(FileName));
@@ -234,7 +276,15 @@ begin
             Inc(LineIndex);
             BlnFile.Add(AScreenObject.SectionLength[SecIndex].ToString);
             AddLinesToBln;
-            FileName := BaseName + Format('_line_%d.bln', [LineIndex]);
+            if AScreenObject.SectionCount > 1 then
+            begin
+              FileName := BaseName + '_' + AScreenObject.Name + '_' + 'Section_' + (SecIndex+1).ToString + Format('_line_%d.bln', [LineIndex]);
+            end
+            else
+            begin
+              FileName := BaseName +  '_' + AScreenObject.Name + Format('_line_%d.bln', [LineIndex]);
+            end;
+//            FileName := BaseName + Format('_line_%d.bln', [LineIndex]);
             BlnFile.SaveToFile(FileName);
             ControlFile.Add('START INNER_LINE');
             ControlFile.Add('  numline=1');
@@ -249,12 +299,21 @@ begin
         for SecIndex := 0 to AScreenObject.SectionCount - 1 do
         begin
           BlnFile.Clear;
+//          BlnFile.Add(Format('Object Name: %s; Section Number : %d', [AScreenObject.Name, SecIndex+1]));
           if AScreenObject.SectionClosed[SecIndex] then
           begin
             Inc(PolygonIndex);
             BlnFile.Add(AScreenObject.SectionLength[SecIndex].ToString);
             AddLinesToBln;
-            FileName := BaseName + Format('_poly_%d.bln', [PolygonIndex]);
+            if AScreenObject.SectionCount > 1 then
+            begin
+              FileName := BaseName + '_' + AScreenObject.Name + '_' + 'Section_' + (SecIndex+1).ToString + Format('_poly_%d.bln', [PolygonIndex]);
+            end
+            else
+            begin
+              FileName := BaseName +  '_' + AScreenObject.Name + Format('_poly_%d.bln', [PolygonIndex]);
+            end;
+//            FileName := BaseName + Format('_poly_%d.bln', [PolygonIndex]);
             BlnFile.SaveToFile(FileName);
             ControlFile.Add('START INNER_POLYGON');
             ControlFile.Add('  bln_file=' + ExtractFileName(FileName));
@@ -267,7 +326,15 @@ begin
             Inc(LineIndex);
             BlnFile.Add(AScreenObject.SectionLength[SecIndex].ToString);
             AddLinesToBln;
-            FileName := BaseName + Format('_line_%d.bln', [LineIndex]);
+            if AScreenObject.SectionCount > 1 then
+            begin
+              FileName := BaseName + '_' + AScreenObject.Name + '_' + 'Section_' + (SecIndex+1).ToString + Format('_line_%d.bln', [LineIndex]);
+            end
+            else
+            begin
+              FileName := BaseName +  '_' + AScreenObject.Name + Format('_line_%d.bln', [LineIndex]);
+            end;
+//            FileName := BaseName + Format('_line_%d.bln', [LineIndex]);
             BlnFile.SaveToFile(FileName);
             ControlFile.Add('START INNER_LINE');
             ControlFile.Add('  numline=1');
@@ -285,12 +352,21 @@ begin
       for SecIndex := 0 to AScreenObject.SectionCount - 1 do
       begin
         BlnFile.Clear;
+//        BlnFile.Add(Format('Object Name: %s; Section Number : %d', [AScreenObject.Name, SecIndex+1]));
         if AScreenObject.SectionLength[SecIndex] > 1 then
         begin
           Inc(LineIndex);
           BlnFile.Add(AScreenObject.SectionLength[SecIndex].ToString);
           AddLinesToBln;
-          FileName := BaseName + Format('_line_%d.bln', [LineIndex]);
+            if AScreenObject.SectionCount > 1 then
+            begin
+              FileName := BaseName + '_' + AScreenObject.Name + '_' + 'Section_' + (SecIndex+1).ToString + Format('_line_%d.bln', [LineIndex]);
+            end
+            else
+            begin
+              FileName := BaseName +  '_' + AScreenObject.Name + Format('_line_%d.bln', [LineIndex]);
+            end;
+//          FileName := BaseName + Format('_line_%d.bln', [LineIndex]);
           BlnFile.SaveToFile(FileName);
           ControlFile.Add('START INNER_LINE');
           ControlFile.Add('  numline=1');
@@ -309,7 +385,7 @@ begin
       begin
         if AScreenObject.SectionLength[SecIndex] = 1 then
         begin
-          AddLinesToBln;
+          AddLinesToBln(True);
         end;
       end;
     end;
@@ -321,7 +397,7 @@ begin
       begin
         if AScreenObject.SectionLength[SecIndex] = 1 then
         begin
-          AddLinesToBln;
+          AddLinesToBln(True);
         end;
       end;
     end;
@@ -331,7 +407,7 @@ begin
       Separation := AScreenObject.StoredCentroidSeparation.Value;
       for SecIndex := 0 to AScreenObject.SectionCount - 1 do
       begin
-        AddLinesToBln;
+        AddLinesToBln(True);
       end;
     end;
     if BlnFile.Count > 0 then
@@ -388,7 +464,18 @@ begin
     FileName := IncludeTrailingPathDelimiter(ExtractFileDir(BaseName)) + 'RunVoroGridGen.Bat';
     BatchFile.SaveToFile(FileName);
 
+    DisvFileName := BaseName + '.disv';
+    if TFile.Exists(DisvFileName) then
+    begin
+      TFile.Delete(DisvFileName);
+    end;
+
     RunAProgram('"' + FileName + '"');
+
+    if Warnings then
+    begin
+      frmErrorsAndWarnings.ShowAfterDelay;
+    end;
 
   finally
     PolygonObjects.Free;

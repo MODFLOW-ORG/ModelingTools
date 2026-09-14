@@ -36382,5 +36382,24 @@ object TTaskHistory
         'Graphics'
         'Dialog boxes'
         'PRT')
+    end
+    item
+      Date = 46276.000000000000000000
+      Categories.Strings = (
+        'Documentation'
+        'Graphics'
+        'Dialog boxes'
+        'PRT')
+    end
+    item
+      Date = 46277.000000000000000000
+      Categories.Strings = (
+        'PRT')
+    end
+    item
+      Date = 46278.000000000000000000
+      Categories.Strings = (
+        'Documentation'
+        'PRT')
     end>
 end

@@ -572,6 +572,8 @@ type
     actVOROGRIDGEN: TAction;
     mniShowCellCenterPoints: TMenuItem;
     actShowCellCenterPoints: TAction;
+    mniShowCellConnections: TMenuItem;
+    actShowCellConnections: TAction;
     procedure tbUndoClick(Sender: TObject);
     procedure acUndoExecute(Sender: TObject);
     procedure tbRedoClick(Sender: TObject);
@@ -787,6 +789,7 @@ type
     procedure dlgOpenImportDisvClose(Sender: TObject);
     procedure dlgOpenImportDisvShow(Sender: TObject);
     procedure mniShowCellCenterPointsClick(Sender: TObject);
+    procedure mniShowCellConnectionsClick(Sender: TObject);
   private
     FDefaultCreateArchive: TDefaultCreateArchive;
     FCreateArchive: Boolean;
@@ -4518,6 +4521,7 @@ begin
   miDISV.Visible := DisvUsed;
   acShowCellNumbers.Visible := DisvUsed;
   actShowCellCenterPoints.Visible := DisvUsed;
+  actShowCellConnections.Visible := DisvUsed;
   tbarEditDisv.Visible := DisvUsed;
   if tbarEditDisv.Visible then
   begin
@@ -16000,6 +16004,24 @@ begin
     else
     begin
       actShowCellCenterPoints.Caption := 'Show Cell Center Points';
+    end;
+    InvalidateImage32AllViews;
+  end;
+end;
+
+procedure TfrmGoPhast.mniShowCellConnectionsClick(Sender: TObject);
+begin
+  inherited;
+  if DisvUsed then
+  begin
+    DisvGrid.DrawCellConnection := not DisvGrid.DrawCellConnection;
+    if DisvGrid.DrawCellConnection then
+    begin
+      actShowCellConnections.Caption := 'Hide Cell Connections';
+    end
+    else
+    begin
+      actShowCellConnections.Caption := 'Show Cell Connections';
     end;
     InvalidateImage32AllViews;
   end;
