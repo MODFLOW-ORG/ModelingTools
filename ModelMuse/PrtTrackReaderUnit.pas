@@ -174,7 +174,7 @@ type
     FZones: TIntegerCollection;
     FSpecifiedTimes: TRealCollection;
     FFileName: string;
-    function NewGetTrack(IPRP, IRPT: Integer; ReleaseTime: double): TPrtTrack;
+    function NewGetTrack(IPRP, IRPT, ReleaseTimeIndex: Integer): TPrtTrack;
     function GetIprpCount: Integer;
     function GetIrptCount(IPRP: Integer): Integer;
     function GetHasData: Boolean;
@@ -184,6 +184,9 @@ type
     procedure SortTracks;
     function GetIrptReleaseTimeCount(IPRP, IRPT, ReleaseTimeIndex: Integer): Integer;
     function GetReleaseCount(IPRP, IRPT: Integer): Integer;
+    function GetTrackList(IPRP, IRPT: Integer): TPrtTrackList;
+    function GetTrackByTime(IPRP, IRPT: Integer;
+      ReleaseTime: double): TPrtTrack;
   public
     property HasData: Boolean read GetHasData;
     procedure Clear;
@@ -195,8 +198,10 @@ type
     procedure Assign(Source: TPersistent); override;
     procedure ReadFromCsv(const FileName: string);
     procedure ReadFromBinary(const FileName: string);
-    property Tracks[IPRP, IRPT: Integer; ReleaseTime: double]: TPrtTrack read NewGetTrack; default;
-//    property Tracks[IPRP, IRPT: Integer]: TPrtTrack read NGetTrack; default;
+    property Tracks[IPRP, IRPT, ReleaseTimeIndex: Integer]: TPrtTrack read NewGetTrack; default;
+    property TrackList[IPRP, IRPT: Integer]: TPrtTrackList read GetTrackList;
+    property TrackByTime[IPRP, IRPT: Integer; ReleaseTime: double]: TPrtTrack read GetTrackByTime;
+//    property Tracks[IPRP, IRPT: Integer]: TPrtTrack read NGetTrack; default;           ;
     property IprpCount: Integer read GetIprpCount;
     property IrptCount[IPRP: Integer]: Integer read GetIrptCount;
     property ReleaseCount[IPRP, IRPT: Integer]: Integer read GetReleaseCount;
@@ -808,12 +813,33 @@ begin
   result := FSpecifiedTimes;
 end;
 
-function TPrtTracks.NewGetTrack(IPRP, IRPT: Integer; ReleaseTime: double): TPrtTrack;
+function TPrtTracks.GetTrackByTime(IPRP, IRPT: Integer;
+  ReleaseTime: double): TPrtTrack;
 var
-  TrackItem: TPrtTrackItem;
+  ATrackList: TPrtTrackList;
+begin
+  ATrackList := TrackList[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT];
+  result := nil;
+  for var TrackIndex := 0 to ATrackList.Count - 1 do
+  begin                                                                                       var
+    ATrack := ATrackList[TrackIndex];
+    if ATrack.ReleaseTime = PrtTrackPointRecord.TRELEASE then
+    begin
+      result := ATrack;
+      Exit;
+    end;
+  end;
+  if result = nil then
+  begin
+    TrackItem := Add as TPrtTrackItem;
+    ATrackList.Add(TrackItem.result);
+    result := TrackItem.result;
+  end;
+end;
+
+function TPrtTracks.GetTrackList(IPRP, IRPT: Integer): TPrtTrackList;
+var
   IntermediateTrackList: TPrtTrackIntermediateList;
-  TrackList: TPrtTrackList;
-  ATrack: TPrtTrack;
 begin
   While IPRP >= FTracks.Count do
   begin
@@ -828,23 +854,44 @@ begin
   begin
     IntermediateTrackList[IRPT]:= TPrtTrackList.Create;
   end;
-  TrackList := IntermediateTrackList[IRPT];
-  result := nil;
-  for var TimeIndex := 0 to TrackList.Count - 1 do
+  result := IntermediateTrackList[IRPT];
+
+end;
+
+function TPrtTracks.NewGetTrack(IPRP, IRPT, ReleaseTimeIndex: Integer): TPrtTrack;
+var
+  TrackItem: TPrtTrackItem;
+//  IntermediateTrackList: TPrtTrackIntermediateList;
+  ATrackList: TPrtTrackList;
+  ATrack: TPrtTrack;
+begin
+//  While IPRP >= FTracks.Count do
+//  begin
+//    FTracks.Add(TPrtTrackIntermediateList.Create);
+//  end;
+//  IntermediateTrackList := FTracks[IPRP];
+//  While IRPT >= IntermediateTrackList.Count do
+//  begin
+//    IntermediateTrackList.Add(nil);
+//  end;
+//  if IntermediateTrackList[IRPT] = nil then
+//  begin
+//    IntermediateTrackList[IRPT]:= TPrtTrackList.Create;
+//  end;
+  ATrackList := TrackList[IPRP,IRPT];
+  while ReleaseTimeIndex >= ATrackList.Count do
   begin
-    ATrack := TrackList[TimeIndex];
-    if ATrack.ReleaseTime = ReleaseTime then
-    begin
-      result := ATrack;
-      Break;
-    end;
+    ATrackList.Add(nil);
   end;
+  result := ATrackList[ReleaseTimeIndex];
   if result = nil then
   begin
     TrackItem := Add as TPrtTrackItem;
-    TrackList.Add(TrackItem.Track);
+    ATrackList[ReleaseTimeIndex] := TrackItem.Track;
+    ATrackList.Add(TrackItem.Track);
     result := TrackItem.Track;
   end;
+
 end;
 
 function TPrtTracks.GetZones: TIntegerCollection;
@@ -901,6 +948,8 @@ var
   XPrime: double;
   YPrime: Double;
   Point2D: TPoint2D;
+  ATrackList: TPrtTrackList;
+  TrackItem: TPrtTrackItem;
 begin
   Clear;
   Model := IGlobalModel as TPhastModel;
@@ -930,7 +979,7 @@ begin
   try
     While ABinaryFile.Read(PrtTrackPointRecord, SizeOf(TPrtTrackPointRecord)) > 0 do
     begin
-      Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT, PrtTrackPointRecord.TRELEASE];
+      Track := TrackByTime[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT, PrtTrackPointRecord.TRELEASE];
       ATrackPoint := Track.Add;
       ATrackPoint.AssignRecord(PrtTrackPointRecord);
       if Grid = nil then
@@ -954,6 +1003,7 @@ begin
     ABinaryFile.Free;
   end;
   FFileName := FileName;
+//  SortTracks;
 end;
 
 procedure TPrtTracks.ReadFromCsv(const FileName: string);
@@ -969,6 +1019,8 @@ var
   XPrime: double;
   YPrime: Double;
   Point2D: TPoint2D;
+  ATrackList: TPrtTrackList;
+  TrackItem: TPrtTrackItem;
 begin
   Clear;
   Model := IGlobalModel as TPhastModel;
@@ -1009,7 +1061,7 @@ begin
         PrtTrackPointRecord.YPrime := FortranStrToFloat(Splitter[13]);
         PrtTrackPointRecord.Z := FortranStrToFloat(Splitter[14]);
 
-        Track := Tracks[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT, PrtTrackPointRecord.TRELEASE];
+        Track := TrackByTime[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT, PrtTrackPointRecord.TRELEASE];
         ATrackPoint := Track.Add;
         ATrackPoint.AssignRecord(PrtTrackPointRecord);
         if Grid = nil then
@@ -1045,6 +1097,7 @@ begin
     Splitter.Free;
   end;
   FFileName := FileName;
+//  SortTracks;
 end;
 
 procedure TPrtTracks.SortTracks;
