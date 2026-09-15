@@ -2,21 +2,21 @@ object framePrtDisplay: TframePrtDisplay
   Left = 0
   Top = 0
   Width = 502
-  Height = 486
+  Height = 524
   TabOrder = 0
   object pcMain: TPageControl
     Left = 0
     Top = 0
     Width = 502
-    Height = 486
-    ActivePage = tabOptions
+    Height = 524
+    ActivePage = tabBasic
     Align = alClient
     TabOrder = 0
     object tabBasic: TTabSheet
       Caption = 'Basic'
       DesignSize = (
         494
-        456)
+        494)
       object lblPrtTracklineFile: TLabel
         Left = 8
         Top = 8
@@ -164,8 +164,8 @@ object framePrtDisplay: TframePrtDisplay
         OnChange = seCyclesChange
       end
       object btnColorSchemes: TButton
-        Left = 351
-        Top = 200
+        Left = 346
+        Top = 195
         Width = 132
         Height = 41
         Anchors = [akRight, akBottom]
@@ -223,7 +223,7 @@ object framePrtDisplay: TframePrtDisplay
         Left = 0
         Top = 102
         Width = 177
-        Height = 354
+        Height = 392
         Align = alLeft
         Caption = 'Color by'
         ItemIndex = 0
@@ -245,8 +245,7 @@ object framePrtDisplay: TframePrtDisplay
           'log(Time)'
           'Status'
           'Reason'
-          'Zone'
-          'Line through Zone')
+          'Zone')
         TabOrder = 1
         OnClick = rgColorByClick
       end
@@ -254,7 +253,7 @@ object framePrtDisplay: TframePrtDisplay
         Left = 177
         Top = 102
         Width = 317
-        Height = 354
+        Height = 392
         Align = alClient
         Caption = 'pnl1'
         TabOrder = 2
@@ -262,7 +261,7 @@ object framePrtDisplay: TframePrtDisplay
           Left = 1
           Top = 1
           Width = 5
-          Height = 352
+          Height = 390
           ExplicitTop = 6
           ExplicitHeight = 347
         end
@@ -270,13 +269,13 @@ object framePrtDisplay: TframePrtDisplay
           Left = 6
           Top = 1
           Width = 310
-          Height = 352
+          Height = 390
           Align = alClient
           Caption = 'pnl2'
           TabOrder = 0
           object spl1: TSplitter
             Left = 1
-            Top = 193
+            Top = 225
             Width = 308
             Height = 5
             Cursor = crVSplit
@@ -288,7 +287,7 @@ object framePrtDisplay: TframePrtDisplay
             Left = 1
             Top = 1
             Width = 308
-            Height = 192
+            Height = 224
             Align = alTop
             ColCount = 3
             FixedCols = 0
@@ -386,9 +385,9 @@ object framePrtDisplay: TframePrtDisplay
           end
           object rdgSetLimits: TRbwDataGrid4
             Left = 1
-            Top = 198
+            Top = 230
             Width = 308
-            Height = 153
+            Height = 159
             Align = alClient
             ColCount = 2
             FixedCols = 0
@@ -457,6 +456,9 @@ object framePrtDisplay: TframePrtDisplay
                 AutoAdjustColWidths = True
               end>
             WordWrapRowCaptions = False
+            ColWidths = (
+              64
+              64)
           end
         end
       end

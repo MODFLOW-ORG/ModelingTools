@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" status="" lasteditedby="rbwin" modified="2026-09-13T12:46:45.947-04:00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
-  <title>PRT Choices Dialog Box</title>
+<topic template="Default" modified="2026-09-15T12:27:05.653-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">PRT Choices Dialog Box</title>
   <body>
-    <header><para styleclass="Heading1">PRT Choices Dialog Box</para></header>
-    <para styleclass="Normal">Enter topic text here.</para>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">PRT Choices Dialog Box</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The </text><text styleclass="Strong" translate="true">PRT Choices</text><text styleclass="Normal" translate="true"> dialog box is used for selecting from among the available choices in the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Prt-Tracks-Display-Pane" anchor="LimitByChoices" styleclass="Strong" translate="true">Limit by Choices table</link><text styleclass="Normal" translate="true"> in the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Prt-Tracks-Display-Pane" styleclass="Strong" translate="true">PRT Tracks Display Pane</link><text styleclass="Normal" translate="true">. The </text><text styleclass="Strong" translate="true">PRT Choices</text><text styleclass="Normal" translate="true"> dialog box is displayed by selecting the </text><text styleclass="Strong" translate="true">Edit</text><text styleclass="Normal" translate="true"> button in the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Prt-Tracks-Display-Pane" anchor="LimitByChoices" styleclass="Strong" translate="true">Limit by Choices table</link><text styleclass="Normal" translate="true">.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">When the </text><text styleclass="Strong" translate="true">PRT Choices</text><text styleclass="Normal" translate="true"> dialog box is displayed, it will contain a list of the available choices. The user selects from among these choices by checking the check boxes next to the names of the desired choices.</text></para>
   </body>
 </topic>

@@ -1,4 +1,6 @@
 inherited frmPrtChoices: TfrmPrtChoices
+  HelpType = htKeyword
+  HelpKeyword = 'PRT-Choices-Dialog-Box'
   Caption = 'PRT Choices'
   ClientHeight = 376
   ClientWidth = 558
@@ -14,8 +16,6 @@ inherited frmPrtChoices: TfrmPrtChoices
     Align = alBottom
     ParentColor = True
     TabOrder = 0
-    ExplicitTop = 152
-    ExplicitWidth = 414
     DesignSize = (
       558
       49)
@@ -28,7 +28,6 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkCancel
       NumGlyphs = 2
       TabOrder = 2
-      ExplicitLeft = 321
     end
     object btnOK: TBitBtn
       Left = 376
@@ -39,7 +38,6 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkOK
       NumGlyphs = 2
       TabOrder = 1
-      ExplicitLeft = 232
     end
     object btnHelp: TBitBtn
       Left = 287
@@ -50,7 +48,6 @@ inherited frmPrtChoices: TfrmPrtChoices
       Kind = bkHelp
       NumGlyphs = 2
       TabOrder = 0
-      ExplicitLeft = 143
     end
   end
   object rdgChoices: TRbwDataGrid4
@@ -98,8 +95,6 @@ inherited frmPrtChoices: TfrmPrtChoices
         AutoAdjustColWidths = False
       end>
     WordWrapRowCaptions = False
-    ExplicitTop = -4
-    ExplicitWidth = 383
     ColWidths = (
       406)
   end

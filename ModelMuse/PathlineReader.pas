@@ -1304,7 +1304,7 @@ The IREASON field indicates the reason the particle track record was saved:
     pcXPrime, pcYPrime, pcZ,
     pcStartXPrime, pcStartYPrime, pcStartZ,
     pcEndXPrime, pcEndYPrime, pcEndZ, pcPrp, pcReleaseTime, pcTime, pcLogTime,
-    pcStatus, pcReason, pcZone, pcLineZone);
+    pcStatus, pcReason, pcZone);
 
   TPrtColorLimits = class(TCustomColorLimits)
   private
@@ -10025,6 +10025,11 @@ begin
               if Show2DPrtPoint(APoint) then
               begin
                 DrawLine(APoint);
+                if (PriorPoint = nil) and (PointIndex = ATrack.Count - 1) then
+                begin
+                  ADisplayPoint := GetDisplayPoint(APoint);
+                  DrawPoint(ADisplayPoint);
+                end;
                 PriorPoint := APoint;
                 ShowPriorPoint := True;
               end
@@ -10033,6 +10038,8 @@ begin
                 ShowPriorPoint := False;
                 if PriorPoint <> nil then
                 begin
+                  ADisplayPoint := GetDisplayPoint(PriorPoint);
+                  DrawPoint(ADisplayPoint);
                   if PriorPoint.T <> APoint.T then
                   begin
                     PriorPoint := nil;
@@ -10197,6 +10204,7 @@ var
   MinMaxFound: Boolean;
   ATrack: TPrtTrack;
   TrkPoint: TPrtTrackPoint;
+  Log10Value: double;
 begin
   LocalModel := FModel as TCustomModel;
   Grid := LocalModel.ModflowGrid;
@@ -10237,17 +10245,35 @@ begin
             end;
           end;
         end;
-      pcXPrime:
+      pcXPrime, pcStartXPrime, pcEndXPrime:
         begin
-          MinValue := Grid.ColumnPosition[0];
-          MaxValue := Grid.ColumnPosition[Grid.ColumnCount];
-        end;
-      pcYPrime:
+          if LocalModel.DisvUsed then
+          begin
+            MeshLimits := LocalModel.DisvGrid.MeshLimits(vdTop, 0);
+            MinValue := MeshLimits.MinX;
+            MaxValue := MeshLimits.MaxX;
+          end
+          else
+          begin
+            MinValue := Grid.ColumnPosition[0];
+            MaxValue := Grid.ColumnPosition[Grid.ColumnCount];
+           end;
+       end;
+      pcYPrime, pcStartYPrime, pcEndYPrime:
         begin
-          MaxValue := Grid.RowPosition[0];
-          MinValue := Grid.RowPosition[Grid.RowCount];
+          if LocalModel.DisvUsed then
+          begin
+            MeshLimits := LocalModel.DisvGrid.MeshLimits(vdTop, 0);
+            MinValue := MeshLimits.MinY;
+            MaxValue := MeshLimits.MaxY;
+          end
+          else
+          begin
+            MaxValue := Grid.RowPosition[0];
+            MinValue := Grid.RowPosition[Grid.RowCount];
+          end;
         end;
-      pcZ:
+      pcZ, pcStartZ, pcEndZ:
         begin
           if LocalModel.DisvUsed then
           begin
@@ -10330,6 +10356,46 @@ begin
                     MinValue := TrkPoint.T;
                     MaxValue := MinValue;
                     MinMaxFound := True;
+                  end;
+                end;
+              end;
+            end;
+          end;
+        end;
+      pcLogTime:
+        begin
+          MinMaxFound := False;
+          for var PrpIndex := 0 to Tracks.IprpCount - 1 do
+          begin
+            for var ReleasePointIndex := 0 to Tracks.IrptCount[PrpIndex] - 1 do
+            begin
+              for var ReleaseTimeIndex := 0 to Tracks.ReleaseCount[PrpIndex,ReleasePointIndex]  - 1 do
+              begin
+                ATrack := Tracks[PrpIndex, ReleasePointIndex, ReleaseTimeIndex];
+                for var PointIndex := 0 to ATrack.Count - 1 do
+                begin
+                  TrkPoint := ATrack[PointIndex];
+                  if TrkPoint.T > 0 then
+                  begin
+                    Log10Value := Log10(TrkPoint.T);
+                    if MinMaxFound then
+                    begin
+                      if Log10Value < MinValue then
+                      begin
+                        MinValue := Log10Value;
+                      end
+                      else
+                      if Log10Value > MaxValue then
+                      begin
+                        MaxValue := Log10Value;
+                      end;
+                    end
+                    else
+                    begin
+                      MinValue := Log10Value;
+                      MaxValue := MinValue;
+                      MinMaxFound := True;
+                    end;
                   end;
                 end;
               end;
@@ -10775,10 +10841,9 @@ begin
     end;
   end;
   // APoint.IREASON = 5 means user specified tracking time
-  if PrtTrackDisplayLimits.SelectedTimeLimits.UseLimit
-    and (APoint.IREASON = 5) then
+  if PrtTrackDisplayLimits.SelectedTimeLimits.UseLimit then
   begin
-    result := (PrtTrackDisplayLimits.SelectedTimeLimits.UsedTimes.IndexOf(APoint.T) >= 0);
+    result := (APoint.IREASON = 5) and (PrtTrackDisplayLimits.SelectedTimeLimits.UsedTimes.IndexOf(APoint.T) >= 0);
     if not result then
     begin
       Exit;
@@ -10872,12 +10937,30 @@ begin
                         AColor := GetPointColor(MaxValue, MinValue, APoint);
                         AssignColor(AColor);
                         glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                      end
+                      else if PrtPointIndex = ATrack.Count - 1 then
+                      begin
+                        EndLine;
+                        glBegin(GL_POINTS);
+                        AColor := GetPointColor(MaxValue, MinValue, APoint);
+                        AssignColor(AColor);
+                        glVertex3f(APoint.XPrime, APoint.YPrime, APoint.Z);
+                        glEnd;
                       end;
                       ShowPriorPoint := True;
                       PriorPoint := APoint;
                     end
                     else
                     begin
+                      if ShowPriorPoint then
+                      begin
+                        EndLine;
+                        glBegin(GL_POINTS);
+                        AColor := GetPointColor(MaxValue, MinValue, PriorPoint);
+                        AssignColor(AColor);
+                        glVertex3f(PriorPoint.XPrime, PriorPoint.YPrime, PriorPoint.Z);
+                        glEnd;
+                      end;
                       ShowPriorPoint := False;
                       EndLine;
                     end;

@@ -2142,6 +2142,8 @@ begin
             TwoDMesh := LocalModel.DisvGrid.TwoDGrid;
             CellNumber := PrtTrackPoint.CellNumber-1;
             CellNumber := CellNumber mod TwoDMesh.ColumnCount;
+            Assert(CellNumber >= 0);
+            Assert(CellNumber < TwoDMesh.ColumnCount);
             ACell := TwoDMesh.Cells[CellNumber];
             Corner1.x := ACell.MinX;
             Corner1.y := ACell.MinY;

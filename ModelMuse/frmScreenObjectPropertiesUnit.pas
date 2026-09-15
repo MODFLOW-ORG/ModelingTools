@@ -8465,7 +8465,8 @@ begin
       end;
     end;
   end;
-  frameModpathParticles.SetObjectChoiceEnabled(ShouldEnable);
+  frameModpathParticles.ObjectChoiceEnabled := ShouldEnable;
+  framePRP.ObjectChoiceEnabled := ShouldEnable;
 end;
 
 procedure TfrmScreenObjectProperties.GetAdditionalUsedModels(const AScreenObjectList: TList);

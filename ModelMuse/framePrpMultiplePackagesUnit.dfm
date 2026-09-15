@@ -21,7 +21,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabTrackByStressPeriod
+    ActivePage = tabOptions
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -79,17 +79,15 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
           Left = 11
           Top = 45
           Width = 167
-          Height = 100
+          Height = 52
           DoubleBuffered = False
           Enabled = False
           ItemHeight = 17
           Items.Strings = (
-            'Binary budget file'
-            'CSV budget file'
             'Binary track file'
             'CSV track file')
           ParentDoubleBuffered = False
-          ScrollWidth = 121
+          ScrollWidth = 109
           TabOrder = 0
         end
         object chklstTrackEvents: TJvCheckListBox

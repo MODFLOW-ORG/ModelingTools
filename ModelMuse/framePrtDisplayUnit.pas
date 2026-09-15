@@ -24,9 +24,9 @@ resourcestring
   Column = 'Column';
   Times = 'Times';
   ReleaseTimes = 'Release Times';
-  LineNumber = 'Line Number';
+  LineNumber = 'Starting Point Number';
 
-  PrpPackage = 'Prp Package';
+  PrpPackage = 'PRP Package';
   Reason = 'Reason';
   Zone = 'Zone';
   Status = 'Status';
@@ -433,13 +433,13 @@ begin
   rdgSetLimits.BeginUpdate;
   try
     ClearGrid(rdgSetLimits);
-    rdgSetLimits.Cells[0,0] := StrLimitingFactor;
-    rdgSetLimits.Cells[1,0] := 'Choices';
     rdgSetLimits.RowCount := Succ(Ord(High(TTrackSetLimits)));
     for var Index := Low(TTrackSetLimits) to High(TTrackSetLimits) do
     begin
       rdgSetLimits.Cells[0,Ord(Index)] := TableSetCaptions[Index];
     end;
+    rdgSetLimits.Cells[0,0] := StrLimitingFactor;
+    rdgSetLimits.Cells[1,0] := 'Choices';
     rdgSetLimits.EndUpdate;
   finally
   end;
@@ -1000,7 +1000,7 @@ begin
         SetByteSetLimit(tlPrpPackage, PrtTrackDisplayLimits.PrpLimits);
         SetByteSetLimit(tlZone, PrtTrackDisplayLimits.ZoneLimits);
         SetStatusLimit(PrtTrackDisplayLimits.StatusLimit, tlStatus);
-        SetReasonLimit(PrtTrackDisplayLimits.ReasonLimits, tlSelectedTimes);
+        SetReasonLimit(PrtTrackDisplayLimits.ReasonLimits, tlReason);
         SetSelectedTimeLimit(PrtTrackDisplayLimits.SelectedTimeLimits, tlSelectedTimes);
         SetByteSetLimit(tlPassesThroughZone, PrtTrackDisplayLimits.ThroughZoneLimits);
      end;

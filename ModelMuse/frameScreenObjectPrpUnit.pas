@@ -57,8 +57,11 @@ type
     procedure StoreParticles(List: TScreenObjectEditCollection; SetAll: Boolean;
       ClearAll: Boolean);
     procedure DoPrpChanged;
+    function GetObjectChoiceEnabled: Boolean;
+    procedure SetObjectChoiceEnabled(const Value: Boolean);
     { Private declarations }
   public
+    property ObjectChoiceEnabled: Boolean read GetObjectChoiceEnabled write SetObjectChoiceEnabled;
     procedure GetData(List: TScreenObjectEditCollection);
     procedure SetData(List: TScreenObjectEditCollection; SetAll: boolean;
       ClearAll: boolean);
@@ -615,6 +618,11 @@ begin
   end;
 end;
 
+function TframeScreenObjectPrp.GetObjectChoiceEnabled: Boolean;
+begin
+  Result := frameModpathParticles.ObjectChoiceEnabled;
+end;
+
 procedure TframeScreenObjectPrp.InitializeControls;
 var
   PrtModels: TPrtModels;
@@ -756,6 +764,11 @@ begin
   end;
 
   StoreParticles(List, SetAll, ClearAll);
+end;
+
+procedure TframeScreenObjectPrp.SetObjectChoiceEnabled(const Value: Boolean);
+begin
+  frameModpathParticles.ObjectChoiceEnabled := Value;
 end;
 
 procedure TframeScreenObjectPrp.StoreParticles(List: TScreenObjectEditCollection;

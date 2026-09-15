@@ -345,10 +345,8 @@ begin
     cbUseParticleStopZones.Checked := PrtModel.ZoneUsed;
     cbRunAsSeparateSimulation.Checked := PrtModel.RunAsSeparateSimulation;
 
-    for FileItem in PrtModel.PrtOutputFiles do
-    begin
-      chklstOutputFiles.Checked[Ord(FileItem)] := True;
-    end;
+    chklstOutputFiles.Checked[Ord(pofBinaryTrack)] := pofBinaryTrack in PrtModel.PrtOutputFiles;
+    chklstOutputFiles.Checked[Ord(pofCsvTrack)] := pofCsvTrack in PrtModel.PrtOutputFiles;
 
     for TrackingOption in PrtModel.PrtTrackingOptions do
     begin
@@ -517,14 +515,15 @@ begin
   PrtModel.RunAsSeparateSimulation := cbRunAsSeparateSimulation.Checked;
 
   PrtOutputFiles := [];
-  for var Index := 0 to chklstOutputFiles.Items.Count -1 do
+  if chklstOutputFiles.Checked[Ord(pofBinaryTrack)] then
   begin
-    if chklstOutputFiles.Checked[Index] then
-    begin
-      Include(PrtOutputFiles, TPrtOutputFile(Index));
-    end;
+    Include(PrtOutputFiles, pofBinaryTrack);
   end;
-  PrtModel.PrtOutputFiles := PrtOutputFiles;
+  if chklstOutputFiles.Checked[Ord(pofCsvTrack)] then
+  begin
+    Include(PrtOutputFiles, pofCsvTrack);
+  end;
+
 
   PrtTrackingOptions := [];
   for var Index := 0 to chklstTrackEvents.Items.Count -1 do
@@ -606,6 +605,22 @@ begin
       if frameReleasePeriodData.Grid.ItemIndex[Ord(ppdcPrintSave), Index+1] >= 0 then
       begin
         PeriodData.OCMethod := TPrtOCMethod(frameReleasePeriodData.Grid.ItemIndex[Ord(ppdcPrintSave), Index+1]);
+        case PeriodData.OCMethod of
+          pomBoth:
+            begin
+              Include(PrtOutputFiles, pofBinaryBudget);
+              Include(PrtOutputFiles, pofoCsvBudget);
+            end;
+          pomPrint:
+            begin
+              Include(PrtOutputFiles, pofoCsvBudget);
+            end;
+          pomSave:
+            begin
+              Include(PrtOutputFiles, pofBinaryBudget);
+            end;
+          else Assert(False)
+        end;
       end;
 
       PeriodData.All := frameReleasePeriodData.Grid.Checked[Ord(ppdcAll), Index+1];
@@ -643,6 +658,7 @@ begin
       Inc(PeriodIndex);
     end;
   end;
+  PrtModel.PrtOutputFiles := PrtOutputFiles;
 end;
 
 procedure TframePrpMultiplePackages.SetMemoWidthDelta(const Value: Integer);

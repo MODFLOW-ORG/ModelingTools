@@ -1658,6 +1658,7 @@ document.write('</frameset>');
       <helpcontext-number href="PRT-Choices-Dialog-Box" value="4546"/>
       <helpcontext-number href="PRT-Particle-Tracking-Model" value="4540"/>
       <helpcontext-number href="Prt-Tracks-Display-Pane" value="4545"/>
+      <helpcontext-number href="Prt-Tracks-Display-Pane#LimitByChoices" value="4547"/>
       <helpcontext-number href="Pumping-Rate-Interpretation" value="4514"/>
       <helpcontext-number href="Quick_Start_Guide" value="3386"/>
       <helpcontext-number href="RadToDeg" value="1400"/>

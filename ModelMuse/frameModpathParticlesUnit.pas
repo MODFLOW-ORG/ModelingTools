@@ -107,6 +107,7 @@ type
     procedure EnableDeleteTimeButton;
     procedure SetMPathVersion(const Value: TMpathVersion);
     procedure EnableTimeControls;
+    procedure SetObjectChoiceEnabled(Value: Boolean);
     { Private declarations }
   public
     procedure UpdateRowCount;
@@ -118,7 +119,7 @@ type
     property TrackingDirection: TTrackingDirection read FTrackingDirection
       write SetTrackingDirection;
     property MPathVersion : TMpathVersion read FMPathVersion write SetMPathVersion;
-    procedure SetObjectChoiceEnabled(Value: Boolean);
+    property ObjectChoiceEnabled: Boolean read FObjectChoice write SetObjectChoiceEnabled;
     { Public declarations }
   end;
 

@@ -817,13 +817,14 @@ function TPrtTracks.GetTrackByTime(IPRP, IRPT: Integer;
   ReleaseTime: double): TPrtTrack;
 var
   ATrackList: TPrtTrackList;
+  TrackItem: TPrtTrackItem;
 begin
-  ATrackList := TrackList[PrtTrackPointRecord.IPRP, PrtTrackPointRecord.IRPT];
+  ATrackList := TrackList[IPRP, IRPT];
   result := nil;
   for var TrackIndex := 0 to ATrackList.Count - 1 do
   begin                                                                                       var
     ATrack := ATrackList[TrackIndex];
-    if ATrack.ReleaseTime = PrtTrackPointRecord.TRELEASE then
+    if ATrack.ReleaseTime = ReleaseTime then
     begin
       result := ATrack;
       Exit;
@@ -832,8 +833,8 @@ begin
   if result = nil then
   begin
     TrackItem := Add as TPrtTrackItem;
-    ATrackList.Add(TrackItem.result);
-    result := TrackItem.result;
+    ATrackList.Add(TrackItem.Track);
+    result := TrackItem.Track;
   end;
 end;
 

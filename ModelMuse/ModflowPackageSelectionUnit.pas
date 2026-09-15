@@ -3149,7 +3149,7 @@ Type
     ptoWeakSink, ptoUserTime, ptoDropped);
   TPrtTrackingOptions = set of TPrtTrackingOption;
 
-  TPrtOutputFile = (pofBinaryBudget, pofoCsvBudget, pofBinaryTrack, pofCsvTrack);
+  TPrtOutputFile = (pofBinaryTrack, pofCsvTrack, pofBinaryBudget, pofoCsvBudget);
   TPrtOutputFiles = set of TPrtOutputFile;
 
   TPrtModel = class(TOrderedCollection, IPrtModel)

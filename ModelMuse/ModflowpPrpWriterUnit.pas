@@ -293,9 +293,9 @@ begin
           if ModflowGrid <> nil then
           begin
             APoint2D := ModflowGrid.RotateFromRealWorldCoordinatesToGridCoordinates(APoint2D);
-            PrtParticle.X := APoint2D.X;
-            PrtParticle.Y := APoint2D.Y;
           end;
+          PrtParticle.X := APoint2D.X;
+          PrtParticle.Y := APoint2D.Y;
 
           PrtParticle.Z := ScreenObject.Higher3DElevations[Model][ACell.Layer, ACell.Row, ACell.Column];
           if PrpPackage.LocalZ then
