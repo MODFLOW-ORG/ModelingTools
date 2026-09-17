@@ -47,7 +47,8 @@ implementation
 uses
   frmGoPhastUnit, PhastModelUnit, DataSetUnit, GoPhastTypes, RbwParser,
   ScreenObjectUnit, AbstractGridUnit, UndoItems, FastGEO,
-  ValueArrayStorageUnit, GIS_Functions, MeshRenumberingTypes, DataSetNamesUnit;
+  ValueArrayStorageUnit, GIS_Functions, MeshRenumberingTypes, DataSetNamesUnit,
+  InterpolationUnit;
 
 resourcestring
   StrThereWasAnErrorR = 'There was an error reading %s. Please check that th' +
@@ -145,6 +146,7 @@ var
   Mesh: IMesh2D;
   NewCapacity: Integer;
   ElementIndex: Integer;
+  Interpolator: TNaturalNeighborInterp;
 begin
   AModel := comboModel.Items.Objects[comboModel.ItemIndex] as TCustomModel;
 
@@ -173,6 +175,7 @@ begin
     AScreenObject.Comment := 'Imported from the following files on '
       + DateTimeToStr(Now) + sLineBreak + FileNames.Text;
     AScreenObject.SetValuesOfIntersectedCells := True;
+    AScreenObject.SetValuesByInterpolation := True;
     AScreenObject.Visible := false;
     AScreenObject.ElevationCount := ecZero;
     AScreenObject.EvaluatedAt := TEvaluatedAt(rgEvaluatedAt.ItemIndex);
@@ -307,6 +310,13 @@ begin
         strDefaultClassification + '|' + StrCreatedFromTextFi);
       DataSet.Comment := Format(StrImportedFrom0sO,
         [FileNames[FileIndex], DateTimeToStr(Now)]);
+
+      Interpolator := TNaturalNeighborInterp.Create(nil);
+      try
+        DataSet.TWoDInterpolator := Interpolator
+      finally
+        Interpolator.Free;
+      end;
 
       NewDataSets.Add(DataSet);
 

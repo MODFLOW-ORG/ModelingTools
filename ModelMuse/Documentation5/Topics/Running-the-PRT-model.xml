@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-17T14:11:52.126-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Running the PRT Model and Plotting Particle Tracks</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Running the PRT Model and Plotting Particle Tracks</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The next steps are to run the PRT model and plot the tracks from it.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Select </text><text styleclass="Strong" translate="true">File|Export|MODFLOW 6 input files</text><text styleclass="Normal" translate="true">. After it has finished running, select </text><text styleclass="Strong" translate="true">Data|Data Visualization</text><text styleclass="Normal" translate="true"> and select </text><text styleclass="Strong" translate="true">PRT Tracks</text><text styleclass="Normal" translate="true"> from the list on the left. Click the button in the PRT Track file edit box and select the .trk file created by MODFLOW. Then click the Apply button.</text></para>
+    <para styleclass="Normal"><image src="Voronoi9.bmp" imagestyleclass="Default" scale="70.00%" width="535" height="505" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the main ModelMuse window with the tracks from the PRT model plotted.]]></caption></image></para>
+  </body>
+</topic>

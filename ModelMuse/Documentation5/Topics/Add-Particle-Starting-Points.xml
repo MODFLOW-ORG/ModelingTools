@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-17T14:27:58.198-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Add Particle Starting Points</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Add Particle Starting Points</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The next step will be to add starting locations for the PRT model. They will be added to the disposal pond. in the norther half of the model. Make the Disposal_Pond object and create a point object inside the Disposal_Pond object. Select the PRT1.PRP1 package and set the number of rows in the X and Y directions both set to 10.</text></para>
+    <para styleclass="Normal"><image src="Voronoi7.bmp" imagestyleclass="Default" scale="70.00%" width="519" height="430" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the Object Properties and Programs dialog box showing the PRP Package pane with the PRT1.PRP1 package selected and the number of starting points in the X and Y directions both set to 10.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">There are two cells that are mostly enclosed by the Disposal_Pond object. After creating the for the PRP starting point. I suggest adding another point to the object in whichever of the two cells does not contain the PRP starting point Object.</text></para>
+    <para styleclass="Normal"><image src="Voronoi8.bmp" imagestyleclass="Default" scale="70.00%" width="535" height="505" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the ModelMuse main window showing the locations of the object that defines the starting particle locations for the PRT model.]]></caption></image></para>
+  </body>
+</topic>

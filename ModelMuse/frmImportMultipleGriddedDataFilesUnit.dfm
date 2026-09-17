@@ -4,6 +4,7 @@ inherited frmImportMultipleGriddedDataFiles: TfrmImportMultipleGriddedDataFiles
   Caption = 'Import Gridded Data Files'
   ClientHeight = 266
   ClientWidth = 422
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 438
   ExplicitHeight = 305
   TextHeight = 18
@@ -17,13 +18,15 @@ inherited frmImportMultipleGriddedDataFiles: TfrmImportMultipleGriddedDataFiles
     ExplicitWidth = 422
     ExplicitHeight = 131
     inherited Panel: TPanel
-      Top = 91
-      Width = 430
+      Top = 90
+      Width = 422
+      StyleElements = [seFont, seClient, seBorder]
       ExplicitTop = 90
       ExplicitWidth = 422
       inherited lbNumber: TLabel
         Width = 55
         Height = 18
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitWidth = 55
         ExplicitHeight = 18
       end
@@ -41,12 +44,13 @@ inherited frmImportMultipleGriddedDataFiles: TfrmImportMultipleGriddedDataFiles
       end
       inherited seNumber: TJvSpinEdit
         Height = 26
+        StyleElements = [seFont, seClient, seBorder]
         ExplicitHeight = 26
       end
     end
     inherited Grid: TRbwDataGrid4
-      Width = 430
-      Height = 91
+      Width = 422
+      Height = 90
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowMoving, goEditing, goAlwaysShowEditor]
       OnSetEditText = frameGridFilesGridSetEditText
       OnButtonClick = frameGridFilesGridButtonClick
@@ -106,7 +110,6 @@ inherited frmImportMultipleGriddedDataFiles: TfrmImportMultipleGriddedDataFiles
       NumGlyphs = 2
       TabOrder = 2
       OnClick = btnHelpClick
-      ExplicitLeft = 145
     end
     object btnOK: TBitBtn
       Left = 230
@@ -118,7 +121,6 @@ inherited frmImportMultipleGriddedDataFiles: TfrmImportMultipleGriddedDataFiles
       NumGlyphs = 2
       TabOrder = 3
       OnClick = btnOKClick
-      ExplicitLeft = 234
     end
     object btnCancel: TBitBtn
       Left = 319
@@ -129,7 +131,6 @@ inherited frmImportMultipleGriddedDataFiles: TfrmImportMultipleGriddedDataFiles
       Kind = bkCancel
       NumGlyphs = 2
       TabOrder = 4
-      ExplicitLeft = 323
     end
     object btnOpenFiles: TButton
       Left = 8

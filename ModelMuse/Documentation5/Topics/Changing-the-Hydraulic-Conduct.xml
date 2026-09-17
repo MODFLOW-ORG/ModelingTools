@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-17T14:27:36.911-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Changing the Hydraulic Conductivity</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Changing the Hydraulic Conductivity</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The hydraulic conductivity for this model was previously estimated using PEST and the estimated results were already imported into this model. However, those results were not used to change the hydraulic conductivity of the model. To change them, select Data|Edit Data Sets and change the default formula for the Kx data set from 0.0001 to RmaMf6Completed_Kx_1.</text></para>
+    <para styleclass="Normal"><image src="Voronoi10.bmp" imagestyleclass="Default" scale="70.00%" width="435" height="377" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the Data Sets dialog box showing how the default formula for the Kx data set after being set to RmaMf6Completed_Kx_1.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"><image src="Voronoi11.bmp" imagestyleclass="Default" scale="70.00%" width="535" height="505" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the ModelMuse main window showing the hydraulic conuctivity distribution previously estimated using PEST.]]></caption></image></para>
+  </body>
+</topic>

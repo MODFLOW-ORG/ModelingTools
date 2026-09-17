@@ -1342,7 +1342,7 @@ begin
         else if AnObject is TMf6ObsItemID then
         begin
           Mf6ObsItemID := TMf6ObsItemID(AnObject);
-          ATree.Selected[VirtualNode] := True;
+//          ATree.Selected[VirtualNode] := True;
         end
 
         else

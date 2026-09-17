@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-17T14:58:04.907-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Removing Unneeded Objects</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Removing Unneeded Objects</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The model has a number of objects that aren&apos;t needed. All of the cells should be active so we can remove all the cells that make any cells inactive.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Try coloring the grid with the Active data set. You will see that there are a number of cells around the edge of the model that are inactive (colored red). The active cells will be colored blue. To make them all active, hide all the objects and then just show the ones that set the Active data set. Delete all those objects. When you do, all the cells should turn green.</text></para>
+    <para styleclass="Normal"></para>
+  </body>
+</topic>

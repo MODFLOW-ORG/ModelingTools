@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-17T15:17:28.678-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Fixing the Hydraulic Conductivity</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Fixing the Hydraulic Conductivity</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Try coloring the grid with the Kx data set. You will probably find that the hydraulic conductivity distribution doesn&apos;t look right. Many cells will have a value of 0. (You can check the values of cells using the </text><link displaytype="text" defaultstyle="true" type="topiclink" href="Grid_Value_Dialog_Box" styleclass="Strong" translate="true">Grid or Mesh Value</link><text styleclass="Normal" translate="true"> dialog box.) </text></para>
+    <para styleclass="Normal"><image src="Voronoi14.bmp" imagestyleclass="Default" scale="70.00%" width="535" height="505" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the main ModelMuse window showing the problematic hydraulic conductivity distribution in the new DISV mesh.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The problem is that the object that sets the value of the RmaMf6Completed_Kx_1 data set only sets the values of cells intersected by the object. The points in that object were located at the centers of the previous quadtree refined grid. Fixing this requires two changes. First the data set need to have a suitable interpolator specified. Second, the object that sets the values of RmaMf6Completed_Kx_1 needs to set values by interpolation.</text></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Set the interplator in the the </text><text styleclass="Strong" translate="true">Data|Edit Data Sets</text><text styleclass="Normal" translate="true"> dialog box.</text></para>
+    <para styleclass="Normal"><image src="Voronoi15.bmp" imagestyleclass="Default" scale="70.00%" width="438" height="377" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture illustrating the specification of the Natural Neighbor interpolator for the RmaMf6Completed_Kx_1 data set.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Edit &quot;Object33&quot; and check the </text><text styleclass="Strong" translate="true">Set values of cells by interpolation</text><text styleclass="Normal" translate="true"> check box.</text></para>
+    <para styleclass="Normal"><image src="Voronoi16.bmp" imagestyleclass="Default" scale="70.00%" width="519" height="430" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the Object Properties dialog box showing the Set values of cells by interpolation checkbox checked.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"></para>
+  </body>
+</topic>

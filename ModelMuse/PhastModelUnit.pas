@@ -10606,6 +10606,9 @@ const
 //                of each cell in a DISV grid.
 //               Enhancement: ModelMuse can now drww lines connecting the nodal
 //                points of neighboring cells in a DISV mesh.
+//               Enhancement: When importing multiple gridded data files, the
+//                data sets will now have values set by interpolation as well
+//                as setting the values of intersected cells.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.

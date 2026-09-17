@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-17T14:32:07.178-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Running the PRT Model Again</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Running the PRT Model Again</text></para>
+    </header>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">Run the PRT model again and then plot the PRT tracks again in the same way as before. The new tracks are shifted to the east from where they were when simulated using a uniform Kx.</text></para>
+    <para styleclass="Normal"><image src="Voronoi12.bmp" imagestyleclass="Default" scale="70.00%" width="535" height="505" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the ModelMuse main window showing the PRT tracks. The tracks are shifted east relative to the tracks in the model wiith a uniform Kx.]]></caption></image></para>
+  </body>
+</topic>

@@ -84,6 +84,18 @@ type
   // is called by TDataArray.@link(TDataArray.UsedByModel)
   TObjectUsedEvent = function(Sender: TObject): boolean of object;
 
+  {@abstract(@name provides an abstract interface for 2D interpolation.
+   Descendants of @name provide concrete implementations.
+
+   Call RegisterClass in the initialization section for any
+   descendants that are instantiated.)
+
+   Descendants of @name include @link(TCustomAnisotropicInterpolator),
+   @link(TInvDistSq2DInterpolator), @link(TNearest2DInterpolator), and
+   @link(TNearestPoint2DInterpolator)
+
+   @seealso(InterpolationUnit).
+   }
   TCustom2DInterpolater = class;
 
   // @name is used in @link(TDataArray.ChangeAFormula)

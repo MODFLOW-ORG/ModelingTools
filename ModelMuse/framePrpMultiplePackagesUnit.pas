@@ -468,6 +468,8 @@ begin
     chklstOutputFiles.UnCheckAll;
     chklstTrackEvents.UnCheckAll;
 
+    chklstOutputFiles.Checked[Ord(pofBinaryTrack)] := True;
+
     ClearFrames;
 
   finally

@@ -53,7 +53,7 @@ uses ModflowUnitNumbers, frmProgressUnit, Forms,
   ModflowOptionsUnit, GoPhastTypes, ModflowPackageSelectionUnit,
   frmErrorsAndWarningsUnit, FastGEO, DataSetUnit, ModflowIrregularMeshUnit,
   MeshRenumberingTypes, ModflowTimeUnit, System.Math, System.IOUtils,
-  DataSetNamesUnit, GeoRefUnit;
+  DataSetNamesUnit, GeoRefUnit, PestPropertiesUnit;
 
 resourcestring
   StrWritingDiscretizati = 'Writing Discretization Package input.';
@@ -1394,13 +1394,18 @@ procedure TCustomDisWriter.WriteCRS;
 var
   GeoRef: TGeoRef;
 begin
-  GeoRef := Model.GeoRef;
-  if (GeoRef.Projection <> '') and not AnsiSameText(GeoRef.Projection, 'NA')
-    and not AnsiSameText(GeoRef.Projection, 'N/A') then
+  // As of Sept. 16, 2026, PLPROC can't handle .grb files in which the
+  // CRS option is used.
+  if Model.PestStatus = psInactive then
   begin
-    WriteString('  CRS ');
-    WriteString(GeoRef.Projection);
-    NewLine;
+    GeoRef := Model.GeoRef;
+    if (GeoRef.Projection <> '') and not AnsiSameText(GeoRef.Projection, 'NA')
+      and not AnsiSameText(GeoRef.Projection, 'N/A') then
+    begin
+      WriteString('  CRS ');
+      WriteString(GeoRef.Projection);
+      NewLine;
+    end;
   end;
 end;
 

@@ -31870,6 +31870,7 @@ begin
   IsSelected := False;
   TrackTimes.clear;
   PrtTrackingOptions := [ptoRelease, ptoExit, ptoTimeStep, ptoTerminate, ptoWeakSink, ptoUserTime];
+  PrtOutputFiles := [pofBinaryTrack];
 end;
 
 function TPrtModel.IsSame(AnOrderedCollection: TOrderedCollection): boolean;

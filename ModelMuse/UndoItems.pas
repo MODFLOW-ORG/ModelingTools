@@ -943,6 +943,7 @@ type
     FAllCellsScreenObject: TObject;
     FUndoChangeGridType: TCustomUndo;
     FUndoDefineLayers: TCustomUndo;
+    FGncSelected: Boolean;
   protected
     function Description: string; override;
   public
@@ -4085,6 +4086,7 @@ end;
 constructor TUndoImportDisv.Create;
 begin
   FOldDisvGrid := TModflowDisvGrid.Create(nil);
+  FGncSelected := frmGoPhast.PhastModel.ModflowPackages.GncPackage.IsSelected;
 end;
 
 function TUndoImportDisv.Description: string;
@@ -4126,23 +4128,25 @@ begin
   begin
     (FAllCellsScreenObject as TScreenObject).Deleted := False;
   end;
+  frmGoPhast.PhastModel.ModflowPackages.GncPackage.IsSelected := False;
 end;
 
 procedure TUndoImportDisv.Undo;
 begin
   inherited;
-  if FUndoDefineLayers <> nil then
+  frmGoPhast.PhastModel.ModflowPackages.GncPackage.IsSelected := FGncSelected;
+  frmGoPhast.PhastModel.DisvGrid.Assign(FOldDisvGrid);
+  if FAllCellsScreenObject <> nil then
   begin
-    FUndoDefineLayers.Undo;
+    (FAllCellsScreenObject as TScreenObject).Deleted := True;
   end;
   if FUndoChangeGridType <> nil then
   begin
     FUndoChangeGridType.Undo;
   end;
-  frmGoPhast.PhastModel.DisvGrid.Assign(FOldDisvGrid);
-  if FAllCellsScreenObject <> nil then
+  if FUndoDefineLayers <> nil then
   begin
-    (FAllCellsScreenObject as TScreenObject).Deleted := True;
+    FUndoDefineLayers.Undo;
   end;
   frmGoPhast.RestoreDefault2DView1Click(self);
 end;

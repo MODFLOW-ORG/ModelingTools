@@ -255,8 +255,8 @@ begin
   try
     ClearGrid(frameReleaseTimes.Grid);
     frameReleaseTimes.Grid.Cells[0,0] := SReleaseTimes;
-    frameReleaseTimes.seNumber.AsInteger := 1;
-    frameReleaseTimes.Grid.Cells[0,1] := FloatToStr(frmGoPhast.PhastModel.ModflowStressPeriods.First.StartTime);
+    frameReleaseTimes.seNumber.AsInteger := 0;
+//    frameReleaseTimes.Grid.Cells[0,1] := FloatToStr(frmGoPhast.PhastModel.ModflowStressPeriods.First.StartTime);
   finally
     frameReleaseTimes.Grid.EndUpdate;
   end;
