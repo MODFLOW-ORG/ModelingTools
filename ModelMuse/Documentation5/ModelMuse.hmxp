@@ -143,7 +143,7 @@
       <config-value name="deffont">font-family:'MS Sans Serif'; font-size:8pt; color:#000000;</config-value>
       <config-value name="contents"></config-value>
       <config-value name="topicprefix"></config-value>
-      <config-value name="autohelpstart">4557</config-value>
+      <config-value name="autohelpstart">4558</config-value>
       <config-value name="autohelpincrement">1</config-value>
       <config-value name="autohelpanchor">1</config-value>
       <config-value name="searchpath">.\;.\Used Images\;.\ScreenShots\;.\ModflowGuide\;.\Topics\Invisible\;.\ModflowGuide\Figures\;.\Topics\</config-value>
@@ -977,6 +977,7 @@ document.write('</frameset>');
       <helpcontext-number href="Discretization_with_Vertices_D" value="4004"/>
       <helpcontext-number href="Dispersion_Tab" value="3638"/>
       <helpcontext-number href="Dispersion-Package" value="4337"/>
+      <helpcontext-number href="Displaying-Cell-Centers-and-Ce" value="4558"/>
       <helpcontext-number href="Distance" value="700"/>
       <helpcontext-number href="DISV" value="4024"/>
       <helpcontext-number href="Diversion_Location" value="3804"/>

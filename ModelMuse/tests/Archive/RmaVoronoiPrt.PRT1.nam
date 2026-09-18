@@ -1,0 +1,13 @@
+# PRT name file for PRT1 file created on 9/18/2026 by ModelMuse version 5.4.0.14.
+BEGIN OPTIONS
+  LIST RmaVoronoiPrt.PRT1.lst
+    PRINT_INPUT
+    SAVE_FLOWS
+END OPTIONS
+
+BEGIN PACKAGES
+  DISV6 RmaVoronoiPrt.disv DISV
+  MIP6 RmaVoronoiPrt.PRT1.mip MIP6
+  OC6 RmaVoronoiPrt.PRT1.oc OC6
+  PRP6 RmaVoronoiPrt.PRT1.PRP1.prp PRP1
+END PACKAGES

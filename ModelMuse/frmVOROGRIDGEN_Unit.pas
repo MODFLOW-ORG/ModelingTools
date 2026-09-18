@@ -29,7 +29,7 @@ type
     rdeEpsLloyd: TRbwDataEntry;
     lblLloydFac: TLabel;
     cblLloydFac: TCheckBox;
-    rdeEpsLloyd1: TRbwDataEntry;
+    rdelLloydFac: TRbwDataEntry;
     seSafety: TJvSpinEdit;
     lblMaxCells1: TLabel;
     cbSafety: TCheckBox;
@@ -43,6 +43,11 @@ type
     procedure FormDestroy(Sender: TObject); override;
     procedure FormCreate(Sender: TObject); override;
     procedure btnOKClick(Sender: TObject);
+    procedure cbEpsLloydClick(Sender: TObject);
+    procedure cblLloydFacClick(Sender: TObject);
+    procedure cbMaxLloydClick(Sender: TObject);
+    procedure cbNsdimClick(Sender: TObject);
+    procedure cbSafetyClick(Sender: TObject);
     procedure fedVorogridGenChange(Sender: TObject);
   private
     FVorogridGenOptions: TVorogridGenOptions;
@@ -102,7 +107,7 @@ begin
   cbEpsLloyd.Checked := FVorogridGenOptions.EpsLloydUsed;
   rdeEpsLloyd.RealValue := FVorogridGenOptions.EpsLloyd;
   cblLloydFac.Checked := FVorogridGenOptions.LloydFactorUsed;
-  rdeEpsLloyd1.RealValue := FVorogridGenOptions.LloydFactor;
+  rdelLloydFac.RealValue := FVorogridGenOptions.LloydFactor;
   cbSafety.Checked := FVorogridGenOptions.SafetyUsed;
   seSafety.AsInteger := FVorogridGenOptions.Safety;
 end;
@@ -147,6 +152,36 @@ begin
   inherited;
 end;
 
+procedure TfrmVOROGRIDGEN.cbEpsLloydClick(Sender: TObject);
+begin
+  inherited;
+  rdeEpsLloyd.Enabled := cbEpsLloyd.Checked;
+end;
+
+procedure TfrmVOROGRIDGEN.cblLloydFacClick(Sender: TObject);
+begin
+  inherited;
+  rdelLloydFac.Enabled := cblLloydFac.Checked;
+end;
+
+procedure TfrmVOROGRIDGEN.cbMaxLloydClick(Sender: TObject);
+begin
+  inherited;
+  rdeMaxLloyd.Enabled := cbMaxLloyd.Checked;
+end;
+
+procedure TfrmVOROGRIDGEN.cbNsdimClick(Sender: TObject);
+begin
+  inherited;
+  rdeNsdim.Enabled := cbNsdim.Checked;
+end;
+
+procedure TfrmVOROGRIDGEN.cbSafetyClick(Sender: TObject);
+begin
+  inherited;
+  seSafety.Enabled := cbSafety.Checked;
+end;
+
 procedure TfrmVOROGRIDGEN.fedVorogridGenChange(Sender: TObject);
 begin
   inherited;
@@ -174,7 +209,7 @@ begin
   FVorogridGenOptions.EpsLloydUsed := cbEpsLloyd.Checked;
   FVorogridGenOptions.EpsLloyd := rdeEpsLloyd.RealValue;
   FVorogridGenOptions.LloydFactorUsed := cblLloydFac.Checked;
-  FVorogridGenOptions.LloydFactor := rdeEpsLloyd1.RealValue;
+  FVorogridGenOptions.LloydFactor := rdelLloydFac.RealValue;
   FVorogridGenOptions.SafetyUsed := cbSafety.Checked;
   FVorogridGenOptions.Safety := seSafety.AsInteger;
 

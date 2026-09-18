@@ -1394,18 +1394,19 @@ procedure TCustomDisWriter.WriteCRS;
 var
   GeoRef: TGeoRef;
 begin
-  // As of Sept. 16, 2026, PLPROC can't handle .grb files in which the
-  // CRS option is used.
-  if Model.PestStatus = psInactive then
+  GeoRef := Model.GeoRef;
+  if (GeoRef.Projection <> '') and not AnsiSameText(GeoRef.Projection, 'NA')
+    and not AnsiSameText(GeoRef.Projection, 'N/A') then
   begin
-    GeoRef := Model.GeoRef;
-    if (GeoRef.Projection <> '') and not AnsiSameText(GeoRef.Projection, 'NA')
-      and not AnsiSameText(GeoRef.Projection, 'N/A') then
+    if Model.PestStatus <> psInactive then
     begin
-      WriteString('  CRS ');
-      WriteString(GeoRef.Projection);
-      NewLine;
+      // As of Sept. 16, 2026, PLPROC can't handle .grb files created by MODFLOW
+      // if the CRS option is used.
+      WriteString('#');
     end;
+    WriteString('  CRS ');
+    WriteString(GeoRef.Projection);
+    NewLine;
   end;
 end;
 

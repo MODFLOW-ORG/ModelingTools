@@ -1,0 +1,6 @@
+RmaVoronoiPrt.Kx.K.1.Variogram.txt
+y
+0.0
+g
+RmaVoronoiPrt.Kx.K.1.Cov.txt
+

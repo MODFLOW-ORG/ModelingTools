@@ -3625,6 +3625,7 @@ begin
     end;
   end;
 
+  Mesh3D.MeshType := mtUnknown;
   Mesh3D.Loaded;
 
   if Import3D_DataAndOptions then

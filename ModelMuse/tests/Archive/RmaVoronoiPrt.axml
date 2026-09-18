@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Model_Archive_List>
+  <bin Model_Name="RmaVoronoiPrt" FileType="bin">
+    <FileName Model_Name="RmaVoronoiPrt" FileType="bin">..\..\..\WRDAPP\mf6.8.0_win64\bin\mf6.exe</FileName>
+  </bin>
+  <ancillary Model_Name="RmaVoronoiPrt" FileType="ancillary">
+    <FileName Model_Name="RmaVoronoiPrt" FileType="ancillary">RmaVoronoiPrt.gpt</FileName>
+  </ancillary>
+  <model Model_Name="RmaVoronoiPrt" FileType="Model Input">
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">arrays\RmaVoronoiPrt.Kx_1.arrays</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">mfsim.nam</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.chd</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.disv</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.ic</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.ims</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.jtf</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.nam.archive</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.npf</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.ob_chob</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.ob_gw</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.oc</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.PRT1.ems</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.PRT1.gwfprt</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.PRT1.mip</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.PRT1.nam</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.PRT1.oc</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.PRT1.PRP1.prp</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.ptf</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.pval</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.tdis</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RmaVoronoiPrt.wel</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">RunModflow.Bat.archive</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Input">usgs.RmaVoronoiPrt.reference</FileName>
+  </model>
+  <output Model_Name="RmaVoronoiPrt" FileType="Model Output">
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">mfsim.lst</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.bhd</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.cbc</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.chob_out_chd.csv</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.disv.grb</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.InnerSolution.CSV</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.lst</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.ob_gw_out_head.csv</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.OuterSolution.CSV</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.PRT1.lst</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.PRT1.trk</FileName>
+    <FileName Model_Name="RmaVoronoiPrt" FileType="Model Output">RmaVoronoiPrt.PRT1.trk.hdr</FileName>
+  </output>
+</Model_Archive_List>

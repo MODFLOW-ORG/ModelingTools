@@ -1,0 +1,21 @@
+#Script for PLPROC for saving kriging factors
+
+#Read pilot point data
+KPilotPoints1 = read_list_file(skiplines=0,dimensions=2, &
+  plist='K_1';column=5, &
+  id_type='character',file='RmaVoronoiPrt.Kx.K.1.pp')
+
+#Read MODFLOW 6 grid information file
+cl_Discretization1 = read_mf6_grid_specs(file='RmaVoronoiPrt.disv.grb', &
+  dimensions=2, &
+  slist_layer_idomain=id1; layer=1, &
+  plist_layer_bottom =bot1; layer=1, &
+  plist_top = top)
+
+
+#Save Kriging factors
+calc_kriging_factors_auto_2d( &
+  target_clist=cl_Discretization1, &
+  source_clist=KPilotPoints1, &
+  file=RmaVoronoiPrt.Kx.Factors1;format=formatted)
+

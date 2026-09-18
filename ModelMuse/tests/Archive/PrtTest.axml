@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Model_Archive_List>
+  <bin Model_Name="PrtTest" FileType="bin">
+    <FileName Model_Name="PrtTest" FileType="bin">..\..\..\WRDAPP\mf6.8.0_win64\bin\mf6.exe</FileName>
+  </bin>
+  <ancillary Model_Name="PrtTest" FileType="ancillary">
+    <FileName Model_Name="PrtTest" FileType="ancillary">PrtTest.gpt</FileName>
+  </ancillary>
+  <model Model_Name="PrtTest" FileType="Model Input">
+    <FileName Model_Name="PrtTest" FileType="Model Input">mfsim.nam</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.chd</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.disv</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.drn</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.ghb</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.gnc</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.ic</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.ims</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.maw6</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.nam.archive</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.npf</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.oc</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT1.ems</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT1.fmi</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT1.mip</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT1.nam</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT1.oc</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT1.PRP1.prp</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT1.PRP2.prp</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT2.ems</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT2.gwfprt</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT2.mip</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT2.nam</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT2.oc</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.PRT2.PRP1.prp</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.rch</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.riv</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.sfr</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.sto</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.tdis</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.uzf</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">PrtTest.wel</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">RunModflow.Bat.archive</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Input">usgs.PrtTest.reference</FileName>
+  </model>
+  <output Model_Name="PrtTest" FileType="Model Output">
+    <FileName Model_Name="PrtTest" FileType="Model Output">mfsim.lst</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.bhd</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.cbc</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.disv.grb</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.InnerSolution.CSV</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.lst</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.maw_bud</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.maw_head</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.OuterSolution.CSV</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.PRT1.cbb</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.PRT1.lst</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.PRT1.trk</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.PRT1.trk.csv</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.PRT1.trk.hdr</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.PRT2.lst</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.sfr_budget</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.SfrConvergence.csv</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.stage</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.uzf_budget</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.UzfConvergence.CSV</FileName>
+    <FileName Model_Name="PrtTest" FileType="Model Output">PrtTest.water_content</FileName>
+  </output>
+</Model_Archive_List>

@@ -136,6 +136,8 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Top = 84
     Width = 145
     Height = 22
+    Color = clBtnFace
+    Enabled = False
     TabOrder = 4
     Text = '31'
     DataType = dtInteger
@@ -150,6 +152,7 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Width = 17
     Height = 17
     TabOrder = 5
+    OnClick = cbNsdimClick
   end
   object cbMaxLloyd: TCheckBox
     Left = 441
@@ -157,12 +160,15 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Width = 17
     Height = 17
     TabOrder = 6
+    OnClick = cbMaxLloydClick
   end
   object rdeMaxLloyd: TRbwDataEntry
     Left = 473
     Top = 140
     Width = 145
     Height = 22
+    Color = clBtnFace
+    Enabled = False
     TabOrder = 7
     Text = '30'
     DataType = dtInteger
@@ -177,12 +183,15 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Width = 17
     Height = 17
     TabOrder = 8
+    OnClick = cbEpsLloydClick
   end
   object rdeEpsLloyd: TRbwDataEntry
     Left = 473
     Top = 196
     Width = 145
     Height = 22
+    Color = clBtnFace
+    Enabled = False
     TabOrder = 9
     Text = '1E-10'
     DataType = dtReal
@@ -196,12 +205,15 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Width = 17
     Height = 17
     TabOrder = 10
+    OnClick = cblLloydFacClick
   end
-  object rdeEpsLloyd1: TRbwDataEntry
+  object rdelLloydFac: TRbwDataEntry
     Left = 473
     Top = 252
     Width = 145
     Height = 22
+    Color = clBtnFace
+    Enabled = False
     TabOrder = 11
     Text = '0.2'
     DataType = dtReal
@@ -218,6 +230,7 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     CheckMaxValue = False
     MinValue = 1.000000000000000000
     Value = 1.000000000000000000
+    Enabled = False
     TabOrder = 12
   end
   object cbSafety: TCheckBox
@@ -226,6 +239,7 @@ inherited frmVOROGRIDGEN: TfrmVOROGRIDGEN
     Width = 17
     Height = 17
     TabOrder = 13
+    OnClick = cbSafetyClick
   end
   object pnlBottom: TPanel
     Left = 0

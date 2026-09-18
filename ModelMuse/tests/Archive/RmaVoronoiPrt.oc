@@ -1,0 +1,12 @@
+# Output Control file created on 9/18/2026 by ModelMuse version 5.4.0.14.
+BEGIN OPTIONS
+  BUDGET FILEOUT 'RmaVoronoiPrt.cbc'
+  HEAD FILEOUT 'RmaVoronoiPrt.bhd'
+END OPTIONS
+
+BEGIN PERIOD      1
+  SAVE HEAD ALL
+  PRINT BUDGET ALL
+  SAVE BUDGET ALL
+END PERIOD 
+

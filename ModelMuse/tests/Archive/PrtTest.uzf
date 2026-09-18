@@ -1,0 +1,37 @@
+# UZF6: Unsaturated-Zone Flow Package for MODFLOW 6 file created on 9/18/2026 by ModelMuse version 5.4.0.14.
+BEGIN OPTIONS
+    PRINT_INPUT
+    SAVE_FLOWS
+  WATER_CONTENT FILEOUT PrtTest.water_content
+  BUDGET FILEOUT PrtTest.uzf_budget
+  PACKAGE_CONVERGENCE FILEOUT PrtTest.UzfConvergence.CSV
+    BOUNDNAMES
+  AUXILIARY IFLOWFACE
+END OPTIONS
+
+BEGIN DIMENSIONS
+  NUZFCELLS     1
+  NTRAILWAVES     7
+  NWAVESETS    40
+END DIMENSIONS
+
+BEGIN PACKAGEDATA
+# <iuzno> <cellid(ncelldim)> <landflag> <ivertcon> <surfdep> <vks> <thtr> <thts> <thti> <eps> [<boundname>]
+       1     1    70     1     0  1.000000000000E+000   1.000000000000E-005   2.000000000000E-001   3.000000000000E-001   3.000000000000E-001   3.500000000000E+000  UZF
+END PACKAGEDATA
+
+BEGIN PERIOD      1
+#     <ifno> <finf>             <pet>                 <extdp>               <extwc>               <ha>                  <hroot>               <rootact>            [<aux(naux)>]
+       1  1.000000000000E-009   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000     -2
+END PERIOD 
+
+BEGIN PERIOD      2
+#     <ifno> <finf>             <pet>                 <extdp>               <extwc>               <ha>                  <hroot>               <rootact>            [<aux(naux)>]
+       1  1.000000000000E-009   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000     -2
+END PERIOD 
+
+BEGIN PERIOD      3
+#     <ifno> <finf>             <pet>                 <extdp>               <extwc>               <ha>                  <hroot>               <rootact>            [<aux(naux)>]
+       1  1.000000000000E-009   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000   0.000000000000E+000     -2
+END PERIOD 
+

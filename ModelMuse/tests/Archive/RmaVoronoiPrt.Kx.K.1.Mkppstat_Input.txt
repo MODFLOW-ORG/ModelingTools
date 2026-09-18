@@ -1,0 +1,4 @@
+RmaVoronoiPrt.Kx.K.1.pp
+4
+1
+RmaVoronoiPrt.Kx.K.1.Variogram.txt

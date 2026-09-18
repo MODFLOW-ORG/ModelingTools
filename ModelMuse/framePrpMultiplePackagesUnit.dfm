@@ -21,7 +21,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
     Top = 151
     Width = 665
     Height = 356
-    ActivePage = tabOptions
+    ActivePage = tabPrpPackages
     Align = alBottom
     TabOrder = 1
     object tabOptions: TTabSheet
@@ -202,7 +202,7 @@ inherited framePrpMultiplePackages: TframePrpMultiplePackages
               ComboUsed = False
               Format = rcf4String
               LimitToList = False
-              MaxLength = 0
+              MaxLength = 16
               ParentButtonFont = False
               WordWrapCaptions = False
               WordWrapCells = False

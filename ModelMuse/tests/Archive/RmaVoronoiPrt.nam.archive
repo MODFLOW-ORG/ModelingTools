@@ -1,0 +1,16 @@
+# Name File for MODFLOW created on 9/18/2026 by ModelMuse Version 5.4.0.14
+BEGIN OPTIONS
+  LIST ..\..\output\output.RmaVoronoiPrt\RmaVoronoiPrt.lst
+  PRINT_INPUT
+  SAVE_FLOWS
+END OPTIONS
+
+BEGIN PACKAGES
+  DISV6        ..\..\model\model.RmaVoronoiPrt\RmaVoronoiPrt.disv  DISV
+  IC6          ..\..\model\model.RmaVoronoiPrt\RmaVoronoiPrt.ic  IC
+  NPF6         ..\..\model\model.RmaVoronoiPrt\RmaVoronoiPrt.npf  NPF
+  OBS6         ..\..\model\model.RmaVoronoiPrt\RmaVoronoiPrt.ob_gw
+  OC6          ..\..\model\model.RmaVoronoiPrt\RmaVoronoiPrt.oc  OC
+  CHD6         ..\..\model\model.RmaVoronoiPrt\RmaVoronoiPrt.chd  CHD-1
+  WEL6         ..\..\model\model.RmaVoronoiPrt\RmaVoronoiPrt.wel  WEL-1
+END PACKAGES

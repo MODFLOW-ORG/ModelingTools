@@ -1,0 +1,24 @@
+# Name File for MODFLOW created on 9/18/2026 by ModelMuse Version 5.4.0.14
+BEGIN OPTIONS
+  LIST ..\..\output\output.PrtTest\PrtTest.lst
+  PRINT_INPUT
+  SAVE_FLOWS
+END OPTIONS
+
+BEGIN PACKAGES
+  DISV6        ..\..\model\model.PrtTest\PrtTest.disv  DISV
+  IC6          ..\..\model\model.PrtTest\PrtTest.ic  IC
+  NPF6         ..\..\model\model.PrtTest\PrtTest.npf  NPF
+  GNC6         ..\..\model\model.PrtTest\PrtTest.gnc  GNC
+  STO6         ..\..\model\model.PrtTest\PrtTest.sto  STO
+  OC6          ..\..\model\model.PrtTest\PrtTest.oc  OC
+  CHD6         ..\..\model\model.PrtTest\PrtTest.chd  CHD-1
+  GHB6         ..\..\model\model.PrtTest\PrtTest.ghb  GHB-1
+  WEL6         ..\..\model\model.PrtTest\PrtTest.wel  WEL-1
+  RIV6         ..\..\model\model.PrtTest\PrtTest.riv  RIV-1
+  DRN6         ..\..\model\model.PrtTest\PrtTest.drn  DRN-1
+  SFR6         ..\..\model\model.PrtTest\PrtTest.sfr  SFR-1
+  MAW6         ..\..\model\model.PrtTest\PrtTest.maw6  MAW-1
+  RCH6         ..\..\model\model.PrtTest\PrtTest.rch  RCH-1
+  UZF6         ..\..\model\model.PrtTest\PrtTest.uzf  UZF-1
+END PACKAGES

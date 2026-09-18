@@ -1,0 +1,9 @@
+# OBS: Observation Utility file created on 9/18/2026 by ModelMuse version 5.4.0.14.
+BEGIN OPTIONS
+    DIGITS     10
+    PRINT_INPUT
+END OPTIONS
+
+BEGIN CONTINUOUS FILEOUT RmaVoronoiPrt.chob_out_chd.csv
+  'chd_CHD_Obs' chd CHD_Obs
+END CONTINUOUS

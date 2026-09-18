@@ -1,0 +1,22 @@
+# WEL: Well package file created on 9/18/2026 by ModelMuse version 5.4.0.14.
+BEGIN OPTIONS
+    AUXILIARY IFACE IFLOWFACE
+    BOUNDNAMES
+    PRINT_INPUT
+    SAVE_FLOWS
+    AUTO_FLOW_REDUCE  1.000000000000E-006 
+END OPTIONS
+
+BEGIN DIMENSIONS
+  MAXBOUND     6
+END DIMENSIONS
+
+BEGIN PERIOD      1
+     1  8562  4.752361289620E-003      0     0 'Disposal_Pond'  # Data Set 6: Layer cell2d Q IFACE IFLOWFACE boundname Intersected by Disposal_Pond with formula: ((0.03 * ObjectIntersectArea) / ObjectArea) * 1.
+     1  8664  1.449843225486E-002      0     0 'Disposal_Pond'  # Data Set 6: Layer cell2d Q IFACE IFLOWFACE boundname Intersected by Disposal_Pond with formula: ((0.03 * ObjectIntersectArea) / ObjectArea) * 1.
+     1  8573  2.658785804575E-003      0     0 'Disposal_Pond'  # Data Set 6: Layer cell2d Q IFACE IFLOWFACE boundname Intersected by Disposal_Pond with formula: ((0.03 * ObjectIntersectArea) / ObjectArea) * 1.
+     1  8751  8.090420650946E-003      0     0 'Disposal_Pond'  # Data Set 6: Layer cell2d Q IFACE IFLOWFACE boundname Intersected by Disposal_Pond with formula: ((0.03 * ObjectIntersectArea) / ObjectArea) * 1.
+     1     1 -1.000000000000E-003      0     0 'West_Well'  # Data Set 6: Layer cell2d Q IFACE IFLOWFACE boundname Intersected by West_Well with formula: -0.001
+     1     2 -2.000000000000E-003      0     0 'Eastern_Well'  # Data Set 6: Layer cell2d Q IFACE IFLOWFACE boundname Intersected by Eastern_Well with formula: -0.002
+END PERIOD 
+

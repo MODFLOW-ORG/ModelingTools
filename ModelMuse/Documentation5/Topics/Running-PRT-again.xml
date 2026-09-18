@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
-<topic template="Default" modified="2026-09-17T15:27:47.658-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+<topic template="Default" modified="2026-09-18T05:49:07.502-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
   <title translate="true">Running PRT again</title>
   <body>
     <header>
@@ -8,5 +8,16 @@
     </header>
     <para styleclass="Normal"><text styleclass="Normal" translate="true">If you run MODFLOW again, you can plot the tracks from PRT to see how the differ from the previous tracks.</text></para>
     <para styleclass="Normal"><image src="Voronoi17.bmp" imagestyleclass="Default" scale="70.00%" width="535" height="505" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the main ModelMuse window showing the PRT tracks.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">If you wish, you can estimate a new hydraulic conductivity distribution with PEST. If you wish to do this, you can deactivate the PRT model for the purposes of parameter estimation and then activate it again after the the parameter estimation is done. There are no observations with PRT models, so all the PRT model will do during parameter estimation would be to make the parameter estimation process take longer. To deactivate the PRT model, go to the </text><text styleclass="Strong" translate="true">Model|MODFLOW Packages and Programs</text><text styleclass="Normal" translate="true"> dialog box and uncheck the checkbox next to the model name.</text></para>
+    <para styleclass="Normal"><image src="Voronoi18.bmp" imagestyleclass="Default" scale="70.00%" width="536" height="425" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the MODFLOW Packages and Programs dialog box showing the PRT model deactivated but with all the information about it retained in ModelMuse.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The estimated hydraulic conductivity looks similar to the one from the quadtree refined model. The updated hydraulic conductivities are in the data set RmaVoronoiPrt_Kx_1.</text></para>
+    <para styleclass="Normal"><image src="Voronoi19.bmp" imagestyleclass="Default" scale="70.00%" width="535" height="505" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the ModelMuse main window showing the estimated hydraulic conducitivity distribution when using the Voronoi mesh version of the model.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"><text styleclass="Normal" translate="true">The particle tracks also look similar.</text></para>
+    <para styleclass="Normal"><image src="Voronoi20.bmp" imagestyleclass="Default" scale="70.00%" width="535" height="505" styleclass="Image Caption" figurelistinclude="0"><caption translate="true"><![CDATA[Screen capture of the ModelMuse main window showing the particle tracks after the updated hydralulic conductivities were used in the model.]]></caption></image></para>
+    <para styleclass="Normal"></para>
+    <para styleclass="Normal"></para>
   </body>
 </topic>

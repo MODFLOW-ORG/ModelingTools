@@ -811,7 +811,7 @@ begin
   end
   else
   begin
-    for LayerIndex := 0 to Model.ModflowGrid.LayerCount - 1 do
+    for LayerIndex := 0 to Model.LayerCount - 1 do
     begin
       if Model.IsLayerSimulated(LayerIndex) then
       begin

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Model_Archive_List>
+  <bin Model_Name="VoronoiTest" FileType="bin">
+    <FileName Model_Name="VoronoiTest" FileType="bin">..\..\..\WRDAPP\mf6.8.0_win64\bin\mf6.exe</FileName>
+  </bin>
+  <ancillary Model_Name="VoronoiTest" FileType="ancillary">
+    <FileName Model_Name="VoronoiTest" FileType="ancillary">VoronoiTest.gpt</FileName>
+  </ancillary>
+  <model Model_Name="VoronoiTest" FileType="Model Input">
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">mfsim.nam</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">RunModflow.Bat.archive</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">usgs.VoronoiTest.reference</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.chd</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.disv</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.ic</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.ims</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.nam.archive</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.npf</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.oc</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.PRT1.ems</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.PRT1.gwfprt</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.PRT1.mip</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.PRT1.nam</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.PRT1.oc</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.PRT1.PRP1.prp</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Input">VoronoiTest.tdis</FileName>
+  </model>
+  <output Model_Name="VoronoiTest" FileType="Model Output">
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">mfsim.lst</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.bhd</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.cbc</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.disv.grb</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.InnerSolution.CSV</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.lst</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.OuterSolution.CSV</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.PRT1.lst</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.PRT1.trk</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.PRT1.trk.csv</FileName>
+    <FileName Model_Name="VoronoiTest" FileType="Model Output">VoronoiTest.PRT1.trk.hdr</FileName>
+  </output>
+</Model_Archive_List>

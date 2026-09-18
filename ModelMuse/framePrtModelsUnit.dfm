@@ -72,7 +72,7 @@ object framePrtModels: TframePrtModels
           ComboUsed = False
           Format = rcf4String
           LimitToList = False
-          MaxLength = 0
+          MaxLength = 16
           ParentButtonFont = False
           WordWrapCaptions = False
           WordWrapCells = False

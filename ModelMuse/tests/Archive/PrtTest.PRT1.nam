@@ -1,0 +1,15 @@
+# PRT name file for PRT1 file created on 9/18/2026 by ModelMuse version 5.4.0.14.
+BEGIN OPTIONS
+  LIST PrtTest.PRT1.lst
+    PRINT_INPUT
+    SAVE_FLOWS
+END OPTIONS
+
+BEGIN PACKAGES
+  DISV6 PrtTest.disv DISV
+  FMI6 PrtTest.PRT1.fmi PRT1
+  MIP6 PrtTest.PRT1.mip MIP6
+  OC6 PrtTest.PRT1.oc OC6
+  PRP6 PrtTest.PRT1.PRP1.prp PRP1
+  PRP6 PrtTest.PRT1.PRP2.prp PRP2
+END PACKAGES

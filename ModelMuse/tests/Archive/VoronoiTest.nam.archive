@@ -1,0 +1,14 @@
+# Name File for MODFLOW created on 9/18/2026 by ModelMuse Version 5.4.0.14
+BEGIN OPTIONS
+  LIST ..\..\output\output.VoronoiTest\VoronoiTest.lst
+  PRINT_INPUT
+  SAVE_FLOWS
+END OPTIONS
+
+BEGIN PACKAGES
+  DISV6        ..\..\model\model.VoronoiTest\VoronoiTest.disv  DISV
+  IC6          ..\..\model\model.VoronoiTest\VoronoiTest.ic  IC
+  NPF6         ..\..\model\model.VoronoiTest\VoronoiTest.npf  NPF
+  OC6          ..\..\model\model.VoronoiTest\VoronoiTest.oc  OC
+  CHD6         ..\..\model\model.VoronoiTest\VoronoiTest.chd  CHD-1
+END PACKAGES
