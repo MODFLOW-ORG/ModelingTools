@@ -369,13 +369,9 @@ begin
   tvpglstMain.Items[Ord(ppTimeSeries)].Enabled :=
     ModpathSelected
     or LocalModel.TimeSeries.HasData;
-{$IFDEF PRT}
   tvpglstMain.Items[Ord(ppPrtTracks)].Enabled :=
     PrtSelected
     or LocalModel.PrtTracks.HasData;
-{$ELSE}
-  tvpglstMain.Items[Ord(ppPrtTracks)].Enabled := False;
-{$ENDIF}
 
   tvpglstMain.Items[Ord(ppHeadObs)].Enabled :=
     HeadObsSelected or (LocalModel.HeadObsResults.Count > 0);

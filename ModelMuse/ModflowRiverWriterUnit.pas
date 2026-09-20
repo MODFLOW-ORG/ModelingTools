@@ -731,11 +731,7 @@ end;
 
 class function TModflowRIV_Writer.IFlowFaceDataSetName: string;
 begin
-{$IFDEF PRT}
   result := K_IFlowFaceRIV
-{$ELSE}
-  result := '';
-{$ENDIF}
 end;
 
 procedure TModflowRIV_Writer.InitializeCells;

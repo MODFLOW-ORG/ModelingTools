@@ -476,11 +476,7 @@ end;
 
 class function TModflowUzfMf6Writer.IFlowFaceDataSetName: string;
 begin
-{$IFDEF PRT}
   result := K_IFlowFaceUZF;
-{$ELSE}
-  result := '';
-{$ENDIF}
 end;
 
 function TModflowUzfMf6Writer.IsMf6GwtObservation(AScreenObject: TScreenObject;

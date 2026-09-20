@@ -470,6 +470,6 @@ end;
 
 initialization
   // See also StrDefaultGmshPath in DataSetNamesUnit
-  GMshDate := EncodeDate(2022, 12, 21);
+  GMshDate := EncodeDate(2026, 3, 24);
 
 end.

@@ -33,6 +33,8 @@ inherited frmDisplayData: TfrmDisplayData
       HelpType = htKeyword
       HelpKeyword = 'MODPATH_Display_Dialog_Box'
       Caption = 'jvspModpathPathline'
+      ExplicitWidth = 418
+      ExplicitHeight = 400
       inline frameModpathDisplay: TframeModpathDisplay
         Left = 0
         Top = 0
@@ -40,13 +42,13 @@ inherited frmDisplayData: TfrmDisplayData
         Height = 558
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 572
-        ExplicitHeight = 558
+        ExplicitWidth = 418
+        ExplicitHeight = 400
         inherited pcMain: TPageControl
           Width = 572
           Height = 558
-          ExplicitWidth = 572
-          ExplicitHeight = 558
+          ExplicitWidth = 418
+          ExplicitHeight = 400
           inherited tabBasic: TTabSheet
             ExplicitTop = 29
             ExplicitWidth = 564
@@ -305,8 +307,8 @@ inherited frmDisplayData: TfrmDisplayData
         inherited pgcHeadObs: TPageControl
           Width = 572
           Height = 522
-          ExplicitWidth = 572
-          ExplicitHeight = 522
+          ExplicitWidth = 418
+          ExplicitHeight = 364
           inherited tabControls: TTabSheet
             ExplicitTop = 29
             ExplicitWidth = 564
@@ -561,8 +563,8 @@ inherited frmDisplayData: TfrmDisplayData
           Top = 522
           Width = 572
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 522
-          ExplicitWidth = 572
+          ExplicitTop = 364
+          ExplicitWidth = 418
           inherited lblRMS: TLabel
             Width = 222
             Height = 18
@@ -588,6 +590,8 @@ inherited frmDisplayData: TfrmDisplayData
       HelpType = htKeyword
       HelpKeyword = 'MODPATH_Time_Series_Display'
       Caption = 'jvspModpathTimeSeries'
+      ExplicitWidth = 418
+      ExplicitHeight = 400
       inline frameModpathTimeSeriesDisplay: TframeModpathTimeSeriesDisplay
         Left = 0
         Top = 0
@@ -595,13 +599,13 @@ inherited frmDisplayData: TfrmDisplayData
         Height = 558
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 572
-        ExplicitHeight = 558
+        ExplicitWidth = 418
+        ExplicitHeight = 400
         inherited pcMain: TPageControl
           Width = 572
           Height = 558
-          ExplicitWidth = 572
-          ExplicitHeight = 558
+          ExplicitWidth = 418
+          ExplicitHeight = 400
           inherited tabBasic: TTabSheet
             ExplicitTop = 29
             ExplicitWidth = 564
@@ -778,8 +782,8 @@ inherited frmDisplayData: TfrmDisplayData
         inherited pcMain: TPageControl
           Width = 572
           Height = 558
-          ExplicitWidth = 572
-          ExplicitHeight = 558
+          ExplicitWidth = 418
+          ExplicitHeight = 400
           inherited tabBasic: TTabSheet
             ExplicitTop = 29
             ExplicitWidth = 564
@@ -1018,8 +1022,8 @@ inherited frmDisplayData: TfrmDisplayData
         inherited pcChoices: TPageControl
           Width = 572
           Height = 558
-          ExplicitWidth = 572
-          ExplicitHeight = 558
+          ExplicitWidth = 418
+          ExplicitHeight = 400
           inherited tabSelection: TTabSheet
             ExplicitTop = 29
             ExplicitWidth = 564
@@ -1183,8 +1187,7 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabFilters: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
-            ExplicitHeight = 525
+            ExplicitHeight = 468
             inherited lblLowerLimit: TLabel
               Width = 75
               Height = 18
@@ -1592,11 +1595,10 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabFilters: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
-            ExplicitHeight = 525
+            ExplicitHeight = 468
             DesignSize = (
-              564
-              525)
+              570
+              468)
             inherited lblLowerLimit: TLabel
               Width = 75
               Height = 18
@@ -1796,6 +1798,8 @@ inherited frmDisplayData: TfrmDisplayData
       HelpType = htKeyword
       HelpKeyword = 'Vectors_Pane'
       Caption = 'jvspVectors'
+      ExplicitWidth = 418
+      ExplicitHeight = 400
       inline frameVectors: TframeVectors
         Left = 0
         Top = 0
@@ -1805,8 +1809,8 @@ inherited frmDisplayData: TfrmDisplayData
         HelpKeyword = 'Vectors_Pane'
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 572
-        ExplicitHeight = 558
+        ExplicitWidth = 418
+        ExplicitHeight = 400
         inherited lblScale: TLabel
           Width = 130
           Height = 18
@@ -2027,6 +2031,8 @@ inherited frmDisplayData: TfrmDisplayData
       HelpType = htKeyword
       HelpKeyword = 'Cross_Sections_Pane'
       Caption = 'jvspCrossSection'
+      ExplicitWidth = 418
+      ExplicitHeight = 400
       inline frameDrawCrossSection: TframeDrawCrossSection
         Left = 0
         Top = 0
@@ -2034,8 +2040,8 @@ inherited frmDisplayData: TfrmDisplayData
         Height = 558
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 572
-        ExplicitHeight = 558
+        ExplicitWidth = 418
+        ExplicitHeight = 400
         inherited btnAddDataSet: TSpeedButton
           Left = 273
           ExplicitLeft = 273
@@ -2057,9 +2063,9 @@ inherited frmDisplayData: TfrmDisplayData
           Width = 276
           Height = 558
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitLeft = 296
+          ExplicitLeft = 142
           ExplicitWidth = 276
-          ExplicitHeight = 558
+          ExplicitHeight = 400
           inherited spl1: TSplitter
             Top = 357
             Width = 276
@@ -2071,7 +2077,7 @@ inherited frmDisplayData: TfrmDisplayData
             Height = 357
             StyleElements = [seFont, seClient, seBorder]
             ExplicitWidth = 276
-            ExplicitHeight = 357
+            ExplicitHeight = 199
             inherited lblDataSets: TLabel
               Width = 113
               Height = 18
@@ -2092,7 +2098,7 @@ inherited frmDisplayData: TfrmDisplayData
             Width = 276
             Height = 196
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitTop = 362
+            ExplicitTop = 204
             ExplicitWidth = 276
             ExplicitHeight = 196
             inherited lblLayers: TLabel
@@ -2237,7 +2243,7 @@ inherited frmDisplayData: TfrmDisplayData
         inherited pnlTop: TPanel
           Width = 572
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitWidth = 572
+          ExplicitWidth = 418
           inherited lblAnimationInterval: TLabel
             Width = 162
             Height = 18
@@ -2305,8 +2311,8 @@ inherited frmDisplayData: TfrmDisplayData
           Top = 492
           Width = 572
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 492
-          ExplicitWidth = 572
+          ExplicitTop = 334
+          ExplicitWidth = 418
           inherited lblRMS: TLabel
             Left = 6
             Width = 293
@@ -2327,8 +2333,8 @@ inherited frmDisplayData: TfrmDisplayData
         inherited pgcObservations: TPageControl
           Width = 572
           Height = 492
-          ExplicitWidth = 572
-          ExplicitHeight = 492
+          ExplicitWidth = 418
+          ExplicitHeight = 334
           inherited tabControls: TTabSheet
             ExplicitTop = 29
             ExplicitWidth = 564
@@ -2483,8 +2489,7 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabValues: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
-            ExplicitHeight = 459
+            ExplicitHeight = 422
             inherited rdgPestObs: TRbwDataGrid4
               Width = 564
               Height = 394
@@ -2501,8 +2506,7 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabLegend: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
-            ExplicitHeight = 459
+            ExplicitHeight = 422
             inherited lblMax: TLabel
               Width = 44
               Height = 18
@@ -2520,17 +2524,14 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabGraph: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
-            ExplicitHeight = 459
+            ExplicitHeight = 422
             inherited pbObservations: TPaintBox
-              Width = 564
-              Height = 361
+              Height = 324
               ExplicitWidth = 547
               ExplicitHeight = 324
             end
             inherited pnlGraphControls: TPanel
-              Top = 361
-              Width = 564
+              Top = 324
               StyleElements = [seFont, seClient, seBorder]
               ExplicitTop = 324
               inherited lblGraphInstructions: TLabel
@@ -2576,8 +2577,8 @@ inherited frmDisplayData: TfrmDisplayData
         inherited pgcObservations: TPageControl
           Width = 572
           Height = 492
-          ExplicitWidth = 572
-          ExplicitHeight = 492
+          ExplicitWidth = 418
+          ExplicitHeight = 334
           inherited tabControls: TTabSheet
             ExplicitTop = 29
             ExplicitWidth = 564
@@ -2781,8 +2782,8 @@ inherited frmDisplayData: TfrmDisplayData
           Top = 492
           Width = 572
           StyleElements = [seFont, seClient, seBorder]
-          ExplicitTop = 492
-          ExplicitWidth = 572
+          ExplicitTop = 334
+          ExplicitWidth = 418
           inherited lblRMS: TLabel
             Width = 293
             Height = 18
@@ -2806,6 +2807,8 @@ inherited frmDisplayData: TfrmDisplayData
       HelpType = htKeyword
       HelpKeyword = 'Prt-Tracks-Display-Pane'
       Caption = 'jvspPrtTracks'
+      ExplicitWidth = 418
+      ExplicitHeight = 400
       inline framePrtDisplay: TframePrtDisplay
         Left = 0
         Top = 0
@@ -2813,13 +2816,13 @@ inherited frmDisplayData: TfrmDisplayData
         Height = 558
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 572
-        ExplicitHeight = 558
+        ExplicitWidth = 418
+        ExplicitHeight = 400
         inherited pcMain: TPageControl
           Width = 572
           Height = 558
-          ExplicitWidth = 572
-          ExplicitHeight = 558
+          ExplicitWidth = 418
+          ExplicitHeight = 400
           inherited tabBasic: TTabSheet
             ExplicitTop = 29
             ExplicitWidth = 564
@@ -2920,10 +2923,10 @@ inherited frmDisplayData: TfrmDisplayData
           end
           inherited tabOptions: TTabSheet
             ExplicitTop = 29
-            ExplicitWidth = 564
-            ExplicitHeight = 525
+            ExplicitHeight = 491
             inherited rgShow2D: TRadioGroup
               Width = 564
+              ExplicitWidth = 564
             end
             inherited rgColorBy: TRadioGroup
               Height = 423
@@ -2933,6 +2936,7 @@ inherited frmDisplayData: TfrmDisplayData
               Width = 387
               Height = 423
               StyleElements = [seFont, seClient, seBorder]
+              ExplicitWidth = 387
               ExplicitHeight = 389
               inherited spl2: TSplitter
                 Height = 421
@@ -2942,6 +2946,7 @@ inherited frmDisplayData: TfrmDisplayData
                 Width = 380
                 Height = 421
                 StyleElements = [seFont, seClient, seBorder]
+                ExplicitWidth = 380
                 ExplicitHeight = 387
                 inherited spl1: TSplitter
                   Width = 378
@@ -2949,10 +2954,12 @@ inherited frmDisplayData: TfrmDisplayData
                 end
                 inherited rdgLimits: TRbwDataGrid4
                   Width = 378
+                  ExplicitWidth = 378
                 end
                 inherited rdgSetLimits: TRbwDataGrid4
                   Width = 378
                   Height = 190
+                  ExplicitWidth = 378
                   ExplicitHeight = 156
                 end
               end

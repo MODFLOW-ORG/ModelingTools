@@ -280,11 +280,7 @@ end;
 
 class function TModflowWEL_Writer.IFlowFaceDataSetName: string;
 begin
-{$IFDEF PRT}
   result := K_IFlowFaceWEL;
-{$ELSE}
-  result := '';
-{$ENDIF}
 end;
 
 function TModflowWEL_Writer.IsMf6Observation(
@@ -598,9 +594,7 @@ begin
   end;
 
   WriteIface(Well_Cell.IFace);
-{$IFDEF PRT}
   WriteIFlowFace(Well_Cell.IFlowFace);
-{$ENDIF}
 
   if Model.GwtUsed or Model.GweUsed then
   begin
@@ -742,12 +736,11 @@ var
   SpeciesIndex: Integer;
 begin
   VI := VariableIdentifiers;
-{$IFDEF PRT}
   if Model.ModelSelection = msModflow2015 then
   begin
     VI := VI + ' IFLOWFACE';
   end;
-{$ENDIF}
+
   if Model.GwtUsed or Model.GweUsed then
   begin
     for SpeciesIndex := 0 to Model.MobileComponents.Count - 1 do

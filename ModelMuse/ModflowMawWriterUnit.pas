@@ -425,11 +425,7 @@ end;
 
 class function TModflowMAW_Writer.IFlowFaceDataSetName: string;
 begin
-{$IFDEF PRT}
   result := K_IFlowFaceMAW;
-{$ELSE}
-  result := '';
-{$ENDIF}
 end;
 
 function TModflowMAW_Writer.IsMf6GwtObservation(

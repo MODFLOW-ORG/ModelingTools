@@ -4,6 +4,7 @@ inherited frmMeshGenerationControlVariables: TfrmMeshGenerationControlVariables
   Caption = 'Mesh Generation Control Variables'
   ClientHeight = 401
   ClientWidth = 415
+  StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 431
   ExplicitHeight = 440
   TextHeight = 18

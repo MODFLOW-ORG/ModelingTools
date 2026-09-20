@@ -356,10 +356,7 @@ type
       write SetViscosityPackage;
     property TvkPackage: TTvkPackage read FTvkPackage write SetTvkPackage;
     property TvsPackage: TTvsPackage read FTvsPackage write SetTvsPackage;
-    property PrtModels: TPrtModels read FPrtModels write SetPrtModels
-    {$IFNDEF PRT}
-      stored False
-    {$ENDIF};
+    property PrtModels: TPrtModels read FPrtModels write SetPrtModels;
       // @name is used for the GWT (solute transport) in MODFLOW 6.
     property GweProcess: TGwtProcess read FGweProcess write SetGweProcess;
     property GweAdvectionPackage: TGwtAdvectionPackage read FGweAdvectionPackage
@@ -1610,9 +1607,6 @@ begin
     Inc(Result);
   end;
 
-
-
-  {$IFDEF PRT}
   if Model.ModelSelection = msModflow2015 then
   begin
     for var I := 0 to PrtModels.Count - 1 do
@@ -1632,7 +1626,6 @@ begin
       end;
     end;
   end;
-  {$ENDIF};
 
   // Don't count Modpath or ZoneBudget
   // because they are exported seperately from MODFLOW.

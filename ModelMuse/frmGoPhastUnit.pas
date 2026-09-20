@@ -890,6 +890,7 @@ type
     procedure SetToolbarPositions;
     procedure CheckSvdaActivated;
     function PestVersionOK: Boolean;
+    function PlProcVersionOK: Boolean;
     function DataForMt3dUsgsSaved: Boolean;
     function GetContourDataSet: TDataArray;
   published
@@ -2214,7 +2215,7 @@ uses
   frmImportModflow6Unit,
   frmImportSurferGridFilesUnit, frmImportWarningsUnit, Mf6.DisvFileReaderUnit,
   Mf6.CustomMf6PersistentUnit, Modflow6ModelImporter, LayerStructureUnit,
-  frmVOROGRIDGEN_Unit;
+  frmVOROGRIDGEN_Unit, InterpolationUnit;
 
 const
   StrDisplayOption = 'DisplayOption';
@@ -2473,6 +2474,9 @@ resourcestring
   'rror message was "%s". Check that there is sufficient disk space.';
   StrAMoreRecentVersionPest = 'A more recent version of PEST is available on' +
   ' the PEST home page. Do you want to continue anyway?';
+  StrAMoreRecentVersionPlProc = 'A more recent version of PLPROC is available on' +
+  ' the PEST home page. Do you want to continue anyway?';
+
   StrThereWasAnErrorO = 'There was an error opening your file. A common caus' +
   'e of this error is an attempt to open a ModelMuse file created by a newer' +
   ' version of ModelMuse than was used to open the file. This version of Mod' +
@@ -2540,6 +2544,7 @@ var
   ZoneBudMf6Date: TDateTime;
   FootprintDate: TDateTime;
   PestDate: TDateTime;
+  PlProcDate: TDateTime;
 
 const
 //  MfNwtDate = 40933; //40907;//40819;
@@ -6627,6 +6632,27 @@ begin
 //    URL := 'https://water.usgs.gov/nrp/gwsoftware/ModelMuse/IntroductoryVideo/IntroductoryVideo.html';
 //  end;
   LaunchURL(FBrowser, StrIntroVideoURL);
+end;
+
+function TfrmGoPhast.PlProcVersionOK: Boolean;
+var
+  PlProcName: string;
+begin
+  result := True;
+  PlProcName := TCustomPlProcInterpolator.GetPlprocName;
+  if FileExists(PlProcName) then
+  begin
+    if not ModelUpToDate(PlProcName, PlProcDate) then
+    begin
+      result := False;
+      Beep;
+      if (MessageDlg(StrAMoreRecentVersionPlProc, mtInformation,
+        [mbYes, mbNo], 0, mbNo) = mrYes) then
+      begin
+        result := True;
+      end;
+    end;
+  end;
 end;
 
 procedure TfrmGoPhast.EnableManageFlowObservations;
@@ -15256,7 +15282,10 @@ begin
   begin
     Exit;
   end;
-
+  if not PlProcVersionOK then
+  begin
+    Exit;
+  end;
   FileName := '';
   if (PhastModel.ModelFileName <> '') then
   begin
@@ -16222,18 +16251,21 @@ initialization
   MfOwhmDate := EncodeDate(2016, 6, 15);
   MfCfpDate := EncodeDate(2011, 2, 23);
   ModelMateDate := EncodeDate(2013, 11, 19);
-  Mf6Date := EncodeDate(2025, 5, 12);
+  Mf6Date := EncodeDate(2026, 9, 2);
 //  Mf6WithGwtDate := EncodeDate(2022, 10, 26);
   Mt3dUsgsDate := EncodeDate(2019, 3, 8);
   ZoneBudMf6Date := Mf6Date;
   FootprintDate := EncodeDate(2018,3,27);
-  PestDate := EncodeDate(2025,1,14);
+  PestDate := EncodeDate(2025,8,7);
+  PlProcDate := EncodeDate(2025,11,17);
   MfOwhmV2Date := EncodeDate(2024,1,15);
 
   {$IFDEF Win64}
   RegisterExpectedMemoryLeak(GR32_Blend.AlphaTable);
   {$ENDIF}
 
-
+  {
+  All the files whose dates need to be checked are in TProgramLocations
+  in PhastModelUnit}
 end.
 

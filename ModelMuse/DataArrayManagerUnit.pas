@@ -1187,11 +1187,7 @@ procedure TDataArrayManager.DefinePackageDataArrays;
     ARecord.Min := 0;
   end;
 const
-{$IFDEF PRT}
   ArrayCount = 222;
-{$ELSE}
-  ArrayCount = 213;
-{$ENDIF}
 var
   Index: integer;
 begin
@@ -4493,7 +4489,6 @@ begin
     'MODFLOW-OWHM version 2, LAND_USE: PRINT ROW_COLUMN';
   Inc(Index);
 
-{$IFDEF PRT}
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
   FDataArrayCreationRecords[Index].Orientation := dso3D;
   FDataArrayCreationRecords[Index].DataType := rdtInteger;
@@ -4606,20 +4601,6 @@ begin
     'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
 
-//  FDataArrayCreationRecords[Index].DataSetType := TDataArray;
-//  FDataArrayCreationRecords[Index].Orientation := dso3D;
-//  FDataArrayCreationRecords[Index].DataType := rdtInteger;
-//  FDataArrayCreationRecords[Index].Name := K_IFlowFaceLAK;
-//  FDataArrayCreationRecords[Index].DisplayName := StrIFlowFaceLAK;
-//  FDataArrayCreationRecords[Index].Formula := '-1';
-//  FDataArrayCreationRecords[Index].Classification := StrPrtClassification;
-//  FDataArrayCreationRecords[Index].DataSetNeeded := FCustomModel.LakIFlowFaceUsed;
-//  FDataArrayCreationRecords[Index].Lock := StandardLock;
-//  FDataArrayCreationRecords[Index].EvaluatedAt := eaBlocks;
-//  FDataArrayCreationRecords[Index].AssociatedDataSets :=
-//    'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
-//  Inc(Index);
-
   FDataArrayCreationRecords[Index].DataSetType := TDataArray;
   FDataArrayCreationRecords[Index].Orientation := dso3D;
   FDataArrayCreationRecords[Index].DataType := rdtInteger;
@@ -4633,9 +4614,6 @@ begin
   FDataArrayCreationRecords[Index].AssociatedDataSets :=
     'MODFLOW 6: PRT: IFLOWFACE' + K_IFlowFaceExplanation;
   Inc(Index);
-{$ENDIF}
-
-
 
   // See ArrayCount above.
   Assert(Length(FDataArrayCreationRecords) = Index);

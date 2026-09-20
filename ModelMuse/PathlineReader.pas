@@ -9941,26 +9941,8 @@ begin
     else Assert(False);
   end;
   GetMinMaxValues(MaxValue, MinValue);
-//  ShouldInitializeTree := QuadTree.Count = 0;
   QuadTree.Clear;
-//  if not ShouldInitializeTree then
-//  begin
-//    case Orientation of
-//      dsoTop:
-//        begin
-//          ShouldInitializeTree := FSelectedLayer <> LocalModel.SelectedLayer;
-//        end;
-//      dsoFront:
-//        begin
-//          ShouldInitializeTree := FSelectedRow <> LocalModel.SelectedRow;
-//        end;
-//      dsoSide:
-//        begin
-//          ShouldInitializeTree := FSelectedColumn <> LocalModel.SelectedColumn;
-//        end;
-//    end;
-//  end;
-//  if ShouldInitializeTree then
+
   begin
     QuadTree.Clear;
     Limits := LocalModel.DiscretizationLimits(OrientationToViewDirection(Orientation));

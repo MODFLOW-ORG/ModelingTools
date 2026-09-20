@@ -794,10 +794,11 @@ inherited frmGridValue: TfrmGridValue
             AlignWithMargins = True
             Left = 4
             Top = 4
-            Width = 103
+            Width = 371
             Height = 18
             Align = alTop
             Caption = 'SWR Reaches'
+            ExplicitWidth = 103
           end
           object rdgSwrReaches: TRbwDataGrid4
             Left = 1
@@ -928,10 +929,11 @@ inherited frmGridValue: TfrmGridValue
             AlignWithMargins = True
             Left = 4
             Top = 4
-            Width = 111
+            Width = 371
             Height = 18
             Align = alTop
             Caption = 'SWR Structures'
+            ExplicitWidth = 111
           end
           object rdgSwrStructures: TRbwDataGrid4
             Left = 1
@@ -1302,12 +1304,14 @@ inherited frmGridValue: TfrmGridValue
             AlignWithMargins = True
             Left = 4
             Top = 4
-            Width = 121
-            Height = 54
+            Width = 184
+            Height = 60
             Align = alClient
             Alignment = taCenter
             Caption = 'Cell Center = 0'#13#10'Top Face = -1'#13#10'Bottom Face = -2'
             Layout = tlCenter
+            ExplicitWidth = 121
+            ExplicitHeight = 54
           end
         end
         object qzbNodeInformation: TQRbwZoomBox2
@@ -1321,7 +1325,7 @@ inherited frmGridValue: TfrmGridValue
           Exaggeration = 1.000000000000000000
           HorizontalDirection = hdRight
           Image32.Left = 0
-          Image32.Top = 366
+          Image32.Top = 0
           Image32.Width = 192
           Image32.Height = 407
           Image32.Anchors = [akLeft, akBottom]
@@ -1332,7 +1336,6 @@ inherited frmGridValue: TfrmGridValue
           Image32.Scale = 1.000000000000000000
           Image32.ScaleMode = smNormal
           Image32.TabOrder = 0
-          Image32.ExplicitTop = 0
           ImmediateResize = True
           Magnification = 1.000000000000000000
           VerticalDirection = vdUp

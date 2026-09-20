@@ -391,9 +391,6 @@ var
   ChildModel: TChildModel;
 begin
   inherited;
-{$IFNDEF PRT}
-  rrlFlowFace.Visible := False;
-{$ENDIF}
   FPositionedLayer := qzbNodeInformation.Image32.Layers.Add(TPositionedLayer) as
     TPositionedLayer;
   // Assign an event handler for the OnPaint event.
@@ -1957,10 +1954,6 @@ var
   ARect: TRect;
   TextPoint: TPoint;
 begin
-{$IFNDEF PRT}
-  Exit;
-{$ENDIF}
-
   if not frmGoPhast.PhastModel.DisvUsed then
   begin
     rrlFlowFace.Visible := False;

@@ -258,7 +258,6 @@ type
   protected
     function Package: TModflowPackageSelection; override;
     procedure WriteAdditionalAuxVariables;
-//    class function IFlowFaceDataSetName: string; override;
   public
     Constructor Create(Model: TCustomModel; EvaluationType: TEvaluationType); override;
     destructor Destroy; override;
@@ -2628,15 +2627,6 @@ begin
     CellList.Free;
   end;
 end;
-
-//class function TModflowLAKMf6Writer.IFlowFaceDataSetName: string;
-//begin
-//{$IFDEF PRT}
-//  result := K_IFlowFaceLAK;
-//{$ELSE}
-//  result := '';
-//{$ENDIF}
-//end;
 
 function TModflowLAKMf6Writer.IsMf6GwtObservation(
   AScreenObject: TScreenObject; SpeciesIndex: Integer): Boolean;

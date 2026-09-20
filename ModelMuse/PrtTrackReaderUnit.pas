@@ -324,7 +324,7 @@ begin
   else
   begin
     Grid := Model.ModflowGrid;
-    result := ((ICELL -1) mod Grid.RowCount) + 1;
+    result := ((ICELL -1) mod Grid.ColumnCount) + 1;
   end;
 end;
 
@@ -355,7 +355,7 @@ begin
   else
   begin
     Grid := Model.ModflowGrid;
-    result := ((ICELL -1) div Grid.RowCount) + 1;
+    result := ((ICELL -1) div Grid.ColumnCount) + 1;
   end;
 end;
 
