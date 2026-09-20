@@ -238,7 +238,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="Mf6ObsExtractor"/>
+      <Filename Value="Release\$(TargetCPU)-$(TargetOS)\Mf6ObsExtractor"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

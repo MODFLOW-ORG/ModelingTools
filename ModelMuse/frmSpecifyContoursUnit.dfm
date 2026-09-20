@@ -4,8 +4,9 @@ inherited frmSpecifyContours: TfrmSpecifyContours
   Caption = 'Specify Contours'
   ClientHeight = 301
   ClientWidth = 316
-  ExplicitWidth = 328
-  ExplicitHeight = 339
+  StyleElements = [seFont, seClient, seBorder]
+  ExplicitWidth = 332
+  ExplicitHeight = 340
   TextHeight = 18
   object pnlBottom: TPanel
     Left = 0
@@ -191,8 +192,8 @@ inherited frmSpecifyContours: TfrmSpecifyContours
     object cbAutomaticColors: TJvCheckBox
       Left = 12
       Top = 49
-      Width = 140
-      Height = 20
+      Width = 137
+      Height = 18
       Caption = 'Automatic colors'
       TabOrder = 2
       OnClick = cbAutomaticColorsClick

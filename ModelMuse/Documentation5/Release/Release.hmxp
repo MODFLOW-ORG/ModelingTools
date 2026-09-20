@@ -163,6 +163,11 @@
           <config-value name="lastexport">4</config-value>
         </config-group>
       </config-group>
+      <config-group name="rbwin">
+        <config-group name="project">
+          <config-value name="lastexport">3</config-value>
+        </config-group>
+      </config-group>
     </config-group>
     <config-group name="html">
       <config-value name="outputfile">.\HTML\index.html</config-value>

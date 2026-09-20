@@ -1,4 +1,4 @@
-1a. Check release dates of all supported programs (MODFLOW, MT3DMS, MT3D-USGS, SUTRA, PHAST, GMSH, GeomPack++, PEST etc) and see if dates in ModelMuse match the release dates.
+1a. Check release dates of all supported programs (MODFLOW, MT3DMS, MT3D-USGS, SUTRA, PHAST, GMSH, GeomPack++, PEST, vorogridgen etc) and see if dates in ModelMuse match the release dates.
 1b. Check that all toolbar buttons are visible.
 1c. Make sure ModelMuse model program locations are all current.
 1d. Pass all tests.

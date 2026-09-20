@@ -265,7 +265,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="Mf2005ObsExtractor"/>
+      <Filename Value="Release\$(TargetCPU)-$(TargetOS)\Mf2005ObsExtractor"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

@@ -10547,7 +10547,7 @@ const
 //                exporting contours to Shapefiles.
 //     '5.4.0.5' Bug Fix: Fixed export of duplicate time steps in SUTRA.
 //     '5.4.0.6' Bug fix: Changing a parameter for the LPF package to a PEST
-//                paramaeter now makes any associated multiplier or zone data
+//                parameter now makes any associated multiplier or zone data
 //                sets optiona instead of required That will cause the data sets
 //                to no longer be used.
 //     '5.4.0.7' Bug fix: Fixed pasting text for multiple cells into the GWT
@@ -10584,7 +10584,7 @@ const
 //                multiple data sets with identical names could be created.
 //               Bug fix: Fixed bug in reading Auxiliary variables in the
 //                MAW package when importing MODFLOW 6 models.
-//               Bug fix: fixed bug in importing the CND package for GWE models.
+//               Bug fix: Fixed bug in importing the CND package for GWE models.
 //               BUG FIX: Fixed bugs importing CSUB, LAK, MVR, and UZE packages.
 //               Enhancement: Added Support for CRS option
 //                in the DIS and DISV packages.
@@ -10604,18 +10604,19 @@ const
 //                files to generate DISV files for import into ModelMuse.
 //               Enhancement: ModelMuse can now drww a point at the nodal point
 //                of each cell in a DISV grid.
-//               Enhancement: ModelMuse can now drww lines connecting the nodal
+//               Enhancement: ModelMuse can now draw lines connecting the nodal
 //                points of neighboring cells in a DISV mesh.
 //               Enhancement: When importing multiple gridded data files, the
 //                data sets will now have values set by interpolation as well
 //                as setting the values of intersected cells.
+//               Enhancement Added support for PRT models in MODFLOW 6.
 
 //               Enhancement: The Grid and Mesh Values dialog box now can
 //                display the face numbering used in IFLOWFACE.
 
 const
   // version number of ModelMuse.
-  IIModelVersion = '5.4.0.14';
+  IIModelVersion = '5.5.0.0';
 
 { TODO : Add support for time-varying conductance in MF6 version of SFR }
 { TODO : Support MODFLOW 6 Particle Tracking Model. }

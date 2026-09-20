@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-20T13:08:47.552-04:00" lasteditedby="rbwin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <title translate="true">Version 5.5</title>
+  <body>
+    <header>
+      <para styleclass="Heading1"><text styleclass="Heading1" translate="true">Version 5.5</text></para>
+    </header>
+    <para styleclass="Normal" style="text-indent:-18px; margin-left:18px;"><image src="hmtoggle_plus0.gif" scale="100.00%" styleclass="Normal" figurelistinclude="0"></image><tab /><toggle type="dropdown" print-expanded="true" help-expanded="true" defaultstyle="true" translate="true" src-collapsed="hmtoggle_plus0.gif" src-expanded="hmtoggle_plus1.gif" styleclass="Heading2_atoc_"><caption translate="true"><![CDATA[Version 5.5 Sept. 20, 2026]]></caption></toggle></para>
+    <para styleclass="Normal" style="text-indent:-18px; margin-left:18px;"><table styleclass="Default" rowcount="1" colcount="1">
+      <tr style="vertical-align:top">
+        <td>
+          <para styleclass="Normal" style="text-indent:-18px; margin-left:18px;"><image src="hmtoggle_plus0.gif" scale="100.00%" styleclass="Normal" figurelistinclude="0"></image><tab /><toggle type="dropdown" print-expanded="true" help-expanded="true" defaultstyle="true" translate="true" src-collapsed="hmtoggle_plus0.gif" src-expanded="hmtoggle_plus1.gif" styleclass="Heading2_atoc_"><caption translate="true"><![CDATA[Enhancements]]></caption></toggle></para>
+          <para styleclass="Normal" style="text-indent:-18px; margin-left:18px;"><table styleclass="Default" rowcount="1" colcount="1">
+            <tr style="vertical-align:top">
+              <td>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for PRT models in MODFLOW 6.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">The Grid and Mesh Values dialog box now can display the face numbering used in IFLOWFACE.Bug fix: </text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for generating VOROGRIDGEN input files to generate DISV files for import into ModelMuse.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added the ability to import DISV files without importing an entire model.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">ModelMuse can now plot the &apos;STREAM FLOW OUT&apos; data written by the STR package.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added a warning if the NOGRB option is used when PEST is being used.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">If the user attempts to specify pilot points with identical locations, the duplicate points will be ignored.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added the ability to export objects to shapefiles when they define MODFLOW 6 observation locations.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added support for UTVD in ADV packages for GWT and GWE.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added Support for CRS option in the DIS and DISV packages.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added Support for HIGHEST_CELL_SATURATION option in the NPF package.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added Support for IMPLICIT option in the MODFLOW 6 LAK package.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added Support for ATS_COURANT option in the MODFLOW 6 SFR package.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Added Support for ELASTIC_INELASTIC_SMOOTHING option in the CSUB package.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">ModelMonitor now plots a separate budget for each SWI zone.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">ModelMuse can now draw a point at the nodal point of each cell in a DISV grid.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">ModelMuse can now draw lines connecting the nodal points of neighboring cells in a DISV mesh.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">When importing multiple gridded data files, the data sets will now have values set by interpolation as well as setting the values of intersected cells.</text></para>
+              </td>
+            </tr>
+          </table></para>
+          <para styleclass="Normal" style="text-indent:-18px; margin-left:18px;"><image src="hmtoggle_plus0.gif" scale="100.00%" styleclass="Normal" figurelistinclude="0"></image><tab /><toggle type="dropdown" print-expanded="true" help-expanded="false" defaultstyle="true" translate="true" src-collapsed="hmtoggle_plus0.gif" src-expanded="hmtoggle_plus1.gif" styleclass="Heading3_atocs_"><caption translate="true"><![CDATA[Bug fixes]]></caption></toggle></para>
+          <para styleclass="Normal" style="text-indent:-18px; margin-left:18px;"><table styleclass="Default" rowcount="1" colcount="1">
+            <tr style="vertical-align:top">
+              <td>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Specifying a log transformed parameter with an initial value less than or equal to zero now results in the generation of an error message in the Errors and Warnings dialog box instead of causing a divide by zero error.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug that prevented CSUB Z-Displacement values from being imported.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed access violation caused by attempting to sort the entries in the MT3D observations in the Data Visualization dialog box.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">In the MODFLOW Program Locations dialog box, the edit control for MT3D-USGS now will display with a red background if MT3D-USGS is not installed at the specified location.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug that could cause an access violation when exporting contours to Shapefiles.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed export of duplicate time steps in SUTRA.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Changing a parameter for the LPF package to a PEST parameter now makes any associated multiplier or zone data sets optiona instead of required That will cause the data sets to no longer be used.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed pasting text for multiple cells into the GWT tabs for the MODFLOW 6 Lake, MAW, and UZF packages.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed potential problem deleting temporary files.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">handled some errors reading and writing files.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug that caused access violations when importing MODFLOW 6 GWT models that lacked the SSM package.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed a bug in exporting contours to a Shapefile.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed display of warning about unconnected grids in MODFLOW 6 models.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed display of Data visualization dialog box in some models.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">fixed getting some FMP4 data in the MODFLOW Packages and Programs dialog box.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed display of WBS (Farms) dialog box for MODFLOW OWHM version 1 models.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed a bug in the export of objects to Shapefile that could cause assert violations, access violations, or the failure to export some fields.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed import of CND package in GWE.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed export of UZT and UWE concentrations.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed import of MODFLOW 6 models containing more than one solute transport or energy transport models. Previously multiple data sets with identical names could be created.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug in reading Auxiliary variables in the MAW package when importing MODFLOW 6 models.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bug in importing the CND package for GWE models.</text></para>
+                <para styleclass="Normal"><text styleclass="Normal" translate="true">Fixed bugs importing CSUB, LAK, MVR, and UZE packages.</text></para>
+              </td>
+            </tr>
+          </table></para>
+        </td>
+      </tr>
+    </table></para>
+  </body>
+</topic>

@@ -236,7 +236,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="SutraObsExtractor"/>
+      <Filename Value="Release\$(TargetCPU)-$(TargetOS)\SutraObsExtractor"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
