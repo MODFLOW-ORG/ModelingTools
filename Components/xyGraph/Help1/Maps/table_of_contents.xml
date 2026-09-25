@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns:xsi="http://www.w3.org/2001/XInclude" defaulttopic="INTRO">
+  <topicref type="topic" id="462896919592848" build="ALL" modified="1899-12-30" icon="0">
+    <caption translate="true">Getting Started</caption>
+  </topicref>
+  <topicref type="topic" id="462893580237069" build="ALL" modified="1899-12-30" icon="0" href="INTRO">
+    <caption translate="true">Introduction</caption>
+  </topicref>
+  <topicref type="topic" id="462895123189752" build="ALL" modified="1899-12-30" icon="0" href="NEW">
+    <caption translate="true">What's New</caption>
+  </topicref>
+  <topicref type="topic" id="462895482428673" build="ALL" modified="1899-12-30" icon="0" href="BACKGROUND">
+    <caption translate="true">XYGRAPH Principles</caption>
+  </topicref>
+  <topicref type="topic" id="462895179572341" build="ALL" modified="1899-12-30" icon="0" href="BASIC">
+    <caption translate="true">Basic Concepts</caption>
+  </topicref>
+  <topicref type="topic" id="462897527473982" build="ALL" modified="1899-12-30" icon="0" href="CVMODE">
+    <caption translate="true">Paintbox vs Image</caption>
+  </topicref>
+  <topicref type="topic" id="462896603307809" build="ALL" modified="1899-12-30" icon="0" href="HOWTO1">
+    <caption translate="true">How to draw a graph</caption>
+  </topicref>
+  <topicref type="topic" id="462896777416114" build="ALL" modified="1899-12-30" icon="0">
+    <caption translate="true">Enhancements</caption>
+  </topicref>
+  <topicref type="topic" id="462896260939280" build="ALL" modified="1899-12-30" icon="0" href="ENHANCE">
+    <caption translate="true">Enhancing your graph</caption>
+  </topicref>
+  <topicref type="topic" id="462894269994620" build="ALL" modified="1899-12-30" icon="0" href="HOWTORULER">
+    <caption translate="true">How to use the ruler option</caption>
+  </topicref>
+  <topicref type="topic" id="462896857282864" build="ALL" modified="1899-12-30" icon="0" href="HOWTOZOOM">
+    <caption translate="true">How to zoom 1</caption>
+  </topicref>
+  <topicref type="topic" id="46290744129861" build="ALL" modified="1899-12-30" icon="0" href="HOWTOZOOM2">
+    <caption translate="true">How to zoom 2</caption>
+  </topicref>
+  <topicref type="topic" id="462896333088928" build="ALL" modified="1899-12-30" icon="0" href="HOWTOLEGEND">
+    <caption translate="true">How to make a legend</caption>
+  </topicref>
+  <topicref type="topic" id="462896147551928" build="ALL" modified="1899-12-30" icon="0" href="HOWTODATA">
+    <caption translate="true">How to retrieve data</caption>
+  </topicref>
+  <topicref type="topic" id="462897194901067" build="ALL" modified="1899-12-30" icon="0" href="TRACK">
+    <caption translate="true">Data Tracking</caption>
+  </topicref>
+  <topicref type="topic" id="462895813197385" build="ALL" modified="1899-12-30" icon="0">
+    <caption translate="true">Background</caption>
+  </topicref>
+  <topicref type="topic" id="462894066874240" build="ALL" modified="1899-12-30" icon="0" href="MULT">
+    <caption translate="true">How to use multiple graphs</caption>
+  </topicref>
+  <topicref type="topic" id="462896471885448" build="ALL" modified="1899-12-30" icon="0" href="COORDINATE">
+    <caption translate="true">Co-ordinate systems</caption>
+  </topicref>
+  <topicref type="topic" id="462893671538964" build="ALL" modified="1899-12-30" icon="0" href="JUST">
+    <caption translate="true">Justification</caption>
+  </topicref>
+  <topicref type="topic" id="462895365411873" build="ALL" modified="1899-12-30" icon="0" href="PRCOPY">
+    <caption translate="true">Print &amp; Copy</caption>
+  </topicref>
+  <topicref type="topic" id="462893833691191" build="ALL" modified="1899-12-30" icon="0">
+    <caption translate="true">Basic 3D plotting</caption>
+  </topicref>
+  <topicref type="topic" id="462893383238099" build="ALL" modified="1899-12-30" icon="0" href="3DGENERAL">
+    <caption translate="true">Some general aspects of 3D plotting</caption>
+  </topicref>
+  <topicref type="topic" id="462895189983238" build="ALL" modified="1899-12-30" icon="0" href="3DCONV">
+    <caption translate="true">3D conventions in XYGRAPH3D</caption>
+  </topicref>
+  <topicref type="topic" id="462893455499474" build="ALL" modified="1899-12-30" icon="0" href="3DBASIC">
+    <caption translate="true">Basic concepts of 3D plotting</caption>
+  </topicref>
+  <topicref type="topic" id="462896169776787" build="ALL" modified="1899-12-30" icon="0">
+    <caption translate="true">Special 3D features</caption>
+  </topicref>
+  <topicref type="topic" id="462896194941320" build="ALL" modified="1899-12-30" icon="0" href="LIGHTING">
+    <caption translate="true">Lighting and transparancy</caption>
+  </topicref>
+  <topicref type="topic" id="462895884597880" build="ALL" modified="1899-12-30" icon="0" href="REDGREEN">
+    <caption translate="true">Red/Green Stereo</caption>
+  </topicref>
+  <topicref type="topic" id="462896582130297" build="ALL" modified="1899-12-30" icon="0" href="SURFACE">
+    <caption translate="true">3D surface</caption>
+  </topicref>
+  <topicref type="topic" id="462896101334854" build="ALL" modified="1899-12-30" icon="0" href="POLYH">
+    <caption translate="true">3D polyhedron</caption>
+  </topicref>
+  <topicref type="topic" id="462894440173405" build="ALL" modified="1899-12-30" icon="0" href="CONTOUR">
+    <caption translate="true">3D contour plots</caption>
+  </topicref>
+  <topicref type="topic" id="462895676414850" build="ALL" modified="1899-12-30" icon="0">
+    <caption translate="true">Other features</caption>
+  </topicref>
+  <topicref type="topic" id="462893947266985" build="ALL" modified="1899-12-30" icon="0" href="POLAR">
+    <caption translate="true">Polar co-ordinates</caption>
+  </topicref>
+  <topicref type="topic" id="46290169464649" build="ALL" modified="1899-12-30" icon="0" href="3DIN2D">
+    <caption translate="true">3D objects in 2D graphs</caption>
+  </topicref>
+  <topicref type="topic" id="462896039765098" build="ALL" modified="1899-12-30" icon="0" href="4DPLOT">
+    <caption translate="true">4D Plotting</caption>
+  </topicref>
+  <topicref type="topic" id="462895733456936" build="ALL" modified="1899-12-30" icon="0" href="PROCTYPE">
+    <caption translate="true">Procedure-type parameters</caption>
+  </topicref>
+  <topicref type="topic" id="462895020618090" build="ALL" modified="1899-12-30" icon="0" href="MISSC">
+    <caption translate="true">Misscelaneous</caption>
+  </topicref>
+  <topicref type="topic" id="462894126278174" build="ALL" modified="1899-12-30" icon="0">
+    <caption translate="true">Overview</caption>
+  </topicref>
+  <topicref type="topic" id="462896208016624" build="ALL" modified="1899-12-30" icon="0" href="LIST">
+    <caption translate="true">List of all 2D procedures</caption>
+  </topicref>
+  <topicref type="topic" id="462895713058680" build="ALL" modified="1899-12-30" icon="0" href="3DLIST">
+    <caption translate="true">List of all 3D procedures and functions</caption>
+  </topicref>
+  <topicref type="topic" id="46289792013272" build="ALL" modified="1899-12-30" icon="0" href="LIST2">
+    <caption translate="true">Overview of all constants, variables and types</caption>
+  </topicref>
+  <topicref type="topic" id="462894294629288" build="ALL" modified="1899-12-30" icon="0" href="PARAM">
+    <caption translate="true">Overview of parameters for fine-tuning</caption>
+  </topicref>
+  <topicref type="topic" id="462894424794252" build="ALL" modified="1899-12-30" icon="0">
+    <caption translate="true">Procedures and Functions</caption>
+  </topicref>
+  <topicref type="topic" id="462894461755882" build="ALL" modified="1899-12-30" icon="0" href="POINT3D">
+    <caption translate="true">Point3D</caption>
+  </topicref>
+  <topicref type="topic" id="462893963164923" build="ALL" modified="1899-12-30" icon="0" href="ABSTO">
+    <caption translate="true">XYAbsToUser</caption>
+  </topicref>
+  <topicref type="topic" id="462894546776490" build="ALL" modified="1899-12-30" icon="0" href="ARRLEG">
+    <caption translate="true">XYArrayLegends</caption>
+  </topicref>
+  <topicref type="topic" id="462893644133778" build="ALL" modified="1899-12-30" icon="0" href="AXSCALE">
+    <caption translate="true">XYAxisScale</caption>
+  </topicref>
+  <topicref type="topic" id="462894376446507" build="ALL" modified="1899-12-30" icon="0" href="3DAXSCALE">
+    <caption translate="true">XY3DAxisScale</caption>
+  </topicref>
+  <topicref type="topic" id="462895333927452" build="ALL" modified="1899-12-30" icon="0" href="AXSHAPE">
+    <caption translate="true">XYAxisShape</caption>
+  </topicref>
+  <topicref type="topic" id="462895012544329" build="ALL" modified="1899-12-30" icon="0" href="BAR">
+    <caption translate="true">XYBar</caption>
+  </topicref>
+  <topicref type="topic" id="462896358783838" build="ALL" modified="1899-12-30" icon="0" href="BAR2">
+    <caption translate="true">XYBar2</caption>
+  </topicref>
+  <topicref type="topic" id="462896259245432" build="ALL" modified="1899-12-30" icon="0" href="3DBar">
+    <caption translate="true">XY3DBar</caption>
+  </topicref>
+  <topicref type="topic" id="462897267086481" build="ALL" modified="1899-12-30" icon="0" href="4DCALC">
+    <caption translate="true">XY4DCalcPlane</caption>
+  </topicref>
+  <topicref type="topic" id="462894669940637" build="ALL" modified="1899-12-30" icon="0" href="XYCANVAS">
+    <caption translate="true">XYCanvasGraph</caption>
+  </topicref>
+  <topicref type="topic" id="462895941179137" build="ALL" modified="1899-12-30" icon="0" href="3DCIRCLE">
+    <caption translate="true">XY3DCircle</caption>
+  </topicref>
+  <topicref type="topic" id="46287843905721" build="ALL" modified="1899-12-30" icon="0" href="CLBUF">
+    <caption translate="true">XYClearBuffer</caption>
+  </topicref>
+  <topicref type="topic" id="462897005203152" build="ALL" modified="1899-12-30" icon="0" href="XYCLEAR">
+    <caption translate="true">XYClearGraph</caption>
+  </topicref>
+  <topicref type="topic" id="462897161056649" build="ALL" modified="1899-12-30" icon="0" href="3DFRCLOSE">
+    <caption translate="true">XY3DCloseFrame</caption>
+  </topicref>
+  <topicref type="topic" id="462894411527992" build="ALL" modified="1899-12-30" icon="0" href="CLIP">
+    <caption translate="true">XYCopyToClipboard</caption>
+  </topicref>
+  <topicref type="topic" id="462894537308031" build="ALL" modified="1899-12-30" icon="0" href="3DCREATE">
+    <caption translate="true">XY3DCreateSurface</caption>
+  </topicref>
+  <topicref type="topic" id="462894605084537" build="ALL" modified="1899-12-30" icon="0" href="3DCFRAME">
+    <caption translate="true">XY3DCylFrame</caption>
+  </topicref>
+  <topicref type="topic" id="462894387865743" build="ALL" modified="1899-12-30" icon="0" href="3DCYLINDER">
+    <caption translate="true">XY3DCylinder</caption>
+  </topicref>
+  <topicref type="topic" id="462894203587540" build="ALL" modified="1899-12-30" icon="0" href="XYFONT">
+    <caption translate="true">XYDefFont</caption>
+  </topicref>
+  <topicref type="topic" id="46287857795868" build="ALL" modified="1899-12-30" icon="0" href="MOVE">
+    <caption translate="true">XYDraw</caption>
+  </topicref>
+  <topicref type="topic" id="462895238768698" build="ALL" modified="1899-12-30" icon="0" href="3DMOVE">
+    <caption translate="true">XY3DDraw</caption>
+  </topicref>
+  <topicref type="topic" id="462896962172369" build="ALL" modified="1899-12-30" icon="0" href="DRAWF">
+    <caption translate="true">XYDrawFunction</caption>
+  </topicref>
+  <topicref type="topic" id="462895379218870" build="ALL" modified="1899-12-30" icon="0" href="ERROR">
+    <caption translate="true">XYErrorBar</caption>
+  </topicref>
+  <topicref type="topic" id="462893804344152" build="ALL" modified="1899-12-30" icon="0" href="FINISH">
+    <caption translate="true">XYFinish</caption>
+  </topicref>
+  <topicref type="topic" id="462894274736177" build="ALL" modified="1899-12-30" icon="0" href="XYSET">
+    <caption translate="true">XYGet</caption>
+  </topicref>
+  <topicref type="topic" id="46289854610290" build="ALL" modified="1899-12-30" icon="0" href="BUF">
+    <caption translate="true">XYGetBuffer</caption>
+  </topicref>
+  <topicref type="topic" id="462896768784175" build="ALL" modified="1899-12-30" icon="0" href="3DHLINE">
+    <caption translate="true">XY3DHeightLine</caption>
+  </topicref>
+  <topicref type="topic" id="462896945264514" build="ALL" modified="1899-12-30" icon="0" href="3DHSCALE">
+    <caption translate="true">XY3DHeightScale</caption>
+  </topicref>
+  <topicref type="topic" id="462895302882504" build="ALL" modified="1899-12-30" icon="0" href="4DHSCALE">
+    <caption translate="true">XY4DHeightScale</caption>
+  </topicref>
+  <topicref type="topic" id="462895663483448" build="ALL" modified="1899-12-30" icon="0" href="3DINFRONT">
+    <caption translate="true">XY3DInFront</caption>
+  </topicref>
+  <topicref type="topic" id="462896585529257" build="ALL" modified="1899-12-30" icon="0" href="RULER">
+    <caption translate="true">XYInitRuler</caption>
+  </topicref>
+  <topicref type="topic" id="462897023077212" build="ALL" modified="1899-12-30" icon="0" href="3DINITR">
+    <caption translate="true">XY3DInitRuler</caption>
+  </topicref>
+  <topicref type="topic" id="462896618593720" build="ALL" modified="1899-12-30" icon="0" href="4DISO">
+    <caption translate="true">XY4DIsoVolume</caption>
+  </topicref>
+  <topicref type="topic" id="462897223793284" build="ALL" modified="1899-12-30" icon="0" href="XYKEY">
+    <caption translate="true">XYKeyDown</caption>
+  </topicref>
+  <topicref type="topic" id="462896305989501" build="ALL" modified="1899-12-30" icon="0" href="LCLEAR">
+    <caption translate="true">XYLegendClear</caption>
+  </topicref>
+  <topicref type="topic" id="462893649195105" build="ALL" modified="1899-12-30" icon="0" href="LENTRY">
+    <caption translate="true">XYLegendEntry</caption>
+  </topicref>
+  <topicref type="topic" id="462897029433006" build="ALL" modified="1899-12-30" icon="0" href="LMAKE">
+    <caption translate="true">XYLegendMake</caption>
+  </topicref>
+  <topicref type="topic" id="462894506723288" build="ALL" modified="1899-12-30" icon="0" href="LWIDTH">
+    <caption translate="true">XYLineWidth</caption>
+  </topicref>
+  <topicref type="topic" id="462895693839185" build="ALL" modified="1899-12-30" icon="0" href="3DPHLOAD">
+    <caption translate="true">XY3DLoadPolyhedron</caption>
+  </topicref>
+  <topicref type="topic" id="462895332770973" build="ALL" modified="1899-12-30" icon="0" href="3DLOAD">
+    <caption translate="true">XY3DLoadSurface</caption>
+  </topicref>
+  <topicref type="topic" id="462897141744155" build="ALL" modified="1899-12-30" icon="0" href="4DLOAD">
+    <caption translate="true">XY4DLoadVolume</caption>
+  </topicref>
+  <topicref type="topic" id="462896524612150" build="ALL" modified="1899-12-30" icon="0" href="XYMOUSE">
+    <caption translate="true">XYMouseDown, XYMouseMove, XYMouseUp</caption>
+  </topicref>
+  <topicref type="topic" id="462896877203317" build="ALL" modified="1899-12-30" icon="0" href="MOVE">
+    <caption translate="true">XYMove</caption>
+  </topicref>
+  <topicref type="topic" id="462896907722682" build="ALL" modified="1899-12-30" icon="0" href="3DMOVE">
+    <caption translate="true">XY3DMove</caption>
+  </topicref>
+  <topicref type="topic" id="462897573335089" build="ALL" modified="1899-12-30" icon="0" href="DATAAR">
+    <caption translate="true">XYPlotArray</caption>
+  </topicref>
+  <topicref type="topic" id="46290044030375" build="ALL" modified="1899-12-30" icon="0" href="3DCLUSTER">
+    <caption translate="true">XY3DPlotCLuster</caption>
+  </topicref>
+  <topicref type="topic" id="462895782411893" build="ALL" modified="1899-12-30" icon="0" href="XYPOLAR">
+    <caption translate="true">XYPolarGraph</caption>
+  </topicref>
+  <topicref type="topic" id="462894488385126" build="ALL" modified="1899-12-30" icon="0" href="3DPoly">
+    <caption translate="true">XY3DPolygon</caption>
+  </topicref>
+  <topicref type="topic" id="462893993788774" build="ALL" modified="1899-12-30" icon="0" href="PRINT">
+    <caption translate="true">XYPrint</caption>
+  </topicref>
+  <topicref type="topic" id="462895579159371" build="ALL" modified="1899-12-30" icon="0" href="PRINT2">
+    <caption translate="true">XYPrint2</caption>
+  </topicref>
+  <topicref type="topic" id="462893736164921" build="ALL" modified="1899-12-30" icon="0" href="BUF">
+    <caption translate="true">XYPutBuffer</caption>
+  </topicref>
+  <topicref type="topic" id="462896459733389" build="ALL" modified="1899-12-30" icon="0" href="XYRDRAW">
+    <caption translate="true">XYRadarDraw</caption>
+  </topicref>
+  <topicref type="topic" id="462896894046565" build="ALL" modified="1899-12-30" icon="0" href="XYRADAR">
+    <caption translate="true">XYRadarGraph</caption>
+  </topicref>
+  <topicref type="topic" id="3768473848" build="ALL" modified="1899-12-30" icon="0" href="BMP">
+    <caption translate="true">XYSaveAsBitmap</caption>
+  </topicref>
+  <topicref type="topic" id="462893863668608" build="ALL" modified="1899-12-30" icon="0" href="META">
+    <caption translate="true">XYSaveAsMetafile</caption>
+  </topicref>
+  <topicref type="topic" id="462895711086686" build="ALL" modified="1899-12-30" icon="0" href="4DSECT">
+    <caption translate="true">XY4DSectVolume</caption>
+  </topicref>
+  <topicref type="topic" id="462894872499451" build="ALL" modified="1899-12-30" icon="0" href="SEGBAR">
+    <caption translate="true">XYSegBar</caption>
+  </topicref>
+  <topicref type="topic" id="462895336675177" build="ALL" modified="1899-12-30" icon="0" href="XYSET">
+    <caption translate="true">XYSet</caption>
+  </topicref>
+  <topicref type="topic" id="462893959661179" build="ALL" modified="1899-12-30" icon="0" href="3DCOLORS">
+    <caption translate="true">XY3DSetColors</caption>
+  </topicref>
+  <topicref type="topic" id="462896088520212" build="ALL" modified="1899-12-30" icon="0" href="3DCROSS">
+    <caption translate="true">XY3DSetCrossSection</caption>
+  </topicref>
+  <topicref type="topic" id="462896202859060" build="ALL" modified="1899-12-30" icon="0" href="4DSETAR">
+    <caption translate="true">XY4DSetArray</caption>
+  </topicref>
+  <topicref type="topic" id="46290565649937" build="ALL" modified="1899-12-30" icon="0" href="SETDATAAR">
+    <caption translate="true">XYSetDataArray</caption>
+  </topicref>
+  <topicref type="topic" id="462896834821647" build="ALL" modified="1899-12-30" icon="0" href="XYFONT">
+    <caption translate="true">XYSetFont</caption>
+  </topicref>
+  <topicref type="topic" id="462895353587315" build="ALL" modified="1899-12-30" icon="0" href="3DFRSET">
+    <caption translate="true">XY3DSetFrame</caption>
+  </topicref>
+  <topicref type="topic" id="462893989137306" build="ALL" modified="1899-12-30" icon="0" href="GRID">
+    <caption translate="true">XYSetGridLines</caption>
+  </topicref>
+  <topicref type="topic" id="462897039942785" build="ALL" modified="1899-12-30" icon="0" href="3DLABELS">
+    <caption translate="true">XY3DSetLabels</caption>
+  </topicref>
+  <topicref type="topic" id="462894894157208" build="ALL" modified="1899-12-30" icon="0" href="STYLE">
+    <caption translate="true">XYSetLineStyle</caption>
+  </topicref>
+  <topicref type="topic" id="462893664733245" build="ALL" modified="1899-12-30" icon="0" href="MNAMES">
+    <caption translate="true">XYSetMonthNames</caption>
+  </topicref>
+  <topicref type="topic" id="462895608007559" build="ALL" modified="1899-12-30" icon="0" href="RATIO">
+    <caption translate="true">XYSetRatio</caption>
+  </topicref>
+  <topicref type="topic" id="462895709663736" build="ALL" modified="1899-12-30" icon="0" href="REDUCT">
+    <caption translate="true">XYSetReduction</caption>
+  </topicref>
+  <topicref type="topic" id="462896558706596" build="ALL" modified="1899-12-30" icon="0" href="4DSCALE">
+    <caption translate="true">XY4DSetScale</caption>
+  </topicref>
+  <topicref type="topic" id="462893410960531" build="ALL" modified="1899-12-30" icon="0" href="3DSTEREO">
+    <caption translate="true">XY3DSetStereo</caption>
+  </topicref>
+  <topicref type="topic" id="462894994441881" build="ALL" modified="1899-12-30" icon="0" href="3DSUN">
+    <caption translate="true">XY3DSetSun</caption>
+  </topicref>
+  <topicref type="topic" id="462895814198840" build="ALL" modified="1899-12-30" icon="0" href="3DTRANS">
+    <caption translate="true">XY3DSetTransMode</caption>
+  </topicref>
+  <topicref type="topic" id="462897078063512" build="ALL" modified="1899-12-30" icon="0" href="USERC">
+    <caption translate="true">XYSetUserCoordinates</caption>
+  </topicref>
+  <topicref type="topic" id="462894612942349" build="ALL" modified="1899-12-30" icon="0" href="3DVIEW">
+    <caption translate="true">XY3DSetView</caption>
+  </topicref>
+  <topicref type="topic" id="462894729896844" build="ALL" modified="1899-12-30" icon="0" href="ZOOM">
+    <caption translate="true">XYSetZoom</caption>
+  </topicref>
+  <topicref type="topic" id="462893465074051" build="ALL" modified="1899-12-30" icon="0" href="3DCONTOUR">
+    <caption translate="true">XY3DShowContour</caption>
+  </topicref>
+  <topicref type="topic" id="462896414955121" build="ALL" modified="1899-12-30" icon="0" href="3DFRSHOW">
+    <caption translate="true">XY3DShowFrame</caption>
+  </topicref>
+  <topicref type="topic" id="462893862916235" build="ALL" modified="1899-12-30" icon="0" href="3DGRID">
+    <caption translate="true">XY3DShowGrid</caption>
+  </topicref>
+  <topicref type="topic" id="462896901203474" build="ALL" modified="1899-12-30" icon="0" href="3DPHSHOW">
+    <caption translate="true">XY3DShowPolyhedron</caption>
+  </topicref>
+  <topicref type="topic" id="462896523663124" build="ALL" modified="1899-12-30" icon="0" href="3DSURFACE">
+    <caption translate="true">XY3DShowSurface</caption>
+  </topicref>
+  <topicref type="topic" id="46291137926531" build="ALL" modified="1899-12-30" icon="0" href="4DSHOW">
+    <caption translate="true">XY4DShowVolume</caption>
+  </topicref>
+  <topicref type="topic" id="462895107109190" build="ALL" modified="1899-12-30" icon="0" href="SINGLE">
+    <caption translate="true">XYSingleZoom</caption>
+  </topicref>
+  <topicref type="topic" id="462894596985014" build="ALL" modified="1899-12-30" icon="0" href="3DSFRAME">
+    <caption translate="true">XY3DSpherFrame</caption>
+  </topicref>
+  <topicref type="topic" id="462894066371627" build="ALL" modified="1899-12-30" icon="0" href="START">
+    <caption translate="true">XYStartGraph</caption>
+  </topicref>
+  <topicref type="topic" id="462897093602848" build="ALL" modified="1899-12-30" icon="0" href="SYMBOL">
+    <caption translate="true">XYSymbol</caption>
+  </topicref>
+  <topicref type="topic" id="462894391427143" build="ALL" modified="1899-12-30" icon="0" href="3DSYMBOL">
+    <caption translate="true">XY3DSymbol</caption>
+  </topicref>
+  <topicref type="topic" id="462896487879382" build="ALL" modified="1899-12-30" icon="0" href="TEXT">
+    <caption translate="true">XYText, XYTextAngle</caption>
+  </topicref>
+  <topicref type="topic" id="462895637095593" build="ALL" modified="1899-12-30" icon="0" href="TAS">
+    <caption translate="true">XYTimeAxis</caption>
+  </topicref>
+  <topicref type="topic" id="462894324343310" build="ALL" modified="1899-12-30" icon="0" href="TITLE">
+    <caption translate="true">XYTitle</caption>
+  </topicref>
+  <topicref type="topic" id="462894224209324" build="ALL" modified="1899-12-30" icon="0" href="3DTRI">
+    <caption translate="true">XY3DTriangle</caption>
+  </topicref>
+  <topicref type="topic" id="462897009815523" build="ALL" modified="1899-12-30" icon="0" href="3DTRI">
+    <caption translate="true">XY3DQuad</caption>
+  </topicref>
+  <topicref type="topic" id="462897216743131" build="ALL" modified="1899-12-30" icon="0" href="UNZOOM">
+    <caption translate="true">XYUnZoom, XYUnZoomX, XYUnZoomY</caption>
+  </topicref>
+  <topicref type="topic" id="462894079868137" build="ALL" modified="1899-12-30" icon="0" href="USERTO">
+    <caption translate="true">XYUserToAbs</caption>
+  </topicref>
+  <topicref type="topic" id="462894505785315" build="ALL" modified="1899-12-30" icon="0" href="3DUSER">
+    <caption translate="true">XY3DUserToAbs</caption>
+  </topicref>
+  <topicref type="topic" id="462897421659021" build="ALL" modified="1899-12-30" icon="0" href="XAS">
+    <caption translate="true">XYXAxis</caption>
+  </topicref>
+  <topicref type="topic" id="462896423366785" build="ALL" modified="1899-12-30" icon="0" href="XLABEL">
+    <caption translate="true">XYXLabelAxis</caption>
+  </topicref>
+  <topicref type="topic" id="462895032571186" build="ALL" modified="1899-12-30" icon="0" href="YAS">
+    <caption translate="true">YYYAxis</caption>
+  </topicref>
+  <topicref type="topic" id="462894150760988" build="ALL" modified="1899-12-30" icon="0" href="TIME">
+    <caption translate="true">XYYearAxis</caption>
+  </topicref>
+  <topicref type="topic" id="462895990450726" build="ALL" modified="1899-12-30" icon="0" href="YLABEL">
+    <caption translate="true">XYYLabelAxis</caption>
+  </topicref>
+</map>

@@ -1,0 +1,1095 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../helpproject.xsl" ?>
+<topic template="Default" modified="2026-09-24T13:02:03.995-04:00" lasteditedby="rbwin" version="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../helpproject.xsd">
+  <body>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:14pt; font-weight:bold; color:#ff0000;">OVERVIEW OF PARAMETERS</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">that can be handled by </text><link displaytype="text" defaultstyle="true" type="topiclink" href="XYSET" styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">XYSet and XYGet</link><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">xyset</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">.</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">The parameters are divided into the following groups:</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0 : setting for global parameter auto-reset</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">1-19 : general parameters</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">20-39 : parameters for 2D X-axes</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">40-59 : parameters for 2D Y-axes</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">60-79 : parameters for 2D polar plots</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">100-109 : parameters for 3D frame, X-axis</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">110-119 : parameters for 3D frame, Y-axis</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">120-129 : parameters for 3D frame, Z-axis</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">130-139 : parameters for 3D frame, R-axis</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">(note that several 3D procedures use 2D axes and their settings)</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">Where applicable the relevant parameters for a certain procedure are mentioned at that procedure’s description.</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">The table below presents:</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; text-decoration:underline; color:#010100;">nr</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> : the parameter number to be entered in </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">XYSet</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> and </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">XYGet</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">;</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">def</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> : the default value;</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">dim</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> : unit of the parameter;</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> &#160; &#160; &#160;CW = units of char width (= xycanvas.</text><text styleclass="" style="font-family:&apos;Courier New&apos;; font-size:10pt; color:#010100;">textwidth(</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:10pt; color:#010100;">‘</text><text styleclass="" style="font-family:&apos;Courier New&apos;; font-size:10pt; color:#010100;">0</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:10pt; color:#010100;">’</text><text styleclass="" style="font-family:&apos;Courier New&apos;; font-size:10pt; color:#010100;">)</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">)</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> &#160; &#160; &#160;CH = units of char height (= xycanvas.</text><text styleclass="" style="font-family:&apos;Courier New&apos;; font-size:10pt; color:#010100;">textheight(</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:10pt; color:#010100;">‘</text><text styleclass="" style="font-family:&apos;Courier New&apos;; font-size:10pt; color:#010100;">0</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:10pt; color:#010100;">’</text><text styleclass="" style="font-family:&apos;Courier New&apos;; font-size:10pt; color:#010100;">)</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">)</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">min</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">, </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">max</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> : the range, the parameters may be adjusted to fit into this range;</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">int</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> : states if the parameter is transferred into an integer number</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><table rowcount="45" colcount="7" style="width:auto; cell-padding:0px; cell-spacing:0px; page-break-inside:auto; border-width:0px; border-spacing:0px; cell-border-width:0px; border-style:none; background-color:none; head-row-background-color:none; alt-row-background-color:none;">
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">nr</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">def</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:11pt; font-style:italic; color:#010100;">0 = settings are permanent; </text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:11pt; font-style:italic; color:#010100;">1 = settings are reset to default by XYClearGraph/XYCanvasGraph; </text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:11pt; font-style:italic; color:#010100;">2 = settings are reset to default by XYStartGraph;</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:11pt; font-style:italic; color:#010100;">3 = settings are reset by ANY axis / frame plotting procedure </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">(see note 2)</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:11pt; font-style:italic; color:#010100;">Note:the setting of this particular parameter is always permanent!</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">anti-aliasing with oblique text (0=no, 1=yes), 2D or 3D (see note 3) </text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">20</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">. legend width / legend bar width</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">3</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">colour scale 3D/4D (see note 4)</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">4</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">exponent in sci. notation (0=’E’, 1=’e’)</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">5</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">auto-replot after zooming (0=no, 1=yes)</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">10</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">1000</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">E5</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">max. zoom depth &#160;2D </text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">11</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">. x2/x1 or y2/y1 ratio for 2D log axes, else switch to lin axis</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">20</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">5</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">. tic/label distance, lin X-axis, fixed notation</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">21</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">8</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">. tic/label distance, lin X-axis, sci notation</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">22</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">.2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">correction factor log X-axis / TimeAxis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">23</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">tic size X-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">24</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">0.6</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">tic size / major tic size ratio X-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">25</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">tic labels X-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">26</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">sci. labels X-axis (see note 5)</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">27</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">not plot 0 at X-axis, (0=no, 1=yes) (see note 6)</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">40</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">. tic/label distance, lin Y-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">41</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">sideways axis caption Y-axis (see note 7)</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">42</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">.2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">correction factor log Y-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">43</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">tic size Y-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">44</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0.6</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">tic size / major tic size ratio Y-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">45</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">tic labels Y-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">46</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">sci. labels Y-axis (see note 5)</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">47</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">not plot 0 at Y-axis, (0=no, 1=yes) (see note 6)</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">60</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">. tic/label distance, R-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">61</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">20</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">. zoom depth R-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">62</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">.1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">correction factor radial grid polargraph</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">63</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">tic siz R-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">64</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">0.6</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">tic size / major tic size ratio R-axis</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">66</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">0</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">sci. labels R-axis (see note 5)</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">&#32;</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">&#32;</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">FOR 3D GRAPHS:</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">100</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">5</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">. tic distance X-axis, flat/3D text along</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">101</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">. tic distance X-axis, 3D text across</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">102</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">size X-axis</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">110</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">5</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">. tic distance Y-axis, flat 3D text along</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">111</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">. tic distance Y-axis, 3D text across</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">112</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">size Y-axis</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">120</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">5</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">. tic distance Z-axis, flat/3D text along</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">121</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">. tic distance Z-axis, 3D text across (see note 8)</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; color:#010100;">122</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">0.6</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">size Z-axis</text></para>
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">130</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">5</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">. tic distance R-axis, flat/3D text along</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">131</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">2</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">. tic distance R-axis, 3D text across</text></para>
+        </td>
+      </tr>
+      <tr style="vertical-align:top">
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-weight:bold; font-style:italic; color:#010100;">132</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">1</text></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:37px; border:none;">
+          <para styleclass="Centered" style="text-align:center; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /></para>
+        </td>
+        <td style="vertical-align:top; width:486px; border:none;">
+          <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><tab /><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">size R-axis</text></para>
+        </td>
+      </tr>
+    </table></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">Notes</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">:</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">1: changing the min. tic/label distance does not necessarily alter the appearance of the graph as the determination of the scale is a discontinuous process.</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">2: reset mode 3: this acts as an immediate reset but the parameter is reset only </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; font-style:italic; color:#010100;">after</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> the procedure has plotted the axis or frame (both 2D and 3D); </text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">3: oblique text is generated by </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">XYTtextAngle</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">, 2D cartesian axes with parameters 25 or 45, </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">XYPolarGraph</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> with </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">ang</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> = true, </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">XYRadarGraph</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> and </text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; text-decoration:underline; color:#010100;">XY3DSetLabels</text><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;"> with flat text style 2; note that anti-aliasing is not supported on some older(?) Windows platforms. </text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">4: parameter 3 affects the way larger colour resolution is handled; 0 = all blocks equal length, 1 = end blocks half length;</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">5: format sci. labels (par. 26, 46, 66): the integer part determines the exponent, the fractional part determines the number of decimals (0-9); example: the format ‘-5.3’ yields labels like 0.123E-5; enter 0 (zero) for automatic formatting; to use format 0.0 enter a small non-zero number like 0.01; </text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">6: parameters 27 and 47 disable the plotting of the number 0 at the axis (numerical X and Y axes only); this may be convenient in cases of plotting the axis at the zero position of the other axis;</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">7: parameter 41 is only used for Y-axes of type 5 and 7;</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"><text styleclass="" style="font-family:&apos;Times New Roman&apos;; font-size:12pt; color:#010100;">8: parameter 121 is also used for Z-axis with flat text in case of vertical label combined with oblique text (in that case the text is plotted perpendicular to the frame line).</text></para>
+    <para styleclass="" style="text-align:left; text-indent:0px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; line-height:1.00; background-color:transparent; white-space:normal; page-break-inside:auto; page-break-after:auto; border:none; tabstops:none;"></para>
+  </body>
+</topic>
