@@ -2502,7 +2502,7 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
         Top = 0
         Width = 537
         Height = 504
-        ActivePage = jvspPRP
+        ActivePage = jvspMNW2
         PropagateEnable = False
         Align = alClient
         OnChange = jvplModflowBoundariesChange
@@ -9538,10 +9538,10 @@ inherited frmScreenObjectProperties: TfrmScreenObjectProperties
                   StyleElements = [seFont, seClient, seBorder]
                 end
                 inherited rdgLiftTable: TRbwDataGrid4
-                  Width = 122
-                  Height = 252
-                  ExplicitWidth = 122
-                  ExplicitHeight = 252
+                  Width = 262
+                  Height = 278
+                  ExplicitWidth = 262
+                  ExplicitHeight = 278
                   ColWidths = (
                     64
                     64)
