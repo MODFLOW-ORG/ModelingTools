@@ -1400,7 +1400,7 @@ begin
   begin
     if Model.PestStatus <> psInactive then
     begin
-      // As of Sept. 16, 2026, PLPROC can't handle .grb files created by MODFLOW
+      // As of Nov. 8, 2026, PLPROC can't handle .grb files created by MODFLOW
       // if the CRS option is used.
       WriteString('# As of Sept. 16, 2026, PLPROC can''t handle .grb files');
       WriteString('# created by MODFLOW if the CRS option is used.');

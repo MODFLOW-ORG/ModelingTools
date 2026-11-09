@@ -16273,13 +16273,13 @@ initialization
   MfOwhmDate := EncodeDate(2016, 6, 15);
   MfCfpDate := EncodeDate(2011, 2, 23);
   ModelMateDate := EncodeDate(2013, 11, 19);
-  Mf6Date := EncodeDate(2026, 9, 23);
+  Mf6Date := EncodeDate(2026, 10, 30);
 //  Mf6WithGwtDate := EncodeDate(2022, 10, 26);
   Mt3dUsgsDate := EncodeDate(2019, 3, 8);
   ZoneBudMf6Date := Mf6Date;
   FootprintDate := EncodeDate(2018,3,27);
-  PestDate := EncodeDate(2025,8,7);
-  PlProcDate := EncodeDate(2025,11,17);
+  PestDate := EncodeDate(2026,10,22);
+  PlProcDate := EncodeDate(2026,10,11);
   MfOwhmV2Date := EncodeDate(2024,1,15);
 
   {$IFDEF Win64}
